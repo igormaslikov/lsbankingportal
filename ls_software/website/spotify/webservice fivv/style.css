@@ -1,0 +1,18 @@
+.Radio {
+  background-color: #65FD93;
+  color: #444;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: pink;
+  display: none;
+  overflow: hidden;
+  text-align: center;
+}
+
+

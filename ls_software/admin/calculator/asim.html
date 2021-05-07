@@ -1,0 +1,67 @@
+<html>
+<head>
+ <style>
+     
+   html,body,div,span,h1,h2,h3,p,hr,br,img,form,input,ul,li,a {
+ margin:0;
+ padding:0;
+ border:0;
+}
+ul li {list-style:none;}
+body {
+ font-family:Helvetica, Arial, Tahoma, sans-serif;
+ font-size:13px;
+ color:#444;
+ line-height:1.5em;
+} 
+#kapsayici {
+background:#fff;
+margin:10px auto;
+width:960px;
+min-height: 700px;
+}
+input {
+border:1px solid #dfdfdf;
+}  
+     
+     
+     
+ </style>   
+ <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+    
+  
+    
+</head>    
+    
+    
+  <body>  
+  <form action="postenquiry.php" method="post" name="myform" onkeyup="calculate()">
+    <label>Years</label>
+    <input type="text" name="qty" />
+    <br/>
+    <label>Payments Per Year</label>
+    <input type="text" name="cost" />
+    <br/>
+    <input type="text" name="textbox5" />
+</form>
+  
+  <script>
+        
+    var form = document.forms.myform,
+  qty = form.qty,
+  cost = form.cost,
+  output = form.textbox5;
+
+window.calculate = function() {
+  var q = parseInt(qty.value, 10) || 0,
+    c = parseFloat(cost.value) || 0;
+  output.value = (q * c).toFixed(2);
+};
+
+    </script>
+</body>
+</html>
