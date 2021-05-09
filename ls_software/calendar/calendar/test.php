@@ -9,7 +9,7 @@
 
                 $password = "admin$$123";
 
-                $hostname = "localhost";
+                $hostname = "lsbankingportal.com";
 
                 $database = "gwadaron_lsbanking";
 

@@ -1,6 +1,6 @@
 <?php
 //fetch.php
-$connect = mysqli_connect("localhost", "gwadaron_ls_user", "^%D24L*!Ti5%", "gwadaron_lsbanking");
+$connect = mysqli_connect("lsbankingportal.com", "gwadaron_ls_user", "^%D24L*!Ti5%", "gwadaron_lsbanking");
 $request = mysqli_real_escape_string($connect, $_POST["query"]);
 $query = "
  SELECT Distinct first_name FROM fnd_user_profile WHERE first_name LIKE '%".$request."%'

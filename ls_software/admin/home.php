@@ -37,7 +37,7 @@ $DBcon->close();
 
 <?php include('menu.php') ;?>
  <?php
-$con=mysqli_connect("localhost","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -126,7 +126,7 @@ $first_name=$row['first_name'];
 <!--Deatil Of Users Start -->
 
 <?php
-$con=mysqli_connect("localhost","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -152,7 +152,7 @@ mysqli_close($con);
 
 
 <?php
-$con=mysqli_connect("localhost","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -176,7 +176,7 @@ mysqli_close($con);
 
 
  <?php
-$con=mysqli_connect("localhost","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
 // Check connection
 if (mysqli_connect_errno())
   {

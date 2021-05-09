@@ -1,7 +1,7 @@
 <?php
 
 //Database credentials
-$servername = "localhost";
+$servername = "lsbankingportal.com";
 $dbname = 'dbs57337';
 $dbUsername = 'dblsuser2021';
 $dbPassword = '^%D24L*!Ti5%';

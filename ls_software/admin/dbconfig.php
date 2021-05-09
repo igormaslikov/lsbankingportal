@@ -1,5 +1,5 @@
 <?php
-$host = "localhost"; 
+$host = "lsbankingportal.com"; 
 $user = "dblsuser2021"; 
 $password = "^%D24L*!Ti5%"; 
 $database = "dbs57337"; 

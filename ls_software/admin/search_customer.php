@@ -58,7 +58,7 @@ $DBcon->close();
   
  <br><br>
  <?php
-$con=mysqli_connect("localhost","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
 // Check connection
 if (mysqli_connect_errno())
   {

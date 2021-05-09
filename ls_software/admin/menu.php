@@ -1,7 +1,7 @@
 <?php 
 date_default_timezone_set('America/Los_Angeles');
 
-$conn = new mysqli("localhost","message_chat","admin$$123","message_chat");
+$conn = new mysqli("lsbankingportal.com","message_chat","admin$$123","message_chat");
 $count=0;
 $sql2="SELECT * FROM webchat_lines WHERE notification_status = 0";
 $result=mysqli_query($conn, $sql2);

@@ -260,7 +260,7 @@ if (isset($_POST["import"])) {
         
  <?php
       $rowcount = 0;
-$con=mysqli_connect("localhost","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
+$con=mysqli_connect("lsbankingportal.com","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -290,7 +290,7 @@ mysqli_close($con);
 <!-- QUEUED SMS STARTS -->
 
 <?php
-$con=mysqli_connect("localhost","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
+$con=mysqli_connect("lsbankingportal.com","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
 // Check connection
 if (mysqli_connect_errno())
   {

@@ -1734,7 +1734,7 @@ class Privileges
                 : '') . '>'
             . __('Any host')
             . '</option>' . "\n"
-            . '<option value="localhost"'
+            . '<option value="lsbankingportal.com"'
             . (isset($GLOBALS['pred_hostname'])
                     && $GLOBALS['pred_hostname'] == 'localhost'
                 ? ' selected="selected"'

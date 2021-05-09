@@ -1,5 +1,5 @@
 <?php
-$host = "localhost"; 
+$host = "lsbankingportal.com"; 
 $user = "db2lsuser2021"; 
 $password = "^%D24L*!Ti5%"; 
 $database = "dbs64065"; 
@@ -15,7 +15,7 @@ if ($con->connect_error) {
 
 <?php
 
-	 $DBhost = "localhost";
+	 $DBhost = "lsbankingportal.com";
 	 $DBuser = "dblsuser2021";
 	 $DBpass = "^%D24L*!Ti5%";
 	 $DBname = "dbs57337";

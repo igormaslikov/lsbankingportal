@@ -1,5 +1,5 @@
 <?php
-$host = "localhost"; 
+$host = "lsbankingportal.com"; 
 $user = "android_devloper"; 
 $password = "vvP8qe083iL9"; 
 $database = "dbs57337"; 
