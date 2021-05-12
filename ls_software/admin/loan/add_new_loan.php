@@ -68,14 +68,9 @@ $name_id= $_POST['keyword'];
   <div class="row wrapper">
 <?php
 
-$sql_count_loans = "SELECT * FROM tbl_loan";
-if ($result_count_loans=mysqli_query($con,$sql_count_loans))
-  {
-  // Return the number of rows in result set
-  $rowcount_count_loans=mysqli_num_rows($result_count_loans)+71019;
-  
-  $rowcount_count_loans= $rowcount_count_loans-113;
-  //echo "<br><br><br><br><br>".$rowcount_count_loans;
+$sql_apr=mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_loan"); 
+while($row_apr = mysqli_fetch_array($sql_apr)) {
+  $next_loan_id = $row_apr['next_id'];
   }
 ?>
 
@@ -126,15 +121,15 @@ $portfolio = $row1['bg_name'];
      </select>
     </div>
       
-    <div class="col-lg-6">
-      <label for="usr"> Loan ID*</label>
-      <input type="text" name="loan_id" value = "<?php echo $rowcount_count_loans; ?>" class="form-control" required>
+    <div class="col-lg-6" hidden>
+      <label for="usr"> Loan ID</label>
+      <input type="text" name="loan_id" value = "<?php echo $next_loan_id; ?>" class="form-control" readonly >
       </div>
 
     
     <div class="col-lg-6" >
       <label for="usr">Select State</label>
-     <Select id="colorselector" class="form-control" Required>
+     <Select id="colorselector" class="form-control" required>
    <option value=""></option>
    <option value="CA">Clifornia</option>
    <option value="NV">Nevada</option>
@@ -331,7 +326,23 @@ while ($row3=mysqli_fetch_array($query3)){
      
      user_roles($u_access_id,$form_id);
      
+     $query_loan_exists = mysqli_query($con,"SELECT COUNT(*) as count FROM tbl_loan WHERE loan_create_id ='$loan_create_id'");
+
+     while ($row_count=mysqli_fetch_array($query_loan_exists)){
+       $count_loan = $row_count['count'];
+       //echo"<br><br><br><br><br><br><br><br> <br><br>User_Key:" .$fnd_id;
+   
+     }
  
+     if($count_loan > 0){
+       
+        $sql_apr=mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_loan"); 
+        while($row_apr = mysqli_fetch_array($sql_apr)) {
+          $next_loan_id = $row_apr['next_id'];
+        }
+         //echo '<script type="text/javascript">alert("Loan ID ' . $loan_create_id . ' is exists. LoanID well be regerated to '.$next_loan_id.')</script>';
+         $loan_create_id = $next_loan_id;
+     }
     
          
          $query  = "INSERT INTO tbl_loan (user_fnd_id,bg_id,amount_of_loan,secured_loan,contract_date,payment_date,creation_date,created_by,loan_create_id,loan_fee,loan_total_payable,loan_status,secondary_portfolio)  VALUES ('$fnd_idd','Payday Loan','$amount_loan','$secure_loan','$contract_date','$payment_date','$date','$u_id','$loan_create_id','$loan_fee','$payoff_amount','Active','None')";
