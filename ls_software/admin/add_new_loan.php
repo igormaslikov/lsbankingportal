@@ -94,7 +94,23 @@ if ($state_insrt=="IL")
 }  
      
      user_roles($u_access_id,$form_id);
-     
+     $query_loan_exists = mysqli_query($con,"SELECT COUNT(*) as count FROM tbl_loan WHERE loan_create_id ='$loan_create_id'");
+
+     while ($row_count=mysqli_fetch_array($query_loan_exists)){
+       $count_loan = $row_count['count'];
+       //echo"<br><br><br><br><br><br><br><br> <br><br>User_Key:" .$fnd_id;
+   
+     }
+ 
+     if($count_loan > 0){
+       
+        $sql_apr=mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_loan"); 
+        while($row_apr = mysqli_fetch_array($sql_apr)) {
+          $next_loan_id = $row_apr['next_id'];
+        }
+         //echo '<script type="text/javascript">alert("Loan ID ' . $loan_create_id . ' is exists. LoanID well be regerated to '.$next_loan_id.')</script>';
+         $loan_create_id = $next_loan_id;
+     }
  
     
          
@@ -330,6 +346,12 @@ $state=$_GET['state'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
+$sql_apr=mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_loan"); 
+while($row_apr = mysqli_fetch_array($sql_apr)) {
+  $next_loan_id = $row_apr['next_id'];
+  }
+
+
 $sql_apr=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
 while($row_apr = mysqli_fetch_array($sql_apr)) {
@@ -366,10 +388,10 @@ $portfolio = $row1['bg_name'];
 
      </select>
     </div>
-      Upcoming Loan IDs: CA: <?php echo $rowcount_count_ca?> , NV: <?php echo $rowcount_count_nv;?> , IL: <?php echo $rowcount_count_il;?>
-    <div class="col-lg-6">
+      <!-- Upcoming Loan IDs: CA: <?php echo $rowcount_count_ca?> , NV: <?php echo $rowcount_count_nv;?> , IL: <?php echo $rowcount_count_il;?> -->
+    <div class="col-lg-6" hidden>
       <label for="usr"> Loan ID*</label>
-      <input type="text" name="loan_id" value = "<?php echo $rowcount_count_loans; ?>" class="form-control" required>
+      <input type="text" name="loan_id" value = "<?php echo $next_loan_id; ?>" class="form-control" readonly>
       </div>
 
     
