@@ -344,10 +344,21 @@ $mobile_number=$row_doc['mobile_number'];
 
 }
 
+//get emailkey by loanid
+$sql_fnd=mysqli_query($con, "select email_key from loan_initial_banking where loan_id = '$loan_create_id' and email_key <> ''"); 
+
+while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+$email_key=$row_fnd['email_key'];
+
+
+$user_fnd_id=$row_fnd['user_fnd_id'];
+//echo "FND_ID" .$user_fnd_id;
+}
+
         
         echo"<tr>
         
-        <td>$loan_create_id</td>
+        <td><a target='_blank' href='https://lsbankingportal.com/signature_customer/files/sign_contract.php?id=$email_key'>$loan_create_id</a></td>
         <td>$loan_status</td>
         <td>$name</td>
         <td>$mobile_number</td>
