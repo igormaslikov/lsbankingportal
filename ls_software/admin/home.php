@@ -1,18 +1,29 @@
 <?php
 error_reporting(0);
 session_start();
-include_once 'dbconnect.php';
-include 'dbconfig.php';
+//include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+//include_once($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+//include './website/dbconfig.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
 }
 
-$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
-$userRow=$query->fetch_array();
-$DBcon->close();
-
+$userRow = get_fetch_array("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
 ?>
+
+<?php
+// function getMyUrl()
+// {
+//   $protocol = (!empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1')) ? 'https://' : 'http://';
+//   $server = $_SERVER['SERVER_NAME'];
+//   $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
+//   return $protocol.$server.$port;
+// }
+// $url_origin = getMyUrl();
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -37,30 +48,29 @@ $DBcon->close();
 
 <?php include('menu.php') ;?>
  <?php
-$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+//include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+//
 // Check connection
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
-
 $sql_t="SELECT amount_of_loan FROM tbl_loan ORDER BY loan_id";
-
 if ($result_t=mysqli_query($con,$sql_t))
   {
   // Return the number of rows in result set
   $rowcount=mysqli_num_rows($result_t);
+  
  // printf($rowcount);
   // Free result set
   $ye=mysqli_free_result($result_t);
   echo $ye;
   }
 
-mysqli_close($con);
+//mysqli_close($con);
 ?>
     <?php
-include 'dbconfig.php';
-
+//include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 $query_us = mysqli_query($con,"SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan");
 while ($row_us=mysqli_fetch_array($query_us)){
     $us = $row_us['value_sum'];
@@ -126,7 +136,8 @@ $first_name=$row['first_name'];
 <!--Deatil Of Users Start -->
 
 <?php
-$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+//include_once($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+// 
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -134,7 +145,6 @@ if (mysqli_connect_errno())
   }
 
 $sql_t="SELECT username,email FROM tbl_users ORDER BY user_id";
-
 if ($result_t=mysqli_query($con,$sql_t))
   {
   // Return the number of rows in result set
@@ -145,14 +155,15 @@ if ($result_t=mysqli_query($con,$sql_t))
   echo $ye;
   }
 
-mysqli_close($con);
+//mysqli_close($con);
 ?>
 
 
 
 
 <?php
-$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+//include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+ //
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -161,6 +172,7 @@ if (mysqli_connect_errno())
 
 $sql_t="SELECT bg_name,email_id FROM business_group ORDER BY bg_id";
 
+//var_dump($con);
 if ($result_t=mysqli_query($con,$sql_t))
   {
   // Return the number of rows in result set
@@ -171,12 +183,13 @@ if ($result_t=mysqli_query($con,$sql_t))
   echo $ye;
   }
 
-mysqli_close($con);
+//mysqli_close($con);
 ?>
 
 
  <?php
-$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+//include_once($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+// 
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -939,16 +952,7 @@ mysqli_close($con);
 <div class="col-lg-4"><p style="color:black;font-weight: bold">Avg. Payoff Amount: <b style="color:red"> $<?php echo $avg_pay;?></b></p></div>
 -->
 
-<?php
-function getMyUrl()
-{
-  $protocol = (!empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1')) ? 'https://' : 'http://';
-  $server = $_SERVER['SERVER_NAME'];
-  $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
-  return $protocol.$server.$port;
-}
-$url_origin = getMyUrl();
-?>
+
 
 <div class="col-lg-4"><p style="color:black;font-weight: bold"><a  href = "<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Approved+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Payday CA :<b style="color:red"> <?php echo $rowcount_aprovd_paydy_ca;?></b></a></p></div>
 <div class="col-lg-4"><p style="color:black;font-weight: bold"><a  href = "<?php echo $url_origin; ?>ls_software/admin/view_all_customer.php?status=Review+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Payday CA :<b style="color:red"> <?php echo $rowcount_rev_payday_ca;?></b></a></p></div>
