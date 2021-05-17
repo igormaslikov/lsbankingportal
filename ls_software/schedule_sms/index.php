@@ -109,7 +109,7 @@ $(document).ready(function() {
 error_reporting(0);
 
 date_default_timezone_set('America/Los_Angeles');
-include_once 'dbconfig.php';
+
 
 if (isset($_POST["import"])) {
     $msg = $_POST['message'];

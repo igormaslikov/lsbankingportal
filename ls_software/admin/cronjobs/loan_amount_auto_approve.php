@@ -1,7 +1,7 @@
 <?php
 
-include('../dbconnect.php');
-include('../dbconfig.php');
+include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+
 
 
 $query = "select * from decision_login_codes where status='5' AND loan_amount_check !='1' order by id desc Limit 20 ";

@@ -3,7 +3,7 @@ error_reporting(0);
 
 $id=$_GET['id'];
 session_start();
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
@@ -46,8 +46,8 @@ $DBcon->close();
 <br><br>
  <?php
  
-include '../dbconnect.php';
-include '../dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 // Check connection
 
 

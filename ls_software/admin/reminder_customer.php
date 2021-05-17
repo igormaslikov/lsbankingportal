@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 include('functions.php');
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");

@@ -6,8 +6,8 @@ $number = substr($number, 1);
 $number = substr($number, 0, 3) .'-'.substr($number, 3, 3) .'-'.substr($number, 6);
 // echo $number;
 
-include('../dbconnect.php');
-include('../dbconfig.php');
+include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+
 
 
 $sql=mysqli_query($con, "select * from fnd_user_profile where mobile_number= '$number'"); 
@@ -23,7 +23,7 @@ echo $customer_phone;
 
     
 include('dbconnect.php');
-include('dbconfig.php');
+
 
 
 //$mesg .= get_headers('https://lsbankingportal.com/ls_software/admin/chat_plugin/incoming.php');

@@ -1,7 +1,7 @@
 <?php 
 
 function user_roles($user_role,$form_id){
-    include '../dbconfig.php';
+    
     $date= date('Y-m-d H:i:s');    
       $sql_role=mysqli_query($con, "select * from access_level_grants where role_id='$user_role' AND form_id='$form_id'"); 
 

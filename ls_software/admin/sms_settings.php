@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -81,8 +81,8 @@ echo "<h3>Counter for Page ".$website_rapido." is : ".$counter_rapido."</h3>";
 
 <?php
 
-include('dbconnect.php');
-include('dbconfig.php');
+include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+
 
 
 $query_loan = "select * from url_counter where url='loan' ";

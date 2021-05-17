@@ -1,7 +1,7 @@
 <?php
 for ($k = 0 ; $k < 10; $k++){
-include('dbconnect.php');
-include('dbconfig.php');
+include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+
 
 
 //$email=$_GET['email-132'];

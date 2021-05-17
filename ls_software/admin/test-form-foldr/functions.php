@@ -7,7 +7,7 @@
 
 
 function user_roles($user_role,$form_id){
-    include '../dbconfig.php';  
+      
       $sql_role=mysqli_query($con, "select * from access_level_grants where role_id='$user_role' AND form_id='$form_id'"); 
 
 
@@ -28,7 +28,7 @@ return "$delete_allowed";
 
 
 function user_edit_roles($user_role,$form_id){
-    include '../dbconfig.php';  
+      
       $sql_role=mysqli_query($con, "select * from access_level_grants where role_id='$user_role' AND form_id='$form_id'"); 
 
 

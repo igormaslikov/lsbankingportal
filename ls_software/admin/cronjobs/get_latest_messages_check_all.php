@@ -1,7 +1,7 @@
 <?php
 
 date_default_timezone_set('America/Los_Angeles');
-include '../dbconfig.php';
+
 
  $result1 = mysqli_query($con,"SELECT DISTINCT `caht_key`  FROM `tbl_conversation` where `api_status` = '0' order by id desc limit 100");
  

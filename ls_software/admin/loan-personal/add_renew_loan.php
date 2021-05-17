@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -62,8 +62,8 @@ $name_id= $_POST['keyword'];
 <?php 
 
    error_reporting(0);
-   include_once '../dbconnect.php';
-   include_once '../dbconfig.php';
+   include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+   
 
 if(isset($_POST['btn-submit'])) 
 {
@@ -220,8 +220,8 @@ if ($result_count_loans=mysqli_query($con,$sql_count_loans))
 <?php
 
 $id=$_GET['id'];
-include '../dbconnect.php';
-include '../dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_apr=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
@@ -247,8 +247,8 @@ $cus_email= $row_apr['email'];
       <select name="source" id="source" class="form-control"  value="" onchange="yesnoCheck(this);">
      <option> </option>
      <?php
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql1 = mysqli_query($con, "SELECT bg_id,bg_name From business_group");
 $row1 = mysqli_num_rows($sql1);

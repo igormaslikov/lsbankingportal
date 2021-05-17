@@ -4,7 +4,7 @@ error_reporting(0);
 
 session_start();
 
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 
 
@@ -44,9 +44,9 @@ $DBcon->close();
 
 <?php
 
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
-include_once '../dbconfig.php';
+
 
 $id=$_GET['id'];
 
@@ -76,9 +76,9 @@ $loan_create_id=$row_fnd['loan_create_id'];
 
 
 
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
-include_once '../dbconfig.php';
+
 
 
 
@@ -122,9 +122,9 @@ $customer_numbr=$row['mobile_number'];
 
 
 
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
-include_once '../dbconfig.php';
+
 
 
 
@@ -202,9 +202,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
-include_once '../dbconfig.php';
+
 
 
 
@@ -240,9 +240,9 @@ $username=$row_user['username'];
 
 
 
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
-include_once '../dbconfig.php';
+
 
 
 
@@ -426,9 +426,9 @@ $loan_notes=$row_user['notes'];
 
 if(isset($_POST['btn-notes-submit'])) {
 
-include 'dbconnect.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
-include 'dbconfig.php';
+
 
 $description =$_POST['description'];
 

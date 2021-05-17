@@ -3,8 +3,8 @@
 $month=$_GET['month'];
 $year=$_GET['year'];
 //echo $year;
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
  
 $sql=mysqli_query($con, "SELECT * FROM tbl_loan WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month"); 
 
@@ -24,8 +24,8 @@ if ($result_tt=$sql)
 $month=$_GET['month'];
 $year=$_GET['year'];
 //echo $year;
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 ?>
 
@@ -157,8 +157,8 @@ $pv="'$month'".","."'$i'".","."'$year'";
                                     $day = $year."-".$month."-".$i;// This will display the date in formate 2019-31-3
 
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 // echo $day;
 $sq_datel=mysqli_query($con, "SELECT * FROM tbl_loan WHERE creation_date like '$day'"); 
 
@@ -192,9 +192,9 @@ echo "</tr></table>";
 function execute()
 {
 
-include('db.php');
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';;
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $readfile = file($day);
 
 echo $readfile;

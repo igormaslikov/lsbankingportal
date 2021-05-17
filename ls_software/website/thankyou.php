@@ -36,8 +36,8 @@
 
 <?php
 
-  include 'dbconnect.php';
-  include 'dbconfig.php';
+  include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+  
 
 
 if(isset($_POST['btn-submit'])) 

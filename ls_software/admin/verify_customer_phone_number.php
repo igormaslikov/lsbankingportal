@@ -4,8 +4,8 @@ $id = $_GET['id'];
 $code = mt_rand(100001,999999);
 error_reporting(0);
 session_start();
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 include_once 'functions.php';
 
 if (!isset($_SESSION['userSession'])) {
@@ -32,7 +32,7 @@ $DBcon->close();
 
 <?php include('menu.php') ;?>
  <?php
-$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+
 // Check connection
 if (mysqli_connect_errno())
   {

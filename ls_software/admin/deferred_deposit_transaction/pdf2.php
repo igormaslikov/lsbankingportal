@@ -1,7 +1,7 @@
 
 <?php 
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $sql_fnd=mysqli_query($con, "SELECT DISTINCT  `user_fnd_id` FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `sign_status` = 1"); 
 
 

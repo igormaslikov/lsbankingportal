@@ -1,7 +1,7 @@
 <?php
 
- include('dbconfig.php');
- include('dbconnect.php');
+ 
+ include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
 
 $customer_fname=$_GET['customer_fname'];
 $customer_lname=$_GET['customer_lname'];

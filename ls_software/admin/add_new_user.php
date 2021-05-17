@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -87,7 +87,7 @@ $DBcon->close();
         
        
         <?php
-   include 'dbconfig.php';
+   
 
 
 $sql1 = mysqli_query($con, "SELECT bg_id,bg_name From business_group");
@@ -107,7 +107,7 @@ echo "<option value='". $row1['bg_id'] ."'>" .$row1['bg_name'] ."</option>" ;
 <select name="level_access" class="form-control">
 
  <?php
-   include 'dbconfig.php';
+   
 
 $sql_access = mysqli_query($con, "SELECT access_id,access_level From access_level");
 $row_access = mysqli_num_rows($sql_access);

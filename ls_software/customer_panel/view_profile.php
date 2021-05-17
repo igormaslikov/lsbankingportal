@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['customerSession'])) {
 	header("Location: user_login.php");
@@ -64,8 +64,8 @@ $DBcon->close();
 <?php
 
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_source=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$id'"); 
 echo "<table width='900'>";
@@ -97,8 +97,8 @@ echo "</table>";
 
 //....Source Income Table...//
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_source=mysqli_query($con, "select * from source_income where user_fnd_id='$id'"); 
 echo "<table width='900'>";
@@ -127,8 +127,8 @@ echo "</table>";
 <?php
 
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_banking=mysqli_query($con, "select * from banking_information where user_fnd_id='$id'"); 
 echo "<table width='900'>";
@@ -152,8 +152,8 @@ echo "</table>";
 <?php
 
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_bq=mysqli_query($con, "select * from binary_questions where user_fnd_id='$id'"); 
 echo "<table width='900'>";
@@ -179,8 +179,8 @@ echo "</table>";
 <?php
 
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql=mysql_query($con, "select * from binary_questions where user_fnd_id='$id'"); 
 $query_count=mysql_query($sql);

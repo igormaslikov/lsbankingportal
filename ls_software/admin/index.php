@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (isset($_SESSION['userSession'])!="") {
 	header("Location: home.php");
@@ -9,19 +9,19 @@ if (isset($_SESSION['userSession'])!="") {
 
 
 if (isset($_POST['btn-login'])) {
-	
 	$email = strip_tags($_POST['email']);
 	$password = strip_tags($_POST['password']);
 	
-	$email = $DBcon->real_escape_string($email);
-	$password = $DBcon->real_escape_string($password);
+	$email = real_escape_string($email);
+	$password = real_escape_string($password);
 	
-	$query = $DBcon->query("SELECT user_id, email, password FROM tbl_users WHERE email='$email' AND status='Active' ");
-	$row=$query->fetch_array();
+	$row = get_fetch_array("SELECT user_id, email, password FROM tbl_users WHERE email='$email' AND status='Active' ");
+	//$query = $DBcon->query("SELECT user_id, email, password FROM tbl_users WHERE email='$email' AND status='Active' ");
+	//$row=$query->fetch_array();
 	
-	$count = $query->num_rows; // if email/password are correct returns must be 1 row
+	//$count = $query->num_rows; // if email/password are correct returns must be 1 row
 	
-	if (password_verify($password, $row['password']) && $count==1) {
+	if ($row != null && password_verify($password, $row['password'])) {
 	$_SESSION['userSession'] = $row['user_id'];
 		header("Location: home.php");
 	} else {
@@ -29,7 +29,7 @@ if (isset($_POST['btn-login'])) {
 					<span class='glyphicon glyphicon-info-sign'></span> &nbsp; Invalid Username or Password ! Or Your account has been Suspended.
 				</div>";
 	}
-	$DBcon->close();
+	//$DBcon->close();
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

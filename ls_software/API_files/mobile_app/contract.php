@@ -1,6 +1,6 @@
 <?php 
 
-include_once 'dbconfig.php';
+
 
 $n=8;
 function getName($n) {

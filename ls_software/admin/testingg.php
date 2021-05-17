@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 include_once 'functions.php';
 
 if (!isset($_SESSION['userSession'])) {
@@ -559,8 +559,8 @@ function myFunction_lenderdocuments() {
 
 <?php 
 if(isset($_POST['submit_lender_documents'])) {
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $date= date('Y-m-d H:i:s'); 
 $target_dir = "uploads_lender_documents/";
 $target_file = $target_dir .$id."-".basename($_FILES["lender_documents"]["name"]);

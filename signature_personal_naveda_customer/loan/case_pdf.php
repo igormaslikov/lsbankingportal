@@ -6,8 +6,8 @@ $id=$_GET['id'];
 
 <?php
 $id=$_GET['id'];
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 
 
@@ -98,8 +98,8 @@ $address=$row2['address'];
 
 $id=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_source=mysqli_query($con, "select * from source_income where user_fnd_id= '$user_fnd_id'"); 
 
@@ -119,8 +119,8 @@ $next_pay_date=$row_source['next_pay_date'];
 
 $id=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_acount=mysqli_query($con, "select * from loan_initial_banking where user_fnd_id= '$user_fnd_id'"); 
 

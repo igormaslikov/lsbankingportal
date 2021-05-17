@@ -1,7 +1,7 @@
 <?php
 
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
  $id=$_GET['id'];
  

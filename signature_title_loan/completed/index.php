@@ -1,7 +1,7 @@
 <?php
 $url_logo="http://lsbankingportal.com/signature_customer/completed"; 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $iddd=$_GET['id'];
 // echo "idddd". $iddd;
 
@@ -235,8 +235,8 @@ $anual_pr=($apr_total/$dateDiff)*100;
 								
 <?php
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if(isset($_POST['btnupload'])) 
 {
@@ -374,8 +374,8 @@ if(isset($_POST['btnupload']))
 
 <?php
  
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $iddd=$_GET['id'];
 $sql_link=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
 

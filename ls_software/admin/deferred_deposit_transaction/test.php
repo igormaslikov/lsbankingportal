@@ -2,8 +2,8 @@
 $date=date_create("2013-03-15");
 echo date_format($date,"Y/m/d H:i:s");
 ?><?php
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
   //date in mm/dd/yyyy format; or it can be in other formats as well
 
  $id=$_GET['id'];

@@ -1,6 +1,6 @@
 <?php
- include('../ls_software/admin/dbconfig.php');
- include('../ls_software/admin/dbconnect.php');
+ 
+ include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
  
 
 $sql=mysqli_query($con, "select * from fnd_user_profile"); 

@@ -2,8 +2,8 @@
 error_reporting(0);
 session_start();
 
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
 }
@@ -58,8 +58,8 @@ $DBcon->close();
 
 $id=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $sql=mysqli_query($con, "select * from access_form where id = '$id'"); 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-include 'dbconfig.php';
+
 
 $sql=mysqli_query($con, "select * from tbl_users where user_id= '35'"); 
 

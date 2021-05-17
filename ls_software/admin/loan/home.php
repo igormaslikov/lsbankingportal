@@ -3,8 +3,7 @@ error_reporting(0);
 
 $id=$_GET['id'];
 session_start();
-include_once '../dbconnect.php';
-include '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
 }
@@ -186,7 +185,6 @@ if ($result_fees=mysqli_query($con,$sql_fees))
 $sql=mysqli_query($con, "select * from tbl_loan where sign_status= '1'"); 
 $total_loan_fee="0";
 while($row = mysqli_fetch_array($sql)) {
-
 $userfnd_id=$row['user_fnd_id'];
 $loan_status=$row['loan_status'];
 $loan_id_fee=$row['loan_id'];
@@ -194,6 +192,7 @@ $loan_id_fee=$row['loan_id'];
  
 $query_payment_fee = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
 while ($row_payment_fee=mysqli_fetch_array($query_payment_fee)){
+    
     $payment_fee = $row_payment_fee['value_summ'];
     
     $payment_fee = number_format((float)$payment_fee, 2, '.', '');
@@ -354,7 +353,8 @@ Payment Date:
 <tbody>
     
 <?php
-include('../db.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+//include('../db.php');
 $count=1;
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$page_no = $_GET['page_no'];

@@ -1,7 +1,7 @@
 c<?php
 session_start();
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -78,8 +78,8 @@ $id=$_GET['id'];
 $loan_name=$_GET['loan'];
 $due_date=$_GET['next_pay_date'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_apr=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
 

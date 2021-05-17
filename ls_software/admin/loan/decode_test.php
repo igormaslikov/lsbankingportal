@@ -20,8 +20,8 @@
                 <select class="form-control city" name="city" id="city">
                   <option value="">Select City</option>
                   <?php
-                include_once '../dbconnect.php';
-                include_once '../dbconfig.php';  
+                include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+                  
 
                     $sql_loan = mysqli_query($con,"SELECT DISTINCT `card_number` from loan_initial_banking where user_fnd_id = '9672'");
                     

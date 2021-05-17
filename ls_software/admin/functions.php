@@ -1,7 +1,6 @@
 <?php 
 date_default_timezone_set('America/Los_Angeles');
-include 'dbconnect.php';
-include 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 function send_email_notification($to_email,$subject,$message){
     $headers = 'From: support@mymoneyline.com';
     mail($to_email,$subject,$message,$headers);
@@ -104,6 +103,7 @@ if ($err) {
 
 
 function application_notes_add($user_fnd_id,$app_notes,$creation_date,$created_by){
+  include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
    $query= "INSERT INTO `application_notes`( `user_fnd_id`, `app_notes`, `creation_date`, `created_by`) VALUES ('$user_fnd_id','$app_notes','$creation_date','$created_by')";
 	   $result = mysqli_query($con, $query);
         if ($result) {
@@ -115,7 +115,7 @@ function application_notes_add($user_fnd_id,$app_notes,$creation_date,$created_b
 }
 
 function application_notes_update($application_id,$loan_create_id,$user_id,$status,$loan_transaction_id){
-    include 'dbconfig.php';
+  include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
     $date= date('Y-m-d H:i:s');    
    $query= "INSERT INTO `application_status_updates`( `application_id`, `loan_create_id`, `user_id`, `status`, `loan_transaction_id`, `creation_date`) VALUES ('$application_id','$loan_create_id','$user_id','$status','$loan_transaction_id','$date')";
 	 // echo $query;
@@ -131,7 +131,7 @@ function application_notes_update($application_id,$loan_create_id,$user_id,$stat
 
 
 function user_roles($user_role,$form_id){
-    include 'dbconfig.php';
+  include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
     $date= date('Y-m-d H:i:s');    
       $sql_role=mysqli_query($con, "select * from access_level_grants where role_id='$user_role' AND form_id='$form_id'"); 
 
@@ -150,7 +150,7 @@ return "$delete_allowed";
 }
 
 function user_edit_roles($user_role,$form_id){
-    include 'dbconfig.php';  
+  include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
       $sql_up=mysqli_query($con, "select * from access_level_grants where role_id='$user_role' AND form_id='$form_id'"); 
 
 

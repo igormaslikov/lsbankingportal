@@ -1,6 +1,6 @@
 <?php
-   include('../dbconnect.php');
-   include('../dbconfig.php');
+   include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+   
    include('../functions.php');
    $query = "select * from fnd_user_profile WHERE `date_time_current` < (NOW() - INTERVAL 5 MINUTE) AND application_status='New Application'";
    $sql=mysqli_query($con, "$query");

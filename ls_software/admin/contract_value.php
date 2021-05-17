@@ -1,6 +1,6 @@
 <?php
- include_once 'dbconnect.php';
- include_once 'dbconfig.php';
+ include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+ 
 $handle = @fopen("asim.txt", "r"); //read line one by one
 $values='';
 

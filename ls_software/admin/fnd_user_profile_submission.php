@@ -1,6 +1,6 @@
 <?php
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 
 $sql=mysqli_query($con, "select * from tbl_bank_statements"); 

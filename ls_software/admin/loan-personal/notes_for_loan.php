@@ -2,7 +2,7 @@
 error_reporting(0);
 session_start();
 $id=$_GET['id'];
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
@@ -22,8 +22,8 @@ $DBcon->close();
 ?>
 
 <?php
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $id=$_GET['id'];
 $sql_fnd=mysqli_query($con, "select * from tbl_personal_loans where p_loan_id = '$id'"); 
 
@@ -50,8 +50,8 @@ while ($row_payment=mysqli_fetch_array($query_payment)){
 
 <?php
 
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
@@ -73,8 +73,8 @@ $customer_numbr=$row['mobile_number'];
 
 <?php
 
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql=mysqli_query($con, "select * from tbl_personal_loans where p_loan_id= '$id'"); 
 
@@ -113,8 +113,8 @@ $new_creation_date= date("m-d-Y", $timestamp);
 ?>
 <?php
 
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
 
@@ -226,8 +226,8 @@ $username=$row_user['username'];
         <br>
     	<?php
     $id=$_GET['id'];
-     include_once '../dbconnect.php';
-     include_once '../dbconfig.php';
+     include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+     
 
 $result_status = mysqli_query($con,"SELECT * FROM loan_folder_notes where loan_id= '$id' ORDER BY notes_id desc");
 

@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('America/Los_Angeles');
- include('dbconfig.php');
+ 
  include('../../admin/functions.php');
 
 

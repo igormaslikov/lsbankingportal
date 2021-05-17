@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('America/Los_Angeles');
- include('dbconfig.php');
- include('dbconnect.php');
+ 
+ include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
 
 $customer_fname=$_GET['p_fname'];
 $customer_lname=$_GET['p_lname'];

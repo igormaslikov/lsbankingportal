@@ -12,7 +12,7 @@
 <?php
 
 date_default_timezone_set('America/Los_Angeles');
-include '../dbconfig.php';
+
 
 
 $chat_key = $_GET['chat_key'];

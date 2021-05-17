@@ -6,8 +6,8 @@ $code = $_POST['code'];
 $v_code = $_POST['v_code'];
 error_reporting(0);
 session_start();
-include_once 'dbconnect.php';
-include 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -33,7 +33,7 @@ $DBcon->close();
 
 <?php include('menu.php') ;?>
  <?php
-$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+
 // Check connection
 if (mysqli_connect_errno())
   {

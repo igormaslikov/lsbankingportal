@@ -541,8 +541,8 @@ body {margin-top: 0px;margin-left: 0px;}
 								
 <?php
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if(isset($_POST['btnupload'])) 
 {
@@ -648,8 +648,8 @@ window.location.href = 'finish.php?id=<?php echo $iddd; ?>';
 								
 <?php
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if(isset($_POST['btnupload'])) 
 {

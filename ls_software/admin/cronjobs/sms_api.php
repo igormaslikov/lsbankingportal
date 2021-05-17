@@ -1,6 +1,6 @@
 <?php 
-include('../dbconnect.php');
-include('../dbconfig.php');
+include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+
 include('../functions.php');
 
 

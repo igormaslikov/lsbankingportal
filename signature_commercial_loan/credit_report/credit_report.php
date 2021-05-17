@@ -1,7 +1,7 @@
 <?php
 $id=$_GET['id'];
 
-include 'dbconfig.php';
+
 
 
 $sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 

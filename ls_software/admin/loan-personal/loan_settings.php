@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 session_start();
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
@@ -25,8 +25,8 @@ $id=$_GET['id'];
 
 
 
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $id=$_GET['id'];
 $sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
 
@@ -156,8 +156,8 @@ $totall_trans = number_format((float)$totall_trans, 2, '.', '');
                  //*********************************************************  LOAN FEES  Start**************************************************
 
 
-include '../dbconnect.php';
-include '../dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql=mysqli_query($con, "select * from tbl_loan where sign_status= '1'"); 
 
@@ -297,7 +297,7 @@ $total_loan_fee+=$loan_payment_fee;
 </thead>
 <tbody>
 <?php
-include('db.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';;
 $count=1;
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$page_no = $_GET['page_no'];

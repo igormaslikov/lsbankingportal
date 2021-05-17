@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
-include 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
 }
@@ -58,7 +58,7 @@ $DBcon->close();
 
 <br><br>
  <?php
-$con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -104,7 +104,7 @@ mysqli_close($con);
 </thead>
 <tbody>
 <?php
-include('db.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';;
 $count=1;
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$page_no = $_GET['page_no'];

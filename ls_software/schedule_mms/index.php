@@ -108,7 +108,7 @@ $(document).ready(function() {
 <?php
 error_reporting(0);
 
-include_once 'dbconfig.php';
+
 
 if (isset($_POST["import"])) {
     $msg = $_POST['message'];

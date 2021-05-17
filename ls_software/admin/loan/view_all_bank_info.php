@@ -1,8 +1,8 @@
 <?php
 error_reporting(0);
 session_start();
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
 }
@@ -208,7 +208,7 @@ $username=$row_user['username'];
     
     
 <?php
-include('db.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';;
 $count=1;
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$page_no = $_GET['page_no'];
@@ -294,7 +294,7 @@ $primary_status=$row_bank_detail_sec['primary_status'];
     
     
 <?php
-include('db.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';;
 $count=1;
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$page_no = $_GET['page_no'];

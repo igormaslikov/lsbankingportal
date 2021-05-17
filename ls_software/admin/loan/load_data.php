@@ -31,8 +31,8 @@ table,th, td {
 
 <?php  
  //load_data.php  
- include_once '../dbconnect.php';
-include_once '../dbconfig.php';  
+ include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+  
 
 
 	// load records using select box jquery ajax in PHP

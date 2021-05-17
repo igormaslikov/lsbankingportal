@@ -1,7 +1,6 @@
 <?php
  
-include('../../dbconnect.php');
- include('../../dbconfig.php');
+ include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
 
 $query = "select * from url_counter where url='dinero' ";
 $sql=mysqli_query($con, "$query");

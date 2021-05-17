@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['customerSession'])) {
 	header("Location: user_login.php");
@@ -17,8 +17,8 @@ $DBcon->close();
 
 $id=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_source=mysqli_query($con, "select * from source_income where user_fnd_id= '$id'"); 
 

@@ -2,8 +2,8 @@
 sleep(4); 
 $email=$_GET['email-132'];
 
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 // Connect to MySQL Database
 $con = new mysqli($host, $user, $password, $database);
@@ -42,8 +42,8 @@ foreach ($hotels as $hotel) {
    
 }
 $date = date("Y/m/d");
-include('ls_software/API_files/Lspayday_API/dbconnect.php');
-include('ls_software/API_files/Lspayday_API/dbconfig.php');
+include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+
 mysqli_query($con,"Insert into decision_login_codes (code,email,date) Values ('$name','$email','$date')");
 $date = date('Y-m-d H:i:s');
 // To check whether user is declined in 90 day period

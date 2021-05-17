@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 session_start();
-include_once 'dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -31,7 +31,7 @@ $DBcon->close();
        <?php
 
 if(isset($_POST['btn-paynow'])) {
-    include 'dbconfig.php';
+    
     
     $customer_id=$_POST['customer_id'];
     $amount=$_POST['amount'];

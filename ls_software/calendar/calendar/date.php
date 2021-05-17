@@ -2,7 +2,7 @@
 
 
     require_once 'dbconfig.php';     
-    require_once 'dbconnect.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
         function datediff($date1) {
                 $date2 = "2019-03-28";

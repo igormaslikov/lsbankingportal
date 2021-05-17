@@ -1,7 +1,7 @@
 <?php 
 
-include_once '../../dbconnect.php';
-include_once '../../dbconfig.php';
+nclude_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 include_once '../../functions.php';
 date_default_timezone_set('America/Los_Angeles');
 $user_id= $_GET['user_id'];

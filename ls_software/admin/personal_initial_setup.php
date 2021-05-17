@@ -1,7 +1,18 @@
+
+<?php
+function getUrl()
+{
+  $protocol = (!empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1')) ? 'https://' : 'http://';
+  $server = $_SERVER['SERVER_NAME'];
+  $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
+  return $protocol.$server.$port;
+}
+$urlOrigin = getUrl();
+?>
 <?php
 session_start();
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -66,13 +77,13 @@ $loan_id=$row_fetch_loan['loan_create_id'];
 $fndd_id=$id_fnd;
 // echo "loan id:".$fndd_id;
 $state=$_GET['state'];
-
+$urlOrigin = "https://lsbankingportal.com/";
 if($state=='AZ')
 {
 
 
-$azrizona_message='https://lsbankingportal.com/signature_personal_arizona_customer/files/contract.php?id='.$email_key;
-$azrizona_email='https://lsbankingportal.com/signature_personal_arizona_customer/completed/index.php?id='.$email_key;
+$azrizona_message=$urlOrigin.'/signature_personal_arizona_customer/files/contract.php?id='.$email_key;
+$azrizona_email=$urlOrigin.'/signature_personal_arizona_customer/completed/index.php?id='.$email_key;
 
     //echo $azrizona_message;
     //echo $azrizona_email;
@@ -80,8 +91,8 @@ $azrizona_email='https://lsbankingportal.com/signature_personal_arizona_customer
 
 else
 {
-     $azrizona_message='https://lsbankingportal.com/signature_personal_naveda_customer/files/contract.php?id='.$email_key;
-     $azrizona_email='https://lsbankingportal.com/signature_personal_naveda_customer/completed/index.php?id='.$email_key;
+     $azrizona_message=$urlOrigin.'/signature_personal_naveda_customer/files/contract.php?id='.$email_key;
+     $azrizona_email=$urlOrigin.'/signature_personal_naveda_customer/completed/index.php?id='.$email_key;
      
      //echo $azrizona_message;
      //echo $azrizona_email;
@@ -1029,7 +1040,7 @@ echo '<colgroup align="right" width="115">';
 echo '<colgroup align="right" width="115">';
 //echo '<tr style="background-color: #F5E09E;"><th>#</th><th>PAYMENT</th><th>INTEREST</th><th>PRINCIPAL</th><th>BALANCE</th></tr>';
 
-    include 'dbconfig.php';
+    
     $loan_create_id=$_GET['loan_create_id'];
     $installment_plan=$_GET['installment_plan'];
     $payment_date=$_GET['payment_date'];

@@ -4,7 +4,7 @@ error_reporting(0);
 
 session_start();
 
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 
 
@@ -44,9 +44,9 @@ $DBcon->close();
 
 <?php
 
-include '../dbconnect.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
-include '../dbconfig.php';
+
 
 $id_transaction=$_GET['t_id'];
 
@@ -148,9 +148,9 @@ $user_fnd_id=$row['user_fnd_id'];
 
 
 
-include '../dbconnect.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
-include '../dbconfig.php';
+
 
 
 
@@ -612,9 +612,9 @@ tr:nth-child(even) {
 
     
 
-    include '../dbconnect.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
-    include '../dbconfig.php';
+    
 
     include '../functions.php'; 
 

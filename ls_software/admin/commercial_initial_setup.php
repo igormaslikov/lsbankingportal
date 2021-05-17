@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -1063,7 +1063,7 @@ do {
 //echo "principal: $principal<br>";
 //echo "balance: $balance<br>";
 
-    include 'dbconfig.php';
+    
     $loan_create_id=$_GET['loan_create_id'];
     $installment_plan=$_GET['installment_plan'];
     $payment_date=$_GET['payment_date'];

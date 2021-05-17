@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -37,8 +37,8 @@ $DBcon->close();
 
 <?php
 error_reporting(0);
-   include_once 'dbconnect.php';
-   include_once 'dbconfig.php';
+   include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+   
    
    
    $id_fnd=$_GET['fnd_id'];
@@ -108,8 +108,8 @@ mail($to_email_admin,$subject_admin,$message_admin,$headers_admin);
 ?>
 
 <?php 
-   include_once 'dbconnect.php';
-   include_once 'dbconfig.php';
+   include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+   
    
    //echo "loan id:".$loan_id;
    //echo "Fnd id:".$fndd_id;

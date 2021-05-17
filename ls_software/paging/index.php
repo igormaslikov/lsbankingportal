@@ -18,7 +18,7 @@
 </thead>
 <tbody>
 <?php
-include('db.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';;
 
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$page_no = $_GET['page_no'];

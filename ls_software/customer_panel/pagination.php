@@ -1,6 +1,6 @@
 <?php
 $id= $_GET['id'];
-include 'dbconnect.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 $sql=mysqli_query($DBcon, "select * from fnd_user_profile where user_fnd_id='$id'"); 
 

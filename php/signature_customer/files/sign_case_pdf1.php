@@ -6,8 +6,8 @@ $id=$_GET['id'];
 <?php
 
 $url_logo="http://lsbankingportal.com/signature_customer/completed/";
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $iddd=$_GET['id'];
 // echo "idddd". $iddd;
 

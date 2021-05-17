@@ -1,6 +1,6 @@
 <?php
 
-include_once 'dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 $curl = curl_init();
 

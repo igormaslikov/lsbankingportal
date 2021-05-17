@@ -1,8 +1,8 @@
 <?php
  session_start();
  error_reporting(0);
- include_once 'dbconnect.php';
-include 'dbconfig.php';
+ include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
  if (!isset($_SESSION['userSession'])) {
  	header("Location: index.php");
  }
@@ -362,7 +362,7 @@ Application Date To:
 $delete_customer_string = "page_no=".$_GET['page_no']."&status=".$_GET['status']."&state=".$_GET['state']."&loan_type=".$_GET['loan_type']."&keyword=".$_GET['keyword']."&website=".$_GET['website']."&from_date=".$_GET['from_date']."&to_date=".$_GET['to_date'];
 $delete_customer_pagination = "status=".$_GET['status']."&keyword=".$_GET['keyword']."&website=".$_GET['website']."&state=".$_GET['state']."&loan_type=".$_GET['loan_type']."&from_date=".$_GET['from_date']."&to_date=".$_GET['to_date'];
    
-include('db.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';;
 $count=1;
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$page_no = $_GET['page_no'];

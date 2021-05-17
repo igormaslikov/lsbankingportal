@@ -1,7 +1,7 @@
 <?php
 $url_logo="http://gwadar-one.com/lsfinancing/signature/"; 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $iddd=$_GET['id'];
 // echo "idddd". $iddd;
 
@@ -259,8 +259,8 @@ $anual_pr=($apr_total/$dateDiff)*100;
 								
 <?php
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if(isset($_POST['btnupload'])) 
 {

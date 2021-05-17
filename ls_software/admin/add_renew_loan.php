@@ -1,8 +1,8 @@
 <?php
 session_start();
 error_reporting(0);
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -212,8 +212,8 @@ if ($result_count_loans=mysqli_query($con,$sql_count_loans))
 <?php
 
 $id=$_GET['id'];
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_apr=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
 

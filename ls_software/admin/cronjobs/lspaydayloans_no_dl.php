@@ -1,7 +1,7 @@
 <?php
 
-include('../dbconnect.php');
-include('../dbconfig.php');
+include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+
 
 $query = "select * from fnd_user_profile where website='lspaydayloans' AND application_status='New Application' AND decision_logic_status!='1' AND (date_time_current<DATE_SUB(NOW(), INTERVAL 6 MINUTE ) AND date_time_current>DATE_SUB(NOW(), INTERVAL 24 HOUR))";
 $sql=mysqli_query($con, "$query"); 

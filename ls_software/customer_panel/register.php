@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['customerSession'])!="") {
 	header("Location: user_home.php");
 }
-require_once 'dbconnect.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if(isset($_POST['btn-signup'])) {
 	

@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 session_start();
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
@@ -22,8 +22,8 @@ $DBcon->close();
 
 <?php
    $id=$_GET['id'];
-   include_once '../dbconnect.php';
-   include_once '../dbconfig.php';
+   include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+   
    $sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id' "); 
 
 while($row_fnd = mysqli_fetch_array($sql_fnd)) {

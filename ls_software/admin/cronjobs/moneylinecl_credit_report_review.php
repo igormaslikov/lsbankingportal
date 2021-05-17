@@ -1,6 +1,6 @@
 <?php
-include('../dbconnect.php');
-include('../dbconfig.php');
+include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+
 date_default_timezone_set('America/Los_Angeles');
 
 $query = "SELECT * FROM fnd_user_profile WHERE `date_time_current` < (NOW() - INTERVAL 15 MINUTE) AND `application_status` = 'Decision Logic Completed'  AND decision_logic_status = '1' AND website = 'mymoneyline_cl' AND experian_api_limit < 1 ORDER By user_fnd_id DESC LIMIT 1";

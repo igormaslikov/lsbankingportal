@@ -1,5 +1,5 @@
 <?php
-include_once 'dbconfig.php';
+
 
 include_once '../admin/functions.php';
 date_default_timezone_set('America/Los_Angeles');

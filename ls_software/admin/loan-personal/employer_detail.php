@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 session_start();
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
@@ -21,8 +21,8 @@ $DBcon->close();
 ?>
 
 <?php
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $id=$_GET['id'];
 $sql_fnd=mysqli_query($con, "select * from tbl_personal_loans where p_loan_id = '$id'"); 
 
@@ -193,8 +193,8 @@ $loan_notes=$row_user['notes'];
     
     
 <?php
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 
 $sql_source=mysqli_query($con, "select * from source_income_personal where user_fnd_id = '$user_fnd_id'"); 
@@ -274,8 +274,8 @@ $new_next_pay_date= date("m-d-Y", $timestamp);
     
     
 <?php
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 
 $sql_source=mysqli_query($con, "select * from tbl_job_notes where user_fnd_id = '$user_fnd_id'"); 

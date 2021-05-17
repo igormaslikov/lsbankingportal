@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('America/Los_Angeles');
- include('../../admin/dbconfig.php');
- include('../../admin/dbconnect.php');
+ 
+ include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
  include('../../admin/functions.php');
 
 $amount=$_GET['amount'];

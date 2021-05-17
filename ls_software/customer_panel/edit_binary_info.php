@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['customerSession'])) {
 	header("Location: user_login.php");
@@ -17,8 +17,8 @@ $DBcon->close();
 
 $id=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
@@ -41,8 +41,8 @@ $ssn=$row['ssn'];
 <?php
 $id=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_banking=mysqli_query($con, "select * from banking_information where user_fnd_id= '$id'"); 
 
@@ -63,8 +63,8 @@ $acc_number=$row_banking['account_number'];
 
 $id=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_source=mysqli_query($con, "select * from source_income where user_fnd_id= '$id'"); 
 
@@ -85,8 +85,8 @@ $income_month=$row_source['how_tell_ur_income'];
 
 $id=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_bq=mysqli_query($con, "select * from binary_questions where user_fnd_id= '$id'"); 
 

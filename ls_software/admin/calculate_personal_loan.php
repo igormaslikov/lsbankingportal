@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -431,7 +431,7 @@ echo '<colgroup align="right" width="115">';
 echo '<colgroup align="right" width="115">';
 echo '<colgroup align="right" width="115">';
 echo '<tr style="background-color: #F5E09E;"><th>#</th><th>PAYMENT</th><th>INTEREST</th><th>PRINCIPAL</th><th>BALANCE</th></tr>';
-  include 'dbconfig.php';
+  
   
     $loan_create_id=$_GET['loan_create_id'];
     $installment_plan=$_GET['installment_plan'];
@@ -503,7 +503,7 @@ $balance_p=number_format($balance,   2, ".", ",");
 //echo "principal: $principal<br>";
 //echo "balance: $balance<br>";
 
-    include 'dbconfig.php';
+    
     $loan_create_id=$_GET['loan_create_id'];
     $installment_plan=$_GET['installment_plan'];
     $payment_date=$_GET['payment_date'];

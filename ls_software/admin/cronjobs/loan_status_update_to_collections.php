@@ -1,8 +1,8 @@
 <?php
 
 
-include '../dbconnect.php';
-include '../dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 date_default_timezone_set('America/Los_Angeles');
 

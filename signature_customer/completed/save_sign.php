@@ -10,8 +10,8 @@
 	echo json_encode($result);
     $key = $_POST['key'];
     $filename=$filename.".png";
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
     $query_sign  = "UPDATE `loan_initial_banking` SET `sign_status`='1',`signed_pic`='$filename' WHERE `email_key` = '$key'";
         $result_sign = mysqli_query($con, $query_sign);

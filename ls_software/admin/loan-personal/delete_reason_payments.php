@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 session_start();
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
@@ -21,8 +21,8 @@ $DBcon->close();
 ?>
 
 <?php
-include '../dbconnect.php';
-include '../dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $id_transaction=$_GET['t_id'];
 
 
@@ -66,8 +66,8 @@ $user_fnd_id=$row['user_fnd_id'];
 <?php
 
 
-include '../dbconnect.php';
-include '../dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_fnd=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
@@ -272,8 +272,8 @@ tr:nth-child(even) {
      if(isset($_POST['btn-submit'])) 
 {
     
-    include '../dbconnect.php';
-    include '../dbconfig.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+    
      
     
      

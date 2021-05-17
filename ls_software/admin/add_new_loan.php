@@ -1,8 +1,8 @@
 <?php
 session_start();
 error_reporting(0);
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 ?>
 
 <?php 
@@ -156,7 +156,7 @@ $username=$row_access['username'];
 
  ?>
  <script type="text/javascript">
-window.location.href = 'initial_setup.php?fnd_id=<?php echo $fnd_idd ;?>&loan_id=<?php echo $loan_create_id ;?>';
+//window.location.href = 'initial_setup.php?fnd_id=<?php echo $fnd_idd ;?>&loan_id=<?php echo $loan_create_id ;?>';
 </script>
 
  <?php
@@ -343,8 +343,8 @@ $loan_name=$_GET['loan'];
 $due_date=$_GET['next_pay_date'];
 $loan_amount=$_GET['loan_amount'];
 $state=$_GET['state'];
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_apr=mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_loan"); 
 while($row_apr = mysqli_fetch_array($sql_apr)) {

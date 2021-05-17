@@ -1,8 +1,8 @@
 <?php
 error_reporting(0);
 session_start();
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
 }
@@ -233,7 +233,7 @@ $username=$row_user['username'];
 
 
 
-include('db.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';;
 	      	
 	       	echo "<tr>
 			  <td align='center'>Payment Coupon Book</td>
@@ -266,7 +266,7 @@ include('db.php');
 
 
 
-include('db.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';;
 	      	
 	       	echo "<tr>
 			  <td align='center'>Commercial Loan Application</td>
@@ -340,7 +340,7 @@ include('db.php');
 
 
 
-include('db.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';;
 	      	
 	       	echo "<tr>
 			  <td align='center'>Delinquent Payday Loan Letter</td>

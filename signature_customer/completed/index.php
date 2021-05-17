@@ -1,7 +1,7 @@
 <?php
 $url_logo="https://lsbankingportal.com/website/images/Money-Line-Logo.JPG"; 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $iddd=$_GET['id'];
 // echo "idddd". $iddd;
 
@@ -229,8 +229,8 @@ $anual_pr=($apr_total/$dateDiff)*100;
 if(isset($_POST['btnupload'])) 
 {
     
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
         $imgFile = $_FILES['imagee']['name'];
         $tmp_dir = $_FILES['imagee']['tmp_name'];
         $imgSize = $_FILES['imagee']['size'];
@@ -355,8 +355,8 @@ include 'dbconfig.php';
 
 <?php
  
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $iddd=$_GET['id'];
 $sql_link=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
 

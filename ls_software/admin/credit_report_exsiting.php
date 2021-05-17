@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -44,8 +44,8 @@ $key= $_GET['key'];
 $id = $_GET['id'];
 $id_credit= "2";
 
-   include 'dbconnect.php';
-   include 'dbconfig.php';
+   include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+   
 
 
 $sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
@@ -93,8 +93,8 @@ echo"<br><br>";
 $id=$_GET['id'];
 $id=$_GET['id'];
 //echo "Name is: $id_fname";
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
 while($row = mysqli_fetch_array($sql)) {
     
@@ -150,8 +150,8 @@ $surname= $quoteJson->creditProfile[0]->consumerIdentity->name[0]->surname;
 
 $id_credit= "2";
 
-   include 'dbconnect.php';
-   include 'dbconfig.php';
+   include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+   
    
    $sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
 while($row = mysqli_fetch_array($sql)) {

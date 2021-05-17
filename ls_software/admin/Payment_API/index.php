@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'dbconnect.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (isset($_SESSION['userSession'])!="") {
 	header("Location: home.php");

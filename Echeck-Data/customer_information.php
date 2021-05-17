@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('America/Los_Angeles');
-include('../ls_software/admin/dbconfig.php');
- include('../ls_software/admin/dbconnect.php');
+
+ include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
  
  
  $date = date('Y-m-d H:i:s');

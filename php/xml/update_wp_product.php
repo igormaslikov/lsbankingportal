@@ -1,7 +1,7 @@
 <?php
 
- include 'dbconnect.php';
-include 'dbconfig.php';
+ include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 
 $query = "select * from tbl_stock where sku='EQP01144' ";

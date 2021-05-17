@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['customerSession'])) {
 	header("Location: user_login.php");
@@ -76,7 +76,7 @@ $DBcon->close();
 <?php
 
 
-include 'dbconnect.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 $sql=mysqli_query($DBcon, "select * from fnd_user_profile where user_fnd_id='$id'"); 
 
@@ -157,7 +157,7 @@ echo"<a href='edit_user_info.php?id=$id' title='Edit This Customer'><span class=
 
 
 
-include 'dbconnect.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 $sql=mysqli_query($DBcon, "select * from banking_information where user_fnd_id='$id'"); 
 
@@ -236,7 +236,7 @@ echo"<a href='edit_banking_info.php?id=$id' title='Edit This Customer'><span cla
 <?php
 
 
-include 'dbconnect.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 $sql=mysqli_query($DBcon, "select * from source_income where user_fnd_id='$id'"); 
 
@@ -313,7 +313,7 @@ echo"<a href='edit_emp_income.php?id=$id' title='Edit This Customer'><span class
 <?php
 
 
-include 'dbconnect.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 $sql=mysqli_query($DBcon, "select * from binary_questions where user_fnd_id='$id'"); 
 

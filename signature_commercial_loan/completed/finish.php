@@ -2,8 +2,8 @@
 
 $url_logo="https://lsbankingportal.com/signature_commercial_loan/completed"; 
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $idd=$_GET['id'];
 
 //echo "key is".$mail_key;

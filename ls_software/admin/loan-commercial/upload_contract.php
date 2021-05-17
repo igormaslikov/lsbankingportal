@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 session_start();
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
@@ -21,8 +21,8 @@ $DBcon->close();
 ?>
 
 <?php
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $id=$_GET['id'];
 $sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
 
@@ -180,8 +180,8 @@ $loan_notes=$row_user['notes'];
         
 <?php 
 if(isset($_POST['btn-notes-submit'])) {
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $description =$_POST['description'];
 
 $date= date('Y-m-d H:i:s'); 

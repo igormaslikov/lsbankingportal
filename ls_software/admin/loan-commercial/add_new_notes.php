@@ -2,7 +2,7 @@
 error_reporting(0);
 session_start();
 $id=$_GET['id'];
-include_once '../dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
@@ -22,8 +22,8 @@ $DBcon->close();
 ?>
 
 <?php
-include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $id=$_GET['id'];
 $sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
 
@@ -165,8 +165,8 @@ $customer_numbr=$row['mobile_number'];
 
   </div>
   <?php
-  include_once '../dbconnect.php';
-include_once '../dbconfig.php';
+  include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 $id=$_GET['id'];
 
   if(isset($_POST['btn-notes-submit'])) {

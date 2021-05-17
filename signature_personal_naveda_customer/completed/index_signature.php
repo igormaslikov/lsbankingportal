@@ -1,7 +1,7 @@
 <?php
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql=mysqli_query($con, "select * from personal_loan_initial_banking"); 
 

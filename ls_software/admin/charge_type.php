@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once 'dbconnect.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -27,8 +27,8 @@ $DBcon->close();
 
 $id=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql=mysqli_query($con, "select * from tbl_loan where loan_id= '$id'"); 
 
@@ -54,8 +54,8 @@ $last_update_date=$row['last_update_date'];
 
 <?php
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$fnd_id'"); 
 
@@ -73,8 +73,8 @@ $last_name=$row['last_name'];
 
 <?php
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
 
@@ -91,8 +91,8 @@ $username=$row['username'];
 
 <?php
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql=mysqli_query($con, "select * from tbl_users where user_id= '$last_update'"); 
 
@@ -110,8 +110,8 @@ $username_update=$row['username'];
 
 $id_type=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_loan_type=mysqli_query($con, "select * from tbl_loan_type where loan_type_id='$id_type'"); 
 
@@ -129,8 +129,8 @@ $loan_type=$row_loan_type['loan_type'];
 
 $id_calcul=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_calcul=mysqli_query($con, "select * from tbl_loan_calculation where loan_cal_id='$id_calcul'"); 
 
@@ -147,8 +147,8 @@ $loan_calcu=$row_calcul['loan_calculation'];
 
 $id_clasi=$_GET['id'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_clasi=mysqli_query($con, "select * from tbl_loan_classification where loan_clasi_id='$id_clasi'"); 
 
@@ -164,8 +164,8 @@ $loan_calssifi=$row_clasi['loan_classification'];
 
   <?php
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_notes=mysqli_query($con, "select * from tbl_loan_notes where loan_id='$iddd'"); 
 
@@ -301,7 +301,7 @@ $loan_notes=$row_notes['notes'];
     
     
 <?php
-include('db.php');
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';;
 $count=1;
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$page_no = $_GET['page_no'];

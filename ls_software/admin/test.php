@@ -1,7 +1,7 @@
 <?php
 
-include_once 'dbconnect.php';
-include 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $date_last_7days = date('Y-m-d',time()-(7*86400)); 
 echo "Fnd ID: $date_last_7days<br>";

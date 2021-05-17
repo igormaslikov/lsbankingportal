@@ -1,6 +1,6 @@
 <?php
-include('../dbconnect.php');
-include('../dbconfig.php');
+include($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
+
 date_default_timezone_set('America/Los_Angeles');
 
 $query = "SELECT * FROM fnd_user_profile WHERE `date_time_current` < (NOW() - INTERVAL 12 MINUTE) AND application_status = 'New Application' AND website='Installment Nevada'";
