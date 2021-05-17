@@ -1,8 +1,51 @@
+<?php   
+    if(!isset($_POST['btn-submit']) && isset($_REQUEST['card_number'])){
+      header("Content-type: application/json"); 
+      //var_dump($_REQUEST);
+      include_once '../dbconnect.php';
+      include_once '../dbconfig.php';
+      $loan_id = $_POST['loanId'];
+      $card_number = $_POST['card_number'];
+      $sql_bank_detail=mysqli_query($con, "select distinct card_exp_date, cvv_number, type_of_card, bank_name from loan_initial_banking where user_fnd_id = (SELECT user_fnd_id from tbl_loan WHERE loan_id = '$loan_id') and card_number='$card_number'"); 
+      // $type_of_card = '';
+      // $renew_year = '';
+      // $rerenew_month = '';
+      // $cvv_number = '';
+      while($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
+          
+          $type_of_card=$row_bank_detail['type_of_card'];
+
+          $card_exp_date=$row_bank_detail['card_exp_date'];
+          if(date('m/Y',strtotime($card_exp_date)) != date('m/Y',0)){
+            $card_exp_date = date('m/y',strtotime($card_exp_date));
+          }
+          $renew_year= str_replace(substr($card_exp_date, 0, 3), '', $card_exp_date);
+          $renew_month= str_replace(substr($card_exp_date, 2, 3), '', $card_exp_date);
+
+          $cvv_number=$row_bank_detail['cvv_number'];
+          $bank_name = $row_bank_detail['bank_name'];
+          break;
+      }
+
+      $articles[]=array(
+          'type_of_card'         =>  (string)$type_of_card,
+          'year'   =>  (string)$renew_year,
+          'month' => (string)$renew_month,
+          'cvv' => (string)$cvv_number,
+          'bank_name' => (string)$bank_name
+      );
+      echo json_encode($articles);
+      die;
+    // connection should be on this page  
+    }
+?>
+
 <?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
+
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
 }
@@ -452,30 +495,47 @@ tr:nth-child(even) {
     </div> 
   
      <div class="col-lg-6">
-      <label for="usr">Type of Card</label>
-      <select name="type_card" id="type_card" class="form-control"  value="" >
+      <label for="type_card">Type of Card</label>
+      <input type="text" name="type_card" class="form-control" id="type_card" value="<?php echo $type_of_card;?>" readonly>
+      <!-- <select name="type_card" id="type_card" class="form-control"  value="" readonly>
      <option></option>
      <option value="Visa" <?php if($type_of_card=='Visa'){ echo 'selected';} ?>>Visa</option>
       <option value="Master Card" <?php if($type_of_card=='Master Card'){ echo 'selected';} ?>>Master Card</option>
-     </select>
+     </select> -->
     </div>
     
    
     
     <div class="col-lg-6">
-      <label for="usr">Card Expiration Date</label>
-      <input type="text" name="card_exp_date"  class="form-control" id="usr" value="<?php echo $card_exp_date;?>" >
+      <label for="card_exp_date">Card Expiration Date</label>
+      <input type="text" name="card_exp_date" class="form-control" id="card_exp_date" value="<?php echo $card_exp_date;?>" readonly>
     </div>
     
     <div class="col-lg-6">
-      <label for="usr">Card Number</label>
-      <input type="text" name="card_number"  class="form-control" id="usr" value="<?php echo $card_number;?>" ><br>
+      <label for="card_number">Card Number</label>
+      <select name="card_number" id="card_number" class="form-control"  value="" required>
+      <?php 
+        $sql_card_details=mysqli_query($con, "SELECT DISTINCT card_number FROM `loan_initial_banking` WHERE user_fnd_id = '$user_fnd_id'"); 
+
+        while($row_bank_detail = mysqli_fetch_array($sql_card_details)) {
+
+            $card_number_from_list=$row_bank_detail['card_number'];
+            $selected = "";
+            if($card_number_from_list==$card_number){
+                $selected = "selected";
+            }
+            
+            echo "<option value='$card_number_from_list' $selected>$card_number_from_list</option>";
+        }
+      
+      ?>
+      </select><br>
     </div>
-    
+
    
     <div class="col-lg-6">
-      <label for="usr">Bank Name</label>
-      <select name="bank_name" id="bank_name" class="form-control"  value="" >
+      <label for="bank_name">Bank Name</label>
+      <!-- <select name="bank_name" id="bank_name" class="form-control"  value="" >
      <option></option>
      <option value="Bank Of America" <?php if($bank_name=='Bank Of America'){ echo 'selected';} ?>>Bank Of America</option>
      <option value="Chase" <?php if($bank_name=='Chase'){ echo 'selected';} ?>>Chase</option>
@@ -483,8 +543,8 @@ tr:nth-child(even) {
      <option value="Citi Bank " <?php if($bank_name=='Citi Bank'){ echo 'selected';} ?>>Citi Bank </option>
      <option value="US Bank" <?php if($bank_name=='US Bank'){ echo 'selected';} ?>>US Bank</option>
      <option value="HSBC" <?php if($bank_name=='HSBC'){ echo 'selected';} ?>>HSBC</option>
-     </select>
-     <input class="timeTextBox" name="bank_name" value="<?php echo $bank_name;?>"/>
+     </select> -->
+     <input type="text" class="form-control" name="bank_name" id="bank_name" value="<?php echo $bank_name;?>" readonly/>
     </div>
     
     <div class="col-lg-6">
@@ -499,8 +559,8 @@ tr:nth-child(even) {
     
     
     <div class="col-lg-6">
-      <label for="usr">CVV Number</label>
-      <input type="text" name="cvv_number"  class="form-control" id="usr" value="<?php echo $cvv_number;?>" >
+      <label for="cvv_number">CVV Number</label>
+      <input type="text" name="cvv_number"  class="form-control" id="cvv_number" value="<?php echo $cvv_number;?>" readonly>
     </div>
     
     </div>
@@ -676,3 +736,22 @@ window.location.href = 'renew_loan.php?id=<?php echo $id; ?>';
 </body>
 
 </html>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#card_number').change(function(){
+            $.post(window.location.pathname,{card_number:$(this).val(),loanId:<?php echo $_GET['id'];?>},function(response){  
+                let type_of_card = response[0].type_of_card;
+                let year = response[0].year;
+                let month = response[0].month;
+                let cvv = response[0].cvv;
+                let bank_name = response[0].bank_name;
+                
+                $("#type_card").val(type_of_card);
+                $("#card_exp_date").val(month+'/'+year);
+                $("#cvv_number").val(cvv);
+                $("#bank_name").val(bank_name);
+            });        
+        });
+    });
+</script>  

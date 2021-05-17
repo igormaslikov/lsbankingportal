@@ -1,6 +1,7 @@
 <?php
 
 	 $DBhost = "lsbankingportal.com";
+	 //$DBhost = "localhost";
 	 $DBuser = "dblsuser2021";
 	 $DBpass = "^%D24L*!Ti5%";
 	 $DBname = "dbs57337";

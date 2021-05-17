@@ -38,6 +38,7 @@ $DBcon->close();
 <?php include('menu.php') ;?>
  <?php
 $con=mysqli_connect("lsbankingportal.com","dblsuser2021","^%D24L*!Ti5%","dbs57337");
+//$con=mysqli_connect("localhost","dblsuser2021","^%D24L*!Ti5%","dbs57337");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -939,16 +940,6 @@ mysqli_close($con);
 <div class="col-lg-4"><p style="color:black;font-weight: bold">Avg. Payoff Amount: <b style="color:red"> $<?php echo $avg_pay;?></b></p></div>
 -->
 
-<?php
-function getMyUrl()
-{
-  $protocol = (!empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1')) ? 'https://' : 'http://';
-  $server = $_SERVER['SERVER_NAME'];
-  $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
-  return $protocol.$server.$port;
-}
-$url_origin = getMyUrl();
-?>
 
 <div class="col-lg-4"><p style="color:black;font-weight: bold"><a  href = "<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Approved+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Payday CA :<b style="color:red"> <?php echo $rowcount_aprovd_paydy_ca;?></b></a></p></div>
 <div class="col-lg-4"><p style="color:black;font-weight: bold"><a  href = "<?php echo $url_origin; ?>ls_software/admin/view_all_customer.php?status=Review+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Payday CA :<b style="color:red"> <?php echo $rowcount_rev_payday_ca;?></b></a></p></div>

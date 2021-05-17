@@ -1,4 +1,46 @@
 <?php
+    if(!isset($_POST['btttn-submit']) && isset($_REQUEST['card_number'])){
+        header("Content-type: application/json"); 
+        include_once 'dbconnect.php';
+        include_once 'dbconfig.php';
+        
+        $user_id = $_POST['usr_id'];
+        $card_number = $_POST['card_number'];
+        $sql_bank_detail=mysqli_query($con, "select distinct card_exp_date, cvv_number, type_of_card, bank_name from loan_initial_banking where user_fnd_id = '$user_id' and card_number='$card_number'"); 
+        // $type_of_card = '';
+        // $renew_year = '';
+        // $rerenew_month = '';
+        // $cvv_number = '';
+        while($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
+            
+            $type_of_card=$row_bank_detail['type_of_card'];
+
+            $card_exp_date=$row_bank_detail['card_exp_date'];
+            if(date('m/Y',strtotime($card_exp_date)) != date('m/Y',0)){
+              $card_exp_date = date('m/y',strtotime($card_exp_date));
+            }
+            $card_exp_date=$row_bank_detail['card_exp_date'];
+            $renew_year= str_replace(substr($card_exp_date, 0, 3), '', $card_exp_date);
+            $renew_month= str_replace(substr($card_exp_date, 2, 3), '', $card_exp_date);
+
+            $cvv_number=$row_bank_detail['cvv_number'];
+            $bank_name = $row_bank_detail['bank_name'];
+            break;
+        }
+
+        $articles[]=array(
+            'type_of_card'   =>  (string)$type_of_card,
+            'year'   =>  (string)$renew_year,
+            'month' => (string)$renew_month,
+            'cvv' => (string)$cvv_number,
+            'bank_name' => (string)$bank_name
+        );
+        echo json_encode($articles);
+        die;
+    // connection should be on this page  
+    }
+?>
+<?php
 error_reporting(0);
 session_start();
 include_once 'dbconnect.php';
@@ -485,17 +527,35 @@ window.location.href ='customer_email_message.php?emaill=<?php echo $email; ?>&m
       <option value="Master Card" <?php if($type_of_card=='Master Card'){ echo 'selected';} ?>>Master Card</option>
      </select>
     </div>
-    
+
     <div class="col-lg-6">
-      <label for="usr">Card Number*</label>
-      <input type="text" name="card_number"  class="form-control" id="usr" value="<?php echo $card_number;?>" required>
+      <label for="card_number">Card Number*</label>
+      <input type="search" name="card_number" id="card_number" list="card_numbers" class="form-control" value="<?php echo $card_number;?>" required>
+      <datalist id="card_numbers">
+      <?php 
+        $sql_card_details=mysqli_query($con, "SELECT DISTINCT card_number FROM `loan_initial_banking` WHERE user_fnd_id = '$id_fnd'"); 
+
+        while($row_bank_detail = mysqli_fetch_array($sql_card_details)) {
+
+            $card_number_from_list=$row_bank_detail['card_number'];
+            // $selected = "";
+            // if($card_number_from_list==$card_number){
+            //     $selected = "selected";
+            // }
+            
+            echo "<option value='$card_number_from_list'></option>";
+        }
+      
+      ?>
+      </datalist>
+     
     </div>
     
     <div class="col-lg-6">
       <label for="usr">Card Expiration Date*</label>
       <br>
       Month 
-      <select style="width:20%" name="expiry_year_card" id="expiry_year_card" class="form-control"  value="" required>
+      <select style="width:20%" name="expiry_month_card" id="expiry_month_card" class="form-control"  value="" required>
      <option></option>
      <option value="01" <?php if($renew_month=='01'){ echo 'selected';} ?>>01</option>
      <option value="02" <?php if($renew_month=='02'){ echo 'selected';} ?>>02</option>
@@ -512,7 +572,7 @@ window.location.href ='customer_email_message.php?emaill=<?php echo $email; ?>&m
      </select>
      
      Year
-      <select  style="width:20%" name="expiry_month_card" id="expiry_month_card" class="form-control"  value="" required>
+      <select  style="width:20%" name="expiry_year_card" id="expiry_year_card" class="form-control"  value="" required>
      <option></option>
      <option value="20" <?php if($renew_year=='20'){ echo 'selected';} ?>>20</option>
      <option value="21" <?php if($renew_year=='21'){ echo 'selected';} ?>>21</option>
@@ -581,17 +641,18 @@ window.location.href ='customer_email_message.php?emaill=<?php echo $email; ?>&m
     ?>
     
   <div class="col-lg-6">
-      <label for="usr">Bank Name*</label>
-      <select name="bank_name" id="bank_name" class="form-control editableBox"  value="">
-     <option></option>
-     <option value="Bank Of America" <?php if($bank_name=='Bank Of America'){ echo 'selected';} ?>>Bank Of America</option>
-     <option value="Chase" <?php if($bank_name=='Chase'){ echo 'selected';} ?>>Chase</option>
-     <option value="Wells Fargo" <?php if($bank_name=='Wells Fargo'){ echo 'selected';} ?>>Wells Fargo</option>
-     <option value="Citi Bank " <?php if($bank_name=='Citi Bank'){ echo 'selected';} ?>>Citi Bank </option>
-     <option value="US Bank" <?php if($bank_name=='US Bank'){ echo 'selected';} ?>>US Bank</option>
-     <option value="HSBC" <?php if($bank_name=='HSBC'){ echo 'selected';} ?>>HSBC</option>
-     </select>
-	 <input class="timeTextBox" name="bank_name" value="<?php echo $bank_name;?>"/>
+      <label for="bank_name">Bank Name*</label>
+      <input type="search" name="bank_name" list="bank_names"  class="form-control" id="bank_name" value="<?php echo $bank_name;?>" required>
+  
+      <datalist id="bank_names">
+        <option value="Bank Of America">
+        <option value="Chase">
+        <option value="Wells Fargo">
+        <option value="Citi Bank ">
+        <option value="US Bank" >
+        <option value="HSBC">
+     </datalist>
+     <!-- <input class="timeTextBox" name="bank_name" value="<?php echo $bank_name;?>"/> -->
     </div>
     
      <div class="col-lg-6">
@@ -629,7 +690,7 @@ window.location.href ='customer_email_message.php?emaill=<?php echo $email; ?>&m
     
     <div class="col-lg-6">
       <label for="usr">CVV Number*</label>
-      <input type="text" name="cvv_number"  class="form-control" id="usr" value="<?php echo $cvv_number;?>" required>
+      <input type="text" name="cvv_number" id="cvv_number"  class="form-control" id="usr" value="<?php echo $cvv_number;?>" required>
     </div>
     
     </div>
@@ -645,4 +706,36 @@ window.location.href ='customer_email_message.php?emaill=<?php echo $email; ?>&m
 <hr>
 
 </body>
-</html>    
+</html> 
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#card_number').change(function(){
+            $.post(window.location.pathname,{card_number:$(this).val(),usr_id:<?php echo $_GET['fnd_id'];?>},function(response){
+                let type_of_card = response[0].type_of_card;
+                let year = response[0].year;
+                let month = response[0].month;
+                let cvv = response[0].cvv;
+                let bank_name = response[0].bank_name;
+                
+                $("#type_card").val(type_of_card);
+                $("#expiry_month_card").val(month);
+                $("#expiry_year_card").val(year);
+                $("#cvv_number").val(cvv);
+                $("#bank_name").val(bank_name);
+            });        
+        });
+    });
+
+    $('input[id=card_number]').on('click',function(){
+        $(this).val('');
+        $("#type_card").val('');
+        $("#expiry_month_card").val('');
+        $("#expiry_year_card").val('');
+        $("#cvv_number").val('');
+        $("#bank_name").val('');
+    })
+
+    $('input[id=bank_name]').on('click',function(){
+        $(this).val('');
+    })
+</script>  

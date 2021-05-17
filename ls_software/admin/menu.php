@@ -1,6 +1,6 @@
 <?php 
 date_default_timezone_set('America/Los_Angeles');
-
+//include_once($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
 $conn = new mysqli("lsbankingportal.com","message_chat","admin$$123","message_chat");
 $count=0;
 $sql2="SELECT * FROM webchat_lines WHERE notification_status = 0";
@@ -9,7 +9,16 @@ $count=mysqli_num_rows($result);
 
 ?>
 
-
+<?php
+function getMyUrl()
+{
+  $protocol = (!empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1')) ? 'https://' : 'http://';
+  $server = $_SERVER['SERVER_NAME'];
+  $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
+  return $protocol.$server.$port;
+}
+$url_origin = getMyUrl();
+?>
 
 <html>
 <head>
@@ -200,7 +209,7 @@ $count=mysqli_num_rows($result);
           <ul class="nav navbar-nav nav1"  style="width:80%">
             
             <li class="loan">
-                <a href="http://lsbankingportal.com/ls_software/admin/view_all_customer_main.php?status=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search="  style="color:white; font-size:20px">Applications</a>
+                <a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer_main.php?status=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search="  style="color:white; font-size:20px">Applications</a>
                 </li>
            <li class="loan">
            <ul id='menu' style="padding-left:0px">
@@ -218,13 +227,13 @@ $count=mysqli_num_rows($result);
             <li class="loan">
             <ul id='menu' style="padding-left:0px">
             <li class="loan">
-            <a href="http://lsbankingportal.com/ls_software/admin/view_all_payday_loans.php" style="color:white;font-size:20px">Payday Loan</a>
+            <a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_payday_loans.php" style="color:white;font-size:20px">Payday Loan</a>
                 <ul class='menus'>
-                <li><a href="http://lsbankingportal.com/ls_software/admin/view_all_payday_loans_upcoming.php"  style="color:white;" title=''>Upcoming Due Loans</a></li>
-                <li><a href="http://lsbankingportal.com/ls_software/admin/view_all_payday_loans_pastdue.php"  style="color:white;" title=''>Past Due Loans</a></li>
-                <li><a href="http://lsbankingportal.com/ls_software/admin/view_all_payday_loans_recently_paid.php"  style="color:white;" title=''>Recently Paid Loans</a></li>
-                <li><a href="http://lsbankingportal.com/ls_software/admin/view_payday_schedules.php"  style="color:white;" title=''>Scheduled Payments</a></li>
-                <li><a href="http://lsbankingportal.com/ls_software/admin/payday_payments.php"  style="color:white;" title=''>Payments</a></li>
+                <li><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_payday_loans_upcoming.php"  style="color:white;" title=''>Upcoming Due Loans</a></li>
+                <li><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_payday_loans_pastdue.php"  style="color:white;" title=''>Past Due Loans</a></li>
+                <li><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_payday_loans_recently_paid.php"  style="color:white;" title=''>Recently Paid Loans</a></li>
+                <li><a href="<?php echo $url_origin; ?>/ls_software/admin/view_payday_schedules.php"  style="color:white;" title=''>Scheduled Payments</a></li>
+                <li><a href="<?php echo $url_origin; ?>/ls_software/admin/payday_payments.php"  style="color:white;" title=''>Payments</a></li>
                 </ul>
             </li>
             </ul>
@@ -246,7 +255,7 @@ $count=mysqli_num_rows($result);
             </li>
             <li class="loan"><a href="view_all_title_loans.php"  style="color:white;">Title Loan</a></li>
             <li class="loan"><a href="#"  style="color:white;">Reports</a></li>
-            <!--<li class="loan"><a href="http://lsbankingportal.com/ls_software/admin/marketing.php"  style="color:white;">Marketing</a></li>-->
+            <!--<li class="loan"><a href="<?php echo $url_origin; ?>/ls_software/admin/marketing.php"  style="color:white;">Marketing</a></li>-->
             
             
              
@@ -255,7 +264,7 @@ $count=mysqli_num_rows($result);
                  <ul id='menu' style="padding-left:0px; font-size:16px">
     <li class = "loan"><a  href='#' title='' style="font-size:20px">Settings</a>
       <ul class='menus'>
-        <li><a href="http://lsbankingportal.com/ls_software/admin/sms_settings.php"  style="color:white;" title=''>SMS Settings</a>
+        <li><a href="<?php echo $url_origin; ?>/ls_software/admin/sms_settings.php"  style="color:white;" title=''>SMS Settings</a>
         </li>
         <li><a href="loan_status_sms_settings.php"  style="color:white;" title=''>Loan Status SMS Settings</a>
         </li>
@@ -265,11 +274,11 @@ $count=mysqli_num_rows($result);
         </li>
          <li><a href="daily_sms_with_loan_status.php"  style="color:white;" title=''>Daily SMS Settings</a>
         </li>
-        <li class="portfolio"><a href="http://lsbankingportal.com/ls_software/admin/view_all_companies.php"  style="color:white;">Portfolios</a></li>
-        <li class="user"><a href="http://lsbankingportal.com/ls_software/admin/view_all_user.php"  style="color:white;">User</a></li>
-        <li class="user"><a href="http://lsbankingportal.com/ls_software/admin/view_all_roles.php"  style="color:white;">User Role</a></li>
-        <li class="user"><a href="http://lsbankingportal.com/ls_software/admin/view_all_form.php"  style="color:white;">Form Setup</a></li>
-        <li class="user"><a href="http://lsbankingportal.com/ls_software/admin/view_all_activity_log.php"  style="color:white;">Activity Log</a></li>
+        <li class="portfolio"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_companies.php"  style="color:white;">Portfolios</a></li>
+        <li class="user"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_user.php"  style="color:white;">User</a></li>
+        <li class="user"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_roles.php"  style="color:white;">User Role</a></li>
+        <li class="user"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_form.php"  style="color:white;">Form Setup</a></li>
+        <li class="user"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_activity_log.php"  style="color:white;">Activity Log</a></li>
       </ul>
     </li>
   </ul>
@@ -282,8 +291,8 @@ $count=mysqli_num_rows($result);
     <li class="loan"><a  href='#' title='Menu' style="font-size:20px">Tools</a>
       <ul class='menus'>
        
-        <li class="loan"><a href="http://lsbankingportal.com/ls_software/admin/calculator/payday_loan.php"  style="color:white;">Calculator</a></li>
-        <li class="loan"><a href="http://lsbankingportal.com/ls_software/admin/view_all_credit_reports.php"  style="color:white;">View All Credit Reports</a></li>
+        <li class="loan"><a href="<?php echo $url_origin; ?>/ls_software/admin/calculator/payday_loan.php"  style="color:white;">Calculator</a></li>
+        <li class="loan"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_credit_reports.php"  style="color:white;">View All Credit Reports</a></li>
            
         
       </ul>
@@ -293,7 +302,7 @@ $count=mysqli_num_rows($result);
             </li>
           
       
-    <?php 
+    <?php
     
          include_once 'dbconnect.php';
          include_once 'dbconfig.php';
