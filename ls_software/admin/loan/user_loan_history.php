@@ -248,10 +248,10 @@ if ($result_t=mysqli_query($con,$sql_t))
         <table class="table table-striped table-bordered">
 <thead>
 <tr style="background-color: #F5E09E;color: black;">
-<th style='width:8%;'>Loan ID</th>
+<th style='width:10%;'>Loan ID(Card#)</th>
 <th style='width:10%;'>Account Status</th>
 <th style='width:14%;'>Customer</th>
-<th style='width:12%;'>Phone</th>
+<th style='width:10%;'>Phone</th>
 <th style='width:10%;'>Loan Amount</th>
 <th style='width:6%;'>Fee</th>
 <th style='width:10%;'>Payoff Amount</th>
@@ -344,10 +344,31 @@ $mobile_number=$row_doc['mobile_number'];
 
 }
 
+//get emailkey by loanid
+$sql_fnd=mysqli_query($con, "select email_key,card_number,user_fnd_id from loan_initial_banking where loan_id = '$loan_create_id' and email_key <> '' order by initial_id DESC"); 
+
+
+$email_keys=array();
+$cards=array();
+
+while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+    //$email_key=$row_fnd['email_key'];
+    array_push($cards,$row_fnd['card_number']);
+    array_push($email_keys,$row_fnd['email_key']);
+    //$card_number=$row_fnd['card_number'];
+    $user_fnd_id=$row_fnd['user_fnd_id'];
+//echo "FND_ID" .$user_fnd_id;
+}
+$arrlength = count($email_keys);
         
-        echo"<tr>
-        
-        <td>$loan_create_id</td>
+        echo"<tr><td>";
+        for($x = 0; $x < $arrlength; $x++) {  
+            $rest = substr($cards[$x], -4);
+            echo "<a target='_blank' href='https://lsbankingportal.com/signature_customer/files/sign_contract.php?id=$email_keys[$x]'>$loan_create_id($rest)</a>";
+           echo "<br>";
+         }
+                                              
+        echo"</td>
         <td>$loan_status</td>
         <td>$name</td>
         <td>$mobile_number</td>
