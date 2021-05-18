@@ -177,6 +177,7 @@ if ($result_t=mysqli_query($con,$sql_t))
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
@@ -345,27 +346,29 @@ $mobile_number=$row_doc['mobile_number'];
 }
 
 //get emailkey by loanid
-$sql_fnd=mysqli_query($con, "select email_key,card_number,user_fnd_id from loan_initial_banking where loan_id = '$loan_create_id' and email_key <> '' order by initial_id DESC"); 
+$sql_fnd=mysqli_query($con, "select lib.email_key,lib.card_number,lib.user_fnd_id, tl.loan_id from loan_initial_banking lib LEFT JOIN tbl_loan tl on tl.loan_create_id = lib.loan_id where lib.loan_id = '$loan_create_id' and lib.email_key <> '' order by lib.initial_id DESC"); 
 
 
 $email_keys=array();
 $cards=array();
+$loan_ids = array();
 
 while($row_fnd = mysqli_fetch_array($sql_fnd)) {
     //$email_key=$row_fnd['email_key'];
     array_push($cards,$row_fnd['card_number']);
     array_push($email_keys,$row_fnd['email_key']);
+    array_push($loan_ids,$row_fnd['loan_id']);
     //$card_number=$row_fnd['card_number'];
     $user_fnd_id=$row_fnd['user_fnd_id'];
 //echo "FND_ID" .$user_fnd_id;
 }
 $arrlength = count($email_keys);
         
-        echo"<tr><td>";
+        echo"<tr><td style='text-align:left;'>";
         for($x = 0; $x < $arrlength; $x++) {  
             $rest = substr($cards[$x], -4);
-            echo "<a target='_blank' href='https://lsbankingportal.com/signature_customer/files/sign_contract.php?id=$email_keys[$x]'>$loan_create_id($rest)</a>";
-           echo "<br>";
+            echo "<div style='display:flex;'><div style='margin: auto auto auto 0'><a href='loan_summary.php?id=$loan_ids[$x]' title='Go to Loan Summary'>$loan_create_id($rest)</a></div>";
+            echo "<div><a target='_blank' href='https://lsbankingportal.com/signature_customer/files/sign_contract.php?id=$email_keys[$x]'><span class='glyphicon glyphicon-file' title='Contract' aria-hidden='true' alt='Contract'></span></a></div></div>";
          }
                                               
         echo"</td>
