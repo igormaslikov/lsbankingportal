@@ -333,7 +333,7 @@ if ($days_past<0)
 
 
 
-
+$user_fnd_id = $row_loan_his['user_fnd_id'];
 $sql_doc=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'"); 
 
 while($row_doc = mysqli_fetch_array($sql_doc)) {
