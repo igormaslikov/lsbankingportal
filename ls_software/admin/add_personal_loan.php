@@ -1,7 +1,7 @@
-c<?php
+<?php
 session_start();
-include_once 'dbconnect.php';
-include_once 'dbconfig.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
@@ -18,7 +18,7 @@ if($u_access_id=='0'){
 
 
 $fnd_idd=$_GET['id'];
-$name_id= $_POST['keyword']; 
+//$name_id= $_POST['keyword']; 
 //echo "<br><br><br><br><br><br><br><br><br><br>Name Is: $name_id";
 ?>
 
@@ -36,11 +36,13 @@ $name_id= $_POST['keyword'];
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<scri src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<scri src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></scri>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+<scri src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></scri>
+<script src="../website/js/slick-loader.min.js"></script>
+<link rel="stylesheet" href="../website/css/slick-loader.min.css"/>
 <style>
 .wrapper {
     width: 100%;
@@ -78,8 +80,8 @@ $id=$_GET['id'];
 $loan_name=$_GET['loan'];
 $due_date=$_GET['next_pay_date'];
 
-include 'dbconnect.php';
-include 'dbconfig.php';
+include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+
 
 $sql_apr=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
@@ -105,13 +107,13 @@ $ssn = $row_apr['ssn'];
 
 }
 
-$sql1 = mysqli_query($con, "SELECT  From business_group WHERE bg_name= '$loan_name'");
-$row1 = mysqli_num_rows($sql1);
+// $sql1 = mysqli_query($con, "SELECT  From business_group WHERE bg_name= '$loan_name'");
+// //$row1 = mysqli_num_rows($sql1);
 
-while ($row1 = mysqli_fetch_array($sql1)){
+// while ($row1 = mysqli_fetch_array($sql1)){
 
-$portfolio = $row1['bg_name'];
-}
+// $portfolio = $row1['bg_name'];
+//}
 
 
 
@@ -130,23 +132,19 @@ $portfolio = $row1['bg_name'];
 </div>
 
 
-  <form action ="" method="POST" enctype="multipart/form-data">
+  <form method="POST" enctype="multipart/form-data" onsubmit ="return calculate(event)">
       
       
-      
-  <input type="text" name="name_id" value="<?php echo $name_id;?>"  style="display:none;">
   
-  <div class="row">
-     
-      <div class="col-lg-6">
+  <div class="row">    
+    <div class="col-lg-6">
       <label for="usr">Portfolio</label>
       <select name="source" id="source" class="form-control"  value="" onchange="yesnoCheck(this);">
-<option value="Payday Loans" <?php if($loan_name=='Payday Loans'){ echo 'selected';} ?>>Payday Loans</option>
-<option value="Title Loans" <?php if($loan_name=='Title Loans'){ echo 'selected';} ?>>Title Loans</option>
-<option value="Personal Loans" <?php if($loan_name=='Personal Loans'){ echo 'selected';} ?>>Personal Loans</option>
-<option value="Commercial Loan" <?php if($loan_name=='Commercial Loan'){ echo 'selected';} ?>>Commercial Loan</option>
-
-     </select>
+        <option value="Payday Loans" <?php if($loan_name=='Payday Loans'){ echo 'selected';} ?>>Payday Loans</option>
+        <option value="Title Loans" <?php if($loan_name=='Title Loans'){ echo 'selected';} ?>>Title Loans</option>
+        <option value="Personal Loans" <?php if($loan_name=='Personal Loans'){ echo 'selected';} ?>>Personal Loans</option>
+        <option value="Commercial Loan" <?php if($loan_name=='Commercial Loan'){ echo 'selected';} ?>>Commercial Loan</option>
+      </select>
     </div>
       
     <div class="col-lg-6">
@@ -157,17 +155,13 @@ $portfolio = $row1['bg_name'];
 
      <div class="col-lg-6" id="ifNo">
       <label for="usr">Principal</label>
-     <input type="number" name="principal" class="form-control" id="usr" placeholder="" value="" Required>
+     <input type="number" name="principal" onchange="calculate_minimal_payment(event)"  class="form-control" id="usr" placeholder="" value="" Required>
     </div>
 
 
-  <div class="col-lg-3">
-      <label for="usr">Interest %</label>
-      <input type="text" name="interest" class="form-control" id="usr" placeholder="" value="" Required>
-    </div>
-    <div class="col-lg-3">
-      <label for="usr">Years</label>
-      <input type="number" name="years" class="form-control" id="usr" step="any" placeholder="" value="" Required>
+  <div class="col-lg-6">
+      <label for="usr">Interest per payment %</label>
+      <input type="text" name="interest" class="form-control" id="usr" placeholder="" value="" readonly>
     </div>
     
     <div class="col-lg-6">
@@ -184,7 +178,7 @@ $portfolio = $row1['bg_name'];
     
      <div class="col-lg-6">
       <label for="usr">Installment Plan</label>
-      <select name="installment_plan" id="installment_plan" class="form-control"  value="">
+      <select name="installment_plan" id="installment_plan" class="form-control"  value="" Required>
 <option value=""></option>
 <option value="Weekly">Weekly</option>
 <option value="Bi-Weekly">Bi-Weekly</option>
@@ -195,14 +189,14 @@ $portfolio = $row1['bg_name'];
     
     <div class="col-lg-6">
       <label for="usr">Total Number of Payments</label>
-      <input type="number" name="total_payments" class="form-control" id="usr" placeholder="" value="">
+      <input type="number" name="total_payments" onchange="calculate_minimal_payment(event)"  class="form-control" id="usr" placeholder="" value="" Required>
     </div>
     
  
    
     
     <div class="col-lg-6">
-      <label for="usr">Contract Strat Date</label>
+      <label for="usr">Contract Start Date</label>
       <input type="date" name="contract_date" class="form-control" id="usr" placeholder="YYYY/MM/DD" value="<?php $date = date('Y-m-d'); echo $date; ?>">
     </div>
     
@@ -215,31 +209,24 @@ $dayss=date('Y-m-d', strtotime($date. "+ {$apr_date} days"));
 ?>
     
     <div class="col-lg-6">
-      <label for="usr">Contract End Date</label>
-      <input type="date" name="payment_date" class="form-control" id="usr" placeholder="YYYY/MM/DD" value="<?php if ($apr_date=='')
-{
-    
-    $next=date('Y-m-d', strtotime($date. "+ 10 days"));
-//echo $next;
-echo $due_date;
-}
-else
-{
-  echo $dayss;  
-} ?>">
+      <label for="usr">Muturity Date</label>
+      <input type="input" name="payment_date" class="form-control" id="usr" placeholder="DD/MM/YYYY" readonly>
     </div>
     
     
      <div class="col-lg-6">
       <label for="usr">Select State</label>
       <select name="state" id="state" class="form-control"  value="">
-<option value="CA">California</option>
-<option value="AZ">Arizona</option>
-<option value="NV">Naveda</option>
+        <option value="CA">California</option>
+        <option value="AZ">Arizona</option>
+        <option value="NV">Naveda</option>
      </select>
     </div>
     
-    
+    <div class="col-lg-6">
+      <label for="usr">Payment</label>
+      <input type="number" name="payment" class="form-control" id="usr" placeholder="" value="" Required>
+    </div>
     
     </div>
     
@@ -252,101 +239,120 @@ else
   </form>
   
 </div>
+<div id="tablePayments" class="row">
+
+</div>
+
+
+
 </div>
 
 <hr>
-<?php 
-
-   
-   
-
-if(isset($_POST['btn-submit'])) 
-{
-     $fnd_name_id= $_POST['name_id'];
-     
-     $source=$_POST['source'];
-     $loan_create_id=$_POST['loan_id'];
-     $principal_amount=$_POST['principal'];
-     $interest=$_POST['interest'];
-     $years=$_POST['years'];
-     $late_fee=$_POST['late_fee'];
-     $origination=$_POST['origination'];
-     $installment_plan=$_POST['installment_plan'];
-     $total_payments=$_POST['total_payments'];
-     $contract_date=$_POST['contract_date'];
-     $payment_date=$_POST['payment_date'];
-     $state_arizona=$_POST['state'];
-     
-    $apr=str_replace("%","","$apr");
-     
- $amount_loan=$principal_amount*$apr;
- $amount_loan=$amount_loan/100;
- $amount_loan = number_format((float)$amount_loan, 2, '.', '');
- 
-$daily_interest=$amount_loan/365;
-$daily_interest = number_format((float)$daily_interest, 2, '.', '');
-
-   $date = date('Y-m-d H:i:s');
-
- 
- $query_userid3 = mysqli_query($con,"Select user_fnd_id from fnd_user_profile where first_name ='$fnd_name_id'");
-while ($row_user_id3=mysqli_fetch_array($query_userid3)){
-    $fnd_id = $row_user_id3[0];
-    
-    $apr = $row_user_id3['apr'];
-    
-    //echo"<br><br><br><br><br><br><br><br> <br><br>User_Key:" .$fnd_id;
-
-}
-
-
- $query3 = mysqli_query($con,"Select loan_fee,payoff_amount from tbl_loan_setting where loan_amount ='$amount_loan'");
-while ($row3=mysqli_fetch_array($query3)){
-    
-                 $loan_fee = $row3['loan_fee'];
-                 $payoff_amount = $row3['payoff_amount'];
-    
-    
-
-}
-
-
-
-
-
-     
-    //  $query  = "INSERT INTO `tbl_personal_loans`(`user_fnd_id`, `bg_id`, `amount_of_loan`, `loan_interest`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`)  VALUES ('$fnd_idd','$source','$principal_amount','$interest','$late_fee','$origination','$installment_plan','$total_payments','$principal_amount','$contract_date','$payment_date','$date','$u_id','$loan_create_id','Active')";
-    //     $result = mysqli_query($con, $query);
-    //     if ($result) {
-    //         //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
-    //     } else {
-    //     echo "<h3> Error Inserting Data </h3>";
-    //     } 
- 
-
- ?>
- <script type="text/javascript">
-window.location.href = 'calculate_personal_loan.php?fnd_id=<?php echo $fnd_idd ;?>&bg_id=<?php echo $source ;?>&amount_of_loan=<?php echo $principal_amount ;?>&loan_interest=<?php echo $interest ;?>&years=<?php echo $years ;?>&late_fee=<?php echo $late_fee ;?>&contract_fee=<?php echo $origination;?>&installment_plan=<?php echo $installment_plan ;?>&total_payments=<?php echo $total_payments;?>&principal_amount=<?php echo $principal_amount;?>&contract_date=<?php echo $contract_date;?>&payment_date=<?php echo $payment_date;?>&loan_create_id=<?php echo $loan_create_id;?>&state=<?php echo $state_arizona;?>';
-</script>
-
- <?php
-}
-
-?>
-<script>
-    
-    function yesnoCheck(that) {
-    if (that.value == "5") {
-  //alert("check");
-        document.getElementById("ifYes").style.display = "block";
-        document.getElementById("ifNo").style.display = "none";
-    } else {
-        document.getElementById("ifYes").style.display = "none";
-        document.getElementById("ifNo").style.display = "block";
-    }
-}
-</script>
 
 
 </body>
-</html>     
+</html>
+
+<script type="text/javascript">
+
+function calculate_rate(e){
+  let principal = document.getElementsByName("principal")[0].value;
+  let total_payments = document.getElementsByName("total_payments")[0].value;
+  let payment = document.getElementsByName("payment")[0].value;
+
+  let interest = document.getElementsByName("interest")[0];
+
+  if(principal == "" || total_payments == "" || payment == ""){ //
+    interest.value = "NA";
+    return;
+  }
+
+  let guess_high = 100.0;
+  let guess_middle = 2.5;
+  let guess_low = 0;
+  let guess_pmt = 0;
+
+
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+function calculate_minimal_payment(e){
+  let principal = document.getElementsByName("principal")[0].value;
+  let total_payments = document.getElementsByName("total_payments")[0].value;
+  let payment = document.getElementsByName("payment")[0]
+  if(principal == "" || total_payments == ""){ //
+    payment.placeholder = "";
+
+    e.preventDefault();
+    e.stopPropagation();
+    return;
+  }
+
+  let minOnePayment = parseFloat(principal) / parseInt(total_payments);
+  payment.placeholder = "Minimal payment is " + minOnePayment;
+  
+
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+
+function calculate(e){
+  var formData = new FormData(document.querySelector('form'));
+
+  formData.append("fnd_id",<?php echo $fnd_idd; ?>);
+  var source= formData.get('source');
+  let loan_create_id= formData.get('loan_id');
+  let principal_amount= formData.get('principal');
+  let interest= formData.get('interest');
+  let years= formData.get('years');
+  let late_fee= formData.get('late_fee');
+  let installment_plan= formData.get('installment_plan');
+  let total_payments= formData.get('total_payments');
+  let contract_date= formData.get('contract_date');
+  let payment_date= formData.get('payment_date');
+  let state_arizona= formData.get('state');
+  let payment= formData.get('payment');
+  
+  let minOnePayment = parseFloat(principal_amount) / parseInt(total_payments);
+  if(payment < minOnePayment){
+    $("#tablePayments")[0].innerHTML = `
+                <p style="text-align:center;color:red;font-size:20px">
+                  <b>Minimal payment should be more than `+ minOnePayment +`<b>
+                </p>
+                `;
+    e.preventDefault();
+    return;
+  }
+
+  SlickLoader.enable();
+
+  $.ajax({
+    url:'calculated_personal_loan.php',
+    data: formData,
+    contentType:false,
+    cache: false,
+    processData: false,
+    type: 'POST',
+    success : function(response){
+      var data = $.parseJSON(response);
+      let rate = data[0].rate;
+      let table = String(data[0].table);
+      let last_payment = data[0].last_payment;
+      document.getElementsByName("interest")[0].value = rate;
+      document.getElementsByName("payment_date")[0].value = last_payment;
+      $("#tablePayments")[0].innerHTML = table ;
+
+      SlickLoader.disable();
+    },
+    error: function(error){
+        SlickLoader.disable();
+    }
+  });
+    //$apr=str_replace("%","","$apr");
+  e.preventDefault();
+}
+
+
+</script>

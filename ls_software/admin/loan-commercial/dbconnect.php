@@ -5,7 +5,8 @@
 	 $DBpass = "^%D24L*!Ti5%";
 	 $DBname = "dbs57337";
 	 
-	 $DBcon = new MySQLi($DBhost,$DBuser,$DBpass,$DBname);
+	include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnection.php';
+	 $DBcon = new MySQLi($db_host,$db_user,$db_pass,$db_name);;
     
    
 ?>

@@ -5,7 +5,8 @@ $password = "^%D24L*!Ti5%";
 $database = "dbs64065"; 
 
 // Connect to MySQL Database
-$con = new mysqli($host, $user, $password, $database);
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnection.php';
+$con = new mysqli($db_host,$db_user,$db_pass,$db_name);
 
 // Check connection
 if ($con->connect_error) {

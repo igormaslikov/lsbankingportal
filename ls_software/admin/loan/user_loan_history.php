@@ -333,7 +333,7 @@ if ($days_past<0)
 
 
 
-$user_fnd_id = $row_loan_his['user_fnd_id'];
+//$user_fnd_id = $row_loan_his['user_fnd_id'];
 $sql_doc=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'"); 
 
 while($row_doc = mysqli_fetch_array($sql_doc)) {
@@ -359,7 +359,7 @@ while($row_fnd = mysqli_fetch_array($sql_fnd)) {
     array_push($email_keys,$row_fnd['email_key']);
     array_push($loan_ids,$row_fnd['loan_id']);
     //$card_number=$row_fnd['card_number'];
-    $user_fnd_id=$row_fnd['user_fnd_id'];
+    //$user_fnd_id=$row_fnd['user_fnd_id'];
 //echo "FND_ID" .$user_fnd_id;
 }
 $arrlength = count($email_keys);

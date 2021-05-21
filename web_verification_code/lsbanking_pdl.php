@@ -6,7 +6,8 @@ include_once 'dbconnect.php';
 include_once 'dbconfig.php';
 
 // Connect to MySQL Database
-$con = new mysqli($host, $user, $password, $database);
+include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnection.php';
+$con = new mysqli($db_host,$db_user,$db_pass,$db_name);
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
