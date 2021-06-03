@@ -132,6 +132,9 @@ $del_reason ="Unsigned Loan ID $loan_create_id is deleted,".$_POST['del_reason']
     
     $query_transaction = "DELETE FROM loan_transaction WHERE loan_id = '$id'";
     $result_transaction = mysqli_query($con, $query_transaction);
+
+    $query_transaction = "DELETE FROM loan_initial_banking WHERE loan_id = '$loan_create_id'";
+    $result_transaction = mysqli_query($con, $query_transaction);
     
     $sql_transaction=mysqli_query($con, "select * from loan_transaction where loan_id= '$id'"); 
 
@@ -139,7 +142,6 @@ while($row_transaction = mysqli_fetch_array($sql_transaction)) {
 
 $transaction_id=$row_transaction['transaction_id'];
 }
-    
     
 application_notes_update($user_fnd_id,$loan_create_id,$u_id,$del_reason,$transaction_id);
     
