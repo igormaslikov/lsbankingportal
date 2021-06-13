@@ -225,6 +225,9 @@ $del_reason ="Loan ID $id is deleted,".$_POST['del_reason']." and User ID is $us
     
     $query_transaction = "DELETE FROM loan_transaction WHERE loan_id = '$id'";
     $result_transaction = mysqli_query($con, $query_transaction);
+
+    $query_transaction = "DELETE FROM loan_initial_banking WHERE loan_id = '$loan_create_id'";
+    $result_transaction = mysqli_query($con, $query_transaction);
     
     $sql_transaction=mysqli_query($con, "select * from loan_transaction where loan_id= '$id'"); 
 

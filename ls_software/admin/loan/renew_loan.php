@@ -541,7 +541,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                   <div class="col-lg-6">
                     <label for="card_exp_date">Card Expiration Date</label>
-                    <input type="text" name="card_exp_date" class="form-control" id="card_exp_date" value="<?php echo $card_exp_date; ?>" readonly>
+                    <input type="text" name="card_exp_date" class="form-control" id="card_exp_date" value="<?php echo $card_exp_date; ?>">
                   </div>
 
                   <div class="col-lg-6">
