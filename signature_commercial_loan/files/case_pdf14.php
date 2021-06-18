@@ -251,8 +251,8 @@ $style = array(
 );
 
  $html = '
-<h1 style="text-align:center"> <span style="text-decoration:underline">PRIVACY NOTICE</span><br>
-LS FINANCING, INC</h1>
+<h1 style="text-align:center"> <span style="text-decoration:underline">AVISO DE PRIVACIDAD</span><br>
+LS FINANCING</h1>
  
  
  <table style="width: 100%;" border="1">
@@ -263,10 +263,7 @@ LS FINANCING, INC</h1>
 </tr>
 <tr>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Porque?<br></td>
-<td style="width: 83.1267%;"><br><br>Las Empresas Financieras eligen la manera en que comparten su informacion personal. Las Leyes Federales dan a los
-consumidores el derecho a limitar como comparten la informacion, pero no se puede limitar todo. Las Leyes Federales tambien
-nops obligan a informales sobre la manera en que tomamos, compartimos y protegemos sus datos personales. Por favor lea
-esta notificacion cuidadosamente para entender lo que hacemos.<br><br></td>
+<td style="width: 83.1267%;"><br><br>Las Empresas Financieras eligen la manera en que comparten su informacion personal. Las Leyes Federales dan a los consumidores el derecho a limitar como comparten la informacion, pero no se puede limitar todo. Las Leyes Federales tambien nops obligan a informales sobre la manera en que tomamos, compartimos y protegemos sus datos personales. Por favor lea esta notificacion cuidadosamente para entender lo que hacemos.<br><br></td>
 </tr>
 <tr>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br><br>Que?<br></td>
@@ -321,8 +318,8 @@ para ofrecerle nuestros productos y servicios<br></td>
 </tr>
 <tr>
 <td style="width: 60%;"><br><br><b>Para las actividades diarias de nuestros afiliados –</b> <br>informacion sobre su solvencia<br></td>
-<td style="width: 20.1019%;text-align:center"><br><br> No Compartimos&nbsp;</td>
-<td style="width: 20.8981%;text-align:center"><br><br> We dont share&nbsp;</td>
+<td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
+<td style="width: 20.8981%;text-align:center"><br><br> No Compartimos&nbsp;</td>
 </tr>
 <tr>
 <td style="width: 60%;"><br><br><b>Para que nuetros afiliados lleven a cabo actividades comerciales –</b> <br>&nbsp;</td>
@@ -335,14 +332,11 @@ para ofrecerle nuestros productos y servicios<br></td>
 <td style="width: 20.8981%;text-align:center"><br><br> No Compartimos&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><b>Questions ? </b> &nbsp;</td>
-<td colspan = "2" style="width: 20.1019%;">Please Call (747) 300-1542</td>
+<td style="width: 60%;"><br><b>Preguntas ? </b> &nbsp;</td>
+<td colspan = "2" style="width: 20.1019%;">Llamenos al (888) 540-7232</td>
 </tr>
 </tbody>
 </table>
-
-<!-- DivTable.com -->
-
 ';
 
 $pdf->writeHTML($html,25,30); 

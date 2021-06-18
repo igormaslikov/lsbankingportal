@@ -231,14 +231,21 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
-Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
-Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
-Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
+ $html = '
  <br><br>
+<div style=";display:inline-block">
+	<img src="images/Money-Line-Logo.JPG" style="height:10%;clear: both" align="left"/>
+</div>
+<br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+ <br><br><br>
+Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
+&nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
+ <br><br><br>
+
 <table>
 <tbody>
-<tr>
+
 <td>
 
 <b style="font-size:8px;">Interpretation of this Arbitration Agreement:</b><span style="font-size:6px;">if any art of this Arbitration Agreement other than the Class Action Waiver is found by a court or arbitrator to be unenforceable, the remainder shall be enforceable. If the Class Action Waiver is found by court or arbitrator to be unenforceable, the remainder of this arbitration agreement shall be unenforceable. This arbitration agreement shall survive the termination of any contractual agreement between you and us, whether by default or repayment in full.</span>
@@ -267,7 +274,7 @@ Co-Borrower Signature / Firma de co-deudor
 <td></td>
 
 
-<td>
+<td style="vertical-align:baseline;text-align:justify">
 
 <b style="font-size:8px;">Idioma del arbitraje:</b><span style="font-size:6px;">Usted puede elegir que el arbitraje se lleve a cabo en español o en ingles. Si opta para que el arbitraje se conduzca en español, usted conviene en utilizar un foro de arbitraje que acepte proporcionar formas en español y un árbitro(s) que pueda (n) llevar a cabo el proceso de arbitraje en dicho idioma. Usted entiende que esto podría limitar sus opciones de foros de arbitraje, ya que no todos dichos foros en estado unidos ofrecen sus servicios en español.</span>
 <br>
@@ -291,7 +298,7 @@ Co-Borrower Signature / Firma de co-deudor
 
 
 </td>
-</tr>
+
 
 </tbody>
 </table>

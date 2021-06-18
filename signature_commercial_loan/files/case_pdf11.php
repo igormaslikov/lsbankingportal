@@ -250,15 +250,17 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
- <br>
- 
- 
- Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
-Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
- Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span><br>
- 
- <br>
+ $html = '
+<br><br>
+<div style=";display:inline-block">
+	<img src="images/Money-Line-Logo.JPG" style="height:10%;clear: both" align="left"/>
+</div>
+<br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+ <br><br><br>
+Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
+&nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
+ <br><br><br>
  
  <h2 style="text-align:center"><u>Credit Card Authorization Form</u><br>
  <span style="text-align:center;font-size:9px"> 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span></h2>
@@ -280,15 +282,15 @@ que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito
 <tr>
 <td style="padding-left : 100px">
 <br><br>
-Type of Debit/Credit Card: '.$type_of_card.'<br><br>
- Credit Card Number: '.$card_number.'<br><br>
- Expiration Date: '.$card_exp_date.'<br><br>
- CVV '.$cvv_number.'<br><br>
- Credit Card Billing Address:<br><br>
+<b>Type of Debit/Credit Card:</b> '.$type_of_card.'<br><br>
+ <b>Credit Card Number:</b> '.$card_number.'<br><br>
+ <b>Expiration Date:</b> '.$card_exp_date.'<br><br>
+ <b>CVV:</b> '.$cvv_number.'<br><br>
+ <b>Credit Card Billing Address:</b><br><br>
 
  '.$address.'<br>
  <br><br>
-Telephone: '.$mobile_number.' <br><br>
+<b>Telephone:</b> '.$mobile_number.' <br><br>
 
 
 </td>
@@ -307,7 +309,6 @@ en la parte superior y que autorizo su cargos a LS Financing, Inc para los pagos
 ____________________________________________________<br><br>
 <b>Cardholders Signature/Firma del Titular de la Tarjeta de Credito/Debito<br>
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span> </b>
-
 
 ';
 

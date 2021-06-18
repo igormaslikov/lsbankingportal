@@ -305,12 +305,6 @@ transactions, or report to credit bureaus<br></td>
 </tr>
 <tr>
 <td style="width: 60%;"><br><br><b>For our marketing purposes –</b> <br>
-to offer our products and services to you<br></td>
-<td style="width: 20.1019%;text-align:center"><br><br> Yes &nbsp;</td>
-<td style="width: 20.8981%;text-align:center"><br><br> No&nbsp;</td>
-</tr>
-<tr>
-<td style="width: 60%;"><br><br><b>For our marketing purposes –</b> <br>
 to offer our products and services to you<br>&nbsp;</td>
 <td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> We Dont Share&nbsp;</td>
@@ -344,12 +338,10 @@ information about your creditworthiness<br><br>&nbsp;</td>
 </tr>
 <tr>
 <td style="width: 60%;"><br><b>Questions ? </b> &nbsp;</td>
-<td colspan = "2" style="width: 20.1019%;">Please Call (747) 300-1542</td>
+<td colspan = "2" style="width: 20.1019%;">Please Call (888) 540-7232</td>
 </tr>
 </tbody>
 </table>
-<!-- DivTable.com -->
-
 ';
 
 $pdf->writeHTML($html,25,30); 
