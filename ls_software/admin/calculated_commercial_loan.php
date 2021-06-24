@@ -157,7 +157,8 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     $varTable .= '<colgroup align="right" width="115">';
     $varTable .= '<colgroup align="right" width="115">';
     $varTable .= '<colgroup align="right" width="115">';
-    $varTable .= '<tr style="background-color: #F5E09E;"><th>#</th><th>PAYMENT</th><th>INTEREST</th><th>PRINCIPAL</th><th>BALANCE</th><th>INTEREST PER PAYMENT %</th></tr>';
+    $varTable .= '<colgroup align="right" width="115">';
+    $varTable .= '<tr style="background-color: #F5E09E;"><th>#</th><th>DATE</th><th>PAYMENT</th><th>INTEREST</th><th>PRINCIPAL</th><th>BALANCE</th><th>INTEREST PER PAYMENT %</th></tr>';
 
 
     $payment_date_weekly = $payment_date;
@@ -201,10 +202,24 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
             $balance   = 0;
         } // if
 
+        if ($count > 1) {
+            if ($installment_plan == 'Weekly') {
+                $payment_date_weekly = date("Y-m-d", strtotime("$payment_date_weekly +7 day"));
+            }
 
+            if ($installment_plan == 'Bi-Weekly') {
+                $payment_date_weekly = date("Y-m-d", strtotime("$payment_date_weekly +14 day"));
+            }
+
+            if ($installment_plan == 'Monthly') {
+                $payment_date_weekly = date("Y-m-d", strtotime("$payment_date_weekly +1 month"));
+            }
+            $payment_date = $payment_date_weekly;
+        }
 
         $varTable .= "<tr>";
         $varTable .= "<td>$count</td>";
+        $varTable .= "<td>$payment_date</td>";
         $varTable .= "<td>" . number_format($payment,   2, ".", ",") . "</td>";
         $varTable .= "<td>" . number_format($interest,  2, ".", ",") . "</td>";
         $varTable .= "<td>" . number_format($principal, 2, ".", ",") . "</td>";
@@ -235,20 +250,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
         //     $payment_date_weekly= date( "Y-m-d", strtotime( "$dt +30 day" ) );
         // }
 
-        if ($count > 1) {
-            if ($installment_plan == 'Weekly') {
-                $payment_date_weekly = date("Y-m-d", strtotime("$payment_date_weekly +7 day"));
-            }
 
-            if ($installment_plan == 'Bi-Weekly') {
-                $payment_date_weekly = date("Y-m-d", strtotime("$payment_date_weekly +14 day"));
-            }
-
-            if ($installment_plan == 'Monthly') {
-                $payment_date_weekly = date("Y-m-d", strtotime("$payment_date_weekly +1 month"));
-            }
-            $payment_date = $payment_date_weekly;
-        }
         $payment_week_day = date("l", strtotime("$payment_date"));
         //$payment_p = 
         $query_install1  = "INSERT INTO `tbl_commercial_loan_installments`(`loan_create_id`, `payment`, `interest`, `principal`, `balance`, `payment_date`, `week_day`) VALUES ('$loan_create_id','$payment_p','$interest_p','$principal_p','$balance_p','$payment_date', '$payment_week_day')";
