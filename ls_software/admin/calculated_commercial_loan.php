@@ -280,6 +280,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
     $varTable .= "<tr>";
     $varTable .= "<td>&nbsp;</td>";
+    $varTable .= "<td>&nbsp;</td>";
     $varTable .= "<td><b>" . number_format($totPayment,   2, ".", ",") . "</b></td>";
     $varTable .= "<td><b>" . number_format($totInterest,  2, ".", ",") . "</b></td>";
     $varTable .= "<td><b>" . number_format($totPrincipal, 2, ".", ",") . "</b></td>";
