@@ -304,8 +304,7 @@ que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito
 is in my name and that i authorize its charge to LS Financing, Inc for full or partial payments.
 <br><br>
  Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita
-en la parte superior y que autorizo su cargos a LS Financing, Inc para los pagos totales o parciales. <br><br><br>
-
+en la parte superior y que autorizo su cargos a LS Financing, Inc para los pagos totales o parciales. <br>
 ____________________________________________________<br><br>
 <b>Cardholders Signature/Firma del Titular de la Tarjeta de Credito/Debito<br>
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span> </b>
@@ -327,14 +326,17 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_12";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_12";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
 
+$file_name =$id. "page_12";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'FI');
 //============================================================+
 // END OF FILE
 //============================================================+

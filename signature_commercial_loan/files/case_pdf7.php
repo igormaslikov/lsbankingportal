@@ -67,7 +67,7 @@ $pdf->AddPage();
 
 //$pdf->MultiCell(70, 50, $key1 , 0, 'J', false, 1, 125, 30, true, 0, false, true, 0, 'T', false);
 
-$pdf->SetFont('helvetica', '', 11);
+$pdf->SetFont('helvetica', '', 7);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -111,7 +111,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 <table>
 <tbody>
 <tr >
-<td style="vertical-align:baseline;text-align:justify">
+<td style="vertical-align:baseline;text-align:justify;width:45%">
 <div>
 <span>To the right, you will find a Spanish-Language translation of our Arbitration Agreement. An independent third party has certified this translation. While it is our intention to provide an accurate translation, if the Spanish translation differs from the English Document; you understand and agree that the Spanish translation is provided solely as courtesy to you, and that the English Document is the legally binding agreement between you and us.</span>
 <br/><br><b>Authorization to be called and to be sent SMS Text Messages to your Mobile Phone, and to Receive Electronic Communications. </b>
@@ -130,8 +130,8 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 
 </div>
 </td>
-<td style="width:40px"></td>
-<td style="vertical-align:baseline;text-align:justify">
+<td style="width:10%"></td>
+<td style="vertical-align:baseline;text-align:justify;width:45%">
 	<span>A continuación, usted encontrara la traducción al español de nuestro Avisos y Autorizaciones para Clientes. Un tercero independiente ha certificado esta traducción. Aunque nuestra intención es proveerle una traducción exacta, si la traducción al español es destina al documento en ingles, usted entiende y está de acuerdo que esta traducción se brinda simplemente como una cortesía, y que el documento en el idioma ingles regirá legalmente la relación entre usted y nosotros.</span>
 <br>
 <br>
@@ -152,19 +152,19 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 </table>
 </div>
 <br><br>
-<div style="text-align: center;font-size: small;">
+<div style="text-align: center;">
 	<b >Important Information about Procedures for Opening a New Account.</b><br>
 </div>
 <span style="text-align: left;">To help the government fight the funding of terrorism and money laundering activities, Federal Law requires all financial institutions to obtain, verify, and record information that identifies each person who opens an account. What this means for you: When you open an account, we will ask for your name, address, date of birth, and other information that will allow us to identify you. We will also ask to see your driver’s license or other identifying documents.</span>
 <br><br>	
 
-<div style="text-align: center;font-size: small;">
+<div style="text-align: center;">
 	<b >Información importante sobre los procedimientos para abrir una nueva cuenta.</b><br>
 </div>
 <span style="text-align: left;">Para ayudar al gobierno a combatir el financiamiento de terrorismo u el lavado del dinero, la ley Federal requiere que todas las instituciones financieras obtengan, verifiquen, y registren información que identifique a cada persona que abre una cuenta. Esto significa que cuando usted abra una cuenta, le pediremos su nombre, dirección, fecha de nacimiento, i otra información que nos permita identificarlo. También solicitaremos que nos muestre su licencia de conducir u otros documentos identificatorios.</span>
 <br><br>
 
-<br><br><br>
+<br><br>
 
 <table>
 <tbody>
@@ -173,7 +173,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 <td>
 _______________________________<br>
 <b>Borrower Signature / Firma de deudor</b>
-<br><br><br><br>
+<br><br><br>
 _______________________________<br>
 <b>Co-Borrower Signature / Firma de co-deudor</b>
 </td>
@@ -199,14 +199,17 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_8";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_8";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
 
+$file_name =$id. "page_8";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'FI');
 //============================================================+
 // END OF FILE
 //============================================================+

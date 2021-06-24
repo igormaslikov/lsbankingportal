@@ -55,7 +55,7 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
     $interest_rate=number_format($interest_rate, 2);
     $timestamp = strtotime($payment_date);
     $payment_date= date("m-d-Y", $timestamp);
-    
+    $totLoan = $principal + $interest_rate;
     $creation_date=$row_loan['creation_date'];
     
     $timestamp = strtotime($creation_date);
@@ -203,7 +203,7 @@ $pdf->AddPage();
 
 //$pdf->MultiCell(70, 50, $key1 , 0, 'J', false, 1, 125, 30, true, 0, false, true, 0, 'T', false);
 
-$pdf->SetFont('helvetica', '', 10);
+$pdf->SetFont('helvetica', '', 9);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -264,6 +264,135 @@ City, State, ZIP :  '.$address.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 
 ';
 
+$html = '
+      <br><br>
+      <img src="images/Money-Line-Logo.JPG" alt="" style="height:400%" align="left"/>
+      <br>
+      <span><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+        <div style="text-align: center;">
+          <h1>COMMERCIAL LOAN PROMISSORY NOTE</h1>
+        </div>
+      <b>Contract N:</b><span style="text-decoration:underline">'.$loan_id_bor.'</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Date:</b><span style="text-decoration:underline">'.$creation_date.'</span>
+      <br><br>
+      <b>Borrower:</b><span style="text-decoration:underline">'. $f_name.'</span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Borrower:</b><span>____________________________</span>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
+      <br><br><br>
+
+      <table style="width: 100%;" border="1">
+        <tbody>
+          <tr>
+            <td colspan="6" style="text-align: center;"><b>TRUTH-IN-LENDING ACT DISCLOSURES</b></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;">
+              <div>
+                <b>ANNUAL PERCENTAGE RATE</b>
+              </div>
+              <div>
+                <span>The cost of your credit as a yearly rate.</span>
+              </div>
+              <div>
+                <span>'.$anual_pr.'%</span>
+              </div>
+            </td>
+            <td colspan="2" style=" text-align: center;">
+              <div>
+                  <b>AMOUNT FINANCED</b>
+                </div>
+                <div>
+                  <span>The amount of credit provided to you or on your behalf.</span>
+                </div>
+                <div>
+                  <span>$'.$principal.'</span>
+                </div>
+            </td>
+            <td style=" text-align: center;">
+              <div>
+                  <b>FINANCE CHARGE</b>
+                </div>
+                <div>
+                  <span>The dollar amount the credit will coast you.</span>
+                </div>
+                <div>
+                  <span>$'.$interest_rate.'</span>
+                </div>
+            </td>
+            <td colspan="2" style=" text-align: center;">
+              <div>
+                  <b>TOTAL OF PAYMENTS</b>
+                </div>
+                <div >
+                  <span>The amount you will have paid after making all scheduled payments.</span>
+                </div>
+                <div>
+                  <span>$'.($interest_rate + $principal).'</span>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="4" style=" text-align: center;"><b>Payment Schedule:</b></td>
+            <td style=" text-align: center;"><b>Number of Payments</b></td>
+            <td style=" text-align: center;"><b>Payment Amount</b></td>
+            <td colspan="3" style=" text-align: center;"><b>When Payments Are Due</b></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;"><br><br>1<br></td>
+            <td style=" text-align: center;"><br><br><br></td>
+            <td colspan="3" style=" text-align: left;"><br><br>Due ____________, beginning ___________.<br></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;"></td>
+            <td style=" text-align: center;"></td>
+            <td colspan="3" style=" text-align: left;" >Due ____________.</td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;">Last Payment of</td>
+            <td style=" text-align: center;"></td>
+            <td colspan="3" style=" text-align: left;">Due on ____________.</td>
+          </tr>
+          <tr>
+            <td colspan="5" style="text-align: left; ">
+              <br><br>
+              <span><b>Prepayment:</b> You may prepay your loan at any time. If you pay early, you will not have to pay a penalty.</span><br><br>
+              <span><b>Late Charge:</b> If a payment is more than 10 days late, you will be charged $10. </span> <br><br>
+              <span><b>Origination Fee:</b> A prepaid finance charge for $75 will de add to cover the cost of processing your application and the agreement.</span> <br>
+            </td>
+            <td style=" text-align: center;">
+                <br><br>
+                <span><b>Lender’s License:</b></span><br><br>
+                <span> 60DBO-88277</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: justify;">
+      <p><b>Lender’s Right:</b><span> Upon Borrower’s default, Lender may declare the entire
+        unpaid principal balance on this Commercial Loan Promissory Note and
+        then Borrower will pay that amount.
+        </span></p>
+       
+        <p><b>Borrower’s Default:</b> <span> Default by Borrower includes, but is not limited
+        to, the following: Voluntary or involuntary bankruptcy proceedings
+        wherein Borrower is named a debtor; any liens or encumbrances recorded
+        upon Borrower’s current property, as listed above, whether voluntary,
+        involuntary or through operation of law.
+        </span></p>
+        
+        <p><b>Dishonored Item Fee:</b><span>Borrower will pay a fee to Lender of $ 25.00 if Borrower makes a payment on Borrower’s loan and the check or preauthorized charge with which Borrower pays is later dishonored.
+        </span></p>
+        
+        <p><b>Attorney’s Fees; Expenses:</b><span>Lender may here or pay someone else to help collect this Commercial Loan Promissory Note if Borrower does not pay. Borrower will pay Lender that amount. This includes, subject to any limits under applicable law, Lender’s Attorney’s fees, and Lender’s legal expenses, whether or not there is a lawsuit, including Attorney’s fees, expenses for bankruptcy proceedings (Including efforts to modify or vacate an automatic stay or injunction), and appeals. Borrower also will pay any court costs, in addition to all other sums provided by law. 
+        </span></p>
+        </div>
+        <p style="text-align:right"><span>Initials:__________________________</span></p>
+        
+';
+
+//$html = file_get_contents(dirname(__FILE__)."/contract_page1.html");
+//$pdf->writeHTML($html, true, false, true, false, '');
 $pdf->writeHTML($html,25,30); 
 
 
@@ -279,13 +408,17 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
-$file_name = $id."page_1";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $pdf_data = ob_get_contents();
+// $file_name = $id."page_1";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
 
+
+$file_name =$id. "page_1";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'FI');
 //============================================================+
 // END OF FILE
 //============================================================+

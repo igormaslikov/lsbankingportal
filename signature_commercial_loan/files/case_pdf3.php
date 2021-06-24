@@ -261,9 +261,11 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
-  $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
- 
-<b>Honorarios de abogados; Gastos: </b>El prestamista puede pagar aquí o pagar a otra persona para que le ayude a cobrar este Pagare de Prestamo Comercial si el prestatario no paga. El prestatario le pagará al prestamista ese monto. Esto incluye, sujeto a cualquier límite bajo la ley aplicable, los honorarios del abogado del prestamista y los gastos legales del prestamista, ya sea que exista o no una demanda, incluidos los honorarios del abogado, los gastos por procedimientos de bancarrota (incluidos los esfuerzos para modificar o desocupar una suspensión o mandato judicial), y apelaciones. El prestatario también pagará los costos judiciales, además de todas las demás sumas previstas por la ley.
+  $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br>
+  Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
+Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
+
+<b>Confesión de fallo: </b>El Prestatario por el presente autoriza irrevocablemente y faculta a cualquier abogado para comparecer ante cualquier tribunal de registro y confesar el juicio contra el Prestatario por el monto impago de este Pagare de Prestamo Comercial   como lo demuestra cualquier declaración jurada firmada por un funcionario del Prestamista que establezca el monto adeudado, honorarios del abogado más los costos de la demanda, y para liberar todos los errores y renunciar a todos los derechos de apelación. Si se ha completado una copia de este Pagare de Prestamo Comercial, verificada por una declaración jurada, en el procedimiento, no será necesario presentar el original como una orden judicial. El prestatario renuncia al derecho a cualquier suspensión de la ejecución y al beneficio de todas las leyes de exención vigentes ahora o en el futuro. No se considerará que un solo ejercicio de la orden y el poder para confesar el juicio anterior agote el poder, ya sea que cualquier ejercicio sea considerado o no por un tribunal como inválido, anulable o nulo; pero el poder continuará sin disminuir y puede ejercerse de vez en cuando, ya que el Prestamista puede elegir hasta que todos los montos adeudados en este Pagare de Prestamo Comercial hayan sido pagados en su totalidad. Por la presente, el Prestatario renuncia y libera todos y cada uno de los reclamos o causas de acción que el Prestatario pueda tener contra cualquier Abogado que actúe bajo los términos de autoridad que el Prestatario ha otorgado en el presente documento que surjan o estén relacionados con la confesión de juicio en virtud del presente.
 <br>
 
 <b>Ley vigente : </b>Este Pagare de Prestamo Commercial se regirá por la ley del prestamista de California aplicable al prestamista y, en la medida en que no esté precedida por la ley federal, sin tener en cuenta sus disposiciones sobre conflictos de leyes. Este Pagare de Prestamo Commercial ha sido aceptado por el prestatario y el prestamista en el Estado de California.
@@ -272,35 +274,37 @@ $style = array(
 <br>
 
 
-<b>Colateral : </b>Todo el inventario presente y futuro de ese negocio conocido como __________________________________________, así como todas las cuentas por cobrar.
+<b>Colateral : </b>Todo el inventario presente y futuro de ese negocio conocido como ___________________________, así como todas las cuentas por cobrar.
 <br>
 <b>Garantía personal : </b>Este contrato tiene una garantía personal del prestatario y el co-prestatario en caso de que el negocio mencionado anteriormente cierre o sea vendido a otra persona otras personas.
 <br>
-<b>Pago en el lugar : </b>El prestamista queda autorizado para cobrar los pagos adeudados bajo este Pagare de Prestamo Commercial en la dirección física del prestatario, siendo: ____________________________________________________.
+<b>Pago en el lugar : </b>El prestamista queda autorizado para cobrar los pagos adeudados bajo este Pagare de Prestamo Commercial en la dirección física del prestatario, siendo: ____________________________________________.
 <br>
 
 <b>Interés sucesor : </b>Los términos de este Pagare de Prestamo Commercial serán vinculantes para el prestatario y el prestamista, y para sus herederos, representantes personales y sucesores, y redundarán en beneficio de los mismos. 
-<br><br>
+<br>
 
 <b>Disposiciones Generales : </b>: El prestamista puede retrasar o renunciar a la aplicación de cualquiera de sus derechos o recursos bajo este Pagare de Prestamo Commercial sin perderlos. Ante cualquier cambio en los términos de este Pagare de Prestamo Commercial, y a menos que se indique expresamente lo contrario por escrito, ninguna parte que firme este Pagare de Prestamo Commercial, ya sea como fabricante, garante, fabricante de alojamiento o endosante, quedará eximida de responsabilidad. Todas estas partes acuerdan que el Prestador puede renovar o extender (repetidamente y por cualquier período de tiempo) este préstamo o liberar a cualquier parte o garante; y tomar cualquier otra acción que el prestador considere necesaria sin el consentimiento o aviso de nadie. Todas estas partes también acuerdan que el prestamista puede modificar este préstamo sin el consentimiento o aviso de cualquier otra persona que sera la parte con la que se realiza la modificación. Las obligaciones bajo este Pagare de Prestamo Commercial son conjuntas y varias. 
-<br><br>
+<br>
 
 
-<b>
-PRIOR TO SIGNING THIS COMMERCIAL LOAN PROMISSORY NOTE, BORROWER READ AND UNDERSTOOD ALL THE PROVISIONS OF THIS COMMERCIAL LOAN PROMISSORY NOTE, INCLUDING THE INTEREST RATE PROVISIONS, BORROWER AGREES TO THE TERMS OF THE NOTE.
-BORROWER ACKNOWLEDGES RECEIPT OF A COMPLETED COPY OF THIS COMMERCIAL LOAN PROMISSORY NOTE
+<b><span style="font-size: 9px">
+ANTES DE FIRMAR ESTE PAGARE DE PRESTAMO COMERCIAL, EL PRESTATARIO LEA Y COMPRENDE TODAS LAS DISPOSICIONES DE ESTE PAGARE DE PRESTAMO COMERCIAL, INCLUIDAS LAS DISPOSICIONES DE TASA DE INTERÉS, EL PRESTATARIO ACUERDA LOS TÉRMINOS DE ESTE PAGARE DE PRESTAMO COMERCIAL.
+<br>
+EL PRESTATARIO RECONOCE EL RECIBO DE UNA COPIA COMPLETA DE ESTE PAGARE DE PRESTAMO COMERCIAL PROMISORIA.
 
+
+</span>
 </b>
 <br><br>
-Firma del Prestatario  :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha : 
+
+Firma del Prestatario : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :_________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-
-Firma del Co-Prestatario :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha : 
+Firma del Co-Prestatario : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :_________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-
-Firma Autorizada del Prestamista : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha : 
-
-
+Nombre del Prestamista   : <span style="text-decoration:underline">MONEY LINE</span>
+<br><br>
+Firma Autorizada del Prestamista :<span style="text-decoration:underline">MONEY LINE</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :_________
 
 ';
 
@@ -319,13 +323,17 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_4";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_4";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
+
+$file_name =$id. "page_4";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'FI');
 
 //============================================================+
 // END OF FILE

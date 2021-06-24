@@ -268,7 +268,7 @@ This SMS Policy applies to the text messages sent by LS Financing to our custome
 If at any time you need our contact information on how to stop SMS, reply to any text message we have sent you and in this reply simply type HELP. Upon receiving your text message, we will send you a text message with this information. The message we send provide you with information about your account. Some of the SMS we send may include links to websites. To access these websites, you will need a web browser and Internet access.<br><br>
 
 <div style="text-align:center;font-size:18px;">
-<b style="text-align:center">AGREEMENT TO RECEIVE SMS</b><br><br>
+<br><br><br><b style="text-align:center">AGREEMENT TO RECEIVE SMS</b><br><br>
 </div>
 By signing this section, you authorize LS Financing, Inc or Our Agents to send marketing to the mobile number you have provided and that is listed below using and automatic dialing system, You are not required to authorize marketing SMS to obtain credit or other services from us. If you do not wish to receive, sales or marketing SMS from us, you should not sign this section. You understand that at any messages we send you may be accessed by anyone with access to your SMS. You also understand that your mobile phone service provider any charge you fees for any SMS that we send you, and you agree that we shall have no liability for any cost related to such SMS. At any time, you may withdraw your consent to receive marketing by calling us at (747) 300-1542.
 
@@ -324,13 +324,17 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_11";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_11";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
+
+$file_name =$id. "page_11";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'FI');
 
 //============================================================+
 // END OF FILE

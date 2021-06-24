@@ -232,40 +232,47 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br><br><br>
- 
-<b>Governing Law : </b>This Commercial Loan Promissory Note will be governed by California Lender’s law applicable to Lender, and to the extent not preempted by federal Law, without regard to its conflict of law provisions. This Commercial Loan Promissory Note has been accepted by Borrower and Lender in the State of California.
-<br><br>
+ $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br>
+ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
+Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
 
+
+<b>Confession of Judgment: </b>Borrower hereby irrevocable authorizes and empowers any attorney-at-law to appear in any court of record and to confess judgment against Borrower for the unpaid amount of this Commercial Loan Promissory Note as evidenced by any affidavit signed by an officer of Lender setting forth the amount then due, Attorney’s fees plus costs of suit, and to release all errors, and waive all rights of appeal. If a copy of this Commercial Loan Promissory Note, verified by an affidavit, shall have been filled in the proceeding, it will not be necessary to file the original as a warrant of Attorney. Borrower waives the right to any stay of execution and the benefit of all exemption laws now or hereafter in effect. No single exercise of the foregoing warrant and power to confess judgment will be deemed to exhaust the power, whether or not any such exercise shall be held by any court to be invalid , voidable, or void ; but the power will continue undiminished and may be exercised from time to time as Lender may elect until all amounts owing on this Commercial Loan Promissory Note have been paid in full. Borrower hereby waives and releases any and all claims or causes of action which Borrower might have against any Attorney acting under the terms of authority which Borrower has granted herein arising out of or connected with the confession of judgment hereunder.
+<br>
+<b>Governing Law : </b>This Commercial Loan Promissory Note will be governed by California Lender’s law applicable to Lender, and to the extent not preempted by federal Law, without regard to its conflict of law provisions. This Commercial Loan Promissory Note has been accepted by Borrower and Lender in the State of California.
+<br>
 <b>Choice of Venue : </b>If there is a lawsuit, Borrower agrees upon Lender’s request to submit to the jurisdiction of the courts of Los Angeles County, State of California or, if required, to the courts of the Central District of California. Any suit brought hereunder shall be filed in the Van Nuys Courthouse, or in the Western Division of the Central District of California, as applicable.
-<br><br>
-<b>Collateral : </b>All present and future inventory of that business known as __________________________________________ as well as all accounts receivable.
-<br><br>
+<br>
+<b>Collateral : </b>All present and future inventory of that business known as ___________________________________ as well as all accounts receivable.
+<br>
 
 
 <b>Personal Guarantee : </b>This contract has a personal guarantee from the borrower and co-borrower in case the business mentioned above close or is sold to another or other people.
-<br><br>
+<br>
 <b>Onsite Payment : </b>Lender is hereby authorized to collect payments due under this Commercial Loan Promissory Note at Borrower’s physical address, being: __________________________________________________________.
-<br><br>
+<br>
 <b>Successor Interest : </b>The terms of this Commercial Loan Promissory Note shall be binding upon Borrower and Lender, and upon their heirs, personal representatives and successors, and shall inure to the benefit of same.
-<br><br>
+<br>
 
 <b>General Provisions : </b>Lender may delay or forgo enforcing any of its rights or remedies under this Commercial Loan Promissory Note without losing them. Upon any change in the terms of this Commercial Loan Promissory Note, and unless otherwise expressly states in writing, no party who signs this Commercial Loan Promissory Note, whether as maker, guarantor, accommodation maker or endorser, shall be released from liability. All such parties agree that Lender may renew or extend (repeatedly and for any length of time) this loan or release any party or guarantor; and take any other action deemed necessary by Lender without the consent of or notice to anyone. All such parties also agree that Lender may modify this loan without the consent of or notice to anyone other than the party with whom the modification is made. The obligations under this Commercial Loan Promissory Note are joint and several. 
-<br><br>
+<br>
 <b>
-PRIOR TO SIGNING THIS COMMERCIAL LOAN PROMISSORY NOTE, BORROWER READ AND UNDERSTOOD ALL THE PROVISIONS OF THIS COMMERCIAL LOAN PROMISSORY NOTE, INCLUDING THE INTEREST RATE PROVISIONS, BORROWER AGREES TO THE TERMS OF THE NOTE.
-BORROWER ACKNOWLEDGES RECEIPT OF A COMPLETED COPY OF THIS COMMERCIAL LOAN PROMISSORY NOTE
+<span style="font-size: 9px">PRIOR TO SIGNING THIS COMMERCIAL LOAN PROMISSORY NOTE, BORROWER READ AND UNDERSTOOD ALL THE PROVISIONS OF THIS COMMERCIAL LOAN PROMISSORY NOTE, INCLUDING THE INTEREST RATE PROVISIONS, BORROWER AGREES TO THE TERMS OF THE NOTE.
+BORROWER ACKNOWLEDGES RECEIPT OF A COMPLETED COPY OF THIS COMMERCIAL LOAN PROMISSORY NOTE</span>
 
 </b><br><br>
 
-Borrower’s Signature :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date : 
-<br><br>
 
-Co-Borrower’s Signature :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date : 
+Borrower’s Signature : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :_________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
+Co-Borrower’s Signature : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :_________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br><br>
+Lender’s Name  : <span style="text-decoration:underline">MONEY LINE</span>
+<br><br>
+Lender’s Authorized  Signature :<span style="text-decoration:underline">MONEY LINE</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :_________
 
-Lender’s Authorized  Signature : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date : 
-<br><br>
+
+
 
 
 ';
@@ -286,14 +293,17 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_2";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_2";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
 
+$file_name =$id. "page_2";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'FI');
 //============================================================+
 // END OF FILE
 //============================================================+

@@ -203,7 +203,7 @@ $pdf->AddPage();
 
 //$pdf->MultiCell(70, 50, $key1 , 0, 'J', false, 1, 125, 30, true, 0, false, true, 0, 'T', false);
 
-$pdf->SetFont('helvetica', '', 10);
+$pdf->SetFont('helvetica', '', 9);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -262,6 +262,128 @@ Ciudad, Estado, Código postal :  '.$address.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb
 
 ';
 
+
+$html = '
+      <br><br>
+      <img src="images/Money-Line-Logo.JPG" alt="" style="height:400%" align="left"/>
+      <br>
+      <span><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+        <div style="text-align: center;">
+          <h1>Pagare de Prestamo Comercia</h1>
+        </div>
+      <b>Numero de Contrato:</b><span>____________________________</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Fecha:</b><span>_______________</span>
+      <br><br>
+      <b>Prestatario:</b><span>____________________________</span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-prestatario:</b><span>____________________________</span>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
+      <br><br><br>
+
+      <table style="width: 100%;" border="1">
+        <tbody>
+          <tr>
+            <td colspan="6" style="text-align: center;"><b>DECLARACIONES INFORMATIVAS DE VERACIDAD EN LOS PRESTAMOS</b></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;">
+              <div>
+                <b>TASA DE PORCENTAJE ANUAL</b>
+              </div>
+              <div>
+                <span>El costo del credito expresado como tasa anual</span>
+              </div>
+              <div>
+                <span>______________%</span>
+              </div>
+            </td>
+            <td colspan="2" style=" text-align: center;">
+              <div>
+                  <b>MONTO FINANCIADO</b>
+                </div>
+                <div>
+                  <span>Cantidad de credito provista a usted o en su nombre. </span>
+                </div>
+                <div>
+                  <span>$______________</span>
+                </div>
+            </td>
+            <td style=" text-align: center;">
+              <div>
+                  <b>CARGOS DE FINANCIAMIENTO</b>
+                </div>
+                <div>
+                  <span>El importe en dolares que le costara el credito</span>
+                </div>
+                <div>
+                  <span>$______________</span>
+                </div>
+            </td>
+            <td colspan="2" style=" text-align: center;">
+              <div>
+                  <b>TOTAL DE PAGOS</b>
+                </div>
+                <div >
+                  <span>El monto que Habra pagado despues de haber efectuado todos los pagos programados.</span>
+                </div>
+                <div>
+                  <span>$______________</span>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="4" style=" text-align: center;"><b>Calendario de Pagos:</b></td>
+            <td style=" text-align: center;"><b>Numero de Pagos</b></td>
+            <td style=" text-align: center;"><b>Cantidad del Pago</b></td>
+            <td colspan="3" style=" text-align: center;"><b>Cuando Vence el Pago</b></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;"><br><br>1<br></td>
+            <td style=" text-align: center;"><br><br><br></td>
+            <td colspan="3" style=" text-align: left;"><br><br>Pago  ____________, empezando el  ___________.<br></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;"></td>
+            <td style=" text-align: center;"></td>
+            <td colspan="3" style=" text-align: left;" >Pagos ____________.</td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;">Ultimo Pago de </td>
+            <td style=" text-align: center;"></td>
+            <td colspan="3" style=" text-align: left;">Que vence en  ____________.</td>
+          </tr>
+          <tr>
+            <td colspan="5" style="text-align: left; ">
+              <br><br>
+              <span><b>Pagos Adelantados: </b>  Usted puede liquidar su prestamo en cualquier momento. Si usted paga por adelantado, no tendra que pagar penalidad.</span><br><br>
+              <span><b>Cargo por Incumplimiento: </b> Si un pago se hace con mas de 10 dias de retraso, se le cobrara $10 </span> <br><br>
+              <span><b>Cargo de Originación:</b> Se agregará un cargo prepago de financiamiento por $ 75 para cubrir el costo de procesar su solicitud y el acuerdo.</span> <br>
+            </td>
+            <td style=" text-align: center;">
+                <br><br>
+                <span><b>Licencia del Prestamista:</b></span><br><br>
+                <span> 60DBO-88277</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: justify;">
+      <p><b>Derecho del prestamista: </b><span> En caso de incumplimiento del prestatario, el prestamista puede declarar todo el saldo de capital impago en este Pagare de Prestamo Comercial y luego el prestatario pagará ese monto.
+        </span></p>
+       
+        <p><b>Valor predeterminado del prestatario: </b> <span>El valor predeterminado del prestatario incluye, entre otros, los siguientes: procedimientos de quiebra voluntarios o involuntarios en los que el prestatario es nombrado deudor; cualquier gravamen o gravamenes registrado sobre la propiedad actual del Prestatario, como se menciona anteriormente, ya sea voluntario, involuntario o mediante la operación de la ley.
+        </span></p>
+        
+        <p><b>Cargo por articulo devuelto: </b><span>El prestatario pagará al prestamista una tarifa de $ 25.00 si el prestatario hace un pago al  Pagare de Prestamo Comercial  y el cheque o  cargo con autorizacion previa con la que el prestatario paga es deshonrado despues. 
+        </span></p>
+        
+        <p><b>Honorarios de abogados; Gastos: </b><span>El prestamista puede pagar aquí o pagar a otra persona para que le ayude a cobrar este Pagare de Prestamo Comercial si el prestatario no paga. El prestatario le pagará al prestamista ese monto. Esto incluye, sujeto a cualquier límite bajo la ley aplicable, los honorarios del abogado del prestamista y los gastos legales del prestamista, ya sea que exista o no una demanda, incluidos los honorarios del abogado, los gastos por procedimientos de bancarrota (incluidos los esfuerzos para modificar o desocupar una suspensión o mandato judicial), y apelaciones. El prestatario también pagará los costos judiciales, además de todas las demás sumas previstas por la ley.
+        </span></p>
+        </div>
+        <p style="text-align:right"><span>Iniciales:__________________________</span></p>
+        
+';
+
 $pdf->writeHTML($html,25,30); 
 
 
@@ -277,13 +399,17 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
-$file_name = $id."page_3";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $pdf_data = ob_get_contents();
+// $file_name = $id."page_3";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
 
+
+$file_name =$id. "page_3";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'FI');
 //============================================================+
 // END OF FILE
 //============================================================+

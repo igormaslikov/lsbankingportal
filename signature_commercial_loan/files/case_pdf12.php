@@ -291,7 +291,7 @@ You acknowledge that (1) this Authorization is voluntary and is not required as 
 <br><br><br>
 
 __________________________<br> <b>
-Account Holder's Signature<br><br>
+Account Holder’s Signature<br><br>
 __________________________<br> <b>
 Account Holder’s Name<br><br>
 </div>
@@ -312,14 +312,17 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_13";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_13";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
 
+$file_name =$id. "page_13";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'FI');
 //============================================================+
 // END OF FILE
 //============================================================+

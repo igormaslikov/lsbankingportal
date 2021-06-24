@@ -233,7 +233,7 @@ $style = array(
 
  $html = '
  <br><br>
-<div style=";display:inline-block">
+<div style="display:inline-block">
 	<img src="images/Money-Line-Logo.JPG" style="height:10%;clear: both" align="left"/>
 </div>
 <br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
@@ -246,7 +246,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 <table>
 <tbody>
 
-<td>
+<td style="text-align:justify;width:45%">
 
 <b style="font-size:8px;">Interpretation of this Arbitration Agreement:</b><span style="font-size:6px;">if any art of this Arbitration Agreement other than the Class Action Waiver is found by a court or arbitrator to be unenforceable, the remainder shall be enforceable. If the Class Action Waiver is found by court or arbitrator to be unenforceable, the remainder of this arbitration agreement shall be unenforceable. This arbitration agreement shall survive the termination of any contractual agreement between you and us, whether by default or repayment in full.</span>
 <br>
@@ -263,7 +263,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 <b style="font-size:8px;">Counterparts:</b><span style="font-size:6px;">This Arbitration Agreement may be executed in counterparts, each of which shall be deemed to be an original but all of which together shall be deemed to be one instrument.</span>
 <br>
 <b style="font-size:8px;">Opt Out Procedure:</b><span style="font-size:6px;">YOU MAY CHOOSE TO OPT OUT OF THIS ARBITRATION AGREEMENT BY COMPLYING WITH THE FOLLOWING PROCESS. IF YOU DO NOT WISH TO BE SUBJET TO THIS ARBITRATION AGREEMENT, THEN YOU MUST NOTIFY US IN WRITING POSTMARKED WITHIN 60 CALENDER DAYS OF THE DATE OF THIS ARBITRATION AFREEMENT AT THE FOLLOWING ADDRESS: LS FINANCING, INC ATTN: ARBITRATION OPT OUT, 4645 VAN NUYS BOULEVARD SUITE 202, SHERMAN OAKS, CA 91403. YOUR WRITTEN NOTICE MUST INCLUDE YOUR NAME, ADDRESS, PHONE NUMBER, THE DATE OF THE LOAN AGREEMENT, THE DATE OF THIS ARBITRATION AGREEMENT AND A STATEMENT WTHAT YOU WISH TO OPT OUT OF THE ARBITRATION AGREEMENT. YOUR WRITTEN NOTICE MAY NOT BE SENT WITH ANY OTHER CORRESPONDENCE INDICATING YOUR DESIRE TO OPT OUT OF THIS ARBITRATION AGREEMENT IN ANY MANNER OTHER THAN AS PROVIDED HEREIN IN INSUFFICENT NOTIVE. YOUR DECISION TO OPT OUT OFTHIS ARBITRATION AGREEMENT WILL NOT AFFECT YOUR OTHER RIGHTS RESPONSIBILITIES UNDER THE LOAN AGREEMENT. YOUR DECISION TO OPT OUT OF THIS ARBITRATION AGREEMENT APPLIES ONLY TO THIS ARBITRATION AGREEMENT AND NOT TO ANY PRIOR OR SUBSEQUENT ARBITRATION AGREEMENTS TO WHICH YOU AND WE HAVE AGREED.</span>
-<br><br>
+<br><br><br><br><br><br><br><br>
  ________________________<br>
  Borrower Signature / Firma de deudor
 <br><br>
@@ -271,10 +271,9 @@ _________________________<br>
 Co-Borrower Signature / Firma de co-deudor
 
 </td>
-<td></td>
+<td style="width:10%"></td>
 
-
-<td style="vertical-align:baseline;text-align:justify">
+<td style="vertical-align:baseline;text-align:justify;width:45%">
 
 <b style="font-size:8px;">Idioma del arbitraje:</b><span style="font-size:6px;">Usted puede elegir que el arbitraje se lleve a cabo en español o en ingles. Si opta para que el arbitraje se conduzca en español, usted conviene en utilizar un foro de arbitraje que acepte proporcionar formas en español y un árbitro(s) que pueda (n) llevar a cabo el proceso de arbitraje en dicho idioma. Usted entiende que esto podría limitar sus opciones de foros de arbitraje, ya que no todos dichos foros en estado unidos ofrecen sus servicios en español.</span>
 <br>
@@ -320,14 +319,17 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_10";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_10";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
 
+$file_name =$id. "page_10";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'FI');
 //============================================================+
 // END OF FILE
 //============================================================+

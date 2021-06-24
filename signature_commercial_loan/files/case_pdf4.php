@@ -243,7 +243,7 @@ Loan Agreement/Contrato del Prestamo
 <table>
 <tbody>
 <tr>
-<td><b style="font-size:8px;">•Promise to Pay:</b><span style="font-size:6px;">In return of the loan you receive from us, you promise to pay $'.$total_payment.', plus interest in accordance with the “Interest” section of this Agreement below, to LS Financing, Inc, it’s successors and assigns. You will pay these amounts in U.S. dollars.</span>
+<td style="width:45%"><b style="font-size:8px;">•Promise to Pay:</b><span style="font-size:6px;">In return of the loan you receive from us, you promise to pay $'.$total_payment.', plus interest in accordance with the “Interest” section of this Agreement below, to LS Financing, Inc, it’s successors and assigns. You will pay these amounts in U.S. dollars.</span>
 <br>
 <b style="font-size:8px;">•Personal Guarantee:</b><span style="font-size:6px;"> This contract has a personal guarantee from the borrower and co-borrower.</span>
 <br>
@@ -261,9 +261,9 @@ Loan Agreement/Contrato del Prestamo
 <br>
 
 </td>
-<td></td>
+<td style="width:10%"></td>
 
-<td>
+<td style="width:45%">
 
 <b style="font-size:8px;">•Promesa de pago:</b><span style="font-size:6px;">A cambio del préstamo que usted reciba de nosotros usted promete pagar $'.$total_payment.' de capital, mas intereses, calculado de conformidad con la sección “Intereses” más abajo, a LS Financing, Inc y sus causa habientes y cesionarios. Usted pagara estos importes en dólares estadounidenses.</span>
 <br>
@@ -313,13 +313,17 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_5";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_5";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
+
+$file_name =$id. "page_5";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'FI');
 
 //============================================================+
 // END OF FILE
