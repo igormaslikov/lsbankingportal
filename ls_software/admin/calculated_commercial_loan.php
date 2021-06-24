@@ -204,18 +204,20 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
         if ($count > 1) {
             if ($installment_plan == 'Weekly') {
-                $payment_date_weekly = date("m-d-Y", strtotime("$payment_date_weekly +7 day"));
+                $payment_date_weekly = date("Y-m-d", strtotime("$payment_date_weekly +7 day"));
             }
 
             if ($installment_plan == 'Bi-Weekly') {
-                $payment_date_weekly = date("m-d-Y", strtotime("$payment_date_weekly +14 day"));
+                $payment_date_weekly = date("Y-m-d", strtotime("$payment_date_weekly +14 day"));
             }
 
             if ($installment_plan == 'Monthly') {
-                $payment_date_weekly = date("m-d-Y", strtotime("$payment_date_weekly +1 month"));
+                $payment_date_weekly = date("Y-m-d", strtotime("$payment_date_weekly +1 month"));
             }
             $payment_date = $payment_date_weekly;
         }
+
+        $payment_date = date("m-d-Y",strtotime($payment_date));
 
         $varTable .= "<tr>";
         $varTable .= "<td>$count</td>";
