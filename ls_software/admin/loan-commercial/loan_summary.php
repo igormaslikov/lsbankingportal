@@ -210,6 +210,7 @@ $username=$row_user['username'];
 
 <div class="row container-fluid" style="background-color: #F5E09E;color:black;padding:20px;">
 
+<div class="col-lg-4"><p>Loan Type:<b style="color:red">Commercial</b></p></div>
 <div class="col-lg-4"><p>Customer First Name:<b style="color:red"> <?php echo $first_name;?></b></p></div>
 <div class="col-lg-4"><p>Customer Last Name: <b style="color:red"><?php echo $last_name;?> </b></p></div>
 <div class="col-lg-4"><p>Customer Phone:<b style="color:red"> <?php echo $customer_numbr;?> </b> </p></div>

@@ -549,7 +549,7 @@ tr:nth-child(even) {
     </div>
     <br><br>
     <button name="btn-submit" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: white;background-color: #1E90FF;border-radius: 0px;border-color: #1E90FF;">Update Information</button>
-    <a href="../add_new_loan.php?id=<?php echo $user_fnd_id ;?>&loan_amount=<?php echo $loan_amount; ?>&name=<?php echo $first_name;?>&ssn=<?php echo $ssn; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%); 
+    <a href="../add_commercial_loan.php?id=<?php echo $user_fnd_id ;?>&loan_amount=<?php echo $loan_amount; ?>&name=<?php echo $first_name;?>&ssn=<?php echo $ssn; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%); 
     color: #fff;
     background-color: #2a8206;
     border-color: #112f01;" target="_blank">Create a Loan</button> </a>
