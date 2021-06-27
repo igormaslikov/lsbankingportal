@@ -33,7 +33,7 @@ $id15 = dirname(__FILE__)."\case_pdf14.php?id=".$_GET['id'];
 // include($id14);
 //include($id15);
 //include('merge_pdf.php');
-
+$dirMerge = 'Barcodes/'.$_GET['id'];
 ?>
 
 <iframe src="case_pdf.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px; display:none"></iframe>
@@ -51,4 +51,5 @@ $id15 = dirname(__FILE__)."\case_pdf14.php?id=".$_GET['id'];
 <iframe src="case_pdf12.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
 <iframe src="case_pdf13.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
 <iframe src="case_pdf14.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="case_pdf15.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
 <iframe src="merge_pdf.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:100%; overflow:hidden"></iframe>

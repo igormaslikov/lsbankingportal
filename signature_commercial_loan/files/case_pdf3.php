@@ -1,200 +1,75 @@
 <?php
-$id=$_GET['id'];
-$url_logo="http://lsbankingportal.com/signature_commercial_loan/completed/";
+$id = $_GET['id'];
+$url_logo = "http://lsbankingportal.com/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
-$iddd=$_GET['id'];
- echo "idddd". $iddd;
+$iddd = $_GET['id'];
+echo "idddd" . $iddd;
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$iddd' "); 
+$sql1 = mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$iddd' ");
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while ($row1 = mysqli_fetch_array($sql1)) {
 
-$mail_key=$row1['email_key'];
-$signed_status=$row1['sign_status'];
+  $mail_key = $row1['email_key'];
+  $signed_status = $row1['sign_status'];
 
-$creation_datee=$row1['creation_date'];
-  
+  $creation_datee = $row1['creation_date'];
+
   $timestamp = strtotime($creation_datee);
-  $creation_date= date("m-d-Y", $timestamp);
- 
- 
-$fnd_id=$row1['user_fnd_id'];
-$loan_id_bor=$row1['loan_id'];
-$type_of_card=$row1['type_of_card'];
-$card_number=$row1['card_number'];
-$card_exp_date=$row1['card_exp_date'];
+  $creation_date = date("m-d-Y", $timestamp);
 
-$bank_name=$row1['bank_name'];
-$routing_number=$row1['routing_number'];
-$account_number=$row1['account_number'];
 
-$cvv_number=$row1['cvv_number'];
+  $fnd_id = $row1['user_fnd_id'];
+  $loan_id_bor = $row1['loan_id'];
 
-$img_signed = $row1['signed_pic'];
+  $img_signed = $row1['signed_pic'];
 
-$result_sig = $url_logo .'/doc_signs/'. $img_signed;
+  $result_sig = $url_logo . '/doc_signs/' . $img_signed;
 }
 
 
 //echo "ID is".$loan_id;
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' "); 
-
-while($row_loan = mysqli_fetch_array($sql_loan)) {
-    
-    
-    $principal=$row_loan['amount_of_loan'];
-    $principal=number_format($principal, 2);
-    $payment_date=$row_loan['payment_date'];
-    $interest_rate=$row_loan['loan_interest'];
-    $interest_rate=number_format($interest_rate, 2);
-    $timestamp = strtotime($payment_date);
-    $payment_date= date("m-d-Y", $timestamp);
-    
-    $creation_date=$row_loan['creation_date'];
-    
-    $timestamp = strtotime($creation_date);
-    $creation_date= date("m-d-Y", $timestamp);
-    
-     $var = "$payment_datee";
-//$payment_date= date("m-d-Y", strtotime($var) );
-//$loan_fee = $row_loan['loan_fee'];
-//$loan_fee = number_format($loan_fee, 2);
-//$loan_payable = $row_loan['loan_total_payable'];
-//$loan_payable = number_format($loan_payable, 2);
-
-    
-    // echo "LOAN Amount".$amount_of_loan;
-    $date1=$creation_date;
-	$date2=$payment_date;
-//	function dateDiff($date1, $date2) 
-//	{
-//	  $date1_ts = strtotime($date1);
-//	  $date2_ts = strtotime($date2);
-//	  $diff = $date2_ts - $date1_ts;
-//	  return round($diff / 86400);
-//	}
-//	$dateDiff= dateDiff($date1, $date2);
-// echo "Days".$dateDiff."<br>";
-
-$diff_creation_date = strtotime($creation_date);
-$diff_payment_date = strtotime($payment_date);
-$datediff =  $diff_payment_date - $diff_creation_date;
-$datediff = round($datediff / (60 * 60 * 24));
 
 
- 
-  
-//$calculation = $loan_fee/$amount_of_loan;
-//$calculation_1 = $datediff/365;
-//$calculation_1 = $calculation_1*10000;
-//$calculation_1  = $calculation_1/100;
 
-  //$calculation = round($calculation, 2);
-
-	
-
-	
-	
-	$created_by = $row_loan['created_by'];
-    
- }
- 
- $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
-
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
-
-$loan_fee=$row_loan_settings['loan_fee'];
-$loan_payable=$row_loan_settings['payoff_amount'];
+$sql2 = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' ");
+while ($row2 = mysqli_fetch_array($sql2)) {
+  $ff_name = $row2['first_name'];
+  $l_name = $row2['last_name'];
+  $f_name = $ff_name . ' ' . $l_name;
+  $address = $row2['address'];
+  $city = $row2['city'];
+  $state = $row2['state'];
+  $zip = $row2['zip_code'];
+  $mobile_number = $row2['mobile_number'];
+  $address = $row2['address'];
 }
- 
-   $calculation = (($loan_fee/$amount_of_loan)/($datediff/365) * 10000) / 100;
-    $calculation = round($calculation, 2);
-  	$anual_pr= $calculation;
- 
- 
- 
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$search_dir = "doc_signs/$result";
+$images = glob("$search_dir/*.png");
+sort($images);
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+// Image selection and display:
 
-$username=$row_user['username'];
-
-}	
-	
-	
-	
-
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
-while($row2 = mysqli_fetch_array($sql2)) {
-$ff_name=$row2['first_name'];
-$l_name=$row2['last_name'];
-$f_name= $ff_name.' '.$l_name;
-$address=$row2['address'];
-$city=$row2['city'];
-$state=$row2['state'];
-$zip=$row2['zip_code'];
-$mobile_number=$row2['mobile_number'];
-$address=$row2['address'];
+//display first image
+if (count($images) > 0) { // make sure at least one image exists
+  $img = $images[0]; // first image
+  // echo "<img src='$img' height='150' width='150' /> ";
+} else {
+  // possibly display a placeholder image?
 }
-    $search_dir = "doc_signs/$result";
-   $images = glob("$search_dir/*.png");
-   sort($images);
 
-   // Image selection and display:
-
-   //display first image
-   if (count($images) > 0) { // make sure at least one image exists
-       $img = $images[0]; // first image
-      // echo "<img src='$img' height='150' width='150' /> ";
-   } else {
-       // possibly display a placeholder image?
-   }
-   
-   $sql_installment=mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor"); 
-while($row_installment = mysqli_fetch_array($sql_installment)) {
-$payment_install=$row_installment['payment'];
-$payment_date_install=$row_installment['payment_date'];
-  $timestampp = strtotime($payment_date_install);
-  $payment_date_installl= date("m-d-Y", $timestampp);
- $payment_install=number_format($payment_install, 2);
-
+$business_name = "";
+$sql2 = mysqli_query($con, "select business_name from tbl_business_info where user_fnd_id='$fnd_id' ");
+while ($row2 = mysqli_fetch_array($sql2)) {
+  $business_name = $row2['business_name'];
 }
-?>
 
-
-
-
-
-
-<?php
-	$date1="$creation_date";
-	$date2="$payment_date";
-	function dateDiff($date1, $date2) 
-	{
-	  $date1_ts = strtotime($date1);
-	  $date2_ts = strtotime($date2);
-	  $diff = $date2_ts - $date1_ts;
-	  return round($diff / 86400);
-	}
-	$dateDiff= dateDiff($date1, $date2);
-// echo "Days".$dateDiff."<br>";
-
-
-$payoff=str_replace('$', '', $payoff);
-
-$amount_of_loan=str_replace('$', '', $amount_of_loan);
-$total_amount= $payoff+$amount_of_loan;
-$apr=$payoff/$amount_of_loan;
-$apr_total=$apr*365;
-$anual_prr=($apr_total/$dateDiff)*100;
-	//echo $anual_pr;
-	$anual_pr= number_format((float)$anual_prr, 2, '.', '');
+$business_name = $business_name == "" ? "_______________":$business_name;
 
 ?>
 
@@ -274,11 +149,11 @@ Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_
 <br>
 
 
-<b>Colateral : </b>Todo el inventario presente y futuro de ese negocio conocido como ___________________________, así como todas las cuentas por cobrar.
+<b>Colateral : </b>Todo el inventario presente y futuro de ese negocio conocido como '.$business_name.', así como todas las cuentas por cobrar.
 <br>
 <b>Garantía personal : </b>Este contrato tiene una garantía personal del prestatario y el co-prestatario en caso de que el negocio mencionado anteriormente cierre o sea vendido a otra persona otras personas.
 <br>
-<b>Pago en el lugar : </b>El prestamista queda autorizado para cobrar los pagos adeudados bajo este Pagare de Prestamo Commercial en la dirección física del prestatario, siendo: ____________________________________________.
+<b>Pago en el lugar : </b>El prestamista queda autorizado para cobrar los pagos adeudados bajo este Pagare de Prestamo Commercial en la dirección física del prestatario, siendo: <span style="text-decoration:underline">' . $address . '  ' . $city . ' ' . $state . ' ' . $zip . '</span> .
 <br>
 
 <b>Interés sucesor : </b>Los términos de este Pagare de Prestamo Commercial serán vinculantes para el prestatario y el prestamista, y para sus herederos, representantes personales y sucesores, y redundarán en beneficio de los mismos. 
@@ -304,7 +179,7 @@ Firma del Co-Prestatario : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 <br><br>
 Nombre del Prestamista   : <span style="text-decoration:underline">MONEY LINE</span>
 <br><br>
-Firma Autorizada del Prestamista :<span style="text-decoration:underline">MONEY LINE</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :_________
+Firma Autorizada del Prestamista :<span style="text-decoration:underline">MONEY LINE</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.'
 
 ';
 
@@ -323,17 +198,16 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-// $pdf->Output('Case.pdf', 'I');
+// $pdf->Output(dirname(__FILE__).'/Case.pdf', 'I');
 
 // $pdf_data = ob_get_contents();
-
 // $file_name = $id."page_4";
-// $path="Barcodes/".$file_name.".pdf";
+// $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
 // file_put_contents( $path, $pdf_data );
 
 $file_name =$id. "page_4";
 $path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
-$pdf->Output($path, 'FI');
+$pdf->Output($path, 'F');
 
 //============================================================+
 // END OF FILE

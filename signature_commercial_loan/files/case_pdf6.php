@@ -252,9 +252,9 @@ $style = array(
 );
 
  $html = '
- <br><br>
+ <br>
 <div style="display:inline-block">
-	<img src="images/Money-Line-Logo.JPG" style="height:10%;clear: both" align="left"/>
+	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
 </div>
 <br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
  <br><br><br>
@@ -360,9 +360,16 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 // $path="Barcodes/".$file_name.".pdf";
 // file_put_contents( $path, $pdf_data );
 
+// $pdf->Output(dirname(__FILE__).'/Case.pdf', 'I');
+
+// $pdf_data = ob_get_contents();
+// $file_name = $id."page_7";
+// $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
+// file_put_contents( $path, $pdf_data );
+
 $file_name =$id. "page_7";
 $path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
-$pdf->Output($path, 'FI');
+$pdf->Output($path, 'F');
 //============================================================+
 // END OF FILE
 //============================================================+

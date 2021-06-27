@@ -58,9 +58,11 @@ $strRate = strVal($rate);
 $rate_per_day = $rate / $num_of_days;
 $num_days_from_contract = date_diff(date_create($payment_start_date), date_create($contract_date))->format("%a");
 
-$num_late_days = $num_days_from_contract - $num_of_days; 
+$num_late_days = $num_days_from_contract - $num_of_days;
 
 $rate_late_days = $rate_per_day * $num_late_days;
+
+
 
 //echo "<script type='text/javascript'>document.getElementsByName('interest')[0].value = 2</script>";
 //echo $_POST['source'];
@@ -148,8 +150,74 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     $payment_date = $_POST['payment_start_date'];
     $total_payments = $_POST['total_payments'];
     $payment_fix = $_POST['payment'];
+    $fnd_id = $_POST['fnd_id'];
+    $contract_fee = $_POST['origination'];
+
+
+    $sql_installment = mysqli_query($con, "SELECT count(loan_id) as count, loan_create_id FROM tbl_commercial_loan WHERE user_fnd_id = $fnd_id order by loan_id desc limit 2");
+    while ($row_installment = mysqli_fetch_array($sql_installment)) {
+        $count = $row_installment['count'];
+        $previous_loan_id = $row_installment['loan_create_id'];
+    }
+
+    $in_hand = 0;
+    if ($count > 1) {
+        $sql_installment = mysqli_query($con, "SELECT SUM(payment) as in_hand FROM `tbl_commercial_loan_installments` where `loan_create_id`= $previous_loan_id and `status` = 0 order by id desc");
+        while ($row_installment = mysqli_fetch_array($sql_installment)) {
+            $in_hand = $row_installment['in_hand'];
+        }
+    }
+
+
+
     //var_dump($_POST);
     $varTable = "";
+    $varTable .= '<table border="1 solid #ddd" width="100%">';
+    $varTable .= '<colgroup align="right" width="400">';
+    $varTable .= '<tr style="background-color: #F5E09E;"><th colspan="2" style="text-align:center">Itemization of the Amount Financed</th></tr>';
+    $varTable .= '<tr>
+                    <td>
+                    Amount given to you directly
+                    </td>
+                    <td style="text-align:center">
+                     $' . ($balance - $in_hand) . '
+                    </td>
+                </tr>';
+    $varTable .= '<tr>
+                <td>
+                Amount paid on your existing loan with us
+                </td>
+                <td style="text-align:center">
+                +$' . $in_hand . '
+                </td>
+            </tr>';
+    $varTable .= '<tr>
+            <td>
+            Amount Financed
+            </td>
+            <td style="text-align:center">
+            =$' . $balance . '
+            </td>
+        </tr>';
+    $varTable .= '<tr>
+        <td>
+        Prepaid Finance Charge (Administrative Fee)
+        </td>
+        <td style="text-align:center">
+        +$' . $contract_fee . '
+        </td>
+    </tr>';
+    $varTable .= '<tr>
+        <td>
+        Principal
+        </td>
+        <td style="text-align:center">
+        =$' . ($balance + $contract_fee) . '
+        </td>
+    </tr>';
+    $varTable .= "</table>";
+    $varTable .= "<br>";
+
     $varTable .= '<table border="1 solid #ddd" width="100%">';
     $varTable .= '<colgroup align="right" width="20">';
     $varTable .= '<colgroup align="right" width="115">';
@@ -175,7 +243,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
         $interest = $balance * $rate / 100;
         //$interest = $balance * ($rate+$rate_late_days) / 100;
         if ($count == 1) {
-            $interest = $balance * ($rate+$rate_late_days) / 100;
+            $interest = $balance * ($rate + $rate_late_days) / 100;
             $rate = $rate + $rate_late_days;
         }
         // what portion of payment applies to principal?
@@ -217,7 +285,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
             $payment_date = $payment_date_weekly;
         }
 
-        $payment_date = date("m-d-Y",strtotime($payment_date));
+        $payment_date = date("m-d-Y", strtotime($payment_date));
 
         $varTable .= "<tr>";
         $varTable .= "<td>$count</td>";
@@ -276,7 +344,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
         $payment = $tmp_payment;
 
         if ($count == 1) {
-            $rate = calc_rate($balance,$total_payments-1,$payment_fix);
+            $rate = calc_rate($balance, $total_payments - 1, $payment_fix);
         }
     } while ($balance > 0);
 

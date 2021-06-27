@@ -232,16 +232,16 @@ $style = array(
 );
 
  $html = '
- <br><br>
+ <br>
 <div style="display:inline-block">
-	<img src="images/Money-Line-Logo.JPG" style="height:10%;clear: both" align="left"/>
+	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
 </div>
 <br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
  <br><br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
 &nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
- <br><br><br>
+ <br><br>
 
 <table>
 <tbody>
@@ -326,10 +326,16 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 // $file_name = $id."page_10";
 // $path="Barcodes/".$file_name.".pdf";
 // file_put_contents( $path, $pdf_data );
+// $pdf->Output(dirname(__FILE__).'/Case.pdf', 'I');
+
+// $pdf_data = ob_get_contents();
+// $file_name = $id."page_10";
+// $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
+// file_put_contents( $path, $pdf_data );
 
 $file_name =$id. "page_10";
 $path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
-$pdf->Output($path, 'FI');
+$pdf->Output($path, 'F');
 //============================================================+
 // END OF FILE
 //============================================================+

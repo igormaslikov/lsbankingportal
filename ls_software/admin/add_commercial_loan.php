@@ -64,18 +64,6 @@ c<?php
     <div class="row wrapper">
       <?php
 
-      $sql_count_loans = "SELECT * FROM tbl_personal_loans";
-      if ($result_count_loans = mysqli_query($con, $sql_count_loans)) {
-        // Return the number of rows in result set
-        $rowcount_count_loans = mysqli_num_rows($result_count_loans) + 10003;
-
-        //$rowcount_count_loans= $rowcount_count_loans-100;
-        //echo "<br><br><br><br><br>".$rowcount_count_loans;
-      }
-      ?>
-
-      <?php
-
       $id = $_GET['id'];
       $loan_name = $_GET['loan'];
       $due_date = $_GET['next_pay_date'];
@@ -83,6 +71,13 @@ c<?php
       include 'dbconnect.php';
       include 'dbconfig.php';
 
+
+      $sql_apr = mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_commercial_loan");
+      while ($row_apr = mysqli_fetch_array($sql_apr)) {
+        $next_loan_id = $row_apr['next_id'];
+      }
+      //echo '<script type="text/javascript">alert("Loan ID ' . $loan_create_id . ' is exists. LoanID well be regerated to '.$next_loan_id.')</script>';
+      $loan_create_id = $next_loan_id;
       $sql_apr = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'");
 
       while ($row_apr = mysqli_fetch_array($sql_apr)) {
@@ -147,6 +142,11 @@ c<?php
         </div>
       </div>
 
+      <table> 
+        <thead>
+          
+        </thead>
+      </table>
 
       <form method="POST" enctype="multipart/form-data" onsubmit="return calculate(event)">
         <div class="row">
@@ -171,7 +171,7 @@ c<?php
 
           <div class="col-lg-6">
             <label for="usr"> Loan ID</label>
-            <input type="text" name="loan_id" value="<?php echo $rowcount_count_loans; ?>" class="form-control" readonly />
+            <input type="text" name="loan_id" value="<?php echo  $loan_create_id; ?>" class="form-control" readonly />
           </div>
 
 

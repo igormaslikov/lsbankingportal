@@ -251,21 +251,21 @@ $style = array(
 );
 
  $html = '
-<br><br>
+<br>
 <div style=";display:inline-block">
-	<img src="images/Money-Line-Logo.JPG" style="height:10%;clear: both" align="left"/>
+	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
 </div>
 <br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
- <br><br><br>
-Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
-&nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
+ <br>
+Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
+&nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
- <br><br><br>
+ <br>
 <h1 style="text-align:center">
 ACH RECURRING PAYMENT AUTHORIZATION
 </h1>
 
-<div>
+<div style="font-size:8px;">
 <p>
 1. By signing below, Account Holder (“<b>you</b>”) authorizes LS Financing Inc and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>out</b>” to automatically withdraw your loan payments from your deposit account ending in xxxxxx_______(“<b>Account</b>”) at __________________________________(“<b>Bank</b>”) via recurring electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to initiate debits of $_______ (“<b>scheduled debit amount</b>”) Every ______________ on the payment due dates, beginning on __________, which is the effective date of this Authorization. These debits will continue until the amount due under your loan is paid in full or until this Authorization is canceled. You also authorize us to initiate ACH debits or credits to your Account as necessary to correct erroneous transactions.
 <br/>2. You have the right to receive 10 days’ prior written notice from us of the amount and date of any debit that varies from the scheduled debit amount. However, if we debit your account for any amount in a range from $1 up to the scheduled debit amount, you agree that we do not have to send you such prior written notice, unless required by law. We will not debit your Account for more than the scheduled debit amount above.
@@ -280,7 +280,7 @@ The ACH system is governed by the National Automated Clearing House Association�
 
 
 <p>
-IMPORTANT
+<b>IMPORTANT</b><br><br>
 To avoid any returned payment fees, you agree you will have enough money in your Account to cover the amount of the scheduled debit.ACH debits could take up to <b>5 business days</b> to be deducted from your Account.
 
 You acknowledge that (1) this Authorization is voluntary and is not required as a condition of obtaining your loan, (2) the Spanish Translation is provided as a courtesy only and the English version is the legally effective version, and (3) you received a copy of this Authorization when you signed it.
@@ -293,7 +293,7 @@ You acknowledge that (1) this Authorization is voluntary and is not required as 
 __________________________<br> <b>
 Account Holder’s Signature<br><br>
 __________________________<br> <b>
-Account Holder’s Name<br><br>
+Account Holder’s Name
 </div>
 ';
 
@@ -319,10 +319,16 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 // $file_name = $id."page_13";
 // $path="Barcodes/".$file_name.".pdf";
 // file_put_contents( $path, $pdf_data );
+// $pdf->Output(dirname(__FILE__).'/Case.pdf', 'I');
+
+// $pdf_data = ob_get_contents();
+// $file_name = $id."page_13";
+// $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
+// file_put_contents( $path, $pdf_data );
 
 $file_name =$id. "page_13";
 $path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
-$pdf->Output($path, 'FI');
+$pdf->Output($path, 'F');
 //============================================================+
 // END OF FILE
 //============================================================+

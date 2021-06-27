@@ -253,7 +253,7 @@ $style = array(
 );
 
  $html = '
- <br><br>
+ <br>
 <div style="display:inline-block">
 	<img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/>
 </div>
@@ -320,17 +320,16 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-// $pdf->Output('Case.pdf', 'I');
+// $pdf->Output(dirname(__FILE__).'/Case.pdf', 'I');
 
 // $pdf_data = ob_get_contents();
-
 // $file_name = $id."page_6";
-// $path="Barcodes/".$file_name.".pdf";
+// $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
 // file_put_contents( $path, $pdf_data );
 
 $file_name =$id. "page_6";
 $path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
-$pdf->Output($path, 'FI');
+$pdf->Output($path, 'F');
 //============================================================+
 // END OF FILE
 //============================================================+
