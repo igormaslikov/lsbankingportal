@@ -170,7 +170,7 @@ while ($row_installment = mysqli_fetch_array($sql_installment)) {
   $last_payment_date =  $row_installment['payment_date'];
 }
 
-$sql_installment = mysqli_query($con, "select count(id) as count from tbl_commercial_loan_installments where loan_create_id=10363");
+$sql_installment = mysqli_query($con, "select count(id) as count from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
 while ($row_installment = mysqli_fetch_array($sql_installment)) {
   $count_payments = $row_installment['count'];
 }
