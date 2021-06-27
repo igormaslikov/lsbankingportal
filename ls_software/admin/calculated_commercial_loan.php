@@ -161,7 +161,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     }
 
     $in_hand = 0;
-    if ($count > 1) {
+    if ($count > 0) {
         $sql_installment = mysqli_query($con, "SELECT SUM(payment) as in_hand FROM `tbl_commercial_loan_installments` where `loan_create_id`= $previous_loan_id and `status` = 0 order by id desc");
         while ($row_installment = mysqli_fetch_array($sql_installment)) {
             $in_hand = $row_installment['in_hand'];
