@@ -28,5 +28,5 @@ $loan_id=$row['loan_id'];
 echo $loan_id;
 }
 mysqli_query ($con,"UPDATE `tbl_commercial_loan` SET `sign_status`='1' WHERE `loan_create_id` = '$loan_id'");
-
+return array("ok");
 ?>
