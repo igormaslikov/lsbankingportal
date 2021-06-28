@@ -7,7 +7,7 @@
 	file_put_contents($file_name,$imagedata);
 	$result['status'] = 1;
 	$result['file_name'] = $file_name;
-	echo json_encode($result);
+	//echo json_encode($result);
     $key = $_POST['key'];
     $filename=$filename.".png";
 include 'dbconnect.php';
@@ -18,15 +18,19 @@ include 'dbconfig.php';
         if ($result_sign) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
-        echo "<h3> Error Inserting Data </h3>";
+        //echo "<h3> Error Inserting Data </h3>";
         }
 $sql=mysqli_query($con, "select * from commercial_loan_initial_banking where email_key = '$key' "); 
 $loan_id = "";
 while($row = mysqli_fetch_array($sql)) {
 
 $loan_id=$row['loan_id'];
-echo $loan_id;
+//echo $loan_id;
 }
 mysqli_query ($con,"UPDATE `tbl_commercial_loan` SET `sign_status`='1' WHERE `loan_create_id` = '$loan_id'");
-return array("ok");
+
+$articles[] = array(
+    'status'         =>  "OK"
+);
+echo json_encode($articles);
 ?>
