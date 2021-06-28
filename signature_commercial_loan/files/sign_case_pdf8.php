@@ -314,7 +314,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 <tr>
 
 <td>
-Initials/Iniciales: <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/>
+Initials/Iniciales: <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/>
 </td>
 
 </tr>

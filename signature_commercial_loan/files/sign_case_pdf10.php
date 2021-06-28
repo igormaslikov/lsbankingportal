@@ -255,7 +255,7 @@ Borrower Mobile Telephone #: <br><br>
 <span style="text-decoration:underline">'.$mobile_number.'</span><br><br>
 
 Borrower Signature <br>
-<img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/><br>
+<img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br>
  
 </td>
 

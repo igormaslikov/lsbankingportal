@@ -169,7 +169,7 @@ BORROWER ACKNOWLEDGES RECEIPT OF A COMPLETED COPY OF THIS COMMERCIAL LOAN PROMIS
 </b><br><br>
 
 
-Borrower’s Signature : <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :_________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Borrower’s Signature : <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :_________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
 Co-Borrower’s Signature : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :_________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>

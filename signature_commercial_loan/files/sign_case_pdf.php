@@ -390,7 +390,7 @@ $html = '
         <p><b>Attorney’s Fees; Expenses:</b><span>Lender may here or pay someone else to help collect this Commercial Loan Promissory Note if Borrower does not pay. Borrower will pay Lender that amount. This includes, subject to any limits under applicable law, Lender’s Attorney’s fees, and Lender’s legal expenses, whether or not there is a lawsuit, including Attorney’s fees, expenses for bankruptcy proceedings (Including efforts to modify or vacate an automatic stay or injunction), and appeals. Borrower also will pay any court costs, in addition to all other sums provided by law. 
         </span></p>
         </div>
-        <span>Initials:</span><img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/>
+        <span>Initials:</span><img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/>
         
 ';
 

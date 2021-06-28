@@ -230,7 +230,7 @@ Loan Agreement/Contrato del Prestamo
 </tbody>
 </table>
 
-Initials/Iniciales:<img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/>
+Initials/Iniciales:<img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/>
 
 ';
 

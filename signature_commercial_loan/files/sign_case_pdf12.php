@@ -298,7 +298,7 @@ You acknowledge that (1) this Authorization is voluntary and is not required as 
 
 <br><br><br>
 <b>
-Account Holder’s Signature: <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/><br><br>
+Account Holder’s Signature: <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br><br>
 __________________________<br> <b>
 Account Holder’s Name
 </div>

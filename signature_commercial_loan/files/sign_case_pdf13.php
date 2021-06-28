@@ -299,7 +299,7 @@ Servicio ACH; cumplimiento de las normas de la NACHA y de la legislación aplica
 <br><br><br>
 
 <br> <b>
-Firma del Titular de la Cuenta de Banco: <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/><br><br>
+Firma del Titular de la Cuenta de Banco: <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br><br>
 __________________________<br> <b>
 Nombre del Titular de la Cuenta de Banco
 </div>
