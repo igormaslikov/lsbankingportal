@@ -51,8 +51,8 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
   $principal_f = $row_loan['amount_of_loan'];
   $principal = number_format($principal_f, 2);
   $payment_date = $row_loan['payment_date'];
-  $interest_rate = $row_loan['loan_interest'];
-  $interest_rate = number_format($interest_rate, 2);
+  $interest_rate_f = $row_loan['loan_interest'];
+  $interest_rate = number_format($interest_rate_f, 2);
   $timestamp = strtotime($payment_date);
   $payment_date = date("m-d-Y", $timestamp);
   $totLoan = number_format(
@@ -63,43 +63,7 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
 
   $timestamp = strtotime($creation_date);
   $creation_date = date("m-d-Y", $timestamp);
-
-  $var = "$payment_datee";
-  //$payment_date= date("m-d-Y", strtotime($var) );
-  //$loan_fee = $row_loan['loan_fee'];
-  //$loan_fee = number_format($loan_fee, 2);
-  //$loan_payable = $row_loan['loan_total_payable'];
-  //$loan_payable = number_format($loan_payable, 2);
-
-
-  // echo "LOAN Amount".$amount_of_loan;
-  $date1 = $creation_date;
-  $date2 = $payment_date;
-  //	function dateDiff($date1, $date2) 
-  //	{
-  //	  $date1_ts = strtotime($date1);
-  //	  $date2_ts = strtotime($date2);
-  //	  $diff = $date2_ts - $date1_ts;
-  //	  return round($diff / 86400);
-  //	}
-  //	$dateDiff= dateDiff($date1, $date2);
-  // echo "Days".$dateDiff."<br>";
-
-  $diff_creation_date = strtotime($creation_date);
-  $diff_payment_date = strtotime($payment_date);
-  $datediff =  $diff_payment_date - $diff_creation_date;
-  $datediff = round($datediff / (60 * 60 * 24));
-
-
-
-
-  //$calculation = $loan_fee/$amount_of_loan;
-  //$calculation_1 = $datediff/365;
-  //$calculation_1 = $calculation_1*10000;
-  //$calculation_1  = $calculation_1/100;
-
-  //$calculation = round($calculation, 2);
-
+  $total_payments = $row_loan['total_payments'];
 
 
 
@@ -209,6 +173,14 @@ if($count>1){
   }
 }
 
+$creation_date_array = explode("-",$creation_date);
+$last_payment_date_array = explode("-",$last_payment_date);
+
+$cd = strtotime($creation_date_array[2]."-".$creation_date_array[0]."-".$creation_date_array[1]);
+$ld = strtotime($last_payment_date_array[2]."-".$last_payment_date_array[0]."-".$last_payment_date_array[1]);
+$count_days = floor(abs($ld - $cd) / 60 / 60 / 24);
+$anual_pr = ($contract_fee + $interest_rate_f) / $principal_f / $count_days * 365 * 100;
+$anual_pr = number_format($anual_pr, 2);
 
 ?>
 

@@ -32,6 +32,8 @@ $bank_name=$row1['bank_name'];
 $routing_number=$row1['routing_number'];
 $account_number=$row1['account_number'];
 
+$account_number = strlen($account_number) > 4 ? substr($account_number,-4) : $account_number;
+
 $cvv_number=$row1['cvv_number'];
 
 $img_signed = $row1['signed_pic'];
@@ -185,6 +187,12 @@ $anual_prr=($apr_total/$dateDiff)*100;
 	//echo $anual_pr;
 	$anual_pr= number_format((float)$anual_prr, 2, '.', '');
 
+$sql_installment = mysqli_query($con, "select payment, payment_date, week_day from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 1");
+while ($row_installment = mysqli_fetch_array($sql_installment)) {
+	$fitst_payment = $row_installment['payment'];
+	$fitst_payment_date = $row_installment['payment_date'];
+	$week_day = $row_installment['week_day'];
+	}	
 ?>
 
 
@@ -267,7 +275,7 @@ ACH RECURRING PAYMENT AUTHORIZATION
 
 <div style="font-size:8px;">
 <p>
-1. By signing below, Account Holder (“<b>you</b>”) authorizes LS Financing Inc and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>out</b>” to automatically withdraw your loan payments from your deposit account ending in xxxxxx_______(“<b>Account</b>”) at __________________________________(“<b>Bank</b>”) via recurring electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to initiate debits of $_______ (“<b>scheduled debit amount</b>”) Every ______________ on the payment due dates, beginning on __________, which is the effective date of this Authorization. These debits will continue until the amount due under your loan is paid in full or until this Authorization is canceled. You also authorize us to initiate ACH debits or credits to your Account as necessary to correct erroneous transactions.
+1. By signing below, Account Holder (“<b>you</b>”) authorizes LS Financing Inc and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>out</b>” to automatically withdraw your loan payments from your deposit account ending in xxxxxx'.$account_number.'(“<b>Account</b>”) at '.$bank_name.'(“<b>Bank</b>”) via recurring electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to initiate debits of $'.$fitst_payment.' (“<b>scheduled debit amount</b>”) Every '.$week_day.' on the payment due dates, beginning on '.$fitst_payment_date.', which is the effective date of this Authorization. These debits will continue until the amount due under your loan is paid in full or until this Authorization is canceled. You also authorize us to initiate ACH debits or credits to your Account as necessary to correct erroneous transactions.
 <br/>2. You have the right to receive 10 days’ prior written notice from us of the amount and date of any debit that varies from the scheduled debit amount. However, if we debit your account for any amount in a range from $1 up to the scheduled debit amount, you agree that we do not have to send you such prior written notice, unless required by law. We will not debit your Account for more than the scheduled debit amount above.
 <br/>3. If any payment due date falls on a weekend or holiday, the debit will be processed on the next business day. If your Bank rejects any debit because you do not have an account with the Bank, we will cancel these recurring debits. If your Bank rejects any debit because there is not enough money in your Account, we will suspend these recurring debits and de-enroll you from recurring payments until you have paid all past due payments and any returned payment fees or any other fees due under your promissory note. Once your account is current, we will re-enroll you in recurring ACH payments under this Authorization, unless you tell us that you do not wish to re-enroll, in which case we will cancel the recurring ACH payments.
 <br/>4. You represent that you are an authorized signer on the Account. You agree to notify us promptly of any changes to the Account and must provide us seven (7) days’ advance notice of any changes to the Account. You acknowledge that the ACH transactions to your Account must comply with United States law.

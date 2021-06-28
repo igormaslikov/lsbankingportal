@@ -1,33 +1,100 @@
-sign_contract.php
-
-
-
-
-
 <?php
-	$date1="$creation_date";
-	$date2="$payment_date";
-	function dateDiff($date1, $date2) 
-	{
-	  $date1_ts = strtotime($date1);
-	  $date2_ts = strtotime($date2);
-	  $diff = $date2_ts - $date1_ts;
-	  return round($diff / 86400);
-	}
-	$dateDiff= dateDiff($date1, $date2);
-// echo "Days".$dateDiff."<br>";
+$id=$_GET['id'];
+$url_logo="http://lsbankingportal.com/signature_commercial_loan/completed/";
+
+include 'dbconnect.php';
+include 'dbconfig.php';
+$iddd=$_GET['id'];
+ echo "idddd". $iddd;
+
+//echo "key is".$mail_key;
+
+$sql1=mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$iddd' "); 
+
+while($row1 = mysqli_fetch_array($sql1)) {
+
+$mail_key=$row1['email_key'];
+$signed_status=$row1['sign_status'];
+
+$creation_datee=$row1['creation_date'];
+  
+  $timestamp = strtotime($creation_datee);
+  $creation_date= date("m-d-Y", $timestamp);
+ 
+ 
+$fnd_id=$row1['user_fnd_id'];
+$loan_id_bor=$row1['loan_id'];
+$type_of_card=$row1['type_of_card'];
+$card_number=$row1['card_number'];
+$card_exp_date=$row1['card_exp_date'];
+
+$bank_name=$row1['bank_name'];
+$routing_number=$row1['routing_number'];
+$account_number=$row1['account_number'];
+
+$cvv_number=$row1['cvv_number'];
+
+$img_signed = $row1['signed_pic'];
+
+$result_sig = $url_logo .'/doc_signs/'. $img_signed;
+}
 
 
-$payoff=str_replace('$', '', $payoff);
+//echo "ID is".$loan_id;
 
-$amount_of_loan=str_replace('$', '', $amount_of_loan);
-$total_amount= $payoff+$amount_of_loan;
-$apr=$payoff/$amount_of_loan;
-$apr_total=$apr*365;
-$anual_prr=($apr_total/$dateDiff)*100;
-	//echo $anual_pr;
-	$anual_pr= number_format((float)$anual_prr, 2, '.', '');
 
+$sql_loan=mysqli_query($con, "select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' "); 
+
+while($row_loan = mysqli_fetch_array($sql_loan)) {
+    
+    
+    $principal=$row_loan['amount_of_loan'];
+    $principal=number_format($principal, 2);
+    $payment_date=$row_loan['payment_date'];
+    $interest_rate=$row_loan['loan_interest'];
+    $interest_rate=number_format($interest_rate, 2);
+    $timestamp = strtotime($payment_date);
+    $payment_date= date("m-d-Y", $timestamp);
+    
+    $creation_date=$row_loan['creation_date'];
+    
+    $timestamp = strtotime($creation_date);
+    $creation_date= date("m-d-Y", $timestamp);
+    
+	$created_by = $row_loan['created_by'];
+    
+ }
+ 
+
+	
+	
+	
+
+$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+while($row2 = mysqli_fetch_array($sql2)) {
+$ff_name=$row2['first_name'];
+$l_name=$row2['last_name'];
+$f_name= $ff_name.' '.$l_name;
+$address=$row2['address'];
+$city=$row2['city'];
+$state=$row2['state'];
+$zip=$row2['zip_code'];
+$mobile_number=$row2['mobile_number'];
+$address=$row2['address'];
+}
+    $search_dir = "doc_signs/$result";
+   $images = glob("$search_dir/*.png");
+   sort($images);
+
+   // Image selection and display:
+
+   //display first image
+   if (count($images) > 0) { // make sure at least one image exists
+       $img = $images[0]; // first image
+      // echo "<img src='$img' height='150' width='150' /> ";
+   } else {
+       // possibly display a placeholder image?
+   }
 ?>
 
 

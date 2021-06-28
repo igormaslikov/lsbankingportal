@@ -51,8 +51,8 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
   $principal_f = $row_loan['amount_of_loan'];
   $principal = number_format($principal_f, 2);
   $payment_date = $row_loan['payment_date'];
-  $interest_rate = $row_loan['loan_interest'];
-  $interest_rate = number_format($interest_rate, 2);
+  $interest_rate_f = $row_loan['loan_interest'];
+  $interest_rate = number_format($interest_rate_f, 2);
   $timestamp = strtotime($payment_date);
   $payment_date = date("m-d-Y", $timestamp);
   $totLoan = number_format(
@@ -201,6 +201,16 @@ if($count>1){
     $in_hand = $row_installment['in_hand'];
   }
 }
+
+
+$creation_date_array = explode("-",$creation_date);
+$last_payment_date_array = explode("-",$last_payment_date);
+
+$cd = strtotime($creation_date_array[2]."-".$creation_date_array[0]."-".$creation_date_array[1]);
+$ld = strtotime($last_payment_date_array[2]."-".$last_payment_date_array[0]."-".$last_payment_date_array[1]);
+$count_days = floor(abs($ld - $cd) / 60 / 60 / 24);
+$anual_pr = ($contract_fee + $interest_rate_f) / $principal_f / $count_days * 365 * 100;
+$anual_pr = number_format($anual_pr, 2);
 ?>
 
 

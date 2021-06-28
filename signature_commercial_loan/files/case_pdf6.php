@@ -61,71 +61,11 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
     $timestamp = strtotime($creation_date);
     $creation_date= date("m-d-Y", $timestamp);
     
-     $var = "$payment_datee";
-//$payment_date= date("m-d-Y", strtotime($var) );
-//$loan_fee = $row_loan['loan_fee'];
-//$loan_fee = number_format($loan_fee, 2);
-//$loan_payable = $row_loan['loan_total_payable'];
-//$loan_payable = number_format($loan_payable, 2);
-
-    
-    // echo "LOAN Amount".$amount_of_loan;
-    $date1=$creation_date;
-	$date2=$payment_date;
-//	function dateDiff($date1, $date2) 
-//	{
-//	  $date1_ts = strtotime($date1);
-//	  $date2_ts = strtotime($date2);
-//	  $diff = $date2_ts - $date1_ts;
-//	  return round($diff / 86400);
-//	}
-//	$dateDiff= dateDiff($date1, $date2);
-// echo "Days".$dateDiff."<br>";
-
-$diff_creation_date = strtotime($creation_date);
-$diff_payment_date = strtotime($payment_date);
-$datediff =  $diff_payment_date - $diff_creation_date;
-$datediff = round($datediff / (60 * 60 * 24));
-
-
- 
-  
-//$calculation = $loan_fee/$amount_of_loan;
-//$calculation_1 = $datediff/365;
-//$calculation_1 = $calculation_1*10000;
-//$calculation_1  = $calculation_1/100;
-
-  //$calculation = round($calculation, 2);
-
-	
-
-	
-	
 	$created_by = $row_loan['created_by'];
     
  }
  
- $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
-
-$loan_fee=$row_loan_settings['loan_fee'];
-$loan_payable=$row_loan_settings['payoff_amount'];
-}
- 
-   $calculation = (($loan_fee/$amount_of_loan)/($datediff/365) * 10000) / 100;
-    $calculation = round($calculation, 2);
-  	$anual_pr= $calculation;
- 
- 
- 
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
-
-while($row_user = mysqli_fetch_array($sql_user)) {
-
-$username=$row_user['username'];
-
-}	
 	
 	
 	
