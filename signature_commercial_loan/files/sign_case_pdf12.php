@@ -32,6 +32,8 @@ $bank_name=$row1['bank_name'];
 $routing_number=$row1['routing_number'];
 $account_number=$row1['account_number'];
 
+$account_number = strlen($account_number) > 4 ? substr($account_number,-4) : $account_number;
+
 $cvv_number=$row1['cvv_number'];
 
 $img_signed = $row1['signed_pic'];
@@ -161,8 +163,6 @@ $address=$row2['address'];
 
 
 
-
-
 <?php
 	$date1="$creation_date";
 	$date2="$payment_date";
@@ -187,6 +187,12 @@ $anual_prr=($apr_total/$dateDiff)*100;
 	//echo $anual_pr;
 	$anual_pr= number_format((float)$anual_prr, 2, '.', '');
 
+$sql_installment = mysqli_query($con, "select payment, payment_date, week_day from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 1");
+while ($row_installment = mysqli_fetch_array($sql_installment)) {
+	$fitst_payment = $row_installment['payment'];
+	$fitst_payment_date = $row_installment['payment_date'];
+	$week_day = $row_installment['week_day'];
+	}	
 ?>
 
 
@@ -252,66 +258,53 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span>
- <br><br><br>
-Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
-Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
-Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
- <br><br><br>
+ $html = '
+<br>
+<div style=";display:inline-block">
+	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
+</div>
+<br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+ <br>
+Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
+&nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
+ <br>
 <h1 style="text-align:center">
-ACH Authorization Form<br>
-Formulario de Autorizacion de ACH
+ACH RECURRING PAYMENT AUTHORIZATION
 </h1>
 
-<div>
-I (we) hereby authorize LS FINANCING, INC
-to initiate entries to my (our)
-checking/savings accounts at The Financial
-Institution listed below and, if necessary,
-initiate adjustments for any transactions
-credited/debited in error. This authority will
-remain in effect until LS FINANCING, INC is
-notified by me (us) in writing to cancel it in
-such time as to afford LS FINANCING, INC and
-The Financial Institution a reasonable
-opportunity to act on it. <br><br>
-
-Yo (nosotros) autorizamos a LS FINANCING, INC a
-iniciar inscripciones a mi (nuestras) cuentas de
-cheques/ahorros en La Institución Financiera que se
-enumera a continuación y, si es necesario, iniciar
-ajustes por cualquier transacción acreditada o
-debitada por error. Esta autoridad permanecerá en
-vigor hasta que LS FINANCING, INC sea notificada
-por escrito (por escrito) para cancelarla en el
-tiempo que se dé a LS FINANCING, INC y La
-Institución Financiera una oportunidad razonable
-para actuar en ella. <br><br><br>
+<div style="font-size:8px;">
+<p>
+1. By signing below, Account Holder (“<b>you</b>”) authorizes LS Financing Inc and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>out</b>” to automatically withdraw your loan payments from your deposit account ending in xxxxxx'.$account_number.'(“<b>Account</b>”) at '.$bank_name.'(“<b>Bank</b>”) via recurring electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to initiate debits of $'.$fitst_payment.' (“<b>scheduled debit amount</b>”) Every '.$week_day.' on the payment due dates, beginning on '.$fitst_payment_date.', which is the effective date of this Authorization. These debits will continue until the amount due under your loan is paid in full or until this Authorization is canceled. You also authorize us to initiate ACH debits or credits to your Account as necessary to correct erroneous transactions.
+<br/>2. You have the right to receive 10 days’ prior written notice from us of the amount and date of any debit that varies from the scheduled debit amount. However, if we debit your account for any amount in a range from $1 up to the scheduled debit amount, you agree that we do not have to send you such prior written notice, unless required by law. We will not debit your Account for more than the scheduled debit amount above.
+<br/>3. If any payment due date falls on a weekend or holiday, the debit will be processed on the next business day. If your Bank rejects any debit because you do not have an account with the Bank, we will cancel these recurring debits. If your Bank rejects any debit because there is not enough money in your Account, we will suspend these recurring debits and de-enroll you from recurring payments until you have paid all past due payments and any returned payment fees or any other fees due under your promissory note. Once your account is current, we will re-enroll you in recurring ACH payments under this Authorization, unless you tell us that you do not wish to re-enroll, in which case we will cancel the recurring ACH payments.
+<br/>4. You represent that you are an authorized signer on the Account. You agree to notify us promptly of any changes to the Account and must provide us seven (7) days’ advance notice of any changes to the Account. You acknowledge that the ACH transactions to your Account must comply with United States law.
+<br/>5. <b>How to Cancel</b>. You may cancel this Authorization by calling us at <b>(888) 540-7232</b>  during our business hours. You must notify us of the cancellation at least <b>3 days</b> before the payment due date. You may also cancel these recurring ACH payments by following your Bank’s stop payment procedures, but your Bank may charge you a fee. If you cancel, you must still make your loan payments on time.
+<br/>
+Except as otherwise set forth herein, all capitalized terms used but not defined herein shall have the meaning given to them in the NACHA Rules (as defined below). By using the Services, you agree to the terms and conditions of this Agreement. Except as otherwise expressly provided in this Addendum, to the extent that this Addendum is inconsistent with the terms of the Initial Agreement, this Addendum, and any amendment hereto from time to time shall control, but only to the extent necessary to resolve such conflict. ACH Service; Compliance with the NACHA Rules and Applicable Law. The ACH network is a funds transfer system which provides for the interbank clearing of electronic credit and debit Entries for participating financial institutions. 
+<br/>
+The ACH system is governed by the National Automated Clearing House Association’s (“NACHA”) Operating Rules and Operating Guidelines (collectively, the “NACHA Rules”). Your rights and obligations with respect to any Entry are governed by the NACHA Rules, this Agreement and applicable law. You acknowledge that you have access to a copy of the NACHA Rules and agree to obtain and review a copy. (The NACHA Rules may be obtained at NACHA’s website at www.NACHA.org or by contacting NACHA directly at 703-561-1100.) You also agree to subscribe to receive revisions to the NACHA Rules directly from NACHA. You represent and warrant that you will comply with the NACHA Rules and applicable laws, regulations, and regulatory requirements. You further represent and warrant that you will not transmit any Entry or engage in any act or omission that violates or causes us to violate the NACHA Rules or the laws of the United States, or any other applicable laws, regulations, or regulatory requirements, including, without limitation, regulations of the Office of Foreign Asset Control (“OFAC”), sanctions or executive orders.
+</p>
 
 
-<b>Borrowers Name/Nombre del Deudor: </b><span style="text-decoration:underline">'.$f_name.'</span><br><br>
-<b>Borrowers Address/Direccion del Deudor:</b><span style="text-decoration:underline"> '.$address.'</span><br><br>
-<b>Borrowers Bank/Banco del Deudor:</b> <span style="text-decoration:underline">'.$bank_name.'</span><br><br>
-<b>Borrowers Bank Routing Number: </b><span style="text-decoration:underline">'.$routing_number.'</span><br><br>
-<b>Borrowers Bank Account Number:</b><span style="text-decoration:underline"> '.$account_number.'</span><br><br>
-<b>Payment Amount/Monto del Pago: $</b><span style="text-decoration:underline">'.$loan_payable.'</span>, Past Due Amount or Payoff/Monto Atrasado o saldar la cuenta. <br><br>
+<p>
+<b>IMPORTANT</b><br><br>
+To avoid any returned payment fees, you agree you will have enough money in your Account to cover the amount of the scheduled debit.ACH debits could take up to <b>5 business days</b> to be deducted from your Account.
+
+You acknowledge that (1) this Authorization is voluntary and is not required as a condition of obtaining your loan, (2) the Spanish Translation is provided as a courtesy only and the English version is the legally effective version, and (3) you received a copy of this Authorization when you signed it.
+
+</p>
+
 
 <br><br><br>
-
-_____________________________________________________<br> <b>
-Bank Account Holders Signature/Firma del Titular de la Cuenta de Banco<br><br>
-Date/Fecha: </b><span style="text-decoration:underline">'.$creation_date.'</span> 
+<b>
+Account Holder’s Signature: <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/><br><br>
+__________________________<br> <b>
+Account Holder’s Name
 </div>
-
 ';
 
-$sign_image_url= "http://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/".$img_signed;
-
-$img = file_get_contents($sign_image_url);
-
 $pdf->writeHTML($html,25,30); 
-
-$pdf->Image('@' . $img, 15, 232, '30', '', 'JPG', '', 'T', false, 40, '', false, false, 0, false, false, false);
  
 $data_shipment  = ":";
 
@@ -324,14 +317,23 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_13";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_13";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
+// $pdf->Output(dirname(__FILE__).'/Case.pdf', 'I');
 
+// $pdf_data = ob_get_contents();
+// $file_name = $id."page_13";
+// $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
+// file_put_contents( $path, $pdf_data );
+
+$file_name =$id. "page_13";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'F');
 //============================================================+
 // END OF FILE
 //============================================================+

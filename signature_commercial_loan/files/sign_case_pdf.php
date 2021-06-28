@@ -1,171 +1,189 @@
 <?php
-$id=$_GET['id'];
-$url_logo="http://lsbankingportal.com/signature_commercial_loan/completed/";
+$id = $_GET['id'];
+$url_logo = "http://lsbankingportal.com/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
-$iddd=$_GET['id'];
- echo "idddd". $iddd;
+$iddd = $_GET['id'];
+echo "idddd" . $iddd;
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$iddd' "); 
+$sql1 = mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$iddd' ");
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while ($row1 = mysqli_fetch_array($sql1)) {
 
-$mail_key=$row1['email_key'];
-$signed_status=$row1['sign_status'];
+  $mail_key = $row1['email_key'];
+  $signed_status = $row1['sign_status'];
 
-$creation_datee=$row1['creation_date'];
-  
+  $creation_datee = $row1['creation_date'];
+
   $timestamp = strtotime($creation_datee);
-  $creation_date= date("m-d-Y", $timestamp);
- 
- 
-$fnd_id=$row1['user_fnd_id'];
-$loan_id_bor=$row1['loan_id'];
-$type_of_card=$row1['type_of_card'];
-$card_number=$row1['card_number'];
-$card_exp_date=$row1['card_exp_date'];
+  $creation_date = date("m-d-Y", $timestamp);
 
-$bank_name=$row1['bank_name'];
-$routing_number=$row1['routing_number'];
-$account_number=$row1['account_number'];
 
-$cvv_number=$row1['cvv_number'];
+  $fnd_id = $row1['user_fnd_id'];
+  $loan_id_bor = $row1['loan_id'];
+  $type_of_card = $row1['type_of_card'];
+  $card_number = $row1['card_number'];
+  $card_exp_date = $row1['card_exp_date'];
 
-$img_signed = $row1['signed_pic'];
+  $bank_name = $row1['bank_name'];
+  $routing_number = $row1['routing_number'];
+  $account_number = $row1['account_number'];
 
-$result_sig = $url_logo .'/doc_signs/'. $img_signed;
+  $cvv_number = $row1['cvv_number'];
+
+  $img_signed = $row1['signed_pic'];
+
+  $result_sig = $url_logo . '/doc_signs/' . $img_signed;
 }
 
 
 //echo "ID is".$loan_id;
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan = mysqli_query($con, "select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' ");
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
-    
-    
-    $principal=$row_loan['amount_of_loan'];
-    $principal=number_format($principal, 2);
-    $payment_date=$row_loan['payment_date'];
-    $interest_rate=$row_loan['loan_interest'];
-    $interest_rate=number_format($interest_rate, 2);
-    $timestamp = strtotime($payment_date);
-    $payment_date= date("m-d-Y", $timestamp);
-    
-    $creation_date=$row_loan['creation_date'];
-    
-    $timestamp = strtotime($creation_date);
-    $creation_date= date("m-d-Y", $timestamp);
-    
-     $var = "$payment_datee";
-//$payment_date= date("m-d-Y", strtotime($var) );
-//$loan_fee = $row_loan['loan_fee'];
-//$loan_fee = number_format($loan_fee, 2);
-//$loan_payable = $row_loan['loan_total_payable'];
-//$loan_payable = number_format($loan_payable, 2);
-
-    
-    // echo "LOAN Amount".$amount_of_loan;
-    $date1=$creation_date;
-	$date2=$payment_date;
-//	function dateDiff($date1, $date2) 
-//	{
-//	  $date1_ts = strtotime($date1);
-//	  $date2_ts = strtotime($date2);
-//	  $diff = $date2_ts - $date1_ts;
-//	  return round($diff / 86400);
-//	}
-//	$dateDiff= dateDiff($date1, $date2);
-// echo "Days".$dateDiff."<br>";
-
-$diff_creation_date = strtotime($creation_date);
-$diff_payment_date = strtotime($payment_date);
-$datediff =  $diff_payment_date - $diff_creation_date;
-$datediff = round($datediff / (60 * 60 * 24));
+while ($row_loan = mysqli_fetch_array($sql_loan)) {
 
 
- 
-  
-//$calculation = $loan_fee/$amount_of_loan;
-//$calculation_1 = $datediff/365;
-//$calculation_1 = $calculation_1*10000;
-//$calculation_1  = $calculation_1/100;
+  $principal_f = $row_loan['amount_of_loan'];
+  $principal = number_format($principal_f, 2);
+  $payment_date = $row_loan['payment_date'];
+  $interest_rate_f = $row_loan['loan_interest'];
+  $interest_rate = number_format($interest_rate_f, 2);
+  $timestamp = strtotime($payment_date);
+  $payment_date = date("m-d-Y", $timestamp);
+  $totLoan = number_format(
+    $row_loan['amount_of_loan'] + $row_loan['loan_interest'],
+    2
+  );
+  $creation_date = $row_loan['creation_date'];
 
-  //$calculation = round($calculation, 2);
+  $timestamp = strtotime($creation_date);
+  $creation_date = date("m-d-Y", $timestamp);
+  $total_payments = $row_loan['total_payments'];
 
-	
 
-	
-	
-	$created_by = $row_loan['created_by'];
-    
- }
- 
- $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
 
-$loan_fee=$row_loan_settings['loan_fee'];
-$loan_payable=$row_loan_settings['payoff_amount'];
+  $created_by = $row_loan['created_by'];
+  $installment_plan = $row_loan['installment_plan'];
+  $contract_fee=$row_loan['contract_fee'];
 }
- 
-   $calculation = (($loan_fee/$amount_of_loan)/($datediff/365) * 10000) / 100;
-    $calculation = round($calculation, 2);
-  	$anual_pr= $calculation;
- 
- 
- 
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+// $sql_loan_settings = mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'");
 
-$username=$row_user['username'];
+// while ($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
 
-}	
-	
-	
-	
+//   $loan_fee = $row_loan_settings['loan_fee'];
+//   $loan_payable = $row_loan_settings['payoff_amount'];
+// }
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
-while($row2 = mysqli_fetch_array($sql2)) {
-$ff_name=$row2['first_name'];
-$l_name=$row2['last_name'];
-$f_name= $ff_name.' '.$l_name;
-$address=$row2['address'];
-$city=$row2['city'];
-$state=$row2['state'];
-$zip=$row2['zip_code'];
-$mobile_number=$row2['mobile_number'];
-$address=$row2['address'];
+
+
+
+$sql2 = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' ");
+while ($row2 = mysqli_fetch_array($sql2)) {
+  $ff_name = $row2['first_name'];
+  $l_name = $row2['last_name'];
+  $f_name = $ff_name . ' ' . $l_name;
+  $address = $row2['address'];
+  $city = $row2['city'];
+  $state = $row2['state'];
+  $zip = $row2['zip_code'];
+  $mobile_number = $row2['mobile_number'];
+  $address = $row2['address'];
 }
-    $search_dir = "doc_signs/$result";
-   $images = glob("$search_dir/*.png");
-   sort($images);
+$search_dir = "doc_signs/$result";
+$images = glob("$search_dir/*.png");
+sort($images);
 
-   // Image selection and display:
+// Image selection and display:
 
-   //display first image
-   if (count($images) > 0) { // make sure at least one image exists
-       $img = $images[0]; // first image
-      // echo "<img src='$img' height='150' width='150' /> ";
-   } else {
-       // possibly display a placeholder image?
-   }
-   
-   $sql_installment=mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor"); 
-while($row_installment = mysqli_fetch_array($sql_installment)) {
-$payment_install=$row_installment['payment'];
-$payment_date_install=$row_installment['payment_date'];
-  $timestampp = strtotime($payment_date_install);
-  $payment_date_installl= date("m-d-Y", $timestampp);
- $payment_install=number_format($payment_install, 2);
-
+//display first image
+if (count($images) > 0) { // make sure at least one image exists
+  $img = $images[0]; // first image
+  // echo "<img src='$img' height='150' width='150' /> ";
+} else {
+  // possibly display a placeholder image?
 }
+
+// $sql_installment = mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
+// while ($row_installment = mysqli_fetch_array($sql_installment)) {
+//   $payment_install = $row_installment['payment'];
+//   $payment_date_install = $row_installment['payment_date'];
+//   $timestampp = strtotime($payment_date_install);
+//   $payment_date_installl = date("m-d-Y", $timestampp);
+//   $payment_install = number_format($payment_install, 2);
+// }
+
+
+$sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 1");
+while ($row_installment = mysqli_fetch_array($sql_installment)) {
+  $fitst_payment = $row_installment['payment'];
+  $fitst_payment_date = $row_installment['payment_date'];
+}
+
+$sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id desc limit 1");
+while ($row_installment = mysqli_fetch_array($sql_installment)) {
+  $last_payment = $row_installment['payment'];
+  $last_payment_date =  $row_installment['payment_date'];
+}
+
+// $diff_creation_date = strtotime($fitst_payment_date);
+//   $diff_payment_date = strtotime($last_payment_date);
+//   $datediff =  $diff_payment_date - $diff_creation_date;
+//   $datediff = round($datediff / (60 * 60 * 24));
+
+//   $calculation = ((($contract_fee + $row_loan['loan_interest'])  / $principal_f) / ($datediff / 365) * 10000) / 100;
+//   $calculation = round($calculation, 2);
+//   $anual_pr = $calculation;
+
+$sql_installment = mysqli_query($con, "select count(id) as count from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
+while ($row_installment = mysqli_fetch_array($sql_installment)) {
+  $count_payments = $row_installment['count'];
+}
+
+$second_payment = 0;
+
+if ($count_payments > 2) {
+  $count_payments = $count_payments - 2;
+  $sql_installment = mysqli_query($con, "select payment from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 2");
+  while ($row_installment = mysqli_fetch_array($sql_installment)) {
+    $second_payment = $row_installment['payment'];
+  }
+}
+
+$count_payments = $count_payments <= 2 ? "" : $count_payments;
+$second_payment = $second_payment == 0 ? "": $second_payment;
+
+$sql_installment = mysqli_query($con, "SELECT count(loan_id) as count, loan_create_id FROM tbl_commercial_loan WHERE user_fnd_id = $fnd_id order by loan_id desc limit 2");
+while ($row_installment = mysqli_fetch_array($sql_installment)) {
+  $count = $row_installment['count'];
+  $previous_loan_id = $row_installment['loan_create_id'];
+}
+
+$in_hand = 0;
+if($count>1){
+  $sql_installment = mysqli_query($con, "SELECT SUM(payment) as in_hand FROM `tbl_commercial_loan_installments` where `loan_create_id`= $previous_loan_id and `status` = 0 order by id desc");
+  while ($row_installment = mysqli_fetch_array($sql_installment)) {
+    $in_hand = $row_installment['in_hand'];
+  }
+}
+
+$creation_date_array = explode("-",$creation_date);
+$last_payment_date_array = explode("-",$last_payment_date);
+
+$cd = strtotime($creation_date_array[2]."-".$creation_date_array[0]."-".$creation_date_array[1]);
+$ld = strtotime($last_payment_date_array[2]."-".$last_payment_date_array[0]."-".$last_payment_date_array[1]);
+$count_days = floor(abs($ld - $cd) / 60 / 60 / 24);
+$anual_pr = ($contract_fee + $interest_rate_f) / $principal_f / $count_days * 365 * 100;
+$anual_pr = number_format($anual_pr, 2);
+
 ?>
+
 
 
 
@@ -191,9 +209,9 @@ $pdf->SetKeywords('');
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH);
 
 
-if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-	require_once(dirname(__FILE__).'/lang/eng.php');
-	$pdf->setLanguageArray($l);
+if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+  require_once(dirname(__FILE__) . '/lang/eng.php');
+  $pdf->setLanguageArray($l);
 }
 
 // ---------------------------------------------------------
@@ -204,76 +222,192 @@ $pdf->AddPage();
 
 //$pdf->MultiCell(70, 50, $key1 , 0, 'J', false, 1, 125, 30, true, 0, false, true, 0, 'T', false);
 
-$pdf->SetFont('helvetica', '', 10);
+$pdf->SetFont('helvetica', '', 8.25);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // set style for barcode
 $style = array(
-	'border' => false,
-	'vpadding' => 'auto',
-	'hpadding' => 'auto',
-	'fgcolor' => array(0,0,0),
-	'bgcolor' => false, //array(255,255,255)
-	'module_width' => 1, // width of a single module in points
-	'module_height' => 1 // height of a single module in points
+  'border' => false,
+  'vpadding' => 'auto',
+  'hpadding' => 'auto',
+  'fgcolor' => array(0, 0, 0),
+  'bgcolor' => false, //array(255,255,255)
+  'module_width' => 1, // width of a single module in points
+  'module_height' => 1 // height of a single module in points
 );
 
 // set style for barcode
 $style = array(
-	'border' => 0,
-	'vpadding' => 'auto',
-	'hpadding' => 'auto',
-	'fgcolor' => array(0,0,0),
-	'bgcolor' => false, //array(255,255,255)
-	'module_width' => 1, // width of a single module in points
-	'module_height' => 1 // height of a single module in points
+  'border' => 0,
+  'vpadding' => 'auto',
+  'hpadding' => 'auto',
+  'fgcolor' => array(0, 0, 0),
+  'bgcolor' => false, //array(255,255,255)
+  'module_width' => 1, // width of a single module in points
+  'module_height' => 1 // height of a single module in points
 );
 
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
- <div style="line-height:7px"><h1 style="text-align:center">COMMERCIAL LOAN PROMISSORY NOTE</h1></div>
+$html = '
+      <br>
+      <img src="images/Money-Line-Logo.JPG" alt="" style="height:400%" align="left"/>
+      <br>
+      <span><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+        <div style="text-align: center;">
+          <h1>COMMERCIAL LOAN PROMISSORY NOTE</h1>
+        </div>
+      <b>Contract N:</b><span style="text-decoration:underline">' . $loan_id_bor . '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Date:</b><span style="text-decoration:underline">' . $creation_date . '</span>
+      <br><br>
+      <b>Borrower:</b><span style="text-decoration:underline">' . $f_name . '</span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Borrower:</b><span>____________________________</span>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>'.$address.'</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>'.$city.', '.$state.' '.$zip.'</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
+      <br><br>
 
-Contract No   :  '.$loan_id_bor.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; License No : 60DBO-88277  <br>
-
-
-Principal :  '.$principal.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Interest Rate : '.$interest_rate.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date : '.$creation_date.' <br>
-Borrower        : '. $f_name.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Co-Borrower : <br>
-Address :  '.$address.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Address : '.$address.' <br>
-City, State, ZIP :  '.$address.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; City, State, ZIP :  '.$city.' '.$zip.' '.$state.'<br><br>
-
-</b><br>
-<b>Promise To Pay : </b> '.$payment_date.' (“Borrower”) promises to Pay LS Financing Inc DBA Money Line (“Lender”), or order, in lawful money of the United States of America,the principal amount of ($'.$principal.'), together with percent ('.$interest_rate.'%) annual interest on the unpaid principal balance in FULL no later than ______________. Borrower shall make payments in the amount of $'.$payment_install.' per week starting on: '.$payment_date_installl.', which will be applied first to accrued interest, then to any fees, cost and/or penalties, and then to the principal balance.<br><br>
-
-<b>Late Charge : </b>If any payment is more than 10 days late, a late fee of $ 10 shall apply for each week the payment is late until paid in full.
-<br><br>
-<b>Lender’s Right : </b>Upon Borrower’s default, Lender may declare the entire unpaid principal balance on this Commercial Loan Promissory Note and then Borrower will pay that amount.
-<br><br>
-
-
-<b>Borrower’s Default : </b>Default by Borrower includes, but is not limited to, the following: Voluntary or involuntary bankruptcy proceedings wherein Borrower is named a debtor; any liens or encumbrances recorded upon Borrower’s current property, as listed above, whether voluntary, involuntary or through operation of law.
-<br><br>
-<b>Confession Of Judgment : </b>Borrower hereby irrevocable authorizes and empowers any attorney-at-law to appear in any court of record and to confess judgment against Borrower for the unpaid amount of this Commercial Loan Promissory Note as evidenced by any affidavit signed by an officer of Lender setting forth the amount then due, Attorney’s fees plus costs of suit, and to release all errors, and waive all rights of appeal. If a copy of this Commercial Loan Promissory Note, verified by an affidavit, shall have been filled in the proceeding, it will not be necessary to file the original as a warrant of Attorney. Borrower waives the right to any stay of execution and the benefit of all exemption laws now or hereafter in effect. No single exercise of the foregoing warrant and power to confess judgment will be deemed to exhaust the power , whether or not any such exercise shall be held by any court to be invalid , voidable, or void ; but the power will continue undiminished and may be exercised from time to time as Lender may elect until all amounts owing on this Commercial Loan Promissory Note have been paid in full. Borrower hereby waives and releases any and all claims or causes of action which Borrower might have against any Attorney acting under the terms of authority which Borrower has granted herein arising out of or connected with the confession of judgment hereunder.
-<br><br>
-<b>Dishonored Item Fee : </b>Borrower will pay a fee to Lender of $ 25.00 if Borrower makes a payment on Borrower’s loan and the check or preauthorized charge with which Borrower pays is later dishonored.
-<br><br>
-
-<b>Attorney’s Fees; Expenses : </b>Lender may here or pay someone else to help collect this Commercial Loan Promissory Note if Borrower does not pay. Borrower will pay Lender that amount. This includes, subject to any limits under applicable law, Lender’s Attorney’s fees and Lender’s legal expenses, whether or not there is a lawsuit, including Attorney’s fees, expenses for bankruptcy proceedings (Including efforts to modify or vacate an automatic stay or injunction), and appeals. Borrower also will pay any court costs, in addition to all other sums provided by law. 
-<br><br><br><br>
-
-Initials  <br>
-
-
+      <table style="width: 100%;" border="1">
+        <tbody>
+          <tr>
+            <td colspan="6" style="text-align: center;"><b>TRUTH-IN-LENDING ACT DISCLOSURES</b></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;">
+              <div>
+                <b>ANNUAL PERCENTAGE RATE</b>
+              </div>
+              <div>
+                <span>The cost of your credit as a yearly rate.</span>
+              </div>
+              <div>
+                <span>' . $anual_pr . '%</span>
+              </div>
+            </td>
+            <td colspan="2" style=" text-align: center;">
+              <div>
+                  <b>AMOUNT FINANCED</b>
+                </div>
+                <div>
+                  <span>The amount of credit provided to you or on your behalf.</span>
+                </div>
+                <div>
+                  <span>$' . $principal . '</span>
+                </div>
+            </td>
+            <td style=" text-align: center;">
+              <div>
+                  <b>FINANCE CHARGE</b>
+                </div>
+                <div>
+                  <span>The dollar amount the credit will coast you.</span>
+                </div>
+                <div>
+                  <span>$' . $interest_rate . '</span>
+                </div>
+            </td>
+            <td colspan="2" style=" text-align: center;">
+              <div>
+                  <b>TOTAL OF PAYMENTS</b>
+                </div>
+                <div >
+                  <span>The amount you will have paid after making all scheduled payments.</span>
+                </div>
+                <div>
+                  <span>$' . $totLoan . '</span>
+                </div>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="4" style=" text-align: center;"><b>Payment Schedule:</b></td>
+            <td style=" text-align: center;"><b>Number of Payments</b></td>
+            <td style=" text-align: center;"><b>Payment Amount</b></td>
+            <td colspan="3" style=" text-align: center;"><b>When Payments Are Due</b></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;"><br><br>1<br></td>
+            <td style=" text-align: center;"><br><br>'.$fitst_payment.'<br></td>
+            <td colspan="3" style=" text-align: left;"><br><br>Due '.$installment_plan.', beginning ' .$fitst_payment_date.'.<br></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;">' . $count_payments . '</td>
+            <td style=" text-align: center;">'.$second_payment.'</td>
+            <td colspan="3" style=" text-align: left;" >Due ' . $installment_plan . '.</td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;">Last Payment of</td>
+            <td style=" text-align: center;">'.$last_payment.'</td>
+            <td colspan="3" style=" text-align: left;">Due on ' . $last_payment_date . '.</td>
+          </tr>
+          <tr>
+            <td colspan="5" style="text-align: left; ">
+              <br><br>
+              <span><b>Prepayment:</b> You may prepay your loan at any time. If you pay early, you will not have to pay a penalty.</span><br><br>
+              <span><b>Late Charge:</b> If a payment is more than 10 days late, you will be charged $10. </span> <br><br>
+              <span><b>Origination Fee:</b> A prepaid finance charge for $75 will de add to cover the cost of processing your application and the agreement.</span> <br>
+            </td>
+            <td style=" text-align: center;">
+                <br><br>
+                <span><b>Lender’s License:</b></span><br><br>
+                <span> 60DBO-88277</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br><br>
+      <table style="width: 100%;" border="1">
+        <tbody>
+          <tr>
+            <td>
+              <div style="text-align:center"><b style="text-align: center;">Itemization of the Amount Financed</b></div>
+              <div style="text-align:left">
+                <span>Amount given to you directly……………………………………………………………………………………… $' . ($principal_f - $in_hand) . '</span><br>
+                <span>Amount paid on your existing loan with us………………………………………………………………………+$'.$in_hand.' </span><br>
+                <span>Amount Financed…………………………………………………………………………………………………..=$'.$principal_f.' </span><br>
+                <span>Prepaid Finance Charge (Administrative Fee)………………………………………………………………….+$'.$contract_fee.'  </span><br>
+                <span>Principal……………………………………………………………………………………………………………..=$'.($principal_f + $contract_fee).' </span><br>
+              </div>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: justify;">
+      <p><b>Lender’s Right:</b><span> Upon Borrower’s default, Lender may declare the entire
+        unpaid principal balance on this Commercial Loan Promissory Note and
+        then Borrower will pay that amount.
+        </span></p>
+       
+        <p><b>Borrower’s Default:</b> <span> Default by Borrower includes, but is not limited
+        to, the following: Voluntary or involuntary bankruptcy proceedings
+        wherein Borrower is named a debtor; any liens or encumbrances recorded
+        upon Borrower’s current property, as listed above, whether voluntary,
+        involuntary or through operation of law.
+        </span></p>
+        
+        <p><b>Dishonored Item Fee:</b><span>Borrower will pay a fee to Lender of $ 25.00 if Borrower makes a payment on Borrower’s loan and the check or preauthorized charge with which Borrower pays is later dishonored.
+        </span></p>
+        
+        <p><b>Attorney’s Fees; Expenses:</b><span>Lender may here or pay someone else to help collect this Commercial Loan Promissory Note if Borrower does not pay. Borrower will pay Lender that amount. This includes, subject to any limits under applicable law, Lender’s Attorney’s fees, and Lender’s legal expenses, whether or not there is a lawsuit, including Attorney’s fees, expenses for bankruptcy proceedings (Including efforts to modify or vacate an automatic stay or injunction), and appeals. Borrower also will pay any court costs, in addition to all other sums provided by law. 
+        </span></p>
+        </div>
+        <span>Initials:</span><img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/>
+        
 ';
-$sign_image_url= "https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/".$img_signed;
 
-$img = file_get_contents($sign_image_url);
+//$html = file_get_contents(dirname(__FILE__)."/contract_page1.html");
+//$pdf->writeHTML($html, true, false, true, false, '');
+// $sign_image_url= $_SERVER["DOCUMENT_ROOT"]."signature_commercial_loan/completed/doc_signs/".$img_signed; #"https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/".$img_signed;
+
+// $img = file_get_contents($sign_image_url);
 
 $pdf->writeHTML($html,25,30); 
 
-$pdf->Image('@' . $img, 22, 260, '30', '', 'JPG', '', 'T', false, 40, '', false, false, 10, false, false, false);
+// $pdf->Image('@' . $img, 165, 262, '30', '', 'PNG', '', 'T', false, 40, '', false, false, 10, false, false, false);
 
  
+
+
+
 $data_shipment  = ":";
 
 
@@ -285,13 +419,17 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+//  $pdf->Output(dirname(__FILE__).'/Case.pdf', 'F');
 
-$pdf_data = ob_get_contents();
-$file_name = $id."page_1";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $pdf_data = ob_get_contents();
+// $file_name = $id."page_1";
+// $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
+// file_put_contents( $path, $pdf_data );
 
+
+$file_name = $id . "page_1";
+$path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
+$pdf->Output($path, 'F');
 //============================================================+
 // END OF FILE
 //============================================================+

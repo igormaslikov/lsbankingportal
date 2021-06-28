@@ -155,18 +155,37 @@ $address=$row2['address'];
    } else {
        // possibly display a placeholder image?
    }
-   
-   $sql_installment=mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor"); 
-while($row_installment = mysqli_fetch_array($sql_installment)) {
-$payment_install=$row_installment['payment'];
-$payment_date_install=$row_installment['payment_date'];
-  $timestampp = strtotime($payment_date_install);
-  $payment_date_installl= date("m-d-Y", $timestampp);
- $payment_install=number_format($payment_install, 2);
-
-}
 ?>
 
+
+
+
+
+<?php
+	$date1="$creation_date";
+	$date2="$payment_date";
+	function dateDiff($date1, $date2) 
+	{
+	  $date1_ts = strtotime($date1);
+	  $date2_ts = strtotime($date2);
+	  $diff = $date2_ts - $date1_ts;
+	  return round($diff / 86400);
+	}
+	$dateDiff= dateDiff($date1, $date2);
+// echo "Days".$dateDiff."<br>";
+
+
+$payoff=str_replace('$', '', $payoff);
+
+$amount_of_loan=str_replace('$', '', $amount_of_loan);
+$total_amount= $payoff+$amount_of_loan;
+$apr=$payoff/$amount_of_loan;
+$apr_total=$apr*365;
+$anual_prr=($apr_total/$dateDiff)*100;
+	//echo $anual_pr;
+	$anual_pr= number_format((float)$anual_prr, 2, '.', '');
+
+?>
 
 
 
@@ -231,21 +250,23 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ $html = '
+<br>
+<div style=";display:inline-block">
+	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
+</div>
+<br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+ <br><br>
+Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
+&nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
  <br>
  
- 
- Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
-Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
- Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span><br>
- 
- <br>
- 
- <h2 style="text-align:center"><u>Credit Card Authorization Form</u><br>
+ <h2 style="text-align:center"><u>Debit Card Authorization Form</u><br>
  <span style="text-align:center;font-size:9px"> 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span></h2>
 
 
-<div style="font-size:8px;">
+<div style="font-size:10px;">
 Authorization to make payments on my <b>LS Financing, Inc</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuig basis using the
 Credit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card
 Holder.<br><br>
@@ -261,15 +282,15 @@ que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito
 <tr>
 <td style="padding-left : 100px">
 <br><br>
-Type of Debit/Credit Card: '.$type_of_card.'<br><br>
- Credit Card Number: '.$card_number.'<br><br>
- Expiration Date: '.$card_exp_date.'<br><br>
- CVV '.$cvv_number.'<br><br>
- Credit Card Billing Address:<br><br>
+<b>Type of Debit Card:</b> '.$type_of_card.'<br><br>
+ <b>Debit Card Number:</b> '.$card_number.'<br><br>
+ <b>Expiration Date:</b> '.$card_exp_date.'<br><br>
+ <b>CVV:</b> '.$cvv_number.'<br><br>
+ <b>Debit Card Billing Address:</b><br><br>
 
  '.$address.'<br>
  <br><br>
-Telephone: '.$mobile_number.' <br><br>
+<b>Telephone:</b> '.$mobile_number.' <br><br>
 
 
 </td>
@@ -279,28 +300,22 @@ Telephone: '.$mobile_number.' <br><br>
 
 
 <br><br><br>
- I, '.$f_name.', the undersigned hereby states that the above described Credit Card
+ I, <span style="text-decoration:underline">'.$f_name.'</span>, the undersigned hereby states that the above described Credit Card
 is in my name and that i authorize its charge to LS Financing, Inc for full or partial payments.
 <br><br>
- Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita
-en la parte superior y que autorizo su cargos a LS Financing, Inc para los pagos totales o parciales. <br><br><br>
-
-____________________________________________________<br><br>
+ Yo , <span style="text-decoration:underline">'.$f_name.'</span>, el abajo firmante de la tarjeta de crédito en mi nombre descrita
+en la parte superior y que autorizo su cargos a LS Financing, Inc para los pagos totales o parciales. <br>
+<img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/><br><br>
 <b>Cardholders Signature/Firma del Titular de la Tarjeta de Credito/Debito<br>
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span> </b>
 
-
 ';
 
-$sign_image_url= "http://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/".$img_signed;
-
-$img = file_get_contents($sign_image_url);
-
 $pdf->writeHTML($html,25,30); 
-
-$pdf->Image('@' . $img, 15, 240, '30', '', 'JPG', '', 'T', false, 40, '', false, false, 0, false, false, false);
  
 $data_shipment  = ":";
+
+
 
 $pdf->Ln();
 $html = '<h1>LSBANKING </h1>';
@@ -309,14 +324,23 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_12";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_12";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
+// $pdf->Output(dirname(__FILE__).'/Case.pdf', 'I');
 
+// $pdf_data = ob_get_contents();
+// $file_name = $id."page_12";
+// $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
+// file_put_contents( $path, $pdf_data );
+
+$file_name =$id. "page_12";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'F');
 //============================================================+
 // END OF FILE
 //============================================================+

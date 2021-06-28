@@ -105,27 +105,6 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
  
- $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
-
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
-
-$loan_fee=$row_loan_settings['loan_fee'];
-$loan_payable=$row_loan_settings['payoff_amount'];
-}
- 
-   $calculation = (($loan_fee/$amount_of_loan)/($datediff/365) * 10000) / 100;
-    $calculation = round($calculation, 2);
-  	$anual_pr= $calculation;
- 
- 
- 
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
-
-while($row_user = mysqli_fetch_array($sql_user)) {
-
-$username=$row_user['username'];
-
-}	
 	
 	
 	
@@ -155,16 +134,6 @@ $address=$row2['address'];
    } else {
        // possibly display a placeholder image?
    }
-   
-   $sql_installment=mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor"); 
-while($row_installment = mysqli_fetch_array($sql_installment)) {
-$payment_install=$row_installment['payment'];
-$payment_date_install=$row_installment['payment_date'];
-  $timestampp = strtotime($payment_date_install);
-  $payment_date_installl= date("m-d-Y", $timestampp);
- $payment_install=number_format($payment_install, 2);
-
-}
 ?>
 
 
@@ -230,52 +199,63 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
-<br>
-Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
-Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
-Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
+ $html = '
  <br>
-<b style="text-align:center;font-size:8px;">
-SMS POLICY LOAN #_________
-</b><br>
-
-<div style="font-size:8px;">
-By providing your cellular phone number, you have provided us with consent to send you text messages (SMS) in conjunction with the services you have requested. Your cellular providers MSG & Data Rates may apply to our confirmation message and all subsequent messages<br>
-
-You understand the text messages we send may be seen by anyone with access to your phone. Accordingly, you should take steps to safeguard your phone and your text messages if you want them to remain private (NO CONFIDENTIAL INFORMATION SHOULD BE SENT VIA SMS) <br>
-Please notify us immediately if you change mobile numbers<br>
-If we notify this SMS Policy, we will notify you by sending you a SMS. We may terminate our SMS Policy at any time.<br>
-If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text messages, please contact us using the following information: LS Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) 300-1542.<br>
-You agree and consent to the contracted by the Company, our agents, employees, attorneys, subsequent creditors, loan servicing companies and third party collectors through the use of email, and/or telephone calls, and/or SMS to your cellular, home or work phone numbers, as well as any other phone number you have provided in conjunction with this account, including the use of automatic telephoning dialing systems, auto-dialers, or an artificial or prerecorded voice.<br>
-
-<b style="text-align:center">OPT-OUT or STOP</b><br><br>
-
-This SMS Policy applies to the text messages sent by LS Financing to our customers while and after they use our service. If you wish to stop receiving SMS from LS Financing, Inc reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling, sending a letter or email us to the following information: LS Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) 300-1542.<br><br>
-
-<b style="text-align:center">HELP or SUPPORT</b><br><br>
-
-If at any time you need our contact information on how to stop SMS, reply to any text message we have sent you and in this reply simply type HELP. Upon receiving your text message, we will send you a text message with this information. The message we send provide you with information about your account. Some of the SMS we send may include links to websites. To access these websites, you will need a web browser and Internet access.<br><br>
-
-
-<b style="text-align:center">AGREEMENT TO RECEIVE SMS</b><br><br>
-
-By signing this section, you authorize LS Financing, Inc or Our Agents to send marketing to the mobile number you have provided and that is listed below using and automatic dialing system, You are not required to authorize marketing SMS to obtain credit or other services from us. If you do not wish to receive, sales or marketing SMS from us, you should not sign this section. You understand that at any messages we send you may be accessed by anyone with access to your SMS. You also understand that your mobile phone service provider any charge you fees for any SMS that we send you, and you agree that we shall have no liability for any cost related to such SMS. At any time, you may withdraw your consent to receive marketing by calling us at (747) 300-1542.
-
+<div style=";display:inline-block">
+	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
 </div>
+<br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+ <br><br>
+Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
+&nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
+ <br>
+
+<div style="text-align:center;font-size:12px;">
+<b>
+SMS POLICY LOAN #<span style="text-decoration:underline">'.$loan_id_bor.'</span>
+</b>
+</div>
+
+<span style="text-align:justify;font-size:8px;">
+    By providing your cellular phone number, you have provided us with consent to send you text messages (SMS) in conjunction with the services you have requested. Your cellular providers MSG & Data Rates may apply to our confirmation message and all subsequent messages
+    <br>
+    You understand the text messages we send may be seen by anyone with access to your phone. Accordingly, you should take steps to safeguard your phone and your text messages if you want them to remain private (NO CONFIDENTIAL INFORMATION SHOULD BE SENT VIA SMS) <br>
+    Please notify us immediately if you change mobile numbers<br>
+    If we notify this SMS Policy, we will notify you by sending you a SMS. We may terminate our SMS Policy at any time.<br>
+    If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text messages, please contact us using the following information: LS Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) 300-1542.<br>
+    You agree and consent to the contracted by the Company, our agents, employees, attorneys, subsequent creditors, loan servicing companies and third party collectors through the use of email, and/or telephone calls, and/or SMS to your cellular, home or work phone numbers, as well as any other phone number you have provided in conjunction with this account, including the use of automatic telephoning dialing systems, auto-dialers, or an artificial or prerecorded voice.
+</span>
+<div style="text-align:center;font-size:10px;">
+  <b style="text-align:center">OPT-OUT or STOP</b>
+</div>
+<br>
+<span style="font-size:8px">This SMS Policy applies to the text messages sent by LS Financing to our customers while and after they use our service. If you wish to stop receiving SMS from LS Financing, Inc reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling, sending a letter or email us to the following information: LS Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) 300-1542.</span>
+<br>
+<div style="text-align:center;font-size:10px;">
+  <b style="text-align:center">HELP or SUPPORT</b><br>
+</div>
+
+<span style="font-size:8px">If at any time you need our contact information on how to stop SMS, reply to any text message we have sent you and in this reply simply type HELP. Upon receiving your text message, we will send you a text message with this information. The message we send provide you with information about your account. Some of the SMS we send may include links to websites. To access these websites, you will need a web browser and Internet access.</span><br>
+<div style="text-align:center;font-size:16px;">
+  <b style="text-align:center">AGREEMENT TO RECEIVE SMS</b>
+</div>
+<br>
+<span style="font-size:8px; text-align:justify">By signing this section, you authorize LS Financing, Inc or Our Agents to send marketing to the mobile number you have provided and that is listed below using and automatic dialing system, You are not required to authorize marketing SMS to obtain credit or other services from us. If you do not wish to receive, sales or marketing SMS from us, you should not sign this section. You understand that at any messages we send you may be accessed by anyone with access to your SMS. You also understand that your mobile phone service provider any charge you fees for any SMS that we send you, and you agree that we shall have no liability for any cost related to such SMS. At any time, you may withdraw your consent to receive marketing by calling us at (747) 300-1542.</span>
+
 <br><br>
-<table>
+<table style="width:100%; font-size:10px; text-align:left">
 <tbody>
 <tr>
 <td>
 Borrower Name : <br><br>
-'.$f_name.'<br><br>
+<span style="text-decoration:underline">'.$f_name.'</span><br><br>
 
 Borrower Mobile Telephone #: <br><br>
-'.$mobile_number.'<br><br>
+<span style="text-decoration:underline">'.$mobile_number.'</span><br><br>
 
 Borrower Signature <br>
-<br>
+<img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/><br>
  
 </td>
 
@@ -297,19 +277,12 @@ _________________________<br>
 </tbody>
 </table>
 
-
-
-
 ';
-$sign_image_url= "http://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/".$img_signed;
-
-$img = file_get_contents($sign_image_url);
-
 $pdf->writeHTML($html,25,30); 
 
-$pdf->Image('@' . $img, 15, 260, '30', '', 'JPG', '', 'T', false, 40, '', false, false, 0, false, false, false);
  
 $data_shipment  = ":";
+
 
 
 $pdf->Ln();
@@ -319,13 +292,23 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_11";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_11";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
+// $pdf->Output(dirname(__FILE__).'/Case.pdf', 'I');
+
+// $pdf_data = ob_get_contents();
+// $file_name = $id."page_11";
+// $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
+// file_put_contents( $path, $pdf_data );
+
+$file_name =$id. "page_11";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'F');
 
 //============================================================+
 // END OF FILE

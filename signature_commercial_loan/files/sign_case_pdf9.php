@@ -170,38 +170,6 @@ $payment_date_install=$row_installment['payment_date'];
 
 
 
-
-
-
-
-<?php
-	$date1="$creation_date";
-	$date2="$payment_date";
-	function dateDiff($date1, $date2) 
-	{
-	  $date1_ts = strtotime($date1);
-	  $date2_ts = strtotime($date2);
-	  $diff = $date2_ts - $date1_ts;
-	  return round($diff / 86400);
-	}
-	$dateDiff= dateDiff($date1, $date2);
-// echo "Days".$dateDiff."<br>";
-
-
-$payoff=str_replace('$', '', $payoff);
-
-$amount_of_loan=str_replace('$', '', $amount_of_loan);
-$total_amount= $payoff+$amount_of_loan;
-$apr=$payoff/$amount_of_loan;
-$apr_total=$apr*365;
-$anual_prr=($apr_total/$dateDiff)*100;
-	//echo $anual_pr;
-	$anual_pr= number_format((float)$anual_prr, 2, '.', '');
-
-?>
-
-
-
 <?php
 
 $id=$_GET['id'];
@@ -263,15 +231,22 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
-Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
-Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
-Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
+ $html = '
+ <br>
+<div style="display:inline-block">
+	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
+</div>
+<br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+ <br><br><br>
+Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
+&nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
  <br><br>
+
 <table>
 <tbody>
-<tr>
-<td>
+
+<td style="text-align:justify;width:45%">
 
 <b style="font-size:8px;">Interpretation of this Arbitration Agreement:</b><span style="font-size:6px;">if any art of this Arbitration Agreement other than the Class Action Waiver is found by a court or arbitrator to be unenforceable, the remainder shall be enforceable. If the Class Action Waiver is found by court or arbitrator to be unenforceable, the remainder of this arbitration agreement shall be unenforceable. This arbitration agreement shall survive the termination of any contractual agreement between you and us, whether by default or repayment in full.</span>
 <br>
@@ -288,18 +263,17 @@ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
 <b style="font-size:8px;">Counterparts:</b><span style="font-size:6px;">This Arbitration Agreement may be executed in counterparts, each of which shall be deemed to be an original but all of which together shall be deemed to be one instrument.</span>
 <br>
 <b style="font-size:8px;">Opt Out Procedure:</b><span style="font-size:6px;">YOU MAY CHOOSE TO OPT OUT OF THIS ARBITRATION AGREEMENT BY COMPLYING WITH THE FOLLOWING PROCESS. IF YOU DO NOT WISH TO BE SUBJET TO THIS ARBITRATION AGREEMENT, THEN YOU MUST NOTIFY US IN WRITING POSTMARKED WITHIN 60 CALENDER DAYS OF THE DATE OF THIS ARBITRATION AFREEMENT AT THE FOLLOWING ADDRESS: LS FINANCING, INC ATTN: ARBITRATION OPT OUT, 4645 VAN NUYS BOULEVARD SUITE 202, SHERMAN OAKS, CA 91403. YOUR WRITTEN NOTICE MUST INCLUDE YOUR NAME, ADDRESS, PHONE NUMBER, THE DATE OF THE LOAN AGREEMENT, THE DATE OF THIS ARBITRATION AGREEMENT AND A STATEMENT WTHAT YOU WISH TO OPT OUT OF THE ARBITRATION AGREEMENT. YOUR WRITTEN NOTICE MAY NOT BE SENT WITH ANY OTHER CORRESPONDENCE INDICATING YOUR DESIRE TO OPT OUT OF THIS ARBITRATION AGREEMENT IN ANY MANNER OTHER THAN AS PROVIDED HEREIN IN INSUFFICENT NOTIVE. YOUR DECISION TO OPT OUT OFTHIS ARBITRATION AGREEMENT WILL NOT AFFECT YOUR OTHER RIGHTS RESPONSIBILITIES UNDER THE LOAN AGREEMENT. YOUR DECISION TO OPT OUT OF THIS ARBITRATION AGREEMENT APPLIES ONLY TO THIS ARBITRATION AGREEMENT AND NOT TO ANY PRIOR OR SUBSEQUENT ARBITRATION AGREEMENTS TO WHICH YOU AND WE HAVE AGREED.</span>
-<br><br>
- ________________________<br>
+<br><br><br><br><br><br>
+<img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/"'.$img_signed.'" alt="" style="height:300%" align="left"/><br>
  Borrower Signature / Firma de deudor
 <br><br>
 _________________________<br>
 Co-Borrower Signature / Firma de co-deudor
 
 </td>
-<td></td>
+<td style="width:10%"></td>
 
-
-<td>
+<td style="vertical-align:baseline;text-align:justify;width:45%">
 
 <b style="font-size:8px;">Idioma del arbitraje:</b><span style="font-size:6px;">Usted puede elegir que el arbitraje se lleve a cabo en español o en ingles. Si opta para que el arbitraje se conduzca en español, usted conviene en utilizar un foro de arbitraje que acepte proporcionar formas en español y un árbitro(s) que pueda (n) llevar a cabo el proceso de arbitraje en dicho idioma. Usted entiende que esto podría limitar sus opciones de foros de arbitraje, ya que no todos dichos foros en estado unidos ofrecen sus servicios en español.</span>
 <br>
@@ -323,23 +297,17 @@ Co-Borrower Signature / Firma de co-deudor
 
 
 </td>
-</tr>
+
 
 </tbody>
 </table>
 
 ';
 
-
-$sign_image_url= "http://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/".$img_signed;
-
-$img = file_get_contents($sign_image_url);
-
 $pdf->writeHTML($html,25,30); 
-
-$pdf->Image('@' . $img, 25, 233, '30', '', 'JPG', '', 'T', false, 40, '', false, false, 0, false, false, false);
  
 $data_shipment  = ":";
+
 
 
 $pdf->Ln();
@@ -349,14 +317,23 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+// $pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+// $pdf_data = ob_get_contents();
 
-$file_name = $id."page_10";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+// $file_name = $id."page_10";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
+// $pdf->Output(dirname(__FILE__).'/Case.pdf', 'I');
 
+// $pdf_data = ob_get_contents();
+// $file_name = $id."page_10";
+// $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
+// file_put_contents( $path, $pdf_data );
+
+$file_name =$id. "page_10";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path, 'F');
 //============================================================+
 // END OF FILE
 //============================================================+
