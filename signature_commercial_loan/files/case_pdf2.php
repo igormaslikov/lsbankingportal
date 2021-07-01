@@ -60,6 +60,7 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
     2
   );
   $creation_date = $row_loan['creation_date'];
+  $daily_interest = $row_loan['daily_interest'];
 
   $timestamp = strtotime($creation_date);
   $creation_date = date("m-d-Y", $timestamp);
@@ -106,7 +107,7 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
 
   $created_by = $row_loan['created_by'];
   $installment_plan = $row_loan['installment_plan'];
-  $contract_fee=$row_loan['contract_fee'];
+  $contract_fee = $row_loan['contract_fee'];
 }
 
 // $sql_loan_settings = mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'");
@@ -186,7 +187,7 @@ if ($count_payments > 2) {
 }
 
 $count_payments = $count_payments <= 2 ? "" : $count_payments;
-$second_payment = $second_payment == 0 ? "": $second_payment;
+$second_payment = $second_payment == 0 ? "" : $second_payment;
 
 $sql_installment = mysqli_query($con, "SELECT count(loan_id) as count, loan_create_id FROM tbl_commercial_loan WHERE user_fnd_id = $fnd_id order by loan_id desc limit 2");
 while ($row_installment = mysqli_fetch_array($sql_installment)) {
@@ -195,22 +196,33 @@ while ($row_installment = mysqli_fetch_array($sql_installment)) {
 }
 
 $in_hand = 0;
-if($count>1){
+if ($count > 1) {
   $sql_installment = mysqli_query($con, "SELECT SUM(payment) as in_hand FROM `tbl_commercial_loan_installments` where `loan_create_id`= $previous_loan_id and `status` = 0 order by id desc");
   while ($row_installment = mysqli_fetch_array($sql_installment)) {
     $in_hand = $row_installment['in_hand'];
   }
 }
 
+switch ($installment_plan) {
+	case "Weekly":
+		$number_n = 52;
+		break;
+	case "Bi-Weekly":
+		$number_n = 26;
+		break;
+	case "Monthly":
+		$number_n = 12;
+		break;
+	default:
+		$number_n = 52;
+		break;
+}
 
-$creation_date_array = explode("-",$creation_date);
-$last_payment_date_array = explode("-",$last_payment_date);
 
-$cd = strtotime($creation_date_array[2]."-".$creation_date_array[0]."-".$creation_date_array[1]);
-$ld = strtotime($last_payment_date_array[2]."-".$last_payment_date_array[0]."-".$last_payment_date_array[1]);
-$count_days = floor(abs($ld - $cd) / 60 / 60 / 24);
-$anual_pr = ($contract_fee + $interest_rate_f) / $principal_f / $count_days * 365 * 100;
+
+$anual_pr = $daily_interest * $number_n;
 $anual_pr = number_format($anual_pr, 2);
+
 ?>
 
 
@@ -236,9 +248,9 @@ $pdf->SetKeywords('');
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH);
 
 
-if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-	require_once(dirname(__FILE__).'/lang/eng.php');
-	$pdf->setLanguageArray($l);
+if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+  require_once(dirname(__FILE__) . '/lang/eng.php');
+  $pdf->setLanguageArray($l);
 }
 
 // ---------------------------------------------------------
@@ -255,44 +267,63 @@ $pdf->SetFont('helvetica', '', 8.25);
 
 // set style for barcode
 $style = array(
-	'border' => false,
-	'vpadding' => 'auto',
-	'hpadding' => 'auto',
-	'fgcolor' => array(0,0,0),
-	'bgcolor' => false, //array(255,255,255)
-	'module_width' => 1, // width of a single module in points
-	'module_height' => 1 // height of a single module in points
+  'border' => false,
+  'vpadding' => 'auto',
+  'hpadding' => 'auto',
+  'fgcolor' => array(0, 0, 0),
+  'bgcolor' => false, //array(255,255,255)
+  'module_width' => 1, // width of a single module in points
+  'module_height' => 1 // height of a single module in points
 );
 
 // set style for barcode
 $style = array(
-	'border' => 0,
-	'vpadding' => 'auto',
-	'hpadding' => 'auto',
-	'fgcolor' => array(0,0,0),
-	'bgcolor' => false, //array(255,255,255)
-	'module_width' => 1, // width of a single module in points
-	'module_height' => 1 // height of a single module in points
+  'border' => 0,
+  'vpadding' => 'auto',
+  'hpadding' => 'auto',
+  'fgcolor' => array(0, 0, 0),
+  'bgcolor' => false, //array(255,255,255)
+  'module_width' => 1, // width of a single module in points
+  'module_height' => 1 // height of a single module in points
 );
 
 
 $html = '
-      <br>
-      <img src="images/Money-Line-Logo.JPG" alt="" style="height:400%" align="left"/>
-      <br>
-      <span><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
-        <div style="text-align: center;">
-          <h1>Pagare de Prestamo Comercia</h1>
-        </div>
-      <b>Numero de Contrato:</b><span>' . $loan_id_bor . '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Fecha:</b><span>_______________</span>
-      <br><br>
-      <b>Prestatario:</b><span>' . $f_name . '</span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-prestatario:</b><span>____________________________</span>
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>'.$address.'</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
-      <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>'.$city.', '.$state.' '.$zip.'</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
-      <br><br>
+       <div style="text-align: center;">
+      <h1>PAGARE DE PRESTAMO COMERCIA</h1>
+    </div>
+    <b>Numero de Contrato:</b><span>' . $loan_id_bor . '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Fecha:</b><span>' . $creation_date . '</span>
+    <br><br>
 
+
+      <table style="width: 100%;">
+        <tbody>
+          <tr>
+            <td style="width:63%">
+            <b>Prestatario:</b><span style="text-decoration:underline">' . $f_name . '</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' . $address . '</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' . $city . ', ' . $state . ' ' . $zip . '</span>
+            <br><br>
+            <b>Co-Prestatario:</b><span>____________________________</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
+            </td>
+            <td style="width:12%">
+              <span><b>Prestamista:</b></span>
+            </td>
+            <td style="width:25%; text-align:center">
+              
+              <img src="images/Money-Line-Logo.JPG" alt="" style="height:400%" align="left"/><br>
+              <span><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br><br>      
       <table style="width: 100%;" border="1">
         <tbody>
           <tr>
@@ -352,17 +383,17 @@ $html = '
           </tr>
           <tr>
             <td style=" text-align: center;"><br><br>1<br></td>
-            <td style=" text-align: center;"><br><br>'.$fitst_payment.'<br></td>
-            <td colspan="3" style=" text-align: left;"><br><br>Pago  '.$installment_plan.', empezando el  ' .$fitst_payment_date.'.<br></td>
+            <td style=" text-align: center;"><br><br>' . $fitst_payment . '<br></td>
+            <td colspan="3" style=" text-align: left;"><br><br>Pago  ' . $installment_plan . ', empezando el  ' . $fitst_payment_date . '.<br></td>
           </tr>
           <tr>
             <td style=" text-align: center;">' . $count_payments . '</td>
-            <td style=" text-align: center;">'.$second_payment.'</td>
+            <td style=" text-align: center;">' . $second_payment . '</td>
             <td colspan="3" style=" text-align: left;" >Pagos ' . $installment_plan . '.</td>
           </tr>
           <tr>
             <td style=" text-align: center;">Ultimo Pago de </td>
-            <td style=" text-align: center;">'.$last_payment.'</td>
+            <td style=" text-align: center;">' . $last_payment . '</td>
             <td colspan="3" style=" text-align: left;">Que vence en  ' . $last_payment_date . '.</td>
           </tr>
           <tr>
@@ -388,10 +419,10 @@ $html = '
             <div style="text-align:center"><b style="text-align: center;">Itemization of the Amount Financed</b></div>
             <div style="text-align:left">
               <span>Cantidad entregada a usted directamente……………………………………………………………………… $' . ($principal_f - $in_hand) . '</span><br>
-              <span>Cantidad pagada por su préstamo existente con nosotros……………………………………………………+$'.$in_hand.' </span><br>
-              <span>Monto financiado…………………………………………………………………………………………………...=$'.$principal_f.' </span><br>
-              <span>Cargo por financiamiento pagado por adelantado (Tarifa Administrativa)…………………………………...+$'.$contract_fee.'  </span><br>
-              <span>Capital…………………………………………………………………………………………………………….....=$'.($principal_f + $contract_fee).' </span><br>
+              <span>Cantidad pagada por su préstamo existente con nosotros……………………………………………………+$' . $in_hand . ' </span><br>
+              <span>Monto financiado…………………………………………………………………………………………………...=$' . $principal_f . ' </span><br>
+              <span>Cargo por financiamiento pagado por adelantado (Tarifa Administrativa)…………………………………...+$' . $contract_fee . '  </span><br>
+              <span>Capital…………………………………………………………………………………………………………….....=$' . ($principal_f + $contract_fee) . ' </span><br>
             </div>
             
           </td>
@@ -415,10 +446,10 @@ $html = '
         
 ';
 
-$pdf->writeHTML($html,25,30); 
+$pdf->writeHTML($html, 25, 30);
 
 
- 
+
 $data_shipment  = ":";
 
 
@@ -438,8 +469,8 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 // file_put_contents( $path, $pdf_data );
 
 
-$file_name =$id. "page_3";
-$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$file_name = $id . "page_3";
+$path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
 $pdf->Output($path, 'F');
 //============================================================+
 // END OF FILE

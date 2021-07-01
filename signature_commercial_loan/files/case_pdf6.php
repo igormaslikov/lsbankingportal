@@ -252,7 +252,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 	Borrower Signature/ Firma del deudor:
 	</td>
 	<td style="width:15%">
-		______________<br>
+	'.$creation_date.'<br>
 		Date/Fecha:
 	</td>
 	<td style="width:35%">
@@ -260,7 +260,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 	Co-Borrower Signature / Firma de co-deudor:
 	</td>
 	<td style="width:15%">
-		______________<br>
+	'.$creation_date.'<br>
 		Date/Fecha:
 	</td>
 	</tr>

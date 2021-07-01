@@ -63,6 +63,9 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
 
   $created_by = $row_loan['created_by'];
   $contract_fee=$row_loan['contract_fee'];
+
+  $daily_interest = $row_loan['daily_interest'];
+  $installment_plan = $row_loan['installment_plan'];
 }
 
 $sql_loan_settings = mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'");
@@ -112,13 +115,22 @@ while ($row_installment = mysqli_fetch_array($sql_installment)) {
 }
 
 
-$creation_date_array = explode("-",$creation_date);
-$last_payment_date_array = explode("-",$last_payment_date);
+switch ($installment_plan) {
+	case "Weekly":
+		$number_n = 52;
+		break;
+	case "Bi-Weekly":
+		$number_n = 26;
+		break;
+	case "Monthly":
+		$number_n = 12;
+		break;
+	default:
+		$number_n = 52;
+		break;
+}
 
-$cd = strtotime($creation_date_array[2]."-".$creation_date_array[0]."-".$creation_date_array[1]);
-$ld = strtotime($last_payment_date_array[2]."-".$last_payment_date_array[0]."-".$last_payment_date_array[1]);
-$count_days = floor(abs($ld - $cd) / 60 / 60 / 24);
-$anual_pr = ($contract_fee + $interest_rate_f) / $principal_f / $count_days * 365 * 100;
+$anual_pr = $daily_interest * $number_n;
 $anual_pr = number_format($anual_pr, 2);
 ?>
 

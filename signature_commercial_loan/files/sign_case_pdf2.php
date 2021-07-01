@@ -34,7 +34,7 @@ while ($row1 = mysqli_fetch_array($sql1)) {
 
   $cvv_number = $row1['cvv_number'];
 
-  $img_signed = $row1['signed_pic'];
+  $img_signed = $row1['initial_pic'];
 
   $result_sig = $url_logo . '/doc_signs/' . $img_signed;
 }
@@ -105,6 +105,7 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
 
 
   $created_by = $row_loan['created_by'];
+  $daily_interest = $row_loan['daily_interest'];
   $installment_plan = $row_loan['installment_plan'];
   $contract_fee=$row_loan['contract_fee'];
 }
@@ -202,14 +203,22 @@ if($count>1){
   }
 }
 
+switch ($installment_plan) {
+	case "Weekly":
+		$number_n = 52;
+		break;
+	case "Bi-Weekly":
+		$number_n = 26;
+		break;
+	case "Monthly":
+		$number_n = 12;
+		break;
+	default:
+		$number_n = 52;
+		break;
+}
 
-$creation_date_array = explode("-",$creation_date);
-$last_payment_date_array = explode("-",$last_payment_date);
-
-$cd = strtotime($creation_date_array[2]."-".$creation_date_array[0]."-".$creation_date_array[1]);
-$ld = strtotime($last_payment_date_array[2]."-".$last_payment_date_array[0]."-".$last_payment_date_array[1]);
-$count_days = floor(abs($ld - $cd) / 60 / 60 / 24);
-$anual_pr = ($contract_fee + $interest_rate_f) / $principal_f / $count_days * 365 * 100;
+$anual_pr = $daily_interest * $number_n;
 $anual_pr = number_format($anual_pr, 2);
 ?>
 
@@ -284,7 +293,7 @@ $html = '
         <div style="text-align: center;">
           <h1>Pagare de Prestamo Comercia</h1>
         </div>
-      <b>Numero de Contrato:</b><span>' . $loan_id_bor . '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Fecha:</b><span>_______________</span>
+      <b>Numero de Contrato:</b><span>' . $loan_id_bor . '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Fecha:</b><span>'.$creation_date.'</span>
       <br><br>
       <b>Prestatario:</b><span>' . $f_name . '</span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-prestatario:</b><span>____________________________</span>
       <br>
@@ -411,7 +420,7 @@ $html = '
         <p><b>Honorarios de abogados; Gastos: </b><span>El prestamista puede pagar aquí o pagar a otra persona para que le ayude a cobrar este Pagare de Prestamo Comercial si el prestatario no paga. El prestatario le pagará al prestamista ese monto. Esto incluye, sujeto a cualquier límite bajo la ley aplicable, los honorarios del abogado del prestamista y los gastos legales del prestamista, ya sea que exista o no una demanda, incluidos los honorarios del abogado, los gastos por procedimientos de bancarrota (incluidos los esfuerzos para modificar o desocupar una suspensión o mandato judicial), y apelaciones. El prestatario también pagará los costos judiciales, además de todas las demás sumas previstas por la ley.
         </span></p>
         </div>
-       Iniciales:<img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:200%" align="left"/>
+       Iniciales:<img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:200%" align="left"/>
         
 ';
 

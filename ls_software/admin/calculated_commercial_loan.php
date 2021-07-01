@@ -321,7 +321,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
         // }
 
 
-        $payment_week_day = date("l", strtotime("$payment_date"));
+        $payment_week_day = date("l", strtotime("$payment_date_weekly"));
         //$payment_p = 
         $query_install1  = "INSERT INTO `tbl_commercial_loan_installments`(`loan_create_id`, `payment`, `interest`, `principal`, `balance`, `payment_date`, `week_day`) VALUES ('$loan_create_id','$payment_p','$interest_p','$principal_p','$balance_p','$payment_date', '$payment_week_day')";
         $result_install1 = mysqli_query($con, $query_install1);
@@ -373,7 +373,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     $contract_date = $_POST['contract_date'];
     $state = $_POST['state'];
 
-    $varTable .= "<a href = 'commercial_initial_setup.php?fnd_id=$fnd_idd&interest=$totInterest&bg_id=$source&loan_create_id=$loan_create_id&principal_amount=$principal_amount&loan_interest=$loan_interest&years=$years&late_fee=$late_fee&contract_fee=$origination&installment_plan=$installment_plan&total_payments=$total_payments&contract_date=$contract_date&payment_date=$payment_date&state=$state'><button name='' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;'>Create Installment Loan</button></a>";
+    $varTable .= "<a href = 'commercial_initial_setup.php?fnd_id=$fnd_idd&interest=$totInterest&daily_interest=$rate&bg_id=$source&loan_create_id=$loan_create_id&principal_amount=$principal_amount&loan_interest=$loan_interest&years=$years&late_fee=$late_fee&contract_fee=$origination&installment_plan=$installment_plan&total_payments=$total_payments&contract_date=$contract_date&payment_date=$payment_date&state=$state'><button name='' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;'>Create Installment Loan</button></a>";
 
     return array($varTable, date("m/d/Y", strtotime($payment_date)));
 }

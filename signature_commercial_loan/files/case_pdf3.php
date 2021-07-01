@@ -173,9 +173,9 @@ EL PRESTATARIO RECONOCE EL RECIBO DE UNA COPIA COMPLETA DE ESTE PAGARE DE PRESTA
 </b>
 <br><br>
 
-Firma del Prestatario : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :_________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Firma del Prestatario : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-Firma del Co-Prestatario : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :_________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Firma del Co-Prestatario : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
 Nombre del Prestamista   : <span style="text-decoration:underline">MONEY LINE</span>
 <br><br>

@@ -1,162 +1,161 @@
 <?php
-$id=$_GET['id'];
-$url_logo="http://lsbankingportal.com/signature_commercial_loan/completed/";
+$id = $_GET['id'];
+$url_logo = "http://lsbankingportal.com/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
-$iddd=$_GET['id'];
- echo "idddd". $iddd;
+$iddd = $_GET['id'];
+echo "idddd" . $iddd;
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$iddd' "); 
+$sql1 = mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$iddd' ");
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while ($row1 = mysqli_fetch_array($sql1)) {
 
-$mail_key=$row1['email_key'];
-$signed_status=$row1['sign_status'];
+	$mail_key = $row1['email_key'];
+	$signed_status = $row1['sign_status'];
 
-$creation_datee=$row1['creation_date'];
-  
-  $timestamp = strtotime($creation_datee);
-  $creation_date= date("m-d-Y", $timestamp);
- 
- 
-$fnd_id=$row1['user_fnd_id'];
-$loan_id_bor=$row1['loan_id'];
-$type_of_card=$row1['type_of_card'];
-$card_number=$row1['card_number'];
-$card_exp_date=$row1['card_exp_date'];
+	$creation_datee = $row1['creation_date'];
 
-$bank_name=$row1['bank_name'];
-$routing_number=$row1['routing_number'];
-$account_number=$row1['account_number'];
+	$timestamp = strtotime($creation_datee);
+	$creation_date = date("m-d-Y", $timestamp);
 
-$account_number = strlen($account_number) > 4 ? substr($account_number,-4) : $account_number;
 
-$cvv_number=$row1['cvv_number'];
+	$fnd_id = $row1['user_fnd_id'];
+	$loan_id_bor = $row1['loan_id'];
+	$type_of_card = $row1['type_of_card'];
+	$card_number = $row1['card_number'];
+	$card_exp_date = $row1['card_exp_date'];
 
-$img_signed = $row1['signed_pic'];
+	$bank_name = $row1['bank_name'];
+	$routing_number = $row1['routing_number'];
+	$account_number = $row1['account_number'];
 
-$result_sig = $url_logo .'/doc_signs/'. $img_signed;
+	$account_number = strlen($account_number) > 4 ? substr($account_number, -4) : $account_number;
+
+	$cvv_number = $row1['cvv_number'];
+
+	$img_signed = $row1['signed_pic'];
+
+	$result_sig = $url_logo . '/doc_signs/' . $img_signed;
 }
 
 
 //echo "ID is".$loan_id;
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan = mysqli_query($con, "select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' ");
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
-    
-    
-    $principal=$row_loan['amount_of_loan'];
-    $principal=number_format($principal, 2);
-    $payment_date=$row_loan['payment_date'];
-    $interest_rate=$row_loan['loan_interest'];
-    $interest_rate=number_format($interest_rate, 2);
-    $timestamp = strtotime($payment_date);
-    $payment_date= date("m-d-Y", $timestamp);
-    
-    $creation_date=$row_loan['creation_date'];
-    
-    $timestamp = strtotime($creation_date);
-    $creation_date= date("m-d-Y", $timestamp);
-    
-     $var = "$payment_datee";
-//$payment_date= date("m-d-Y", strtotime($var) );
-//$loan_fee = $row_loan['loan_fee'];
-//$loan_fee = number_format($loan_fee, 2);
-//$loan_payable = $row_loan['loan_total_payable'];
-//$loan_payable = number_format($loan_payable, 2);
-
-    
-    // echo "LOAN Amount".$amount_of_loan;
-    $date1=$creation_date;
-	$date2=$payment_date;
-//	function dateDiff($date1, $date2) 
-//	{
-//	  $date1_ts = strtotime($date1);
-//	  $date2_ts = strtotime($date2);
-//	  $diff = $date2_ts - $date1_ts;
-//	  return round($diff / 86400);
-//	}
-//	$dateDiff= dateDiff($date1, $date2);
-// echo "Days".$dateDiff."<br>";
-
-$diff_creation_date = strtotime($creation_date);
-$diff_payment_date = strtotime($payment_date);
-$datediff =  $diff_payment_date - $diff_creation_date;
-$datediff = round($datediff / (60 * 60 * 24));
+while ($row_loan = mysqli_fetch_array($sql_loan)) {
 
 
- 
-  
-//$calculation = $loan_fee/$amount_of_loan;
-//$calculation_1 = $datediff/365;
-//$calculation_1 = $calculation_1*10000;
-//$calculation_1  = $calculation_1/100;
+	$principal = $row_loan['amount_of_loan'];
+	$principal = number_format($principal, 2);
+	$payment_date = $row_loan['payment_date'];
+	$interest_rate = $row_loan['loan_interest'];
+	$interest_rate = number_format($interest_rate, 2);
+	$timestamp = strtotime($payment_date);
+	$payment_date = date("m-d-Y", $timestamp);
+	$installment_plan = $row_loan['installment_plan'];
 
-  //$calculation = round($calculation, 2);
+	$creation_date = $row_loan['creation_date'];
 
-	
+	$timestamp = strtotime($creation_date);
+	$creation_date = date("m-d-Y", $timestamp);
 
-	
-	
+	$var = "$payment_datee";
+	//$payment_date= date("m-d-Y", strtotime($var) );
+	//$loan_fee = $row_loan['loan_fee'];
+	//$loan_fee = number_format($loan_fee, 2);
+	//$loan_payable = $row_loan['loan_total_payable'];
+	//$loan_payable = number_format($loan_payable, 2);
+
+
+	// echo "LOAN Amount".$amount_of_loan;
+	$date1 = $creation_date;
+	$date2 = $payment_date;
+	//	function dateDiff($date1, $date2) 
+	//	{
+	//	  $date1_ts = strtotime($date1);
+	//	  $date2_ts = strtotime($date2);
+	//	  $diff = $date2_ts - $date1_ts;
+	//	  return round($diff / 86400);
+	//	}
+	//	$dateDiff= dateDiff($date1, $date2);
+	// echo "Days".$dateDiff."<br>";
+
+	$diff_creation_date = strtotime($creation_date);
+	$diff_payment_date = strtotime($payment_date);
+	$datediff =  $diff_payment_date - $diff_creation_date;
+	$datediff = round($datediff / (60 * 60 * 24));
+
+
+
+
+	//$calculation = $loan_fee/$amount_of_loan;
+	//$calculation_1 = $datediff/365;
+	//$calculation_1 = $calculation_1*10000;
+	//$calculation_1  = $calculation_1/100;
+
+	//$calculation = round($calculation, 2);
+
+
+
+
+
 	$created_by = $row_loan['created_by'];
-    
- }
- 
- $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
-
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
-
-$loan_fee=$row_loan_settings['loan_fee'];
-$loan_payable=$row_loan_settings['payoff_amount'];
 }
- 
-   $calculation = (($loan_fee/$amount_of_loan)/($datediff/365) * 10000) / 100;
-    $calculation = round($calculation, 2);
-  	$anual_pr= $calculation;
- 
- 
- 
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+$sql_loan_settings = mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'");
 
-$username=$row_user['username'];
+while ($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
 
-}	
-	
-	
-	
-
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
-while($row2 = mysqli_fetch_array($sql2)) {
-$ff_name=$row2['first_name'];
-$l_name=$row2['last_name'];
-$f_name= $ff_name.' '.$l_name;
-$address=$row2['address'];
-$city=$row2['city'];
-$state=$row2['state'];
-$zip=$row2['zip_code'];
-$mobile_number=$row2['mobile_number'];
-$address=$row2['address'];
+	$loan_fee = $row_loan_settings['loan_fee'];
+	$loan_payable = $row_loan_settings['payoff_amount'];
 }
-    $search_dir = "doc_signs/$result";
-   $images = glob("$search_dir/*.png");
-   sort($images);
 
-   // Image selection and display:
+$calculation = (($loan_fee / $amount_of_loan) / ($datediff / 365) * 10000) / 100;
+$calculation = round($calculation, 2);
+$anual_pr = $calculation;
 
-   //display first image
-   if (count($images) > 0) { // make sure at least one image exists
-       $img = $images[0]; // first image
-      // echo "<img src='$img' height='150' width='150' /> ";
-   } else {
-       // possibly display a placeholder image?
-   }
+
+
+$sql_user = mysqli_query($con, "select * from tbl_users where user_id= '$created_by'");
+
+while ($row_user = mysqli_fetch_array($sql_user)) {
+
+	$username = $row_user['username'];
+}
+
+
+
+
+$sql2 = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' ");
+while ($row2 = mysqli_fetch_array($sql2)) {
+	$ff_name = $row2['first_name'];
+	$l_name = $row2['last_name'];
+	$f_name = $ff_name . ' ' . $l_name;
+	$address = $row2['address'];
+	$city = $row2['city'];
+	$state = $row2['state'];
+	$zip = $row2['zip_code'];
+	$mobile_number = $row2['mobile_number'];
+	$address = $row2['address'];
+}
+$search_dir = "doc_signs/$result";
+$images = glob("$search_dir/*.png");
+sort($images);
+
+// Image selection and display:
+
+//display first image
+if (count($images) > 0) { // make sure at least one image exists
+	$img = $images[0]; // first image
+	// echo "<img src='$img' height='150' width='150' /> ";
+} else {
+	// possibly display a placeholder image?
+}
 ?>
 
 
@@ -164,42 +163,57 @@ $address=$row2['address'];
 
 
 <?php
-	$date1="$creation_date";
-	$date2="$payment_date";
-	function dateDiff($date1, $date2) 
-	{
-	  $date1_ts = strtotime($date1);
-	  $date2_ts = strtotime($date2);
-	  $diff = $date2_ts - $date1_ts;
-	  return round($diff / 86400);
-	}
-	$dateDiff= dateDiff($date1, $date2);
+$date1 = "$creation_date";
+$date2 = "$payment_date";
+function dateDiff($date1, $date2)
+{
+	$date1_ts = strtotime($date1);
+	$date2_ts = strtotime($date2);
+	$diff = $date2_ts - $date1_ts;
+	return round($diff / 86400);
+}
+$dateDiff = dateDiff($date1, $date2);
 // echo "Days".$dateDiff."<br>";
 
 
-$payoff=str_replace('$', '', $payoff);
+$payoff = str_replace('$', '', $payoff);
 
-$amount_of_loan=str_replace('$', '', $amount_of_loan);
-$total_amount= $payoff+$amount_of_loan;
-$apr=$payoff/$amount_of_loan;
-$apr_total=$apr*365;
-$anual_prr=($apr_total/$dateDiff)*100;
-	//echo $anual_pr;
-	$anual_pr= number_format((float)$anual_prr, 2, '.', '');
+$amount_of_loan = str_replace('$', '', $amount_of_loan);
+$total_amount = $payoff + $amount_of_loan;
+$apr = $payoff / $amount_of_loan;
+$apr_total = $apr * 365;
+$anual_prr = ($apr_total / $dateDiff) * 100;
+//echo $anual_pr;
+$anual_pr = number_format((float)$anual_prr, 2, '.', '');
 
 $sql_installment = mysqli_query($con, "select payment, payment_date, week_day from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 1");
 while ($row_installment = mysqli_fetch_array($sql_installment)) {
 	$fitst_payment = $row_installment['payment'];
 	$fitst_payment_date = $row_installment['payment_date'];
 	$week_day = $row_installment['week_day'];
-	}	
+}
+
+switch ($installment_plan) {
+	case "Weekly":
+		$every = "week";
+		break;
+	case "Bi-Weekly":
+		$every = "two weeks";
+		break;
+	case "Monthly":
+		$every = "month";
+		break;
+	default:
+		$every = "";
+		break;
+}
 ?>
 
 
 
 <?php
 
-$id=$_GET['id'];
+$id = $_GET['id'];
 ob_start();
 
 
@@ -219,8 +233,8 @@ $pdf->SetKeywords('');
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH);
 
 
-if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-	require_once(dirname(__FILE__).'/lang/eng.php');
+if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+	require_once(dirname(__FILE__) . '/lang/eng.php');
 	$pdf->setLanguageArray($l);
 }
 
@@ -241,7 +255,7 @@ $style = array(
 	'border' => false,
 	'vpadding' => 'auto',
 	'hpadding' => 'auto',
-	'fgcolor' => array(0,0,0),
+	'fgcolor' => array(0, 0, 0),
 	'bgcolor' => false, //array(255,255,255)
 	'module_width' => 1, // width of a single module in points
 	'module_height' => 1 // height of a single module in points
@@ -252,22 +266,22 @@ $style = array(
 	'border' => 0,
 	'vpadding' => 'auto',
 	'hpadding' => 'auto',
-	'fgcolor' => array(0,0,0),
+	'fgcolor' => array(0, 0, 0),
 	'bgcolor' => false, //array(255,255,255)
 	'module_width' => 1, // width of a single module in points
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '
+$html = '
 <br>
 <div style=";display:inline-block">
 	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
 </div>
 <br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
  <br>
-Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
-&nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
+Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">' . $f_name . '</span><br>
+&nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">' . $loan_id_bor . '</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date/Fecha: <span style="text-decoration:underline">' . $creation_date . '</span>
  <br>
 <h1 style="text-align:center">
 ACH RECURRING PAYMENT AUTHORIZATION
@@ -275,7 +289,7 @@ ACH RECURRING PAYMENT AUTHORIZATION
 
 <div style="font-size:8px;">
 <p>
-1. By signing below, Account Holder (“<b>you</b>”) authorizes LS Financing Inc and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>out</b>” to automatically withdraw your loan payments from your deposit account ending in xxxxxx'.$account_number.'(“<b>Account</b>”) at '.$bank_name.'(“<b>Bank</b>”) via recurring electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to initiate debits of $'.$fitst_payment.' (“<b>scheduled debit amount</b>”) Every '.$week_day.' on the payment due dates, beginning on '.$fitst_payment_date.', which is the effective date of this Authorization. These debits will continue until the amount due under your loan is paid in full or until this Authorization is canceled. You also authorize us to initiate ACH debits or credits to your Account as necessary to correct erroneous transactions.
+1. By signing below, Account Holder (“<b>you</b>”) authorizes LS Financing Inc and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>out</b>” to automatically withdraw your loan payments from your deposit account ending in xxxxxx' . $account_number . '(“<b>Account</b>”) at ' . $bank_name . '(“<b>Bank</b>”) via recurring electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to initiate debits of $' . $fitst_payment . ' (“<b>scheduled debit amount</b>”) Every ' . $every . ' on the payment due dates, beginning on ' . $fitst_payment_date . ', which is the effective date of this Authorization. These debits will continue until the amount due under your loan is paid in full or until this Authorization is canceled. You also authorize us to initiate ACH debits or credits to your Account as necessary to correct erroneous transactions.
 <br/>2. You have the right to receive 10 days’ prior written notice from us of the amount and date of any debit that varies from the scheduled debit amount. However, if we debit your account for any amount in a range from $1 up to the scheduled debit amount, you agree that we do not have to send you such prior written notice, unless required by law. We will not debit your Account for more than the scheduled debit amount above.
 <br/>3. If any payment due date falls on a weekend or holiday, the debit will be processed on the next business day. If your Bank rejects any debit because you do not have an account with the Bank, we will cancel these recurring debits. If your Bank rejects any debit because there is not enough money in your Account, we will suspend these recurring debits and de-enroll you from recurring payments until you have paid all past due payments and any returned payment fees or any other fees due under your promissory note. Once your account is current, we will re-enroll you in recurring ACH payments under this Authorization, unless you tell us that you do not wish to re-enroll, in which case we will cancel the recurring ACH payments.
 <br/>4. You represent that you are an authorized signer on the Account. You agree to notify us promptly of any changes to the Account and must provide us seven (7) days’ advance notice of any changes to the Account. You acknowledge that the ACH transactions to your Account must comply with United States law.
@@ -300,15 +314,15 @@ You acknowledge that (1) this Authorization is voluntary and is not required as 
 
 __________________________<br> <b>
 Account Holder’s Signature<br><br>
-__________________________<br> <b>
+<span style="text-decoration:underline">' . $f_name . '</span><br> <b>
 Account Holder’s Name
 </div>
 ';
 
-$pdf->writeHTML($html,25,30); 
+$pdf->writeHTML($html, 25, 30);
 
 
- 
+
 $data_shipment  = ":";
 
 
@@ -334,8 +348,8 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 // $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
 // file_put_contents( $path, $pdf_data );
 
-$file_name =$id. "page_13";
-$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$file_name = $id . "page_13";
+$path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
 $pdf->Output($path, 'F');
 //============================================================+
 // END OF FILE

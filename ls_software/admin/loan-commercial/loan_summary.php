@@ -95,14 +95,14 @@ $last_update=$row['last_update_by'];
 $last_update_date=$row['last_update_date'];
 $last_payment_date=$row['last_payment_date'];
 
- $date1 = date_create($payment_date);
-          $date2 = date_create($last_payment_date);
+//  $date1 = date_create($payment_date);
+//           $date2 = date_create($last_payment_date);
 
-//difference between two dates
-$diff = date_diff($date1,$date2);
+// //difference between two dates
+// $diff = date_diff($date1,$date2);
 
-//count days
-$days_between= $diff->format("%r%a");
+// //count days
+// $days_between= $diff->format("%r%a");
 
 //echo $days_between;
 

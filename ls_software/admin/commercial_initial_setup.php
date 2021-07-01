@@ -140,6 +140,7 @@ if ($u_access_id == '0') {
       $total_paymentss = $_POST['total_paymentss'];
       $contract_datee = $_POST['contract_datee'];
       $payment_datee = $_POST['payment_datee'];
+      $daily_interest = $_GET['daily_interest'];
 
 
 
@@ -337,7 +338,7 @@ if ($u_access_id == '0') {
       }
 
 
-      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`, `amount_of_loan`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `state`)  VALUES ('$fndd_id','$sourcee','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$state')";
+      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`, `amount_of_loan`,`daily_interest`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `state`)  VALUES ('$fndd_id','$sourcee','$principal_amountt',$daily_interest,'$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$state')";
       $result = mysqli_query($con, $query);
       if ($result) {
          //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
@@ -479,7 +480,7 @@ if ($u_access_id == '0') {
                      <label for="usr">Card Expiration Date</label>
                      <br>
                      Month
-                     <select style="width:20%" name="expiry_year_card" id="expiry_year_card" class="form-control" value="" required>
+                     <select style="width:20%" name="expiry_month_card" id="expiry_month_card" class="form-control" value="" required>
                         <option></option>
                         <option value="01">01</option>
                         <option value="02">02</option>
@@ -496,7 +497,7 @@ if ($u_access_id == '0') {
                      </select>
 
                      Year
-                     <select style="width:20%" name="expiry_month_card" id="expiry_month_card" class="form-control" value="" required>
+                     <select style="width:20%" name="expiry_year_card" id="expiry_year_card" class="form-control" value="" required>
                         <option></option>
                         <option value="20">20</option>
                         <option value="21">21</option>

@@ -34,7 +34,7 @@ while ($row1 = mysqli_fetch_array($sql1)) {
 
   $cvv_number = $row1['cvv_number'];
 
-  $img_signed = $row1['signed_pic'];
+  $img_signed = $row1['initial_pic'];
 
   $result_sig = $url_logo . '/doc_signs/' . $img_signed;
 }
@@ -69,6 +69,7 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
 
 
   $created_by = $row_loan['created_by'];
+  $daily_interest = $row_loan['daily_interest'];
   $installment_plan = $row_loan['installment_plan'];
   $contract_fee=$row_loan['contract_fee'];
 }
@@ -173,13 +174,22 @@ if($count>1){
   }
 }
 
-$creation_date_array = explode("-",$creation_date);
-$last_payment_date_array = explode("-",$last_payment_date);
+switch ($installment_plan) {
+	case "Weekly":
+		$number_n = 52;
+		break;
+	case "Bi-Weekly":
+		$number_n = 26;
+		break;
+	case "Monthly":
+		$number_n = 12;
+		break;
+	default:
+		$number_n = 52;
+		break;
+}
 
-$cd = strtotime($creation_date_array[2]."-".$creation_date_array[0]."-".$creation_date_array[1]);
-$ld = strtotime($last_payment_date_array[2]."-".$last_payment_date_array[0]."-".$last_payment_date_array[1]);
-$count_days = floor(abs($ld - $cd) / 60 / 60 / 24);
-$anual_pr = ($contract_fee + $interest_rate_f) / $principal_f / $count_days * 365 * 100;
+$anual_pr = $daily_interest * $number_n;
 $anual_pr = number_format($anual_pr, 2);
 
 ?>
@@ -390,7 +400,7 @@ $html = '
         <p><b>Attorney’s Fees; Expenses:</b><span>Lender may here or pay someone else to help collect this Commercial Loan Promissory Note if Borrower does not pay. Borrower will pay Lender that amount. This includes, subject to any limits under applicable law, Lender’s Attorney’s fees, and Lender’s legal expenses, whether or not there is a lawsuit, including Attorney’s fees, expenses for bankruptcy proceedings (Including efforts to modify or vacate an automatic stay or injunction), and appeals. Borrower also will pay any court costs, in addition to all other sums provided by law. 
         </span></p>
         </div>
-        <span>Initials:</span><img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/>
+        <span>Initials:</span><img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/>
         
 ';
 

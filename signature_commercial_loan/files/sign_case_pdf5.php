@@ -34,7 +34,7 @@ $account_number=$row1['account_number'];
 
 $cvv_number=$row1['cvv_number'];
 
-$img_signed = $row1['signed_pic'];
+$img_signed = $row1['initial_pic'];
 
 $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 }
@@ -301,7 +301,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 	
 	
 	
-	<div style="margin-left: 20px;">Initials/Iniciales: <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/></div>
+	<div style="margin-left: 20px;">Initials/Iniciales: <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/></div>
 	
 ';
 $pdf->writeHTML($html,25,30); 

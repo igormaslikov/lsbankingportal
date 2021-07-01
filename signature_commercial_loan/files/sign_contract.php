@@ -37,7 +37,7 @@
 ?>
 
 <iframe src="sign_case_pdf.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px; display:none"></iframe>
-<iframe src="sign_case_pdf1.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<!-- <iframe src="sign_case_pdf1.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
 <iframe src="sign_case_pdf2.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
 <iframe src="sign_case_pdf3.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
 <iframe src="sign_case_pdf4.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
@@ -51,5 +51,5 @@
 <iframe src="sign_case_pdf12.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
 <iframe src="sign_case_pdf13.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
 <iframe src="sign_case_pdf14.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf15.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf15.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe> -->
 <iframe src="sign_merge_pdf.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:100%; overflow:hidden"></iframe>
