@@ -5,7 +5,7 @@ require('fpdf_merge.php');
 ob_start();
 $merge = new FPDF_Merge();
 $j="";
-for($i=1;$i<=1;$i++){
+for($i=1;$i<=16;$i++){
 $new = "Barcodes/".$_GET['id']."page_".$i.".pdf";
 $merge->add($new);
 
