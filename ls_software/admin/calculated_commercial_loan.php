@@ -375,6 +375,9 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
     $varTable .= "<a href = 'commercial_initial_setup.php?fnd_id=$fnd_idd&interest=$totInterest&daily_interest=$rate&bg_id=$source&loan_create_id=$loan_create_id&principal_amount=$principal_amount&loan_interest=$loan_interest&years=$years&late_fee=$late_fee&contract_fee=$origination&installment_plan=$installment_plan&total_payments=$total_payments&contract_date=$contract_date&payment_date=$payment_date&state=$state'><button name='' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;'>Create Installment Loan</button></a>";
 
-    return array($varTable, date("m/d/Y", strtotime($payment_date)));
+    $last_payment_date_array = explode("-", $payment_date);
+
+    $ld = strtotime($last_payment_date_array[2] . "-" . $last_payment_date_array[0] . "-" . $last_payment_date_array[1]);
+    return array($varTable, date("m/d/Y", $ld));
 }
 ?>

@@ -215,7 +215,7 @@ c<?php
             <label for="usr">Select State</label>
             <select name="state" id="state" class="form-control" value="">
               <option value=""></option>
-              <option value="AZ">Arizona</option>
+              <option value="CA">California</option>
               <option value="NV">Naveda</option>
             </select>
           </div>
