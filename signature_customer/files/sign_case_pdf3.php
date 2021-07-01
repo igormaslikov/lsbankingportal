@@ -255,9 +255,8 @@ que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito
 <td style="padding-left : 100px">
 <br><br>
 Type of Debit/Credit Card: '.$type_of_card.'<br><br>
- Credit Card Number: '.$card_number.'<br><br>
+ Credit Card Number: ************'.substr($card_number,-4).'<br><br>
  Expiration Date: '.$card_exp_date.'<br><br>
- CVV '.$cvv_number.'<br><br>
  Credit Card Billing Address:<br><br>
 
  '.$address.'<br>
