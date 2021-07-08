@@ -141,8 +141,8 @@ if ($signed_status > 0) {
 
 		<style>
 			#btnSaveSignInitial,
-			#btnSaveInitial,
-			#btnSaveSign {
+			#btnClearInitial,
+			#btnClearSign {
 				color: #fff;
 				background: #f99a0b;
 				padding: 5px;
@@ -225,69 +225,7 @@ if ($signed_status > 0) {
 										</div>
 									</div>
 
-									<button id="btnSaveSign">Save Signature</button><br>
-									<b>OR</b>
-									<br>
-
-									<?php
-
-									include 'dbconnect.php';
-									include 'dbconfig.php';
-
-									if (isset($_POST['btnupload'])) {
-										$imgFile = $_FILES['imagee']['name'];
-										$tmp_dir = $_FILES['imagee']['tmp_name'];
-										$imgSize = $_FILES['imagee']['size'];
-
-										$upload_dir = 'doc_signs/'; // upload directory
-
-										$imgExt = strtolower(pathinfo($imgFile, PATHINFO_EXTENSION)); // get image extension
-
-										// valid image extensions
-										$valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
-
-										// rename uploading image
-										$userpic = rand(1000, 1000000) . "." . $imgExt;
-
-										// allow valid image file formats
-										if (in_array($imgExt, $valid_extensions)) {
-											// Check file size '5MB'
-											if ($imgSize < 5000000) {
-												move_uploaded_file($tmp_dir, $upload_dir . $userpic);
-											} else {
-												$errMSG = "Sorry, your file is too large.";
-											}
-										} else {
-											$errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-										}
-
-										$query_sign  = "UPDATE commercial_loan_initial_banking SET `signed_pic`='$userpic' WHERE `email_key` = '$iddd' ";
-										$result_sign = mysqli_query($con, $query_sign);
-										if ($result_sign) {
-											//echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
-										} else {
-											echo "<h3> Error Inserting Data </h3>";
-										}
-									}
-									?>
-
-									<form action="" method="POST" enctype="multipart/form-data">
-										<label for="usr">Upload Your Signature</label>
-										<input type="file" name="imagee" class="form-control" accept="image/*" style="width:35%;margin-left:33%"><br>
-										<button id="btnupload" type="submit" name="btnupload"> Upload Signature</button>
-									</form>
-
-									<div class="sign-container" style="display:none;">
-										<?php
-										$image_list = glob("./doc_signs/*.png");
-										foreach ($image_list as $image) {
-											//echo $image;
-										?>
-											<img src="<?php echo $image; ?>" class="sign-preview" />
-										<?php
-										}
-										?>
-									</div>
+									<button id="btnClearSign" onclick="clearCanvas('sign-pad')">Clear Signature</button><br>
 
 
 								</div>
@@ -307,71 +245,7 @@ if ($signed_status > 0) {
 										</div>
 									</div>
 
-									<button id="btnSaveInitial">Save Initials</button><br>
-									<b>OR</>
-										<br>
-
-										<?php
-
-										include 'dbconnect.php';
-										include 'dbconfig.php';
-
-										if (isset($_POST['btnupload'])) {
-											$imgFile = $_FILES['imagei']['name'];
-											$tmp_dir = $_FILES['imagei']['tmp_name'];
-											$imgSize = $_FILES['imagei']['size'];
-
-											$upload_dir = 'doc_signs/'; // upload directory
-
-											$imgExt = strtolower(pathinfo($imgFile, PATHINFO_EXTENSION)); // get image extension
-
-											// valid image extensions
-											$valid_extensions = array('jpeg', 'jpg', 'png', 'gif'); // valid extensions
-
-											// rename uploading image
-											$userpic = rand(1000, 1000000) . "." . $imgExt;
-
-											// allow valid image file formats
-											if (in_array($imgExt, $valid_extensions)) {
-												// Check file size '5MB'
-												if ($imgSize < 5000000) {
-													move_uploaded_file($tmp_dir, $upload_dir . $userpic);
-												} else {
-													$errMSG = "Sorry, your file is too large.";
-												}
-											} else {
-												$errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-											}
-
-											$query_sign  = "UPDATE commercial_loan_initial_banking SET `initial_pic`='$userpic' WHERE `email_key` = '$iddd' ";
-											$result_sign = mysqli_query($con, $query_sign);
-											if ($result_sign) {
-												//echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
-											} else {
-												echo "<h3> Error Inserting Data </h3>";
-											}
-										}
-										?>
-
-										<form action="" method="POST" enctype="multipart/form-data">
-											<label for="usr">Upload Your Initials</label>
-											<input type="file" name="imagei" class="form-control" accept="image/*" style="width:35%;margin-left:33%"><br>
-											<button id="btnupload_initials" type="submit" name="btnupload_initials"> Upload Initials</button>
-										</form>
-
-										<div class="sign-container" style="display:none;">
-											<?php
-											$image_list = glob("./doc_signs/*.png");
-											foreach ($image_list as $image) {
-												//echo $image;
-											?>
-												<img src="<?php echo $image; ?>" class="sign-preview" />
-											<?php
-											}
-											?>
-										</div>
-
-
+									<button id="btnClearInitial" onclick="clearCanvas('initial-pad')">Clear Initials</button>
 								</div>
 							</div>
 						</div>
@@ -428,27 +302,27 @@ if ($signed_status > 0) {
 				});
 			});
 
-			var sig_canvas = null;
-			var initial_canvas = null;
-			$("#btnSaveSign").click(function(e) {
-				html2canvas([document.getElementById('sign-pad')], {
-					onrendered: function(canvas) {
-						sig_canvas = canvas.toDataURL('image/png');
-					}
-				});
-			});
+			// var sig_canvas = null;
+			// var initial_canvas = null;
+			// $("#btnSaveSign").click(function(e) {
+			// 	html2canvas([document.getElementById('sign-pad')], {
+			// 		onrendered: function(canvas) {
+			// 			sig_canvas = canvas.toDataURL('image/png');
+			// 		}
+			// 	});
+			// });
 
-			$("#btnSaveInitial").click(function(e) {
-				html2canvas([document.getElementById('initial-pad')], {
-					onrendered: function(canvas) {
-						initial_canvas = canvas.toDataURL('image/png');
-					}
-				});
-			});
+			// $("#btnSaveInitial").click(function(e) {
+			// 	html2canvas([document.getElementById('initial-pad')], {
+			// 		onrendered: function(canvas) {
+			// 			initial_canvas = canvas.toDataURL('image/png');
+			// 		}
+			// 	});
+			// });
 
 			$("#btnSaveSignInitial").click(function(e) {
-				var sig_data = sig_canvas.replace(/^data:image\/(png|jpg);base64,/, "");
-				var initial_data = initial_canvas.replace(/^data:image\/(png|jpg);base64,/, "");
+				var sig_data = getDataFromCanvasById('sign-pad').replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+				var initial_data = getDataFromCanvasById('initial-pad').replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
 				var key = '<?php echo $iddd; ?>';
 				$.ajax({
 					url: 'save_sign.php',
@@ -467,6 +341,21 @@ if ($signed_status > 0) {
 					}
 				});
 			});
+
+
+			function getDataFromCanvasById(elemId) {
+				var html2obj = html2canvas(document.getElementById(elemId));
+				var queue = html2obj.parse();
+				var canvas = html2obj.render(queue);
+				var data = canvas.toDataURL('image/png');
+				return data;
+			}
+
+			function clearCanvas(elemId){
+				var canvas = document.getElementById(elemId);
+				const context = canvas.getContext('2d');
+				context.clearRect(0, 0, canvas.width, canvas.height);
+			}
 		</script>
 
 

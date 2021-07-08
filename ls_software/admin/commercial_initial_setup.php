@@ -337,8 +337,25 @@ if ($u_access_id == '0') {
          echo "<h3> Error Inserting Data </h3>";
       }
 
+      switch ($installment_plann) {
+         case "Weekly":
+            $number_n = 52;
+            break;
+         case "Bi-Weekly":
+            $number_n = 26;
+            break;
+         case "Monthly":
+            $number_n = 12;
+            break;
+         default:
+            $number_n = 52;
+            break;
+      }
+      
+      $anual_pr = $daily_interest * $number_n;
+      $anual_pr = number_format($anual_pr, 2);
 
-      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`, `amount_of_loan`,`daily_interest`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `state`)  VALUES ('$fndd_id','$sourcee','$principal_amountt',$daily_interest,'$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$state')";
+      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`, `amount_of_loan`,`daily_interest`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`)  VALUES ('$fndd_id','$sourcee','$principal_amountt',$daily_interest,'$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state')";
       $result = mysqli_query($con, $query);
       if ($result) {
          //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";

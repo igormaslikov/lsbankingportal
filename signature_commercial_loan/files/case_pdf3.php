@@ -177,9 +177,9 @@ Firma del Prestatario : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n
 <br><br>
 Firma del Co-Prestatario : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-Nombre del Prestamista   : <span style="text-decoration:underline">MONEY LINE</span>
+Nombre del Prestamista   : <span style="text-decoration:underline">MY MONEY LINE</span>
 <br><br>
-Firma Autorizada del Prestamista :<span style="text-decoration:underline">MONEY LINE</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.'
+Firma Autorizada del Prestamista :<span style="text-decoration:underline">MY MONEY LINE</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.'
 
 ';
 

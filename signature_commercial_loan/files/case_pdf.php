@@ -66,8 +66,7 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
   $creation_date = date("m-d-Y", $timestamp);
   $total_payments = $row_loan['total_payments'];
 
-
-
+  $installment_plan = $row_loan['installment_plan'];
 
   $created_by = $row_loan['created_by'];
 

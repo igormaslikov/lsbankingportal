@@ -10,9 +10,9 @@
          <a href="user_loan_history.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Loan History</a>
         <a href="user_files.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Documentation</a>
         <a href="decision_logic.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Decision Logic</a>
-        <a href="view_all_payments.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Payments</a>
+        <!-- <a href="view_all_payments.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Payments</a> -->
         <a href="view_all_installments.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Installments</a>
-        <a href="view_all_upcoming_installments.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Upcoming Installments</a>
+        <!-- <a href="view_all_upcoming_installments.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Upcoming Installments</a> -->
         <a href="loan_status_activity_log.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Loan Log Activity</a>
         <a href="add_late_installment_fee.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Late Fee Settings</a>
         <!--<a href="view_all_payment_method.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Payment Methods</a>-->
