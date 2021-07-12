@@ -1,6 +1,6 @@
 <?php
 
-	 $DBhost = "lsbankingportal.com";
+	 $DBhost = "mymoneyline.com/lsbankingportal/";
 	 //$DBhost = "localhost";
 	 $DBuser = "dblsuser2021";
 	 $DBpass = "^%D24L*!Ti5%";

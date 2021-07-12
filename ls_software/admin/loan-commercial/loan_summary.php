@@ -37,6 +37,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   }
 
   $payoff = number_format(((float)($amount_of_loan + $loan_interest)), 2, '.', ',');
+
+
+
   $query_payment = mysqli_query($con, "SELECT SUM(payoff_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
   while ($row_payment = mysqli_fetch_array($query_payment)) {
     $payment = $row_payment['value_sum'];
@@ -47,6 +50,15 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
   }
 
+  $settlement_amount = 0;
+  $query_payment = mysqli_query($con, "SELECT SUM(payment) AS sum_payment, SUM(`paid amount`) AS sum_paid_amount FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id' and status=2");
+  while ($row_payment = mysqli_fetch_array($query_payment)) {
+    $sum_payment = $row_payment['sum_payment'];
+    $sum_paid_amount = $row_payment['sum_paid_amount'];
+    $settlement_amount = $sum_payment - $sum_paid_amount;
+
+    $settlement_amount = number_format((float)$settlement_amount, 2, '.', '');
+  }
 
   $sql = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'");
 
@@ -129,10 +141,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   $date_now = date_create(date("Y-m-d", strtotime("now")));
   $due_date_array = explode("-", $due_date);
   $date_due_date = date_create(date("Y-m-d", strtotime($due_date_array[2] . "-" . $due_date_array[0] . "-" . $due_date_array[1])));
-  $interval = date_diff( $date_due_date,$date_now);
+  $interval = date_diff($date_due_date, $date_now);
 
   $dpd =  $interval->format('%r%a');
 
+  if ($loan_status == "Paid") {
+    $payoff = 0;
+    $dpd = 0;
+  }
 
 
 
@@ -305,9 +321,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     <input type="text" name="amount_loan" class="form-control" id="usr" placeholder="Amount Of Loan" value="<?php echo $val . $amount_loan; ?>">
                   </div>
 
-                  <div class="col-lg-6">
+                  <div class="col-lg-3">
                     <label for="usr">Payoff Amount</label>
                     <input type="text" name="amount_left" class="form-control" id="usr" placeholder="Amount Left" value="<?php echo $val . $payoff; ?>">
+                  </div>
+
+                  <div class="col-lg-3">
+                    <label for="usr">Settlement Amount</label>
+                    <input type="text" name="settlement_amount" class="form-control" id="usr" placeholder="Settlement Left" value="<?php echo $val . $settlement_amount; ?>">
                   </div>
 
                   <div class="col-lg-6">
@@ -366,21 +387,26 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
       <br><br>
       <div class="container-fluid" style="width:100%; margin:0 auto;">
-
         <table id="example" class="display">
           <thead>
             <tr>
-              <th>Loan ID</th>
-              <th>Payment</th>
-              <th>Interest</th>
-              <th>Principal</th>
-              <th>Balance</th>
-              <th>Due Date</th>
-              <th>Payment Date</th>
-              <th>Payment Method</th>
-              <th>User Name</th>
-              <th>DPD</th>
-              <th>Action</th>
+              <th rowspan="2">Transaction ID</th>
+              <th rowspan="2">Loan ID</th>
+              <th rowspan="2">Payment</th>
+              <th rowspan="2">Interest</th>
+              <th rowspan="2">Principal</th>
+              <th rowspan="2">Balance</th>
+              <th colspan="2" style="text-align:center">Fees</th>
+              <th rowspan="2">Due Date</th>
+              <th rowspan="2">Payment Date</th>
+              <th rowspan="2">Payment Method</th>
+              <th rowspan="2">User Name</th>
+              <th rowspan="2">DPD</th>
+              <th rowspan="2">Action</th>
+            </tr>
+            <tr>
+              <th>Late</th>
+              <th>Convenience</th>
             </tr>
           </thead>
           <tbody>
@@ -423,6 +449,10 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $payment_date = $row_loan['payment_date'];
               $created_at = $row_loan['created_at'];
               $created_by_get_db_activity = $row_loan['created_by'];
+              $late_fee = $row_loan['late_fee'];
+              $convenience_fee = $row_loan['convenience_fee'];
+
+              $convenience_fee = $convenience_fee == "" ? 0 : $convenience_fee;
 
               $query_balnce = mysqli_query($con, "SELECT * FROM tbl_commercial_loan where loan_create_id= '$loan_create_id'");
               while ($row_balnce = mysqli_fetch_array($query_balnce)) {
@@ -456,11 +486,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
               echo "<tr>
 	 	      
+              <td>" . $transaction_id . "</td>
               <td>" . $loan_create_id . "</td>
               <td>$" . number_format($payment_amount,   2, ".", ",") . "</td>
               <td>$" . number_format($interest_amount,   2, ".", ",") . "</td>
               <td>$" . number_format($principal_amount,   2, ".", ",") . "</td>
               <td>$" . $remaining_balance . "</td>
+              <td>$" . $late_fee . "</td>
+              <td>$" . $convenience_fee . "</td>
               <td>" . $payment_date_f . "</td>
               <td>" . $created_at_f . "</td>
               <td>" . $payment_method . "</td>
@@ -484,21 +517,6 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             ?>
 
           </tbody>
-          <tfoot>
-            <tr>
-              <th>Total:</th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </tfoot>
         </table>
 
 
@@ -508,7 +526,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
       </div>
 
       <h3 style="color:red;">Conversation <span style="float:right;"> </span> </h3>
-      <iframe src="https://lsbankingportal.com/ls_software/admin/sms-chat?chat_key=<?php echo $chat_key; ?>&admin_name=<?php echo $u_name; ?>" height="500px" width="100%" id="conversation"></iframe>
+      <iframe src="https://mymoneyline.com/lsbankingportal/ls_software/admin/sms-chat?chat_key=<?php echo $chat_key; ?>&admin_name=<?php echo $u_name; ?>" height="500px" width="100%" id="conversation"></iframe>
 
 
       <!-- /#page-content-wrapper -->
@@ -520,9 +538,23 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/rowgroup/1.1.3/js/dataTables.rowGroup.min.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>
+      // jQuery.fn.dataTable.Api.register('sum()', function() {
+      //   return this.flatten().reduce(function(a, b) {
+      //     if (typeof a === 'string') {
+      //       a = a.replace(/[^\d.-]/g, '') * 1;
+      //     }
+      //     if (typeof b === 'string') {
+      //       b = b.replace(/[^\d.-]/g, '') * 1;
+      //     }
+
+      //     return a + b;
+      //   }, 0);
+      // });
+
       $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
@@ -531,63 +563,81 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
       var amount = '<?php echo $amount_loan; ?>';
 
       $(document).ready(function() {
-        $('#example').DataTable({
+        var table = $('#example').DataTable({
           "order": [
-            [4, 'asc']
-
+            [5, 'asc']
           ],
-          "footerCallback": function(row, data, start, end, display) {
-            var api = this.api(),
-              data;
+          "rowGroup": {
+            startRender: function(rows, group) {
+              var api = $('#example').dataTable().api();
+              // Remove the formatting to get integer data for summation
+              var intVal = function(i) {
+                return typeof i === 'string' ?
+                  i.replace('$', '') * 1 :
+                  typeof i === 'number' ?
+                  i : 0;
+              };
 
-            // Remove the formatting to get integer data for summation
-            var intVal = function(i) {
-              return typeof i === 'string' ?
-                i.replace('$', '') * 1 :
-                typeof i === 'number' ?
-                i : 0;
-            };
+              var summary = function(i, api, calc) {
+                sum = api
+                  .column(i)
+                  .data()
+                  .reduce(function(a, b) {
+                    return Number((intVal(a) + intVal(b)).toFixed(2));
+                  }, 0);
 
-            var summary = function(i, api, calc) {
-              sum = api
-                .column(i)
-                .data()
-                .reduce(function(a, b) {
-                  return Number((intVal(a) + intVal(b)).toFixed(2));
-                }, 0);
+                if (calc) {
+                  sum = amount - sum;
+                }
+                return sum;
 
-              // Total over this page
-              pageSum = api
-                .column(i, {
-                  page: 'current'
-                })
-                .data()
-                .reduce(function(a, b) {
-                  return Number((intVal(a) + intVal(b)).toFixed(2));
-                }, 0);
+              };
 
-              // Update footer
-              $(api.column(i).footer()).html(
-                '$' + pageSum + ' ( $' + sum + ' total)'
-              );
+              return $('<tr/>')
+                .append('<td><b>Total:</b></td>')
+                .append('<td></td>')
+                .append('<td><b>$' + summary(2, api, false) + '</b></td>')
+                .append('<td><b>$' + summary(3, api, false) + '</b></td>')
+                .append('<td><b>$' + summary(4, api, false) + '</b></td>')
+                .append('<td><b>$' + summary(4, api, true) + '</b></td>')
+                .append('<td><b>$' + summary(6, api, false) + '</b></td>')
+                .append('<td><b>$' + summary(7, api, false) + '</b></td>')
+                .append('<td colspan=6></td>');
+            },
+            endRender: function(rows, group) {
+              var api = $('#example').dataTable().api();
+              // Remove the formatting to get integer data for summation
+              var intVal = function(i) {
+                return typeof i === 'string' ?
+                  i.replace('$', '') * 1 :
+                  typeof i === 'number' ?
+                  i : 0;
+              };
 
-              if (calc) {
-                var balance_amount = amount - sum
-                $(api.column(4).footer()).html(
-                  '$' + balance_amount
-                );
-              }
+              var summary = function(i, api, calc) {
+                pageSum = api
+                  .column(i, {
+                    page: 'current'
+                  })
+                  .data()
+                  .reduce(function(a, b) {
+                    return Number((intVal(a) + intVal(b)).toFixed(2));
+                  }, 0);
+                return pageSum;
 
-            };
+              };
 
-            summary(1, api, false);
-            summary(2, api, false);
-            summary(3, api, true);
-
-
-            // Total over all pages
-
-            // Total over this pag
+              return $('<tr/>')
+                .append('<td colspan=2><b>Page summary:</b></td>')
+                .append('<td><b>$' + summary(2, api, false) + '</b></td>')
+                .append('<td><b>$' + summary(3, api, false) + '</b></td>')
+                .append('<td><b>$' + summary(4, api, false) + '</b></td>')
+                .append('<td></td>')
+                .append('<td><b>$' + summary(6, api, false) + '</b></td>')
+                .append('<td><b>$' + summary(7, api, false) + '</b></td>')
+                .append('<td colspan=6></td>');
+            }, 
+            dataSrc:1
           }
 
         });

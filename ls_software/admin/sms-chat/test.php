@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('America/Los_Angeles');
-$host = "lsbankingportal.com"; 
+$host = "mymoneyline.com/lsbankingportal/"; 
 $user = "dblsuser2021"; 
 $password = "^%D24L*!Ti5%"; 
 $database = "dbs57337"; 

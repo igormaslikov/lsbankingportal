@@ -810,7 +810,7 @@ configuration file to match your setup.
 When you are using a port on your localhost, which you redirect via
 port-forwarding to another host, MySQL is not resolving the localhost
 as expected. Erik Wasser explains: The solution is: if your host is
-"lsbankingportal.com" MySQL (the command line tool :command:`mysql` as well) always
+"mymoneyline.com/lsbankingportal/" MySQL (the command line tool :command:`mysql` as well) always
 tries to use the socket connection for speeding up things. And that
 doesn't work in this configuration with port forwarding. If you enter
 "127.0.0.1" as hostname, everything is right and MySQL uses the

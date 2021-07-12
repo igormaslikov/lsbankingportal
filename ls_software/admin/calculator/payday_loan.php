@@ -83,8 +83,8 @@ $DBcon->close();
   <label for="usr"> Select Loan Type :   </label>
        <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);" style="width: 220px;height: 33px;" id="" class="form-control">
     <option value=""></option>
-    <option value="http://lsbankingportal.com/ls_software/admin/calculator/payday_loan.php" selected>Payday Loan</option>
-    <option value="http://lsbankingportal.com/ls_software/admin/calculator/personal_loan.php">Personal Loan</option>
+    <option value="https://mymoneyline.com/lsbankingportal/ls_software/admin/calculator/payday_loan.php" selected>Payday Loan</option>
+    <option value="https://mymoneyline.com/lsbankingportal/ls_software/admin/calculator/personal_loan.php">Personal Loan</option>
 </select>
 
     </div>

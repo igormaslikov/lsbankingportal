@@ -1,6 +1,6 @@
 <?php
 $id=$_GET['id'];
-$url_logo="http://lsbankingportal.com/signature_commercial_loan/completed/";
+$url_logo="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -301,7 +301,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 	
 	
 	
-	<div style="margin-left: 20px;">Initials/Iniciales: <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/></div>
+	<div style="margin-left: 20px;">Initials/Iniciales: <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/></div>
 	
 ';
 $pdf->writeHTML($html,25,30); 

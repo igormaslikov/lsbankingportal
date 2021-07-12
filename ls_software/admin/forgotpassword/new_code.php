@@ -1,7 +1,7 @@
 <?php
 
 //Database credentials
-$servername = "lsbankingportal.com";
+$servername = "mymoneyline.com/lsbankingportal/";
 $dbname = 'dbs57337';
 $dbUsername = 'dblsuser2021';
 $dbPassword = '^%D24L*!Ti5%';

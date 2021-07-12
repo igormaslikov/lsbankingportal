@@ -288,7 +288,7 @@ $to_email = $email;
 $subject = 'LS BANKING DOCUMENTS REQUIRED (' . $email . ')';
 $message = 'Hello '.$customer_name.',
 Your  Email Address : '. $email . ' has been verified from Decision Logic. 
-Please Follow the link (http://lsbankingportal.com/ls_software/dl_client_files/index.php?email='.$email.'&code='.$code.') to submit your documents (Photo ID, Bank Card Front/Back) to LS BANKING';
+Please Follow the link (https://mymoneyline.com/lsbankingportal/ls_software/dl_client_files/index.php?email='.$email.'&code='.$code.') to submit your documents (Photo ID, Bank Card Front/Back) to LS BANKING';
 $headers = 'From: info@lspaydayloans.com';
 //mail($to_email,$subject,$message,$headers);
 send_email_notification($to_email,$subject,$message);

@@ -1,6 +1,6 @@
 <?php
 
-	 $DBhost = "lsbankingportal.com";
+	 $DBhost = "mymoneyline.com/lsbankingportal/";
 	 $DBuser = "message_chat";
 	 $DBpass = "admin$$123";
 	 $DBname = "message_chat";

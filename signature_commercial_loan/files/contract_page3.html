@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style type="text/css">
+      .container {
+        width: 90%;
+        margin: 0 auto;
+      }
+      .logo {
+      }
+      .address {
+      }
+      .address-text {
+      }
+      .title {
+        width: 100%;
+      }
+      .title .title-text {
+        text-align: center;
+      }
+      .contract-information {
+        display: flex;
+        justify-content: space-between;
+        width: 95%;
+      }
+      .contract-information__left-side {
+        width: 45%;
+      }
+      .contract-information__left-side .first-row {
+        display: flex;
+        width: 100%;
+      }
+      .contract-information__left-side .first-row__title {
+        width: auto;
+      }
+      .contract-information__left-side .first-row__text {
+        text-align: left;
+      }
+      .contract-information__left-side .second-row {
+        display: flex;
+        width: 100%;
+        padding-top: 10px;
+      }
+
+      .contract-information__left-side .second-row__title {
+        width: auto;
+        text-indent: 1.5em;
+      }
+      .contract-information__left-side .second-row__text {
+        width: 100%;
+      }
+
+      /* Right side */
+      .contract-information__right-side {
+        width: 45%;
+      }
+      .contract-information__right-side .first-row {
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+      }
+      .contract-information__right-side .first-row__title {
+        text-align: right;
+      }
+      .contract-information__right-side .first-row__text {
+      }
+      .contract-information__right-side .second-row {
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+        padding-top: 10px;
+      }
+
+      .contract-information__right-side .second-row__title {
+        width: auto;
+        white-space: nowrap;
+      }
+      .contract-information__right-side .second-row__text {
+        width: 100%;
+      }
+
+      .underline {
+        border-bottom-style: solid;
+        border-bottom-width: thin;
+      }
+      .underline p {
+        /* margin: 2px; */
+      }
+
+      .payment-table {
+        width: 100%;
+        padding-top: 20px;
+      }
+      .payment-table table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      td {
+        border: 1px solid;
+        text-align: center;
+        padding: 10px;
+      }
+      .loan-information {
+      }
+
+      .loan-information p {
+        text-align: justify;
+        line-height: 1.5;
+      }
+      .initials {
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+      }
+      .initials-text {
+      }
+      .initials-signature {
+        width: 5%;
+      }
+
+      p {
+        line-height: 1.5;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <img src="images/Money-Line-Logo.JPG" alt="" style="width:30%" />
+      </div>
+      <div class="address">
+        <div class="address-text">
+          <p><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></p>
+        </div>
+      </div>
+      <div class="title">
+        <div class="title-text">
+          <h1>Pagare de Prestamo Comercial</h1>
+        </div>
+      </div>
+      <div class="contract-information">
+        <div class="contract-information__left-side">
+          <div class="contract-information__left-side first-row">
+            <div class="contract-information__left-side first-row__title">
+              <b>No de contrato:</b>
+            </div>
+            <div class="contract-information__left-side first-row__text">
+              <div class="underline">
+                <p></p>
+              </div>
+            </div>
+          </div>
+          <div class="contract-information__left-side second-row">
+            <div class="contract-information__left-side second-row__title">
+              <b>Prestatario:</b>
+            </div>
+            <div class="contract-information__left-side second-row__text">
+              <div class="underline">
+                <p></p>
+              </div>
+              <div class="underline">
+                <p></p>
+              </div>
+              <div class="underline">
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contract-information__right-side">
+          <div class="contract-information__right-side first-row">
+            <div class="contract-information__right-side first-row__title">
+              <b>Fecha :</b>
+            </div>
+            <div class="contract-information__right-side first-row__text">
+              <div class="underline">
+                <p></p>
+              </div>
+            </div>
+          </div>
+          <div class="contract-information__right-side second-row">
+            <div class="contract-information__right-side second-row__title">
+              <b>Co-prestatario:</b>
+            </div>
+            <div class="contract-information__right-side second-row__text">
+              <div class="underline">
+                <p></p>
+              </div>
+              <div class="underline">
+                <p></p>
+              </div>
+              <div class="underline">
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="payment-table">
+        <table>
+          <tbody>
+            <tr>
+              <td colspan="6">
+                DECLARACIONES INFORMATIVAS DE VERACIDAD EN LOS PRESTAMOS
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="second-row__title">
+                  <b>TASA DE PORCENTAJE ANUAL</b>
+                </div>
+                <div class="second-row__text">
+                  <p>El costo del credito expresado como tasa anual</p>
+                </div>
+                <div class="second-row__value">
+                  <p>______________%</p>
+                </div>
+              </td>
+              <td colspan="2">
+                <div class="second-row__title">
+                  <b>MONTO FINANCIADO</b>
+                </div>
+                <div class="second-row__text">
+                  <p>Cantidad de credito provista a usted o en su nombre.</p>
+                </div>
+                <div class="second-row__value">
+                  <p>$______________</p>
+                </div>
+              </td>
+              <td>
+                <div class="second-row__title">
+                  <b>CARGOS DE FINANCIAMIENTO</b>
+                </div>
+                <div class="second-row__text">
+                  <p>El importe en dolares que le costara el credito.</p>
+                </div>
+                <div class="second-row__value">
+                  <p>$______________</p>
+                </div>
+              </td>
+              <td colspan="2">
+                <div class="second-row__title">
+                  <b>TOTAL DE PAGOS</b>
+                </div>
+                <div class="second-row__text">
+                  <p>
+                    El monto que Habra pagado despues de haber efectuado todos
+                    los pagos programados.
+                  </p>
+                </div>
+                <div class="second-row__value">
+                  <p>$______________</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="4"><b>Calendario de Pagos: </b></td>
+              <td><b>Numero de Pagos</b></td>
+              <td><b>Cantidad del Pago</b></td>
+              <td colspan="3"><b>Cuando Vence el Pago</b></td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td></td>
+              <td colspan="3" style="text-align: left">
+                Pago ____________, empezando el ___________.
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td colspan="3" style="text-align: left">Pagos ____________.</td>
+            </tr>
+            <tr>
+              <td>Ultimo Pago de</td>
+              <td></td>
+              <td colspan="3" style="text-align: left">
+                Que vence en ____________.
+              </td>
+            </tr>
+            <tr>
+              <td colspan="5" style="text-align: left">
+                <p>
+                  <b>Pagos Adelantados:</b> Usted puede liquidar su prestamo en
+                  cualquier momento. Si usted paga por adelantado, no tendra que
+                  pagar penalidad.
+                </p>
+                <p>
+                  <b>Cargo por Incumplimiento:</b> Si un pago se hace con mas de
+                  10 dias de retraso, se le cobrara $10.
+                </p>
+                <p>
+                  <b>Cargo de Originación:</b> Se agregará un cargo prepago de
+                  financiamiento por $ 75 para cubrir el costo de procesar su
+                  solicitud y el acuerdo.
+                </p>
+              </td>
+              <td>
+                <p><b>Licencia del Prestamista</b></p>
+                <p>60DBO-88277</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="loan-information">
+        <p>
+          <b>Derecho del prestamista:</b> En caso de incumplimiento del
+          prestatario, el prestamista puede declarar todo el saldo de capital
+          impago en este Pagare de Prestamo Comercial y luego el prestatario
+          pagará ese monto.
+        </p>
+        <p>
+          <b>Valor predeterminado del prestatario:</b> El valor predeterminado
+          del prestatario incluye, entre otros, los siguientes: procedimientos
+          de quiebra voluntarios o involuntarios en los que el prestatario es
+          nombrado deudor; cualquier gravamen o gravamenes registrado sobre la
+          propiedad actual del Prestatario, como se menciona anteriormente, ya
+          sea voluntario, involuntario o mediante la operación de la ley.
+        </p>
+        <p>
+          <b>Confesión de fallo:</b> El Prestatario por el presente autoriza
+          irrevocablemente y faculta a cualquier abogado para comparecer ante
+          cualquier tribunal de registro y confesar el juicio contra el
+          Prestatario por el monto impago de este Pagare de Prestamo Comercial
+          como lo demuestra cualquier declaración jurada firmada por un
+          funcionario del Prestamista que establezca el monto adeudado,
+          honorarios del abogado más los costos de la demanda, y para liberar
+          todos los errores y renunciar a todos los derechos de apelación. Si se
+          ha completado una copia de este Pagare de Prestamo Comercial,
+          verificada por una declaración jurada, en el procedimiento, no será
+          necesario presentar el original como una orden judicial. El
+          prestatario renuncia al derecho a cualquier suspensión de la ejecución
+          y al beneficio de todas las leyes de exención vigentes ahora o en el
+          futuro. No se considerará que un solo ejercicio de la orden y el poder
+          para confesar el juicio anterior agote el poder, ya sea que cualquier
+          ejercicio sea considerado o no por un tribunal como inválido, anulable
+          o nulo; pero el poder continuará sin disminuir y puede ejercerse de
+          vez en cuando, ya que el Prestamista puede elegir hasta que todos los
+          montos adeudados en este Pagare de Prestamo Comercial hayan sido
+          pagados en su totalidad. Por la presente, el Prestatario renuncia y
+          libera todos y cada uno de los reclamos o causas de acción que el
+          Prestatario pueda tener contra cualquier Abogado que actúe bajo los
+          términos de autoridad que el Prestatario ha otorgado en el presente
+          documento que surjan o estén relacionados con la confesión de juicio
+          en virtud del presente.
+        </p>
+      </div>
+      <div class="initials">
+        <div class="initials-text">
+          <p style="margin: auto">Iniciales</p>
+        </div>
+        <div class="initials-signature underline">
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

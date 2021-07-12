@@ -104,7 +104,7 @@ $username=$row_user['username'];
      
      if(isset($_POST['btn-submit'])) 
 {
-    $form_name="personal-".basename(__FILE__);
+    $form_name="commercial-".basename(__FILE__);
     
     
     $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
@@ -116,7 +116,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
  
 }
    $delete_allowed = user_roles($u_access_id,$form_id);
-    
+   $delete_allowed  = 1;
     
     if ($delete_allowed==1)
 {

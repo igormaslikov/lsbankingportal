@@ -1,5 +1,5 @@
 <?php
-$host = "lsbankingportal.com"; 
+$host = "mymoneyline.com/lsbankingportal/"; 
 $user = "db2lsuser2021"; 
 $password = "^%D24L*!Ti5%"; 
 $database = "dbs64065"; 

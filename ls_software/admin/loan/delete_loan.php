@@ -128,7 +128,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
 $del_reason ="Unsigned Loan ID $loan_create_id is deleted,".$_POST['del_reason']." and User ID is $user_fnd_id.";
 
     $query = "DELETE FROM tbl_loan WHERE loan_id = '$id'";
-    $result = mysqli_query($con, $query);
+    $result = mysqli_query($con, $query);git 
     
     $query_transaction = "DELETE FROM loan_transaction WHERE loan_id = '$id'";
     $result_transaction = mysqli_query($con, $query_transaction);

@@ -1,7 +1,7 @@
 <?php 
 date_default_timezone_set('America/Los_Angeles');
 //include_once($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
-$conn = new mysqli("lsbankingportal.com","message_chat","admin$$123","message_chat");
+$conn = new mysqli("mymoneyline.com/lsbankingportal/","message_chat","admin$$123","message_chat");
 $count=0;
 $sql2="SELECT * FROM webchat_lines WHERE notification_status = 0";
 $result=mysqli_query($conn, $sql2);
@@ -10,14 +10,14 @@ $count=mysqli_num_rows($result);
 ?>
 
 <?php
-function getMyUrl()
+function getMyUrl($added_to_link)
 {
   $protocol = (!empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1')) ? 'https://' : 'http://';
-  $server = $_SERVER['SERVER_NAME'];
+  $server = $_SERVER['SERVER_NAME'] + $added_to_link;
   $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
   return $protocol.$server.$port;
 }
-$url_origin = getMyUrl();
+$url_origin = getMyUrl("/lsbankingportal");
 ?>
 
 <html>
@@ -209,7 +209,7 @@ $url_origin = getMyUrl();
           <ul class="nav navbar-nav nav1"  style="width:80%">
             
             <li class="loan">
-                <a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer_main.php?status=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search="  style="color:white; font-size:20px">Applications</a>
+                <a href="view_all_customer_main.php?status=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search="  style="color:white; font-size:20px">Applications</a>
                 </li>
            <li class="loan">
            <ul id='menu' style="padding-left:0px">
@@ -227,13 +227,13 @@ $url_origin = getMyUrl();
             <li class="loan">
             <ul id='menu' style="padding-left:0px">
             <li class="loan">
-            <a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_payday_loans.php" style="color:white;font-size:20px">Payday Loan</a>
+            <a href="view_all_payday_loans.php" style="color:white;font-size:20px">Payday Loan</a>
                 <ul class='menus'>
-                <li><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_payday_loans_upcoming.php"  style="color:white;" title=''>Upcoming Due Loans</a></li>
-                <li><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_payday_loans_pastdue.php"  style="color:white;" title=''>Past Due Loans</a></li>
-                <li><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_payday_loans_recently_paid.php"  style="color:white;" title=''>Recently Paid Loans</a></li>
-                <li><a href="<?php echo $url_origin; ?>/ls_software/admin/view_payday_schedules.php"  style="color:white;" title=''>Scheduled Payments</a></li>
-                <li><a href="<?php echo $url_origin; ?>/ls_software/admin/payday_payments.php"  style="color:white;" title=''>Payments</a></li>
+                <li><a href="view_all_payday_loans_upcoming.php"  style="color:white;" title=''>Upcoming Due Loans</a></li>
+                <li><a href="view_all_payday_loans_pastdue.php"  style="color:white;" title=''>Past Due Loans</a></li>
+                <li><a href="view_all_payday_loans_recently_paid.php"  style="color:white;" title=''>Recently Paid Loans</a></li>
+                <li><a href="view_payday_schedules.php"  style="color:white;" title=''>Scheduled Payments</a></li>
+                <li><a href="payday_payments.php"  style="color:white;" title=''>Payments</a></li>
                 </ul>
             </li>
             </ul>

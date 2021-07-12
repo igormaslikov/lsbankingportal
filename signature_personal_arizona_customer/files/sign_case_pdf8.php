@@ -304,7 +304,7 @@ Borrower Signature <br>
 
 ';
 
-$sign_image_url= "http://lsbankingportal.com/signature_personal_arizona_customer/completed/doc_signs/".$img_signed;
+$sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_personal_arizona_customer/completed/doc_signs/".$img_signed;
 
 $img = file_get_contents($sign_image_url);
 

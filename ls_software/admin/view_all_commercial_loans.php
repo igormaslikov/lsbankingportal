@@ -41,7 +41,6 @@ $DBcon->close();
 <?php include('menu.php') ;?>
 
 <br>
-<br><br>
 
 <iframe src="loan-commercial/index.php" style="position: absolute; height: 90%; border: none; width:100%;overflow:hidden; " ></iframe>
 </body>

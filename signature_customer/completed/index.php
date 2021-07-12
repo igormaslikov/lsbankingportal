@@ -1,5 +1,5 @@
 <?php
-$url_logo="https://lsbankingportal.com/website/images/Money-Line-Logo.JPG"; 
+$url_logo="https://mymoneyline.com/lsbankingportal/website/images/Money-Line-Logo.JPG"; 
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -10,7 +10,7 @@ $iddd=$_GET['id'];
 
 
 
-$url="https://lsbankingportal.com/signature_customer/files/sign_contract.php?id=$iddd";
+$url="https://mymoneyline.com/lsbankingportal/signature_customer/files/sign_contract.php?id=$iddd";
 
 $sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
 
@@ -366,7 +366,7 @@ while($row_link = mysqli_fetch_array($sql_link)) {
     //echo $mail_key_link;
 }
 
-$url_link="https://lsbankingportal.com/signature_customer/files/index.php?id=$mail_key_link";
+$url_link="https://mymoneyline.com/lsbankingportal/signature_customer/files/index.php?id=$mail_key_link";
 
 ?>
 

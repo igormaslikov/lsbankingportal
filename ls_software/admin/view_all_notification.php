@@ -88,7 +88,7 @@ $DBcon->close();
       
  <?php
  
- $con = new mysqli("lsbankingportal.com","message_chat","admin$$123","message_chat");
+ $con = new mysqli("50.62.151.36","message_chat","admin$$123","message_chat");
 $query = "SELECT * FROM webchat_lines where msg_status= 'incoming' order by id DESC";
 $result = mysqli_query($con, $query);
 echo '<h3>Your Notifications</h3>';

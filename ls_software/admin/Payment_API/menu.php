@@ -160,7 +160,7 @@ date_default_timezone_set('America/Los_Angeles');
         <li><a href="fund_card.php"  style="color:white;" title='Dropdown 1'>Fund Now</a>
         </li>
         <li class="portfolio"><a href="view_all_fund_cards.php"  style="color:white;">View All Fund Cards</a></li>
-        <!--<li class="user"><a href="http://lsbankingportal.com/ls_software/admin/view_all_user.php"  style="color:white;">User</a></li>-->
+        <!--<li class="user"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/view_all_user.php"  style="color:white;">User</a></li>-->
         
       </ul>
     </li>
@@ -177,7 +177,7 @@ date_default_timezone_set('America/Los_Angeles');
         <li><a href="pay_with_card.php"  style="color:white;" title='Dropdown 1'>Pay Now</a>
         </li>
         <li class="portfolio"><a href="view_all_payments.php"  style="color:white;">View All Payment</a></li>
-        <!--<li class="user"><a href="http://lsbankingportal.com/ls_software/admin/view_all_user.php"  style="color:white;">User</a></li>-->
+        <!--<li class="user"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/view_all_user.php"  style="color:white;">User</a></li>-->
         
       </ul>
     </li>
@@ -197,7 +197,7 @@ date_default_timezone_set('America/Los_Angeles');
         <li><a href="scheduled_payment.php"  style="color:white;" title='Dropdown 1'>Scheduled Payment</a>
         </li>
         <li class="portfolio"><a href="view_schedule_payments.php"  style="color:white;">View Scheduled Payment</a></li>
-        <!--<li class="user"><a href="http://lsbankingportal.com/ls_software/admin/view_all_user.php"  style="color:white;">User</a></li>-->
+        <!--<li class="user"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/view_all_user.php"  style="color:white;">User</a></li>-->
         
       </ul>
     </li>
@@ -213,8 +213,8 @@ date_default_timezone_set('America/Los_Angeles');
   <!--  <li><a  href='#' title='Menu'>Tools</a>-->
   <!--    <ul class='menus'>-->
        
-  <!--      <li class="user"><a href="http://lsbankingportal.com/ls_software/admin/calculator/payday_loan.php"  style="color:white;">Calculator</a></li>-->
-  <!--      <li class="user"><a href="http://lsbankingportal.com/ls_software/admin/view_all_credit_reports.php"  style="color:white;">View All Credit Reports</a></li>-->
+  <!--      <li class="user"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/calculator/payday_loan.php"  style="color:white;">Calculator</a></li>-->
+  <!--      <li class="user"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/view_all_credit_reports.php"  style="color:white;">View All Credit Reports</a></li>-->
            
         
   <!--    </ul>-->

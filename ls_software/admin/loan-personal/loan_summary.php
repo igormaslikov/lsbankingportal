@@ -539,7 +539,7 @@ while($row_sql_activity_by_user = mysqli_fetch_array($sql_activity_by_user)) {
 </div>
 
 <h3 style="color:red;">Conversation  <span style="float:right;">  </span>   </h3>
-<iframe src="https://lsbankingportal.com/ls_software/admin/sms-chat?chat_key=<?php echo $chat_key;?>&admin_name=<?php echo $u_name;?>" height="500px" width="100%" id="conversation"></iframe>
+<iframe src="https://mymoneyline.com/lsbankingportal/ls_software/admin/sms-chat?chat_key=<?php echo $chat_key;?>&admin_name=<?php echo $u_name;?>" height="500px" width="100%" id="conversation"></iframe>
 
     
     <!-- /#page-content-wrapper -->

@@ -5,7 +5,7 @@ $id=$_GET['id'];
 
 <?php
 
-$url_logo="https://lsbankingportal.com/signature_personal_arizona_customer/completed/";
+$url_logo="https://mymoneyline.com/lsbankingportal/signature_personal_arizona_customer/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -329,7 +329,7 @@ Borrower’s Signature :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ';
 
 
-$sign_image_url= "https://lsbankingportal.com/signature_personal_arizona_customer/completed/doc_signs/".$img_signed;
+$sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_personal_arizona_customer/completed/doc_signs/".$img_signed;
 
 $img = file_get_contents($sign_image_url);
 

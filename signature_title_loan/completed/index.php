@@ -1,5 +1,5 @@
 <?php
-$url_logo="http://lsbankingportal.com/signature_customer/completed"; 
+$url_logo="https://mymoneyline.com/lsbankingportal/signature_customer/completed"; 
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -385,7 +385,7 @@ while($row_link = mysqli_fetch_array($sql_link)) {
     //echo $mail_key_link;
 }
 
-$url_link="http://lsbankingportal.com/signature_customer/files/index.php?id=$mail_key_link";
+$url_link="https://mymoneyline.com/lsbankingportal/signature_customer/files/index.php?id=$mail_key_link";
 
 ?>
 

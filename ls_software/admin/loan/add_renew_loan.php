@@ -46,7 +46,7 @@ function generateRandomString($length = 8) {
 
 $to_email_admin = $email_admin;
 $subject_admin = 'A New Customer Has Signed The Contract';
-$message_admin = 'http://lsbankingportal.com/signature_customer/completed/index.php?id='.$email_key;
+$message_admin = 'https://mymoneyline.com/lsbankingportal/signature_customer/completed/index.php?id='.$email_key;
 $headers_admin = 'From: admin@lsfinancing.com';
 //mail($to_email_admin,$subject_admin,$message_admin,$headers_admin);
 admin_leads_email_notification($subject_admin,$message_admin);
@@ -100,8 +100,8 @@ while ($row_user_id3=mysqli_fetch_array($query_userid3)){
 
 $to_email = $email;
 $subject = 'Contract';
-$message = 'http://lsbankingportal.com/signature_customer/files/contract.php?id='.$email_key;
-$message_email = 'http://lsbankingportal.com/signature_customer/completed/index.php?id='.$email_key;
+$message = 'https://mymoneyline.com/lsbankingportal/signature_customer/files/contract.php?id='.$email_key;
+$message_email = 'https://mymoneyline.com/lsbankingportal/signature_customer/completed/index.php?id='.$email_key;
 $headers = 'From: admin@lsfinancing.com';
 //mail($to_email,$subject,$message,$headers);
 

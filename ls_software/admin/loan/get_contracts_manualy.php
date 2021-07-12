@@ -23,7 +23,7 @@
         if ($mail_key == ""){
             continue;
         }
-        echo "<div><a target='_blank' href='https://lsbankingportal.com/signature_customer/files/sign_contract.php?id=$mail_key'>https://lsbankingportal.com/signature_customer/files/sign_contract.php?id=$mail_key</a><div>";
+        echo "<div><a target='_blank' href='https://mymoneyline.com/lsbankingportal/signature_customer/files/sign_contract.php?id=$mail_key'>https://mymoneyline.com/lsbankingportal/signature_customer/files/sign_contract.php?id=$mail_key</a><div>";
 
     }
 

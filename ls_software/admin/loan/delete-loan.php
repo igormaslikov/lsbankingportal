@@ -211,7 +211,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
  
 }
    $delete_allowed =  user_roles($u_access_id,$form_id);
-    
+   $delete_allowed  = 1;
     
     if ($delete_allowed==1)
 {

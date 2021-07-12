@@ -10,7 +10,7 @@ curl_setopt_array($curl, array(
   CURLOPT_TIMEOUT => 30,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "{\"sms_text\":\"Hellooooo\", \"mobile_number\": \"8186109673\", \"sender_id\": \"76054\", \"mms_url_list\": [\"http://lsbankingportal.com/ls_software/schedule_sms/thumbnail.png\"]}",
+  CURLOPT_POSTFIELDS => "{\"sms_text\":\"Hellooooo\", \"mobile_number\": \"8186109673\", \"sender_id\": \"76054\", \"mms_url_list\": [\"https://mymoneyline.com/lsbankingportal/ls_software/schedule_sms/thumbnail.png\"]}",
   CURLOPT_HTTPHEADER => array(
     "apikey: 2b731c8cdf8713eae8e30ae382eb43a3",
     "cache-control: no-cache",

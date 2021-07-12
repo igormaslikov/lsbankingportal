@@ -1,5 +1,5 @@
 <?php
-$url_logo = "https://lsbankingportal.com/signature_commercial_loan/completed";
+$url_logo = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed";
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd = $_GET['id'];
@@ -382,7 +382,7 @@ if ($signed_status > 0) {
 		//echo $mail_key_link;
 	}
 
-	$url_link = "https://lsbankingportal.com/signature_commercial_loan/files/index.php?id=$mail_key_link";
+	$url_link = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/files/index.php?id=$mail_key_link";
 
 	?>
 

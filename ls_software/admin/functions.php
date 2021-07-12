@@ -104,6 +104,7 @@ if ($err) {
 
 
 function application_notes_add($user_fnd_id,$app_notes,$creation_date,$created_by){
+  include 'dbconfig.php';
    $query= "INSERT INTO `application_notes`( `user_fnd_id`, `app_notes`, `creation_date`, `created_by`) VALUES ('$user_fnd_id','$app_notes','$creation_date','$created_by')";
 	   $result = mysqli_query($con, $query);
         if ($result) {

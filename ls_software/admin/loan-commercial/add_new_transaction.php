@@ -239,6 +239,7 @@ if ($u_access_id != '1') {
       $payment_description = $_POST['payment_description'];
       $payment_method = $_POST['payment_method'];
       $type_of_payment = $_POST['type_of_payment'];
+      $convenience_fee = $_POST['convenience_fee'];
 
       //    echo "Interest : ".$_POST['interest_amount'];
 
@@ -353,10 +354,10 @@ if ($u_access_id != '1') {
             $to_be_paid_amount -= $payment;
             $status = '1';
 
-            $payment_date_array = explode("-", $due_date);
-            $payment_date = $payment_date_array[2] . "-" . $payment_date_array[0] . "-" . $payment_date_array[1];
+            //$payment_date_array = explode("-", $due_date);
+            //$payment_date = $payment_date_array[2] . "-" . $payment_date_array[0] . "-" . $payment_date_array[1];
             $date_now = date_create(date("Y-m-d", strtotime($paid_date)));
-            $date_due_date = date_create(date("Y-m-d", strtotime($payment_date)));
+            $date_due_date = date_create($due_date);
             $interval = date_diff( $date_due_date,$date_now);
          
             $dpd = $interval->format('%r%a');
@@ -394,7 +395,7 @@ if ($u_access_id != '1') {
          $db_principlepaid = $sum_principle_amount;
       }
 
-      $query_insert_trans = "INSERT INTO `commercial_loan_transaction`(`loan_id`, `loan_create_id`, `user_fnd_id`, `installment_id`, `payment_amount`, `interest`, `principal_amount`, `remaining_balance`, `remaining_interest`, `remaining_installment_principal`, `late_fee`, `payment_date`, `payment_description`,`payment_method`, `created_at`, `created_by`) VALUES ('$id','$loan_create_id','$user_fnd_id','$intallment_id','$db_totalamountpaid','$db_interestpaid','$db_principlepaid','$rem_balance','$db_remaininginterest','$db_remainingprinciple','$db_latefeepaid','$due_date','$payment_description','$payment_method','$paid_date','$u_id')";
+      $query_insert_trans = "INSERT INTO `commercial_loan_transaction`(`loan_id`, `loan_create_id`, `user_fnd_id`, `installment_id`, `payment_amount`, `interest`, `principal_amount`, `remaining_balance`, `remaining_interest`, `remaining_installment_principal`, `late_fee`, `convenience_fee` , `payment_date`, `payment_description`,`payment_method`, `created_at`, `created_by`) VALUES ('$id','$loan_create_id','$user_fnd_id','$intallment_id','$db_totalamountpaid','$db_interestpaid','$db_principlepaid','$rem_balance','$db_remaininginterest','$db_remainingprinciple','$db_latefeepaid','$convenience_fee','$due_date','$payment_description','$payment_method','$paid_date','$u_id')";
 
       $result_insert_trans = mysqli_query($con, $query_insert_trans);
 
@@ -612,9 +613,15 @@ if ($u_access_id != '1') {
 
                      </div>
 
-                     <div class="col-lg-6">
+                     <div class="col-lg-3">
                         <label for="usr">Late Fee ($):</label>
                         <input type="text" name="late_fee" class="form-control" id="usr" placeholder="" value="<?php echo $sum_late_fee; ?>" title="<?php echo '(late fee) * (DPD) => ' . $late_fee . ' * ' . $dpd; ?>">
+
+                     </div>
+
+                     <div class="col-lg-3">
+                        <label for="usr">Convenience Fee ($):</label>
+                        <input type="text" name="convenience_fee" class="form-control" id="usr" placeholder="" value="0">
 
                      </div>
 
@@ -635,15 +642,16 @@ if ($u_access_id != '1') {
                            <option value="Bank Deposit">Bank Deposit</option>
                            <option value="Money Order">Money Order</option>
                            <option value="ACH">ACH</option>
+                           <option value="Zelle">Zelle</option>
                            <option value="Repay">Repay</option>
                            <option value="Chargeback">Chargeback</option>
-
                         </select>
                      </div>
                      <div class="col-lg-6">
                         <label for="usr">Type Of Payment</label>
                         <select name="type_of_payment" id="type_of_payment" class="form-control" value="">
                            <option value=""></option>
+                           <option value="Paydown">Paydown</option>
                            <option value="Payoff">Payoff</option>
                            <option value="Chargeoff">Chargeoff</option>
                            <option value="Settlement">Settlement</option>

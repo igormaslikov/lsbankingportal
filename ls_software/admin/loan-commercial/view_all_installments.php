@@ -305,7 +305,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 			  <td>" . $pay_period . "</td>
 			  <td>" . $installment_status . "</td>
               <td>" . $payment_date . "</td>
-              <td>" . date('m-d-Y',strtotime($paid_date)) . "</td>
+              <td>" .($paid_date != '' ? date('m-d-Y',strtotime($paid_date)) : '') . "</td>
               <td>" . $paid_amount . "</td>
               <td>" . $dpd . "</td>
               <td>" . $a . "</td>

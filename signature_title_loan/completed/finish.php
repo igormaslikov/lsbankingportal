@@ -1,6 +1,6 @@
 <?php
 
-$url_logo="http://lsbankingportal.com/signature_customer/completed"; 
+$url_logo="https://mymoneyline.com/lsbankingportal/signature_customer/completed"; 
 
 include 'dbconnect.php';
 include 'dbconfig.php';

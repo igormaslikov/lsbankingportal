@@ -1,5 +1,5 @@
 <?php
-$host = "lsbankingportal.com"; 
+$host = "mymoneyline.com/lsbankingportal/"; 
 $user = "db2lsuser2021"; 
 $password = "^%D24L*!Ti5%"; 
 $database = "dbs64065"; 
@@ -16,7 +16,7 @@ if ($con->connect_error) {
 
 <?php
 
-	 $DBhost = "lsbankingportal.com";
+	 $DBhost = "mymoneyline.com/lsbankingportal/";
 	 $DBuser = "dblsuser2021";
 	 $DBpass = "^%D24L*!Ti5%";
 	 $DBname = "dbs57337";

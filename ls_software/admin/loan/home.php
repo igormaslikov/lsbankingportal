@@ -20,33 +20,32 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     $DBcon->close();
 
 ?>
-<!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Welcome - <?php echo $userRow['email']; ?></title>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Welcome - <?php echo $userRow['email']; ?></title>
 
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
 
-    <link rel="stylesheet" href="../style.css" type="text/css" />
+        <link rel="stylesheet" href="../style.css" type="text/css" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-</head>
+    </head>
 
-<body>
+    <body>
 
 
-    <section class="wrapper">
-        <!-- Row title -->
+        <section class="wrapper">
+            <!-- Row title -->
 
-        <br><br>
-        <?php
+            <br><br>
+            <?php
 
             include '../functions.php';
 
@@ -136,7 +135,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             }
 
             ?>
-        <?php
+            <?php
 
 
             $query_us = mysqli_query($con, "SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '1'");
@@ -210,223 +209,202 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
             ?>
 
-        <div align="right" style="padding:30px;background-color: #F5E09E;color: white">
-            <a href="unsigned_payday_loans.php"> <button name="btn-submit" type="submit" class="btn btn-danger"
-                    style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Unsigned Payday
-                    Loans</button></a>
-            <a href="repeat_loan.php"> <button name="btn-submit" type="submit" class="btn btn-danger"
-                    style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Loan Repeat
-                    Summary</button></a>
-            <a href="loan_settings.php"> <button name="btn-submit" type="submit" class="btn btn-danger"
-                    style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Loan Settings</button></a>
-            <a href="../search_customer.php"> <button name="btn-submit" type="submit" class="btn btn-danger"
-                    style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Add New Loan</button></a>
+            <div align="right" style="padding:30px;background-color: #F5E09E;color: white">
+                <a href="unsigned_payday_loans.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Unsigned Payday
+                        Loans</button></a>
+                <a href="repeat_loan.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Loan Repeat
+                        Summary</button></a>
+                <a href="loan_settings.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Loan Settings</button></a>
+                <a href="../search_customer.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Add New Loan</button></a>
 
-            <br><br><br>
-            <div style="float:left;color:black;font-size:18px"> Total Loan Accounts: <span
-                    style="color:red;"><?php echo $rowcount; ?> </span> </div>
-            <div style="float:right;color:black;font-size:18px"> Total Loan Amounts: <span
-                    style="color:red;"><?php echo $varibl . number_format("$us", 2); ?> </span> </div>
-            <br><br>
-            <div style="float:right;color:black;font-size:18px"> Total Payoff Amounts: <span
-                    style="color:red;"><?php echo $varibl . number_format("$pay_off", 2); ?></span> </div>
-            <div style="float:left;color:black;font-size:18px"> Avg. Loan Amount: <span
-                    style="color:red;"><?php echo $varibl . number_format("$avg", 2); ?> </span> </div>
-            <br><br>
-            <div style="float:left;color:black;font-size:18px"> Avg. Payoff Amount: <span
-                    style="color:red;"><?php echo $varibl . number_format("$avg_pay", 2); ?> </span> </div>
-            <div style="float:right;color:black;font-size:18px"> Total Payment Received: <span
-                    style="color:red;"><?php echo $varibl . number_format("$totall_trans", 2); ?> </span> </div>
-            <br><br>
-            <div style="float:left;color:black;font-size:18px">Total Fees Paid: <span
-                    style="color:red;"><?php echo $varibl . number_format("$total_loan_fee", 2); ?> </span> </div>
-            <div style="float:right;color:black;font-size:18px">Uncollected Payments: <span
-                    style="color:red;"><?php $uncollect = $pay_off - $totall_trans;
+                <br><br><br>
+                <div style="float:left;color:black;font-size:18px"> Total Loan Accounts: <span style="color:red;"><?php echo $rowcount; ?> </span> </div>
+                <div style="float:right;color:black;font-size:18px"> Total Loan Amounts: <span style="color:red;"><?php echo $varibl . number_format("$us", 2); ?> </span> </div>
+                <br><br>
+                <div style="float:right;color:black;font-size:18px"> Total Payoff Amounts: <span style="color:red;"><?php echo $varibl . number_format("$pay_off", 2); ?></span> </div>
+                <div style="float:left;color:black;font-size:18px"> Avg. Loan Amount: <span style="color:red;"><?php echo $varibl . number_format("$avg", 2); ?> </span> </div>
+                <br><br>
+                <div style="float:left;color:black;font-size:18px"> Avg. Payoff Amount: <span style="color:red;"><?php echo $varibl . number_format("$avg_pay", 2); ?> </span> </div>
+                <div style="float:right;color:black;font-size:18px"> Total Payment Received: <span style="color:red;"><?php echo $varibl . number_format("$totall_trans", 2); ?> </span> </div>
+                <br><br>
+                <div style="float:left;color:black;font-size:18px">Total Fees Paid: <span style="color:red;"><?php echo $varibl . number_format("$total_loan_fee", 2); ?> </span> </div>
+                <div style="float:right;color:black;font-size:18px">Uncollected Payments: <span style="color:red;"><?php $uncollect = $pay_off - $totall_trans;
                                                                                                                     if ($uncollect > 0) {
                                                                                                                         echo $varibl . number_format("$uncollect", 2);
                                                                                                                     } ?>
-                </span> </div>
+                    </span> </div>
+
+                <br>
+            </div>
+
+
+
 
             <br>
-        </div>
+            <form action="home.php" method="GET">
+                <table class="table table-striped tasks-table" id="table_bg" style="font-size:15px !important">
+                    <thead align="center">
+                        <tr>
 
-
-
-
-        <br>
-        <form action="home.php" method="GET">
-            <table class="table table-striped tasks-table" id="table_bg" style="font-size:15px !important">
-                <thead align="center">
-                    <tr>
-
-                        <td colspan="2" style="font-weight: bold;">
-                            Account Status
-                            <select name="status" id="app_status" class="form-control" value=""
-                                style="padding: 6px 15px;">
-                                <option value="All" <?php if ($_GET['status'] == 'All') {
+                            <td colspan="2" style="font-weight: bold;">
+                                Account Status
+                                <select name="status" id="app_status" class="form-control" value="" style="padding: 6px 15px;">
+                                    <option value="All" <?php if ($_GET['status'] == 'All') {
                                                             echo 'selected';
                                                         } ?>>All</option>
-                                <option value="Active" <?php if ($_GET['status'] == 'Active') {
+                                    <option value="Active" <?php if ($_GET['status'] == 'Active') {
                                                                 echo 'selected';
                                                             } ?>>Active
-                                </option>
-                                <option value="Paid" <?php if ($_GET['status'] == 'Paid') {
+                                    </option>
+                                    <option value="Paid" <?php if ($_GET['status'] == 'Paid') {
                                                                 echo 'selected';
                                                             } ?>>Paid
-                                </option>
-                                <option value="Past Due" <?php if ($_GET['status'] == 'Past Due') {
+                                    </option>
+                                    <option value="Past Due" <?php if ($_GET['status'] == 'Past Due') {
                                                                     echo 'selected';
                                                                 } ?>>
-                                    Past Due</option>
-                                <option value="Promise to Pay" <?php if ($_GET['status'] == 'Promise to Pay') {
+                                        Past Due</option>
+                                    <option value="Promise to Pay" <?php if ($_GET['status'] == 'Promise to Pay') {
                                                                         echo 'selected';
                                                                     } ?>>Promise to Pay
-                                </option>
-                                <option value="Payment Plan" <?php if ($_GET['status'] == 'Payment Plan') {
+                                    </option>
+                                    <option value="Payment Plan" <?php if ($_GET['status'] == 'Payment Plan') {
                                                                         echo 'selected';
                                                                     } ?>>Payment Plan
-                                </option>
-                                <option value="Collections" <?php if ($_GET['status'] == 'Collections') {
+                                    </option>
+                                    <option value="Collections" <?php if ($_GET['status'] == 'Collections') {
                                                                     echo 'selected';
                                                                 } ?>>Collections</option>
-                                <option value="Chargeoff" <?php if ($_GET['status'] == 'Chargeoff') {
+                                    <option value="Chargeoff" <?php if ($_GET['status'] == 'Chargeoff') {
                                                                     echo 'selected';
                                                                 } ?>>
-                                    Chargeoff</option>
-                                <option value="Closed Account" <?php if ($_GET['status'] == 'Closed Account') {
+                                        Chargeoff</option>
+                                    <option value="Closed Account" <?php if ($_GET['status'] == 'Closed Account') {
                                                                         echo 'selected';
                                                                     } ?>>Closed Account
-                                </option>
-                                <option value="Chargeback" <?php if ($_GET['status'] == 'Chargeback') {
+                                    </option>
+                                    <option value="Chargeback" <?php if ($_GET['status'] == 'Chargeback') {
                                                                     echo 'selected';
                                                                 } ?>>
-                                    Chargeback</option>
-                                <option value="Bankruptcy" <?php if ($_GET['status'] == 'Bankruptcy') {
+                                        Chargeback</option>
+                                    <option value="Bankruptcy" <?php if ($_GET['status'] == 'Bankruptcy') {
                                                                     echo 'selected';
                                                                 } ?>>
-                                    Bankruptcy</option>
-                                <option value="Pending" <?php if ($_GET['status'] == 'Pending') {
+                                        Bankruptcy</option>
+                                    <option value="Pending" <?php if ($_GET['status'] == 'Pending') {
                                                                 echo 'selected';
                                                             } ?>>
-                                    Pending</option>
-                                <option value="Disbursement" <?php if ($_GET['status'] == 'Disbursement') {
+                                        Pending</option>
+                                    <option value="Disbursement" <?php if ($_GET['status'] == 'Disbursement') {
                                                                         echo 'selected';
                                                                     } ?>>Disbursement</option>
-                            </select>
-                        </td>
+                                </select>
+                            </td>
 
 
 
 
-                        <td colspan="2" style="font-weight: bold;">
+                            <td colspan="2" style="font-weight: bold;">
 
-                            Search Loan By Name/Phone/Email
-                            <input type="text" id="search" class="form-control" name="keyword_name" placeholder=""
-                                value="<?php echo $_GET['keyword_name']; ?>">
+                                Search Loan By Name/Phone/Email
+                                <input type="text" id="search" class="form-control" name="keyword_name" placeholder="" value="<?php echo $_GET['keyword_name']; ?>">
 
-                        </td>
+                            </td>
 
-                        <td colspan="2" style="font-weight: bold;">
+                            <td colspan="2" style="font-weight: bold;">
 
-                            Search Loan By ID
-                            <input type="text" id="search" class="form-control" name="keyword" placeholder=""
-                                value="<?php echo $_GET['keyword']; ?>">
+                                Search Loan By ID
+                                <input type="text" id="search" class="form-control" name="keyword" placeholder="" value="<?php echo $_GET['keyword']; ?>">
 
-                        </td>
+                            </td>
 
-                        <td colspan="2" style="font-weight: bold;">
-                            State
-                            <select name="state" id="state" class="form-control" value="" style="padding: 6px 15px;">
-                                <option value="" <?php if ($_GET['state'] == 'All') {
+                            <td colspan="2" style="font-weight: bold;">
+                                State
+                                <select name="state" id="state" class="form-control" value="" style="padding: 6px 15px;">
+                                    <option value="" <?php if ($_GET['state'] == 'All') {
                                                             echo 'selected';
                                                         } ?>>Select</option>
-                                <option value="CA" <?php if ($_GET['state'] == 'CA') {
+                                    <option value="CA" <?php if ($_GET['state'] == 'CA') {
                                                             echo 'selected';
                                                         } ?>>California
-                                </option>
-                                <option value="NV" <?php if ($_GET['state'] == 'NV') {
+                                    </option>
+                                    <option value="NV" <?php if ($_GET['state'] == 'NV') {
                                                             echo 'selected';
                                                         } ?>>Nevada</option>
-                                <option value="AZ" <?php if ($_GET['state'] == 'AZ') {
+                                    <option value="AZ" <?php if ($_GET['state'] == 'AZ') {
                                                             echo 'selected';
                                                         } ?>>Arizona</option>
-                                <option value="IL" <?php if ($_GET['state'] == 'IL') {
+                                    <option value="IL" <?php if ($_GET['state'] == 'IL') {
                                                             echo 'selected';
                                                         } ?>>Illinois</option>
-                            </select>
-                        </td>
-                        <td colspan="2" style="font-weight: bold;">
+                                </select>
+                            </td>
+                            <td colspan="2" style="font-weight: bold;">
 
-                            Loan Date:
-                            <input type="date" id="loan_date" class="form-control" name="loan_date" placeholder=""
-                                value="" style="line-height:20px">
+                                Loan Date:
+                                <input type="date" id="loan_date" class="form-control" name="loan_date" placeholder="" value="" style="line-height:20px">
 
-                        </td>
+                            </td>
 
-                        <td colspan="2" style="font-weight: bold;">
+                            <td colspan="2" style="font-weight: bold;">
 
-                            Due Date:
-                            <input type="date" id="due_date" class="form-control" name="due_date" placeholder=""
-                                value="" style="line-height:20px">
+                                Due Date:
+                                <input type="date" id="due_date" class="form-control" name="due_date" placeholder="" value="" style="line-height:20px">
 
-                        </td>
+                            </td>
 
-                        <td colspan="1" style="font-weight: bold;">
+                            <td colspan="1" style="font-weight: bold;">
 
-                            Payment Date:
-                            <input type="date" id="from_date" class="form-control" name="from_date" placeholder=""
-                                value="" style="line-height:20px">
+                                Payment Date:
+                                <input type="date" id="from_date" class="form-control" name="from_date" placeholder="" value="" style="line-height:20px">
 
-                        </td>
+                            </td>
 
-                        <td colspan="1" style="font-weight: bold;">
+                            <td colspan="1" style="font-weight: bold;">
 
-                            To Date:
-                            <input type="date" id="to_date" class="form-control" name="to_date" placeholder="" value=""
-                                style="line-height:20px">
+                                To Date:
+                                <input type="date" id="to_date" class="form-control" name="to_date" placeholder="" value="" style="line-height:20px">
 
-                        </td>
+                            </td>
 
-                        <td colspan="1">
+                            <td colspan="1">
 
-                            <a href="#"> <button
-                                    style="background-color: #1E90FF;color: white;border-color: #1E90FF;margin-top:20px;"
-                                    name="search" type="submit" class="btn">Search</button></a>
-                        </td>
-                    </tr>
-                </thead>
-
-            </table>
-
-            <div style="width:100%; margin:0 auto;">
-
-                <?php // echo $query_search;
-                    ?>
-
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr style="background-color: #F5E09E;color: white;">
-                            <th style='width:1%;color:black;text-align:center;'>Loan</th>
-                            <th style='width:7%;color:black;text-align:center;'>Account Status</th>
-                            <th style='width:4%;color:black;text-align:center;'>Cus. ID</th>
-                            <th style='width:15%;color:black;text-align:center;'>Customers Name</th>
-                            <th style='width:9%;color:black;text-align:center;'>Phone Number</th>
-                            <th style='width:1%;color:black;text-align:center;'>State</th>
-                            <th style='width:7%;color:black;text-align:center;'>Loan Amount</th>
-                            <th style='width:1%;color:black;text-align:center;'>Fee</th>
-                            <th style='width:7%;color:black;text-align:center;'>Payoff Amount</th>
-                            <th style='width:10%;color:black;text-align:center;'>Loan Date</th>
-                            <th style='width:9%;color:black;text-align:center;'>Due Date</th>
-                            <th style='width:9%;color:black;text-align:center;'>Payment Date</th>
-                            <th style='width:1%;color:black;text-align:center;'>DPD</th>
-                            <th style='width:1%;color:black;text-align:center;'>LH</th>
-                            <th style='width:7%;color:black;text-align:center;'>Balance Due</th>
-                            <th style='width:15%;color:black;text-align:center;'>Action</th>
+                                <a href="#"> <button style="background-color: #1E90FF;color: white;border-color: #1E90FF;margin-top:20px;" name="search" type="submit" class="btn">Search</button></a>
+                            </td>
                         </tr>
                     </thead>
-                    <tbody>
 
-                        <?php
+                </table>
+
+                <div style="width:100%; margin:0 auto;">
+
+                    <?php // echo $query_search;
+                    ?>
+
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr style="background-color: #F5E09E;color: white;">
+                                <th style='width:1%;color:black;text-align:center;'>Loan</th>
+                                <th style='width:7%;color:black;text-align:center;'>Account Status</th>
+                                <th style='width:4%;color:black;text-align:center;'>Cus. ID</th>
+                                <th style='width:15%;color:black;text-align:center;'>Customers Name</th>
+                                <th style='width:9%;color:black;text-align:center;'>Phone Number</th>
+                                <th style='width:1%;color:black;text-align:center;'>State</th>
+                                <th style='width:7%;color:black;text-align:center;'>Loan Amount</th>
+                                <th style='width:1%;color:black;text-align:center;'>Fee</th>
+                                <th style='width:7%;color:black;text-align:center;'>Payoff Amount</th>
+                                <th style='width:10%;color:black;text-align:center;'>Loan Date</th>
+                                <th style='width:9%;color:black;text-align:center;'>Due Date</th>
+                                <th style='width:9%;color:black;text-align:center;'>Payment Date</th>
+                                <th style='width:1%;color:black;text-align:center;'>DPD</th>
+                                <th style='width:1%;color:black;text-align:center;'>LH</th>
+                                <th style='width:7%;color:black;text-align:center;'>Balance Due</th>
+                                <th style='width:15%;color:black;text-align:center;'>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php
                             include('../db.php');
                             $count = 1;
                             if (isset($_GET['page_no']) && $_GET['page_no'] != "") {
@@ -435,7 +413,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             } else {
                                 $page_no = 1;
                             }
-                            $total_records_per_page = 200;
+                            $total_records_per_page = 25;
 
 
                             $offset = ($page_no - 1) * $total_records_per_page;
@@ -865,27 +843,27 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             mysqli_close($con);
                             ?>
 
-                    </tbody>
-                </table>
-                <?php //echo $query_search; 
+                        </tbody>
+                    </table>
+                    <?php //echo $query_search; 
                     ?>
-                <div style='padding: 10px 20px 0px; border-top: dotted 1px #CCC;'>
-                    <strong>Page <?php echo $page_no . " of " . $total_no_of_pages; ?></strong>
-                </div>
+                    <div style='padding: 10px 20px 0px; border-top: dotted 1px #CCC;'>
+                        <strong>Page <?php echo $page_no . " of " . $total_no_of_pages; ?></strong>
+                    </div>
 
-                <ul class="pagination">
-                    <?php // if($page_no > 1){ echo "<li><a href='?page_no=1'>First Page</a></li>"; } 
+                    <ul class="pagination">
+                        <?php // if($page_no > 1){ echo "<li><a href='?page_no=1'>First Page</a></li>"; } 
                         ?>
 
-                    <li <?php if ($page_no <= 1) {
+                        <li <?php if ($page_no <= 1) {
                                 echo "class='disabled'";
                             } ?>>
-                        <a <?php if ($page_no > 1) {
+                            <a <?php if ($page_no > 1) {
                                     echo "href='?page_no=$previous_page'";
                                 } ?>>Previous</a>
-                    </li>
+                        </li>
 
-                    <?php
+                        <?php
                         if ($total_no_of_pages <= 10) {
                             for ($counter = 1; $counter <= $total_no_of_pages; $counter++) {
                                 if ($counter == $page_no) {
@@ -937,46 +915,46 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                         }
                         ?>
 
-                    <li <?php if ($page_no >= $total_no_of_pages) {
+                        <li <?php if ($page_no >= $total_no_of_pages) {
                                 echo "class='disabled'";
                             } ?>>
-                        <a <?php if ($page_no < $total_no_of_pages) {
+                            <a <?php if ($page_no < $total_no_of_pages) {
                                     echo "href='?page_no=$next_page'";
                                 } ?>>Next</a>
-                    </li>
-                    <?php if ($page_no < $total_no_of_pages) {
+                        </li>
+                        <?php if ($page_no < $total_no_of_pages) {
                             echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
                         } ?>
-                </ul>
+                    </ul>
 
 
-                <br /><br />
+                    <br /><br />
 
-            </div>
-        </form>
+                </div>
+            </form>
 
-    </section>
+        </section>
 
-    <style>
-    .navbar-default {
-        background-color: #fb3f06 !important;
-    }
-    </style>
+        <style>
+            .navbar-default {
+                background-color: #fb3f06 !important;
+            }
+        </style>
 
-    <script type="text/javascript">
-    $('.remove-box').on('click', function() {
-        var x = confirm('Are you sure you want to delete?');
-        if (x)
-            return true;
-        else
-            return false;
+        <script type="text/javascript">
+            $('.remove-box').on('click', function() {
+                var x = confirm('Are you sure you want to delete?');
+                if (x)
+                    return true;
+                else
+                    return false;
 
-    });
-    </script>
+            });
+        </script>
 
-</body>
+    </body>
 
-</html>
+    </html>
 
 <?php
 }

@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-$url_logo = "http://lsbankingportal.com/signature_commercial_loan/completed/";
+$url_logo = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -241,7 +241,7 @@ Loan Agreement/Contrato del Prestamo
 </tbody>
 </table>
 
-Initials/Iniciales:<img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/>
+Initials/Iniciales:<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/>
 
 ';
 

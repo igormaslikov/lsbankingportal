@@ -850,7 +850,7 @@ window.location.href = 'sms_settings.php';
 <hr>
 
 <a href="" style="font-weight: bold;">Activity Log</a><br>
-  <iframe src="http://lsbankingportal.com/ls_software/admin/activity_log.php" width="100%" height="900px"></iframe>
+  <iframe src="https://mymoneyline.com/lsbankingportal/ls_software/admin/activity_log.php" width="100%" height="900px"></iframe>
 
 </body>
 </html>     

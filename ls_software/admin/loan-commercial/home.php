@@ -33,6 +33,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
         <link rel="stylesheet" href="../style.css" type="text/css" />
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css" />
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -50,10 +52,27 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             include '../dbconnect.php';
             include '../dbconfig.php';
             // Check connection
-
-
-            $query_search = "SELECT * FROM `tbl_commercial_loan`";
-
+            if (isset($_GET['signed_loan'])) {
+                $signed_loan_id = $_GET['signed_loan'];
+                mysqli_query($con, "UPDATE `tbl_commercial_loan` SET `sign_status`='1' WHERE `loan_id` = '$signed_loan_id'");
+            }
+            if (isset($_GET['delete_loan'])) {
+                $signed_loan_id = $_GET['delete_loan'];
+                mysqli_query($con, "DELETE FROM `tbl_commercial_loan` WHERE `loan_id` = '$signed_loan_id'");
+            }
+            $sign_status  = $_GET['sign_status'];
+            switch ($sign_status) {
+                case 'Signed':
+                    $sign_status = 1;
+                    break;
+                case 'UnSigned':
+                    $sign_status = 0;
+                    break;
+                default:
+                    $sign_status = 1;
+                    break;
+            }
+            $query_search = "SELECT * FROM `tbl_commercial_loan` where `sign_status` = '$sign_status' or `sign_status` = $sign_status";
             $status  = $_GET['status'];
             $keyword = $_GET['keyword'];
             $from_date = $_GET['from_date'];
@@ -61,56 +80,40 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             $due_date = $_GET['due_date'];
             $to_date = $_GET['to_date'];
 
-            if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || isset($_GET['from_date'])  || isset($_GET['loan_date']) || isset($_GET['due_date']) || isset($_GET['to_date'])) {
-                $query_search .= "WHERE";
-            }
+            // if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || isset($_GET['from_date'])  || isset($_GET['loan_date']) || isset($_GET['due_date']) || isset($_GET['to_date'])) {
+            //     $query_search .= "WHERE";
+            // }
             $and_check = 0;
             if (isset($_GET['status']) && $_GET['status'] != "" && $_GET['status'] != "All") {
-                $query_search .= " loan_status = '$status' ";
+                $query_search .= " AND loan_status = '$status' ";
                 $and_check = 1;
             }
             if (isset($_GET['keyword']) &&  $_GET['keyword'] != "") {
-                if ($and_check > 0) {
-                    $query_search .= " AND ";
-                    $and_check = 2;
-                }
-                $query_search .= "  loan_create_id = '$keyword'";
+                $query_search .= "  AND  loan_create_id = '$keyword'";
             }
 
             if ($_GET['from_date'] != "") {
-                if ($and_check > 1 || $and_check > 0) {
-                    $query_search .= " AND ";
-                    //$and_check = 2;
-                }
-                $query_search .= " (last_payment_date BETWEEN '$from_date' AND '$to_date')";
+                $query_search .= " AND (last_payment_date BETWEEN '$from_date' AND '$to_date')";
             }
             if (isset($_GET['to_date'])) {
                 //$query_search .= " WHERE ";
             }
 
             if ($_GET['loan_date'] != "") {
-                if ($and_check > 1 || $and_check > 0) {
-                    $query_search .= " AND ";
-                    //$and_check = 2;
-                }
-                $query_search .= " (contract_date BETWEEN '$loan_date' AND '$to_date')";
+                $query_search .= " AND (contract_date BETWEEN '$loan_date' AND '$to_date')";
             }
             if (isset($_GET['to_date'])) {
                 //$query_search .= " WHERE ";
             }
 
             if ($_GET['due_date'] != "") {
-                if ($and_check > 1 || $and_check > 0) {
-                    $query_search .= " AND ";
-                    //$and_check = 2;
-                }
-                $query_search .= " (payment_date BETWEEN '$due_date' AND '$to_date')";
+                $query_search .= "  AND (payment_date BETWEEN '$due_date' AND '$to_date')";
             }
             if (isset($_GET['to_date'])) {
                 //$query_search .= " WHERE ";
             }
 
-            $query_search .= "WHERE `sign_status`='1'";
+            // $query_search .= "WHERE `sign_status`='1'";
 
             if ($result_t = mysqli_query($con, $query_search)) {
                 // Return the number of rows in result set
@@ -125,7 +128,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             <?php
 
 
-            $query_us = mysqli_query($con, "SELECT SUM(principal_amount) AS value_sum FROM tbl_commercial_loan where sign_status= '1'");
+            $query_us = mysqli_query($con, "SELECT SUM(principal_amount) AS value_sum FROM tbl_commercial_loan where sign_status= $sign_status or sign_status= '$sign_status'");
             while ($row_us = mysqli_fetch_array($query_us)) {
                 $us = $row_us['value_sum'];
 
@@ -174,8 +177,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             ?>
 
             <div align="right" style="padding:30px;background-color: #F5E09E;color: white">
-                <a href="view_upcoming_installments.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">View All Upcoming Installments</button></a>
-                <a href="unsigned_commercial_loans.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Unsigned Commercial Loans</button></a>
+                <!-- <a href="view_upcoming_installments.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">View All Upcoming Installments</button></a> -->
+                <!-- <a href="unsigned_commercial_loans.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Unsigned Commercial Loans</button></a> -->
                 <a href="repeat_loan.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Loan Repeat Summary</button></a>
                 <a href="loan_settings.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Loan Settings</button></a>
                 <a href="../search_customer.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Add New Loan</button></a>
@@ -207,7 +210,18 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 <table class="table table-striped tasks-table" id="table_bg" style="font-size:15px !important">
                     <thead align="center">
                         <tr>
+                            <td colspan="2" style="font-weight: bold;">
+                                Sign Status
+                                <select id="lstbSignStatus" name="sign_status" id="app_status" class="form-control" value="" style="padding: 6px 15px;">
+                                    <option value="Signed" <?php if ($_GET['sign_status'] == 'Signed') {
+                                                                echo 'selected';
+                                                            } ?>>Signed</option>
+                                    <option value="UnSigned" <?php if ($_GET['sign_status'] == 'UnSigned') {
+                                                                    echo 'selected';
+                                                                } ?>>UnSigned</option>
 
+                                </select>
+                            </td>
                             <td colspan="2" style="font-weight: bold;">
                                 Account Status
                                 <select name="status" id="app_status" class="form-control" value="" style="padding: 6px 15px;">
@@ -286,7 +300,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                             <td colspan="1">
 
-                                <a href="#"> <button style="background-color: #1E90FF;color: white;border-color: #1E90FF;margin-top:20px;" name="search" type="submit" class="btn">Search</button></a>
+                                <a href="#"> <button id="btnSearch" style="background-color: #1E90FF;color: white;border-color: #1E90FF;margin-top:20px;" name="search" type="submit" class="btn">Search</button></a>
                             </td>
                         </tr>
                     </thead>
@@ -328,7 +342,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $next_page = $page_no + 1;
                             $adjacents = "2";
 
-                            $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `tbl_commercial_loan` where sign_status= '1'");
+                            $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `tbl_commercial_loan` where sign_status= $sign_status or sign_status= '$sign_status'");
                             $total_records = mysqli_fetch_array($result_count);
                             $total_records = $total_records['total_records'];
                             $total_records = $rowcount;
@@ -336,8 +350,19 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
 
-                            $query_search = "SELECT * FROM `tbl_commercial_loan`";
-
+                            $sign_status  = $_GET['sign_status'];
+                            switch ($sign_status) {
+                                case 'Signed':
+                                    $sign_status = 1;
+                                    break;
+                                case 'UnSigned':
+                                    $sign_status = 0;
+                                    break;
+                                default:
+                                    $sign_status = 1;
+                                    break;
+                            }
+                            $query_search = "SELECT * FROM `tbl_commercial_loan` where (`sign_status` = '$sign_status' or `sign_status` = $sign_status)";
 
                             $status  = $_GET['status'];
                             $keyword = $_GET['keyword'];
@@ -346,56 +371,41 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $due_date = $_GET['due_date'];
                             $to_date = $_GET['to_date'];
 
-                            if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || isset($_GET['from_date'])  || isset($_GET['loan_date']) || isset($_GET['due_date']) || isset($_GET['to_date'])) {
-                                $query_search .= "WHERE";
-                            }
+                            // if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || isset($_GET['from_date'])  || isset($_GET['loan_date']) || isset($_GET['due_date']) || isset($_GET['to_date'])) {
+                            //     $query_search .= "WHERE";
+                            // }
                             $and_check = 0;
                             if (isset($_GET['status']) && $_GET['status'] != "" && $_GET['status'] != "All") {
-                                $query_search .= " loan_status = '$status' ";
+                                $query_search .= " AND loan_status = '$status' ";
                                 $and_check = 1;
                             }
                             if (isset($_GET['keyword']) &&  $_GET['keyword'] != "") {
-                                if ($and_check > 0) {
-                                    $query_search .= " AND ";
-                                    $and_check = 2;
-                                }
-                                $query_search .= "  loan_create_id = '$keyword'";
+
+                                $query_search .= " AND loan_create_id = '$keyword'";
                             }
 
                             if ($_GET['from_date'] != "") {
-                                if ($and_check > 1 || $and_check > 0) {
-                                    $query_search .= " AND ";
-                                    //$and_check = 2;
-                                }
-                                $query_search .= " (last_payment_date BETWEEN '$from_date' AND '$to_date')";
+                                $query_search .= " AND (last_payment_date BETWEEN '$from_date' AND '$to_date')";
                             }
                             if (isset($_GET['to_date'])) {
                                 //$query_search .= " WHERE ";
                             }
 
                             if ($_GET['loan_date'] != "") {
-                                if ($and_check > 1 || $and_check > 0) {
-                                    $query_search .= " AND ";
-                                    //$and_check = 2;
-                                }
-                                $query_search .= " (contract_date BETWEEN '$loan_date' AND '$to_date')";
+                                $query_search .= " AND (contract_date BETWEEN '$loan_date' AND '$to_date')";
                             }
                             if (isset($_GET['to_date'])) {
                                 //$query_search .= " WHERE ";
                             }
 
                             if ($_GET['due_date'] != "") {
-                                if ($and_check > 1 || $and_check > 0) {
-                                    $query_search .= " AND ";
-                                    //$and_check = 2;
-                                }
-                                $query_search .= " (payment_date BETWEEN '$due_date' AND '$to_date')";
+                                $query_search .= " AND (payment_date BETWEEN '$due_date' AND '$to_date')";
                             }
                             if (isset($_GET['to_date'])) {
                                 //$query_search .= " WHERE ";
                             }
 
-                            $query_search .= "where sign_status= '1' order by loan_create_id desc Limit " . $offset . ", " . $total_records_per_page;
+                            $query_search .= " order by loan_create_id desc Limit " . $offset . ", " . $total_records_per_page;
 
 
 
@@ -448,13 +458,13 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 //********************************************************* Color Status End ********************************************
 
                                 $query_payment = mysqli_query($con, "Select payment_date from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0 limit 1 ");
-                                while ($row_payment = mysqli_fetch_array($query_payment)){
+                                while ($row_payment = mysqli_fetch_array($query_payment)) {
                                     $due_date = $row_payment['payment_date'];
                                 }
 
                                 $created_at = "";
                                 $query_payment = mysqli_query($con, "Select created_at from `commercial_loan_transaction` where loan_create_id = '$loan_create_id' order by transaction_id desc limit 1 ");
-                                while ($row_payment = mysqli_fetch_array($query_payment)){
+                                while ($row_payment = mysqli_fetch_array($query_payment)) {
                                     $created_at = $row_payment['created_at'];
                                 }
                                 // $query_payment = mysqli_query($con, "SELECT SUM(interest) AS value_sum FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id'");
@@ -481,10 +491,10 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 }
 
                                 $last_payment_date = "";
-                                if($created_at != ""){
+                                if ($created_at != "") {
                                     $timestamp = strtotime($created_at);
                                     $last_payment_date = date("m-d-Y", $timestamp);
-                                } 
+                                }
 
 
 
@@ -496,7 +506,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
                                 //$timestamp = strtotime($payment_date);
-                               // $due_date = date("m-d-Y", $timestamp);
+                                // $due_date = date("m-d-Y", $timestamp);
 
 
 
@@ -522,15 +532,23 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 <td style='text-align:center;'>" . $last_payment_date . "</td>
                                 <td style='text-align:center;'><a href='loan_summary.php?id=$id'  title='View Summary' style='color:black;margin-right:4px;'><span class='glyphicon glyphicon-user' aria-hidden='true' alt='edit'></span></a>    ";
 
-                                if ($decision_logic_status == '1') {
+                                if ($sign_status == 1) {
+                                    if ($decision_logic_status == '1') {
 
-                                    echo  "<a href='#'  title='DL Verified'><span class='glyphicon glyphicon-ok-circle' aria-hidden='true' alt='echo $alt_dl;'></span>  <span style = 'color:green; text-align:left'></span></a>";
+                                        echo  "<a href='#'  title='DL Verified'><span class='glyphicon glyphicon-ok-circle' aria-hidden='true' alt='echo $alt_dl;'></span>  <span style = 'color:green; text-align:left'></span></a>";
+                                    } else {
+                                        echo "<a href='#'  title='Bank Statement'><span class='glyphicon glyphicon-book' aria-hidden='true' alt='$alt;'></span>  <span style = 'color:green; text-align:left'></span></a>";
+                                    }
                                 } else {
-                                    echo "<a href='#'  title='Bank Statement'><span class='glyphicon glyphicon-book' aria-hidden='true' alt='$alt;'></span>  <span style = 'color:green; text-align:left'></span></a>";
+                                    echo "<a href='?signed_loan=$id' title='Signed this Loan' style='color:black;margin-right:4px;'><span class='glyphicon glyphicon-ok-sign' aria-hidden='true' alt='edit'></span></a>";
                                 }
-                                echo "<a class='remove-box' href='delete-loan.php?loan_id=$id&fnd_id=$user_fnd_id'  title='Delete Loan'><span class='glyphicon glyphicon-remove' aria-hidden='true' alt='$alt;'></span>  <span style = 'color:green; text-align:left'></span></a>";
 
-                                echo  $a . ' ' . $make_payment . ' ' . $envalope . "</td>
+                                echo "<a class='remove-box' href='delete_loan.php?loan_id=$id&fnd_id=$user_fnd_id'  title='Delete Loan'><span class='glyphicon glyphicon-remove' aria-hidden='true' alt='$alt;'></span>  <span style = 'color:green; text-align:left'></span></a>";
+
+                                if ($sign_status == 1) {
+                                    echo  $a . ' ' . $make_payment . ' ' . $envalope;
+                                }
+                                echo "</td>
 
 		   	                    </tr>";
                             }
@@ -629,7 +647,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
         </section>
 
-
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+        <script src="https://cdn.datatables.net/rowgroup/1.1.3/js/dataTables.rowGroup.min.js"></script>
         <script type="text/javascript">
             $('.remove-box').on('click', function() {
                 var x = confirm('Are you sure you want to delete?');
@@ -639,6 +658,20 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     return false;
 
             });
+
+            $(document).keypress(function(e) {
+                if (e.which == 13) {
+                    document.getElementById("btnSearch").click();
+                }
+            });
+
+            $(document).ready(function(){
+                var node = document.getElementById('lstbSignStatus');
+                node.addEventListener('change',function(e){
+                    document.getElementById("btnSearch").click();
+                });
+            });
+
         </script>
 
 

@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-$url_logo = "http://lsbankingportal.com/signature_commercial_loan/completed/";
+$url_logo = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -311,7 +311,7 @@ You acknowledge that (1) this Authorization is voluntary and is not required as 
 
 <br><br><br>
 <b>
-Account Holder’s Signature: <img src="https://lsbankingportal.com/signature_commercial_loan/completed/doc_signs/' . $img_signed . '" alt="" style="height:300%" align="left"/><br><br>
+Account Holder’s Signature: <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/' . $img_signed . '" alt="" style="height:300%" align="left"/><br><br>
 <span style="text-decoration:underline">' . $f_name . '</span><br> <b>
 Account Holder’s Name
 </div>

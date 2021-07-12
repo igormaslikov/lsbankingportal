@@ -1,5 +1,5 @@
 <?php
-$host = "lsbankingportal.com"; 
+$host = "mymoneyline.com/lsbankingportal/"; 
 $user = "android_devloper"; 
 $password = "vvP8qe083iL9"; 
 $database = "database_android"; 
