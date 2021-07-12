@@ -146,7 +146,7 @@ if ($u_access_id != '1') {
 
 
    if($intallment_id == null){
-      $sql_transaction = mysqli_query($con, "select id from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' and status='0' limit 1");
+      $sql_transaction = mysqli_query($con, "select id from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' and status='0' order by id asc limit 1");
       while ($row_transaction = mysqli_fetch_array($sql_transaction)){
          $intallment_id = $row_transaction['id'];
       }
