@@ -239,7 +239,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $second_last = $total_no_of_pages - 1; // total page minus 1
 
               $count_row = 0;
-              $result = mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id='$loan_create_id'");
+              $result = mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' order by id asc");
               while ($row = mysqli_fetch_array($result)) {
                 $count_row++;
                 $intallment_id = $row['id'];

@@ -457,7 +457,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                                 //********************************************************* Color Status End ********************************************
 
-                                $query_payment = mysqli_query($con, "Select payment_date from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0 limit 1 ");
+                                $query_payment = mysqli_query($con, "Select payment_date from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0 order by id asc limit 1 ");
                                 while ($row_payment = mysqli_fetch_array($query_payment)) {
                                     $due_date = $row_payment['payment_date'];
                                 }
