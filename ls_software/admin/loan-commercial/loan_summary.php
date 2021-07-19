@@ -36,19 +36,13 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     $loan_status = $row_fnd['loan_status'];
   }
 
-  $payoff = number_format(((float)($amount_of_loan + $loan_interest)), 2, '.', ',');
-
-
-
-  $query_payment = mysqli_query($con, "SELECT SUM(payoff_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
+  $payment = 0;
+  $query_payment = mysqli_query($con, "SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
   while ($row_payment = mysqli_fetch_array($query_payment)) {
     $payment = $row_payment['value_sum'];
-
-    $payment = number_format((float)$payment, 2, '.', '');
-
-    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
-
   }
+
+  $payoff = number_format(((float)($amount_of_loan + $loan_interest - $payment)), 2, '.', ',');
 
   $settlement_amount = 0;
   $query_payment = mysqli_query($con, "SELECT SUM(payment) AS sum_payment, SUM(`paid amount`) AS sum_paid_amount FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id' and status=2");
@@ -101,19 +95,6 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     $last_update = $row['last_update_by'];
     $last_update_date = $row['last_update_date'];
     $last_payment_date = $row['last_payment_date'];
-
-    //  $date1 = date_create($payment_date);
-    //           $date2 = date_create($last_payment_date);
-
-    // //difference between two dates
-    // $diff = date_diff($date1,$date2);
-
-    // //count days
-    // $days_between= $diff->format("%r%a");
-
-    //echo $days_between;
-
-
 
     $timestamp = strtotime($last_payment_date);
     $last_payment_date = date("m-d-Y", $timestamp);
@@ -191,11 +172,21 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="../../website/css/font-awesome.min.css">
 
+    <!-- Bootstrap core CSS -->
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css" />
-
+    <style>
+      .tooltip-inner {
+        max-width: 300px;
+        width: 300px;
+        /* background-color:gray;
+        color:white; */
+      }
+    </style>
 
   </head>
 
@@ -451,7 +442,64 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $created_by_get_db_activity = $row_loan['created_by'];
               $late_fee = $row_loan['late_fee'];
               $convenience_fee = $row_loan['convenience_fee'];
+              $card_info = $row_loan['card_info'];
 
+              $card_info_tooltip = "";
+              $tooltip = "";
+              $start_mark = "";
+              $end_mark = "";
+              if ($card_info != 0) {
+                $query_card_info = mysqli_query($con, "SELECT * FROM commercial_loan_transaction_cards_info where card_info_id= '$card_info'");
+                while ($row_card_info = mysqli_fetch_array($query_card_info)) {
+                  $type_of_card = $row_card_info['type_of_card'];
+                  $card_number = $row_card_info['card_number'];
+                  $card_exp_date = $row_card_info['card_exp_date'];
+                  $cvv_number = $row_card_info['cvv_number'];
+                  $bank_name = $row_card_info['bank_name'];
+                  $account_number = $row_card_info['account_number'];
+                  $routing_number = $row_card_info['routing_number'];
+                  $start_mark = "<mark>";
+                  $end_mark = "</mark>";
+                  $card_info_tooltip = "
+                  style='cursor:pointer;' 
+                  data-toggle='tooltip' data-html='true' title=\"
+                    <div style='width: 300px;'>
+                        <div class='row flex-nowrap'>
+                          <div class='col-6'>Bank Name</div>
+                          <div class='col-6'>" . $bank_name . "</div>
+                        </div>
+                        <div class='row flex-nowrap'>
+                          <div class='col-6'>Account Number</div>
+                          <div class='col-6'>" . $account_number . "</div>
+                        </div>
+                        <div class='row flex-nowrap'>
+                          <div class='col-6'>Routing Number</div>
+                          <div class='col-6'>" . $routing_number . "</div>
+                        </div>
+                        <div class='row flex-nowrap'>
+                          <div class='col-6'>Type Of Card</div>
+                          <div class='col-6'>" . $type_of_card . "</div>
+                        </div>
+                        <div class='row flex-nowrap'>
+                          <div class='col-6'>Card Number</div>
+                          <div class='col-6'>" . $card_number . "</div>
+                        </div>
+                        <div class='row flex-nowrap'>
+                          <div class='col-6'>Expiration Date</div>
+                          <div class='col-6'>" . $card_exp_date . "</div>
+                        </div>
+                        <div class='row flex-nowrap'>
+                          <div class='col-6'>CVV</div>
+                          <div class='col-6'>" . $cvv_number . "</div>
+                        </div>
+                    </div>\"
+                  
+                  ";
+                  break;
+                  // echo"<br>User_Key:" .$payment;
+
+                }
+              }
               $convenience_fee = $convenience_fee == "" ? 0 : $convenience_fee;
 
               $query_balnce = mysqli_query($con, "SELECT * FROM tbl_commercial_loan where loan_create_id= '$loan_create_id'");
@@ -496,10 +544,12 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               <td>$" . $convenience_fee . "</td>
               <td>" . $payment_date_f . "</td>
               <td>" . $created_at_f . "</td>
-              <td>" . $payment_method . "</td>
+              <td " . $card_info_tooltip . ">" . $start_mark.$payment_method.$end_mark . "</td>
               <td>" . $final_activity_by_user . "</td>
               <td>" . $dpd . "</td>
-              <td><a href='edit_payments.php?t_id=$transaction_id&id=$id'>Edit</a> - <a href='delete_reason_payments.php?t_id=$transaction_id&id=$id'>Delete</a></td>
+              <td><a href='edit_payments.php?t_id=$transaction_id&id=$id'>Edit</a> - <a href='delete_reason_payments.php?t_id=$transaction_id&id=$id'>Delete</a> - 
+                  <i class='fa fa-arrow-circle-o-left'></i>
+              </td>
 	 		  
 		   	  
 
@@ -538,6 +588,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+
     <script src="https://cdn.datatables.net/rowgroup/1.1.3/js/dataTables.rowGroup.min.js"></script>
 
     <!-- Menu Toggle Script -->
@@ -636,11 +687,13 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 .append('<td><b>$' + summary(6, api, false) + '</b></td>')
                 .append('<td><b>$' + summary(7, api, false) + '</b></td>')
                 .append('<td colspan=6></td>');
-            }, 
-            dataSrc:1
+            },
+            dataSrc: 1
           }
 
         });
+
+        $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
 
@@ -659,7 +712,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
       $amount_loan_up = str_replace("$", "", "$amount_loan_up");
       $amount_left_up = str_replace("$", "", "$amount_left_up");
 
-      mysqli_query($con, "UPDATE tbl_commercial_loan SET  loan_status='$account_status' where user_fnd_id ='$user_fnd_id' AND loan_id='$id'");
+      mysqli_query($con, "UPDATE tbl_commercial_loan SET loan_status = '$account_status', secondary_portfolio='$portfolio' where user_fnd_id ='$user_fnd_id' AND loan_id='$id'");
 
 
       $date_update = date('Y-m-d H:i:s');

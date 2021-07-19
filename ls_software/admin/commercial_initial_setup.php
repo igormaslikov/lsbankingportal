@@ -367,6 +367,27 @@ if ($u_access_id == '0') {
 
       mysqli_query($con, "UPDATE fnd_user_profile SET id_photo ='$final_File', bank_front='$final_Filee', bank_back='$final_Fileee', void_img='$final_Fileeee'  where user_fnd_id ='$fndd_id'");
 
+      $sql_bank_info = mysqli_query($con, "select count(bank_id) as count from tbl_bank_info where usr_fnd_id= '$fndd_id' and bank_name='$bank_name ' and account_number='$account_number' and routing_number='$routing_number'");
+
+      while ($row = mysqli_fetch_array($sql_bank_info)) {
+          $count = $row['count'];
+      }
+
+      if($count == 0){
+         $action_query = "INSERT INTO `tbl_bank_info` (`bank_id`, `usr_fnd_id`, `bank_name`, `account_number`, `routing_number`, `is_active`) VALUES (NULL, '$fndd_id', '$bank_name', '$account_number', '$routing_number', '1')";
+         mysqli_query($con, $action_query);
+      } 
+
+      $sql = mysqli_query($con, "select count(id) as count from tbl_bank_cards where user_fnd_id= '$fndd_id' and type_of_card='$type_card' and card_number='$card_number' and card_exp_date='$card_exp_date' and cvv_number='$cvv_number'");
+
+      while ($row = mysqli_fetch_array($sql)) {
+          $count = $row['count'];
+      }
+
+      if($count == 0){
+         $action_query = "INSERT INTO `tbl_bank_cards` (`id`, `user_fnd_id`, `type_of_card`, `card_number`, `card_exp_date`,`cvv_number`, `is_active`) VALUES (NULL, '$fndd_id', '$type_card', '$card_number', '$card_exp_date','$cvv_number', '1')";
+         mysqli_query($con, $action_query);
+      } 
    ?>
 
 

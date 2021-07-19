@@ -145,9 +145,9 @@ if ($u_access_id != '1') {
 
 
 
-   if($intallment_id == null){
+   if ($intallment_id == null) {
       $sql_transaction = mysqli_query($con, "select id from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' and status='0' order by id asc limit 1");
-      while ($row_transaction = mysqli_fetch_array($sql_transaction)){
+      while ($row_transaction = mysqli_fetch_array($sql_transaction)) {
          $intallment_id = $row_transaction['id'];
       }
    }
@@ -192,10 +192,10 @@ if ($u_access_id != '1') {
 
    $date_now = date_create(date("Y-m-d", strtotime("now")));
    $date_due_date = date_create(date("Y-m-d", strtotime($payment_date)));
-   $interval = date_diff( $date_due_date,$date_now);
+   $interval = date_diff($date_due_date, $date_now);
 
    $dpd = $interval->format('%r%a');
-   $sum_late_fee = $dpd>0 ? $dpd * $late_fee : 0;
+   $sum_late_fee = $dpd > 0 ? $dpd * $late_fee : 0;
 
 
 
@@ -210,9 +210,6 @@ if ($u_access_id != '1') {
 
 
    if (isset($_POST['btn-submit'])) {
-
-
-
 
 
 
@@ -254,21 +251,6 @@ if ($u_access_id != '1') {
       $db_remaininginterest = 0;
 
       $db_remainingprinciple = 0;
-
-
-
-
-
-      if ($late_fee > 0) {
-
-         $to_be_paid_amount = $to_be_paid_amount - $late_fee;
-      }
-
-
-
-
-
-
 
       $date = date('Y-m-d');
 
@@ -329,14 +311,13 @@ if ($u_access_id != '1') {
       $to_be_paid_amount += $paid_amount;
       $sum_interest_amount = 0;
       $sum_principle_amount = 0;
-      $query_payment = mysqli_query($con, "Select payment, `id`, `paid amount`, balance, interest, principal from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0");
+      $query_payment = mysqli_query($con, "Select payment, `id`, `paid amount`, balance, interest, principal from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0 order by id asc");
       while ($row_payment = mysqli_fetch_array($query_payment)) {
 
          if ($to_be_paid_amount == 0) {
-            if($type_of_payment == "Payoff"){
+            if ($type_of_payment == "Payoff") {
                mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET paid_date='$paid_date', status='2', paid_by='$u_id', payment_description='$payment_description' where loan_create_id = '$loan_create_id' and status = 0 ");
                mysqli_query($con, "UPDATE tbl_commercial_loan SET loan_status='Paid' where loan_create_id = '$loan_create_id'");
-
             }
             break;
          }
@@ -358,10 +339,9 @@ if ($u_access_id != '1') {
             //$payment_date = $payment_date_array[2] . "-" . $payment_date_array[0] . "-" . $payment_date_array[1];
             $date_now = date_create(date("Y-m-d", strtotime($paid_date)));
             $date_due_date = date_create($due_date);
-            $interval = date_diff( $date_due_date,$date_now);
-         
-            $dpd = $interval->format('%r%a');
+            $interval = date_diff($date_due_date, $date_now);
 
+            $dpd = $interval->format('%r%a');
          } else {
             $to_paid = $to_be_paid_amount;
             $status = '0';
@@ -395,20 +375,35 @@ if ($u_access_id != '1') {
          $db_principlepaid = $sum_principle_amount;
       }
 
-      $query_insert_trans = "INSERT INTO `commercial_loan_transaction`(`loan_id`, `loan_create_id`, `user_fnd_id`, `installment_id`, `payment_amount`, `interest`, `principal_amount`, `remaining_balance`, `remaining_interest`, `remaining_installment_principal`, `late_fee`, `convenience_fee` , `payment_date`, `payment_description`,`payment_method`, `created_at`, `created_by`) VALUES ('$id','$loan_create_id','$user_fnd_id','$intallment_id','$db_totalamountpaid','$db_interestpaid','$db_principlepaid','$rem_balance','$db_remaininginterest','$db_remainingprinciple','$db_latefeepaid','$convenience_fee','$due_date','$payment_description','$payment_method','$paid_date','$u_id')";
 
+
+      $query_insert_trans = "INSERT INTO `commercial_loan_transaction`(`loan_id`, `loan_create_id`, `user_fnd_id`, `installment_id`, `payment_amount`, `interest`, `principal_amount`, `remaining_balance`, `remaining_interest`, `remaining_installment_principal`, `late_fee`, `convenience_fee` , `payment_date`, `payment_description`,`payment_method`, `created_at`, `created_by`) VALUES ('$id','$loan_create_id','$user_fnd_id','$intallment_id','$db_totalamountpaid','$db_interestpaid','$db_principlepaid','$rem_balance','$db_remaininginterest','$db_remainingprinciple','$db_latefeepaid','$convenience_fee','$due_date','$payment_description','$payment_method','$paid_date','$u_id')";
       $result_insert_trans = mysqli_query($con, $query_insert_trans);
 
       if ($result_insert_trans) {
+         if(isset($_POST['bankExists']) && isset($_POST['cardExists'])){
+            $transaction_id = mysqli_insert_id($con);
+            $bankName = $_POST['bankName'];
+            $accountNumber = $_POST['accountNumber'];
+            $routingNumber = $_POST['routingNumber'];
+            $typeOfCard = $_POST['typeOfCard'];
+            $cardNumber = $_POST['cardNumber'];
+            $expDate = $_POST['expDate'];
+            $cvv = $_POST['cvv'];
+            $query_transaction = "INSERT INTO `commercial_loan_transaction_cards_info` (`card_info_id`, `type_of_card`, `card_number`, `card_exp_date`, `cvv_number`, `bank_name`, `account_number`, `routing_number`) VALUES ('', '$typeOfCard', '$cardNumber', '$expDate', '$cvv', '$bankName', '$accountNumber', '$routingNumber')";
+            $result = mysqli_query($con, $query_transaction);
+            $card_info_id = mysqli_insert_id($con);
 
-         // echo "<div class='form'><h3> successfully added in application_status_updates.</h3><br/></div>";
+            mysqli_query($con, "UPDATE commercial_loan_transaction SET card_info='$card_info_id' where transaction_id ='$transaction_id'");
 
-
+         }
 
       } else {
 
          echo "<h3> Error Inserting Data </h3>";
-      }
+      }     
+
+
 
 
 
@@ -447,7 +442,8 @@ if ($u_access_id != '1') {
    ?>
 
       <script type="text/javascript">
-         window.location.href = 'add_auth_code.php?id=<?php echo $id; ?>&to_be_paid_amount=<?php echo $to_be_paid_amount; ?>&late_fee=<?php echo $late_fee; ?>';
+         window.location.href =
+            'add_auth_code.php?id=<?php echo $id; ?>&to_be_paid_amount=<?php echo $to_be_paid_amount; ?>&late_fee=<?php echo $late_fee; ?>';
       </script>
 
 
@@ -576,9 +572,10 @@ if ($u_access_id != '1') {
 
                <h3>Make a Payment: </h3>
 
-               <form action="" method="POST" enctype="multipart/form-data">
+               <form id="transactionFormId" action="" method="POST" enctype="multipart/form-data">
 
-                  <input type="text" name="name_id" value="<?php echo $name_id; ?>" style="display:none;">
+                  <input type="text" name="name_id" id="idUserId" value="<?php echo $user_fnd_id; ?>" style="display:none;">
+                  <input type="text" name="loan_id" id="loanId" value="<?php echo $loan_create_id; ?>" style="display:none;">
                   <input type="text" name="due_date" value="<?php echo strftime('%Y-%m-%d', strtotime($payment_date)); ?>" style="display:none;">
 
                   <div class="row">
@@ -632,21 +629,6 @@ if ($u_access_id != '1') {
                         <input type="date" name="payment_date" class="form-control" id="usr" placeholder="<?php echo date('m/d/Y', strtotime("now")); ?>" value="<?php echo strftime('%Y-%m-%d', strtotime("now")) ?>">
 
                      </div>
-
-                     <div class="col-lg-6">
-                        <label for="usr">Payment Method</label>
-                        <select name="payment_method" id="payment_method" class="form-control" value="">
-                           <option value=""></option>
-                           <option value="Cash">Cash</option>
-                           <option value="Debit Card">Debit Card</option>
-                           <option value="Bank Deposit">Bank Deposit</option>
-                           <option value="Money Order">Money Order</option>
-                           <option value="ACH">ACH</option>
-                           <option value="Zelle">Zelle</option>
-                           <option value="Repay">Repay</option>
-                           <option value="Chargeback">Chargeback</option>
-                        </select>
-                     </div>
                      <div class="col-lg-6">
                         <label for="usr">Type Of Payment</label>
                         <select name="type_of_payment" id="type_of_payment" class="form-control" value="">
@@ -658,17 +640,45 @@ if ($u_access_id != '1') {
                         </select>
                      </div>
                      <div class="col-lg-6">
+                        <label for="usr">Payment Method</label>
+                        <select name="payment_method" id="payment_method" class="form-control" value="" onchange="payment_method_info(this,event)">
+                           <option value=""></option>
+                           <option value="Cash">Cash</option>
+                           <option value="Debit Card">Debit Card</option>
+                           <option value="Bank Deposit">Bank Deposit</option>
+                           <option value="Money Order">Money Order</option>
+                           <option value="ACH">ACH</option>
+                           <option value="Zelle">Zelle</option>
+                           <option value="Repay">Repay</option>
+                        </select>
+                     </div>
+                     <div id="paymentOptionId" hidden>
+
+                     </div>
+                     <div class="col-lg-6">
                         <label for="usr">Payment Description:</label>
                         <textarea name="payment_description" class="form-control" id="usr" placeholder="Payment Description" value=""></textarea>
 
                      </div>
+                     <div class="col-lg-12" style="padding-top: 20px;">
+                        <div class="row">
+                           <div class="col-lg-6">
+                              <div id="bankTableId"></div>
+                           </div>
+                           <div class="col-lg-6">
+                              <div id="cardTableId"></div>
+                           </div>
+                        </div>
+                     </div>
+
 
                   </div>
 
                   <br>
 
-                  <button name="btn-submit" type="submit" class="btn btn-danger" style="color: #fff;background-color: blue;border-color: blue;">Add transaction</button>
-                  <button name="btn-submit-repay" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;">Pay Via Repay</button>
+                  <button id="btnAddTransaction" name="btn-submit" type="submit" class="btn btn-danger" style="color: #fff;background-color: blue;border-color: blue;">Add transaction</button>
+                  <button hidden name="btn-submit-repay" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;">Pay
+                     Via Repay</button>
 
 
                </form>
@@ -705,6 +715,105 @@ if ($u_access_id != '1') {
             $("#wrapper").toggleClass("toggled");
 
          });
+
+         function payment_method_info(elem, event) {
+            let method = elem.value;
+            switch (method) {
+               case "Debit Card":
+                  var url = 'functions_commercial_loan.php';
+                  // projectName = "SPVL"
+
+                  $.ajax({
+                     url: url,
+                     type: 'POST',
+                     dataType: 'json',
+                     data: {
+                        'func': "GetCardInfoTable",
+                        'userId': document.getElementById("idUserId").getAttribute("value"),
+                        'loan_create_id': document.getElementById("loanId").getAttribute("value")
+                     },
+                     async: true,
+                     success: function(data) {
+                        var tableCard = data[0].cardTable;
+                        var tableBank = data[0].bankTable;
+                        // document.getElementById("bankTableId").outerHTML = tableBank;
+                        // document.getElementById("cardTableId").outerHTML = tableCard;
+                        document.getElementById("bankTableId").innerHTML = tableBank;
+                        document.getElementById("bankTableId").innerHTML.reload;
+                        document.getElementById("cardTableId").innerHTML = tableCard;
+                        document.getElementById("cardTableId").innerHTML.reload;
+                        $('#tbl_bank_info').on('click', '.clickable-bank-row', function(event) {
+                           if ($(this).hasClass('table-success')) {
+                              $(this).removeClass('table-success');
+                           } else {
+                              $(this).addClass('table-success').siblings().removeClass('table-success');
+                           }
+                           
+                           getDebitCardInformation(event);
+
+                        });
+                        var selected_data = $("#tbl_bank_info tr.success td");
+
+                        $('#tbl_card_info').on('click', '.clickable-card-row', function(event) {
+                           if ($(this).hasClass('table-success')) {
+                              $(this).removeClass('table-success');
+                           } else {
+                              $(this).addClass('table-success').siblings().removeClass('table-success');
+                           }
+
+                           getDebitCardInformation(event);
+                           //change_bank_info(event);
+
+                        });
+
+                        getDebitCardInformation(event);
+                        //alert(data[0].message);
+                     },
+                     error: function(err) {
+                        if (err.responseText == "") {
+                           alert(err.responseText);
+                        } else {
+                           alert(err.responseText);
+                        }
+                        window.location.reload();
+                     }
+                  });
+                  break;
+               default:
+                  document.getElementById("paymentOptionId").innerHTML = "";
+                  document.getElementById("cardTableId").innerHTML = "";
+                  document.getElementById("bankTableId").innerHTML = "";
+                  document.getElementById('btnAddTransaction').disabled = false;
+                  break;
+
+            }
+
+         }
+
+         function getDebitCardInformation(e) {
+            var selected_data_bank = $("#tbl_bank_info tr.table-success td");
+            var selected_data_card = $("#tbl_card_info tr.table-success td");
+            var paymentElem = document.getElementById("paymentOptionId");
+            paymentElem.innerHTML = "";
+            var bankExists = selected_data_bank.length > 0;
+            var cardExists = selected_data_card.length > 0;
+            paymentElem.innerHTML += "<input type='text' name='bankExists' value='" + bankExists + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='cardExists' value='" + cardExists + "' style='display:none;'>";
+            if(!bankExists || !cardExists){
+               document.getElementById('btnAddTransaction').disabled = true;
+               e.preventDefault();
+               return;
+            }
+            document.getElementById('btnAddTransaction').disabled = false;
+            paymentElem.innerHTML += "<input type='text' name='bankName' value='" + selected_data_bank[1].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='accountNumber' value='" + selected_data_bank[2].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='routingNumber' value='" + selected_data_bank[3].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='typeOfCard' value='" + selected_data_card[1].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='cardNumber' value='" + selected_data_card[2].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='expDate' value='" + selected_data_card[3].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='cvv' value='" + selected_data_card[4].innerText + "' style='display:none;'>";
+
+         }
       </script>
 
    <?php
