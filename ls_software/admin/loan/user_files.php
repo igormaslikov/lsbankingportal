@@ -302,7 +302,7 @@ if($void_img == ''){
           <td><img id='mmmmyImg' src ='../../../ls_software/dl_client_files/void_img/$void_img' style='height:100px; width:100px' /><br><br> <a href ='change_void_img.php?id=$id'>Change/Update</a></td>
         
         
-        <td><a onclick='myFunction_contract()' target = '_blank' class='remove-box' href='https://mymoneyline.com/lsbankingportal/signature_customer/files/sign_contract.php?id=$mail_key' target='_blank' title='View Contract'>View Contract</a>"?><?php
+        <td><a onclick='myFunction_contract()' target = '_blank' class='remove-box' href='https://www.mymoneyline.com/lsbankingportal/signature_customer/files/sign_contract.php?id=$mail_key' target='_blank' title='View Contract'>View Contract</a>"?><?php
         echo"<br><br>";
         if($contract_status=='1')
         {
