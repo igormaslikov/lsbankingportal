@@ -265,7 +265,7 @@ $url_origin = getMyUrl("/lsbankingportal");
                  <ul id='menu' style="padding-left:0px; font-size:16px">
     <li class = "loan"><a  href='#' title='' style="font-size:20px">Settings</a>
       <ul class='menus'>
-        <li><a href="<?php echo $url_origin; ?>/ls_software/admin/sms_settings.php"  style="color:white;" title=''>SMS Settings</a>
+        <li><a href="sms_settings.php"  style="color:white;" title=''>SMS Settings</a>
         </li>
         <li><a href="loan_status_sms_settings.php"  style="color:white;" title=''>Loan Status SMS Settings</a>
         </li>
@@ -275,11 +275,11 @@ $url_origin = getMyUrl("/lsbankingportal");
         </li>
          <li><a href="daily_sms_with_loan_status.php"  style="color:white;" title=''>Daily SMS Settings</a>
         </li>
-        <li class="portfolio"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_companies.php"  style="color:white;">Portfolios</a></li>
-        <li class="user"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_user.php"  style="color:white;">User</a></li>
-        <li class="user"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_roles.php"  style="color:white;">User Role</a></li>
-        <li class="user"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_form.php"  style="color:white;">Form Setup</a></li>
-        <li class="user"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_activity_log.php"  style="color:white;">Activity Log</a></li>
+        <li class="portfolio"><a href="view_all_companies.php"  style="color:white;">Portfolios</a></li>
+        <li class="user"><a href="view_all_user.php"  style="color:white;">User</a></li>
+        <li class="user"><a href="view_all_roles.php"  style="color:white;">User Role</a></li>
+        <li class="user"><a href="view_all_form.php"  style="color:white;">Form Setup</a></li>
+        <li class="user"><a href="view_all_activity_log.php"  style="color:white;">Activity Log</a></li>
       </ul>
     </li>
   </ul>
@@ -292,8 +292,8 @@ $url_origin = getMyUrl("/lsbankingportal");
     <li class="loan"><a  href='#' title='Menu' style="font-size:20px">Tools</a>
       <ul class='menus'>
        
-        <li class="loan"><a href="<?php echo $url_origin; ?>/ls_software/admin/calculator/payday_loan.php"  style="color:white;">Calculator</a></li>
-        <li class="loan"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_credit_reports.php"  style="color:white;">View All Credit Reports</a></li>
+        <li class="loan"><a href="calculator/payday_loan.php"  style="color:white;">Calculator</a></li>
+        <li class="loan"><a href="view_all_credit_reports.php"  style="color:white;">View All Credit Reports</a></li>
            
         
       </ul>
