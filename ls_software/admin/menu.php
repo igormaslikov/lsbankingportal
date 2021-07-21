@@ -1,7 +1,7 @@
 <?php 
 date_default_timezone_set('America/Los_Angeles');
 //include_once($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
-$conn = new mysqli("mymoneyline.com/lsbankingportal/","message_chat","admin$$123","message_chat");
+$conn = new mysqli("50.62.151.36","message_chat","admin$$123","message_chat");
 $count=0;
 $sql2="SELECT * FROM webchat_lines WHERE notification_status = 0";
 $result=mysqli_query($conn, $sql2);
@@ -17,6 +17,7 @@ function getMyUrl($added_to_link)
   $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
   return $protocol.$server.$port;
 }
+// $url_origin = getMyUrl("/lsbankingportal");
 $url_origin = getMyUrl("/lsbankingportal");
 ?>
 

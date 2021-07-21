@@ -301,7 +301,7 @@ if(isset($_POST["import"])) {
         
  <?php
       $rowcount = 0;
-$con=mysqli_connect("mymoneyline.com/lsbankingportal/","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
+$con=mysqli_connect("50.62.151.36","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -331,7 +331,7 @@ mysqli_close($con);
 <!-- QUEUED SMS STARTS -->
 
 <?php
-$con=mysqli_connect("mymoneyline.com/lsbankingportal/","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
+$con=mysqli_connect("50.62.151.36","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
 // Check connection
 if (mysqli_connect_errno())
   {
