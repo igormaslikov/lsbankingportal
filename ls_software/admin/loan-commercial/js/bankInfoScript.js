@@ -65,7 +65,7 @@ $(document).ready(function () {
                 orderable: false,
             },
             { 
-                targets: [5],
+                targets: [7],
                 data: null,
                 defaultContent: "<div style='display:flex;justify-content:space-between; align-items:center'><div><i id='editBtn' class='fa fa-pencil-square' style='color:orange'></i></div>"+
                                 "<div><i id='removeBtn' class='fa fa-trash' style='color:red'></i></div></div>"          
@@ -89,7 +89,7 @@ $(document).ready(function () {
 
 
 function checkInput() {
-    Init();
+    InitBankInfo();
     var valid = true;
     if (document.getElementById("lblBankName").value == '') {
         document.getElementById("lblBankName").style.borderColor = "red";
@@ -104,6 +104,18 @@ function checkInput() {
         document.getElementById("lblRoutingNumber").style.borderColor = "red";
         valid = false;
     }
+    if(document.querySelector('input[name="account_type"]:checked') == null){
+        document.getElementById("lblAccountType").style.borderColor = "red";
+        document.getElementById("lblAccountType").style.borderWidth = "1px";
+        document.getElementById("lblAccountType").style.borderStyle = "solid";
+        valid = false;      
+    }
+    if(document.querySelector('input[name="bank_type"]:checked') == null){
+        document.getElementById("lblBankType").style.borderColor = "red";
+        document.getElementById("lblBankType").style.borderWidth = "1px";
+        document.getElementById("lblBankType").style.borderStyle = "solid";
+        valid = false;      
+    }
     return valid;
 }
 
@@ -117,7 +129,8 @@ function updateBankInfo() {
 
     var url = 'functions_commercial_loan.php';
     // projectName = "SPVL"
-    
+    var accountType = document.querySelector('input[name="account_type"]:checked').value;
+    var bankType = document.querySelector('input[name="bank_type"]:checked').value;
     $.ajax({
         url: url,
         type: 'POST',
@@ -129,6 +142,8 @@ function updateBankInfo() {
             'bankName': document.getElementById("lblBankName").value,
             'accountNumber': document.getElementById("lblAccountNumber").value,
             'routingNumber': document.getElementById("lblRoutingNumber").value,
+            'accountType': accountType,
+            'bankType': bankType,
             'status': document.getElementById("idisActiveBankInfo").checked,
             'newBankInfo': document.getElementById("newBankInfo").innerText
         },
@@ -155,15 +170,17 @@ function updateBankInfo() {
     
 }
 
-function Init() {
+function InitBankInfo() {
     document.getElementById("lblBankName").style.removeProperty("border");
     document.getElementById("lblAccountNumber").style.removeProperty("border");
     document.getElementById("lblRoutingNumber").style.removeProperty("border");
+    document.getElementById("lblAccountType").style.removeProperty("border");
+    document.getElementById("lblBankType").style.removeProperty("border");
     document.getElementById("error_row").hidden = true;
 }
 
 function editBankRow(bankId) {
-    Init();
+    InitBankInfo();
     
     document.getElementById('btnInsertUpdateBankInfo').innerText = 'Add';
     document.getElementById("type_alert_title").innerText = "Add new bank info";
@@ -171,6 +188,14 @@ function editBankRow(bankId) {
     document.getElementById("lblBankName").value = "";
     document.getElementById("lblAccountNumber").value = "";
     document.getElementById("lblRoutingNumber").value = "";
+    var checkedAccountType = document.querySelector('input[name="account_type"]:checked');
+    var checkedBankType = document.querySelector('input[name="bank_type"]:checked');
+    if(checkedAccountType != null){
+        checkedAccountType.checked = false;
+    }
+    if(checkedBankType != null){
+        checkedBankType.checked = false;
+    }
     document.getElementById("idisActiveBankInfo").checked = true;
     document.getElementById("newBankInfo").innerText = "true";
     bankInfo = table.data()
@@ -182,7 +207,15 @@ function editBankRow(bankId) {
             document.getElementById("lblBankName").value = bankInfo[i][1];
             document.getElementById("lblAccountNumber").value = bankInfo[i][2];
             document.getElementById("lblRoutingNumber").value = bankInfo[i][3];
-            var isActive = bankInfo[i][4] == "Active";
+            var accountType = document.querySelector('input[name="account_type"][value="'+bankInfo[i][4]+'"]');
+            if(accountType != null){
+                accountType.checked = true;
+            }
+            var bankType = document.querySelector('input[name="bank_type"][value="'+bankInfo[i][5]+'"]');
+            if(bankType != null){
+                bankType.checked = true;
+            }
+            var isActive = bankInfo[i][6] == "Active";
             document.getElementById("idisActiveBankInfo").checked = isActive;
             document.getElementById("newBankInfo").innerText = "false";
         }

@@ -369,11 +369,6 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     }
 
                     ?>
-                    <!-- <td><a href='banking_detail.php?bank_id=$initial_id&fnd_id=$user_fnd_id&id=$id' title='Edit This User'>Edit</a> - 
-
-<a class='remove-box' href='delete_bank_info.php?bank_id=$initial_id&fnd_id=$user_fnd_id&id=$id' title='Delete This User'>Delete</a>
-
-</td> -->
                   </tbody>
                 </table>
               </div>
@@ -387,6 +382,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                       <th>Bank Name</th>
                       <th>Account Number</th>
                       <th>Routing Number</th>
+                      <th>Account Type</th>
+                      <th>Bank Type</th>
                       <th>Status</th>
                       <th class="no-sort"></th>
                     </tr>
@@ -400,12 +397,16 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                       $bank_name = $row_bank_detail_sec['bank_name'];
                       $routing_number = $row_bank_detail_sec['routing_number'];
                       $account_number = $row_bank_detail_sec['account_number'];
+                      $account_type = $row_bank_detail_sec['account_type'];
+                      $bank_type = $row_bank_detail_sec['bank_type'];
                       $is_active = $row_bank_detail_sec['is_active'] == 1 ? "Active" : "Inactive";
                       echo "<tr id='idBank" . $bank_id . "'>
                             <td hidden='true'>" . $bank_id . "</td>
                             <td>" . $bank_name . "</td>
                             <td>" . $account_number . "</td>
                             <td>" . $routing_number . "</td>
+                            <td>" . $account_type . "</td>
+                            <td>" . $bank_type . "</td>
                             <td>" . $is_active . "</td>
                             <td style='padding-left:0; padding-right:0'></td>
                               </tr>";
@@ -420,6 +421,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 <thead>
                   <tr>
                     <th hidden="true"></th>
+                    <th hidden="true"></th>
+                    <th>Bank Name</th>
+                    <th>Routing Number</th>
                     <th>Type of Card</th>
                     <th>Card Number</th>
                     <th>Expiration Date</th>
@@ -434,13 +438,15 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                   <?php
                   include('db.php'); // total page minus 1
 
-                  $sql_loan = mysqli_query($con, "select * from tbl_bank_cards where user_fnd_id = '$user_fnd_id'");
+                  $sql_loan = mysqli_query($con, "select * from tbl_bank_cards bc left join tbl_bank_info bi on bc.bank_id=bi.bank_id where bc.user_fnd_id = '$user_fnd_id'");
 
                   while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
                     $card_id = $row_bank_detail_sec['id'];
+                    $bank_id = $row_bank_detail_sec['bank_id'];
                     $type_of_card = $row_bank_detail_sec['type_of_card'];
                     $card_number = $row_bank_detail_sec['card_number'];
-
+                    $bank_name=$row_bank_detail_sec['bank_name'];
+                    $routing_number= $row_bank_detail_sec['routing_number'];
                     $card_exp_date = $row_bank_detail_sec['card_exp_date'];
                     $cvv = $row_bank_detail_sec['cvv_number'];
                     $is_active = $row_bank_detail_sec['is_active'] == 1 ? "Active" : "Inactive";
@@ -449,6 +455,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                     echo "<tr id='idCard" . $card_id . "'>
                           <td hidden='true'>" . $card_id . "</td>
+                          <td hidden='true'>" . $bank_id . "</td>
+                          <td>" . $bank_name . "</td>
+                          <td>" . $routing_number . "</td>
                           <td>" . $type_of_card . "</td>
                           <td>" . $card_number . "</td>
                           <td>" . $card_exp_date . "</td>
@@ -542,6 +551,24 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 </div>
               </div>
               <div class="row">
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Account Type<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5">
+                  <div id="lblAccountType">
+                    <div><input type="radio" name="account_type" id="idATChecking" value="Checking"><label for="idATChecking">Checking</label></div>
+                    <div><input type="radio" name="account_type" id="idATSavings" value="Savings"><label for="idATSavings">Savings</label></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Bank Type<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5">
+                  <div id="lblBankType">
+                    <div><input type="radio" name="bank_type" id="idBTBusiness" value="Business"><label for="idBTBusiness">Business</label></div>
+                    <div><input type="radio" name="bank_type" id="idBTPersonal" value="Personal"><label for="idBTPersonal">Personal</label></div>
+                  </div>
+                </div> 
+              </div>
+              <div class="row">
                 <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Status</label></div>
                 <div class="col-md-5 col-sm-5 col-lg-5">
                   <div id="lstGroups" style=" margin-top:-1px; z-index:1; width: 148px;">
@@ -622,6 +649,12 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               <div class="row">
                 <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">CVV<mark class="red">*</mark></label></div>
                 <div class="col-md-5 col-sm-5 col-lg-5"><input type="text" style="color:black" id="lblCVV" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Bank Info</label></div>
+                <div class="col-md-7 col-sm-7 col-lg-7" id="bankInfoTableModalDiv">
+
                 </div>
               </div>
               <div class="row">

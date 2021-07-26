@@ -65,7 +65,7 @@ $(document).ready(function () {
                 orderable: false,
             },
             { 
-                targets: [6],
+                targets: [9],
                 data: null,
                 defaultContent: "<div style='display:flex;justify-content:space-between; align-items:center'><div><i id='editBtnCard' class='fa fa-pencil-square' style='color:orange'></i></div>"+
                                 "<div><i id='removeBtnCard' class='fa fa-trash' style='color:red'></i></div></div>"          
@@ -138,7 +138,8 @@ function updateCardInfo() {
 
     var url = 'functions_commercial_loan.php';
     // projectName = "SPVL"
-    
+    var bankSelector = document.querySelector('input[name="bank"]:checked');
+    var bankId = bankSelector == null ? "" : bankSelector.id.replace("rbtn_","");
     $.ajax({
         url: url,
         type: 'POST',
@@ -147,6 +148,7 @@ function updateCardInfo() {
             'func':"UpdateCardInfo",
             'userId':document.getElementById("idUserId").getAttribute("value"),
             'cardInfoId':document.getElementById("lblCardInfoId").value,
+            'bankId':bankId,
             'typeOfCard': document.getElementById("lblTypeOfCard").value,
             'cardNumber': document.getElementById("lblCardNumber").value,
             'expirationDate': document.getElementById("lblMonth").value+"/"+document.getElementById("lblYear").value,
@@ -186,7 +188,8 @@ function Init() {
 
 function editRowCard(cardId) {
     Init();
-    
+    var userId = document.getElementById("idUserId").getAttribute("value");
+
     document.getElementById('btnInsertUpdateCardInfo').innerText = 'Add';
     document.getElementById("type_alert_title_card").innerText = "Add new card info";
     document.getElementById("lblCardInfoId").value = "";
@@ -197,25 +200,57 @@ function editRowCard(cardId) {
     document.getElementById("lblCVV").value = "";
     document.getElementById("idisActiveCardInfo").checked = true;
     document.getElementById("newCardInfo").innerText = "true";
+    var bankId = "";
     cardInfo = tableCardInfo.data()
     for (var i = 0; i < cardInfo.length; i++) {
         if (cardId == cardInfo[i][0]) {
             document.getElementById('btnInsertUpdateCardInfo').innerText = 'Update';
-            document.getElementById("type_alert_title_card").innerText = "Edit card info: " + cardInfo[i][1] +" "+ cardInfo[i][2]+ " "+ cardInfo[i][3] + " " + cardInfo[i][4];
+            document.getElementById("type_alert_title_card").innerText = "Edit card info: " + cardInfo[i][4] +" "+ cardInfo[i][5]+ " "+ cardInfo[i][6] + " " + cardInfo[i][7];
             document.getElementById("lblCardInfoId").value = cardInfo[i][0];
-            document.getElementById("lblTypeOfCard").value = cardInfo[i][1];
-            document.getElementById("lblCardNumber").value = cardInfo[i][2];
-            var exp_date = cardInfo[i][3].split("/");
+            bankId = cardInfo[i][1];
+            document.getElementById("lblTypeOfCard").value = cardInfo[i][4];
+            document.getElementById("lblCardNumber").value = cardInfo[i][5];
+            var exp_date = cardInfo[i][6].split("/");
             document.getElementById("lblMonth").value = exp_date[0];
             document.getElementById("lblYear").value = exp_date[1];
-            document.getElementById("lblCVV").value = cardInfo[i][4];
-            var isActive = cardInfo[i][5] == "Active";
+            document.getElementById("lblCVV").value = cardInfo[i][7];
+            var isActive = cardInfo[i][8] == "Active";
             document.getElementById("idisActiveCardInfo").checked = isActive;
             document.getElementById("newCardInfo").innerText = "false";
         }
     }
+
+    document.getElementById("bankInfoTableModalDiv").innerHTML = getBankInfoByUserId(userId, document.getElementById("lblCardInfoId").value);
+    var rbtn = $("#rbtn_"+bankId);
+    if(bankId != "" && rbtn.length > 0){
+        rbtn[0].checked = true;
+    }
     cardInfoModal.show();
 
+}
+
+function getBankInfoByUserId(userId, cardInfoId) {
+    var url = 'functions_commercial_loan.php';
+    let result = null;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'func': 'GetBankInfoByUserId',
+            'userId':userId,
+            'cardInfoId':cardInfoId
+        },
+        async: false,
+        success: function(response){
+            result = response[0].bankTable;
+        },
+        error: function (err) {
+            result = err.responseText;
+        }
+    });
+
+    return result;
 }
 
 

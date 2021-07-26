@@ -368,3 +368,7 @@ mark.red {
 .close{
     color: red;
 }
+
+#bankInfoTableModal th{
+    background: inherit !important;
+}

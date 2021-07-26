@@ -179,6 +179,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css" />
+    <script type="module" src="../../website/js/x-frame-bypass.js"></script>
     <style>
       .tooltip-inner {
         max-width: 300px;
@@ -458,6 +459,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                   $bank_name = $row_card_info['bank_name'];
                   $account_number = $row_card_info['account_number'];
                   $routing_number = $row_card_info['routing_number'];
+                  $account_type = $row_card_info['account_type'];
+                  $bank_type = $row_card_info['bank_type'];
                   $start_mark = "<mark>";
                   $end_mark = "</mark>";
                   $card_info_tooltip = "
@@ -476,6 +479,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                           <div class='col-6'>Routing Number</div>
                           <div class='col-6'>" . $routing_number . "</div>
                         </div>
+                        <div class='row flex-nowrap'>
+                          <div class='col-6'>Account Type</div>
+                          <div class='col-6'>" . $account_type . "</div>
+                        </div>
+                        <div class='row flex-nowrap'>
+                          <div class='col-6'>Bank Type</div>
+                          <div class='col-6'>" . $bank_type . "</div>
+                        </div>                        
                         <div class='row flex-nowrap'>
                           <div class='col-6'>Type Of Card</div>
                           <div class='col-6'>" . $type_of_card . "</div>
@@ -532,6 +543,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $interval = date_diff(date_create($payment_date), date_create($created_at));
               $dpd = $interval->format('%r%a');
 
+              $chargeBack = $payment_method == "Debit Card"?" - <i class='fa fa-arrow-circle-o-left'></i>":"";
               echo "<tr>
 	 	      
               <td>" . $transaction_id . "</td>
@@ -547,8 +559,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               <td " . $card_info_tooltip . ">" . $start_mark.$payment_method.$end_mark . "</td>
               <td>" . $final_activity_by_user . "</td>
               <td>" . $dpd . "</td>
-              <td><a href='edit_payments.php?t_id=$transaction_id&id=$id'>Edit</a> - <a href='delete_reason_payments.php?t_id=$transaction_id&id=$id'>Delete</a> - 
-                  <i class='fa fa-arrow-circle-o-left'></i>
+              <td><a href='edit_payments.php?t_id=$transaction_id&id=$id'>Edit</a> - <a href='delete_reason_payments.php?t_id=$transaction_id&id=$id'>Delete</a>$chargeBack
               </td>
 	 		  
 		   	  
@@ -576,7 +587,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
       </div>
 
       <h3 style="color:red;">Conversation <span style="float:right;"> </span> </h3>
-      <iframe src="https://mymoneyline.com/lsbankingportal/ls_software/admin/sms-chat?chat_key=<?php echo $chat_key; ?>&admin_name=<?php echo $u_name; ?>" height="500px" width="100%" id="conversation"></iframe>
+      <iframe is="x-frame-bypass" src="https://mymoneyline.com/lsbankingportal/ls_software/admin/sms-chat?chat_key=<?php echo $chat_key; ?>&admin_name=<?php echo $u_name; ?>" height="500px" width="100%" id="conversation"></iframe>
 
 
       <!-- /#page-content-wrapper -->

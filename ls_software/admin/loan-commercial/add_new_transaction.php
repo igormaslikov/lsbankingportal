@@ -195,7 +195,8 @@ if ($u_access_id != '1') {
    $interval = date_diff($date_due_date, $date_now);
 
    $dpd = $interval->format('%r%a');
-   $sum_late_fee = $dpd > 0 ? $dpd * $late_fee : 0;
+   // $sum_late_fee = $dpd > 0 ? $dpd * $late_fee : 0;
+   $sum_late_fee = $dpd >= 10 ? 10 : 0;
 
 
 
@@ -381,27 +382,27 @@ if ($u_access_id != '1') {
       $result_insert_trans = mysqli_query($con, $query_insert_trans);
 
       if ($result_insert_trans) {
-         if(isset($_POST['bankExists']) && isset($_POST['cardExists'])){
+         if (isset($_POST['bankExists']) && isset($_POST['cardExists'])) {
             $transaction_id = mysqli_insert_id($con);
             $bankName = $_POST['bankName'];
             $accountNumber = $_POST['accountNumber'];
             $routingNumber = $_POST['routingNumber'];
+            $accountType = $_POST['accountType'];
+            $bankType=$_POST['bankType'];
             $typeOfCard = $_POST['typeOfCard'];
             $cardNumber = $_POST['cardNumber'];
             $expDate = $_POST['expDate'];
             $cvv = $_POST['cvv'];
-            $query_transaction = "INSERT INTO `commercial_loan_transaction_cards_info` (`card_info_id`, `type_of_card`, `card_number`, `card_exp_date`, `cvv_number`, `bank_name`, `account_number`, `routing_number`) VALUES ('', '$typeOfCard', '$cardNumber', '$expDate', '$cvv', '$bankName', '$accountNumber', '$routingNumber')";
+            $query_transaction = "INSERT INTO `commercial_loan_transaction_cards_info` (`card_info_id`, `type_of_card`, `card_number`, `card_exp_date`, `cvv_number`, `bank_name`, `account_number`, `routing_number`, `account_type`, `bank_type`) VALUES ('', '$typeOfCard', '$cardNumber', '$expDate', '$cvv', '$bankName', '$accountNumber', '$routingNumber', '$accountType', '$bankType')";
             $result = mysqli_query($con, $query_transaction);
             $card_info_id = mysqli_insert_id($con);
 
             mysqli_query($con, "UPDATE commercial_loan_transaction SET card_info='$card_info_id' where transaction_id ='$transaction_id'");
-
          }
-
       } else {
 
          echo "<h3> Error Inserting Data </h3>";
-      }     
+      }
 
 
 
@@ -612,7 +613,7 @@ if ($u_access_id != '1') {
 
                      <div class="col-lg-3">
                         <label for="usr">Late Fee ($):</label>
-                        <input type="text" name="late_fee" class="form-control" id="usr" placeholder="" value="<?php echo $sum_late_fee; ?>" title="<?php echo '(late fee) * (DPD) => ' . $late_fee . ' * ' . $dpd; ?>">
+                        <input type="text" name="late_fee" class="form-control" id="usr" placeholder="" value="<?php echo $sum_late_fee; ?>">
 
                      </div>
 
@@ -653,7 +654,8 @@ if ($u_access_id != '1') {
                         </select>
                      </div>
                      <div id="paymentOptionId" hidden>
-
+                        <div id="bankOptionId"></div>
+                        <div id="cardOptionId"></div>
                      </div>
                      <div class="col-lg-6">
                         <label for="usr">Payment Description:</label>
@@ -728,46 +730,34 @@ if ($u_access_id != '1') {
                      type: 'POST',
                      dataType: 'json',
                      data: {
-                        'func': "GetCardInfoTable",
+                        'func': "GetBankInfoTable",
                         'userId': document.getElementById("idUserId").getAttribute("value"),
                         'loan_create_id': document.getElementById("loanId").getAttribute("value")
                      },
                      async: true,
                      success: function(data) {
-                        var tableCard = data[0].cardTable;
+                        //var tableCard = data[0].cardTable;
                         var tableBank = data[0].bankTable;
                         // document.getElementById("bankTableId").outerHTML = tableBank;
                         // document.getElementById("cardTableId").outerHTML = tableCard;
                         document.getElementById("bankTableId").innerHTML = tableBank;
                         document.getElementById("bankTableId").innerHTML.reload;
-                        document.getElementById("cardTableId").innerHTML = tableCard;
-                        document.getElementById("cardTableId").innerHTML.reload;
+                        // document.getElementById("cardTableId").innerHTML = tableCard;
+                        // document.getElementById("cardTableId").innerHTML.reload;
                         $('#tbl_bank_info').on('click', '.clickable-bank-row', function(event) {
                            if ($(this).hasClass('table-success')) {
                               $(this).removeClass('table-success');
                            } else {
                               $(this).addClass('table-success').siblings().removeClass('table-success');
                            }
-                           
-                           getDebitCardInformation(event);
 
-                        });
-                        var selected_data = $("#tbl_bank_info tr.success td");
-
-                        $('#tbl_card_info').on('click', '.clickable-card-row', function(event) {
-                           if ($(this).hasClass('table-success')) {
-                              $(this).removeClass('table-success');
-                           } else {
-                              $(this).addClass('table-success').siblings().removeClass('table-success');
-                           }
-
-                           getDebitCardInformation(event);
-                           //change_bank_info(event);
+                           getCardInfoTable(event);
+                           //getDebitCardInformation(event);
 
                         });
 
-                        getDebitCardInformation(event);
-                        //alert(data[0].message);
+                        getCardInfoTable(event);
+
                      },
                      error: function(err) {
                         if (err.responseText == "") {
@@ -780,7 +770,8 @@ if ($u_access_id != '1') {
                   });
                   break;
                default:
-                  document.getElementById("paymentOptionId").innerHTML = "";
+                  document.getElementById("bankOptionId").innerHTML = "";
+                  document.getElementById("cardOptionId").innerHTML = "";
                   document.getElementById("cardTableId").innerHTML = "";
                   document.getElementById("bankTableId").innerHTML = "";
                   document.getElementById('btnAddTransaction').disabled = false;
@@ -790,16 +781,107 @@ if ($u_access_id != '1') {
 
          }
 
+
+         function getCardInfoTable(e) {
+            var selected_data_bank = $("#tbl_bank_info tr.table-success td");
+            var paymentElem = document.getElementById("bankOptionId");
+            paymentElem.innerHTML = "";
+            var bankExists = selected_data_bank.length > 0;
+            paymentElem.innerHTML += "<input type='text' name='bankExists' value='" + bankExists + "' style='display:none;'>";
+            if (!bankExists) {
+               document.getElementById('btnAddTransaction').disabled = true;
+               document.getElementById("cardTableId").innerHTML = "";
+               e.preventDefault();
+               return;
+            }
+
+            var bankId = selected_data_bank[0].innerText;
+            paymentElem.innerHTML += "<input type='text' name='bankName' value='" + selected_data_bank[1].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='accountNumber' value='" + selected_data_bank[2].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='routingNumber' value='" + selected_data_bank[3].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='accountType' value='" + selected_data_bank[4].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='bankType' value='" + selected_data_bank[5].innerText + "' style='display:none;'>";
+
+            var url = 'functions_commercial_loan.php';
+            // projectName = "SPVL"
+
+            $.ajax({
+               url: url,
+               type: 'POST',
+               dataType: 'json',
+               data: {
+                  'func': "GetCardInfoByBankId",
+                  'userId': document.getElementById("idUserId").getAttribute("value"),
+                  'loan_create_id': document.getElementById("loanId").getAttribute("value"),
+                  'bankId': bankId
+               },
+               async: true,
+               success: function(data) {
+                  //var tableCard = data[0].cardTable;
+                  var tableCard = data[0].cardTable;
+                  document.getElementById("cardTableId").innerHTML = tableCard;
+                  document.getElementById("cardTableId").innerHTML.reload;
+                  // var selected_data = $("#tbl_bank_info tr.success td");
+
+                  $('#tbl_card_info').on('click', '.clickable-card-row', function(event) {
+                     if ($(this).hasClass('table-success')) {
+                        $(this).removeClass('table-success');
+                     } else {
+                        $(this).addClass('table-success').siblings().removeClass('table-success');
+                     }
+
+                     getCardInformation(event);
+                     //change_bank_info(event);
+
+                  });
+
+                  getCardInformation(event);
+
+               },
+               error: function(err) {
+                  if (err.responseText == "") {
+                     alert(err.responseText);
+                  } else {
+                     alert(err.responseText);
+                  }
+                  window.location.reload();
+               }
+            });
+
+         }
+
+         function getCardInformation(e) {
+            var selected_data_card = $("#tbl_card_info tr.table-success td");
+            var paymentElem = document.getElementById("cardOptionId");
+            paymentElem.innerHTML = "";
+            var cardExists = selected_data_card.length > 0;
+            paymentElem.innerHTML += "<input type='text' name='cardExists' value='" + cardExists + "' style='display:none;'>";
+            if (!cardExists) {
+               document.getElementById('btnAddTransaction').disabled = true;
+               e.preventDefault();
+               return;
+            }
+
+            document.getElementById('btnAddTransaction').disabled = false;
+            paymentElem.innerHTML += "<input type='text' name='typeOfCard' value='" + selected_data_card[1].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='cardNumber' value='" + selected_data_card[2].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='expDate' value='" + selected_data_card[3].innerText + "' style='display:none;'>";
+            paymentElem.innerHTML += "<input type='text' name='cvv' value='" + selected_data_card[4].innerText + "' style='display:none;'>";
+         }
+
          function getDebitCardInformation(e) {
             var selected_data_bank = $("#tbl_bank_info tr.table-success td");
-            var selected_data_card = $("#tbl_card_info tr.table-success td");
             var paymentElem = document.getElementById("paymentOptionId");
+
+
+            var selected_data_card = $("#tbl_card_info tr.table-success td");
+
             paymentElem.innerHTML = "";
             var bankExists = selected_data_bank.length > 0;
             var cardExists = selected_data_card.length > 0;
             paymentElem.innerHTML += "<input type='text' name='bankExists' value='" + bankExists + "' style='display:none;'>";
             paymentElem.innerHTML += "<input type='text' name='cardExists' value='" + cardExists + "' style='display:none;'>";
-            if(!bankExists || !cardExists){
+            if (!bankExists || !cardExists) {
                document.getElementById('btnAddTransaction').disabled = true;
                e.preventDefault();
                return;
