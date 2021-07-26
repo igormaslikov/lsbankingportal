@@ -423,7 +423,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     <th hidden="true"></th>
                     <th hidden="true"></th>
                     <th>Bank Name</th>
-                    <th>Routing Number</th>
+                    <th>Account Number</th>
                     <th>Type of Card</th>
                     <th>Card Number</th>
                     <th>Expiration Date</th>
@@ -438,7 +438,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                   <?php
                   include('db.php'); // total page minus 1
 
-                  $sql_loan = mysqli_query($con, "select * from tbl_bank_cards bc left join tbl_bank_info bi on bc.bank_id=bi.bank_id where bc.user_fnd_id = '$user_fnd_id'");
+                  $sql_loan = mysqli_query($con, "select bc.*,bi.account_number, bi.bank_name from tbl_bank_cards bc left join tbl_bank_info bi on bc.bank_id=bi.bank_id where bc.user_fnd_id = '$user_fnd_id'");
 
                   while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
                     $card_id = $row_bank_detail_sec['id'];
@@ -446,7 +446,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     $type_of_card = $row_bank_detail_sec['type_of_card'];
                     $card_number = $row_bank_detail_sec['card_number'];
                     $bank_name=$row_bank_detail_sec['bank_name'];
-                    $routing_number= $row_bank_detail_sec['routing_number'];
+                    $routing_number= $row_bank_detail_sec['account_number'];
                     $card_exp_date = $row_bank_detail_sec['card_exp_date'];
                     $cvv = $row_bank_detail_sec['cvv_number'];
                     $is_active = $row_bank_detail_sec['is_active'] == 1 ? "Active" : "Inactive";

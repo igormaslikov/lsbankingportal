@@ -32,7 +32,7 @@ $user_fnd_id= $_GET['user_fnd_id'];
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"> 
 <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen"> 
-
+<script type="module" src="../website/js/x-frame-bypass.js"></script>
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 <body>
@@ -124,14 +124,14 @@ echo " <b>Contract was sent successfully via Email </b>";
 
 ?>
 <br>
-<iframe src="<?php echo $link; ?>" width="750" height="900" style="display:none;"></iframe>
+<iframe is="x-frame-bypass" src="<?php echo $link; ?>" width="750" height="900" style="display:none;"></iframe>
 <?php 
 $i = 1;
 if($i>0){
     
 sleep(2);
   ?>
-<iframe src="<?php echo $link; ?>" width="100%" height="900" style="display:;"></iframe> 
+<iframe is="x-frame-bypass" src="<?php echo $link; ?>" width="100%" height="900" style="display:;"></iframe> 
 
 <?php
 }

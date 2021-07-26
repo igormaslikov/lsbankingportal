@@ -269,7 +269,7 @@ $loan_notes=$row_user['notes'];
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <script type="module" src="../../website/js/x-frame-bypass.js"></script>
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
 
@@ -623,7 +623,7 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
 </div>
 
 <h3 style="color:red;">Conversation  <span style="float:right;">  </span>   </h3>
-<iframe src="https://mymoneyline.com/lsbankingportal/ls_software/admin/sms-chat?chat_key=<?php echo $chat_key;?>&admin_name=<?php echo $u_name;?>" height="500px" width="100%" id="conversation"></iframe>
+<iframe is="x-frame-bypass" src="https://mymoneyline.com/lsbankingportal/ls_software/admin/sms-chat?chat_key=<?php echo $chat_key;?>&admin_name=<?php echo $u_name;?>" height="500px" width="100%" id="conversation"></iframe>
 
     
     <!-- /#page-content-wrapper -->

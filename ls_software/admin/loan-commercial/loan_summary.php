@@ -543,7 +543,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $interval = date_diff(date_create($payment_date), date_create($created_at));
               $dpd = $interval->format('%r%a');
 
-              $chargeBack = $payment_method == "Debit Card"?" - <i class='fa fa-arrow-circle-o-left'></i>":"";
+              $chargeBack = $payment_method == "Debit Card" ? " - <i class='fa fa-arrow-circle-o-left' id='btnChargeBackId'></i>" : "";
               echo "<tr>
 	 	      
               <td>" . $transaction_id . "</td>
@@ -556,7 +556,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               <td>$" . $convenience_fee . "</td>
               <td>" . $payment_date_f . "</td>
               <td>" . $created_at_f . "</td>
-              <td " . $card_info_tooltip . ">" . $start_mark.$payment_method.$end_mark . "</td>
+              <td " . $card_info_tooltip . ">" . $start_mark . $payment_method . $end_mark . "</td>
               <td>" . $final_activity_by_user . "</td>
               <td>" . $dpd . "</td>
               <td><a href='edit_payments.php?t_id=$transaction_id&id=$id'>Edit</a> - <a href='delete_reason_payments.php?t_id=$transaction_id&id=$id'>Delete</a>$chargeBack
@@ -704,6 +704,11 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
         });
 
+        $('#example tbody').on('click', 'i#btnChargeBackId', function() {
+          var data = table.row($(this).parents('tr')).data();
+          
+        });
+        
         $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
