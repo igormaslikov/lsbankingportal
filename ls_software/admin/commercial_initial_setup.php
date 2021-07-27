@@ -602,7 +602,16 @@ if ($u_access_id == '0') {
 
                   <div class="col-lg-6">
                      <label for="usr">Bank Name</label>
-                     <select name="bank_name" id="bank_name" class="form-control" value="">
+                     <input list="banks" name="bank_name" id="bank_name" class="form-control" value="">
+                     <datalist id="banks">
+                        <option value="Bank Of America">Bank Of America</option>
+                        <option value="Chase">Chase</option>
+                        <option value="Wells Fargo">Wells Fargo</option>
+                        <option value="Citi Bank ">Citi Bank </option>
+                        <option value="US Bank">US Bank</option>
+                        <option value="HSBC">HSBC</option>
+                     </datalist>
+                     <!-- <select name="bank_name" id="bank_name" class="form-control" value="">
                         <option></option>
                         <option value="Bank Of America">Bank Of America</option>
                         <option value="Chase">Chase</option>
@@ -610,7 +619,7 @@ if ($u_access_id == '0') {
                         <option value="Citi Bank ">Citi Bank </option>
                         <option value="US Bank">US Bank</option>
                         <option value="HSBC">HSBC</option>
-                     </select><br>
+                     </select> --><br>
                   </div>
 
                   <div class="col-lg-6">
