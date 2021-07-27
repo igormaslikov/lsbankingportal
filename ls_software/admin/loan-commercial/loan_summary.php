@@ -125,10 +125,12 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   $interval = date_diff($date_due_date, $date_now);
 
   $dpd =  $interval->format('%r%a');
-
+  $disableButton = "";
   if ($loan_status == "Paid") {
     $payoff = 0;
     $dpd = 0;
+    $balance_due = 0;
+    $disableButton = "hidden";
   }
 
 
@@ -351,9 +353,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
                 <button name="btn-submit" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: white;background-color: #1E90FF;border-radius: 0px;border-color: #1E90FF;">Update</button>
-                <button name="btn" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;"><a href="add_new_transaction.php?id=<?php echo $id; ?>" style="color:white">Make a
+                <button name="btn" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;" <?php echo $disableButton; ?>><a href="add_new_transaction.php?id=<?php echo $id; ?>" style="color:white" >Make a
                     Payment</a></button>
-                <button name="btn" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;"><a href="schedule_payment.php?id=<?php echo $id; ?>" style="color:white">Schedule
+                <button name="btn" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;" <?php echo $disableButton; ?>><a href="schedule_payment.php?id=<?php echo $id; ?>" style="color:white">Schedule
                     Payment</a></button>
 
 
@@ -708,7 +710,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
           var data = table.row($(this).parents('tr')).data();
           
         });
-        
+
         $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
