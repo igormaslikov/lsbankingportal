@@ -353,7 +353,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
                 <button name="btn-submit" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: white;background-color: #1E90FF;border-radius: 0px;border-color: #1E90FF;">Update</button>
-                <button name="btn" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;" <?php echo $disableButton; ?>><a href="add_new_transaction.php?id=<?php echo $id; ?>" style="color:white" >Make a
+                <button name="btn" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;" <?php echo $disableButton; ?>><a href="add_new_transaction.php?id=<?php echo $id; ?>" style="color:white">Make a
                     Payment</a></button>
                 <button name="btn" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;" <?php echo $disableButton; ?>><a href="schedule_payment.php?id=<?php echo $id; ?>" style="color:white">Schedule
                     Payment</a></button>
@@ -637,7 +637,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               // Remove the formatting to get integer data for summation
               var intVal = function(i) {
                 return typeof i === 'string' ?
-                  i.replace('$', '') * 1 :
+                  i.replace('$', '').replace(',', '') * 1 :
                   typeof i === 'number' ?
                   i : 0;
               };
@@ -653,7 +653,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 if (calc) {
                   sum = amount - sum;
                 }
-                return sum;
+                return round(sum,2);
 
               };
 
@@ -673,7 +673,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               // Remove the formatting to get integer data for summation
               var intVal = function(i) {
                 return typeof i === 'string' ?
-                  i.replace('$', '') * 1 :
+                  i.replace('$', '').replace(',','') * 1 :
                   typeof i === 'number' ?
                   i : 0;
               };
@@ -687,7 +687,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                   .reduce(function(a, b) {
                     return Number((intVal(a) + intVal(b)).toFixed(2));
                   }, 0);
-                return pageSum;
+                return round(pageSum,2);
 
               };
 
@@ -708,11 +708,16 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
         $('#example tbody').on('click', 'i#btnChargeBackId', function() {
           var data = table.row($(this).parents('tr')).data();
-          
+
         });
 
         $('[data-toggle="tooltip"]').tooltip();
       });
+
+      function round(x, n) {
+        var exp = Math.pow(10, n);
+        return Math.floor(x * exp + 0.5) / exp;
+      }
     </script>
 
     <?php
