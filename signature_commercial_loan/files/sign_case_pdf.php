@@ -35,6 +35,7 @@ while ($row1 = mysqli_fetch_array($sql1)) {
   $cvv_number = $row1['cvv_number'];
 
   $img_signed = $row1['initial_pic'];
+  $co_borrow_name = $row1['co_borrow_name'];
 
   $result_sig = $url_logo . '/doc_signs/' . $img_signed;
 }
@@ -277,7 +278,7 @@ $html = '
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>'.$city.', '.$state.' '.$zip.'</span>
         <br><br>
-        <b>Co-Borrower:</b><span>____________________________</span>
+        <b>Co-Borrower:</b><span style="text-decoration:underline">' . $co_borrow_name . '</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
         <br>
@@ -372,7 +373,7 @@ $html = '
               <br><br>
               <span><b>Prepayment:</b> You may prepay your loan at any time. If you pay early, you will not have to pay a penalty.</span><br><br>
               <span><b>Late Charge:</b> If a payment is more than 10 days late, you will be charged $10. </span> <br><br>
-              <span><b>Origination Fee:</b> A prepaid finance charge for $75 will de add to cover the cost of processing your application and the agreement.</span> <br>
+              <span><b>Origination Fee:</b> A prepaid finance charge for $'.$contract_fee.' will de add to cover the cost of processing your application and the agreement.</span> <br>
             </td>
             <td style=" text-align: center;">
                 <br><br>

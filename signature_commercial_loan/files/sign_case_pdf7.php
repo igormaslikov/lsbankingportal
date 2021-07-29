@@ -37,6 +37,8 @@ $cvv_number=$row1['cvv_number'];
 $img_signed = $row1['signed_pic'];
 
 $result_sig = $url_logo .'/doc_signs/'. $img_signed;
+$img_signed_co_borrow = $row1['sig_coborrow_pic'];
+$result_sig_co_borrow = $url_logo . '/doc_signs_coborrow/' . $img_signed_co_borrow;
 }
 
 
@@ -241,7 +243,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br>
 <b>Borrower Signature / Firma de deudor</b>
 <br><br><br>
-_______________________________<br>
+<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$result_sig_co_borrow.'" alt="" style="height:300%" align="left"/><br>
 <b>Co-Borrower Signature / Firma de co-deudor</b>
 </td>
 

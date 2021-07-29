@@ -164,6 +164,7 @@ if ($signed_status > 0) {
 			}
 
 
+			#signAreaCoBorrow,
 			#initialArea,
 			#signArea {
 				width: 304px;
@@ -250,6 +251,33 @@ if ($signed_status > 0) {
 							</div>
 						</div>
 
+						<div class="col-md-6">
+							<div class="panel panel-default">
+								<div class="panel-heading">Co-Borrow Digital Signature:</div>
+								<div class="panel-body center-text">
+									<div style="display:justify">
+										<div style="padding-bottom: 10px;">
+											<label for="coBorrowName">Name: </label>
+											<input type="text" id="coBorrowName">
+										</div>
+										<div>
+											<label for="coBorrowCellPhone">Mobile: </label>
+											<input type="number" id="coBorrowCellPhone">
+										</div>
+									</div>
+									<div id="signAreaCoBorrow">
+										<h2 class="tag-ingo">Put Signature below,</h2>
+										<div class="sig sigWrapper" style="height:auto;">
+											<div class="typed"></div>
+											<canvas class="sign-pad-coborrow" id="sign-pad-coborrow" width="300" height="100"></canvas>
+										</div>
+									</div>
+
+									<button id="btnClearInitial" onclick="clearCanvas('sign-pad-coborrow')">Clear Signature</button>
+								</div>
+							</div>
+						</div>
+
 
 					</div>
 					<div class="row">
@@ -300,6 +328,13 @@ if ($signed_status > 0) {
 					drawBezierCurves: true,
 					lineTop: 90
 				});
+
+				
+				$('#signAreaCoBorrow').signaturePad({
+					drawOnly: true,
+					drawBezierCurves: true,
+					lineTop: 90
+				});
 			});
 
 			// var sig_canvas = null;
@@ -323,12 +358,18 @@ if ($signed_status > 0) {
 			$("#btnSaveSignInitial").click(function(e) {
 				var sig_data = getDataFromCanvasById('sign-pad').replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
 				var initial_data = getDataFromCanvasById('initial-pad').replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+				var sig_data_co_borrow = getDataFromCanvasById('sign-pad-coborrow').replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+				var co_borrow_name = document.getElementById('coBorrowName').value;
+				var co_borrow_mobile = document.getElementById('coBorrowCellPhone').value;
 				var key = '<?php echo $iddd; ?>';
 				$.ajax({
 					url: 'save_sign.php',
 					data: {
 						sig_data: sig_data,
 						initial_data: initial_data,
+						sig_data_co_borrow: sig_data_co_borrow,
+						co_borrow_name: co_borrow_name,
+						co_borrow_mobile: co_borrow_mobile,
 						key: key
 					},
 					type: 'post',

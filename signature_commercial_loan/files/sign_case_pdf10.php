@@ -35,8 +35,16 @@ $account_number=$row1['account_number'];
 $cvv_number=$row1['cvv_number'];
 
 $img_signed = $row1['signed_pic'];
+$co_borrow_name = $row1['co_borrow_name'];
+$co_borrow_mobile = $row1['co_borrow_mobile'];
 
 $result_sig = $url_logo .'/doc_signs/'. $img_signed;
+
+$img_signed_co_borrow = $row1['sig_coborrow_pic'];
+$result_sig_co_borrow = $url_logo . '/doc_signs_coborrow/' . $img_signed_co_borrow;
+
+
+
 }
 
 
@@ -264,13 +272,13 @@ Borrower Signature <br>
 <td>
 
 Co-Borrower Name : <br>
-________________________<br><br>
+<span style="text-decoration:underline">'.$co_borrow_name.'</span><br><br>
 
 Co-Borrower Mobile Telephone #: <br>
-________________________<br><br>
+<span style="text-decoration:underline">'.$co_borrow_mobile_number.'</span><br><br>
 
 Co-Borrower Signature <br>
-_________________________<br>
+<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$result_sig_co_borrow.'" alt="" style="height:300%" align="left"/><br>
 
 </td>
 </tr>

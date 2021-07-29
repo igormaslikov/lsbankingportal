@@ -372,7 +372,7 @@ $html = '
               <br><br>
               <span><b>Prepayment:</b> You may prepay your loan at any time. If you pay early, you will not have to pay a penalty.</span><br><br>
               <span><b>Late Charge:</b> If a payment is more than 10 days late, you will be charged $10. </span> <br><br>
-              <span><b>Origination Fee:</b> A prepaid finance charge for $75 will de add to cover the cost of processing your application and the agreement.</span> <br>
+              <span><b>Origination Fee:</b> A prepaid finance charge for $'.$contract_fee.' will de add to cover the cost of processing your application and the agreement.</span> <br>
             </td>
             <td style=" text-align: center;">
                 <br><br>

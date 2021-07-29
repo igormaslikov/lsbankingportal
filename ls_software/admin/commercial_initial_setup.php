@@ -53,7 +53,7 @@ if ($u_access_id == '0') {
 
 
    $sql_fetch_loan = mysqli_query($con, "select * from tbl_commercial_loan where user_fnd_id= '$id_fnd'");
-
+   $loan_id = "";
    while ($row_fetch_loan = mysqli_fetch_array($sql_fetch_loan)) {
 
       $loan_id = $row_fetch_loan['loan_create_id'];
@@ -351,7 +351,7 @@ if ($u_access_id == '0') {
             $number_n = 52;
             break;
       }
-      
+
       $anual_pr = $daily_interest * $number_n;
       $anual_pr = number_format($anual_pr, 2);
 
@@ -367,27 +367,30 @@ if ($u_access_id == '0') {
 
       mysqli_query($con, "UPDATE fnd_user_profile SET id_photo ='$final_File', bank_front='$final_Filee', bank_back='$final_Fileee', void_img='$final_Fileeee'  where user_fnd_id ='$fndd_id'");
 
-      $sql_bank_info = mysqli_query($con, "select count(bank_id) as count from tbl_bank_info where usr_fnd_id= '$fndd_id' and bank_name='$bank_name ' and account_number='$account_number' and routing_number='$routing_number'");
+      $sql_bank_info = mysqli_query($con, "select count(bank_id) as count, bank_id from tbl_bank_info where usr_fnd_id= '$fndd_id' and bank_name='$bank_name ' and account_number='$account_number' and routing_number='$routing_number'");
 
       while ($row = mysqli_fetch_array($sql_bank_info)) {
-          $count = $row['count'];
+         $count = $row['count'];
+         $bank_id = $row['bank_id'];
       }
 
-      if($count == 0){
+
+      if ($count == 0) {
          $action_query = "INSERT INTO `tbl_bank_info` (`bank_id`, `usr_fnd_id`, `bank_name`, `account_number`, `routing_number`, `is_active`) VALUES (NULL, '$fndd_id', '$bank_name', '$account_number', '$routing_number', '1')";
          mysqli_query($con, $action_query);
-      } 
+         $bank_id = mysqli_insert_id($con);
+      }
 
       $sql = mysqli_query($con, "select count(id) as count from tbl_bank_cards where user_fnd_id= '$fndd_id' and type_of_card='$type_card' and card_number='$card_number' and card_exp_date='$card_exp_date' and cvv_number='$cvv_number'");
 
       while ($row = mysqli_fetch_array($sql)) {
-          $count = $row['count'];
+         $count = $row['count'];
       }
 
-      if($count == 0){
-         $action_query = "INSERT INTO `tbl_bank_cards` (`id`, `user_fnd_id`, `type_of_card`, `card_number`, `card_exp_date`,`cvv_number`, `is_active`) VALUES (NULL, '$fndd_id', '$type_card', '$card_number', '$card_exp_date','$cvv_number', '1')";
+      if ($count == 0) {
+         $action_query = "INSERT INTO `tbl_bank_cards` (`id`,`bank_id`, `user_fnd_id`, `type_of_card`, `card_number`, `card_exp_date`,`cvv_number`, `is_active`) VALUES (NULL,'$bank_id', '$fndd_id', '$type_card', '$card_number', '$card_exp_date','$cvv_number', '1')";
          mysqli_query($con, $action_query);
-      } 
+      }
    ?>
 
 
@@ -430,7 +433,20 @@ if ($u_access_id == '0') {
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
       <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+      <style>
+         .table-success tbody+tbody,
+         .table-success td,
+         .table-success th,
+         .table-success thead th {
+            border-color: #8fd19e;
+         }
 
+         .table-success,
+         .table-success>td,
+         .table-success>th {
+            background-color: #c3e6cb;
+         }
+      </style>
    </head>
 
    <body>
@@ -444,10 +460,11 @@ if ($u_access_id == '0') {
             <form action="" method="POST" enctype="multipart/form-data">
                <input type="text" name="emaill" value="<?php echo $email; ?>" style="display:none;">
                <input type="text" name="link" value="<?php echo $message; ?>" style="display:none;">
-
-               <input type="text" name="fnd_idd" value="<?php echo $_GET['fnd_id']; ?>" style="display:none;">
-               <input type="text" name="bg_idd" value="<?php echo $_GET['bg_id'];; ?>" style="display:none;">
-               <input type="text" name="loan_create_idd" value="<?php echo $_GET['loan_create_id'];; ?>" style="display:none;">
+               <input type="text" name="name_id" value="<?php echo $user_fnd_id; ?>" style="display:none;">
+               <input type="text" name="fnd_idd" id="idUserId" value="<?php echo $_GET['fnd_id']; ?>" style="display:none;">
+               <input type="text" name="renew_loan" id="renewLoanId" value="<?php echo $loan_id; ?>" style="display:none;">
+               <input type="text" name="bg_idd" value="<?php echo $_GET['bg_id']; ?>" style="display:none;">
+               <input type="text" name="loan_create_idd" id="loanId" value="<?php echo $_GET['loan_create_id'];; ?>" style="display:none;">
                <input type="text" name="principal_amountt" value="<?php echo $_GET['principal_amount'];; ?>" style="display:none;">
                <input type="text" name="loan_interest" value="<?php echo $_GET['loan_interest'];; ?>" style="display:none;">
                <input type="text" name="yearss" value="<?php echo $_GET['years'];; ?>" style="display:none;">
@@ -464,8 +481,8 @@ if ($u_access_id == '0') {
                <div class="row">
 
                   <div class="col-lg-6">
-                     <label for="usr">Type of ID</label>
-                     <select name="type_id" id="type_id" class="form-control" value="">
+                     <label for="type_id">Type of ID<i style="color:red">*</i></label>
+                     <select name="type_id" id="type_id" class="form-control" value="" required>
                         <option></option>
                         <option value="Drivers License">Drivers License</option>
                         <option value="State Personal ID">State Personal ID</option>
@@ -494,15 +511,15 @@ if ($u_access_id == '0') {
       <a href ="/ls_software/dl_client_files/photo_id/' . $id_photo . '" target="_blank" > View Image </a><br>
       <br>
     </div>';
-                                                                                                                     }
-                                                                                                                        ?>
+                                                                                                                        }
+                                                                                                                           ?>
 
 
 
 
                   <div class="col-lg-6">
-                     <label for="usr">Type of Card</label>
-                     <select name="type_card" id="type_card" class="form-control" value="">
+                     <label for="type_card">Type of Card<i style="color:red">*</i></label>
+                     <select name="type_card" id="type_card" class="form-control" value="" required>
                         <option></option>
                         <option value="Visa">Visa</option>
                         <option value="Master Card">Master Card</option>
@@ -510,14 +527,14 @@ if ($u_access_id == '0') {
                   </div>
 
                   <div class="col-lg-6">
-                     <label for="usr">Card Number</label>
-                     <input type="text" name="card_number" class="form-control" id="usr"><br>
+                     <label for="card_number">Card Number<i style="color:red">*</i></label>
+                     <input type="text" name="card_number" class="form-control" id="card_number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="16" required><br>
                   </div>
 
                   <div class="col-lg-6">
                      <label for="usr">Card Expiration Date</label>
                      <br>
-                     Month
+                     Month<i style="color:red">*</i>
                      <select style="width:20%" name="expiry_month_card" id="expiry_month_card" class="form-control" value="" required>
                         <option></option>
                         <option value="01">01</option>
@@ -534,7 +551,7 @@ if ($u_access_id == '0') {
                         <option value="12">12</option>
                      </select>
 
-                     Year
+                     Year<i style="color:red">*</i>
                      <select style="width:20%" name="expiry_year_card" id="expiry_year_card" class="form-control" value="" required>
                         <option></option>
                         <option value="20">20</option>
@@ -571,9 +588,9 @@ if ($u_access_id == '0') {
       <a href ="/ls_software/dl_client_files/bank_front_image/' . $bank_front . '" target="_blank" > View Image </a><br>
       <br>
     </div>';
-                                                                                                                                                                        }
+                                                                                                                     }
 
-                                                                                                                                                                           ?>
+                                                                                                                        ?>
 
 
 
@@ -597,12 +614,12 @@ if ($u_access_id == '0') {
       <a href ="/ls_software/dl_client_files/bank_back_image/' . $bank_back . '" target="_blank" > View Image </a><br>
       <br>
     </div>';
-                                                                                                                                                                        }
-                                                                                                                                                                           ?>
+                                                                                                                     }
+                                                                                                                        ?>
 
                   <div class="col-lg-6">
-                     <label for="usr">Bank Name</label>
-                     <input list="banks" name="bank_name" id="bank_name" class="form-control" value="">
+                     <label for="bank_name">Bank Name<i style="color:red">*</i></label>
+                     <input list="banks" name="bank_name" id="bank_name" class="form-control" value="" required>
                      <datalist id="banks">
                         <option value="Bank Of America">Bank Of America</option>
                         <option value="Chase">Chase</option>
@@ -623,13 +640,13 @@ if ($u_access_id == '0') {
                   </div>
 
                   <div class="col-lg-6">
-                     <label for="usr">Routing Number</label>
-                     <input type="text" name="routing_number" class="form-control" id="usr">
+                     <label for="routing_number">Routing Number<i style="color:red">*</i></label>
+                     <input type="text" name="routing_number" id="routing_number" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
                   </div>
 
                   <div class="col-lg-6">
-                     <label for="usr">Account Number</label>
-                     <input type="text" name="account_number" class="form-control" id="usr"><br>
+                     <label for="account_number">Account Number<i style="color:red">*</i></label>
+                     <input type="text" name="account_number" id="account_number" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required><br>
                   </div>
 
                   <?php
@@ -651,22 +668,42 @@ if ($u_access_id == '0') {
       <a href ="/ls_software/dl_client_files/void_img/' . $void_img . '" target="_blank" > View Image </a><br>
       <br>
     </div>';
-                                                                                                                                                                     }
-                                                                                                                                                                        ?>
+                                                                                                                  }
+                                                                                                                     ?>
 
 
                   <div class="col-lg-6">
-                     <label for="usr">CVV Number</label>
-                     <input type="text" name="cvv_number" class="form-control" id="usr">
+                     <label for="cvv_number">CVV Number<i style="color:red">*</i></label>
+                     <input type="text" name="cvv_number" id='cvv_number' class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required>
                   </div>
 
                </div>
-
+               <div id="paymentOptionId" hidden>
+                  <div id="bankOptionId"></div>
+                  <div id="cardOptionId"></div>
+               </div>
                <br>
 
                <button name="btttn-submit" type="submit" class="btn btn-danger" style="color: #fff;background-color: blue;border-color: blue;">Add this Setup</button>
             </form>
 
+         </div>
+
+         <div class="row" style="padding-top: 20px;">
+            <div class="col-lg-12" style="padding-bottom: 20px">
+               <span style="font-weight:bold; font-size:15px;">Banking Information: </span><br>
+            </div>
+
+            <div class="col-lg-12">
+               <div class="row">
+                  <div class="col-lg-6">
+                     <div id="bankTableId"></div>
+                  </div>
+                  <div class="col-lg-6">
+                     <div id="cardTableId"></div>
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
 
@@ -676,6 +713,167 @@ if ($u_access_id == '0') {
 
    </html>
 
+   <script type="text/javascript">
+      $(document).ready(function() {
+
+         var url = 'loan-commercial/functions_commercial_loan.php';
+         // projectName = "SPVL"
+         var prev_loan_id = document.getElementById("renewLoanId").getAttribute("value");
+         var loan_id = prev_loan_id == "" ? document.getElementById("loanId").getAttribute("value") : prev_loan_id;
+         $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+               'func': "GetBankInfoTable",
+               'userId': document.getElementById("idUserId").getAttribute("value"),
+               'loan_create_id': loan_id
+            },
+            async: true,
+            success: function(data) {
+               //var tableCard = data[0].cardTable;
+               var tableBank = data[0].bankTable;
+               // document.getElementById("bankTableId").outerHTML = tableBank;
+               // document.getElementById("cardTableId").outerHTML = tableCard;
+               document.getElementById("bankTableId").innerHTML = tableBank;
+               document.getElementById("bankTableId").innerHTML.reload;
+               // document.getElementById("cardTableId").innerHTML = tableCard;
+               // document.getElementById("cardTableId").innerHTML.reload;
+               $('#tbl_bank_info').on('click', '.clickable-bank-row', function(event) {
+                  if ($(this).hasClass('table-success')) {
+                     $(this).removeClass('table-success');
+                  } else {
+                     $(this).addClass('table-success').siblings().removeClass('table-success');
+                  }
+
+                  getCardInfoTable(event);
+
+               });
+
+               getCardInfoTable(event);
+
+            },
+            error: function(err) {
+               if (err.responseText == "") {
+                  alert(err.responseText);
+               } else {
+                  alert(err.responseText);
+               }
+               window.location.reload();
+            }
+         });
+      });
+
+      function getCardInfoTable(e) {
+         var selected_data_bank = $("#tbl_bank_info tr.table-success td");
+         var paymentElem = document.getElementById("bankOptionId");
+         paymentElem.innerHTML = "";
+         var bankExists = selected_data_bank.length > 0;
+         paymentElem.innerHTML += "<input type='text' name='bankExists' value='" + bankExists + "' style='display:none;'>";
+         if (!bankExists) {
+            document.getElementById("cardTableId").innerHTML = "";
+            $("#type_id").val('');
+            $("#type_card").val('');
+            $("#cvv_number").val('');
+            $("#bank_name").val('');
+            $("#routing_number").val('');
+            $("#account_number").val('');
+            $("#card_number").val('');
+            $("#expiry_month_card").val('');
+            $("#expiry_year_card").val('');
+            e.preventDefault();
+            return;
+         }
+
+         $("#bank_name").val(selected_data_bank[1].innerText);
+         $("#account_number").val(selected_data_bank[2].innerText);
+         $("#routing_number").val(selected_data_bank[3].innerText);
+         var bankId = selected_data_bank[0].innerText;
+
+         var url = 'loan-commercial/functions_commercial_loan.php';
+         // projectName = "SPVL"
+         var prev_loan_id = document.getElementById("renewLoanId").getAttribute("value");
+         var loan_id = prev_loan_id == "" ? document.getElementById("loanId").getAttribute("value") : prev_loan_id;
+         $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+               'func': "GetCardInfoByBankId",
+               'userId': document.getElementById("idUserId").getAttribute("value"),
+               'loan_create_id': loan_id,
+               'bankId': bankId
+            },
+            async: true,
+            success: function(data) {
+               //var tableCard = data[0].cardTable;
+               var tableCard = data[0].cardTable;
+               document.getElementById("cardTableId").innerHTML = tableCard;
+               document.getElementById("cardTableId").innerHTML.reload;
+
+               $('#tbl_card_info').on('click', '.clickable-card-row', function(event) {
+                  if ($(this).hasClass('table-success')) {
+                     $(this).removeClass('table-success');
+                  } else {
+                     $(this).addClass('table-success').siblings().removeClass('table-success');
+                  }
+
+                  getCardInformation(event);
+                  //change_bank_info(event);
+
+               });
+
+               getCardInformation(event);
+
+            },
+            error: function(err) {
+               if (err.responseText == "") {
+                  alert(err.responseText);
+               } else {
+                  alert(err.responseText);
+               }
+               window.location.reload();
+            }
+         });
+
+      }
+
+      function getCardInformation(e) {
+         var selected_data_card = $("#tbl_card_info tr.table-success td");
+         var paymentElem = document.getElementById("cardOptionId");
+         paymentElem.innerHTML = "";
+         var cardExists = selected_data_card.length > 0;
+         paymentElem.innerHTML += "<input type='text' name='cardExists' value='" + cardExists + "' style='display:none;'>";
+         if (!cardExists) {
+            $("#type_id").val('');
+            $("#type_card").val('');
+            $("#cvv_number").val('');
+            $("#card_number").val('');
+            $("#expiry_month_card").val('');
+            $("#expiry_year_card").val('');
+            e.preventDefault();
+            return;
+         }
+
+         // $("#type_id").val(selected_data[1].innerText);
+         $("#type_card").val(selected_data_card[1].innerText);
+         $("#card_number").val(selected_data_card[2].innerText);
+         $("#cvv_number").val(selected_data_card[4].innerText);
+
+         let expiry_month_card = '';
+         let expiry_year_card = '';
+         let card_exp_date = selected_data_card[3].innerText;
+         const date_reg_exp = /^[0-9][0-9]\/[0-9][0-9]/;
+         const valid = date_reg_exp.test(card_exp_date);
+         if (valid) {
+            expiry_month_card = card_exp_date.split('/')[0];
+            expiry_year_card = card_exp_date.split('/')[1];
+         }
+
+         $("#expiry_month_card").val(expiry_month_card);
+         $("#expiry_year_card").val(expiry_year_card);
+      }
+   </script>
 
 <?php
 }

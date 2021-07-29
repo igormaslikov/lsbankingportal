@@ -2,6 +2,9 @@
 	$result = array();
 	$sigdata = base64_decode($_POST['sig_data']);
 	$initialdata = base64_decode($_POST['initial_data']);
+	$sigdataCoBorrow = base64_decode($_POST['sig_data_co_borrow']);
+	$co_borrow_name = $_POST['co_borrow_name'];
+	$co_borrow_mobile = $_POST['co_borrow_mobile'];
 	$filename = md5(date("dmYhisA"));
 	//Location to where you want to created sign image
 	$file_name = './doc_signs/'.$filename.'.png';
@@ -18,13 +21,22 @@
 
 	$file_name = './doc_initials/'.$filename.'.png';
 	file_put_contents($file_name,$initialdata);
-    $key = $_POST['key'];
     $filename_initial=$filename.".png";
+
+    $filename = md5(date("dmYhisA"));
+	//Location to where you want to created sign image
+    if (!file_exists('./doc_signs_coborrow')) {
+        mkdir('./doc_signs_coborrow', 0777, true);
+    }
+
+	$file_name = './doc_signs_coborrow/'.$filename.'.png';
+	file_put_contents($file_name,$sigdataCoBorrow);
+    $filename_sig_coborrow=$filename.".png";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-    $query_sign  = "UPDATE `commercial_loan_initial_banking` SET `sign_status`='1',`signed_pic`='$filename_sig', `initial_pic`='$filename_initial' WHERE `email_key` = '$key'";
+    $query_sign  = "UPDATE `commercial_loan_initial_banking` SET `sign_status`='1',`signed_pic`='$filename_sig', `initial_pic`='$filename_initial', `sig_coborrow_pic`='$filename_sig_coborrow', `co_borrow_name`='$co_borrow_name', `co_borrow_mobile`='$co_borrow_mobile' WHERE `email_key` = '$key'";
         $result_sign = mysqli_query($con, $query_sign);
         if ($result_sign) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";

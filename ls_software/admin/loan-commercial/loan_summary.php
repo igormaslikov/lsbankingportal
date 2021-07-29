@@ -358,10 +358,10 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 <button name="btn" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;" <?php echo $disableButton; ?>><a href="schedule_payment.php?id=<?php echo $id; ?>" style="color:white">Schedule
                     Payment</a></button>
 
-
                 <?php
                 if ($payment >= $payoff or  $loan_status == 'Paid') {
-                  echo "<a href='renew_loan.php?id=$id' <button name='btn' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%);
+                  $loan_type = "Commercial Loan";
+                  echo "<a href='../add_commercial_loan.php?id=$user_fnd_id&loan=$loan_type' target=_blank <button name='btn' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%);
     color: #fff;
     background-color: #2a8206;
     border-color: #112f01;'>Renew Loan</button></a>";

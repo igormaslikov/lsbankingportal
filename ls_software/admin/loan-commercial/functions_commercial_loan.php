@@ -301,14 +301,16 @@ function GetCardInfoByBankId()
     $loan_create_id = $_POST['loan_create_id'];
     $bankId = $_POST['bankId'];
 
+    $loan_type_of_card = "";
+    $loan_card_number = "";
+    $loan_card_exp_date = "";
+    $loan_cvv_number = "";
+    
     $sql_loan = mysqli_query($con, "SELECT `type_of_card`,`card_number`,`card_exp_date`,`bank_name`,`routing_number`,`account_number`,`cvv_number` FROM `commercial_loan_initial_banking` WHERE `loan_id` ='$loan_create_id'");
     while ($row_bank_detail = mysqli_fetch_array($sql_loan)) {
         $loan_type_of_card = $row_bank_detail['type_of_card'];
         $loan_card_number = $row_bank_detail['card_number'];
         $loan_card_exp_date = $row_bank_detail['card_exp_date'];
-        $loan_bank_name = $row_bank_detail['bank_name'];
-        $loan_routing_number = $row_bank_detail['routing_number'];
-        $loan_account_number = $row_bank_detail['account_number'];
         $loan_cvv_number = $row_bank_detail['cvv_number'];
         break;
     }
@@ -366,6 +368,9 @@ function GetBankInfoTable()
     $user_fnd_id = $_POST['userId'];
     $loan_create_id = $_POST['loan_create_id'];
     $sql_loan = mysqli_query($con, "SELECT `type_of_card`,`card_number`,`card_exp_date`,`bank_name`,`routing_number`,`account_number`,`cvv_number` FROM `commercial_loan_initial_banking` WHERE `loan_id` ='$loan_create_id'");
+    $loan_bank_name = "";
+    $loan_routing_number = "";
+    $loan_account_number = "";
     while ($row_bank_detail = mysqli_fetch_array($sql_loan)) {
         $loan_type_of_card = $row_bank_detail['type_of_card'];
         $loan_card_number = $row_bank_detail['card_number'];

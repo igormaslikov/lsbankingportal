@@ -26,8 +26,10 @@ while ($row1 = mysqli_fetch_array($sql1)) {
   $loan_id_bor = $row1['loan_id'];
 
   $img_signed = $row1['signed_pic'];
+  $img_signed_co_borrow = $row1['sig_coborrow_pic'];
 
   $result_sig = $url_logo . '/doc_signs/' . $img_signed;
+  $result_sig_co_borrow = $url_logo . '/doc_signs_coborrow/' . $img_signed_co_borrow;
 }
 
 
@@ -49,19 +51,19 @@ while ($row2 = mysqli_fetch_array($sql2)) {
   $mobile_number = $row2['mobile_number'];
   $address = $row2['address'];
 }
-$search_dir = "doc_signs/$result";
-$images = glob("$search_dir/*.png");
-sort($images);
+// $search_dir = "doc_signs/$result";
+// $images = glob("$search_dir/*.png");
+// sort($images);
 
-// Image selection and display:
+// // Image selection and display:
 
-//display first image
-if (count($images) > 0) { // make sure at least one image exists
-  $img = $images[0]; // first image
-  // echo "<img src='$img' height='150' width='150' /> ";
-} else {
-  // possibly display a placeholder image?
-}
+// //display first image
+// if (count($images) > 0) { // make sure at least one image exists
+//   $img = $images[0]; // first image
+//   // echo "<img src='$img' height='150' width='150' /> ";
+// } else {
+//   // possibly display a placeholder image?
+// }
 
 $business_name = "";
 $sql2 = mysqli_query($con, "select business_name from tbl_business_info where user_fnd_id='$fnd_id' ");
@@ -171,7 +173,7 @@ BORROWER ACKNOWLEDGES RECEIPT OF A COMPLETED COPY OF THIS COMMERCIAL LOAN PROMIS
 
 Borrower’s Signature : <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-Co-Borrower’s Signature : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Co-Borrower’s Signature : <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$result_sig_co_borrow.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
 Lender’s Name  : <span style="text-decoration:underline">MY MONEY LINE</span>
 <br><br>
