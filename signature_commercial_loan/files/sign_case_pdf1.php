@@ -173,7 +173,7 @@ BORROWER ACKNOWLEDGES RECEIPT OF A COMPLETED COPY OF THIS COMMERCIAL LOAN PROMIS
 
 Borrower’s Signature : <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-Co-Borrower’s Signature : <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$result_sig_co_borrow.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Co-Borrower’s Signature : <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$img_signed_co_borrow.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
 Lender’s Name  : <span style="text-decoration:underline">MY MONEY LINE</span>
 <br><br>

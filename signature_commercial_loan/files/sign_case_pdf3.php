@@ -178,7 +178,7 @@ EL PRESTATARIO RECONOCE EL RECIBO DE UNA COPIA COMPLETA DE ESTE PAGARE DE PRESTA
 
 Firma del Prestatario : <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:250%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-Firma del Co-Prestatario :  <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$result_sig_co_borrow.'" alt="" style="height:250%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Firma del Co-Prestatario :  <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$img_signed_co_borrow.'" alt="" style="height:250%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
 Nombre del Prestamista   : <span style="text-decoration:underline">MY MONEY LINE</span>
 <br><br>
