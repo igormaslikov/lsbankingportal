@@ -1,26 +1,26 @@
 <?php
-  session_start();
-  include_once 'dbconnect.php';
-  include_once 'dbconfig.php';
+session_start();
+include_once 'dbconnect.php';
+include_once 'dbconfig.php';
 
-  if (!isset($_SESSION['userSession'])) {
-    header("Location: index.php");
-  }
+if (!isset($_SESSION['userSession'])) {
+  header("Location: index.php");
+}
 
-  $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $_SESSION['userSession']);
-  $userRow = $query->fetch_array();
-  $u_id = $userRow['user_id'];
-  //echo $u_id;
-  $u_access_id = $userRow['access_id'];
-  if ($u_access_id == '0') {
-    echo "YOU ARE NOT AUTHORISED TO ACCESS THIS PAGE.";
-  }
+$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $_SESSION['userSession']);
+$userRow = $query->fetch_array();
+$u_id = $userRow['user_id'];
+//echo $u_id;
+$u_access_id = $userRow['access_id'];
+if ($u_access_id == '0') {
+  echo "YOU ARE NOT AUTHORISED TO ACCESS THIS PAGE.";
+}
 
 
-  $fnd_idd = $_GET['id'];
-  //$name_id = $_POST['keyword'];
-  //echo "<br><br><br><br><br><br><br><br><br><br>Name Is: $name_id";
-  ?>
+$fnd_idd = $_GET['id'];
+//$name_id = $_POST['keyword'];
+//echo "<br><br><br><br><br><br><br><br><br><br>Name Is: $name_id";
+?>
 
 
 
@@ -66,7 +66,7 @@
 
       $id = $_GET['id'];
       $loan_name = $_GET['loan'];
-      $due_date = $_GET['next_pay_date'];
+      $previous_loan_create_id = $_GET['loan_create_id'];
 
       include 'dbconnect.php';
       include 'dbconfig.php';
@@ -142,13 +142,14 @@
         </div>
       </div>
 
-      <table> 
+      <table>
         <thead>
-          
+
         </thead>
       </table>
 
       <form method="POST" enctype="multipart/form-data" onsubmit="return calculate(event)">
+
         <div class="row">
           <div class="col-lg-6">
             <label for="usr">Portfolio</label>
@@ -172,11 +173,12 @@
           <div class="col-lg-6">
             <label for="usr"> Loan ID</label>
             <input type="text" name="loan_id" value="<?php echo  $loan_create_id; ?>" class="form-control" readonly />
+            <input type="text" name="previous_loan_id" value="<?php echo  $previous_loan_create_id; ?>" style="display:none" />
           </div>
 
 
           <div class="col-lg-6" id="ifNo">
-            <label for="usr">Principal</label>
+            <label for="usr">Loan Amount</label>
             <input type="number" name="principal" onchange="calculate_minimal_payment(event)" class="form-control" id="usr" placeholder="" value="" Required>
           </div>
 
@@ -319,6 +321,14 @@
         break;
     }
 
+    e.preventDefault();
+  }
+
+
+  function recalculateDirectlyLoan(e,elem, balance) {
+    directly_loan = document.getElementById("directlyLoanId");
+    directly_loan.innerText = balance - elem.value;
+    document.getElementById("comInitSetupHref").href = document.getElementById("comInitSetupHref").href.replace("in_hand="+elem.oldvalue,"in_hand="+elem.value);
     e.preventDefault();
   }
 

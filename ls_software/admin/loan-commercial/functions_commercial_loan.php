@@ -53,6 +53,9 @@ if ($u_access_id != '1') {
         case 'InsertAllBankInformation':
             InsertAllBankInformation();
             break;
+        case 'SetChargeback':
+            SetChargeback();
+            break;
         default:
             //function not found, error or something
             break;
@@ -134,6 +137,7 @@ function UpdateCardInfo()
     $userId = $_POST['userId'];
     $cardInfoId = $_POST['cardInfoId'];
     $bankId = $_POST['bankId'];
+    $typeOfID = $_POST['typeOfID'];
     $typeOfCard = $_POST['typeOfCard'];
     $cardNumber = $_POST['cardNumber'];
     $expirationDate = $_POST['expirationDate'];
@@ -141,7 +145,7 @@ function UpdateCardInfo()
     $status = $_POST['status'] == "true" ? '1' : '0';
     $newCardInfo = $_POST['newCardInfo'];
 
-    $sql = mysqli_query($con, "select count(id) as count from tbl_bank_cards where user_fnd_id= '$userId' and type_of_card='$typeOfCard' and card_number='$cardNumber' and card_exp_date='$expirationDate' and cvv_number='$cvv' and id != '$cardInfoId'");
+    $sql = mysqli_query($con, "select count(id) as count from tbl_bank_cards where user_fnd_id= '$userId' and type_of_id='$typeOfID' and type_of_card='$typeOfCard' and card_number='$cardNumber' and card_exp_date='$expirationDate' and cvv_number='$cvv' and id != '$cardInfoId'");
 
     while ($row = mysqli_fetch_array($sql)) {
         $count = $row['count'];
@@ -156,11 +160,11 @@ function UpdateCardInfo()
         return;
     }
 
-    $action_query = "UPDATE `tbl_bank_cards` SET `bank_id`='$bankId', `type_of_card` = '$typeOfCard', `card_number` = '$cardNumber', `card_exp_date` = '$expirationDate',`cvv_number`='$cvv', `is_active` = '$status' WHERE `tbl_bank_cards`.`id` = '$cardInfoId '";
+    $action_query = "UPDATE `tbl_bank_cards` SET `bank_id`='$bankId', `type_of_id` = '$typeOfID',`type_of_card` = '$typeOfCard', `card_number` = '$cardNumber', `card_exp_date` = '$expirationDate',`cvv_number`='$cvv', `is_active` = '$status' WHERE `tbl_bank_cards`.`id` = '$cardInfoId '";
     $message = "Card info updated";
     if ($newCardInfo == "true") {
 
-        $action_query = "INSERT INTO `tbl_bank_cards` (`id`,`bank_id`, `user_fnd_id`, `type_of_card`, `card_number`, `card_exp_date`,`cvv_number`, `is_active`) VALUES (NULL,'$bankId', '$userId', '$typeOfCard', '$cardNumber', '$expirationDate','$cvv', '$status')";
+        $action_query = "INSERT INTO `tbl_bank_cards` (`id`,`bank_id`, `user_fnd_id`,`type_of_id`, `type_of_card`, `card_number`, `card_exp_date`,`cvv_number`, `is_active`) VALUES (NULL,'$bankId', '$userId', '$typeOfID', '$typeOfCard', '$cardNumber', '$expirationDate','$cvv', '$status')";
         $message = "Card info inserted";
     }
     mysqli_query($con, $action_query);
@@ -200,8 +204,9 @@ function GetCardInfoTable()
     $user_fnd_id = $_POST['userId'];
     $loan_create_id = $_POST['loan_create_id'];
 
-    $sql_loan = mysqli_query($con, "SELECT `type_of_card`,`card_number`,`card_exp_date`,`bank_name`,`routing_number`,`account_number`,`cvv_number` FROM `commercial_loan_initial_banking` WHERE `loan_id` ='$loan_create_id'");
+    $sql_loan = mysqli_query($con, "SELECT `type_of_id`,`type_of_card`,`card_number`,`card_exp_date`,`bank_name`,`routing_number`,`account_number`,`cvv_number` FROM `commercial_loan_initial_banking` WHERE `loan_id` ='$loan_create_id'");
     while ($row_bank_detail = mysqli_fetch_array($sql_loan)) {
+        $loan_type_of_id = $row_bank_detail['type_of_id'];
         $loan_type_of_card = $row_bank_detail['type_of_card'];
         $loan_card_number = $row_bank_detail['card_number'];
         $loan_card_exp_date = $row_bank_detail['card_exp_date'];
@@ -217,6 +222,7 @@ function GetCardInfoTable()
             <thead>
                 <tr>
                     <th hidden='true'></th>
+                    <th>Type of ID</th>
                     <th>Type of Card</th>
                     <th>Card Number</th>
                     <th>Expiration Date</th>
@@ -232,15 +238,17 @@ function GetCardInfoTable()
 
     while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
         $card_id = $row_bank_detail_sec['id'];
+        $type_of_id = $row_bank_detail_sec['type_of_id'];
         $type_of_card = $row_bank_detail_sec['type_of_card'];
         $card_number = $row_bank_detail_sec['card_number'];
 
         $card_exp_date = $row_bank_detail_sec['card_exp_date'];
         $cvv = $row_bank_detail_sec['cvv_number'];
         $is_active = $row_bank_detail_sec['is_active'] == 1 ? "Active" : "Inactive";
-        $active = ($type_of_card == $loan_type_of_card && $card_number == $loan_card_number && $card_exp_date == $loan_card_exp_date && $cvv == $loan_cvv_number) ? "table-success" : "";
+        $active = ($type_of_id == $loan_type_of_id && $type_of_card == $loan_type_of_card && $card_number == $loan_card_number && $card_exp_date == $loan_card_exp_date && $cvv == $loan_cvv_number) ? "table-success" : "";
         $cardInfo .= "<tr id='idCard" . $card_id . "' class='clickable-card-row " . $active . "' style='cursor: pointer';>
                 <td hidden='true'>" . $card_id . "</td>
+                <td>" . $type_of_id . "</td>
                 <td>" . $type_of_card . "</td>
                 <td>" . $card_number . "</td>
                 <td>" . $card_exp_date . "</td>
@@ -266,7 +274,7 @@ function GetCardInfoTable()
                 </tr>
             </thead>
             <tbody>";
- // total page minus 1
+    // total page minus 1
     $sql_loan = mysqli_query($con, "select * from tbl_bank_info where usr_fnd_id = '$user_fnd_id' and is_active=1");
     while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
         $bank_id = $row_bank_detail_sec['bank_id'];
@@ -301,13 +309,15 @@ function GetCardInfoByBankId()
     $loan_create_id = $_POST['loan_create_id'];
     $bankId = $_POST['bankId'];
 
+    $loan_type_of_id = "";
     $loan_type_of_card = "";
     $loan_card_number = "";
     $loan_card_exp_date = "";
     $loan_cvv_number = "";
-    
-    $sql_loan = mysqli_query($con, "SELECT `type_of_card`,`card_number`,`card_exp_date`,`bank_name`,`routing_number`,`account_number`,`cvv_number` FROM `commercial_loan_initial_banking` WHERE `loan_id` ='$loan_create_id'");
+
+    $sql_loan = mysqli_query($con, "SELECT `type_of_id`, `type_of_card`,`card_number`,`card_exp_date`,`bank_name`,`routing_number`,`account_number`,`cvv_number` FROM `commercial_loan_initial_banking` WHERE `loan_id` ='$loan_create_id'");
     while ($row_bank_detail = mysqli_fetch_array($sql_loan)) {
+        $loan_type_of_id = $row_bank_detail['type_of_id'];
         $loan_type_of_card = $row_bank_detail['type_of_card'];
         $loan_card_number = $row_bank_detail['card_number'];
         $loan_card_exp_date = $row_bank_detail['card_exp_date'];
@@ -320,6 +330,7 @@ function GetCardInfoByBankId()
         <thead>
             <tr>
                 <th hidden='true'></th>
+                <th>Type of ID</th>
                 <th>Type of Card</th>
                 <th>Card Number</th>
                 <th>Expiration Date</th>
@@ -335,15 +346,17 @@ function GetCardInfoByBankId()
 
     while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
         $card_id = $row_bank_detail_sec['id'];
+        $type_of_id = $row_bank_detail_sec['type_of_id'];
         $type_of_card = $row_bank_detail_sec['type_of_card'];
         $card_number = $row_bank_detail_sec['card_number'];
 
         $card_exp_date = $row_bank_detail_sec['card_exp_date'];
         $cvv = $row_bank_detail_sec['cvv_number'];
         $is_active = $row_bank_detail_sec['is_active'] == 1 ? "Active" : "Inactive";
-        $active = ($type_of_card == $loan_type_of_card && $card_number == $loan_card_number && $card_exp_date == $loan_card_exp_date && $cvv == $loan_cvv_number) ? "table-success" : "";
+        $active = ($type_of_id == $loan_type_of_id && $type_of_card == $loan_type_of_card && $card_number == $loan_card_number && $card_exp_date == $loan_card_exp_date && $cvv == $loan_cvv_number) ? "table-success" : "";
         $cardInfo .= "<tr id='idCard" . $card_id . "' class='clickable-card-row " . $active . "' style='cursor: pointer';>
                         <td hidden='true'>" . $card_id . "</td>
+                        <td>" . $type_of_id . "</td>
                         <td>" . $type_of_card . "</td>
                         <td>" . $card_number . "</td>
                         <td>" . $card_exp_date . "</td>
@@ -396,7 +409,7 @@ function GetBankInfoTable()
                 </tr>
             </thead>
             <tbody>";
- // total page minus 1
+    // total page minus 1
     $sql_loan = mysqli_query($con, "select * from tbl_bank_info where usr_fnd_id = '$user_fnd_id' and is_active=1");
     while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
         $bank_id = $row_bank_detail_sec['bank_id'];
@@ -495,4 +508,30 @@ function InsertAllBankInformation()
 
         $result = UpdateBankInfo();
     }
+}
+
+function SetChargeback()
+{
+    global $con;
+    $loan_id = $_POST['loanId'];
+    $transaction_id = $_POST['transactionId'];
+    $chargeback_amount = $_POST['chargebackAmount'];
+    $transaction_amount = $_POST['transactionAmount'];
+    $still_amount = $transaction_amount - $chargeback_amount;
+
+    $sql_installments = mysqli_query($con, "SELECT * FROM `tbl_commercial_loan_installments` where loan_create_id='$loan_id' and transaction_ids like '%$transaction_id;%' order by id asc");
+    while ($row_instalments_detail = mysqli_fetch_array($sql_installments)) {
+        $id = $row_instalments_detail['id'];
+        $payment = $row_instalments_detail['payment'];
+        $paid_amount = $row_instalments_detail['paid_amount'];
+        if($paid_amount >= $still_amount){
+            $still_amount -= $paid_amount;
+            continue;
+        }
+
+
+        $remainder = $chargeback_amount - $payment;
+
+
+    }   
 }

@@ -65,7 +65,7 @@ $(document).ready(function () {
                 orderable: false,
             },
             { 
-                targets: [9],
+                targets: [10],
                 data: null,
                 defaultContent: "<div style='display:flex;justify-content:space-between; align-items:center'><div><i id='editBtnCard' class='fa fa-pencil-square' style='color:orange'></i></div>"+
                                 "<div><i id='removeBtnCard' class='fa fa-trash' style='color:red'></i></div></div>"          
@@ -102,6 +102,10 @@ $(document).ready(function () {
 function checkCardInput() {
     Init();
     var valid = true;
+    if (document.getElementById("lblTypeOfID").value == '') {
+        document.getElementById("lblTypeOfID").style.borderColor = "red";
+        valid = false;
+    }
     if (document.getElementById("lblTypeOfCard").value == '') {
         document.getElementById("lblTypeOfCard").style.borderColor = "red";
         valid = false;
@@ -149,6 +153,7 @@ function updateCardInfo() {
             'userId':document.getElementById("idUserId").getAttribute("value"),
             'cardInfoId':document.getElementById("lblCardInfoId").value,
             'bankId':bankId,
+            'typeOfID': document.getElementById("lblTypeOfID").value,
             'typeOfCard': document.getElementById("lblTypeOfCard").value,
             'cardNumber': document.getElementById("lblCardNumber").value,
             'expirationDate': document.getElementById("lblMonth").value+"/"+document.getElementById("lblYear").value,
@@ -178,6 +183,7 @@ function updateCardInfo() {
 }
 
 function Init() {
+    document.getElementById("lblTypeOfID").style.removeProperty("border");
     document.getElementById("lblTypeOfCard").style.removeProperty("border");
     document.getElementById("lblCardNumber").style.removeProperty("border");
     document.getElementById("lblMonth").style.removeProperty("border");
@@ -193,6 +199,7 @@ function editRowCard(cardId) {
     document.getElementById('btnInsertUpdateCardInfo').innerText = 'Add';
     document.getElementById("type_alert_title_card").innerText = "Add new card info";
     document.getElementById("lblCardInfoId").value = "";
+    document.getElementById("lblTypeOfID").value = "";
     document.getElementById("lblTypeOfCard").value = "";
     document.getElementById("lblCardNumber").value = "";
     document.getElementById("lblMonth").value = "";
@@ -205,16 +212,17 @@ function editRowCard(cardId) {
     for (var i = 0; i < cardInfo.length; i++) {
         if (cardId == cardInfo[i][0]) {
             document.getElementById('btnInsertUpdateCardInfo').innerText = 'Update';
-            document.getElementById("type_alert_title_card").innerText = "Edit card info: " + cardInfo[i][4] +" "+ cardInfo[i][5]+ " "+ cardInfo[i][6] + " " + cardInfo[i][7];
+            document.getElementById("type_alert_title_card").innerText = "Edit card info: " + cardInfo[i][4] +" "+ cardInfo[i][5]+ " "+ cardInfo[i][6] + " " + cardInfo[i][7]+ " " + cardInfo[i][8];
             document.getElementById("lblCardInfoId").value = cardInfo[i][0];
             bankId = cardInfo[i][1];
-            document.getElementById("lblTypeOfCard").value = cardInfo[i][4];
-            document.getElementById("lblCardNumber").value = cardInfo[i][5];
-            var exp_date = cardInfo[i][6].split("/");
+            document.getElementById("lblTypeOfID").value = cardInfo[i][4];
+            document.getElementById("lblTypeOfCard").value = cardInfo[i][5];
+            document.getElementById("lblCardNumber").value = cardInfo[i][6];
+            var exp_date = cardInfo[i][7].split("/");
             document.getElementById("lblMonth").value = exp_date[0];
             document.getElementById("lblYear").value = exp_date[1];
-            document.getElementById("lblCVV").value = cardInfo[i][7];
-            var isActive = cardInfo[i][8] == "Active";
+            document.getElementById("lblCVV").value = cardInfo[i][8];
+            var isActive = cardInfo[i][9] == "Active";
             document.getElementById("idisActiveCardInfo").checked = isActive;
             document.getElementById("newCardInfo").innerText = "false";
         }

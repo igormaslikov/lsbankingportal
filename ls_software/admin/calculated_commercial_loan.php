@@ -154,18 +154,30 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     $contract_fee = $_POST['origination'];
 
 
-    $sql_installment = mysqli_query($con, "SELECT count(loan_id) as count, loan_create_id FROM tbl_commercial_loan WHERE user_fnd_id = $fnd_id order by loan_id desc limit 2");
-    while ($row_installment = mysqli_fetch_array($sql_installment)) {
-        $count = $row_installment['count'];
-        $previous_loan_id = $row_installment['loan_create_id'];
-    }
+    // $sql_installment = mysqli_query($con, "SELECT loan_id, loan_create_id FROM tbl_commercial_loan WHERE user_fnd_id = $fnd_id order by loan_id desc limit 1");
+    // $count = 0;
+    // while ($row_installment = mysqli_fetch_array($sql_installment)) {
+    //     $previous_loan_id = $row_installment['loan_create_id'];
+    //     $count++;
+    // }
 
     $in_hand = 0;
-    if ($count > 0) {
-        $sql_installment = mysqli_query($con, "SELECT SUM(payment) as in_hand FROM `tbl_commercial_loan_installments` where `loan_create_id`= $previous_loan_id and `status` = 0 order by id desc");
+    $prev_loan_id = "";
+    if (isset($_POST['previous_loan_id'])) {
+        $previous_loan_id = $_POST['previous_loan_id'];
+        $sql_installment = mysqli_query($con, "SELECT SUM(payment) as unpaid, SUM(`paid amount`) as paid  FROM `tbl_commercial_loan_installments` where `loan_create_id`= '$previous_loan_id' and `status` = 0 order by id desc");
         while ($row_installment = mysqli_fetch_array($sql_installment)) {
-            $in_hand = $row_installment['in_hand'];
+            $in_hand = $row_installment['unpaid'] - $row_installment['paid'];
         }
+
+        $sql_installment = mysqli_query($con, "SELECT SUM(late_fee) as sum_late_fee FROM `commercial_loan_transaction` where `loan_create_id`= '$previous_loan_id'");
+        $sum_late_fee = 0;
+        while ($row_installment = mysqli_fetch_array($sql_installment)) {
+            $sum_late_fee = $row_installment['sum_late_fee'];
+        }
+        
+        $in_hand += $sum_late_fee;
+        $prev_loan_id = "&prev_loan_id=".$previous_loan_id;
     }
 
 
@@ -180,7 +192,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
                     Amount given to you directly
                     </td>
                     <td style="text-align:center">
-                     $' . ($balance - $in_hand) . '
+                     $<i id="directlyLoanId">' . ($balance - $in_hand) . '</i>
                     </td>
                 </tr>';
     $varTable .= '<tr>
@@ -188,7 +200,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
                 Amount paid on your existing loan with us
                 </td>
                 <td style="text-align:center">
-                +$' . $in_hand . '
+                +$<input id="ammountOffId" type="number" onfocus="this.oldvalue = this.value;" value='. $in_hand .' oninput="recalculateDirectlyLoan(event,this,' . $balance . '); this.oldvalue = this.value;">
                 </td>
             </tr>';
     $varTable .= '<tr>
@@ -233,6 +245,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
     mysqli_query($con, "DELETE FROM `tbl_commercial_loan_installments` WHERE `loan_create_id` = '$loan_create_id'");
     $count = 0;
+    $balance_p = 1;
     do {
         $count++;
 
@@ -346,7 +359,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
         if ($count == 1) {
             $rate = calc_rate($balance, $total_payments - 1, $payment_fix);
         }
-    } while ($balance > 0);
+    } while ($balance_p > 0);
 
     $varTable .= "<tr>";
     $varTable .= "<td>&nbsp;</td>";
@@ -373,7 +386,8 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     $contract_date = $_POST['contract_date'];
     $state = $_POST['state'];
 
-    $varTable .= "<a href = 'commercial_initial_setup.php?fnd_id=$fnd_idd&interest=$totInterest&daily_interest=$rate&bg_id=$source&loan_create_id=$loan_create_id&principal_amount=$principal_amount&loan_interest=$loan_interest&years=$years&late_fee=$late_fee&contract_fee=$origination&installment_plan=$installment_plan&total_payments=$total_payments&contract_date=$contract_date&payment_date=$payment_date&state=$state'><button name='' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;'>Create Installment Loan</button></a>";
+    
+    $varTable .= "<a id='comInitSetupHref' href = 'commercial_initial_setup.php?fnd_id=$fnd_idd&interest=$totInterest&daily_interest=$rate&bg_id=$source&loan_create_id=$loan_create_id$prev_loan_id&principal_amount=$principal_amount&loan_interest=$loan_interest&years=$years&late_fee=$late_fee&contract_fee=$origination&installment_plan=$installment_plan&total_payments=$total_payments&contract_date=$contract_date&payment_date=$payment_date&state=$state&in_hand=$in_hand'><button name='' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;'>Create Installment Loan</button></a>";
 
     $last_payment_date_array = explode("-", $payment_date);
 

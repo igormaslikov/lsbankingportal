@@ -108,12 +108,14 @@ function checkInput() {
         document.getElementById("lblAccountType").style.borderColor = "red";
         document.getElementById("lblAccountType").style.borderWidth = "1px";
         document.getElementById("lblAccountType").style.borderStyle = "solid";
+        $("#lblAccountType")[0].classList.remove("border");
         valid = false;      
     }
     if(document.querySelector('input[name="bank_type"]:checked') == null){
         document.getElementById("lblBankType").style.borderColor = "red";
         document.getElementById("lblBankType").style.borderWidth = "1px";
         document.getElementById("lblBankType").style.borderStyle = "solid";
+        $("#lblBankType")[0].classList.remove("border");
         valid = false;      
     }
     return valid;
@@ -175,7 +177,8 @@ function InitBankInfo() {
     document.getElementById("lblAccountNumber").style.removeProperty("border");
     document.getElementById("lblRoutingNumber").style.removeProperty("border");
     document.getElementById("lblAccountType").style.removeProperty("border");
-    document.getElementById("lblBankType").style.removeProperty("border");
+    $("#lblAccountType")[0].classList.add("border");
+    $("#lblBankType")[0].classList.add("border");
     document.getElementById("error_row").hidden = true;
 }
 

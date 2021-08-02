@@ -278,6 +278,12 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 } else if($status == '2'){
                   $installment_status = "Settlement";
                   $a = "";
+                }else if($status == '3'){
+                  $installment_status = "Paid Ref";
+                  $a = "";
+                }else if($status == '4'){
+                  $installment_status = "Credit";
+                  $a = "";
                 }
                 else {
                   $installment_status = "Unpaid";

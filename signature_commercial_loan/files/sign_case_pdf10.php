@@ -18,7 +18,7 @@ $signed_status=$row1['sign_status'];
 
 $creation_datee=$row1['creation_date'];
   
-  $timestamp = strtotime($creation_datee);
+  $timestamp = strtotime($creation_datee); 
   $creation_date= date("m-d-Y", $timestamp);
  
  
@@ -275,7 +275,7 @@ Co-Borrower Name : <br>
 <span style="text-decoration:underline">'.$co_borrow_name.'</span><br><br>
 
 Co-Borrower Mobile Telephone #: <br>
-<span style="text-decoration:underline">'.$co_borrow_mobile_number.'</span><br><br>
+<span style="text-decoration:underline">'.$co_borrow_mobile.'</span><br><br>
 
 Co-Borrower Signature <br>
 <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$result_sig_co_borrow.'" alt="" style="height:300%" align="left"/><br>

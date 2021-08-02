@@ -108,6 +108,7 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
   $daily_interest = $row_loan['daily_interest'];
   $installment_plan = $row_loan['installment_plan'];
   $contract_fee=$row_loan['contract_fee'];
+  $in_hand=$row_loan['previous_amount_loan'];
 }
 
 // $sql_loan_settings = mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'");
@@ -189,19 +190,19 @@ if ($count_payments > 2) {
 $count_payments = $count_payments <= 2 ? "" : $count_payments;
 $second_payment = $second_payment == 0 ? "": $second_payment;
 
-$sql_installment = mysqli_query($con, "SELECT count(loan_id) as count, loan_create_id FROM tbl_commercial_loan WHERE user_fnd_id = $fnd_id order by loan_id desc limit 2");
-while ($row_installment = mysqli_fetch_array($sql_installment)) {
-  $count = $row_installment['count'];
-  $previous_loan_id = $row_installment['loan_create_id'];
-}
+// $sql_installment = mysqli_query($con, "SELECT count(loan_id) as count, loan_create_id FROM tbl_commercial_loan WHERE user_fnd_id = $fnd_id order by loan_id desc limit 2");
+// while ($row_installment = mysqli_fetch_array($sql_installment)) {
+//   $count = $row_installment['count'];
+//   $previous_loan_id = $row_installment['loan_create_id'];
+// }
 
-$in_hand = 0;
-if($count>1){
-  $sql_installment = mysqli_query($con, "SELECT SUM(payment) as in_hand FROM `tbl_commercial_loan_installments` where `loan_create_id`= $previous_loan_id and `status` = 0 order by id desc");
-  while ($row_installment = mysqli_fetch_array($sql_installment)) {
-    $in_hand = $row_installment['in_hand'];
-  }
-}
+// $in_hand = 0;
+// if($count>1){
+//   $sql_installment = mysqli_query($con, "SELECT SUM(payment) as in_hand FROM `tbl_commercial_loan_installments` where `loan_create_id`= $previous_loan_id and `status` = 0 order by id desc");
+//   while ($row_installment = mysqli_fetch_array($sql_installment)) {
+//     $in_hand = $row_installment['in_hand'];
+//   }
+// }
 
 switch ($installment_plan) {
 	case "Weekly":
@@ -398,7 +399,7 @@ $html = '
               <br><br>
               <span><b>Pagos Adelantados: </b>  Usted puede liquidar su prestamo en cualquier momento. Si usted paga por adelantado, no tendra que pagar penalidad.</span><br><br>
               <span><b>Cargo por Incumplimiento: </b> Si un pago se hace con mas de 10 dias de retraso, se le cobrara $10 </span> <br><br>
-              <span><b>Cargo de Originación:</b> Se agregará un cargo prepago de financiamiento por $ 75 para cubrir el costo de procesar su solicitud y el acuerdo.</span> <br>
+              <span><b>Cargo de Originación:</b> Se agregará un cargo prepago de financiamiento por $'.$contract_fee.' para cubrir el costo de procesar su solicitud y el acuerdo.</span> <br>
             </td>
             <td style=" text-align: center;">
                 <br><br>

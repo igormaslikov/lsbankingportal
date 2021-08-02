@@ -372,3 +372,9 @@ mark.red {
 #bankInfoTableModal th{
     background: inherit !important;
 }
+
+#border{
+    border-color: white;
+    border-width: 1px;
+    border-style: solid;
+}

@@ -36,13 +36,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     $loan_status = $row_fnd['loan_status'];
   }
 
-  $payment = 0;
-  $query_payment = mysqli_query($con, "SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
-  while ($row_payment = mysqli_fetch_array($query_payment)) {
-    $payment = $row_payment['value_sum'];
-  }
 
-  $payoff = number_format(((float)($amount_of_loan + $loan_interest - $payment)), 2, '.', ',');
 
   $settlement_amount = 0;
   $query_payment = mysqli_query($con, "SELECT SUM(payment) AS sum_payment, SUM(`paid amount`) AS sum_paid_amount FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id' and status=2");
@@ -124,6 +118,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   $date_due_date = date_create(date("Y-m-d", strtotime($due_date_array[2] . "-" . $due_date_array[0] . "-" . $due_date_array[1])));
   $interval = date_diff($date_due_date, $date_now);
 
+  $payment = 0;
+  $query_payment = mysqli_query($con, "SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
+  while ($row_payment = mysqli_fetch_array($query_payment)) {
+    $payment = $row_payment['value_sum'];
+  }
+
+  $payoff = number_format(((float)($amount_of_loan + $loan_interest - $payment)), 2, '.', ',');
+
   $dpd =  $interval->format('%r%a');
   $disableButton = "";
   if ($loan_status == "Paid") {
@@ -131,19 +133,6 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     $dpd = 0;
     $balance_due = 0;
     $disableButton = "hidden";
-  }
-
-
-
-
-  $query_payment = mysqli_query($con, "SELECT SUM(payoff_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
-  while ($row_payment = mysqli_fetch_array($query_payment)) {
-    $payment = $row_payment['value_sum'];
-
-    $payment = number_format((float)$payment, 2, '.', '');
-
-    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
-
   }
 
 
@@ -359,12 +348,13 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     Payment</a></button>
 
                 <?php
-                if ($payment >= $payoff or  $loan_status == 'Paid') {
+                if ($payment > 0) {
                   $loan_type = "Commercial Loan";
-                  echo "<a href='../add_commercial_loan.php?id=$user_fnd_id&loan=$loan_type' target=_blank <button name='btn' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%);
+                  $name_button = $loan_status == 'Paid' ? "Renew" : "Refinance";
+                  echo "<a href='../add_commercial_loan.php?id=$user_fnd_id&loan=$loan_type&loan_create_id=$loan_create_id' target=_blank <button name='btn' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%);
     color: #fff;
     background-color: #2a8206;
-    border-color: #112f01;'>Renew Loan</button></a>";
+    border-color: #112f01;'>" . $name_button . " Loan</button></a>";
                 }
                 ?>
             </form>
@@ -545,7 +535,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $interval = date_diff(date_create($payment_date), date_create($created_at));
               $dpd = $interval->format('%r%a');
 
-              $chargeBack = $payment_method == "Debit Card" ? " - <i class='fa fa-arrow-circle-o-left' id='btnChargeBackId'></i>" : "";
+              $chargeBack = $payment_method == "Debit Card" ? " - <i class='fa fa-arrow-circle-o-left' id='btnChargeBackId' style='cursor: pointer'></i>" : "";
               echo "<tr>
 	 	      
               <td>" . $transaction_id . "</td>
@@ -593,7 +583,38 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
       <!-- /#page-content-wrapper -->
-
+      <div class="modal fade" id="type_alert" tabindex="-1" aria-labelledby="type_alert" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-close-div">
+              <div class="cancel modal_close text-center" data-dismiss="modal">
+                <i class="fa fa-times"></i>
+              </div>
+            </div>
+            <div class="modal-header">
+              <h5 class="modal-title text-center" id="type_alert_title"></h5>
+              <div display="none"><i id="lblLoanId"></i></div>
+              <div display="none"><i id="lblTransactionId"></i></div>
+              <div display="none"><i id="lblTransactionAmount"></i></div>
+            </div>
+            <div class="modal-body" style="margin-left:15px">
+              <div class="row">
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Chargeback Amount<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5"><input type="text" style="color:black" id="lblChargeback" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+                </div>
+              </div>
+              <div class="row" id="error_row">
+                <div class="col-md-12 col-sm-12 col-lg-12" style="justify-content: center; display: flex">
+                  <label style="text-align: center; color: red" id="lblError"></label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="reset" id="btnInsertUpdateBankInfo" onclick="updateChargeback()">Chargeback</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- /#wrapper -->
 
@@ -603,6 +624,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
 
     <script src="https://cdn.datatables.net/rowgroup/1.1.3/js/dataTables.rowGroup.min.js"></script>
+    <script src="js/chargebackScript.js"></script>
 
     <!-- Menu Toggle Script -->
     <script>
@@ -625,99 +647,15 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
       });
 
       var amount = '<?php echo $amount_loan; ?>';
-
-      $(document).ready(function() {
-        var table = $('#example').DataTable({
-          "order": [
-            [5, 'asc']
-          ],
-          "rowGroup": {
-            startRender: function(rows, group) {
-              var api = $('#example').dataTable().api();
-              // Remove the formatting to get integer data for summation
-              var intVal = function(i) {
-                return typeof i === 'string' ?
-                  i.replace('$', '').replace(',', '') * 1 :
-                  typeof i === 'number' ?
-                  i : 0;
-              };
-
-              var summary = function(i, api, calc) {
-                sum = api
-                  .column(i)
-                  .data()
-                  .reduce(function(a, b) {
-                    return Number((intVal(a) + intVal(b)).toFixed(2));
-                  }, 0);
-
-                if (calc) {
-                  sum = amount - sum;
-                }
-                return round(sum,2);
-
-              };
-
-              return $('<tr/>')
-                .append('<td><b>Total:</b></td>')
-                .append('<td></td>')
-                .append('<td><b>$' + summary(2, api, false) + '</b></td>')
-                .append('<td><b>$' + summary(3, api, false) + '</b></td>')
-                .append('<td><b>$' + summary(4, api, false) + '</b></td>')
-                .append('<td><b>$' + summary(4, api, true) + '</b></td>')
-                .append('<td><b>$' + summary(6, api, false) + '</b></td>')
-                .append('<td><b>$' + summary(7, api, false) + '</b></td>')
-                .append('<td colspan=6></td>');
-            },
-            endRender: function(rows, group) {
-              var api = $('#example').dataTable().api();
-              // Remove the formatting to get integer data for summation
-              var intVal = function(i) {
-                return typeof i === 'string' ?
-                  i.replace('$', '').replace(',','') * 1 :
-                  typeof i === 'number' ?
-                  i : 0;
-              };
-
-              var summary = function(i, api, calc) {
-                pageSum = api
-                  .column(i, {
-                    page: 'current'
-                  })
-                  .data()
-                  .reduce(function(a, b) {
-                    return Number((intVal(a) + intVal(b)).toFixed(2));
-                  }, 0);
-                return round(pageSum,2);
-
-              };
-
-              return $('<tr/>')
-                .append('<td colspan=2><b>Page summary:</b></td>')
-                .append('<td><b>$' + summary(2, api, false) + '</b></td>')
-                .append('<td><b>$' + summary(3, api, false) + '</b></td>')
-                .append('<td><b>$' + summary(4, api, false) + '</b></td>')
-                .append('<td></td>')
-                .append('<td><b>$' + summary(6, api, false) + '</b></td>')
-                .append('<td><b>$' + summary(7, api, false) + '</b></td>')
-                .append('<td colspan=6></td>');
-            },
-            dataSrc: 1
-          }
-
-        });
-
-        $('#example tbody').on('click', 'i#btnChargeBackId', function() {
-          var data = table.row($(this).parents('tr')).data();
-
-        });
-
-        $('[data-toggle="tooltip"]').tooltip();
-      });
+      var chargebackModal = null;
+      var table;
 
       function round(x, n) {
         var exp = Math.pow(10, n);
         return Math.floor(x * exp + 0.5) / exp;
       }
+
+
     </script>
 
     <?php

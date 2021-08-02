@@ -315,6 +315,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     <tr>
                       <th hidden="true"></th>
                       <th>Loan ID</th>
+                      <th>Type Of ID</th>
                       <th>Type of Card</th>
                       <th>Card Number</th>
                       <th>Expiration Date</th>
@@ -358,6 +359,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                       echo "<tr id='idInitial" . $initial_id . "'>
                           <td hidden='true'>" . $initial_id . "</td>
                           <td>" . $loan_id . "</td>
+                          <td>" . $type_of_id_sec . "</td>
                           <td>" . $type_of_card_sec . "</td>
                           <td>" . $card_number_sec . "</td>
                           <td>" . $card_exp_date_sec . "</td>
@@ -424,6 +426,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     <th hidden="true"></th>
                     <th>Bank Name</th>
                     <th>Account Number</th>
+                    <th>Type Of ID</th>
                     <th>Type of Card</th>
                     <th>Card Number</th>
                     <th>Expiration Date</th>
@@ -443,21 +446,23 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                   while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
                     $card_id = $row_bank_detail_sec['id'];
                     $bank_id = $row_bank_detail_sec['bank_id'];
+                    $type_of_id                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                = $row_bank_detail_sec['type_of_id'];
                     $type_of_card = $row_bank_detail_sec['type_of_card'];
                     $card_number = $row_bank_detail_sec['card_number'];
-                    $bank_name=$row_bank_detail_sec['bank_name'];
-                    $routing_number= $row_bank_detail_sec['account_number'];
+                    $bank_name = $row_bank_detail_sec['bank_name'];
+                    $routing_number = $row_bank_detail_sec['account_number'];
                     $card_exp_date = $row_bank_detail_sec['card_exp_date'];
                     $cvv = $row_bank_detail_sec['cvv_number'];
                     $is_active = $row_bank_detail_sec['is_active'] == 1 ? "Active" : "Inactive";
 
 
 
-                    echo "<tr id='idCard" . $card_id . "'>
+                    echo "<tr id='idCard" . $card_id . "'>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
                           <td hidden='true'>" . $card_id . "</td>
                           <td hidden='true'>" . $bank_id . "</td>
                           <td>" . $bank_name . "</td>
                           <td>" . $routing_number . "</td>
+                          <td>" . $type_of_id . "</td>
                           <td>" . $type_of_card . "</td>
                           <td>" . $card_number . "</td>
                           <td>" . $card_exp_date . "</td>
@@ -553,20 +558,20 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               <div class="row">
                 <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Account Type<mark class="red">*</mark></label></div>
                 <div class="col-md-5 col-sm-5 col-lg-5">
-                  <div id="lblAccountType">
+                  <div id="lblAccountType" class="border">
                     <div><input type="radio" name="account_type" id="idATChecking" value="Checking"><label for="idATChecking">Checking</label></div>
                     <div><input type="radio" name="account_type" id="idATSavings" value="Savings"><label for="idATSavings">Savings</label></div>
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row" style="padding-top: 10px;">
                 <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Bank Type<mark class="red">*</mark></label></div>
                 <div class="col-md-5 col-sm-5 col-lg-5">
-                  <div id="lblBankType">
+                  <div id="lblBankType" class="border">
                     <div><input type="radio" name="bank_type" id="idBTBusiness" value="Business"><label for="idBTBusiness">Business</label></div>
                     <div><input type="radio" name="bank_type" id="idBTPersonal" value="Personal"><label for="idBTPersonal">Personal</label></div>
                   </div>
-                </div> 
+                </div>
               </div>
               <div class="row">
                 <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Status</label></div>
@@ -604,6 +609,21 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               <div display="none"><i id="lblUserId"></i></div>
             </div>
             <div class="modal-body" style="margin-left:15px">
+              <div class="row">
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Type of ID<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5">
+                  <input list="type_of_ids" name="type_of_cards" id="lblTypeOfID" style="width:100%">
+                  <datalist id="type_of_ids">
+                    <option value="Drivers License"></option>
+                    <option value="State Personal ID"></option>
+                    <option value="Matricula Consular ID"></option>
+                    <option value="Tribal ID"></option>
+                    <option value="Passport"></option>
+                    <option value="Military ID"></option>
+                    <option value="Other"></option>
+                  </datalist>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Type of Card<mark class="red">*</mark></label></div>
                 <div class="col-md-5 col-sm-5 col-lg-5">

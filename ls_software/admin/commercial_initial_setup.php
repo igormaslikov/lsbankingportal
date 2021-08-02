@@ -48,6 +48,8 @@ if ($u_access_id == '0') {
       $bank_front = $row_fetch_fnd['bank_front'];
       $bank_back = $row_fetch_fnd['bank_back'];
       $void_img = $row_fetch_fnd['void_img'];
+      $mobile_number = $row_fetch_fnd['mobile_number'];
+
    }
 
 
@@ -57,6 +59,7 @@ if ($u_access_id == '0') {
    while ($row_fetch_loan = mysqli_fetch_array($sql_fetch_loan)) {
 
       $loan_id = $row_fetch_loan['loan_create_id'];
+      $previous_amount_loan = $row_fetch_loan['previous_amount_loan'];
    }
    //echo "loan id:".$loan_id;
    $fndd_id = $id_fnd;
@@ -141,6 +144,7 @@ if ($u_access_id == '0') {
       $contract_datee = $_POST['contract_datee'];
       $payment_datee = $_POST['payment_datee'];
       $daily_interest = $_GET['daily_interest'];
+      
 
 
 
@@ -354,8 +358,10 @@ if ($u_access_id == '0') {
 
       $anual_pr = $daily_interest * $number_n;
       $anual_pr = number_format($anual_pr, 2);
+      $in_hand = $_GET['in_hand'];
+      
 
-      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`, `amount_of_loan`,`daily_interest`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`)  VALUES ('$fndd_id','$sourcee','$principal_amountt',$daily_interest,'$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state')";
+      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`previous_amount_loan`, `amount_of_loan`,`daily_interest`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`)  VALUES ('$fndd_id','$sourcee','$in_hand','$principal_amountt',$daily_interest,'$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state')";
       $result = mysqli_query($con, $query);
       if ($result) {
          //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
@@ -381,16 +387,64 @@ if ($u_access_id == '0') {
          $bank_id = mysqli_insert_id($con);
       }
 
-      $sql = mysqli_query($con, "select count(id) as count from tbl_bank_cards where user_fnd_id= '$fndd_id' and type_of_card='$type_card' and card_number='$card_number' and card_exp_date='$card_exp_date' and cvv_number='$cvv_number'");
+      $sql = mysqli_query($con, "select count(id) as count from tbl_bank_cards where user_fnd_id= '$fndd_id' and type_of_id='$type_id' and  type_of_card='$type_card' and card_number='$card_number' and card_exp_date='$card_exp_date' and cvv_number='$cvv_number'");
 
       while ($row = mysqli_fetch_array($sql)) {
          $count = $row['count'];
       }
 
       if ($count == 0) {
-         $action_query = "INSERT INTO `tbl_bank_cards` (`id`,`bank_id`, `user_fnd_id`, `type_of_card`, `card_number`, `card_exp_date`,`cvv_number`, `is_active`) VALUES (NULL,'$bank_id', '$fndd_id', '$type_card', '$card_number', '$card_exp_date','$cvv_number', '1')";
+         $action_query = "INSERT INTO `tbl_bank_cards` (`id`,`bank_id`, `user_fnd_id`, `type_of_id`, `type_of_card`, `card_number`, `card_exp_date`,`cvv_number`, `is_active`) VALUES (NULL,'$bank_id', '$fndd_id', '$type_id','$type_card', '$card_number', '$card_exp_date','$cvv_number', '1')";
          mysqli_query($con, $action_query);
       }
+
+
+
+
+
+      if(isset($_GET['prev_loan_id'])){
+         $previous_loan_id =  $_GET['prev_loan_id'];
+         $sql_fetch_loan = mysqli_query($con, "select previous_amount_loan from tbl_commercial_loan where loan_create_id='$loan_create_idd'");
+         while ($row_fetch_loan = mysqli_fetch_array($sql_fetch_loan)) {
+            $previous_amount_loan = $row_fetch_loan['previous_amount_loan'];
+         }
+         $sql_installment = mysqli_query($con, "SELECT SUM(late_fee) as sum_late_fee FROM `commercial_loan_transaction` where `loan_create_id`= '$previous_loan_id'");
+         $sum_late_fee = 0;
+         while ($row_installment = mysqli_fetch_array($sql_installment)) {
+             $sum_late_fee = $row_installment['sum_late_fee'];
+         }
+
+         $amount_without_fee = $previous_amount_loan - $sum_late_fee;
+
+         $sql_installment = mysqli_query($con, "SELECT *  FROM `tbl_commercial_loan_installments` where `loan_create_id`= '$previous_loan_id' and status=0 order by id asc");
+         while ($row_installment = mysqli_fetch_array($sql_installment)) {
+            if($previous_amount_loan == 0 || $amount_without_fee <= 0){ // status 4 = "Credit"
+               mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET paid_date='$contract_datee', status='4', paid_by='$u_id' where loan_create_id = '$previous_loan_id' and status = 0 ");
+               break;
+            }
+
+            $payment = $row_installment['payment'];
+            $paid_amount = $row_installment['paid_amount'];
+            $id =  $row_installment['id'];
+
+            $real_payment = $payment - $paid_amount;
+            $amount_without_fee -= $real_payment;
+
+            $status = 3; // "Paid Ref"
+            if($amount_without_fee < 0){
+               $paid_amount = $real_payment+$amount_without_fee;
+               $amount_without_fee = 0;
+               $status = 4;
+            }
+
+            mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid amount` ='$paid_amount', status='$status', paid_date='$contract_datee',  paid_by='$u_id' where id= '$id'");
+            
+        }
+
+        mysqli_query($con, "UPDATE tbl_commercial_loan SET loan_status='Paid' where loan_create_id = '$previous_loan_id'");
+
+      }
+
    ?>
 
 
@@ -411,7 +465,7 @@ if ($u_access_id == '0') {
 
       <script type="text/javascript">
          window.location.href =
-            'customer_email_message_personal_loan.php?emaill=<?php echo $email; ?>&link=<?php echo $message; ?>&email_link=<?php echo $message_email; ?>';
+            'customer_email_message_personal_loan.php?emaill=<?php echo $email; ?>&mobile_number=<?php echo $mobile_number; ?>&link=<?php echo $message; ?>&email_link=<?php echo $message_email; ?>&user_fnd_id=<?php echo $id_fnd;  ?>';
       </script>
    <?php
    }
@@ -464,7 +518,7 @@ if ($u_access_id == '0') {
                <input type="text" name="fnd_idd" id="idUserId" value="<?php echo $_GET['fnd_id']; ?>" style="display:none;">
                <input type="text" name="renew_loan" id="renewLoanId" value="<?php echo $loan_id; ?>" style="display:none;">
                <input type="text" name="bg_idd" value="<?php echo $_GET['bg_id']; ?>" style="display:none;">
-               <input type="text" name="loan_create_idd" id="loanId" value="<?php echo $_GET['loan_create_id'];; ?>" style="display:none;">
+               <input type="text" name="loan_create_idd" id="loanId" value="<?php echo $_GET['loan_create_id']; ?>" style="display:none;">
                <input type="text" name="principal_amountt" value="<?php echo $_GET['principal_amount'];; ?>" style="display:none;">
                <input type="text" name="loan_interest" value="<?php echo $_GET['loan_interest'];; ?>" style="display:none;">
                <input type="text" name="yearss" value="<?php echo $_GET['years'];; ?>" style="display:none;">
@@ -855,10 +909,10 @@ if ($u_access_id == '0') {
             return;
          }
 
-         // $("#type_id").val(selected_data[1].innerText);
-         $("#type_card").val(selected_data_card[1].innerText);
-         $("#card_number").val(selected_data_card[2].innerText);
-         $("#cvv_number").val(selected_data_card[4].innerText);
+         $("#type_id").val(selected_data_card[1].innerText);
+         $("#type_card").val(selected_data_card[2].innerText);
+         $("#card_number").val(selected_data_card[3].innerText);
+         $("#cvv_number").val(selected_data_card[5].innerText);
 
          let expiry_month_card = '';
          let expiry_year_card = '';
