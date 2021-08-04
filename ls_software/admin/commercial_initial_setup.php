@@ -916,7 +916,7 @@ if ($u_access_id == '0') {
 
          let expiry_month_card = '';
          let expiry_year_card = '';
-         let card_exp_date = selected_data_card[3].innerText;
+         let card_exp_date = selected_data_card[4].innerText;
          const date_reg_exp = /^[0-9][0-9]\/[0-9][0-9]/;
          const valid = date_reg_exp.test(card_exp_date);
          if (valid) {

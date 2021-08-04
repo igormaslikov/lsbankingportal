@@ -879,72 +879,72 @@ $DBcon->close();
 
 
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Approved+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Payday CA :<b style="color:red"> <?php echo $rowcount_aprovd_paydy_ca; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Payday CA :<b style="color:red"> <?php echo $rowcount_aprovd_paydy_ca; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>ls_software/admin/view_all_customer.php?status=Review+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Payday CA :<b style="color:red"> <?php echo $rowcount_rev_payday_ca; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Review+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Payday CA :<b style="color:red"> <?php echo $rowcount_rev_payday_ca; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=DL/Bank+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday CA :<b style="color:red"> <?php echo $rowcount_dl_bank_ca; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="admin/view_all_customer.php?status=DL/Bank+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday CA :<b style="color:red"> <?php echo $rowcount_dl_bank_ca; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Approved+Payday+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Payday NV :<b style="color:red"> <?php echo $rowcount_aprovd_paydy_nv; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Payday+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Payday NV :<b style="color:red"> <?php echo $rowcount_aprovd_paydy_nv; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Review+Payday+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Payday NV :<b style="color:red"> <?php echo $rowcount_rev_payday_nv; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Review+Payday+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Payday NV :<b style="color:red"> <?php echo $rowcount_rev_payday_nv; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=DL/Bank+Payday+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday NV :<b style="color:red"> <?php echo $rowcount_dl_bank_nv; ?></b></a></p>
-      </div>
-
-      <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Approved+Payday+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Payday IL :<b style="color:red"> <?php echo $rowcount_aprovd_paydy_il; ?></b></a></p>
-      </div>
-      <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Review+Payday+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Payday IL :<b style="color:red"> <?php echo $rowcount_rev_payday_il; ?></b></a></p>
-      </div>
-      <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=DL/Bank+Payday+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday IL :<b style="color:red"> <?php echo $rowcount_dl_bank_il; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Payday+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday NV :<b style="color:red"> <?php echo $rowcount_dl_bank_nv; ?></b></a></p>
       </div>
 
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Approved+Installment+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Commercial CA :<b style="color:red"> <?php echo $rowcount_aprovd_intall_ca; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Payday+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Payday IL :<b style="color:red"> <?php echo $rowcount_aprovd_paydy_il; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Review+Installment+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Commercial CA :<b style="color:red"> <?php echo $rowcount_rev_ca; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Review+Payday+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Payday IL :<b style="color:red"> <?php echo $rowcount_rev_payday_il; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=DL/Bank+Installment+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Commercial CA :<b style="color:red"> <?php echo $rowcount_dl_bank_install_ca; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Payday+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday IL :<b style="color:red"> <?php echo $rowcount_dl_bank_il; ?></b></a></p>
+      </div>
+
+      <div class="col-lg-4">
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Installment+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Commercial CA :<b style="color:red"> <?php echo $rowcount_aprovd_intall_ca; ?></b></a></p>
+      </div>
+      <div class="col-lg-4">
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Review+Installment+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Commercial CA :<b style="color:red"> <?php echo $rowcount_rev_ca; ?></b></a></p>
+      </div>
+      <div class="col-lg-4">
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Installment+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Commercial CA :<b style="color:red"> <?php echo $rowcount_dl_bank_install_ca; ?></b></a></p>
       </div>
 
 
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Approved+Installment+AZ&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Installment AZ :<b style="color:red"> <?php echo $rowcount_install_paydy_az; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Installment+AZ&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Installment AZ :<b style="color:red"> <?php echo $rowcount_install_paydy_az; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Review+Installment+AZ&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Installment AZ :<b style="color:red"> <?php echo $rowcount_rev_install_az; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Review+Installment+AZ&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Installment AZ :<b style="color:red"> <?php echo $rowcount_rev_install_az; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=DL/Bank+Installment+AZ&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Installment AZ :<b style="color:red"> <?php echo $rowcount_dl_bank_install_az; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Installment+AZ&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Installment AZ :<b style="color:red"> <?php echo $rowcount_dl_bank_install_az; ?></b></a></p>
       </div>
 
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Approved+Installment+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Installment IL :<b style="color:red"> <?php echo $rowcount_aprovd_install_il; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Installment+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Installment IL :<b style="color:red"> <?php echo $rowcount_aprovd_install_il; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Review+Installment+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Installment IL :<b style="color:red"> <?php echo $rowcount_rev_install_il; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Review+Installment+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Installment IL :<b style="color:red"> <?php echo $rowcount_rev_install_il; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=DL/Bank+Installment+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Installment IL :<b style="color:red"> <?php echo $rowcount_dl_bank_install_il; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Installment+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Installment IL :<b style="color:red"> <?php echo $rowcount_dl_bank_install_il; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Approved+Installment+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Installment NV :<b style="color:red"> <?php echo $rowcount_install_paydy_nv; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Installment+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Installment NV :<b style="color:red"> <?php echo $rowcount_install_paydy_nv; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Review+Installment+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Installment NV : <b style="color:red"> <?php echo $rowcount_rev_install_nv; ?> </b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Review+Installment+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Installment NV : <b style="color:red"> <?php echo $rowcount_rev_install_nv; ?> </b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=DL/Bank+Installment+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Installment NV : <b style="color:red"> <?php echo $rowcount_dl_bank_install_nv; ?> </b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Installment+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Installment NV : <b style="color:red"> <?php echo $rowcount_dl_bank_install_nv; ?> </b></a></p>
       </div>
 
       <!--<div class="col-lg-4"><p style="color:black;font-weight: bold"><a  href = "<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Info+Needed&website=All&keyword=&from_date=&to_date=&search=">Info Needed :<b style="color:red"> <?php echo $rowcount_inf_needed; ?></b></a></p></div>-->
