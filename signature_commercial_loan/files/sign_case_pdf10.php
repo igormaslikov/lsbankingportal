@@ -278,7 +278,7 @@ Co-Borrower Mobile Telephone #: <br>
 <span style="text-decoration:underline">'.$co_borrow_mobile.'</span><br><br>
 
 Co-Borrower Signature <br>
-<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$result_sig_co_borrow.'" alt="" style="height:300%" align="left"/><br>
+<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$img_signed_co_borrow.'" alt="" style="height:300%" align="left"/><br>
 
 </td>
 </tr>

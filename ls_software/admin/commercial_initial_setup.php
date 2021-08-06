@@ -554,13 +554,13 @@ if ($u_access_id == '0') {
                   <?php
                   if (empty($id_photo)) {
                      echo '<div class="col-lg-6">
-      <label for="usr">Upload Picture of ID</label>
-      <input type="file" name="file_image"  class="form-control" accept="image/*"><br>
+      <label for="usr">Upload Picture of ID<i style="color:red">*</i></label>
+      <input type="file" name="file_image"  class="form-control" accept="image/*" required><br>
     </div>';
                   } else {
 
                      echo '<div class="col-lg-6">
-      <label for="usr">Upload Picture of ID</label>
+      <label for="usr">Upload Picture of ID<i style="color:red">*</i></label>
       <input type="text" name="txt_image" style="display:none"  class="form-control" value="'; ?><?php echo $id_photo; ?><?php echo '"> <br> Image Already Uploaded - 
       <a href ="/ls_software/dl_client_files/photo_id/' . $id_photo . '" target="_blank" > View Image </a><br>
       <br>
@@ -629,13 +629,13 @@ if ($u_access_id == '0') {
                   <?php
                   if (empty($bank_front)) {
                      echo '<div class="col-lg-6">
-      <label for="usr">Upload Bank Card Front</label>
-      <input type="file" name="imageee"  class="form-control" accept="image/*"><br>
+      <label for="usr">Upload Bank Card Front<i style="color:red">*</i></label>
+      <input type="file" name="imageee"  class="form-control" accept="image/*" required><br>
     </div>';
                   } else {
 
                      echo '<div class="col-lg-6">
-      <label for="usr">Upload Bank Card Front</label>
+      <label for="usr">Upload Bank Card Front<i style="color:red">*</i></label>
       <input type="text" name="txt_file_bf" style="display:none"  class="form-control" value="'; ?><?php $bank_front = str_replace(" ", "", "$bank_front");
                                                                                                    echo $bank_front; ?><?php echo '">
        <br> Image Already Uploaded - 
@@ -653,15 +653,15 @@ if ($u_access_id == '0') {
                      echo '
     
     <div class="col-lg-6">
-      <label for="usr">Upload Bank Card Back</label>
-      <input type="file" name="imageeee"  class="form-control" accept="image/*">
+      <label for="usr">Upload Bank Card Back<i style="color:red">*</i></label>
+      <input type="file" name="imageeee"  class="form-control" accept="image/*" required>
     </div>';
                   } else {
 
                      echo '
 
     <div class="col-lg-6">
-      <label for="usr">Upload Bank Card Back</label>
+      <label for="usr">Upload Bank Card Back<i style="color:red">*</i></label>
       <input type="text" name="txt_file_bb" style="display:none"  class="form-control" value="'; ?><?php $bank_back = str_replace(" ", "", "$bank_back");
                                                                                                    echo $bank_back; ?><?php echo '">
        <br> Image Already Uploaded - 
@@ -707,15 +707,15 @@ if ($u_access_id == '0') {
                   if (empty($void_img)) {
                      echo '
     <div class="col-lg-6">
-      <label for="usr">Upload Void Check</label>
-      <input type="file" name="imageeeee"  class="form-control" accept="image/*">
+      <label for="usr">Upload Void Check<i style="color:red">*</i></label>
+      <input type="file" name="imageeeee"  class="form-control" accept="image/*" required>
     </div>';
                   } else {
 
                      echo '
 
     <div class="col-lg-6">
-      <label for="usr">Upload Void Check</label>
+      <label for="usr">Upload Void Check<i style="color:red">*</i></label>
       <input type="text" name="txt_file_vi"  style="display:none" class="form-control" value="'; ?><?php $void_img = str_replace(" ", "", "$void_img");
                                                                                                    echo $void_img; ?><?php echo '">
        <br> Image Already Uploaded - 

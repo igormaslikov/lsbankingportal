@@ -109,6 +109,7 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
   $installment_plan = $row_loan['installment_plan'];
   $contract_fee=$row_loan['contract_fee'];
   $in_hand=$row_loan['previous_amount_loan'];
+  $co_borrow_name=$row_loan['co_borrow_name'];
 }
 
 // $sql_loan_settings = mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'");
@@ -304,7 +305,7 @@ $html = '
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' . $city . ', ' . $state . ' ' . $zip . '</span>
             <br><br>
-            <b>Co-Prestatario:</b><span>____________________________</span>
+            <b>Co-Prestatario:</b><span style="text-decoration:underline">' . $co_borrow_name . '</span>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
             <br>
