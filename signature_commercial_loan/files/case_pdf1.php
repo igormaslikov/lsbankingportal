@@ -149,7 +149,7 @@ Loan Number/Numero de Prestamo: <span style="text-decoration:underline">' . $loa
 <br>
 <b>Choice of Venue : </b>If there is a lawsuit, Borrower agrees upon Lender’s request to submit to the jurisdiction of the courts of Los Angeles County, State of California or, if required, to the courts of the Central District of California. Any suit brought hereunder shall be filed in the Van Nuys Courthouse, or in the Western Division of the Central District of California, as applicable.
 <br>
-<b>Collateral : </b>All present and future inventory of that business known as '.$business_name.' as well as all accounts receivable.
+<b>Collateral : </b>All present and future inventory of that business known as <span style="text-decoration:underline">'.$business_name.'</span> as well as all accounts receivable.
 <br>
 
 

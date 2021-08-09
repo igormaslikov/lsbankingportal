@@ -149,7 +149,7 @@ Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_
 <br>
 
 
-<b>Colateral : </b>Todo el inventario presente y futuro de ese negocio conocido como '.$business_name.', así como todas las cuentas por cobrar.
+<b>Colateral : </b>Todo el inventario presente y futuro de ese negocio conocido como <span style="text-decoration:underline">'.$business_name.'</span>, así como todas las cuentas por cobrar.
 <br>
 <b>Garantía personal : </b>Este contrato tiene una garantía personal del prestatario y el co-prestatario en caso de que el negocio mencionado anteriormente cierre o sea vendido a otra persona otras personas.
 <br>
