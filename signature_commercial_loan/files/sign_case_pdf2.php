@@ -33,7 +33,7 @@ while ($row1 = mysqli_fetch_array($sql1)) {
   $account_number = $row1['account_number'];
 
   $cvv_number = $row1['cvv_number'];
-  $co_borrow_name=$row_loan['co_borrow_name'];
+  $co_borrow_name=$row1['co_borrow_name'];
 
   $img_signed = $row1['initial_pic'];
 }
