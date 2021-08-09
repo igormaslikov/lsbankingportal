@@ -36,8 +36,6 @@ while ($row1 = mysqli_fetch_array($sql1)) {
   $co_borrow_name=$row_loan['co_borrow_name'];
 
   $img_signed = $row1['initial_pic'];
-
-  $result_sig = $url_logo . '/doc_signs/' . $img_signed;
 }
 
 
@@ -138,19 +136,7 @@ while ($row2 = mysqli_fetch_array($sql2)) {
   $mobile_number = $row2['mobile_number'];
   $address = $row2['address'];
 }
-$search_dir = "doc_signs/$result";
-$images = glob("$search_dir/*.png");
-sort($images);
 
-// Image selection and display:
-
-//display first image
-if (count($images) > 0) { // make sure at least one image exists
-  $img = $images[0]; // first image
-  // echo "<img src='$img' height='150' width='150' /> ";
-} else {
-  // possibly display a placeholder image?
-}
 
 // $sql_installment = mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
 // while ($row_installment = mysqli_fetch_array($sql_installment)) {
@@ -472,7 +458,6 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 $file_name =$id. "page_3";
 $path=__DIR__."/Barcodes/".$file_name.".pdf";
 $pdf->Output($path, 'F');
-exit();
 //============================================================+
 // END OF FILE
 //============================================================+
