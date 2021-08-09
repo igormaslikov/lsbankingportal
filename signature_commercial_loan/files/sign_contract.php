@@ -36,20 +36,20 @@
 
 ?>
 
-<iframe src="sign_case_pdf.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px; display:none"></iframe>
-<iframe src="sign_case_pdf1.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf2.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf3.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf4.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf5.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf6.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf7.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf8.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf9.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf10.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf11.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf12.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf13.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf14.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_case_pdf15.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
-<iframe src="sign_merge_pdf.php?id=<?php echo $_GET['id']; ?>" style="width:100%; height:100%; overflow:hidden"></iframe>
+<iframe src="sign_case_pdf.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px; display:none"></iframe>
+<iframe src="sign_case_pdf1.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf2.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf3.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf4.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf5.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf6.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf7.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf8.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf9.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf10.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf11.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf12.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf13.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf14.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_case_pdf15.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:1000px;display:none"></iframe>
+<iframe src="sign_merge_pdf.php?t=<?=time();?>&id=<?php echo $_GET['id']; ?>" style="width:100%; height:100%; overflow:hidden"></iframe>
