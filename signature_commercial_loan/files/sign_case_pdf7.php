@@ -233,8 +233,6 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 <span style="text-align: left;">Para ayudar al gobierno a combatir el financiamiento de terrorismo u el lavado del dinero, la ley Federal requiere que todas las instituciones financieras obtengan, verifiquen, y registren información que identifique a cada persona que abre una cuenta. Esto significa que cuando usted abra una cuenta, le pediremos su nombre, dirección, fecha de nacimiento, i otra información que nos permita identificarlo. También solicitaremos que nos muestre su licencia de conducir u otros documentos identificatorios.</span>
 <br><br>
 
-<br><br>
-
 <table>
 <tbody>
 <tr>

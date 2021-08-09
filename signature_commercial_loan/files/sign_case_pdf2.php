@@ -33,6 +33,7 @@ while ($row1 = mysqli_fetch_array($sql1)) {
   $account_number = $row1['account_number'];
 
   $cvv_number = $row1['cvv_number'];
+  $co_borrow_name=$row_loan['co_borrow_name'];
 
   $img_signed = $row1['initial_pic'];
 
@@ -109,7 +110,7 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
   $installment_plan = $row_loan['installment_plan'];
   $contract_fee=$row_loan['contract_fee'];
   $in_hand=$row_loan['previous_amount_loan'];
-  $co_borrow_name=$row_loan['co_borrow_name'];
+
 }
 
 // $sql_loan_settings = mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'");
@@ -469,8 +470,9 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 
 $file_name =$id. "page_3";
-$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$path=__DIR__."/Barcodes/".$file_name.".pdf";
 $pdf->Output($path, 'F');
+exit();
 //============================================================+
 // END OF FILE
 //============================================================+
