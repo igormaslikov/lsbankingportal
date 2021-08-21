@@ -366,7 +366,7 @@ while($row_link = mysqli_fetch_array($sql_link)) {
     //echo $mail_key_link;
 }
 
-$url_link="https://mymoneyline.com/lsbankingportal/signature_customer/files/index.php?id=$mail_key_link";
+$url_link="../files/index.php?id=$mail_key_link";
 
 ?>
 

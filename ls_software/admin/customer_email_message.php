@@ -124,18 +124,8 @@ echo " <b>Contract was sent successfully via Email </b>";
 
 ?>
 <br>
-<iframe is="x-frame-bypass" src="<?php echo $link; ?>" width="750" height="900" style="display:none;"></iframe>
-<?php 
-$i = 1;
-if($i>0){
-    
-sleep(2);
-  ?>
-<iframe is="x-frame-bypass" src="<?php echo $link; ?>" width="100%" height="900" style="display:;"></iframe> 
+<iframe src="<?php echo $link; ?>" width="1024" height="900"></iframe>
 
-<?php
-}
-?>
 </div>
 
 </body>

@@ -123,18 +123,8 @@ $user_fnd_id = $_GET['user_fnd_id'];
 
     ?>
     <br>
-    <iframe src="<?php echo $link; ?>" width="750" height="900" style="display:none;"></iframe>
-    <?php
-    $i = 1;
-    if ($i > 0) {
+    <iframe src="<?php echo $link; ?>" width="1024" height="900" ></iframe>
 
-      sleep(2);
-    ?>
-      <iframe src="<?php echo $link; ?>" width="100%" height="900" style="display:none;"></iframe>
-
-    <?php
-    }
-    ?>
   </div>
 
 </body>
