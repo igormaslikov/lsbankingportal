@@ -468,11 +468,11 @@ if ($u_access_id != '1') {
 
                 //TODO return to the same page with error
 
-    ?>
-                <script>
-                    window.location.href = 'add_new_transaction.php?id=<?php echo $id; ?>&error_message=<?php echo $payment_error; ?>';
-                </script>
-        <?php
+                ?>
+                    <script>
+                        window.location.href = 'add_new_transaction.php?id=<?php echo $id; ?>&error_message=<?php echo $payment_error; ?>';
+                    </script>
+                <?php
                 exit;
             }
             $merchant_id = $data_paywithcard['merchant_id'];
@@ -498,7 +498,7 @@ if ($u_access_id != '1') {
             $date = $data_paywithcard['date'];
             $trans_type_id = $data_paywithcard['trans_type_id'];
             $query_in  = "INSERT INTO `tbl_pay_with_card` (`user_fnd_id`,`loan_create_id`,`merchant_id`, `transaction_id`, `auth_code`, `trx_status`, `result_text`, `zip_code`, `amount`, `card_bin`, `card_exp`, `card_last_four`, `name_on_card`, `customer_id`, `payment_channel`, `source`, `transaction_type`, `transaction_date`)  VALUES ('$user_fnd_id','$loan_create_id','$merchant_id','$repay_transaction_id','$auth_code','$trx_status','$result_text','$zip','$amount','$card_bin','$exp_date','$card_last_four','$name_on_card','$customer_id','$payment_channel','$merchant_name','$trans_type_id','$new_date')";
-            $result = mysqli_query($con, $query);
+            $result = mysqli_query($con, $query_in);
         }
 
 
@@ -906,7 +906,7 @@ if ($u_access_id != '1') {
                         <br>
 
                         <button id="btnAddTransaction" name="btn-submit" type="submit" class="btn btn-danger" style="color: #fff;background-color: blue;border-color: blue;">Add transaction</button>
-                        <button name="btn-submit-repay" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;">Pay
+                        <button name="btn-submit-repay" class="btn btn-danger" hidden style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;">Pay
                             Via Repay</button>
 
 

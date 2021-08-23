@@ -226,7 +226,7 @@ if ($signed_status > 0) {
 										</div>
 									</div>
 
-									<button id="btnClearSign" onclick="clearCanvas('sign-pad')">Clear Signature</button><br>
+									<button id="btnClearSign" onclick="clearCanvasFunc('sign-pad')">Clear Signature</button><br>
 
 
 								</div>
@@ -245,8 +245,8 @@ if ($signed_status > 0) {
 											<canvas class="initial-pad" id="initial-pad" width="300" height="100"></canvas>
 										</div>
 									</div>
-
-									<button id="btnClearInitial" onclick="clearCanvas('initial-pad')">Clear Initials</button>
+									<!-- <div id="clearB"></div> -->
+									<button id="btnClearInitial" onclick="clearCanvasFunc('initial-pad')">Clear Initials</button>
 								</div>
 							</div>
 						</div>
@@ -273,7 +273,7 @@ if ($signed_status > 0) {
 										</div>
 									</div>
 
-									<button id="btnClearInitial" onclick="clearCanvas('sign-pad-coborrow')">Clear Signature</button>
+									<button id="btnClearInitial" onclick="clearCanvasFunc('sign-pad-coborrow')">Clear Signature</button>
 								</div>
 							</div>
 						</div>
@@ -316,21 +316,25 @@ if ($signed_status > 0) {
 		<script src="./js/json2.min.js"></script>
 
 		<script>
+			var signArea = null;
+			var initialArea = null;
+			var signAreaCoBorrow = null;
 			$(document).ready(function() {
-				$('#signArea').signaturePad({
+				signArea = $('#signArea').signaturePad({
 					drawOnly: true,
 					drawBezierCurves: true,
 					lineTop: 90
 				});
 
-				$('#initialArea').signaturePad({
+				initialArea = $('#initialArea').signaturePad({
+					defaultAction: 'drawIt',
 					drawOnly: true,
 					drawBezierCurves: true,
 					lineTop: 90
 				});
 
 				
-				$('#signAreaCoBorrow').signaturePad({
+				signAreaCoBorrow = $('#signAreaCoBorrow').signaturePad({
 					drawOnly: true,
 					drawBezierCurves: true,
 					lineTop: 90
@@ -392,10 +396,12 @@ if ($signed_status > 0) {
 				return data;
 			}
 
-			function clearCanvas(elemId){
-				var canvas = document.getElementById(elemId);
-				const context = canvas.getContext('2d');
-				context.clearRect(0, 0, canvas.width, canvas.height);
+			function clearCanvasFunc(elemId){
+				switch(elemId) {
+					case 'sign-pad': signArea.clearCanvas(); break;
+					case 'initial-pad': initialArea.clearCanvas(); break;
+					case 'sign-pad-coborrow': signAreaCoBorrow.clearCanvas(); break;
+				}
 			}
 		</script>
 
@@ -423,7 +429,7 @@ if ($signed_status > 0) {
 		//echo $mail_key_link;
 	}
 
-	$url_link = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/files/index.php?id=$mail_key_link";
+	$url_link = "../files/index.php?id=$mail_key_link";
 
 	?>
 
