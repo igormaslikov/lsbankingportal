@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     table = $('#example').DataTable({
       "order": [
         [5, 'asc']
@@ -38,6 +39,8 @@ $(document).ready(function() {
             .append('<td><b>$' + summary(4, api, true) + '</b></td>')
             .append('<td><b>$' + summary(6, api, false) + '</b></td>')
             .append('<td><b>$' + summary(7, api, false) + '</b></td>')
+            .append('<td><b>$' + summary(8, api, false) + '</b></td>')
+            .append('<td></td>')
             .append('<td colspan=6></td>');
         },
         endRender: function(rows, group) {
@@ -71,6 +74,8 @@ $(document).ready(function() {
             .append('<td></td>')
             .append('<td><b>$' + summary(6, api, false) + '</b></td>')
             .append('<td><b>$' + summary(7, api, false) + '</b></td>')
+            .append('<td><b>$' + summary(8, api, false) + '</b></td>')
+            .append('<td></td>')
             .append('<td colspan=6></td>');
         },
         dataSrc: 1
@@ -96,6 +101,7 @@ $(document).ready(function() {
     });
 
   });
+
 
   function updateChargeback() {
 

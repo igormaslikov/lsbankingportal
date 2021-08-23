@@ -114,8 +114,9 @@ $fnd_idd = $_GET['id'];
 
       ?>
       <h4 style="text-align:center">Creation Of New Installment Loan for Customer : <span style="color:red;font-weight:bold;"><?php echo $customer_name; ?></span> </h4>
-      <div class="row wrapper" style="background-color: #F5E09E;color: white;padding:40px;">
+      <h4 style="text-align:center">Customer ID : <span style="color:red;font-weight:bold;"><?php echo $id; ?></span> </h4>
 
+      <div class="row wrapper" style="background-color: #F5E09E;color: white;padding:40px;">
         <div class="col-lg-3">
           <p style="color:black;">Customer Name:<b style="color:red"> <?php echo $customer_name; ?></b></p>
         </div>
@@ -151,7 +152,7 @@ $fnd_idd = $_GET['id'];
       <form method="POST" enctype="multipart/form-data" onsubmit="return calculate(event)">
 
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-3">
             <label for="usr">Portfolio</label>
             <select name="source" id="source" class="form-control" value="" onchange="yesnoCheck(this);">
               <option value="Payday Loans" <?php if ($loan_name == 'Payday Loans') {
@@ -169,7 +170,14 @@ $fnd_idd = $_GET['id'];
 
             </select>
           </div>
-
+          <div class="col-lg-3">
+            <label for="usr">Secondary Portfolio</label>
+            <select name="p_portfolio" id="p_portfolio" class="form-control" value="">
+              <option value="None">None</option>
+              <option value="Money Line" >Money Line</option>
+              <option value="Kenneth">Kenneth</option>
+            </select>
+          </div>
           <div class="col-lg-6">
             <label for="usr"> Loan ID</label>
             <input type="text" name="loan_id" value="<?php echo  $loan_create_id; ?>" class="form-control" readonly />
@@ -228,7 +236,7 @@ $fnd_idd = $_GET['id'];
           </div>
           <div class="col-lg-6">
             <label for="usr">Payment</label>
-            <input type="number" name="payment" class="form-control" id="usr" placeholder="" value="" Required>
+            <input type="number" step="0.01" name="payment" class="form-control" id="usr" placeholder="" value="" Required>
           </div>
 
           <div class="col-lg-6">
@@ -325,10 +333,10 @@ $fnd_idd = $_GET['id'];
   }
 
 
-  function recalculateDirectlyLoan(e,elem, balance) {
+  function recalculateDirectlyLoan(e, elem, balance) {
     directly_loan = document.getElementById("directlyLoanId");
     directly_loan.innerText = balance - elem.value;
-    document.getElementById("comInitSetupHref").href = document.getElementById("comInitSetupHref").href.replace("in_hand="+elem.oldvalue,"in_hand="+elem.value);
+    document.getElementById("comInitSetupHref").href = document.getElementById("comInitSetupHref").href.replace("in_hand=" + elem.oldvalue, "in_hand=" + elem.value);
     e.preventDefault();
   }
 

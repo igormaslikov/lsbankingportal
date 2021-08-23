@@ -68,7 +68,7 @@ if ($u_access_id == '0') {
 
 
 
-   $azrizona_message = 'https://mymoneyline.com/lsbankingportal/signature_commercial_loan/files/contract.php?id=' . $email_key;
+   $azrizona_message = '../../signature_commercial_loan/files/contract.php?id=' . $email_key;
    $azrizona_email = 'https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/index.php?id=' . $email_key;
 
 
@@ -133,6 +133,7 @@ if ($u_access_id == '0') {
       $cvv_number = $_POST['cvv_number'];
 
       $sourcee = $_POST['bg_idd'];
+      $secondary_portfolio = $_POST['secondary_portfolio'];
       $loan_create_idd = $_POST['loan_create_idd'];
       $principal_amountt = $_POST['principal_amountt'];
       $interestt = $_POST['loan_interest'];
@@ -360,8 +361,9 @@ if ($u_access_id == '0') {
       $anual_pr = number_format($anual_pr, 2);
       $in_hand = $_GET['in_hand'];
       
+   
 
-      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`previous_amount_loan`, `amount_of_loan`,`daily_interest`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`)  VALUES ('$fndd_id','$sourcee','$in_hand','$principal_amountt',$daily_interest,'$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state')";
+      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`secondary_portfolio`,`previous_amount_loan`, `amount_of_loan`,`daily_interest`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`)  VALUES ('$fndd_id','$sourcee','$secondary_portfolio','$in_hand','$principal_amountt',$daily_interest,'$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state')";
       $result = mysqli_query($con, $query);
       if ($result) {
          //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
@@ -369,7 +371,21 @@ if ($u_access_id == '0') {
          echo "<h3> Error Inserting Data </h3>";
       }
 
+      //Add to other fees//
+      mysqli_query($con, "INSERT INTO tbl_lists (kind, item) select 'Other Fee', 'Origination Fee' where not exists( select * from tbl_lists where kind='Other Fee' and item='Origination Fee')");
 
+      $sql = mysqli_query($con, "select tbl_lists_id from tbl_lists where kind='Other Fee' and item='Origination Fee'");
+  
+      while ($row = mysqli_fetch_array($sql)) {
+          $kind = $row['tbl_lists_id'];
+      }
+
+      $action_query = "INSERT INTO `tbl_other_fees` (`tbl_other_fees_id`, `kind_fee`, `user_fnd_id`, `loan_created_id`, `amount_fee`, `amount_fee_paid`) VALUES (NULL, '$kind', '$fndd_id', '$loan_create_idd', '$originationn', 0)";
+      mysqli_query($con, $action_query);
+
+
+
+      //=====================//
 
       mysqli_query($con, "UPDATE fnd_user_profile SET id_photo ='$final_File', bank_front='$final_Filee', bank_back='$final_Fileee', void_img='$final_Fileeee'  where user_fnd_id ='$fndd_id'");
 
@@ -518,6 +534,7 @@ if ($u_access_id == '0') {
                <input type="text" name="fnd_idd" id="idUserId" value="<?php echo $_GET['fnd_id']; ?>" style="display:none;">
                <input type="text" name="renew_loan" id="renewLoanId" value="<?php echo $loan_id; ?>" style="display:none;">
                <input type="text" name="bg_idd" value="<?php echo $_GET['bg_id']; ?>" style="display:none;">
+               <input type="text" name="secondary_portfolio" value="<?php echo $_GET['secondary_portfolio']; ?>" style="display:none;">
                <input type="text" name="loan_create_idd" id="loanId" value="<?php echo $_GET['loan_create_id']; ?>" style="display:none;">
                <input type="text" name="principal_amountt" value="<?php echo $_GET['principal_amount'];; ?>" style="display:none;">
                <input type="text" name="loan_interest" value="<?php echo $_GET['loan_interest'];; ?>" style="display:none;">

@@ -102,6 +102,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
     $loan_status = $row['loan_status'];
     $primary_port = $row['secondary_portfolio'];
+    $other_fees = $row['other_fees'];
+    $late_fee = $row['late_fee'];
   }
 
   $query_payment = mysqli_query($con, "Select payment, `paid amount`, payment_date from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0 order by id asc limit 1 ");
@@ -143,6 +145,18 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     $username = $row_user['username'];
   }
 
+  $unpaid_late_fee = 0;
+  $query_payment = mysqli_query($con, "SELECT sum($late_fee - paid_late_fee) as unpaid FROM `tbl_commercial_loan_installments` WHERE `dpd` >= 10 and loan_create_id = '$loan_create_id' and ($late_fee - paid_late_fee) > 0 ");
+  while ($row_payment = mysqli_fetch_array($query_payment)) {
+    $unpaid_late_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
+  }
+
+  $unpaid_other_fee = 0;
+  $query_payment = mysqli_query($con, "SELECT sum(amount_fee - amount_fee_paid) as unpaid FROM `tbl_other_fees` WHERE loan_created_id = $loan_create_id ");
+  while ($row_payment = mysqli_fetch_array($query_payment)) {
+    $unpaid_other_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
+  }
+
   //echo "fname is:".$username;
 
   ?>
@@ -166,10 +180,13 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="../../website/css/font-awesome.min.css">
 
+
     <!-- Bootstrap core CSS -->
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/b-1.7.1/datatables.min.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/sl-1.3.3/datatables.min.css" /> -->
+
     <script type="module" src="../../website/js/x-frame-bypass.js"></script>
     <style>
       .tooltip-inner {
@@ -229,7 +246,10 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             <p>Loan Amount: <b style="color:red"> <?php echo $val . $amount_loan; ?></b></p>
           </div>
           <div class="col-lg-4">
-            <p>Loan ID:<b style="color:red"> <?php echo $loan_create_id; ?> </b> </p>
+            <p>Loan ID: <b style="color:red" id="loanId"><?php echo $loan_create_id; ?></b> </p>
+          </div>
+          <div class="col-lg-4">
+            <p>User ID: <b style="color:red" id="userId"><?php echo $user_fnd_id; ?></b> </p>
           </div>
 
 
@@ -246,95 +266,143 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             <form action="#" method="POST">
               <div class="form-group">
                 <div class="row">
-                  <div class="col-lg-6">
-                    <label for="usr">Account Status</label>
-                    <select name="account_status" id="app_status" class="form-control" value="" style="padding: 6px 15px;">
-                      <option value="">Account Status</option>
-                      <option value="Active" <?php if ($loan_status == 'Active') {
-                                                echo 'selected';
-                                              } ?>>Active</option>
-                      <option value="Paid" <?php if ($loan_status == 'Paid') {
-                                              echo 'selected';
-                                            } ?>>Paid</option>
-                      <option value="Past Due" <?php if ($loan_status == 'Past Due') {
+
+                  <div class="col-lg-8">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <label for="usr">Account Status</label>
+                        <select name="account_status" id="app_status" class="form-control" value="" style="padding: 6px 15px;">
+                          <option value="">Account Status</option>
+                          <option value="Active" <?php if ($loan_status == 'Active') {
+                                                    echo 'selected';
+                                                  } ?>>Active</option>
+                          <option value="Paid" <?php if ($loan_status == 'Paid') {
                                                   echo 'selected';
-                                                } ?>>Past Due</option>
-                      <option value="Promise to Pay" <?php if ($loan_status == 'Promise to Pay') {
-                                                        echo 'selected';
-                                                      } ?>>Promise to Pay</option>
-                      <option value="Payment Plan" <?php if ($loan_status == 'Payment Plan') {
+                                                } ?>>Paid</option>
+                          <option value="Past Due" <?php if ($loan_status == 'Past Due') {
                                                       echo 'selected';
-                                                    } ?>>Payment Plan</option>
-                      <option value="Collections" <?php if ($loan_status == 'Collections') {
-                                                    echo 'selected';
-                                                  } ?>>Collections</option>
-                      <option value="Chargeoff" <?php if ($loan_status == 'Chargeoff') {
-                                                  echo 'selected';
-                                                } ?>>Chargeoff</option>
-                      <option value="Closed Account" <?php if ($loan_status == 'Closed Account') {
+                                                    } ?>>Past Due</option>
+                          <option value="Promise to Pay" <?php if ($loan_status == 'Promise to Pay') {
+                                                            echo 'selected';
+                                                          } ?>>Promise to Pay</option>
+                          <option value="Payment Plan" <?php if ($loan_status == 'Payment Plan') {
+                                                          echo 'selected';
+                                                        } ?>>Payment Plan</option>
+                          <option value="Collections" <?php if ($loan_status == 'Collections') {
                                                         echo 'selected';
-                                                      } ?>>Closed Account</option>
-                      <option value="Chargeback" <?php if ($loan_status == 'Chargeback') {
+                                                      } ?>>Collections</option>
+                          <option value="Chargeoff" <?php if ($loan_status == 'Chargeoff') {
+                                                      echo 'selected';
+                                                    } ?>>Chargeoff</option>
+                          <option value="Closed Account" <?php if ($loan_status == 'Closed Account') {
+                                                            echo 'selected';
+                                                          } ?>>Closed Account</option>
+                          <option value="Chargeback" <?php if ($loan_status == 'Chargeback') {
+                                                        echo 'selected';
+                                                      } ?>>Chargeback</option>
+                          <option value="Bankruptcy" <?php if ($loan_status == 'Bankruptcy') {
+                                                        echo 'selected';
+                                                      } ?>>Bankruptcy</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-6">
+                        <label for="usr">Secondary Portfolio</label>
+                        <select name="p_portfolio" id="p_portfolio" class="form-control" value="<?php echo $primary_port; ?>">
+                          <option value="None" <?php if ($primary_port == 'None') {
+                                                  echo 'selected';
+                                                } ?>>None</option>
+                          <option value="Money Line" <?php if ($primary_port == 'Money Line') {
+                                                        echo 'selected';
+                                                      } ?>>Money Line</option>
+                          <option value="Kenneth" <?php if ($primary_port == 'Kenneth') {
                                                     echo 'selected';
-                                                  } ?>>Chargeback</option>
-                      <option value="Bankruptcy" <?php if ($loan_status == 'Bankruptcy') {
-                                                    echo 'selected';
-                                                  } ?>>Bankruptcy</option>
+                                                  } ?>>Kenneth</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-6">
+                        <label for="usr">Loan Amount</label>
+                        <input type="text" name="amount_loan" class="form-control" id="usr" placeholder="Amount Of Loan" value="<?php echo $val . $amount_loan; ?>">
+                      </div>
+                      <div class="col-lg-3">
+                        <label for="usr">Payoff Amount</label>
+                        <input type="text" name="amount_left" class="form-control" id="usr" placeholder="Amount Left" value="<?php echo $val . $payoff; ?>">
+                      </div>
+                      <div class="col-lg-3">
+                        <label for="usr">Settlement Amount</label>
+                        <input type="text" name="settlement_amount" class="form-control" id="usr" placeholder="Settlement Left" value="<?php echo $val . $settlement_amount; ?>">
+                      </div>
+                      <div class="col-lg-6">
+                        <label for="usr">Due Date</label>
+                        <input type="text" name="next_payment_date" class="form-control" id="usr" placeholder="MM/DD/YYYY" value="<?php echo $due_date; ?>">
+                      </div>
 
-                    </select>
+                      <div class="col-lg-2">
+                        <label for="usr">Days Past Due</label>
+                        <input type="text" name="days_past_due" class="form-control" id="usr" placeholder="" value="<?php echo $dpd; ?>">
+                      </div>
+                      <div class="col-lg-2">
+                        <label for="other_fees_unpaid">Other Fees Unpaid</label>
+                        <input type="text" name="other_fees_unpaid" class="form-control" id="other_fees_unpaid" placeholder="" value="<?php echo $val . $unpaid_other_fee; ?>">
+                      </div>
+                      <div class="col-lg-2">
+                        <label for="late_fee_unpaid">Late Fees Unpaid</label>
+                        <input type="text" name="late_fee_unpaid" class="form-control" id="late_fee_unpaid" placeholder="" value="<?php echo $val . $unpaid_late_fee; ?>">
+                      </div>
+                      <div class="col-lg-6">
+                        <label for="usr">Contract APR</label>
+                        <input type="text" name="apr" class="form-control" id="usr" placeholder="" value="<?php echo $apr; ?>">
+                      </div>
+                      <div class="col-lg-6">
+                        <label for="usr">Balance Due</label>
+                        <input type="text" name="blns" class="form-control" id="usr" placeholder="" value="<?php echo $val . $balance_due; ?>">
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-lg-6">
-                    <label for="usr">Secondary Portfolio</label>
-                    <select name="p_portfolio" id="p_portfolio" class="form-control" value="<?php echo $primary_port; ?>">
-                      <option value="None" <?php if ($primary_port == 'None') {
-                                              echo 'selected';
-                                            } ?>>None</option>
-                      <option value="Money Line" <?php if ($primary_port == 'Money Line') {
-                                                    echo 'selected';
-                                                  } ?>>Money Line</option>
-                      <option value="Kenneth" <?php if ($primary_port == 'Kenneth') {
-                                                echo 'selected';
-                                              } ?>>Kenneth</option>
-                    </select>
+                  <div class="col-lg-4">
+                    <table id="tblOtherFeesId">
+                      <thead>
+                        <tr>
+                          <th colspan="5" style="text-align:center">Other Fees</th>
+
+                        </tr>
+                        <tr>
+                          <th>ID</th>
+                          <th>Description</th>
+                          <th>Amount Fee</th>
+                          <th>Paid</th>
+                          <th class="no-sort"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $sql_loan = mysqli_query($con, "select * from tbl_other_fees tof inner join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_created_id='$loan_create_id' and user_fnd_id = '$user_fnd_id'");
+
+                        while ($row_loan = mysqli_fetch_array($sql_loan)) {
+                          $other_fee_id = $row_loan['tbl_other_fees_id'];
+                          $row_item_fee = $row_loan['item'];
+                          $amount_fee = $row_loan['amount_fee'];
+                          $amount_fee_paid = $row_loan['amount_fee_paid'];
+
+                          $background_color = "";
+                          if ($amount_fee_paid == $amount_fee) {
+                            $background_color = "background-color: lightgreen !important";
+                          }
+                          echo "
+                            <tr style='$background_color'>
+                              <td>$other_fee_id</td>
+                              <td>$row_item_fee</td>
+                              <td>$amount_fee</td>
+                              <td>$amount_fee_paid</td>
+                              <td style='padding-left:0; padding-right:5px'></td>
+                            </tr>
+                          ";
+                        }
+
+
+                        ?>
+                      </tbody>
+                    </table>
                   </div>
-
-
-                  <div class="col-lg-6">
-                    <label for="usr">Loan Amount</label>
-                    <input type="text" name="amount_loan" class="form-control" id="usr" placeholder="Amount Of Loan" value="<?php echo $val . $amount_loan; ?>">
-                  </div>
-
-                  <div class="col-lg-3">
-                    <label for="usr">Payoff Amount</label>
-                    <input type="text" name="amount_left" class="form-control" id="usr" placeholder="Amount Left" value="<?php echo $val . $payoff; ?>">
-                  </div>
-
-                  <div class="col-lg-3">
-                    <label for="usr">Settlement Amount</label>
-                    <input type="text" name="settlement_amount" class="form-control" id="usr" placeholder="Settlement Left" value="<?php echo $val . $settlement_amount; ?>">
-                  </div>
-
-                  <div class="col-lg-6">
-                    <label for="usr">Due Date</label>
-                    <input type="text" name="next_payment_date" class="form-control" id="usr" placeholder="MM/DD/YYYY" value="<?php echo $due_date; ?>">
-                  </div>
-
-                  <div class="col-lg-6">
-                    <label for="usr">Days Past Due</label>
-                    <input type="text" name="days_past_due" class="form-control" id="usr" placeholder="" value="<?php echo $dpd; ?>">
-                  </div>
-
-                  <div class="col-lg-6">
-                    <label for="usr">Contract APR</label>
-                    <input type="text" name="apr" class="form-control" id="usr" placeholder="" value="<?php echo $apr; ?>">
-                  </div>
-
-
-                  <div class="col-lg-6">
-                    <label for="usr">Balance Due</label>
-                    <input type="text" name="blns" class="form-control" id="usr" placeholder="" value="<?php echo $val . $balance_due; ?>">
-                  </div>
-
 
                 </div>
 
@@ -374,23 +442,28 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
         <table id="example" class="display">
           <thead>
             <tr>
-              <th rowspan="2">Transaction ID</th>
-              <th rowspan="2">Loan ID</th>
-              <th rowspan="2">Payment</th>
-              <th rowspan="2">Interest</th>
-              <th rowspan="2">Principal</th>
-              <th rowspan="2">Balance</th>
-              <th colspan="2" style="text-align:center">Fees</th>
-              <th rowspan="2">Due Date</th>
-              <th rowspan="2">Payment Date</th>
-              <th rowspan="2">Payment Method</th>
-              <th rowspan="2">User Name</th>
-              <th rowspan="2">DPD</th>
-              <th rowspan="2">Action</th>
+              <th rowspan="3">Transaction ID</th>
+              <th rowspan="3">Loan ID</th>
+              <th rowspan="3">Payment</th>
+              <th rowspan="3">Interest</th>
+              <th rowspan="3">Principal</th>
+              <th rowspan="3">Balance</th>
+              <th colspan="4" style="text-align:center">Fees</th>
+              <th rowspan="3">Due Date</th>
+              <th rowspan="3">Payment Date</th>
+              <th rowspan="3">Payment Method</th>
+              <th rowspan="3">User Name</th>
+              <th rowspan="3">DPD</th>
+              <th rowspan="3">Action</th>
             </tr>
             <tr>
-              <th>Late</th>
-              <th>Convenience</th>
+              <th rowspan="2">Late</th>
+              <th rowspan="2">Convenience</th>
+              <th colspan="2" style="text-align:center">Other</th>
+            </tr>
+            <tr>
+              <th>Amount</th>
+              <th>Description</th>
             </tr>
           </thead>
           <tbody>
@@ -418,10 +491,10 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             $total_no_of_pages = ceil($total_records / $total_records_per_page);
             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-            $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction where loan_id='$id' order by transaction_id desc");
-
+            $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction clt LEFT join tbl_other_fees tof on clt.other_fee_id = tof.tbl_other_fees_id LEFT JOIN tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_id='$id' order by transaction_id desc");
+            $count = 0;
             while ($row_loan = mysqli_fetch_array($sql_loan)) {
-
+              $count++;
               $transaction_id = $row_loan['transaction_id'];
               $loan_create_id = $row_loan['loan_create_id'];
               $payment_amount = $row_loan['payment_amount'];
@@ -435,6 +508,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $created_by_get_db_activity = $row_loan['created_by'];
               $late_fee = $row_loan['late_fee'];
               $convenience_fee = $row_loan['convenience_fee'];
+              $other_fee = $row_loan['other_fee'];
+              $description = $row_loan['item'] == null ? "" : $row_loan['item'] . " (" . $row_loan['other_fee_id'] . ")";
               $card_info = $row_loan['card_info'];
 
               $card_info_tooltip = "";
@@ -444,6 +519,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               if ($card_info != 0) {
                 $query_card_info = mysqli_query($con, "SELECT * FROM commercial_loan_transaction_cards_info where card_info_id= '$card_info'");
                 while ($row_card_info = mysqli_fetch_array($query_card_info)) {
+                  $type_of_id = $row_card_info['type_of_id'];
                   $type_of_card = $row_card_info['type_of_card'];
                   $card_number = $row_card_info['card_number'];
                   $card_exp_date = $row_card_info['card_exp_date'];
@@ -478,7 +554,11 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                         <div class='row flex-nowrap'>
                           <div class='col-6'>Bank Type</div>
                           <div class='col-6'>" . $bank_type . "</div>
-                        </div>                        
+                        </div>      
+                          <div class='row flex-nowrap'>
+                          <div class='col-6'>Type Of ID</div>
+                          <div class='col-6'>" . $type_of_id . "</div>
+                        </div>                  
                         <div class='row flex-nowrap'>
                           <div class='col-6'>Type Of Card</div>
                           <div class='col-6'>" . $type_of_card . "</div>
@@ -536,6 +616,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $dpd = $interval->format('%r%a');
 
               $chargeBack = $payment_method == "Debit Card" ? " - <i class='fa fa-arrow-circle-o-left' id='btnChargeBackId' style='cursor: pointer'></i>" : "";
+              $action = $count == 1 ? "<a href='edit_payments.php?t_id=$transaction_id&id=$id'>Edit</a> - <a href='delete_reason_payments.php?t_id=$transaction_id&id=$id'>Delete</a>$chargeBack" : "";
               echo "<tr>
 	 	      
               <td>" . $transaction_id . "</td>
@@ -546,16 +627,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               <td>$" . $remaining_balance . "</td>
               <td>$" . $late_fee . "</td>
               <td>$" . $convenience_fee . "</td>
+              <td>$" . $other_fee . "</td>
+              <td>" . $description . "</td>
               <td>" . $payment_date_f . "</td>
               <td>" . $created_at_f . "</td>
               <td " . $card_info_tooltip . ">" . $start_mark . $payment_method . $end_mark . "</td>
               <td>" . $final_activity_by_user . "</td>
               <td>" . $dpd . "</td>
-              <td><a href='edit_payments.php?t_id=$transaction_id&id=$id'>Edit</a> - <a href='delete_reason_payments.php?t_id=$transaction_id&id=$id'>Delete</a>$chargeBack
-              </td>
-	 		  
-		   	  
-
+              <td>" . $action . "</td>
 		   	  </tr>";
             }
 
@@ -579,7 +658,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
       </div>
 
       <h3 style="color:red;">Conversation <span style="float:right;"> </span> </h3>
-      <iframe is="x-frame-bypass" src="https://mymoneyline.com/lsbankingportal/ls_software/admin/sms-chat?chat_key=<?php echo $chat_key; ?>&admin_name=<?php echo $u_name; ?>" height="500px" width="100%" id="conversation"></iframe>
+      <iframe src="../sms-chat/index.php?chat_key=<?php echo $chat_key; ?>&admin_name=<?php echo $u_name; ?>" height="500px" width="100%" id="conversation"></iframe>
 
 
       <!-- /#page-content-wrapper -->
@@ -599,7 +678,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             </div>
             <div class="modal-body" style="margin-left:15px">
               <div class="row">
-                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Chargeback Amount<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Chargeback
+                    Amount<mark class="red">*</mark></label></div>
                 <div class="col-md-5 col-sm-5 col-lg-5"><input type="text" style="color:black" id="lblChargeback" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
                 </div>
               </div>
@@ -615,15 +695,71 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="type_alert_fee" tabindex="-1" aria-labelledby="type_alert_fee" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-close-div">
+              <div class="cancel modal_close text-center" data-dismiss="modal">
+                <i class="fa fa-times"></i>
+              </div>
+            </div>
+            <div class="modal-header">
+              <h5 class="modal-title text-center" id="type_alert_fee_title"></h5>
+              <div style="display:none"><i id="lblOtherFeeId"></i></div>
+              <div style="display:none"><i id="lblLoanId"><?php echo $loan_create_id; ?></i></div>
+              <div style="display:none"><i id="lblUserId"><?php echo $user_fnd_id; ?> </i></div>
+            </div>
+            <div class="modal-body" style="margin-left:15px">
+
+              <div class="row">
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Fee
+                    Amount<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5"><input type="text" style="color:black" id="lblAmountFee" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Description<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5">
+                  <input list="type_of_descriptions" name="type_of_description" id="lblTypeOfDescription" style="width:100%">
+                  <datalist id="type_of_descriptions">
+                    <?php
+                    $sql_loan = mysqli_query($con, "select * from tbl_lists where kind='Other Fee'");
+
+                    while ($row_loan = mysqli_fetch_array($sql_loan)) {
+                      $row_item = $row_loan['item'];
+                      echo "
+                        <option value='$row_item'></option>";
+                    }
+                    ?>
+                  </datalist>
+                </div>
+              </div>
+              <div class="row" id="error_row">
+                <div class="col-md-12 col-sm-12 col-lg-12" style="justify-content: center; display: flex">
+                  <label style="text-align: center; color: red" id="lblError"></label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <label id="newOtherFee" hidden>true</label>
+              <button type="button" class="reset" id="btnInsertUpdateOtherFee" onclick="updateOtherFee(event)">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- /#wrapper -->
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/b-1.7.1/datatables.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/sl-1.3.3/datatables.min.js"></script> -->
+
 
     <script src="https://cdn.datatables.net/rowgroup/1.1.3/js/dataTables.rowGroup.min.js"></script>
+    <script src="js/otherFeesScript.js"></script>
     <script src="js/chargebackScript.js"></script>
 
     <!-- Menu Toggle Script -->
@@ -654,8 +790,6 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
         var exp = Math.pow(10, n);
         return Math.floor(x * exp + 0.5) / exp;
       }
-
-
     </script>
 
     <?php
