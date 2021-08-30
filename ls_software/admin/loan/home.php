@@ -440,12 +440,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $keyword = $_GET['keyword'];
                             $from_date = $_GET['from_date'];
                             $loan_date = $_GET['loan_date'];
-                            $due_date = $_GET['due_date'];
+                            $due_date_query = $_GET['due_date'];
                             $to_date = $_GET['to_date'];
-                            $fund_status = $_GET['fund_status'];
-
-
-
+                            $fund_status = $_GET['fund_status'];                            
 
 
                             if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || (isset($_GET['keyword_name']) && $_GET['keyword_name'] != '') ||  (isset($_GET['state']) && $_GET['state'] != 'All') || isset($_GET['from_date'])  || isset($_GET['loan_date']) || isset($_GET['due_date']) || isset($_GET['to_date'])) {
@@ -492,7 +489,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                     $query_search .= " AND ";
                                     //$and_check = 2;
                                 }
-                                $query_search .= " (payment_date BETWEEN '$due_date' AND '$to_date')";
+                                $query_search .= " (payment_date BETWEEN '$due_date_query' AND '$to_date')";
                             }
 
 
@@ -530,21 +527,21 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                     //$and_check = 2;
                                 }
 
+                                $query_search .= " state like '%$state_search%' ";
+                                // $query_keyword = mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE  (`state` LIKE '%$state_search%')");
+                                // $query_search .= "(";
+                                // // echo "SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` LIKE '%$keyword_name%' OR `first_name`LIKE '%$keyword_name%' OR `last_name` LIKE '%$keyword_name%' OR `email` LIKE '%$keyword_name%' OR `mobile_number` LIKE '%$keyword_name%' AND `state` LIKE '%$state_search%'";
+                                // while ($row_keyword = mysqli_fetch_array($query_keyword)) {
+                                //     $payment = $row_keyword['user_fnd_id'];
 
-                                $query_keyword = mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE  (`state` LIKE '%$state_search%')");
-                                $query_search .= "(";
-                                // echo "SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` LIKE '%$keyword_name%' OR `first_name`LIKE '%$keyword_name%' OR `last_name` LIKE '%$keyword_name%' OR `email` LIKE '%$keyword_name%' OR `mobile_number` LIKE '%$keyword_name%' AND `state` LIKE '%$state_search%'";
-                                while ($row_keyword = mysqli_fetch_array($query_keyword)) {
-                                    $payment = $row_keyword['user_fnd_id'];
+                                //     $query_search .= " (user_fnd_id = '$payment' )";
 
-                                    $query_search .= " (user_fnd_id = '$payment' )";
+                                //     $query_search .= " OR ";
+                                // }
 
-                                    $query_search .= " OR ";
-                                }
+                                // $query_search .= " (user_fnd_id = '$payment' )";
 
-                                $query_search .= " (user_fnd_id = '$payment' )";
-
-                                $query_search .= ")";
+                                // $query_search .= ")";
                             }
 
 
@@ -853,62 +850,92 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                     <ul class="pagination">
                         <?php // if($page_no > 1){ echo "<li><a href='?page_no=1'>First Page</a></li>"; } 
+                            $filters ="";
+                            if($keyword_name != null && $keyword_name != ""){
+                                $filters .= "&keyword_name=$keyword_name";    
+                            }
+                            if($state != null && $state != ""){
+                                $filters .= "&state_search=$state";    
+                            }
+                            if($status != null && $status != ""){
+                                $filters .= "&status=$status";    
+                            }
+                            if($keyword != null && $keyword != ""){
+                                $filters .= "&keyword=$keyword";    
+                            }
+                            if($from_date != null && $from_date != ""){
+                                $filters .= "&from_date=$from_date";    
+                            }
+                            if($loan_date != null && $loan_date != ""){
+                                $filters .= "&loan_date=$loan_date";    
+                            }
+                            if($due_date_query != null && $due_date_query != ""){
+                                $filters .= "&due_date=$due_date_query";    
+                            }
+                            if($to_date != null && $to_date != ""){
+                                $filters .= "&to_date=$to_date";    
+                            }
+                            if($fund_status != null && $fund_status != ""){
+                                $filters .= "&fund_status=$fund_status";    
+                            }
                         ?>
 
                         <li <?php if ($page_no <= 1) {
                                 echo "class='disabled'";
                             } ?>>
                             <a <?php if ($page_no > 1) {
-                                    echo "href='?page_no=$previous_page'";
+                                    echo "href='?page_no=$previous_page$filters'";
                                 } ?>>Previous</a>
                         </li>
 
                         <?php
+
                         if ($total_no_of_pages <= 10) {
                             for ($counter = 1; $counter <= $total_no_of_pages; $counter++) {
                                 if ($counter == $page_no) {
                                     echo "<li class='active'><a>$counter</a></li>";
                                 } else {
-                                    echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+                                    echo "<li><a href='?page_no=$counter$filters'>$counter</a></li>";
                                 }
                             }
                         } elseif ($total_no_of_pages > 10) {
+                            
 
                             if ($page_no <= 4) {
                                 for ($counter = 1; $counter < 8; $counter++) {
                                     if ($counter == $page_no) {
                                         echo "<li class='active'><a>$counter</a></li>";
                                     } else {
-                                        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+                                        echo "<li><a href='?page_no=$counter$filters'>$counter</a></li>";
                                     }
                                 }
                                 echo "<li><a>...</a></li>";
-                                echo "<li><a href='?page_no=$second_last'>$second_last</a></li>";
-                                echo "<li><a href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
+                                echo "<li><a href='?page_no=$second_last$filters'>$second_last</a></li>";
+                                echo "<li><a href='?page_no=$total_no_of_pages$filters'>$total_no_of_pages</a></li>";
                             } elseif ($page_no > 4 && $page_no < $total_no_of_pages - 4) {
-                                echo "<li><a href='?page_no=1'>1</a></li>";
-                                echo "<li><a href='?page_no=2'>2</a></li>";
+                                echo "<li><a href='?page_no=1$filters'>1</a></li>";
+                                echo "<li><a href='?page_no=2$filters'>2</a></li>";
                                 echo "<li><a>...</a></li>";
                                 for ($counter = $page_no - $adjacents; $counter <= $page_no + $adjacents; $counter++) {
                                     if ($counter == $page_no) {
                                         echo "<li class='active'><a>$counter</a></li>";
                                     } else {
-                                        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+                                        echo "<li><a href='?page_no=$counter$filters'>$counter</a></li>";
                                     }
                                 }
                                 echo "<li><a>...</a></li>";
-                                echo "<li><a href='?page_no=$second_last'>$second_last</a></li>";
-                                echo "<li><a href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
+                                echo "<li><a href='?page_no=$second_last$filters'>$second_last</a></li>";
+                                echo "<li><a href='?page_no=$total_no_of_pages$filters'>$total_no_of_pages</a></li>";
                             } else {
-                                echo "<li><a href='?page_no=1'>1</a></li>";
-                                echo "<li><a href='?page_no=2'>2</a></li>";
+                                echo "<li><a href='?page_no=1$filters'>1</a></li>";
+                                echo "<li><a href='?page_no=2$filters'>2</a></li>";
                                 echo "<li><a>...</a></li>";
 
                                 for ($counter = $total_no_of_pages - 6; $counter <= $total_no_of_pages; $counter++) {
                                     if ($counter == $page_no) {
                                         echo "<li class='active'><a>$counter</a></li>";
                                     } else {
-                                        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+                                        echo "<li><a href='?page_no=$counter$filters'>$counter</a></li>";
                                     }
                                 }
                             }
@@ -919,11 +946,11 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 echo "class='disabled'";
                             } ?>>
                             <a <?php if ($page_no < $total_no_of_pages) {
-                                    echo "href='?page_no=$next_page'";
+                                    echo "href='?page_no=$next_page$filters'";
                                 } ?>>Next</a>
                         </li>
                         <?php if ($page_no < $total_no_of_pages) {
-                            echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+                            echo "<li><a href='?page_no=$total_no_of_pages$filters'>Last &rsaquo;&rsaquo;</a></li>";
                         } ?>
                     </ul>
 
