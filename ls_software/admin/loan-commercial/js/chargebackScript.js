@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     table = $('#example').DataTable({
       "order": [
-        [5, 'asc']
+        [0, 'desc']
       ],
       "rowGroup": {
         startRender: function(rows, group) {
@@ -85,11 +85,37 @@ $(document).ready(function() {
 
     $('#example tbody').on('click', 'i#btnChargeBackId', function() {
       var data = table.row($(this).parents('tr')).data();
+      var chargeback_amount = data[2].replace("$", "").replace(",","");
       document.getElementById("type_alert_title").innerText = "Set chargeback amount";
-      document.getElementById("lblChargeback").placeholder = "0 - " + data[2].replace("$", "");
+      document.getElementById("lblChargeback").placeholder = "0 - " + chargeback_amount;
       document.getElementById("lblLoanId").value = data[1];
       document.getElementById("lblTransactionId").value = data[0];
-      document.getElementById("lblTransactionAmount").value = data[2].replace("$", "");
+      document.getElementById("lblTransactionAmount").value = chargeback_amount;
+
+      
+      var late_fee = data[6].replace("$","").replace(",","");
+      var convenience_fee = data[7].replace("$","").replace(",","");
+      var other_fee = data[8].replace("$","").replace(",","");
+      var other_fee_id = 0;
+      if(other_fee != 0){
+        other_fee_id = data[9].match(/\((.*?)\)/)[1]
+      }
+      
+      document.getElementById("lblOtherFeeId").value = other_fee_id;
+      document.getElementById("lblLateFee").placeholder = "0 - " + late_fee;
+      document.getElementById("lblCovenienceFee").placeholder = "0 - " + convenience_fee;
+      document.getElementById("lblOtherFee").placeholder = "0 - " + other_fee;
+
+      document.getElementById("lblChargeback").disabled = chargeback_amount == 0;
+      document.getElementById("lblLateFee").disabled = late_fee == 0;
+      document.getElementById("lblCovenienceFee").disabled = convenience_fee == 0;
+      document.getElementById("lblOtherFee").disabled = other_fee == 0;
+
+      document.getElementById("lblChargeback").max = chargeback_amount;
+      document.getElementById("lblLateFee").max = late_fee;
+      document.getElementById("lblCovenienceFee").max = convenience_fee;
+      document.getElementById("lblOtherFee").max = other_fee;
+
       chargebackModal.show();
 
     });
@@ -102,6 +128,14 @@ $(document).ready(function() {
 
   });
 
+  function oniputChange(elem){
+    elem.value = elem.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+    var max = parseFloat(elem.max); 
+    if(parseFloat(elem.value) > max)
+    {
+      elem.value = max;
+    }
+  }
 
   function updateChargeback() {
 
@@ -120,9 +154,15 @@ $(document).ready(function() {
         dataType: 'json',
         data: {
             'func':"SetChargeback",
+            'u_id':document.getElementById("lblUid").getAttribute("value"),
+            'id':document.getElementById("lblId").getAttribute("value"),
             'loanId':document.getElementById("lblLoanId").value,
             'transactionId':document.getElementById("lblTransactionId").value,
             'chargebackAmount': document.getElementById("lblChargeback").value,
+            'lateFee': document.getElementById("lblLateFee").value,
+            'convenienceFee': document.getElementById("lblCovenienceFee").value,
+            'otherFee': document.getElementById("lblOtherFee").value,
+            'otherFeeId': document.getElementById("lblOtherFeeId").value,
             'transactionAmount': document.getElementById("lblTransactionAmount").value
         },
         success: function (data) {
@@ -157,5 +197,5 @@ $(document).ready(function() {
 
 function Init() {
     document.getElementById("lblChargeback").style.removeProperty("border");
-    document.getElementById("error_row_card").hidden = true;
+    document.getElementById("error_row").hidden = true;
 }

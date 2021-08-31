@@ -292,8 +292,9 @@ if ($u_access_id != '1') {
             }
         }
 
+        $if_empty_payment = $to_be_paid_amount == 0;
         $to_be_paid_amount += $paid_amount;
-        if (isset($_GET['late_fee'])) {
+        if (isset($_GET['late_fee']) || $if_empty_payment) {
             $to_be_paid_amount = 0;
         }
 
@@ -325,9 +326,10 @@ if ($u_access_id != '1') {
         $continue = true;
         if ($payment_method == "Repay") {
 
+            $repay_amount = $to_be_paid_amount + $late_fee + $convenience_fee + $other_fee;
             //********************************************* GET BASE URL 
 
-            $sql_payment_api = mysqli_query($con, "select * from payment_api_urls where name='test_url2'");
+            $sql_payment_api = mysqli_query($con, "select * from payment_api_urls where name='live_url2'");
 
             while ($row_payment_api = mysqli_fetch_array($sql_payment_api)) {
 
@@ -381,7 +383,7 @@ if ($u_access_id != '1') {
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS => '{
-                    "amount": "' . $amount . '",
+                    "amount": "' . $to_be_paid_amount . '",
                     "customer_id": "' . $loan_create_id . '",
                     "transaction_type": "sale"
                     
@@ -497,14 +499,14 @@ if ($u_access_id != '1') {
             $merchant_name = $data_paywithcard['merchant_name'];
             $date = $data_paywithcard['date'];
             $trans_type_id = $data_paywithcard['trans_type_id'];
-            $query_in  = "INSERT INTO `tbl_pay_with_card` (`user_fnd_id`,`loan_create_id`,`merchant_id`, `transaction_id`, `auth_code`, `trx_status`, `result_text`, `zip_code`, `amount`, `card_bin`, `card_exp`, `card_last_four`, `name_on_card`, `customer_id`, `payment_channel`, `source`, `transaction_type`, `transaction_date`)  VALUES ('$user_fnd_id','$loan_create_id','$merchant_id','$repay_transaction_id','$auth_code','$trx_status','$result_text','$zip','$amount','$card_bin','$exp_date','$card_last_four','$name_on_card','$customer_id','$payment_channel','$merchant_name','$trans_type_id','$new_date')";
+            $query_in  = "INSERT INTO `tbl_pay_with_card` (`user_fnd_id`,`loan_create_id`,`merchant_id`, `transaction_id`, `auth_code`, `trx_status`, `result_text`, `zip_code`, `amount`, `card_bin`, `card_exp`, `card_last_four`, `name_on_card`, `customer_id`, `payment_channel`, `source`, `transaction_type`, `transaction_date`)  VALUES ('$user_fnd_id','$loan_create_id','$merchant_id','$repay_transaction_id','$auth_code','$trx_status','$result_text','$zip','$to_be_paid_amount','$card_bin','$exp_date','$card_last_four','$name_on_card','$customer_id','$payment_channel','$merchant_name','$trans_type_id','$new_date')";
             $result = mysqli_query($con, $query_in);
         }
 
 
 
         //*********************************************** */
-
+        $installment_dict = [];
         $query_payment = mysqli_query($con, "Select payment, `id`, `paid amount`, balance, interest, principal, paid_late_fee from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0 order by id asc");
         while ($row_payment = mysqli_fetch_array($query_payment)) {
             if ($to_be_paid_amount == 0) {
@@ -567,6 +569,9 @@ if ($u_access_id != '1') {
             }
 
             mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid_late_fee` = '$paid_late_fee', paid_date='$paid_date', `paid amount`='$to_paid',`dpd` = $dpd, status=$status, paid_by='$u_id', payment_description='$payment_description'  where id ='$intallment_id'");
+
+            $installment_dict[$intallment_id] = $to_paid - $paid_amount;
+            //$intallment_id, $to_paid, $late_fee, $convenience_fee, $other_fee $other_fee_id
         }
 
         if (isset($payment) && ($_POST['to_be_paid_amount'] > $payment)) {
@@ -577,6 +582,8 @@ if ($u_access_id != '1') {
 
         if (isset($_GET['late_fee'])) {
             $intallment_id = $_GET['intallment_id'];
+            $installment_dict[$intallment_id] = 0;
+            $if_empty_payment = false;
             $query_payment = mysqli_query($con, "Select paid_late_fee from `tbl_commercial_loan_installments` where id = '$intallment_id'");
             while ($row_payment = mysqli_fetch_array($query_payment)) {
                 $paid_late_fee = $row_payment['paid_late_fee'];
@@ -603,6 +610,21 @@ if ($u_access_id != '1') {
                 $card_info_id = mysqli_insert_id($con);
 
                 mysqli_query($con, "UPDATE commercial_loan_transaction SET card_info='$card_info_id' where transaction_id ='$transaction_id'");
+
+                if($if_empty_payment){
+                    $installment_dict[0] = 0;
+                }
+
+                foreach ($installment_dict as $installment_id => $paid_amount){
+                    $query_insert_chargeback = "INSERT INTO `tbl_commercial_loan_chargeback` (`id`, `loan_create_id`, `transaction_id`, `installment_id`, `installment_paid`, `late_fee_paid`, `convenience_fee_paid`, `other_fee_id`, `other_fee_paid`) VALUES (NULL, $loan_create_id, $transaction_id, $installment_id,  $paid_amount, $late_fee, $convenience_fee, $other_fee_id,  $other_fee)";
+                    $result_insert_chargeback = mysqli_query($con, $query_insert_chargeback);
+                    $late_fee =0;
+                    $convenience_fee = 0;
+                    $other_fee_id = 0;
+                    $other_fee = 0;
+                }
+
+
             }
         } else {
 

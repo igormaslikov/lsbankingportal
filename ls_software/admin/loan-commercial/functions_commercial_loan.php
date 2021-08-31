@@ -522,47 +522,100 @@ function InsertAllBankInformation()
 function SetChargeback()
 {
     global $con;
+    $u_id = $_POST["u_id"];
+    $id = $_POST['id'];
     $loan_id = $_POST['loanId'];
     $transaction_id = $_POST['transactionId'];
     $chargeback_amount = $_POST['chargebackAmount'];
+    $late_fee = $_POST['lateFee'];
+    $convenience_fee = $_POST['convenienceFee'];
+    $other_fee = $_POST['otherFee'];
+    $other_fee_id = $_POST['otherFeeId'];
     $transaction_amount = $_POST['transactionAmount'];
-    $still_amount = $transaction_amount - $chargeback_amount;
-    $installment_payments = "";
-    $sql_installments = mysqli_query($con, "SELECT installment_payments FROM `commercial_loan_transaction` where transaction_id='$transaction_id'");
-    while ($row_instalments_detail = mysqli_fetch_array($sql_installments)) {
-        $installment_payments = explode(";",$row_instalments_detail['installment_payments']);
-    }  
 
+    $skip_amount = $transaction_amount - $chargeback_amount;
 
-    $sql_installments = mysqli_query($con, "SELECT * FROM `tbl_commercial_loan_installments` where loan_create_id='$loan_id' and transaction_ids like '%$transaction_id;%' order by id asc");
-    while ($row_instalments_detail = mysqli_fetch_array($sql_installments)) {
-        $id = $row_instalments_detail['id'];
-        $payment = $row_instalments_detail['payment'];
-        $paid_amount = $row_instalments_detail['paid_amount'];
+    $installment_id = 0;
+    $sql_chargeback = mysqli_query($con, "SELECT * FROM `tbl_commercial_loan_chargeback` where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
+    while ($row_chargeback = mysqli_fetch_array($sql_chargeback)) {
+        $installment_id = $row_chargeback['installment_id'];
+        $installment_paid = $row_chargeback['installment_paid'];
+        $late_fee_paid = $row_chargeback['late_fee_paid'];
+        $convenience_fee_paid = $row_chargeback['convenience_fee_paid'];
+        $other_fee_id_paid = $row_chargeback['other_fee_id'];
+        $other_fee_paid = $row_chargeback['other_fee_paid'];
 
-        $installment_payment = $installment_payments[0];
-        if($still_amount >= $installment_payment){
-            $still_amount -= $installment_payment;
-            unset($installment_payments[0]);
-            continue;   
-        }
-
-        if($still_amount == 0){
+        if($skip_amount >= $installment_paid){
+            $skip_amount -= $installment_paid;
             continue;
         }
 
-        $paid_from_next_transaction = $paid_amount - $installment_payment;
+        if($late_fee_paid != 0){
+            $late_fee_paid = $late_fee;
+        }
 
-        $paid = $paid_from_next_transaction + $still_amount;//update paid_amount
-        $still_amount = 0;
-        
-        $chargeback = $payment - $paid;// update chargeback amount
-        $status = 0;//check what status
-        
-        
-        
+        if($convenience_fee_paid != 0){
+            $convenience_fee_paid = $convenience_fee;
+        }
 
-    }   
+        $chargeback_paid = $installment_paid - $skip_amount;
+        $skip_amount = 0;
+
+        $action_query = "UPDATE `tbl_commercial_loan_installments` SET `chargeback_amount`='$chargeback_paid', paid_late_fee = pade_late_fee - $late_fee_paid  WHERE `id` = '$installment_id'";
+        mysqli_query($con, $action_query);
+
+
+    }  
+
+    if($other_fee != 0){
+        $action_query = "UPDATE `tbl_other_fees` SET `amount_fee_paid`= amount_fee_paid - $other_fee WHERE `tbl_other_fees_id` = '$other_fee_id'";
+        mysqli_query($con, $action_query);
+    }
+
+    $interest = 0;
+    $principal_amount = 0;
+    if($transaction_amount != 0){
+        $sql_transactions = mysqli_query($con, "SELECT * FROM `commercial_loan_transaction` where loan_create_id= '$loan_id' and transaction_id = $transaction_id");
+        while ($row_transaction = mysqli_fetch_array($sql_transactions)) {
+            $percent = $chargeback_amount / $transaction_amount;
+            $interest = -$row_transaction['interest'] * $percent;
+            $principal_amount = -$row_transaction['principal_amount'] * $percent;
+        }
+        
+    }
+
+    $sql_transactions = mysqli_query($con, "SELECT * FROM `commercial_loan_transaction` where loan_create_id= '$loan_id' order by transaction_id desc limit 1");
+    while ($row_transaction = mysqli_fetch_array($sql_transactions)) {
+        $remaining_balance = $row_transaction['remaining_balance'] + $principal_amount;
+        $id = $row_transaction['loan_id'];
+        $user_fnd_id = $row_transaction['user_fnd_id'];
+    }
+
+    $payment_description = "";
+    $late_fee = $late_fee == 0 ? 0 : -$late_fee;
+    $convenience_fee = $convenience_fee == 0 ? 0 : -$convenience_fee;
+    $other_fee = $other_fee == 0 ? 0 : -$other_fee;
+    $due_date = strftime('%Y-%m-%d', strtotime("now"));
+    $payment_method = "Chargeback (".$transaction_id.")";
+
+    $query_insert_trans = "INSERT INTO `commercial_loan_transaction`(`loan_id`, `loan_create_id`, `user_fnd_id`, `installment_id`, 
+    `payment_amount`, `interest`, `principal_amount`, `remaining_balance`, `late_fee`,
+     `convenience_fee` ,`other_fee`,`other_fee_id`, `payment_date`, `payment_description`,`payment_method`, `created_at`, `created_by`) VALUES ('$id','$loan_id','$user_fnd_id','$installment_id',
+     '-$chargeback_amount','$interest','$principal_amount','$remaining_balance','$late_fee','$convenience_fee','$other_fee','$other_fee_id',
+     '$due_date','$payment_description','$payment_method','$due_date','$u_id')";
+    $result_insert_trans = mysqli_query($con, $query_insert_trans);
+
+    $action_query = "UPDATE `commercial_loan_transaction` SET `is_chargeback`='1',  WHERE `transaction_id` = '$transaction_id'";
+    mysqli_query($con, $action_query);
+
+    $message = "Chargeback added";
+
+    $articles[] = array(
+        'status'         =>  "ok",
+        'message'       => $message
+    );
+    echo json_encode($articles);
+   
 }
 
 function UpdateOtherFee(){
@@ -609,7 +662,24 @@ function UpdateOtherFee(){
 }
 
 function DeleteOtherFee(){
+    global $con;
 
+    $other_fee_id = $_POST['itemId'];
+    $status = "ok";
+    $action_query = "DELETE FROM `tbl_other_fees` WHERE `tbl_other_fees`.`tbl_other_fees_id` = '$other_fee_id'";
+    $message = "Other fee deleted";
+    $result = mysqli_query($con, $action_query);
+
+    if (!$result) {
+        $status = "fail";
+        $message = "Other fee with id $other_fee_id not deleted";
+    }
+
+    $articles[] = array(
+        'status'         =>  $status,
+        'message'       => $message
+    );
+    echo json_encode($articles);
 }
 
 function GetUnpaidOtherFee(){

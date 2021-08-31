@@ -184,7 +184,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     <!-- Bootstrap core CSS -->
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/b-1.7.1/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/b-1.7.1/sl-1.3.3/datatables.min.css" />
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/sl-1.3.3/datatables.min.css" /> -->
 
     <script type="module" src="../../website/js/x-frame-bypass.js"></script>
@@ -471,20 +471,6 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
             <?php
             include('db.php');
-            $count = 1;
-            if (isset($_GET['page_no']) && $_GET['page_no'] != "") {
-              $page_no = $_GET['page_no'];
-              $count = $count + (5 * ($page_no - 1));
-            } else {
-              $page_no = 1;
-            }
-
-            $total_records_per_page = 5;
-            $offset = ($page_no - 1) * $total_records_per_page;
-            $previous_page = $page_no - 1;
-            $next_page = $page_no + 1;
-            $adjacents = "2";
-
             $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `commercial_loan_transaction` where loan_id='$id'");
             $total_records = mysqli_fetch_array($result_count);
             $total_records = $total_records['total_records'];
@@ -511,6 +497,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $other_fee = $row_loan['other_fee'];
               $description = $row_loan['item'] == null ? "" : $row_loan['item'] . " (" . $row_loan['other_fee_id'] . ")";
               $card_info = $row_loan['card_info'];
+              $is_chargeback = $row_loan['is_chargeback'];
 
               $card_info_tooltip = "";
               $tooltip = "";
@@ -615,10 +602,13 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $interval = date_diff(date_create($payment_date), date_create($created_at));
               $dpd = $interval->format('%r%a');
 
-              $chargeBack = $payment_method == "Debit Card" ? " - <i class='fa fa-arrow-circle-o-left' id='btnChargeBackId' style='cursor: pointer'></i>" : "";
-              $action = $count == 1 ? "<a href='edit_payments.php?t_id=$transaction_id&id=$id'>Edit</a> - <a href='delete_reason_payments.php?t_id=$transaction_id&id=$id'>Delete</a>$chargeBack" : "";
-              echo "<tr>
-	 	      
+              $row_color = $is_chargeback ? "color:orange" : "";
+              if(strpos($payment_method,"Chargeback") !== false){
+                $row_color = "color:red";
+              }
+              $chargeBack = ($is_chargeback == '0' && $payment_method == "Debit Card") ? " - <i class='fa fa-arrow-circle-o-left' id='btnChargeBackId' style='cursor: pointer'></i>" : "";
+              $action = $count == 1 ? "<a href='edit_payments.php?t_id=$transaction_id&id=$id'>Edit</a> - <a href='delete_reason_payments.php?t_id=$transaction_id&id=$id'>Delete</a>$chargeBack" : str_replace(" - ","",$chargeBack);             
+           echo "<tr style='$row_color'>
               <td>" . $transaction_id . "</td>
               <td>" . $loan_create_id . "</td>
               <td>$" . number_format($payment_amount,   2, ".", ",") . "</td>
@@ -660,6 +650,32 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
       <h3 style="color:red;">Conversation <span style="float:right;"> </span> </h3>
       <iframe src="../sms-chat/index.php?chat_key=<?php echo $chat_key; ?>&admin_name=<?php echo $u_name; ?>" height="500px" width="100%" id="conversation"></iframe>
 
+      <div id="deleteModal" class="modal " role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <div display="none"><i id="idInformation"></i></div>
+
+              <h4 id="deleteTitle" class="modal-title">Delete Other Fee</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="box-body">
+                <label for="chkDel">Are you sure?</label>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input1" onchange="showDeleteBtn()" id="chkDel">
+                <button type="button" name="" id="btnDel" disabled onclick="deleteItem()" class="btn btn-danger">Delete</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- /#page-content-wrapper -->
       <div class="modal fade" id="type_alert" tabindex="-1" aria-labelledby="type_alert" aria-hidden="true">
@@ -672,15 +688,33 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             </div>
             <div class="modal-header">
               <h5 class="modal-title text-center" id="type_alert_title"></h5>
+              <div display="none"><i id="lblUid" value="<?php echo $u_id;?>"></i></div>
+              <div display="none"><i id="lblId" value="<?php echo $id;?>"></i></div>
               <div display="none"><i id="lblLoanId"></i></div>
               <div display="none"><i id="lblTransactionId"></i></div>
               <div display="none"><i id="lblTransactionAmount"></i></div>
+              <div display="none"><i id="lblOtherFeeId"></i></div>
             </div>
             <div class="modal-body" style="margin-left:15px">
               <div class="row">
                 <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Chargeback
                     Amount<mark class="red">*</mark></label></div>
-                <div class="col-md-5 col-sm-5 col-lg-5"><input type="text" style="color:black" id="lblChargeback" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+                <div class="col-md-5 col-sm-5 col-lg-5"><input type="text" style="color:black" id="lblChargeback" oninput=oniputChange(this) />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Late Fee<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5"><input type="text" style="color:black" id="lblLateFee" oninput=oniputChange(this) />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Convenience Fee<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5"><input type="text" style="color:black" id="lblCovenienceFee" oninput=oniputChange(this) />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Other Fee<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5"><input type="text" style="color:black" id="lblOtherFee" oninput=oniputChange(this) />
                 </div>
               </div>
               <div class="row" id="error_row">
@@ -754,7 +788,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/b-1.7.1/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/b-1.7.1/sl-1.3.3/datatables.min.js"></script>
     <!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/sl-1.3.3/datatables.min.js"></script> -->
 
 
