@@ -226,71 +226,68 @@ $style = array(
 );
 
  $html = '<br><div style="line-height:7px"><h1>MoneyLine</h1>
-<span style="font-size:8px">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
-</div>
- <br>
+ <span style="font-size:8px">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ </div>
+  <br>
+  
+  
+  Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
+  &nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span><br>
+  
+  <br>
+  <h2 style="text-align:center"><u>Debit Card Authorization Form</u></h2> 
+ <span style="text-align:center">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ 
+ Authorization to make payments on my <b>MoneyLine</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuing basis using the
+ Debit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Debit Card
+ Holder.<br><br>
+ Autorización para hacer pagos en mi cuenta de <b>MoneyLine, Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
+ continua utilizando la tarjeta de crédito que se describe a continuación y los términos de este préstamo , a menos
+ que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito .
  
  
- Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
-Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
- Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span><br>
- 
- <br>
- <h2 style="text-align:center">Credit Card Authorization Form</h2> 
-<span style="text-align:center">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
-
-Authorization to make payments on my <b>MoneyLine</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuig basis using the
-Credit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card
-Holder.<br><br>
-Autorización para hacer pagos en mi cuenta de <b>MoneyLine</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
-continua utilizando la tarjeta de crédito que se describe a continuación y los términos de este préstamo , a menos
-que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito .
-
-
-<br><br>
-
-<table style="width: 100%; text-align:left; " border="1">
-<tbody>
-<tr>
-<td style="padding-left : 100px">
-<br><br>
-Type of Debit/Credit Card: '.$type_of_card.'<br><br>
- Credit Card Number: ************'.substr($card_number,-4).'<br><br>
- Expiration Date: '.$card_exp_date.'<br><br>
- Credit Card Billing Address:<br><br>
-
- '.$address.'<br>
  <br><br>
-Telephone: '.$mobile_number.' <br><br>
-
-
-</td>
-</tr>
-</tbody>
-</table>
-
-
-<br><br><br>
- I, '.$f_name.', the undersigned hereby states that the above described Credit Card
-is in my name and that i authorize its charge to MoneyLine for full or partial payments.
-<br><br>
- Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita
-en la parte superior y que autorizo su cargos a MoneyLine para los pagos totales o parciales. <br><br><br>
-
-____________________________________________________<br><br>
-<b>Cardholders Signature/Firma del Titular de la Tarjeta de Credito/Debito<br>
-Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span> </b>
-
-
+ 
+ <table style="width: 100%; text-align:left; " border="1">
+ <tbody>
+ <tr>
+ <td style="padding-left : 100px">
+ <br><br>
+ Type / Tipo: '.$type_of_card.'<br><br>
+  Debit Card Number: ************'.substr($card_number,-4).'<br><br>
+  Expiration Date: '.$card_exp_date.'<br><br>
+  Debit Card Billing Address:<br><br>
+ 
+  '.$address.'<br>
+  <br><br>
+ Telephone: '.$mobile_number.' <br><br>
+ 
+ 
+ </td>
+ </tr>
+ </tbody>
+ </table>
+ 
+ 
+ <br><br><br>
+  I, '.$f_name.', the undersigned hereby states that the above described Debit Card
+ is in my name and that i authorize its charge to MoneyLine for full or partial payments.
+ <br><br>
+  Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita
+ en la parte superior y que autorizo su cargos a MoneyLine para los pagos totales o parciales. <br><br><br>
+ 
+ <img src="../completed/doc_signs/'.$img_signed.'" height="300%" alt=""><br>
+ <hr style="width:53%" >
+ <b>Cardholders Signature/Firma del Titular de la Tarjeta<br>
+ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span> </b>
+  
 ';
-
-$sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_customer/completed/doc_signs/".$img_signed;
-
-$img = file_get_contents($sign_image_url);
 
 $pdf->writeHTML($html,25,30); 
 
-$pdf->Image('@' . $img, 25, 239, '30', '', 'JPG', '', 'T', false, 40, '', false, false, 0, false, false, false);
+
  
 $data_shipment  = ":";
 
@@ -303,13 +300,35 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
-
-$pdf_data = ob_get_contents();
-
 $file_name = $id."page_4";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path,'F');
+// $sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_customer/completed/doc_signs/".$img_signed;
+
+// $img = file_get_contents($sign_image_url);
+
+// $pdf->writeHTML($html,25,30); 
+
+// $pdf->Image('@' . $img, 25, 239, '30', '', 'JPG', '', 'T', false, 40, '', false, false, 0, false, false, false);
+ 
+// $data_shipment  = ":";
+
+
+
+// $pdf->Ln();
+// $html = '<h1>LSBANKING </h1>';
+// $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL UNCOVERED.</b>';
+// // ---------------------------------------------------------
+
+// //Close and output PDF document
+
+// $pdf->Output('Case.pdf', 'I');
+
+// $pdf_data = ob_get_contents();
+
+// $file_name = $id."page_4";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
 
 //============================================================+
 // END OF FILE

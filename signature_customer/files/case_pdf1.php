@@ -211,18 +211,28 @@ $style = array(
 );
 
  $html = '
+ <h1 style="text-align:center">CONTRATO DE PRÉSTAMO DE PAGO Y DECLARACIÓN DE DIVULGACIÓN</h1>
  
- 
- 
- <br><div style="line-height:7px"><h2 style="text-align:center">CONTRATO DE PRÉSTAMO DE PAGO Y DECLARACIÓN DE DIVULGACIÓN</h2>
-<span style="text-align:center"> Prestamista:MoneyLine, 4645 Van Nuys Blvd # 202 Sherman Oaks, CA 91403</span><br><br>
-<span style="text-align:center">(747) 300-1542</span><br><br>
-</div>
-
-Fecha del Contrato:    :  '.$creation_date.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LOAN ID : '.$loan_id_bor.' <br>
-Prestatario        : '. $f_name.'<br>
-Dirección         : '.$address.'<br>
-Código postal: '.$city.' '.$state.' '.$zip.'<br><br>
+ <table border="0" style="text-align:left">
+ <tbody>
+ <tr>
+ <td>
+    <b>Loan ID :</b> '.$loan_id_bor.' <br>
+    <b>Fecha del Contrato   :</b>  '.$creation_date.' <br>
+    <b>Prestatario        :</b> '. $f_name.'<br>
+    <b>Dirección         :</b> '.$address.'<br>
+    <b>Código postal:</b> '.$city.' '.$state.' '.$zip.'<br><br>
+ </td>
+ <td>
+ <b>Prestamista :</b> MoneyLine <br>
+ <b>Direccion        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
+ <b>Telefono         :</b> (747) 300-1542<br>
+ <b>Licencia del Prestatario:</b> 60DBO-88277<br><br>
+ </td>
+  </tr>
+ </tbody>
+ </table>
+  
 
 <table border="1" style="text-align:center">
 <tbody>
@@ -246,11 +256,26 @@ los pagos programados .<br>$'.$loan_payable.'<br></td>
 </tbody>
 </table>
 <br><br>
-Seguridad<br>
-* Su (s) pago (s) con fecha posterior y / o la Autorización de la Cámara de Compensación Automatizada ("ACHA") que, de ser así,
-se hacen / forman parte de este Acuerdo, como si se indicara completamente en este documento como garantía del préstamo.<br>
- * Su asignación de salario, si se otorga, también es garantía para este préstamo.<br><br>
- <b>CALENDARIO DE PAGO </b> Su calendario de pago será:<br><br>
+
+<b>Desgloce del Monto Financiado</b><br><hr >
+ <table border="0" style="padding-top:10px;padding-bottom:10px">
+ <tbody>
+ <tr>
+    <td style="text-align:left"><b>Monto Financiado.</b></td>
+    <td style="text-align:center"><b>Monto dado directamente a usted.</b></td>
+    <td style="text-align:center"><b>Monto Refinanciado.</b></td>
+ </tr>
+ <tr>
+    <td style="text-align:left">$_______________</td>
+    <td style="text-align:center">$_______________</td>
+    <td style="text-align:center">$_______________</td>
+ </tr>
+ </tbody>
+ </table>
+
+<br>
+
+ <b>CALENDARIO DE PAGO </b> Su calendario de pago será:<br>
  <b><table border="1">
 <tbody>
 <tr style="text-align:center">
@@ -264,27 +289,45 @@ se hacen / forman parte de este Acuerdo, como si se indicara completamente en es
 <td align="center"><br>'.$payment_date.'<br></td>
 </tr>
 </tbody>
-</table></b><br><br>
-<b>Pago por adelantado</b><br>Un Consumidor puede cancelar futuras obligaciones de pago en un préstamo de día de pago, sin costos ni cargos financieros, a más
-tardar al final del segundo día hábil, inmediatamente después del día en que se ejecutó el préstamo de día de pago. Si paga
-anticipadamente, no tendrá derecho a un reembolso de una parte del cargo financiero. Consulte a continuación y / o la segunda
-página de este contrato para obtener información adicional sobre la falta de pago, el incumplimiento de pago, cualquier pago
-requerido en su totalidad antes de la fecha programada y los reembolsos y multas por pago anticipado.<br><br>
-Al firmar este Contrato de préstamo y Declaración de divulgación (este "contrato") y aceptar un préstamo de MoneyLine
-("Prestador"), el prestatario abajo firmante ("yo", "usted", "prestatario") esta de acuerdo y acepta los términos y condiciones
-establecidas en todas las páginas de este contrato.
-<br><br>
-<b>ENTIENDO QUE SI AÚN DEBO EN UNO O MÁS PRÉSTAMOS DE DIA DE PAGO DESPUÉS DE 35 DÍAS, SE ME PERMITE
+</table></b>
+
+<div style="font-size:8px">
+<b>Garantía:</b>Su(s) pago(s) posfechado(s) y/o la Autorización de la Cámara de Compensación Automatizada ("ACHA"), que si se adjunta(n), forma(n)
+parte de este Acuerdo, como si estuviera(n) completamente establecido(s) en el mismo, constituye(n) una garantía para el préstamo. La cesión de su
+salario, si se ha dado, también es garantía de este préstamo.<br>
+<b>Pago anticipado:</b> Un Consumidor puede cancelar sus obligaciones de pagos futuros en un préstamo de día de pago, sin costo o cargos financieros, a más
+tardar al final del segundo día hábil, inmediatamente posterior al día en que se ejecutó el préstamo de día de pago. Si se cancela antes de tiempo, no
+tendrá derecho a la devolución de una parte del cargo de financiación.<br>
+<b>Cargo por cheque sin fondos:</b> El Prestatario pagará un cargo al Prestamista de $ 15.00 si el Prestatario realiza un pago del préstamo del día de pago y el
+cheque o el cargo preautorizado con el que el Prestatario paga es posteriormente devuelto por no suficientes fondos.
+<br>
+<b>Pago Diferido:</b>El cliente no puede ser procesado en una acción penal en relación con una transacción de depósito diferido para un cheque devuelto o
+ser amenazado con persecución. LS Financing Inc. no puede aceptar ninguna garantía en relación con una transacción de depósito diferido. LS Financing
+Inc. no puede hacer una transacción de depósito diferido contingente en la compra de otro producto o servicio. El cheque del Prestatario forma parte
+de una transacción de depósito diferido realizada de conformidad con el artículo 23035 del Código Financiero y no está sujeto a las disposiciones del
+artículo 1719 del Código Civil. No se podrá exigir al Prestatario el pago de daños y perjuicios triples si este cheque no se hace efectivo
+<br>
+<b>Reclamos e inquietudes:</b>El prestatario puede llamar al número de teléfono gratuito del Departamento de Protección e Innovación Financiera: 866-275-
+2677 para presentar quejas e inquietudes.
+<br>
+<u><b>Money Line con Licencia # 60DBO-88277 está autorizada por el Departamento de Protección e Innovación Financiera de acuerdo con la Ley de
+Transacciones de Depósito Diferido de California. Los préstamos de California que no sean de depósito diferido se emiten de acuerdo con la Ley de
+Financiación de California.</b></u>
+<br>
+
+ENTIENDO QUE SI AÚN DEBO EN UNO O MÁS PRÉSTAMOS DE DIA DE PAGO DESPUÉS DE 35 DÍAS, SE ME PERMITE
 ENTRAR EN UN PLAN DE REPAGO QUE ME DARÁ AL MENOS 55 DÍAS PARA REPAGAR EL PRESTAMOS EN PAGOS SIN
-CARGOS DE FINANCIAMIENTO, INTERESES, HONORARIOS O OTROS CARGOS DE CUALQUIER TIPO. <br><br>
-ADVERTENCIA: ESTE PRÉSTAMO NO ESTÁ INTENCIONADO A CUMPLIR CON LAS NECESIDADES FINANCIERAS A LARGO
+CARGOS DE FINANCIAMIENTO, INTERESES, HONORARIOS O OTROS CARGOS DE CUALQUIER TIPO. <br>
+<b>ADVERTENCIA:</b> ESTE PRÉSTAMO NO ESTÁ INTENCIONADO A CUMPLIR CON LAS NECESIDADES FINANCIERAS A LARGO
 PLAZO. ESTE PRÉSTAMO DEBE SER USADO PARA CUMPLIR CON LAS NECESIDADES DE EFECTIVO A CORTO PLAZO. EL
 COSTO DE SU PRÉSTAMO PUEDE SER MAYOR QUE LOS PRÉSTAMOS OFRECIDOS POR OTRAS INSTITUCIONES DE
 PRÉSTAMOS. ESTE PRÉSTAMO ESTÁ REGULADO POR EL DEPARTAMENTO DE REGULACIÓN FINANCIERA Y
-PROFESIONAL.<br><br>
-NO SE PUEDE PROCESADO EN LA CORTE PENAL PARA RECOGER ESTE PRÉSTAMO.
-</b>
-<br><br>
+PROFESIONAL.<br>
+Al firmar este Contrato de Préstamo y Declaración de Divulgación (este "contrato") y aceptar un préstamo de LS Financing, Inc ("Prestamista") el
+prestatario abajo firmante ("Yo", "usted", "prestatario") está de acuerdo y acepta los términos y condiciones establecidos en todas las páginas de este
+contrato
+</div>
+<br>
 
 <table border="1">
 <tbody>
@@ -322,13 +365,9 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
-
-$pdf_data = ob_get_contents();
-
 $file_name = $id."page_2";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path,'F');
 
 //============================================================+
 // END OF FILE

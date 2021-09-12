@@ -154,6 +154,7 @@ $anual_pr=($apr_total/$dateDiff)*100;
 
 
 <?php
+
 $id=$_GET['id'];
 ob_start();
 
@@ -221,30 +222,28 @@ MoneyLine</h1>
  <table style="width: 100%;" border="1">
 <tbody>
 <tr>
-<td style="width: 15.8733%; text-align:center; background-color:black;color:white"><br><br>HECHOS<br></td>
-<td style="width: 83.1267%; text-align:center"><br><br>QUE HACE MoneyLine CON SU INFORMACION PERSONAL?<br></td>
+<td style="width: 15.8733%; text-align:center; background-color:black;color:white"><br><br>FACTS<br></td>
+<td style="width: 83.1267%; text-align:center"><br><br>WHAT DOES MoneyLine DO WITH YOUR PERSONAL INFORMATION?<br></td>
 </tr>
 <tr>
-<td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Porque?<br></td>
-<td style="width: 83.1267%;"><br><br>Las Empresas Financieras eligen la manera en que comparten su informacion personal. Las Leyes Federales dan a los
-consumidores el derecho a limitar como comparten la informacion, pero no se puede limitar todo. Las Leyes Federales tambien
-nops obligan a informales sobre la manera en que tomamos, compartimos y protegemos sus datos personales. Por favor lea
-esta notificacion cuidadosamente para entender lo que hacemos.<br><br></td>
+<td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>WHY ?<br></td>
+<td style="width: 83.1267%;"><br><br>Financial Companies choose how they share your personal information. Federal law gives consumers the right to limit some
+but not all sharing. Federal law also requires us to tell you how we collect, share, and protect your personal
+information. Please read this notice carefully to understand what we do. <br><br></td>
 </tr>
 <tr>
-<td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br><br>Que?<br></td>
-<td style="width: 83.1267%;"><br><br>Los tipos de datos personales que tomamos y compartimos dependen del producto o servicio que tenga con nosotros. Estos
-datos pueden incluir:<br><br>
-• Numero de Seguro Social y Ingresos<br>
-• Saldos de cuentas e historial de pagos<br>
-• Historial de credito<br><br></td>
+<td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br><br>WHAT ?<br></td>
+<td style="width: 83.1267%;"><br><br>The types of personal information we collect and share depend on the product or service you have with us. This information
+can include:<br><br>
+• Social Security number and income<br>
+• Account balances and payment history<br>
+• Credit history and credit scores <br><br></td>
 </tr>
 <tr>
-<td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Como ? <br></td>
-<td style="width: 83.1267%;"><br><br>Todas las Empresas Financieras necesitan compartir la informacion personal de sus clientes para llevar a cabo sus actividades
-diarias. En la Seccion siguiente describimos las razones por las que las Empresas Financieras pueden compartir la informacion
-personal de sus clientes; las razones por las cuales MoneyLine elige compartir dicha informacion y si usted puede limitar
-que se comparten dicha informacion. 
+<td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>HOW ? <br></td>
+<td style="width: 83.1267%;"><br><br>All financial companies need to share customer’s personal information to run their everyday business.<br>
+In the section below, we list the reasons financial companies can share their customers’ personal information; the
+reasons MoneyLine chooses to share; and whether you can limit this sharing. 
 <br><br></td>
 </tr>
 </tbody>
@@ -254,56 +253,65 @@ que se comparten dicha informacion.
 <table style="width: 100%;" border="1">
 <tbody>
 <tr>
-<td style="width: 60%; text-align:left; color:white; background-color:grey "><b>Razones por las que compartimos su informacion personal</b></td>
-<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>MoneyLine
-Comparte?</b></td>
-<td style="width: 20.8981%; text-align:center;background-color:grey; color:white"><b>Usted puede limitar?</b></td>
+<td style="width: 60%; text-align:left; color:white; background-color:grey "><b>Reason we can share your personal information</b></td>
+<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>Does MoneyLine
+Share?</b></td>
+<td style="width: 20.8981%; text-align:center;background-color:grey; color:white"><b>Can you limit this
+sharing?</b></td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para nuestras actividades diarias –</b><br>
-tales como procesar sus operaciones, mantener su(s) cuenta(s), responder
-requisitos judiciales e investigaciones legales o reportar a agencias de credito.<br></td>
+<td style="width: 60%;"><br><br><b>For our everyday business purposes –</b><br>
+such as to process your transactions, maintain your account(s), respond to court
+orders and legal investigations, prevent or mitigate fraud, engage in corporate
+transactions, or report to credit bureaus<br></td>
 <td style="width: 20.1019%;text-align:center"><br><br> Yes &nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> No&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para nuestras actividades comerciales –</b> <br>
-para ofrecerle nuestros productos y servicios<br></td>
+<td style="width: 60%;"><br><br><b>For our marketing purposes –</b> <br>
+to offer our products and services to you<br></td>
 <td style="width: 20.1019%;text-align:center"><br><br> Yes &nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> No&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para comercializacion conjunta con otras empresas financieras–</b> <br></td>
+<td style="width: 60%;"><br><br><b>For our marketing purposes –</b> <br>
+to offer our products and services to you<br>&nbsp;</td>
 <td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
-<td style="width: 20.8981%;text-align:center"><br><br> No Compartimos&nbsp;</td>
+<td style="width: 20.8981%;text-align:center"><br><br> We Dont Share&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para las actividades diarias de nuestros afiliados –</b> <br>informacion acerca de sus operaciones y experiencias&nbsp;</td>
+<td style="width: 60%;"><br><br><b>For joint marketing with other financial companies</b> <br>&nbsp;</td>
 <td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
-<td style="width: 20.8981%;text-align:center"><br><br> No Compartimos&nbsp;</td>
-</tr>
-<tr>
-<td style="width: 60%;"><br><br><b>Para las actividades diarias de nuestros afiliados –</b> <br>informacion sobre su solvencia<br></td>
-<td style="width: 20.1019%;text-align:center"><br><br> No Compartimos&nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> We dont share&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para que nuetros afiliados lleven a cabo actividades comerciales –</b> <br>&nbsp;</td>
+<td style="width: 60%;"><br><br><b>For our affiliates’ everyday business purposes –</b> <br>
+information about your transactions and experiences<br><br>&nbsp;</td>
 <td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
-<td style="width: 20.8981%;text-align:center"><br><br> No Compartimos&nbsp;</td>
+<td style="width: 20.8981%;text-align:center"><br><br> We dont share&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para que las empresas no afiliadas lleven a cabo actividades comerciales</b> <br>&nbsp;</td>
+<td style="width: 60%;"><br><br><b>For our affiliates’ everyday business purposes –</b> <br>
+information about your creditworthiness<br><br>&nbsp;</td>
+<td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
+<td style="width: 20.8981%;text-align:center"><br><br> We dont share&nbsp;</td>
+</tr>
+<tr>
+<td style="width: 60%;"><br><br><b>For our affiliates to market to you</b> <br>&nbsp;</td>
 <td style="width: 20.1019%;text-align:center"><br><br>No &nbsp;</td>
-<td style="width: 20.8981%;text-align:center"><br><br> No Compartimos&nbsp;</td>
+<td style="width: 20.8981%;text-align:center"><br><br> We dont share&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><b>Preguntas? </b> &nbsp;</td>
-<td colspan = "2" style="width: 20.1019%;">Llamenos al (747) 300-1542</td>
+<td style="width: 60%;"><br><b>For non-affiliates to market to you</b> <br>&nbsp;</td>
+<td style="width: 20.1019%;text-align:center"><br>NO</td>
+<td style="width: 20.8981%;text-align:center"><br> We dont share</td>
+</tr>
+<tr>
+<td style="width: 60%;"><br><b>Questions ? </b> &nbsp;</td>
+<td colspan = "2" style="width: 20.1019%;">Please Call (747) 300-1542</td>
 </tr>
 </tbody>
 </table>
-
 <!-- DivTable.com -->
 
 ';
@@ -323,13 +331,31 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+$file_name = $id."page_7";
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path,'F');
+// $pdf->writeHTML($html,25,30); 
 
-$pdf_data = ob_get_contents();
 
-$file_name =$id. "page_7";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+ 
+// $data_shipment  = ":";
+
+
+
+// $pdf->Ln();
+// $html = '<h1>LSBANKING </h1>';
+// $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL UNCOVERED.</b>';
+// // ---------------------------------------------------------
+
+// //Close and output PDF document
+
+// $pdf->Output('Case.pdf', 'I');
+
+// $pdf_data = ob_get_contents();
+
+// $file_name = $id."page_6";
+// $path="Barcodes/".$file_name.".pdf";
+// file_put_contents( $path, $pdf_data );
 
 //============================================================+
 // END OF FILE

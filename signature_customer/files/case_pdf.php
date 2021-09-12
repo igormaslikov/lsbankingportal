@@ -202,7 +202,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
-// set style for barcode
+// set style for barcode , 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035
 $style = array(
 	'border' => 0,
 	'vpadding' => 'auto',
@@ -213,14 +213,29 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><div style="line-height:7px"><h1 style="text-align:center">PAYDAY LOAN CONTRACT AND DISCLOSURE STATEMENT</h1>
-<span style="text-align:center"> Lender:MoneyLine, 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</span><br><br>
-<span style="text-align:center">(747) 300-1542</span><br><br>
-</div>
-Contract Date   :  '.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LOAN ID : '.$loan_id_bor.' <br>
-Borrower        : '. $f_name.'<br>
-Address         : '.$address.'<br>
-City, State, ZIP: '.$city.' '.$state.' '.$zip.'<br><br>
+ $html = '
+ <h1 style="text-align:center">PAYDAY LOAN CONTRACT AND DISCLOSURE STATEMENT</h1>
+ 
+ <table border="0" style="text-align:left">
+ <tbody>
+ <tr>
+ <td>
+    <b>Loan ID :</b> '.$loan_id_bor.' <br>
+    <b>Contract Date   :</b>  '.$creation_date.' <br>
+    <b>Borrower        :</b> '. $f_name.'<br>
+    <b>Address         :</b> '.$address.'<br>
+    <b>City, State, ZIP:</b> '.$city.' '.$state.' '.$zip.'<br><br>
+ </td>
+ <td>
+ <b>Lender :</b> MoneyLine <br>
+ <b>Address        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
+ <b>Phone         :</b> (747) 300-1542<br>
+ <b>Lender’s License:</b> 60DBO-88277<br><br>
+ </td>
+  </tr>
+ </tbody>
+ </table>
+
 
 <table border="1" style="text-align:center">
 <tbody>
@@ -240,11 +255,26 @@ Credit will cost you<br><br><br><br> $'.$loan_fee.'<br></td>
 </tbody>
 </table>
 <br><br>
-Security<br>
- * Your post-dated payment(s) and/or Automated Clearing House Authorization (“ACHA”) which if so attached, is/are made part
-of this Agreement, as though fully stated herein is security for the loan.<br>
- * Your wage assignment, if given, is also security for this loan.<br><br>
- <b>PAYMENT SCHEDULE</b> Your payment schedule will be:<br><br>
+<b>ITEMIZATION OF AMOUNT FINANCED</b><br><hr >
+
+<table border="0" style="padding-top:10px;padding-bottom:10px">
+ <tbody>
+ <tr>
+    <td style="text-align:left"><b>Amount Financed.</b></td>
+    <td style="text-align:center"><b>Amount Given to you directly.</b></td>
+    <td style="text-align:center"><b>Amount Refinanced.</b></td>
+ </tr>
+ <tr>
+    <td style="text-align:left">$_______________</td>
+    <td style="text-align:center">$_______________</td>
+    <td style="text-align:center">$_______________</td>
+ </tr>
+ </tbody>
+ </table>
+
+<br>
+
+ <b>PAYMENT SCHEDULE</b> Your payment schedule will be:<br>
  <b><table border="1">
 <tbody>
 <tr style="text-align:center">
@@ -258,15 +288,27 @@ of this Agreement, as though fully stated herein is security for the loan.<br>
 <td align="center"><br>'.$payment_date.'<br></td>
 </tr>
 </tbody>
-</table></b><br><br>
-<b>Prepayment</b><br>A Consumer may cancel future payment obligations on a payday loan, without cost or finance charges, no later than the end of the
+</table></b><br>
+
+<div style="font-size:8px">
+<b>Security:</b>
+ Your post-dated payment(s) and/or Automated Clearing House Authorization (“ACHA”) which if so attached, is/are made part
+of this Agreement, as though fully stated herein is security for the loan.<br>
+<b>Prepayment:</b>A Consumer may cancel future payment obligations on a payday loan, without cost or finance charges, no later than the end of the
 second business day, immediately following the day on which the payday loan was executed. If you pay off early, you will not be
-entitled to a refund of a portion of the finance charge. See below and and/or second page of this contract for any additional
-information about nonpayment, default, any required payment in full before the scheduled date, and prepayment refunds and
-penalties.<br><br>
-By signing this Loan Contract and Disclosure Statement (this “contract”) and accepting a loan from MoneyLine (“Lender”) the
-undersigned borrower (“I”, “you”, “borrower”) agrees to and accept the terms and conditions set forth on all pages of this contract.
-<br><br>
+entitled to a refund of a portion of the finance charge.<br>
+<b>Dishonored Item Fee:</b> : Borrower will pay a fee to Lender of $ 15.00 if Borrower makes a payment on Borrower’s loan and the check or preauthorized
+charge with which Borrower pays is later dishonored.<br>
+<b>Deferred Payment:</b> Borrower cannot be prosecuted in a criminal action in conjunction with a deferred deposit transaction for a returned check or be
+threatened with prosecution.LS Financing Inc may not accept any collateral in conjunction with a deferred deposit transaction. LS Financing Inc cannot
+make a deferred deposit transaction contingent on the purchase of another product or service. Borrower’s check is part of a deferred deposit
+transaction made pursuant to Section 23035 of the Financial Code and is not subject to the provisions of Section 1719 of the Civil Code. Borrower may
+not be required to pay treble damages if this check does not clear<br>
+<b>Complaints and Concerns:</b> Borrower can call to the Department of Financial Protection and Innovation\'s toll-free telephone number: 866-275-2677 for
+making complaints and concerns calls.<br>
+<u>Money Line with License # 60DBO-88277 is licensed by the Department of Financial Protection and Innovation pursuant to the California Deferred
+Deposit Transaction Law. California loans other than deferred deposit loans are issued pursuant to the California Financing Law. </u><br>
+
 <b>I UNDERSTAND THAT IF I STILL OWE ON ONE OR MORE PAYDAY LOANS AFTER 35 DAYS, I AM ENTITLED TO
 ENTER INTO A REPAYMENT TO ENTER INTO A REPAYMENT PLAN THAT I WILL GIVE ME AT LEAST 55 DAYS TO
 REPAY THE LOAN IN INSTALLMENTS WITH NO ADDITIONAL FINANCE CHARGES, INTEREST, FEES, OR OTHER
@@ -277,7 +319,10 @@ OFFERED BY OTHER LENDING INSTITUTIONS. THIS LOAN IS REGULATED BY THE DEPARTMENT 
 AND PROFESSIONAL REGULATION.<br><br>
 YOU CANNOT BE PROSECUTED IN CRIMINAL COURT TO COLLECT THIS LOAN.
 </b>
-<br><br>
+By signing this Loan Contract and Disclosure Statement (this “contract”) and accepting a loan from LS Financing, Inc (“Lender”) the undersigned
+borrower (“I”, “you”, “borrower”) agrees to and accept the terms and conditions set forth on all pages of this contract.
+<br>
+</div>
 
 <table border="1">
 <tbody>
@@ -314,12 +359,13 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
+//$pdf->Output('Case.pdf', 'I');
 
-$pdf_data = ob_get_contents();
+//$pdf_data = ob_get_contents();
 $file_name = $id."page_1";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path,'F');
+#file_put_contents( $path, $pdf_data );
 
 //============================================================+
 // END OF FILE

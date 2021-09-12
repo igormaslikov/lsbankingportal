@@ -231,15 +231,16 @@ $style = array(
  
  
  Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
-Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
+ &nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
  Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span><br>
  
  <br>
- <h2 style="text-align:center">Credit Card Authorization Form</h2> 
+ <h2 style="text-align:center"><u>Debit Card Authorization Form</u></h2> 
 <span style="text-align:center">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
 
-Authorization to make payments on my <b>MoneyLine</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuig basis using the
-Credit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card
+Authorization to make payments on my <b>MoneyLine</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuing basis using the
+Debit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Debit Card
 Holder.<br><br>
 Autorización para hacer pagos en mi cuenta de <b>MoneyLine, Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
 continua utilizando la tarjeta de crédito que se describe a continuación y los términos de este préstamo , a menos
@@ -253,10 +254,10 @@ que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito
 <tr>
 <td style="padding-left : 100px">
 <br><br>
-Type of Debit/Credit Card: '.$type_of_card.'<br><br>
- Credit Card Number: ************'.substr($card_number,-4).'<br><br>
+Type / Tipo: '.$type_of_card.'<br><br>
+ Debit Card Number: ************'.substr($card_number,-4).'<br><br>
  Expiration Date: '.$card_exp_date.'<br><br>
- Credit Card Billing Address:<br><br>
+ Debit Card Billing Address:<br><br>
 
  '.$address.'<br>
  <br><br>
@@ -270,14 +271,14 @@ Telephone: '.$mobile_number.' <br><br>
 
 
 <br><br><br>
- I, '.$f_name.', the undersigned hereby states that the above described Credit Card
+ I, '.$f_name.', the undersigned hereby states that the above described Debit Card
 is in my name and that i authorize its charge to MoneyLine for full or partial payments.
 <br><br>
  Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita
 en la parte superior y que autorizo su cargos a MoneyLine para los pagos totales o parciales. <br><br><br>
 
 ____________________________________________________<br><br>
-<b>Cardholders Signature/Firma del Titular de la Tarjeta de Credito/Debito<br>
+<b>Cardholders Signature/Firma del Titular de la Tarjeta<br>
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span> </b>
 
 
@@ -298,13 +299,9 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 
 //Close and output PDF document
 
-$pdf->Output('Case.pdf', 'I');
-
-$pdf_data = ob_get_contents();
-
 $file_name = $id."page_4";
-$path="Barcodes/".$file_name.".pdf";
-file_put_contents( $path, $pdf_data );
+$path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
+$pdf->Output($path,'F');
 
 //============================================================+
 // END OF FILE
