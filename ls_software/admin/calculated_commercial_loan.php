@@ -163,6 +163,10 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
     $in_hand = 0;
     $prev_loan_id = "";
+    $late_fee  = 0;
+    $unpaid_late_fee = 0;
+    $unpaid_other_fee = 0;
+
     if (isset($_POST['previous_loan_id'])) {
         $previous_loan_id = $_POST['previous_loan_id'];
         $sql = mysqli_query($con, "select late_fee from tbl_commercial_loan where loan_create_id= '$previous_loan_id'");

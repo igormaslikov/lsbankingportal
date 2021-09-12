@@ -1,6 +1,11 @@
 var otherFeeModal = null;
+var deleteMod = null;
 var table_fees;
 $(document).ready(function () {
+  deleteMod = new bootstrap.Modal(document.getElementById('deleteModal'), {
+    keyboard: false
+  });
+
   otherFeeModal = new bootstrap.Modal(
     document.getElementById("type_alert_fee"),
     {
@@ -28,7 +33,6 @@ $(document).ready(function () {
     keys: true,
     responsive: true,
     pageLength: 3,
-    processing: true,
     lengthMenu: [1, 3, 5, 10],
     select: {
       bluerable: true,
@@ -57,22 +61,114 @@ $(document).ready(function () {
       {
         targets: [4],
         data: null,
-        defaultContent:
-          "<div style='display:flex;justify-content:space-between; align-items:center'><div><i id='editBtn' class='fa fa-pencil-square' style='color:orange; cursor:pointer'></i></div>" +
-          "<div><i id='removeBtn' class='fa fa-trash' style='color:red;cursor:pointer'></i></div></div>",
+        // defaultContent:
+        //   "<div style='display:flex;justify-content:space-between; align-items:center'><div><i id='editBtn' class='fa fa-pencil-square' style='color:orange; cursor:pointer'></i></div>" +
+        //   "<div><i id='removeBtn' class='fa fa-trash' style='color:red;cursor:pointer'></i></div></div>",
+        render: function (data, type, full, meta){
+            var btnData = "<div style='display:flex;justify-content:space-between; align-items:center'><div><i id='editBtn' class='fa fa-pencil-square' style='color:orange; cursor:pointer'></i></div>";
+            if(data[3] == 0 ){
+              btnData += "<div><i id='removeBtn' class='fa fa-trash' style='color:red;cursor:pointer'></i></div></div>";
+            }
+            return btnData;
+        }
       },
     ],
   });
 
   $("#tblOtherFeesId tbody").on("click", "i#removeBtn", function () {
-   // showDeletePopup();
+     showDeletePopup();
   });
 
   $("#tblOtherFeesId tbody").on("click", "i#editBtn", function () {
     var data = table_fees.row($(this).parents("tr")).data();
     editOtherFee(data[0]);
   });
+
+  table_fees.columns.adjust().draw();
 });
+
+
+function showDeletePopup() {
+ 
+  var title = document.getElementById("deleteTitle");
+  document.getElementById("idInformation").value = "fees";
+  var info = "Delete permanently other fee";
+
+  title.innerText = info;
+  title.innerHTML = info;
+  document.getElementById("chkDel").checked = false;
+  document.getElementById("btnDel").disabled = true;
+  deleteMod.show();
+  
+}
+
+function showDeleteBtn() {
+  if (document.getElementById("chkDel").checked) {
+
+      document.getElementById("btnDel").disabled = false;
+  }
+  else {
+      document.getElementById("btnDel").disabled = true;
+  }
+}
+
+
+function deleteItem() {
+  let result = null;
+  let amount = 0;
+  table_fees.rows({ selected: true }).every(function (rowIdx, tableLoop, rowLoop) {
+      var data = this.data();
+      amount = data[2];
+      result = removeItem(data[0]);
+  });
+
+  if(result[0]){
+    var elem_unpaid_other_fee = document.getElementById("other_fees_unpaid");
+    var amount_unpaid = elem_unpaid_other_fee.value.replace("$","") - amount;
+    elem_unpaid_other_fee.value = "$" + amount_unpaid;
+    
+    table_fees.rows({ selected: true }).remove();
+    table_fees.draw(false);
+  }
+  
+//not reloading page
+  alert(result[1]);
+  deleteMod.hide();
+
+  
+  
+  
+}
+
+
+function removeItem(idItem) {
+  var url = 'functions_commercial_loan.php';
+  let result = null;
+  $.ajax({
+      url: url,
+      type: 'POST',
+      dataType: 'json',
+      data: {
+          'func': "DeleteOtherFee",
+          'itemId':idItem
+      },
+      async: false,
+      success: function(response){
+          result = [true, response[0].message];
+          if(response[0].status != "ok"){
+              result = [false, response[0].message];
+          }
+          
+      },
+      error: function (err) {
+          result = [false, err.responseText];
+      }
+  });
+
+  return result;
+}
+
+
 
 function checkInput() {
   InitOtherFee();

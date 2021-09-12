@@ -1,5 +1,5 @@
 
-        <a href="loan_summary.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Loan Summay</a>
+        <a href="loan_summary.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Loan Summary</a>
         <a href="user_information.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Customer's Information</a>
         <a href="notes_for_loan.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">Notes</a>
         <a href="view_all_ptp.php?id=<?php echo $id;?>" class="list-group-item list-group-item-action bg-light">PTP</a>

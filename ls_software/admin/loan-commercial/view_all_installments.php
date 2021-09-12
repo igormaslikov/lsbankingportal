@@ -284,6 +284,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     $string_red_rejected = 'style="color:purple;font-weight:bold"';
                     $a = "<a href='add_new_transaction.php?intallment_id=$intallment_id&id=$id&late_fee=$still_pay_fee'>PayFee</a>";                   
                   }
+                  else if($chargeback_amount > 0){
+                    $string_red_rejected = 'style="color:deeppink;font-weight:bold"';
+                  }
 
                 } else if($status == '2'){
                   $installment_status = "Settlement";
@@ -305,7 +308,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 //echo $date;
 
                 if ($date > $payment_date and $status == '0') {
-                  $string_red_rejected = 'style="color:red;font-weight:bold"';
+                  $string_red_rejected = 'style="color:black;font-weight:bold"';
                 }
 
                 if($paid_amount >0 & $paid_amount < $payment){

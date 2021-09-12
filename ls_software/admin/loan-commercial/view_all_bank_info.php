@@ -295,11 +295,11 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
           <br>
           <!-- Nav pills -->
           <ul class="nav nav-tabs">
-            <li class="nav-item">
-              <a class="nav-link active" data-toggle="tab" href="#home">Loans</a>
+            <li class="nav-item" hidden = "true">
+              <a class="nav-link " data-toggle="tab" href="#home">Loans</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#menu1">Banks</a>
+              <a class="nav-link active" data-toggle="tab" href="#menu1">Banks</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#menu2">Cards</a>
@@ -308,7 +308,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
           <!-- Tab panes -->
           <div class="tab-content">
-            <div id="home" class="container tab-pane active"><br>
+            <div id="home" class="container tab-pane " hidden><br>
               <div>
                 <table id="tbl_loans_info" class="table table-striped table-bordered">
                   <thead>
@@ -375,7 +375,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 </table>
               </div>
             </div>
-            <div id="menu1" class="container tab-pane fade"><br>
+            <div id="menu1" class="container tab-pane active"><br>
               <div>
                 <table id="tbl_bank_info" class="display table table-bordered table-striped">
                   <thead>
