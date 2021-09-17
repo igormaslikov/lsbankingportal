@@ -265,7 +265,7 @@ $style = array(
  1. By signing below, Account Holder (“<b>you</b>”) authorizes Money Line and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>our</b>”) to automatically withdraw
  your loan payments from your deposit account ending in xxxxxx_'.$account_number.' (“<b>Account</b>”) at '.$bank_name.'
  (“<b>Bank</b>”) via recurring electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to
- initiate debits of $_'.$amount_of_loan.' (“scheduled <b>debit amount</b>”) on the payment due dates, beginning on '.$payment_date.',
+ initiate debits of $'.$loan_payable.' (“scheduled <b>debit amount</b>”) on the payment due dates, beginning on '.$payment_date.',
  which is the effective date of this Authorization. These debits will continue until the amount due under your loan is paid in full or until this
  Authorization is canceled. You also authorize us to initiate ACH debits or credits to your Account as necessary to correct erroneous
  transactions.<br>

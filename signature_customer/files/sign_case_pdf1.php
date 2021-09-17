@@ -231,7 +231,7 @@ $style = array(
  <td>
  <b>Prestamista :</b> MoneyLine <br>
  <b>Direccion        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
- <b>Telefono         :</b> (747) 300-1542<br>
+ <b>Telefono         :</b> 888-540-7232<br>
  <b>Licencia del Prestatario:</b> 60DBO-88277<br><br>
  </td>
   </tr>
@@ -315,7 +315,7 @@ artículo 1719 del Código Civil. No se podrá exigir al Prestatario el pago de 
 <b>Reclamos e inquietudes:</b>El prestatario puede llamar al número de teléfono gratuito del Departamento de Protección e Innovación Financiera: 866-275-
 2677 para presentar quejas e inquietudes.
 <br>
-<u><b>Money Line con Licencia # 60DBO-88277 está autorizada por el Departamento de Protección e Innovación Financiera de acuerdo con la Ley de
+<u><b>LS Financing Inc. con Licencia # 60DBO-88277 está autorizada por el Departamento de Protección e Innovación Financiera de acuerdo con la Ley de
 Transacciones de Depósito Diferido de California. Los préstamos de California que no sean de depósito diferido se emiten de acuerdo con la Ley de
 Financiación de California.</b></u>
 <br>

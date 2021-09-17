@@ -243,8 +243,8 @@ Authorization to make payments on my <b>MoneyLine</b> Loan # <span style="text-d
 Debit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Debit Card
 Holder.<br><br>
 Autorización para hacer pagos en mi cuenta de <b>MoneyLine, Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
-continua utilizando la tarjeta de crédito que se describe a continuación y los términos de este préstamo , a menos
-que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito .
+continua utilizando la tarjeta de Débito que se describe a continuación y los términos de este préstamo , a menos
+que se indique lo contrario por escrito por el titular de la Tarjeta de Débito .
 
 
 <br><br>

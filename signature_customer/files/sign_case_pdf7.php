@@ -299,7 +299,7 @@ para ofrecerle nuestros productos y servicios<br></td>
 </tr>
 <tr>
 <td style="width: 60%;"><br><b>Preguntas? </b> &nbsp;</td>
-<td colspan = "2" style="width: 20.1019%;">Llamenos al (747) 300-1542</td>
+<td colspan = "2" style="width: 20.1019%;">Llamenos al (888)-540-7232</td>
 </tr>
 </tbody>
 </table>

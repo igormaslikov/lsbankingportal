@@ -235,7 +235,7 @@ $style = array(
  <td>
  <b>Lender :</b> MoneyLine <br>
  <b>Address        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
- <b>Phone         :</b> (747) 300-1542<br>
+ <b>Phone         :</b> 888-540-7232<br>
  <b>Lender’s License:</b> 60DBO-88277<br><br>
  </td>
   </tr>
@@ -312,7 +312,7 @@ transaction made pursuant to Section 23035 of the Financial Code and is not subj
 not be required to pay treble damages if this check does not clear<br>
 <b>Complaints and Concerns:</b> Borrower can call to the Department of Financial Protection and Innovation\'s toll-free telephone number: 866-275-2677 for
 making complaints and concerns calls.<br>
-<u>Money Line with License # 60DBO-88277 is licensed by the Department of Financial Protection and Innovation pursuant to the California Deferred
+<u>LS Financing Inc. with License # 60DBO-88277 is licensed by the Department of Financial Protection and Innovation pursuant to the California Deferred
 Deposit Transaction Law. California loans other than deferred deposit loans are issued pursuant to the California Financing Law. </u><br>
 
 <b>I UNDERSTAND THAT IF I STILL OWE ON ONE OR MORE PAYDAY LOANS AFTER 35 DAYS, I AM ENTITLED TO

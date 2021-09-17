@@ -221,7 +221,7 @@ $style = array(
 
  $html = '
 <h1 style="text-align:center"> <span style="text-decoration:underline">PRIVACY NOTICE</span><br>
-LS FINANCING, INC</h1>
+Money Line</h1>
  
  
  <table style="width: 100%;" border="1">
@@ -313,7 +313,7 @@ information about your creditworthiness<br><br>&nbsp;</td>
 </tr>
 <tr>
 <td style="width: 60%;"><br><b>Questions ? </b> &nbsp;</td>
-<td colspan = "2" style="width: 20.1019%;">Please Call (747) 300-1542</td>
+<td colspan = "2" style="width: 20.1019%;">Please Call (888)-540-7232</td>
 </tr>
 </tbody>
 </table>
