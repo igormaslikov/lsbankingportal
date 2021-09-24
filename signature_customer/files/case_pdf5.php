@@ -53,7 +53,7 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
-    $total_loan_payable=$row_loan['total_loan_payable'];
+    $total_loan_payable=$row_loan['loan_total_payable'];
     $amount_of_loan=number_format($amount_of_loan, 2);
     $payment_date=$row_loan['payment_date'];
     
