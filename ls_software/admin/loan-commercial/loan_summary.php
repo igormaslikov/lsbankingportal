@@ -106,11 +106,12 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     $late_fee = $row['late_fee'];
   }
 
-  $query_payment = mysqli_query($con, "Select payment, `paid amount`, payment_date from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0 order by id asc limit 1 ");
+  $query_payment = mysqli_query($con, "Select payment, `paid amount`, payment_date, chargeback_amount from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0 order by id asc limit 1 ");
   while ($row_payment = mysqli_fetch_array($query_payment)) {
     $due_date = $row_payment['payment_date'];
     $payment = $row_payment['payment'];
     $paid_amount = $row_payment['paid amount'];
+    $chargeback_amount = $row_payment['chargeback_amount'];
   }
 
   $balance_due = $payment - $paid_amount;
@@ -352,9 +353,13 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                         <label for="usr">Contract APR</label>
                         <input type="text" name="apr" class="form-control" id="usr" placeholder="" value="<?php echo $apr; ?>">
                       </div>
-                      <div class="col-lg-6">
+                      <div class="col-lg-3">
                         <label for="usr">Balance Due</label>
                         <input type="text" name="blns" class="form-control" id="usr" placeholder="" value="<?php echo $val . $balance_due; ?>">
+                      </div>
+                      <div class="col-lg-3">
+                        <label for="usr">Chargeback Amount</label>
+                        <input type="text" name="chargeback" class="form-control" id="usr" placeholder="" value="<?php echo $val . $chargeback_amount; ?>">
                       </div>
                     </div>
                   </div>
@@ -419,7 +424,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 if ($payment > 0) {
                   $loan_type = "Commercial Loan";
                   $name_button = $loan_status == 'Paid' ? "Renew" : "Refinance";
-                  echo "<a href='../add_commercial_loan.php?id=$user_fnd_id&loan=$loan_type&loan_create_id=$loan_create_id' target=_blank <button name='btn' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%);
+                  $current_loan_id = $loan_status == 'Paid' ? "" : "&loan_create_id=$loan_create_id";
+                  echo "<a href='../add_commercial_loan.php?id=$user_fnd_id&loan=$loan_type$current_loan_id' target=_blank <button name='btn' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%);
     color: #fff;
     background-color: #2a8206;
     border-color: #112f01;'>" . $name_button . " Loan</button></a>";
@@ -460,10 +466,13 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               <th rowspan="2">Late</th>
               <th rowspan="2">Convenience</th>
               <th colspan="2" style="text-align:center">Other</th>
+              <!-- <th colspan="2" style="text-align:center">Chargeback</th> -->
             </tr>
             <tr>
               <th>Amount</th>
               <th>Description</th>
+              <!-- <th>Amount</th>
+              <th>Description</th> -->
             </tr>
           </thead>
           <tbody>
@@ -496,6 +505,16 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $convenience_fee = $row_loan['convenience_fee'];
               $other_fee = $row_loan['other_fee'];
               $description = $row_loan['item'] == null ? "" : $row_loan['item'] . " (" . $row_loan['other_fee_id'] . ")";
+              $chargeback_fee = $row_loan['chargeback_fee'];
+              $chargeback_fee_id = $row_loan['chargeback_fee_id'];
+              $description_chargeback = "";
+              if($chargeback_fee_id != 0){
+                $sql_loan_chargeback = mysqli_query($con, "select * from commercial_loan_transaction clt LEFT join tbl_other_fees tof on clt.chargeback_fee_id = tof.tbl_other_fees_id LEFT JOIN tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where transaction_id='$transaction_id'");
+                while ($row_chargeback = mysqli_fetch_array($sql_loan_chargeback)) {
+                  $description_chargeback = $row_chargeback['item'] == null ? "" : $row_loan['item'] . " (" . $row_loan['chargeback_fee_id'] . ")";
+                }
+              }
+              $other_fee = $row_loan['other_fee'];
               $card_info = $row_loan['card_info'];
               $is_chargeback = $row_loan['is_chargeback'];
 
@@ -603,12 +622,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $dpd = $interval->format('%r%a');
 
               $row_color = $is_chargeback ? "color:orange" : "";
-              if(strpos($payment_method,"Chargeback") !== false){
+              if (strpos($payment_method, "Chargeback") !== false) {
                 $row_color = "color:red";
               }
-              $chargeBack = ($is_chargeback == '0' && $payment_method == "Debit Card") ? " - <i class='fa fa-arrow-circle-o-left' id='btnChargeBackId' style='cursor: pointer'></i>" : "";
-              $action = $count == 1 ? "<a href='edit_payments.php?t_id=$transaction_id&id=$id'>Edit</a> - <a href='delete_reason_payments.php?t_id=$transaction_id&id=$id'>Delete</a>$chargeBack" : str_replace(" - ","",$chargeBack);             
-           echo "<tr style='$row_color'>
+              $chargeBack = ($is_chargeback == '0' && ($payment_method == "Debit Card" || $payment_method == "Repay Portal")) ? " <div><i class='fa fa-arrow-circle-o-left' id='btnChargeBackId' style='cursor: pointer'></i></div>" : "";
+              $edit_button = $payment_method == "Repay" ? "" : "<div style='display:flex;justify-content:space-between; align-items:center'><div><i id='editBtnTransaction' class='fa fa-pencil-square' style='color:orange; cursor:pointer'></i></div>";
+              $delete_button = "<div><i id='removeBtnTransaction' class='fa fa-trash' style='color:red;cursor:pointer'></i></div>";
+              $action = $count == 1 ? "$edit_button" . "$delete_button" . "$chargeBack" . "</div>" : $chargeBack;
+              echo "<tr style='$row_color'>
               <td>" . $transaction_id . "</td>
               <td>" . $loan_create_id . "</td>
               <td>$" . number_format($payment_amount,   2, ".", ",") . "</td>
@@ -688,8 +709,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             </div>
             <div class="modal-header">
               <h5 class="modal-title text-center" id="type_alert_title"></h5>
-              <div display="none"><i id="lblUid" value="<?php echo $u_id;?>"></i></div>
-              <div display="none"><i id="lblId" value="<?php echo $id;?>"></i></div>
+              <div display="none"><i id="lblUid" value="<?php echo $u_id; ?>"></i></div>
+              <div display="none"><i id="lblId" value="<?php echo $id; ?>"></i></div>
               <div display="none"><i id="lblLoanId"></i></div>
               <div display="none"><i id="lblTransactionId"></i></div>
               <div display="none"><i id="lblTransactionAmount"></i></div>
@@ -725,6 +746,34 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             </div>
             <div class="modal-footer">
               <button type="button" class="reset" id="btnInsertUpdateBankInfo" onclick="updateChargeback()">Chargeback</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="transaction_edit_modal" tabindex="-1" aria-labelledby="transaction_edit_modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 85% !important;">
+          <div class="modal-content">
+            <div class="modal-close-div">
+              <div class="cancel modal_close text-center" data-dismiss="modal">
+                <i class="fa fa-times"></i>
+              </div>
+            </div>
+            <div class="modal-header">
+              <h5 class="modal-title text-center" id="transaction_edit_modal_title"></h5>
+              <div display="none"><i id="lblUidTransaction" value="<?php echo $u_id; ?>"></i></div>
+              <div display="none"><i id="lblIdTransaction" value="<?php echo $id; ?>"></i></div>
+              <div display="none"><i id="lblLoanIdTransaction"></i></div>
+              <div display="none"><i id="lblTransactionIdTransaction"></i></div>
+              <div display="none"><i id="lblTransactionAmountTransaction"></i></div>
+              <div display="none"><i id="lblOtherFeeIdTransaction"></i></div>
+              <div display="none"><i id="is_card"></i></div>
+            </div>
+            <div class="modal-body" id="transaction_modal_body_id" style="margin-left:15px">
+
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="reset" id="btnUpdateTransaction" onclick="updateTransaction(event)">Update</button>
             </div>
           </div>
         </div>
@@ -787,7 +836,20 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+      var $modal = $('#transaction_edit_modal');
+      $modal.find('.modal-content')
+        .resizable({
+          minWidth: 625,
+          minHeight: 300,
+          handles: 'n, e, s, w, ne, sw, se, nw',
+        })
+        .draggable({
+          handle: '.modal-header'
+        });
+    </script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/b-1.7.1/sl-1.3.3/datatables.min.js"></script>
     <!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/sl-1.3.3/datatables.min.js"></script> -->
 
@@ -818,11 +880,24 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
       var amount = '<?php echo $amount_loan; ?>';
       var chargebackModal = null;
+      var editTransactionModal = null;
       var table;
 
       function round(x, n) {
         var exp = Math.pow(10, n);
         return Math.floor(x * exp + 0.5) / exp;
+      }
+
+      function deleteItem() {
+        var type = document.getElementById("idInformation").value;
+        switch (type) {
+          case "fees":
+            deleteFee();
+            break;
+          case "transaction":
+            deleteTransaction();
+            break;
+        }
       }
     </script>
 

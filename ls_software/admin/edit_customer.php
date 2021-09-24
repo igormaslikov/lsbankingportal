@@ -2055,6 +2055,87 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
     //mysqli_query ($con,"INSERT INTO `application_status_updates`( `application_id`, `user_id`, `status`, `creation_date`) VALUES ('$id','$u_id','$app_status_update','$date')");
     mysqli_query($con, "UPDATE fnd_user_profile SET first_name ='$first_name_update' , last_name='$last_name__update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update', last_update_by='$u_id',last_update_date='$date',application_status='$app_status_update',source_of_lead='$source_lead_update',declined_reason='$decline_reason_update', amount_of_loan='$amount_loan_update', dl_code='$dl_code_update', personal_loan='$personal_loan', apr='$update_apr', title_loan_amount='$title_loan_amount', loan_request_amount='$requested_loan_amount_update', payback_period='$payback_period_update', loan_type='$loan_type_update' where user_fnd_id ='$id'");
 
+
+    /**
+     * * Delete Participant and add new
+     */
+     
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => "https://conversations.twilio.com/v1/Conversations/$chat_key/Participants",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_HTTPHEADER => array(
+        "authorization: Basic QUM1ZTE4Yjg1MTk3ZGI2ZTMyZDE5OTViZjNiNDBlMDQ1YjpiOGI0NmI0Njg5MDQ3OWJjZjI1YTlmYjIwNjdlMWMxZQ==",
+        "cache-control: no-cache",
+      ),
+    ));
+  
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+  
+    curl_close($curl);
+  
+    $response = json_decode($response, TRUE);
+    if(isset($response['participants'])){
+      foreach ($response['participants'] as $participants) {
+        $sid = $participants["sid"];
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://conversations.twilio.com/v1/Conversations/$chat_key/Participants/$sid",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "DELETE",
+          CURLOPT_HTTPHEADER => array(
+            "authorization: Basic QUM1ZTE4Yjg1MTk3ZGI2ZTMyZDE5OTViZjNiNDBlMDQ1YjpiOGI0NmI0Njg5MDQ3OWJjZjI1YTlmYjIwNjdlMWMxZQ==",
+            "cache-control: no-cache",
+          ),
+        ));
+      
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+      
+        curl_close($curl);
+      }
+    }
+
+    $twilio_sender = str_replace("-", "", $phone_number_update);
+    $twilio_sender = "+1$twilio_sender";
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => "https://conversations.twilio.com/v1/Conversations/$chat_key/Participants",
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "POST",
+      CURLOPT_POSTFIELDS => "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"MessagingBinding.Address\"\r\n\r\n$twilio_sender\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"MessagingBinding.ProxyAddress\"\r\n\r\n+18886951203\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--",
+      CURLOPT_HTTPHEADER => array(
+        "authorization: Basic QUM1ZTE4Yjg1MTk3ZGI2ZTMyZDE5OTViZjNiNDBlMDQ1YjpiOGI0NmI0Njg5MDQ3OWJjZjI1YTlmYjIwNjdlMWMxZQ==",
+        "cache-control: no-cache",
+        "content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
+        "postman-token: 56f79e61-628f-ea75-95f8-4554ec0e8197"
+      ),
+    ));
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+
+
     function if_insert($con)
     {
       $matched = explode(": ", explode('  ', $con->info)[0])[1]; // Rows matched

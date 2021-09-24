@@ -113,7 +113,7 @@ function showDeleteBtn() {
 }
 
 
-function deleteItem() {
+function deleteFee() {
   let result = null;
   let amount = 0;
   table_fees.rows({ selected: true }).every(function (rowIdx, tableLoop, rowLoop) {
@@ -134,9 +134,6 @@ function deleteItem() {
 //not reloading page
   alert(result[1]);
   deleteMod.hide();
-
-  
-  
   
 }
 

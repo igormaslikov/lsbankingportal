@@ -174,6 +174,7 @@ if ($u_access_id != '1') {
 
         $fee_status = $row_transaction['fee_status'];
         $paid_amount = $row_transaction['paid amount'];
+        $chargeback_amount = $row_transaction['chargeback_amount'];
     }
 
     $payment_date_array = explode("-", $payment_date);
@@ -293,7 +294,7 @@ if ($u_access_id != '1') {
         }
 
         $if_empty_payment = $to_be_paid_amount == 0;
-        $to_be_paid_amount += $paid_amount;
+        //$to_be_paid_amount += $paid_amount;
         if (isset($_GET['late_fee']) || $if_empty_payment) {
             $to_be_paid_amount = 0;
         }
@@ -324,6 +325,7 @@ if ($u_access_id != '1') {
         //******************Repay payment**************** */
 
         $continue = true;
+        $repay_transaction = "";
         if ($payment_method == "Repay") {
 
             $repay_amount = $to_be_paid_amount + $late_fee + $convenience_fee + $other_fee;
@@ -501,11 +503,12 @@ if ($u_access_id != '1') {
             $trans_type_id = $data_paywithcard['trans_type_id'];
             $query_in  = "INSERT INTO `tbl_pay_with_card` (`user_fnd_id`,`loan_create_id`,`merchant_id`, `transaction_id`, `auth_code`, `trx_status`, `result_text`, `zip_code`, `amount`, `card_bin`, `card_exp`, `card_last_four`, `name_on_card`, `customer_id`, `payment_channel`, `source`, `transaction_type`, `transaction_date`)  VALUES ('$user_fnd_id','$loan_create_id','$merchant_id','$repay_transaction_id','$auth_code','$trx_status','$result_text','$zip','$to_be_paid_amount','$card_bin','$exp_date','$card_last_four','$name_on_card','$customer_id','$payment_channel','$merchant_name','$trans_type_id','$new_date')";
             $result = mysqli_query($con, $query_in);
+            $repay_transaction = mysqli_insert_id($con);
         }
 
 
 
-        //*********************************************** */
+        //*********************************************** */ 
         $installment_dict = [];
         $query_payment = mysqli_query($con, "Select payment, `id`, `paid amount`, balance, interest, principal, paid_late_fee from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0 order by id asc");
         while ($row_payment = mysqli_fetch_array($query_payment)) {
@@ -526,9 +529,9 @@ if ($u_access_id != '1') {
             $db_interestpaid = $row_payment['interest'];
             $db_principlepaid = $row_payment['principal'];
             $percent = 1;
-            if ($to_be_paid_amount >= $payment) {
-                $to_paid = $payment;
-                $to_be_paid_amount -= $payment;
+            if ($to_be_paid_amount + $paid_amount >= $payment) {
+                $to_paid = $payment - $paid_amount;
+                $to_be_paid_amount -= $to_paid;
                 $status = '1';
 
                 //$payment_date_array = explode("-", $due_date);
@@ -542,22 +545,28 @@ if ($u_access_id != '1') {
                 $to_paid = $to_be_paid_amount;
                 $status = '0';
                 $to_be_paid_amount = 0;
-                $percent = $to_paid / $payment;
+                $percent_balance = ($to_paid + $paid_amount) / $payment;
+                //$percent = $to_paid / $payment;
                 $rem_balance += $db_principlepaid;
-                $db_interestpaid = $db_interestpaid * $percent;
-                $db_principlepaid = $db_principlepaid * $percent;
-                $rem_balance =  $rem_balance - number_format($db_principlepaid, 2);
+                $principal_balance = $db_principlepaid * $percent_balance;
+                //$db_interestpaid = $db_interestpaid * $percent;
+                //$db_principlepaid = $db_principlepaid * $percent;
+                $rem_balance =  $rem_balance - number_format($principal_balance, 2);
             }
 
-            $db_totalamountpaid = $to_paid;
+            $percent = $to_paid / $payment;
+            $db_interestpaid = $db_interestpaid * $percent;
+            $db_principlepaid = $db_principlepaid * $percent;
 
-            $still_pay = $payment - $paid_amount;
-            if ($still_pay < $payment) {
-                $db_totalamountpaid = $still_pay;
-                $percent = $still_pay / $payment;
-                $db_interestpaid = $db_interestpaid * $percent;
-                $db_principlepaid = $db_principlepaid * $percent;
-            }
+           // $db_totalamountpaid = $to_paid;
+
+            // $still_pay = $payment - $paid_amount;
+            // if ($still_pay < $payment) {
+            //     //$db_totalamountpaid = $still_pay;
+            //     $percent = $still_pay / $payment;
+            //     $db_interestpaid = $db_interestpaid * $percent;
+            //     $db_principlepaid = $db_principlepaid * $percent;
+            // }
 
             $sum_interest_amount += $db_interestpaid;
             $sum_principle_amount += $db_principlepaid;
@@ -568,14 +577,14 @@ if ($u_access_id != '1') {
                 $paid_late_fee = $late_fee + $row_payment['paid_late_fee'];
             }
 
-            mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid_late_fee` = '$paid_late_fee', paid_date='$paid_date', `paid amount`='$to_paid',`dpd` = $dpd, status=$status, paid_by='$u_id', payment_description='$payment_description'  where id ='$intallment_id'");
+            mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid_late_fee` = '$paid_late_fee', paid_date='$paid_date', `paid amount`= `paid amount` + '$to_paid',`dpd` = $dpd, status=$status, paid_by='$u_id', payment_description='$payment_description'  where id ='$intallment_id'");
 
-            $installment_dict[$intallment_id] = $to_paid - $paid_amount;
+            $installment_dict[$intallment_id] = $to_paid;
             //$intallment_id, $to_paid, $late_fee, $convenience_fee, $other_fee $other_fee_id
         }
 
-        if (isset($payment) && ($_POST['to_be_paid_amount'] > $payment)) {
-            $db_totalamountpaid  = $_POST['to_be_paid_amount'];
+        if (isset($payment)) {
+            //$db_totalamountpaid  = $_POST['to_be_paid_amount'];
             $db_interestpaid = $sum_interest_amount;
             $db_principlepaid = $sum_principle_amount;
         }
@@ -594,7 +603,7 @@ if ($u_access_id != '1') {
         }
 
         $other_fee_id = 0;
-        if ($type_of_description != "") {
+        if ($type_of_description != "") { 
             $other_fee_id = str_replace(array("(", ")"), array("", ""), end(explode(" ", $type_of_description)));
             mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $other_fee where tbl_other_fees_id = $other_fee_id");
         }
@@ -603,28 +612,31 @@ if ($u_access_id != '1') {
         $result_insert_trans = mysqli_query($con, $query_insert_trans);
 
         if ($result_insert_trans) {
+            $transaction_id = mysqli_insert_id($con);
+
+            if($repay_transaction != ""){
+                mysqli_query($con, "UPDATE tbl_pay_with_card SET loan_transaction_id='$transaction_id' where id ='$repay_transaction'");
+            }
+
             if (isset($_POST['bankExists']) && isset($_POST['cardExists'])) {
-                $transaction_id = mysqli_insert_id($con);
                 $query_transaction = "INSERT INTO `commercial_loan_transaction_cards_info` (`card_info_id`,`type_of_id`, `type_of_card`, `card_number`, `card_exp_date`, `cvv_number`, `bank_name`, `account_number`, `routing_number`, `account_type`, `bank_type`) VALUES ('','$typeOfID', '$typeOfCard', '$cardNumber', '$expDate', '$cvv', '$bankName', '$accountNumber', '$routingNumber', '$accountType', '$bankType')";
                 $result = mysqli_query($con, $query_transaction);
                 $card_info_id = mysqli_insert_id($con);
 
                 mysqli_query($con, "UPDATE commercial_loan_transaction SET card_info='$card_info_id' where transaction_id ='$transaction_id'");
+            }
 
-                if($if_empty_payment){
-                    $installment_dict[0] = 0;
-                }
+            if($if_empty_payment){
+                $installment_dict[0] = 0;
+            }
 
-                foreach ($installment_dict as $installment_id => $paid_amount){
-                    $query_insert_chargeback = "INSERT INTO `tbl_commercial_loan_chargeback` (`id`, `loan_create_id`, `transaction_id`, `installment_id`, `installment_paid`, `late_fee_paid`, `convenience_fee_paid`, `other_fee_id`, `other_fee_paid`) VALUES (NULL, $loan_create_id, $transaction_id, $installment_id,  $paid_amount, $late_fee, $convenience_fee, $other_fee_id,  $other_fee)";
-                    $result_insert_chargeback = mysqli_query($con, $query_insert_chargeback);
-                    $late_fee =0;
-                    $convenience_fee = 0;
-                    $other_fee_id = 0;
-                    $other_fee = 0;
-                }
-
-
+            foreach ($installment_dict as $installment_id => $paid_amount){
+                $query_insert_chargeback = "INSERT INTO `tbl_commercial_loan_chargeback` (`id`, `loan_create_id`, `transaction_id`, `installment_id`, `installment_paid`, `late_fee_paid`, `convenience_fee_paid`, `other_fee_id`, `other_fee_paid`) VALUES (NULL, $loan_create_id, $transaction_id, $installment_id,  $paid_amount, $late_fee, $convenience_fee, $other_fee_id,  $other_fee)";
+                $result_insert_chargeback = mysqli_query($con, $query_insert_chargeback);
+                $late_fee =0;
+                $convenience_fee = 0;
+                $other_fee_id = 0;
+                $other_fee = 0;
             }
         } else {
 
@@ -812,26 +824,31 @@ if ($u_access_id != '1') {
                         <input type="text" name="due_date" value="<?php echo strftime('%Y-%m-%d', strtotime($payment_date)); ?>" style="display:none;">
 
                         <div class="row">
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
+                                <label for="summary_amount">Summary Amount ($):</label>
+                                <input type="text" name="summary_amount" class="form-control" id="summary_amount" placeholder="" value="" style="display:none;"><i id="summary_amount_id"></i>
+
+                            </div>
+                            <div class="col-lg-2">
                                 <label for="usr">Payment Amount ($):</label>
-                                <input type="text" name="payment_amount" class="form-control" id="usr" placeholder="" value="<?php echo $payment_amount; ?>" style="display:none;"><?php echo $payment_amount; ?>
+                                <input type="text" name="payment_amount" class="form-control" id="usr" placeholder="" value="<?php echo $payment_amount; ?>" style="display:none;"><i><?php echo $payment_amount; ?></i>
 
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <label for="usr">Interest Amount ($):</label>
-                                <input type="text" name="interest_amount" class="form-control" id="usr" placeholder="" value="<?php echo $interest_amount; ?>" style="display:none;"><?php echo $interest_amount; ?>
+                                <input type="text" name="interest_amount" class="form-control" id="usr" placeholder="" value="<?php echo $interest_amount; ?>" style="display:none;"><i><?php echo $interest_amount; ?></i>
 
                             </div>
 
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <label for="usr">Principal Amount ($):</label>
-                                <input type="text" name="principal_amount" class="form-control" id="usr" placeholder="" value="<?php echo $principal_amount; ?>" style="display:none;"><?php echo $principal_amount; ?>
+                                <input type="text" name="principal_amount" class="form-control" id="usr" placeholder="" value="<?php echo $principal_amount; ?>" style="display:none;"><i><?php echo $principal_amount; ?></i>
 
                             </div>
 
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <label for="usr">DPD:</label>
-                                <input type="text" name="dpd" class="form-control" id="usr" placeholder="" value="<?php echo $dpd; ?>" style="display:none;"><?php echo $dpd; ?>
+                                <input type="text" name="dpd" class="form-control" id="usr" placeholder="" value="<?php echo $dpd; ?>" style="display:none;"><i><?php echo $dpd; ?></i>
 
                             </div>
 
@@ -839,19 +856,19 @@ if ($u_access_id != '1') {
 
                             <div class="col-lg-6">
                                 <label for="usr">Amount to be Paid ($):</label>
-                                <input type="text" name="to_be_paid_amount" class="form-control" id="usr" placeholder="" value="<?php echo $amount_tobe_paid; ?>">
+                                <input type="text" name="to_be_paid_amount" class="form-control" id="usr" placeholder="" value="<?php echo $amount_tobe_paid; ?>" oninput="calculate_summary(event)">
 
                             </div>
 
                             <div class="col-lg-2">
                                 <label for="usr">Late Fee ($):</label>
-                                <input type="text" name="late_fee" class="form-control" id="usr" placeholder="" value="<?php echo $sum_late_fee; ?>">
+                                <input type="text" name="late_fee" class="form-control" id="usr" placeholder="" value="<?php echo $sum_late_fee; ?>" oninput="calculate_summary(event)">
 
                             </div>
 
                             <div class="col-lg-2">
                                 <label for="usr">Convenience Fee ($):</label>
-                                <input type="text" name="convenience_fee" class="form-control" id="usr" placeholder="" value="0">
+                                <input type="text" name="convenience_fee" class="form-control" id="usr" placeholder="" value="0" oninput="calculate_summary(event)">
 
                             </div>
                             <div class="col-lg-2">
@@ -868,7 +885,7 @@ if ($u_access_id != '1') {
                                     }
                                     ?>
                                 </select>
-                                <input type="text" name="other_fee" class="form-control" id="other_fee_id" placeholder="" value="0" style="width:25%; display:inline!important;">
+                                <input type="text" name="other_fee" class="form-control" id="other_fee_id" placeholder="" value="0" style="width:25%; display:inline!important;" oninput="calculate_summary(event)">
 
 
                             </div>
@@ -895,6 +912,7 @@ if ($u_access_id != '1') {
                                     <option value=""></option>
                                     <option value="Cash">Cash</option>
                                     <option value="Debit Card">Debit Card</option>
+                                    <option value="Repay Portal">Repay Portal</option>
                                     <option value="Bank Deposit">Bank Deposit</option>
                                     <option value="Money Order">Money Order</option>
                                     <option value="ACH">ACH</option>
@@ -954,6 +972,11 @@ if ($u_access_id != '1') {
         <!-- Menu Toggle Script -->
 
         <script>
+
+            $(document).ready(function(){
+                calculate_summary(null);
+            });
+
             $("#menu-toggle").click(function(e) {
 
                 e.preventDefault();
@@ -979,6 +1002,7 @@ if ($u_access_id != '1') {
                         //var tableCard = data[0].cardTable;
                         var unpaidFee = data[0].nonpaid;
                         document.getElementById("other_fee_id").value = unpaidFee;
+                        calculate_summary(event);
                         event.preventDefault();
 
                     },
@@ -998,6 +1022,7 @@ if ($u_access_id != '1') {
                 switch (method) {
                     case "Repay":
                     case "Debit Card":
+                    case "Repay Portal":
                         var url = 'functions_commercial_loan.php';
                         // projectName = "SPVL"
 
@@ -1196,6 +1221,24 @@ if ($u_access_id != '1') {
                 paymentElem.innerHTML += "<input type='text' name='cvv' value='" + selected_data_card[5].innerText +
                     "' style='display:none;'>";
 
+            }
+
+            function calculate_summary(e) {
+                let to_be_paid_amount = parseToFloat(document.getElementsByName('to_be_paid_amount')[0].value);
+                let late_fee = parseToFloat(document.getElementsByName('late_fee')[0].value);
+                let convenience_fee = parseToFloat(document.getElementsByName('convenience_fee')[0].value);
+                let other_fee = parseToFloat(document.getElementsByName('other_fee')[0].value);
+                document.getElementById('summary_amount_id').innerText = to_be_paid_amount + late_fee + convenience_fee + other_fee;
+                document.getElementById('summary_amount_id').innerHTML = to_be_paid_amount + late_fee + convenience_fee + other_fee;
+                if(e != null){
+                    e.preventDefault();
+                }
+                
+            }
+
+            function parseToFloat(str){
+                var num = parseFloat(str);
+                return isNaN(num) ? 0 : num;
             }
         </script>
 

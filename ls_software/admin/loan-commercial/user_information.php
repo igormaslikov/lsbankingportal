@@ -358,7 +358,7 @@ mysqli_query($con,"UPDATE fnd_user_profile SET block_status ='0', block_by ='$u_
     
     <div class="col-lg-6">
       <label for="usr">Phone</label>
-      <input type="text" name="ref_name" class="form-control" id="usr" placeholder="Phone" value="" >
+      <input type="text" name="ref_phone" class="form-control" id="usr" placeholder="Phone" value="" >
     </div>
     
     <div class="col-lg-6">
@@ -383,7 +383,7 @@ mysqli_query($con,"UPDATE fnd_user_profile SET block_status ='0', block_by ='$u_
     
     <div class="col-lg-6">
       <label for="usr">Phone</label>
-      <input type="text" name="ref_name2" class="form-control" id="usr" placeholder="Phone" value="" >
+      <input type="text" name="ref_phone2" class="form-control" id="usr" placeholder="Phone" value="" >
     </div>
     
     <div class="col-lg-6">
@@ -406,7 +406,7 @@ mysqli_query($con,"UPDATE fnd_user_profile SET block_status ='0', block_by ='$u_
     
     <div class="col-lg-6">
       <label for="usr">Phone</label>
-      <input type="text" name="ref_name3" class="form-control" id="usr" placeholder="Phone" value="" >
+      <input type="text" name="ref_phone3" class="form-control" id="usr" placeholder="Phone" value="" >
     </div>
     
     <div class="col-lg-6">
@@ -429,7 +429,7 @@ mysqli_query($con,"UPDATE fnd_user_profile SET block_status ='0', block_by ='$u_
     
     <div class="col-lg-6">
       <label for="usr">Phone</label>
-      <input type="text" name="ref_name4" class="form-control" id="usr" placeholder="Phone" value="" >
+      <input type="text" name="ref_phon4" class="form-control" id="usr" placeholder="Phone" value="" >
     </div>
     
     <div class="col-lg-6">

@@ -403,7 +403,7 @@ $html = '
               <br><br>
               <span><b>Pagos Adelantados: </b>  Usted puede liquidar su prestamo en cualquier momento. Si usted paga por adelantado, no tendra que pagar penalidad.</span><br><br>
               <span><b>Cargo por Incumplimiento: </b> Si un pago se hace con mas de 10 dias de retraso, se le cobrara $10 </span> <br><br>
-              <span><b>Cargo de Originación:</b> Se agregará un cargo prepago de financiamiento por $ 75 para cubrir el costo de procesar su solicitud y el acuerdo.</span> <br>
+              <span><b>Cargo de Originación:</b> Se agregará un cargo prepago de financiamiento por $'.$contract_fee.' para cubrir el costo de procesar su solicitud y el acuerdo.</span> <br>
             </td>
             <td style=" text-align: center;">
                 <br><br>

@@ -268,7 +268,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 
 <div style="font-size:10px;">
 Authorization to make payments on my <b>LS Financing, Inc</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuig basis using the
-Debit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card
+Debit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Debit Card
 Holder.<br><br>
 Autorización para hacer pagos en mi cuenta de <b>LS Financing, Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
 continua utilizando la tarjeta de debito que se describe a continuación y los términos de este préstamo , a menos

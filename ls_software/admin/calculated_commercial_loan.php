@@ -167,18 +167,28 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     $unpaid_late_fee = 0;
     $unpaid_other_fee = 0;
 
-    if (isset($_POST['previous_loan_id'])) {
+    if (isset($_POST['previous_loan_id']) && $_POST['previous_loan_id'] != "") {
         $previous_loan_id = $_POST['previous_loan_id'];
-        $sql = mysqli_query($con, "select late_fee from tbl_commercial_loan where loan_create_id= '$previous_loan_id'");
+        $sql = mysqli_query($con, "select late_fee,amount_of_loan,loan_interest from tbl_commercial_loan where loan_create_id= '$previous_loan_id'");
 
         while ($row = mysqli_fetch_array($sql)) {
             $late_fee = $row['late_fee'];
+            $amount_of_loan = $row['amount_of_loan'];
+            $loan_interest = $row['loan_interest'];
         }
 
-        $sql_installment = mysqli_query($con, "SELECT SUM(payment) as unpaid, SUM(`paid amount`) as paid  FROM `tbl_commercial_loan_installments` where `loan_create_id`= '$previous_loan_id' and `status` = 0 order by id desc");
-        while ($row_installment = mysqli_fetch_array($sql_installment)) {
-            $in_hand = $row_installment['unpaid'] - $row_installment['paid'];
+        $loan_payment = 0;
+        $query_payment = mysqli_query($con, "SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
+        while ($row_payment = mysqli_fetch_array($query_payment)) {
+          $loan_payment = $row_payment['value_sum'];
         }
+      
+        $in_hand = str_replace(',','',number_format(((float)($amount_of_loan + $loan_interest - $loan_payment)), 2, '.', ','));
+
+        // $sql_installment = mysqli_query($con, "SELECT SUM(payment) as unpaid, SUM(`paid amount`) as paid  FROM `tbl_commercial_loan_installments` where `loan_create_id`= '$previous_loan_id' and `status` = 0 order by id desc");
+        // while ($row_installment = mysqli_fetch_array($sql_installment)) {
+        //     $in_hand = $row_installment['unpaid'] - $row_installment['paid'];
+        // }
 
 
         $unpaid_late_fee = 0;
