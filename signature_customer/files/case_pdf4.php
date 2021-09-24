@@ -33,6 +33,7 @@ $creation_datee=$row1['creation_date'];
 $bank_name=$row1['bank_name'];
 $routing_number=$row1['routing_number'];
 $account_number=$row1['account_number'];
+$account_number = strlen($account_number) > 4 ? substr($account_number, -4) : $account_number;
 
 $cvv_number=$row1['cvv_number'];
 
@@ -52,6 +53,7 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
+    $total_loan_payable=$row_loan['total_loan_payable'];
     $amount_of_loan=number_format($amount_of_loan, 2);
     $payment_date=$row_loan['payment_date'];
     
@@ -260,7 +262,7 @@ ACH RECURRING PAYMENT AUTHORIZATION
 1. By signing below, Account Holder (“<b>you</b>”) authorizes Money Line and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>our</b>”) to automatically withdraw
 your loan payments from your deposit account ending in xxxxxx'.$account_number.' (“<b>Account</b>”) at '.$bank_name.'
 (“<b>Bank</b>”) via recurring electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to
-initiate debits of $'.$loan_payable.' (“scheduled <b>debit amount</b>”) Every _ on the payment due dates, beginning on '.$payment_date.',
+initiate debits of $'.$total_loan_payable.' (“scheduled <b>debit amount</b>”) Every _ on the payment due dates, beginning on '.$payment_date.',
 which is the effective date of this Authorization. These debits will continue until the amount due under your loan is paid in full or until this
 Authorization is canceled. You also authorize us to initiate ACH debits or credits to your Account as necessary to correct erroneous
 transactions.<br>

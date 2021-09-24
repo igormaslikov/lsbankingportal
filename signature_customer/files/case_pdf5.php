@@ -33,6 +33,7 @@ $creation_datee=$row1['creation_date'];
 $bank_name=$row1['bank_name'];
 $routing_number=$row1['routing_number'];
 $account_number=$row1['account_number'];
+$account_number = strlen($account_number) > 4 ? substr($account_number, -4) : $account_number;
 
 $cvv_number=$row1['cvv_number'];
 
@@ -52,6 +53,7 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
+    $total_loan_payable=$row_loan['total_loan_payable'];
     $amount_of_loan=number_format($amount_of_loan, 2);
     $payment_date=$row_loan['payment_date'];
     
@@ -258,9 +260,9 @@ AUTORIZACIÓN DE PAGO RECURRENTE
 
 <div style="font-size:8px">
 1. Al firmar a continuación, el titular de la cuenta (“<b>usted</b>”) autoriza a Money Line y sus afiliados (“<b>nosotros</b>”, “<b>nos</b>” y “<b>nuestro</b>”) para
-retirar automáticamente sus pagos de préstamos de su cuenta de depósito que termina en xxxxxx_'.$account_number.' (“<b>Cuenta</b>”) en '.$bank_name.'
+retirar automáticamente sus pagos de préstamos de su cuenta de depósito que termina en xxxxxx'.$account_number.' (“<b>Cuenta</b>”) en '.$bank_name.'
 (“<b>Banco</b>”)  a través de entradas de débito electrónico recurrente ACH (“<b>Autorización</b>”). Usted
-nos autoriza a iniciar débitos de $_'.$amount_of_loan.' (“<b>importe de débito programado</b>”) cada _ en las fechas de vencimiento de los
+nos autoriza a iniciar débitos de $'.$total_loan_payable.' (“<b>importe de débito programado</b>”) cada _ en las fechas de vencimiento de los
 pagos, a partir de '.$payment_date.',
 que es la fecha de entrada en vigor de esta Autorización. Estos débitos continuarán hasta que el monto
 adeudado bajo su préstamo sea pagado en su totalidad o hasta que esta Autorización sea cancelada. También nos autoriza a iniciar
