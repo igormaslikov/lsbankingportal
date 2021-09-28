@@ -196,6 +196,10 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
         /* background-color:gray;
         color:white; */
       }
+
+      .lock{
+        pointer-events: none;
+      }
     </style>
 
   </head>
@@ -322,44 +326,44 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                       </div>
                       <div class="col-lg-6">
                         <label for="usr">Loan Amount</label>
-                        <input type="text" name="amount_loan" class="form-control" id="usr" placeholder="Amount Of Loan" value="<?php echo $val . $amount_loan; ?>">
+                        <input type="text" name="amount_loan" class="form-control lock" id="usr" placeholder="Amount Of Loan" value="<?php echo $val . $amount_loan; ?>">
                       </div>
                       <div class="col-lg-3">
                         <label for="usr">Payoff Amount</label>
-                        <input type="text" name="amount_left" class="form-control" id="usr" placeholder="Amount Left" value="<?php echo $val . $payoff; ?>">
+                        <input type="text" name="amount_left" class="form-control lock" id="usr" placeholder="Amount Left" value="<?php echo $val . $payoff; ?>">
                       </div>
                       <div class="col-lg-3">
                         <label for="usr">Settlement Amount</label>
-                        <input type="text" name="settlement_amount" class="form-control" id="usr" placeholder="Settlement Left" value="<?php echo $val . $settlement_amount; ?>">
+                        <input type="text" name="settlement_amount" class="form-control lock" id="usr" placeholder="Settlement Left" value="<?php echo $val . $settlement_amount; ?>">
                       </div>
                       <div class="col-lg-6">
                         <label for="usr">Due Date</label>
-                        <input type="text" name="next_payment_date" class="form-control" id="usr" placeholder="MM/DD/YYYY" value="<?php echo $due_date; ?>">
+                        <input type="text" name="next_payment_date" class="form-control lock" id="usr" placeholder="MM/DD/YYYY" value="<?php echo $due_date; ?>">
                       </div>
 
                       <div class="col-lg-2">
                         <label for="usr">Days Past Due</label>
-                        <input type="text" name="days_past_due" class="form-control" id="usr" placeholder="" value="<?php echo $dpd; ?>">
+                        <input type="text" name="days_past_due" class="form-control lock" id="usr" placeholder="" value="<?php echo $dpd; ?>">
                       </div>
                       <div class="col-lg-2">
                         <label for="other_fees_unpaid">Other Fees Unpaid</label>
-                        <input type="text" name="other_fees_unpaid" class="form-control" id="other_fees_unpaid" placeholder="" value="<?php echo $val . $unpaid_other_fee; ?>">
+                        <input type="text" name="other_fees_unpaid" class="form-control lock" id="other_fees_unpaid" placeholder="" value="<?php echo $val . $unpaid_other_fee; ?>">
                       </div>
                       <div class="col-lg-2">
                         <label for="late_fee_unpaid">Late Fees Unpaid</label>
-                        <input type="text" name="late_fee_unpaid" class="form-control" id="late_fee_unpaid" placeholder="" value="<?php echo $val . $unpaid_late_fee; ?>">
+                        <input type="text" name="late_fee_unpaid" class="form-control lock" id="late_fee_unpaid" placeholder="" value="<?php echo $val . $unpaid_late_fee; ?>">
                       </div>
                       <div class="col-lg-6">
                         <label for="usr">Contract APR</label>
-                        <input type="text" name="apr" class="form-control" id="usr" placeholder="" value="<?php echo $apr; ?>">
+                        <input type="text" name="apr" class="form-control lock" id="usr" placeholder="" value="<?php echo $apr; ?>">
                       </div>
                       <div class="col-lg-3">
                         <label for="usr">Balance Due</label>
-                        <input type="text" name="blns" class="form-control" id="usr" placeholder="" value="<?php echo $val . $balance_due; ?>">
+                        <input type="text" name="blns" class="form-control lock" id="usr" placeholder="" value="<?php echo $val . $balance_due; ?>">
                       </div>
                       <div class="col-lg-3">
                         <label for="usr">Chargeback Amount</label>
-                        <input type="text" name="chargeback" class="form-control" id="usr" placeholder="" value="<?php echo $val . $chargeback_amount; ?>">
+                        <input type="text" name="chargeback" class="form-control lock" id="usr" placeholder="" value="<?php echo $val . $chargeback_amount; ?>">
                       </div>
                     </div>
                   </div>
