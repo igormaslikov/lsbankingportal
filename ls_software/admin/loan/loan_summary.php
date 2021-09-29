@@ -190,7 +190,27 @@ if ($datediff1<0)
           
          
               //echo"days_between" .$days_between;
+              $last_payment_date1 = $last_payment_date;
 
+              if ($last_payment_date == "" || $last_payment_date== '01-01-1970') {
+
+                  $query_payment = mysqli_query($con, "SELECT * FROM loan_transaction where loan_id= '$id' AND payoff_amount>1");
+                  while ($row_payment = mysqli_fetch_array($query_payment)) {
+                      $last_payment_date1 = $row_payment['payment_date'];
+                  }
+              }
+
+              if($last_payment_date1 == '01-01-1970'){ 
+                $last_payment_date1 = $date_current= date('Y-m-d');
+              }
+              $date1 = date_create($payment_date);
+              $date2 = date_create($last_payment_date1);
+
+              //difference between two dates
+              $diff = date_diff($date1, $date2);
+
+              //count days
+              $days_between1 = $diff->format("%r%a");
 
 
 // ************************** Jab Partial Payment ki ho tb DPD  END**********************  
@@ -378,7 +398,7 @@ $loan_notes=$row_user['notes'];
        <input type="text" name="days_past_due" class="form-control" id="usr" placeholder="" value="<?php if ($last_payment_date== '01-01-1970') 
          {
               
-             echo  "$datediff1";
+             echo  "$days_between1";
          
           } 
           
