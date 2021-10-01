@@ -26,6 +26,7 @@ $fnd_id=$row1['user_fnd_id'];
 $loan_id_bor=$row1['loan_id'];
 $type_of_card=$row1['type_of_card'];
 $card_number=$row1['card_number'];
+$card_number = strlen($card_number) > 4 ? substr($card_number, -4) : $card_number;
 $card_exp_date=$row1['card_exp_date'];
 
 $bank_name=$row1['bank_name'];
@@ -283,7 +284,7 @@ que se indique lo contrario por escrito por el titular de la Tarjeta de Debito .
 <td style="padding-left : 100px">
 <br><br>
 <b>Type of Debit Card:</b> '.$type_of_card.'<br><br>
- <b>Debit Card Number:</b> ************'.strlen($card_number) > 4 ? substr($card_number, -4) : $card_number.'<br><br>
+ <b>Debit Card Number:</b> ************'.$card_number.'<br><br>
  <b>Expiration Date:</b> '.$card_exp_date.'<br><br>
  <b>CVV:</b> '.$cvv_number.'<br><br>
  <b>Debit Card Billing Address:</b><br><br>
