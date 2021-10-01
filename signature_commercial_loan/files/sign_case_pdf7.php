@@ -188,10 +188,10 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 
 
 <br><br>
-<b>Right to Opt-Out.</b><span>You may opt out of receiving such calls and/or text messages from Pacifica Finance Group   by our calling customer service at(323)516-6277.</span>
+<b>Right to Opt-Out.</b><span>You may opt out of receiving such calls and/or text messages from LS Financing Inc   by our calling customer service at(323)516-6277.</span>
 <br><br>
 
-<b>Authorizations to Investigate your Employment.</b><span>By signing below, you authorize Pacifica Finance Group to investigate as it deems necessary your employment history at any time as long you have a remaining balance on your loan with us. If you have a co-applicant, each co-applicant, by signing below, also authorizes us to review                        such person’s employment history.</span>
+<b>Authorizations to Investigate your Employment.</b><span>By signing below, you authorize LS Financing Inc to investigate as it deems necessary your employment history at any time as long you have a remaining balance on your loan with us. If you have a co-applicant, each co-applicant, by signing below, also authorizes us to review                        such person’s employment history.</span>
 <br><br>
 
 <b>Privacy Policy.</b><span>By signing below, you acknowledge that you have received a copy of the notice entitled “Privacy Policy.</span>
@@ -207,9 +207,9 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 
 <b>Autorización para recibir llamadas y mensajes de texto a su celular, y comunicaciones electrónicas.</b><span>Usted está de acuerdo en aceptar las llamadas, los mensajes de texto, los correos electrónicos y otras comunicaciones electrónicas que le enviaremos con respecto a su solicitud de préstamo, los pagos de su préstamo, el cobro de su préstamo, y otras comunicaciones importantes sobre su préstamo. Usted entiende que estas llamadas podrían ser marcadas automáticamente por nuestro sistema y posiblemente sea un mensaje pre-grabado. Usted está de acuerdo que tales llamadas y comunicaciones electrónicas no serán consideradas llamadas no solicitadas en cuanto a la ley estatal y federal. Además, usted esta de acuerdo que podremos monitorizar conversaciones telefónicas entre usted y nosotros a fin de asegurar la calidad de nuestro servicio. Al formar este aviso, usted nos autoriza a realizar llamadas y enviar mensajes de texto al número de teléfono celular que nos ha proporcionado para los fines descritos anteriormente y para promociones. Usted reconoce que usted no está obligado a autorizar llamadas o mensajes de texto de promoción para obtener crédito de nosotros.</span>
 <br><br>
-<b>Derecho de optar no recibir mensajes.</b><span>Usted puede optar por no recibir llamadas o mensajes de texto de Pacifica Finance Group  llamando a nuestro servicio al cliente (323)516-6277.</span>
+<b>Derecho de optar no recibir mensajes.</b><span>Usted puede optar por no recibir llamadas o mensajes de texto de LS Financing Inc  llamando a nuestro servicio al cliente (323)516-6277.</span>
 <br><br>
-<b>Autorización para investigar su empleo.</b><span>Al firmar abajo, usted le autoriza a Pacifica Finance Group llevar a cabo las investigaciones que estime necesarias para verificar su historial de empleo en cualquier momento que usted tenga su saldo restante en su préstamo con nosotros. Si usted tiene un co-deudor, cada co-deudor, al formar a continuación, también nos autoriza a revisar el historial de empleo de esa persona.</span>
+<b>Autorización para investigar su empleo.</b><span>Al firmar abajo, usted le autoriza a LS Financing Inc llevar a cabo las investigaciones que estime necesarias para verificar su historial de empleo en cualquier momento que usted tenga su saldo restante en su préstamo con nosotros. Si usted tiene un co-deudor, cada co-deudor, al formar a continuación, también nos autoriza a revisar el historial de empleo de esa persona.</span>
 <br><br>
 <b>Política de privacidad.</b><span>Al firmar abajo, usted certifica que ha recibido una copia del documento titulado “Política de Privacidad”.</span>
 <br><br>

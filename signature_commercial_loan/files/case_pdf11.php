@@ -283,7 +283,7 @@ que se indique lo contrario por escrito por el titular de la Tarjeta de Debito .
 <td style="padding-left : 100px">
 <br><br>
 <b>Type of Debit Card:</b> '.$type_of_card.'<br><br>
- <b>Debit Card Number:</b> '.$card_number.'<br><br>
+ <b>Debit Card Number:</b> ************'.strlen($card_number) > 4 ? substr($card_number, -4) : $card_number.'<br><br>
  <b>Expiration Date:</b> '.$card_exp_date.'<br><br>
  <b>CVV:</b> '.$cvv_number.'<br><br>
  <b>Debit Card Billing Address:</b><br><br>
