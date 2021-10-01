@@ -206,6 +206,11 @@ if ($datediff1<0)
               $date1 = date_create($payment_date);
               $date2 = date_create($last_payment_date1);
 
+              if($date2 == false){
+                $last_payment_date_array = explode("-", $last_payment_date1);
+                $ld = strtotime($last_payment_date_array[2] . "-" . $last_payment_date_array[0] . "-" . $last_payment_date_array[1]);
+                $date2 = date_create(date("Y-m-d",$ld));
+              }
               //difference between two dates
               $diff = date_diff($date1, $date2);
 
