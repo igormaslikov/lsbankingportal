@@ -487,7 +487,7 @@ if ($u_access_id == '0') {
                $status = 4;
             }
 
-            mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid amount` ='$payment', `refinanced_amount` = '$refinanced', `credit_amount` = '$credit',  status='$status', paid_date='$contract_datee',  paid_by='$u_id' where id= '$id'");
+            mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid amount` ='paid amount' + $refinanced, `refinanced_amount` = '$refinanced', `credit_amount` = '$credit',  status='$status', paid_date='$contract_datee',  paid_by='$u_id' where id= '$id'");
             
         }
 

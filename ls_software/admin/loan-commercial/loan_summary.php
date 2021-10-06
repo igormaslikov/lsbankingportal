@@ -287,27 +287,18 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                           <option value="Paid" <?php if ($loan_status == 'Paid') {
                                                   echo 'selected';
                                                 } ?>>Paid</option>
-                          <option value="Past Off" <?php if ($loan_status == 'Past Off') {
+                          <option value="Paid Off" <?php if ($loan_status == 'Paid Off') {
                                                       echo 'selected';
-                                                    } ?>>Past Off</option>
+                                                    } ?>>Paid Off</option>
                           <option value="Refinanced" <?php if ($loan_status == 'Refinanced') {
                                                             echo 'selected';
                                                           } ?>>Refinanced</option>
-                          <option value="Payment Plan" <?php if ($loan_status == 'Payment Plan') {
-                                                          echo 'selected';
-                                                        } ?>>Payment Plan</option>
                           <option value="Collections" <?php if ($loan_status == 'Collections') {
                                                         echo 'selected';
                                                       } ?>>Collections</option>
                           <option value="Chargeoff" <?php if ($loan_status == 'Chargeoff') {
                                                       echo 'selected';
                                                     } ?>>Chargeoff</option>
-                          <option value="Closed Account" <?php if ($loan_status == 'Closed Account') {
-                                                            echo 'selected';
-                                                          } ?>>Closed Account</option>
-                          <option value="Chargeback" <?php if ($loan_status == 'Chargeback') {
-                                                        echo 'selected';
-                                                      } ?>>Chargeback</option>
                           <option value="Bankruptcy" <?php if ($loan_status == 'Bankruptcy') {
                                                         echo 'selected';
                                                       } ?>>Bankruptcy</option>
