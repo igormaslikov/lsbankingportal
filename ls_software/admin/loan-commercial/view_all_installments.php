@@ -209,7 +209,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 <th style='width:12%;color:black;'>Paid Date</th>
                 <th style='width:8%;color:black;'>Paid Amount</th>
                 <th style='width:8%;color:black;'>Paid Late Fee</th>
-                <th style='width:8%;color:black;'>Chargeback Amount</th>
+                <th style='width:8%;color:black;'>Chargeback</th>
+                <th style='width:8%;color:black;'>Refinanced</th>
+                <th style='width:8%;color:black;'>Credit</th>
                 <th style='width:7%;color:black;'>DPD</th>
                 <th style='width:8%;color:black;'>Action</th>
               </tr>
@@ -257,6 +259,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 $paid_amount = $row['paid amount'];
                 $paid_late_fee = $row['paid_late_fee'];
                 $chargeback_amount = $row['chargeback_amount'];
+                $refinanced_amount = $row['refinanced_amount'];
+                $credit_amount = $row['credit_amount'];
                 $dpd = $row['dpd'];
                 $total_payment += $payment;
 
@@ -293,9 +297,11 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                   $a = "";
                 }else if($status == '3'){
                   $installment_status = "Paid Ref";
+                  $string_red_rejected = 'style="color:limegreen;font-weight:bold"';
                   $a = "";
                 }else if($status == '4'){
                   $installment_status = "Credit";
+                  $string_red_rejected = 'style="color:coral;font-weight:bold"';
                   $a = "";
                 }
                 else {
@@ -318,18 +324,20 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                 echo "<tr " . $string_red_rejected . ">
 	 	      
-			  <td>" . $loan_create_id . "</td>
-			  <td>$" . $payment . "</td>
-	 		  <td>$" . $interest . "</td>
-	 		  <td>$" . $principal. "</td>
-			  <td>$" . $balance . "</td>
-			  <td>" . $pay_period . "</td>
-			  <td>" . $installment_status . "</td>
+              <td>" . $loan_create_id . "</td>
+              <td>$" . $payment . "</td>
+              <td>$" . $interest . "</td>
+              <td>$" . $principal. "</td>
+              <td>$" . $balance . "</td>
+              <td>" . $pay_period . "</td>
+              <td>" . $installment_status . "</td>
               <td>" . $payment_date . "</td>
               <td>" .($paid_date != '' ? date('m-d-Y',strtotime($paid_date)) : '') . "</td>
               <td>" . $paid_amount . "</td>
               <td>" . $paid_late_fee . "</td>
               <td>" . $chargeback_amount . "</td>
+              <td>" . $refinanced_amount . "</td>
+              <td>" . $credit_amount . "</td>
 
               <td>" . $dpd . "</td>
               <td>" . $a . "</td>

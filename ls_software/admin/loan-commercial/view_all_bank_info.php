@@ -610,7 +610,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             </div>
             <div class="modal-body" style="margin-left:15px">
               <div class="row">
-                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Type of ID<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Type of ID</label></div>
                 <div class="col-md-5 col-sm-5 col-lg-5">
                   <input list="type_of_ids" name="type_of_cards" id="lblTypeOfID" style="width:100%">
                   <datalist id="type_of_ids">

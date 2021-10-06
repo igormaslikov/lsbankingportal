@@ -39,11 +39,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
   $settlement_amount = 0;
-  $query_payment = mysqli_query($con, "SELECT SUM(payment) AS sum_payment, SUM(`paid amount`) AS sum_paid_amount FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id' and status=2");
+  $query_payment = mysqli_query($con, "SELECT SUM(payment) AS sum_payment, SUM(`paid amount`) AS sum_paid_amount, SUM(`refinanced_amount`) as sum_refinanced_amount, SUM(`credit_amount`) as sum_credit_amount FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id' and (status=2 or status = 3 or status = 4)");
   while ($row_payment = mysqli_fetch_array($query_payment)) {
     $sum_payment = $row_payment['sum_payment'];
     $sum_paid_amount = $row_payment['sum_paid_amount'];
     $settlement_amount = $sum_payment - $sum_paid_amount;
+    if($settlement_amount == 0 || $settlement_amount == "0"){
+      $settlement_amount = $row_payment['sum_credit_amount'];
+    }
 
     $settlement_amount = number_format((float)$settlement_amount, 2, '.', '');
   }
@@ -284,12 +287,12 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                           <option value="Paid" <?php if ($loan_status == 'Paid') {
                                                   echo 'selected';
                                                 } ?>>Paid</option>
-                          <option value="Past Due" <?php if ($loan_status == 'Past Due') {
+                          <option value="Past Off" <?php if ($loan_status == 'Past Off') {
                                                       echo 'selected';
-                                                    } ?>>Past Due</option>
-                          <option value="Promise to Pay" <?php if ($loan_status == 'Promise to Pay') {
+                                                    } ?>>Past Off</option>
+                          <option value="Refinanced" <?php if ($loan_status == 'Refinanced') {
                                                             echo 'selected';
-                                                          } ?>>Promise to Pay</option>
+                                                          } ?>>Refinanced</option>
                           <option value="Payment Plan" <?php if ($loan_status == 'Payment Plan') {
                                                           echo 'selected';
                                                         } ?>>Payment Plan</option>

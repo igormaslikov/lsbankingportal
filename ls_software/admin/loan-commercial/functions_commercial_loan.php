@@ -580,12 +580,12 @@ function SetChargeback()
             continue;
         }
 
-        if ($late_fee_paid != 0) {
-            $late_fee_paid = $late_fee;
+        if ($late_fee_paid != "0") {
+            $late_fee_paid = $late_fee == "" ? 0 : $late_fee;
         }
 
-        if ($convenience_fee_paid != 0) {
-            $convenience_fee_paid = $convenience_fee;
+        if ($convenience_fee_paid != "0") {
+            $convenience_fee_paid = $convenience_fee == "" ? 0 : $convenience_fee;
         }
 
         $chargeback_paid = $installment_paid - $skip_amount;
@@ -1049,11 +1049,11 @@ function UpdateChargebackTransaction(){
             continue;
         }
 
-        if ($late_fee_paid != 0) {
+        if ($late_fee_paid != "0") {
             $late_fee_paid = $late_fee_chargeback;
         }
 
-        if ($convenience_fee_paid != 0) {
+        if ($convenience_fee_paid != "0") {
             $convenience_fee_paid = $convenience_fee_chargeback;
         }
 
@@ -1209,17 +1209,17 @@ function DeleteChargebackTransaction(){
             continue;
         }
 
-        if ($late_fee_paid != 0) {
+        if ($late_fee_paid != "0") {
             $late_fee_paid = $late_fee_chargeback;
         }
 
-        if ($convenience_fee_paid != 0) {
+        if ($convenience_fee_paid != "0") {
             $convenience_fee_paid = $convenience_fee_chargeback;
         }
 
         $chargeback_paid = $installment_paid - $skip_amount;
         $skip_amount = 0;
-        $action_query = "UPDATE `tbl_commercial_loan_installments` SET `chargeback_amount`=`chargeback_amount`-'$chargeback_paid',`paid amount`=`paid amount`+$chargeback_paid, paid_late_fee = paid_late_fee + $late_fee_paid, status = (select if(payment=`paid amount`+$chargeback_paid,1,0) from tbl_commercial_loan_installments where id = '$installment_id') WHERE `id` = '$installment_id'";
+        $action_query = "UPDATE `tbl_commercial_loan_installments` SET `chargeback_amount`=`chargeback_amount`-'$chargeback_paid',`paid amount`=`paid amount`+$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid, status = (select if(payment=`paid amount`+$chargeback_paid,1,0) from tbl_commercial_loan_installments where id = '$installment_id') WHERE `id` = '$installment_id'";
         mysqli_query($con, $action_query);
     }
 

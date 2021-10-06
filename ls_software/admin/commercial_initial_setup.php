@@ -424,36 +424,70 @@ if ($u_access_id == '0') {
          while ($row_fetch_loan = mysqli_fetch_array($sql_fetch_loan)) {
             $previous_amount_loan = $row_fetch_loan['previous_amount_loan'];
          }
-         $sql_installment = mysqli_query($con, "SELECT SUM(late_fee) as sum_late_fee FROM `commercial_loan_transaction` where `loan_create_id`= '$previous_loan_id'");
-         $sum_late_fee = 0;
-         while ($row_installment = mysqli_fetch_array($sql_installment)) {
-             $sum_late_fee = $row_installment['sum_late_fee'];
+
+         $sql = mysqli_query($con, "select late_fee,amount_of_loan,loan_interest from tbl_commercial_loan where loan_create_id= '$previous_loan_id'");
+
+         while ($row = mysqli_fetch_array($sql)) {
+             $late_fee = $row['late_fee'];
+             $amount_of_loan = $row['amount_of_loan'];
+             $loan_interest = $row['loan_interest'];
          }
 
-         $amount_without_fee = $previous_amount_loan - $sum_late_fee;
+         $loan_payment = 0;
+         $query_payment = mysqli_query($con, "SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
+         while ($row_payment = mysqli_fetch_array($query_payment)) {
+           $loan_payment = $row_payment['value_sum'];
+         }
+
+         $in_hand = str_replace(',','',number_format(((float)($amount_of_loan + $loan_interest - $loan_payment)), 2, '.', ','));
+
+         $unpaid_late_fee = 0;
+         $query_payment = mysqli_query($con, "SELECT sum($late_fee - paid_late_fee) as unpaid FROM `tbl_commercial_loan_installments` WHERE `dpd` >= 10 and loan_create_id = '$previous_loan_id' and ($late_fee - paid_late_fee) > 0 ");
+         while ($row_payment = mysqli_fetch_array($query_payment)) {
+           $unpaid_late_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
+         }
+
+         $unpaid_other_fee = 0;
+         $query_payment = mysqli_query($con, "SELECT sum(amount_fee - amount_fee_paid) as unpaid FROM `tbl_other_fees` WHERE loan_created_id = $previous_loan_id ");
+         while ($row_payment = mysqli_fetch_array($query_payment)) {
+           $unpaid_other_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
+         }
+         // $sql_installment = mysqli_query($con, "SELECT SUM(late_fee) as sum_late_fee FROM `commercial_loan_transaction` where `loan_create_id`= '$previous_loan_id'");
+         // $sum_late_fee = 0;
+         // while ($row_installment = mysqli_fetch_array($sql_installment)) {
+         //     $sum_late_fee = $row_installment['sum_late_fee'];
+         // }
+
+         $amount_without_fee = $previous_amount_loan - $unpaid_late_fee - $unpaid_other_fee;
+         $amount_without_fee = $previous_amount_loan >= $in_hand ? $in_hand : $previous_amount_loan;
 
          $sql_installment = mysqli_query($con, "SELECT *  FROM `tbl_commercial_loan_installments` where `loan_create_id`= '$previous_loan_id' and status=0 order by id asc");
          while ($row_installment = mysqli_fetch_array($sql_installment)) {
+            $payment = $row_installment['payment'];
             if($previous_amount_loan == 0 || $amount_without_fee <= 0){ // status 4 = "Credit"
-               mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET paid_date='$contract_datee', status='4', paid_by='$u_id' where loan_create_id = '$previous_loan_id' and status = 0 ");
+               mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET paid_date='$contract_datee', `paid amount`='$payment', `credit_amount` = '$payment', status='4', paid_by='$u_id' where loan_create_id = '$previous_loan_id' and status = 0 ");
                break;
             }
 
-            $payment = $row_installment['payment'];
-            $paid_amount = $row_installment['paid_amount'];
+           
+            $paid_amount = $row_installment['paid amount'];
             $id =  $row_installment['id'];
 
             $real_payment = $payment - $paid_amount;
             $amount_without_fee -= $real_payment;
 
+            $refinanced = $real_payment;
+            $credit = 0;
+
             $status = 3; // "Paid Ref"
             if($amount_without_fee < 0){
-               $paid_amount = $real_payment+$amount_without_fee;
+               $refinanced= $real_payment+$amount_without_fee;
+               $credit = $real_payment - $refinanced;
                $amount_without_fee = 0;
                $status = 4;
             }
 
-            mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid amount` ='$paid_amount', status='$status', paid_date='$contract_datee',  paid_by='$u_id' where id= '$id'");
+            mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid amount` ='$payment', `refinanced_amount` = '$refinanced', `credit_amount` = '$credit',  status='$status', paid_date='$contract_datee',  paid_by='$u_id' where id= '$id'");
             
         }
 

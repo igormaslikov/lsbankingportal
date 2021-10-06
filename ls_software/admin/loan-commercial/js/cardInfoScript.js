@@ -102,10 +102,10 @@ $(document).ready(function () {
 function checkCardInput() {
     Init();
     var valid = true;
-    if (document.getElementById("lblTypeOfID").value == '') {
-        document.getElementById("lblTypeOfID").style.borderColor = "red";
-        valid = false;
-    }
+    // if (document.getElementById("lblTypeOfID").value == '') {
+    //     document.getElementById("lblTypeOfID").style.borderColor = "red";
+    //     valid = false;
+    // }
     if (document.getElementById("lblTypeOfCard").value == '') {
         document.getElementById("lblTypeOfCard").style.borderColor = "red";
         valid = false;
