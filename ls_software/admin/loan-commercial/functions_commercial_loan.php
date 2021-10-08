@@ -1059,7 +1059,7 @@ function UpdateChargebackTransaction(){
 
         $chargeback_paid = $installment_paid - $skip_amount;
         $skip_amount = 0;
-        $action_query = "UPDATE `tbl_commercial_loan_installments` SET `chargeback_amount`=`chargeback_amount`-'$chargeback_paid',`paid amount`=`paid amount`+$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid, status = (select if(payment=`paid amount`+$chargeback_paid,1,0) from tbl_commercial_loan_installments where id = '$installment_id') WHERE `id` = '$installment_id'";
+        $action_query = "UPDATE `tbl_commercial_loan_installments` SET `chargeback_amount`=`chargeback_amount`-'$chargeback_paid',`paid amount`=`paid amount`+$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid, status = (select if(payment=`paid amount`+$chargeback_paid,1,0) from (select * from `tbl_commercial_loan_installments`) as t where id = '$installment_id') WHERE `id` = '$installment_id'";
         mysqli_query($con, $action_query);
     }
 
@@ -1219,7 +1219,7 @@ function DeleteChargebackTransaction(){
 
         $chargeback_paid = $installment_paid - $skip_amount;
         $skip_amount = 0;
-        $action_query = "UPDATE `tbl_commercial_loan_installments` SET `chargeback_amount`=`chargeback_amount`-'$chargeback_paid',`paid amount`=`paid amount`+$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid, status = (select if(payment=`paid amount`+$chargeback_paid,1,0) from tbl_commercial_loan_installments where id = '$installment_id') WHERE `id` = '$installment_id'";
+        $action_query = "UPDATE `tbl_commercial_loan_installments` SET `chargeback_amount`=`chargeback_amount`-'$chargeback_paid',`paid amount`=`paid amount`+$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid, status = (select if(payment=`paid amount`+$chargeback_paid,1,0) from (select * from `tbl_commercial_loan_installments`) as t where id = '$installment_id') WHERE `id` = '$installment_id'";
         mysqli_query($con, $action_query);
     }
 
