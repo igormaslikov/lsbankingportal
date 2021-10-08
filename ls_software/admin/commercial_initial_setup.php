@@ -465,7 +465,7 @@ if ($u_access_id == '0') {
          while ($row_installment = mysqli_fetch_array($sql_installment)) {
             $payment = $row_installment['payment'];
             if($previous_amount_loan == 0 || $amount_without_fee <= 0){ // status 4 = "Credit"
-               mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET paid_date='$contract_datee', `paid amount`='$payment', `credit_amount` = '$payment', status='4', paid_by='$u_id' where loan_create_id = '$previous_loan_id' and status = 0 ");
+               mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET paid_date='$contract_datee', `paid amount`='0', `credit_amount` = '$payment', status=4, paid_by='$u_id' where loan_create_id = '$previous_loan_id' and status = 0 ");
                break;
             }
 
@@ -479,15 +479,16 @@ if ($u_access_id == '0') {
             $refinanced = $real_payment;
             $credit = 0;
 
-            $status = 3; // "Paid Ref"
+            // "Paid Ref"
             if($amount_without_fee < 0){
                $refinanced= $real_payment+$amount_without_fee;
                $credit = $real_payment - $refinanced;
                $amount_without_fee = 0;
-               $status = 4;
             }
 
-            mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid amount` ='paid amount' + $refinanced, `refinanced_amount` = '$refinanced', `credit_amount` = '$credit',  status='$status', paid_date='$contract_datee',  paid_by='$u_id' where id= '$id'");
+            $status = $paid_amount+$refinanced >= $credit ? 3 : 4; 
+
+            mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid amount` =`paid amount` + $refinanced, `refinanced_amount` = '$refinanced', `credit_amount` = '$credit',  status='$status', paid_date='$contract_datee',  paid_by='$u_id' where id= '$id'");
             
         }
 

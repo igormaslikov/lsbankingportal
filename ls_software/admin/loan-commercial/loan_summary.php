@@ -44,9 +44,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     $sum_payment = $row_payment['sum_payment'];
     $sum_paid_amount = $row_payment['sum_paid_amount'];
     $settlement_amount = $sum_payment - $sum_paid_amount;
-    if($settlement_amount == 0 || $settlement_amount == "0"){
-      $settlement_amount = $row_payment['sum_credit_amount'];
-    }
+    // if($settlement_amount == 0 || $settlement_amount == "0"){
+    //   $settlement_amount = $row_payment['sum_credit_amount'];
+    // }
 
     $settlement_amount = number_format((float)$settlement_amount, 2, '.', '');
   }
