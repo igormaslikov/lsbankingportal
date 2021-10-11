@@ -856,19 +856,19 @@ if ($u_access_id != '1') {
 
                             <div class="col-lg-6">
                                 <label for="usr">Amount to be Paid ($):</label>
-                                <input type="text" name="to_be_paid_amount" class="form-control" id="usr" placeholder="" value="<?php echo $amount_tobe_paid; ?>" oninput="calculate_summary(event)">
+                                <input type="text" name="to_be_paid_amount" class="form-control" id="usr" placeholder="" value="<?php echo $amount_tobe_paid; ?>" oninput="calculate_summary(event)" required>
 
                             </div>
 
                             <div class="col-lg-2">
                                 <label for="usr">Late Fee ($):</label>
-                                <input type="text" name="late_fee" class="form-control" id="usr" placeholder="" value="<?php echo $sum_late_fee; ?>" oninput="calculate_summary(event)">
+                                <input type="text" name="late_fee" class="form-control" id="usr" placeholder="" value="<?php echo $sum_late_fee; ?>" oninput="calculate_summary(event)"required>
 
                             </div>
 
                             <div class="col-lg-2">
                                 <label for="usr">Convenience Fee ($):</label>
-                                <input type="text" name="convenience_fee" class="form-control" id="usr" placeholder="" value="0" oninput="calculate_summary(event)">
+                                <input type="text" name="convenience_fee" class="form-control" id="usr" placeholder="" value="0" oninput="calculate_summary(event)" required>
 
                             </div>
                             <div class="col-lg-2">
@@ -885,7 +885,7 @@ if ($u_access_id != '1') {
                                     }
                                     ?>
                                 </select>
-                                <input type="text" name="other_fee" class="form-control" id="other_fee_id" placeholder="" value="0" style="width:25%; display:inline!important;" oninput="calculate_summary(event)">
+                                <input type="text" name="other_fee" class="form-control" id="other_fee_id" placeholder="" value="0" style="width:25%; display:inline!important;" oninput="calculate_summary(event)" required>
 
 
                             </div>
@@ -898,7 +898,7 @@ if ($u_access_id != '1') {
                             </div>
                             <div class="col-lg-6">
                                 <label for="usr">Type Of Payment</label>
-                                <select name="type_of_payment" id="type_of_payment" class="form-control" value="">
+                                <select name="type_of_payment" id="type_of_payment" class="form-control" value="" required>
                                     <option value=""></option>
                                     <option value="Paydown">Paydown</option>
                                     <option value="Payoff">Payoff</option>
@@ -908,7 +908,7 @@ if ($u_access_id != '1') {
                             </div>
                             <div class="col-lg-6">
                                 <label for="usr">Payment Method</label>
-                                <select name="payment_method" id="payment_method" class="form-control" value="" onchange="payment_method_info(this,event)">
+                                <select name="payment_method" id="payment_method" class="form-control" value="" onchange="payment_method_info(this,event)" required>
                                     <option value=""></option>
                                     <option value="Cash">Cash</option>
                                     <option value="Debit Card">Debit Card</option>

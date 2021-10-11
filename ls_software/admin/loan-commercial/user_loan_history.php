@@ -300,7 +300,9 @@ if ($u_access_id != '1') {
               $timestamp = strtotime($payment_date_db);
               $payment_date = date("m-d-Y", $timestamp);
 
-
+              if($payment_date == "01-01-1970"){
+                $payment_date = $payment_date_db;
+              }
 
 
               if ($amount_of_loan != '0') {
