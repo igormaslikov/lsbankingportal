@@ -291,6 +291,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 $loan_status = $row_loan_his['loan_status'];
                 $loan_create_id = $row_loan_his['loan_create_id'];
                 $amount_of_loan = $row_loan_his['amount_of_loan'];
+                $fee = $row_loan_his['loan_fee'];
+                $payoff = $amount_of_loan + $fee;
+                $payoff = number_format("$payoff", 2);
                 $contract_date_db = $row_loan_his['contract_date'];
                 $payment_date_db = $row_loan_his['payment_date'];
                 $last_payment_date = $row_loan_his['last_payment_date'];
