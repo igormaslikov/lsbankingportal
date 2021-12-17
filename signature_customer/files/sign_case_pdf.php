@@ -341,7 +341,7 @@ borrower (“I”, “you”, “borrower”) agrees to and accept the terms and
 <tr>
 <td><img src="../completed/doc_signs/'.$img_signed.'" height="300%" alt=""></td>
 <td align="center">'.$creation_date.'</td>
-<td align="center"> <b>Name</b> <br>'.$f_name.'<br></td>
+<td align="center"> <b>Name</b> <br>'.$username.'<br></td>
 <td align="center"> <b>Title</b><br> Loan Agent </td>
 <td align="center">'.$creation_date.'</td>
 </tr>
