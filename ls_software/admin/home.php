@@ -885,7 +885,7 @@ $DBcon->close();
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Review+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Review Payday CA :<b style="color:red"> <?php echo $rowcount_rev_payday_ca; ?></b></a></p>
       </div>
       <div class="col-lg-4">
-        <p style="color:black;font-weight: bold"><a href="admin/view_all_customer.php?status=DL/Bank+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday CA :<b style="color:red"> <?php echo $rowcount_dl_bank_ca; ?></b></a></p>
+        <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday CA :<b style="color:red"> <?php echo $rowcount_dl_bank_ca; ?></b></a></p>
       </div>
       <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Payday+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Payday NV :<b style="color:red"> <?php echo $rowcount_aprovd_paydy_nv; ?></b></a></p>
