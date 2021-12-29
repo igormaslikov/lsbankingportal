@@ -831,9 +831,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
                                 if ($fund_status == 1) {
-                                    echo  "<a href='#'  title='Funded'><span class='glyphicon glyphicon-collapse-up' aria-hidden='true' alt='echo $alt_dl;'></span>  <span style = 'color:green; text-align:left'></span></a>";
+                                    echo  "<a href='#'   title='Funded'><span class='glyphicon glyphicon-collapse-up' aria-hidden='true' alt='echo $alt_dl;'></span>  <span style = 'color:green; text-align:left'></span></a>";
                                 } else {
-                                    echo  "<a href='?fund_status=1&loan_id=$loan_create_id'  title='Fund Now'><span class='glyphicon glyphicon-unchecked' aria-hidden='true' alt='echo $alt_dl;'></span>  <span style = 'color:green; text-align:left'></span></a>";
+                                    echo  "<a class='fund_box' href='?fund_status=1&loan_id=$loan_create_id'  title='Fund Now'><span class='glyphicon glyphicon-unchecked' aria-hidden='true' alt='echo $alt_dl;'></span>  <span style = 'color:green; text-align:left'></span></a>";
                                 }
                                 if ($decision_logic_status == '1') {
 
@@ -983,6 +983,15 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
         <script type="text/javascript">
             $('.remove-box').on('click', function() {
                 var x = confirm('Are you sure you want to delete?');
+                if (x)
+                    return true;
+                else
+                    return false;
+
+            });
+
+            $('.fund_box').on('click', function() {
+                var x = confirm('Are you sure you want to fund?');
                 if (x)
                     return true;
                 else

@@ -182,6 +182,7 @@ $loan_notes=$row_user['notes'];
 <th style='width:25px;'>Income</th>
 <th style='width:30px;'>Direct Deposit</th>
 <th style='width:40px;'>How do you get paid?</th>
+<th style='width:40px;'>Week Day</th>
 <th style='width:25px;'>Last Pay Date</th>
 <th style='width:25px;'>Next Pay Date</th>
 <th style='width:25px;'>Action</th>
@@ -211,6 +212,7 @@ $work_phone_no=$row_doc['work_phone_no'];
 $direct_deposit=$row_doc['direct_deposit'];
 
 $pay_period=$row_doc['pay_period'];
+$week_day=$row_doc['week_day'];
 $net_check_amount=$row_doc['net_check_amount'];
 $last_pay_date=$row_doc['last_pay_date'];
 $next_pay_date=$row_doc['next_pay_date'];
@@ -230,6 +232,7 @@ $new_next_pay_date= date("m-d-Y", $timestamp);
         <td>$$net_check_amount</td>
         <td>$direct_deposit</td>
         <td>$pay_period</td>
+        <td>$week_day</td>
         <td>$new_last_pay_date</td>
         <td>$new_next_pay_date</td>
         <td><a href='edit_employe.php?id_src=$scr_inc_id&id=$id'> Edit</a> - 

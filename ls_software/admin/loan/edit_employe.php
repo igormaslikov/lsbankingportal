@@ -118,6 +118,7 @@ $emp_phone=$row_user['work_phone_no'];
 $net_check_amount=$row_user['net_check_amount'];
 $direct_deposit=$row_user['direct_deposit'];
 $how_paid=$row_user['pay_period'];
+$week_day=$row_user['week_day'];
 $last_pay_date=$row_user['last_pay_date'];
 $next_pay_date=$row_user['next_pay_date'];
 
@@ -182,6 +183,7 @@ $work_phone_update =$_POST['work_phone'];
 $direct_deposit_update =$_POST['payment'];
 $net_amount_update =$_POST['net_amount'];
 $pay_fre_update =$_POST['get_paid'];
+$week_day_update =$_POST['week_day'];
 $last_date_update=$_POST['last_check'];
 $next_date_update=$_POST['next_check'];
 $date= date('Y-m-d H:i:s');
@@ -201,7 +203,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
 {
      
      
-       mysqli_query($con,"UPDATE source_income SET employer_name ='$employer_name_update', work_phone_no ='$work_phone_update', net_check_amount ='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id', last_update_date='$date'  where scr_inc_id ='$id_src' ");
+       mysqli_query($con,"UPDATE source_income SET employer_name ='$employer_name_update', work_phone_no ='$work_phone_update', net_check_amount ='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update',week_day='$week_day_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id', last_update_date='$date'  where scr_inc_id ='$id_src' ");
 
       ?>
    <script type="text/javascript">
@@ -272,6 +274,19 @@ window.location.href = '../not_authorize.php';
  
     </div>
 
+<div class="col-lg-4">
+  <label for="week_day">Week Day</label>
+  <select name="week_day" id="week_day_id" class ="form-control">
+  <option value=""></option>
+  <option value="Sunday" <?php if($week_day=='Sunday'){ echo 'selected';} ?>>Sunday</option>
+  <option value="Monday"<?php if($week_day=='Monday'){ echo 'selected';} ?>>Monday</option>
+  <option value="Tuseday"<?php if($week_day=='Tuseday'){ echo 'selected';} ?>>Tuseday</option>
+  <option value="Wednesday"<?php if($week_day=='Wednesday'){ echo 'selected';} ?>>Wednesday</option>
+  <option value="Thursday"<?php if($week_day=='Thursday'){ echo 'selected';} ?>>Thursday</option>
+  <option value="Friday"<?php if($week_day=='Friday'){ echo 'selected';} ?>>Friday</option>
+  <option value="Saturday"<?php if($week_day=='Saturday'){ echo 'selected';} ?>>Saturday</option>
+  </select>
+</div>    
 <div class="col-lg-4">
       <label for="usr">Last Paycheck Date</label>
  <input type="date" name="last_check"  class="form-control" id="usr" value="<?php echo $last_pay_date; ?>">

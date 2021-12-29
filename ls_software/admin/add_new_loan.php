@@ -359,7 +359,7 @@ if ($u_access_id == '0') {
         while ($row1 = mysqli_fetch_array($sql1)) {
 
           $amount_of_loan = $row1['amount_of_loan'];
-          $payment_date = $row['payment_date'];
+          $week_day = $row['week_day'];
         }
         //
         ?>
@@ -368,11 +368,9 @@ if ($u_access_id == '0') {
 
           <h4 style="text-align:center">Creating a New Loan for Customer : <span style="color:red"><?php echo $_GET['name']; ?></span> </h4>
           <h4 style="text-align:center">Frequency payment : <span style="color:red"><?php echo $pay_period; ?></span> </h4>
+          <h4 style="text-align:center">Day of Week : <span style="color:red"><?php echo $week_day; ?></span> </h4>
           <?php 
             if($renew_loan_create_id != "" || $renew_loan_create_id != null){
-              $timestamp = strtotime($payment_date);
-              $week_day = date("l", $timestamp);
-              echo " <h4 style='text-align:center'>Day of Week : <span style='color:red'>$week_day</span> </h4>";
               echo " <h4 style='text-align:center'>Last loan amount : <span style='color:red'>$amount_of_loan</span> </h4>";
             }
           ?>
