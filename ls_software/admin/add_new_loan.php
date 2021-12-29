@@ -351,6 +351,7 @@ if ($u_access_id == '0') {
 
           $pay_period = $row1['pay_period'];
           $direct_deposit = $row1['direct_deposit'];
+          $week_day = $row1['week_day'];
         }
 
         $sql1 = mysqli_query($con, "SELECT * From tbl_loan WHERE loan_create_id= '$renew_loan_create_id'");
@@ -359,7 +360,7 @@ if ($u_access_id == '0') {
         while ($row1 = mysqli_fetch_array($sql1)) {
 
           $amount_of_loan = $row1['amount_of_loan'];
-          $week_day = $row1['week_day'];
+          
         }
         //
         ?>
