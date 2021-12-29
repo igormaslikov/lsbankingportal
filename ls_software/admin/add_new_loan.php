@@ -359,7 +359,7 @@ if ($u_access_id == '0') {
         while ($row1 = mysqli_fetch_array($sql1)) {
 
           $amount_of_loan = $row1['amount_of_loan'];
-          $week_day = $row['week_day'];
+          $week_day = $row1['week_day'];
         }
         //
         ?>
