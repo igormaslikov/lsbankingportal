@@ -128,39 +128,53 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             if ($result_t = mysqli_query($con, $query_search)) {
                 // Return the number of rows in result set
                 $rowcount = mysqli_num_rows($result_t);
+                $us = $row_us['value_sum'];
+
+                $us = number_format((float)$us, 2, '.', '');
                 // printf($rowcount);
                 // Free result set
                 $ye = mysqli_free_result($result_t);
                 echo $ye;
             }
 
+            $query_search_1 = str_replace("SELECT *", "SELECT SUM(amount_of_loan) AS value_sum, SUM(loan_total_payable) AS sum_loan_total_payable", $query_search);
+            while ($row_us = mysqli_fetch_array(mysqli_query($con, $query_search_1))) {
+                $us = $row_us['value_sum'];
+                $pay_off = $row_us['sum_loan_total_payable'];
+
+                $us = number_format((float)$us, 2, '.', '');
+                $pay_off = number_format((float)$pay_off, 2, '.', '');
+                break;
+            }
+
             ?>
+
             <?php
 
 
-            $query_us = mysqli_query($con, "SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '1'");
-            while ($row_us = mysqli_fetch_array($query_us)) {
-                $us = $row_us['value_sum'];
+            // $query_us = mysqli_query($con, "SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '1'");
+            // while ($row_us = mysqli_fetch_array($query_us)) {
+            //     $us = $row_us['value_sum'];
 
-                $us = number_format((float)$us, 2, '.', '');
-                break;
-            }
+            //     $us = number_format((float)$us, 2, '.', '');
+            //     break;
+            // }
 
 
-            $query_le = mysqli_query($con, "SELECT SUM(loan_total_payable) AS value_sum FROM tbl_loan where sign_status= '1'");
-            while ($row_le = mysqli_fetch_array($query_le)) {
-                $pay_off = $row_le['value_sum'];
-                break;
-            }
-
-            $query_trns = mysqli_query($con, "SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction ");
+            // $query_le = mysqli_query($con, "SELECT SUM(loan_total_payable) AS value_sum FROM tbl_loan where sign_status= '1'");
+            // while ($row_le = mysqli_fetch_array($query_le)) {
+            //     $pay_off = $row_le['value_sum'];
+            //     break;
+            // }
+            $query_search_2 = str_replace("SELECT *", "SELECT loan_create_id", $query_search);
+            $query_trns = mysqli_query($con, "SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_create_id in ($query_search_2)");
             while ($row_trns = mysqli_fetch_array($query_trns)) {
                 $totall_trans = $row_trns['value_sum'];
                 break;
             }
             $totall_trans = number_format((float)$totall_trans, 2, '.', '');
 
-            $pay_off = number_format((float)$pay_off, 2, '.', '');
+            //$pay_off = number_format((float)$pay_off, 2, '.', '');
             $avg_pay_off = $pay_off / $rowcount;
 
             $avg_pay = round($avg_pay_off, 2);
@@ -181,7 +195,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 // echo"". $rowcount_fees;
             }
 
-            $sql = mysqli_query($con, "select * from tbl_loan where sign_status= '1'");
+            // $sql = mysqli_query($con, "select * from tbl_loan where sign_status= '1'");
+            $sql = mysqli_query($con, $query_search);
             $total_loan_fee = "0";
             while ($row = mysqli_fetch_array($sql)) {
 
@@ -208,8 +223,44 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
             ?>
+            <?php
+            $result = mysqli_query($con, $query_search);
+            $items = array();
 
+            //Store table records into an array
+            //while ($row = $result->fetch_assoc()) {
+             //   $items[] = $row;
+            //}
+            //Check the export button is pressed or not
+            if (isset($_POST["export"])) {
+                //Define the filename with current date
+                $fileName = "itemdata-" . date('d-m-Y') . ".csv";
+
+                //Set header information to export data in excel format
+                header('Content-Type:  text/csv');
+                header('Content-Disposition: attachment; filename=' . $fileName);
+
+                //Set variable to false for heading
+                $heading = false;
+
+                //Add the MySQL table data to excel file
+                if (!empty($items)) {
+                    foreach ($items as $item) {
+                        if (!$heading) {
+                            echo implode("\t", array_keys($item)) . "\n";
+                            $heading = true;
+                        }
+                        echo implode("\t", array_values($item)) . "\n";
+                    }
+                }
+                exit();
+            }
+
+            ?>
             <div align="right" style="padding:30px;background-color: #F5E09E;color: white">
+                <!--<form action="#" method="post">
+                    <button type="submit" id="export" name="export" value="Export to excel" class="btn btn-success">Export To Excel</button>
+                </form> -->
                 <a href="unsigned_payday_loans.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Unsigned Payday
                         Loans</button></a>
                 <a href="repeat_loan.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Loan Repeat
@@ -442,7 +493,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $loan_date = $_GET['loan_date'];
                             $due_date_query = $_GET['due_date'];
                             $to_date = $_GET['to_date'];
-                            $fund_status = $_GET['fund_status'];                            
+                            $fund_status = $_GET['fund_status'];
 
 
                             if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || (isset($_GET['keyword_name']) && $_GET['keyword_name'] != '') ||  (isset($_GET['state']) && $_GET['state'] != 'All') || isset($_GET['from_date'])  || isset($_GET['loan_date']) || isset($_GET['due_date']) || isset($_GET['to_date'])) {
@@ -769,10 +820,10 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 $date1 = date_create($payment_date);
                                 $date2 = date_create($last_payment_date1);
 
-                                if($date2 == false){
+                                if ($date2 == false) {
                                     $last_payment_date_array = explode("-", $last_payment_date1);
                                     $ld = strtotime($last_payment_date_array[2] . "-" . $last_payment_date_array[0] . "-" . $last_payment_date_array[1]);
-                                    $date2 = date_create(date("Y-m-d",$ld));
+                                    $date2 = date_create(date("Y-m-d", $ld));
                                 }
                                 //difference between two dates
                                 $diff = date_diff($date1, $date2);
@@ -862,34 +913,34 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                     <ul class="pagination">
                         <?php // if($page_no > 1){ echo "<li><a href='?page_no=1'>First Page</a></li>"; } 
-                            $filters ="";
-                            if($keyword_name != null && $keyword_name != ""){
-                                $filters .= "&keyword_name=$keyword_name";    
-                            }
-                            if($state != null && $state != ""){
-                                $filters .= "&state_search=$state";    
-                            }
-                            if($status != null && $status != ""){
-                                $filters .= "&status=$status";    
-                            }
-                            if($keyword != null && $keyword != ""){
-                                $filters .= "&keyword=$keyword";    
-                            }
-                            if($from_date != null && $from_date != ""){
-                                $filters .= "&from_date=$from_date";    
-                            }
-                            if($loan_date != null && $loan_date != ""){
-                                $filters .= "&loan_date=$loan_date";    
-                            }
-                            if($due_date_query != null && $due_date_query != ""){
-                                $filters .= "&due_date=$due_date_query";    
-                            }
-                            if($to_date != null && $to_date != ""){
-                                $filters .= "&to_date=$to_date";    
-                            }
-                            if($fund_status != null && $fund_status != ""){
-                                $filters .= "&fund_status=$fund_status";    
-                            }
+                        $filters = "";
+                        if ($keyword_name != null && $keyword_name != "") {
+                            $filters .= "&keyword_name=$keyword_name";
+                        }
+                        if ($state != null && $state != "") {
+                            $filters .= "&state_search=$state";
+                        }
+                        if ($status != null && $status != "") {
+                            $filters .= "&status=$status";
+                        }
+                        if ($keyword != null && $keyword != "") {
+                            $filters .= "&keyword=$keyword";
+                        }
+                        if ($from_date != null && $from_date != "") {
+                            $filters .= "&from_date=$from_date";
+                        }
+                        if ($loan_date != null && $loan_date != "") {
+                            $filters .= "&loan_date=$loan_date";
+                        }
+                        if ($due_date_query != null && $due_date_query != "") {
+                            $filters .= "&due_date=$due_date_query";
+                        }
+                        if ($to_date != null && $to_date != "") {
+                            $filters .= "&to_date=$to_date";
+                        }
+                        if ($fund_status != null && $fund_status != "") {
+                            $filters .= "&fund_status=$fund_status";
+                        }
                         ?>
 
                         <li <?php if ($page_no <= 1) {
@@ -911,7 +962,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 }
                             }
                         } elseif ($total_no_of_pages > 10) {
-                            
+
 
                             if ($page_no <= 4) {
                                 for ($counter = 1; $counter < 8; $counter++) {
