@@ -231,6 +231,8 @@ table,th, td {
 <option value="Cash">Cash</option>
 <option value="eCheck">eCheck</option>
 <option value="Repay">Repay</option>
+<option value="Zelle">Zelle</option>
+<option value="Venmo">Venmo</option>
 <option value="Charge Off">Charge Off</option>
 
 </select>

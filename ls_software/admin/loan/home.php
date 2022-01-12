@@ -69,12 +69,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
             $status  = $_GET['status'];
             $keyword = $_GET['keyword'];
+            $state_search = $_GET['state'];
+            $payment_method = $_GET['payment_method'];
             $from_date = $_GET['from_date'];
             $loan_date = $_GET['loan_date'];
             $due_date = $_GET['due_date'];
             $to_date = $_GET['to_date'];
 
-            if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || isset($_GET['from_date'])  || isset($_GET['loan_date']) || isset($_GET['due_date']) || isset($_GET['to_date'])) {
+            if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || (isset($_GET['state']) && $_GET['state'] != "") || (isset($_GET['payment_method']) && $_GET['payment_method'] != "") || (isset($_GET['from_date']) && $_GET['from_date'] != "")  || (isset($_GET['loan_date']) && $_GET['loan_date'] != "") || (isset($_GET['due_date']) && $_GET['due_date'] != "") || (isset($_GET['to_date']) && $_GET['to_date'] != "")) {
                 $query_search .= "AND";
             }
             $and_check = 0;
@@ -88,6 +90,24 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     $and_check = 2;
                 }
                 $query_search .= "  loan_create_id = '$keyword'";
+            }
+
+            if ($state_search != "") {
+                if ($and_check > 1 || $and_check > 0) {
+                    $query_search .= " AND ";
+                }
+
+                $query_search .= " state like '%$state_search%' ";
+                $and_check = 2;
+            }
+
+            if ($payment_method != "") {
+                if ($and_check > 1 || $and_check > 0) {
+                    $query_search .= " AND ";
+                }
+
+                $query_search .= " loan_id in (SELECT loan_id from loan_transaction where payment_method = '$payment_method') ";
+                $and_check = 2;
             }
 
             if ($_GET['from_date'] != "") {
@@ -166,8 +186,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             //     $pay_off = $row_le['value_sum'];
             //     break;
             // }
-            $query_search_2 = str_replace("SELECT *", "SELECT loan_create_id", $query_search);
-            $query_trns = mysqli_query($con, "SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_create_id in ($query_search_2)");
+            $query_search_2 = str_replace("SELECT *", "SELECT loan_id", $query_search);
+            $query_trns = mysqli_query($con, "SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id in ($query_search_2)");
             while ($row_trns = mysqli_fetch_array($query_trns)) {
                 $totall_trans = $row_trns['value_sum'];
                 break;
@@ -224,41 +244,41 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
             ?>
             <?php
-            $result = mysqli_query($con, $query_search);
-            $items = array();
+            // $result = mysqli_query($con, $query_search);
+            // $items = array();
 
-            //Store table records into an array
-            //while ($row = $result->fetch_assoc()) {
-             //   $items[] = $row;
-            //}
-            //Check the export button is pressed or not
-            if (isset($_POST["export"])) {
-                //Define the filename with current date
-                $fileName = "itemdata-" . date('d-m-Y') . ".csv";
+            // //Store table records into an array
+            // while ($row = $result->fetch_assoc()) {
+            //     $items[] = $row;
+            // }
+            // //Check the export button is pressed or not
+            // if (isset($_POST["export"])) {
+            //     //Define the filename with current date
+            //     $fileName = "itemdata-" . date('d-m-Y') . ".csv";
 
-                //Set header information to export data in excel format
-                header('Content-Type:  text/csv');
-                header('Content-Disposition: attachment; filename=' . $fileName);
+            //     //Set header information to export data in excel format
+            //     header('Content-Type:  text/csv');
+            //     header('Content-Disposition: attachment; filename=' . $fileName);
 
-                //Set variable to false for heading
-                $heading = false;
+            //     //Set variable to false for heading
+            //     $heading = false;
 
-                //Add the MySQL table data to excel file
-                if (!empty($items)) {
-                    foreach ($items as $item) {
-                        if (!$heading) {
-                            echo implode("\t", array_keys($item)) . "\n";
-                            $heading = true;
-                        }
-                        echo implode("\t", array_values($item)) . "\n";
-                    }
-                }
-                exit();
-            }
+            //     //Add the MySQL table data to excel file
+            //     if (!empty($items)) {
+            //         foreach ($items as $item) {
+            //             if (!$heading) {
+            //                 echo implode("\t", array_keys($item)) . "\n";
+            //                 $heading = true;
+            //             }
+            //             echo implode("\t", array_values($item)) . "\n";
+            //         }
+            //     }
+            //     exit();
+            // }
 
             ?>
             <div align="right" style="padding:30px;background-color: #F5E09E;color: white">
-                <!--<form action="#" method="post">
+                <!-- <form action="#" method="post">
                     <button type="submit" id="export" name="export" value="Export to excel" class="btn btn-success">Export To Excel</button>
                 </form> -->
                 <a href="unsigned_payday_loans.php"> <button name="btn-submit" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Unsigned Payday
@@ -391,6 +411,38 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 </select>
                             </td>
                             <td colspan="2" style="font-weight: bold;">
+                                Payment Method
+                                <select name="payment_method" id="payment_method" class="form-control" value="" style="padding: 6px 15px;">
+                                    <option value="" <?php if ($_GET['payment_method'] == 'All') {
+                                                            echo 'selected';
+                                                        } ?>>Select</option>
+                                    <option value="Debit" <?php if ($_GET['payment_method'] == 'Debit') {
+                                                            echo 'selected';
+                                                        } ?>>Debit</option>
+                                    <option value="ACH" <?php if ($_GET['payment_method'] == 'ACH') {
+                                                            echo 'selected';
+                                                        } ?>>ACH</option>
+                                    <option value="Bank Deposit" <?php if ($_GET['payment_method'] == 'Bank Deposit') {
+                                                                        echo 'selected';
+                                                                    } ?>>Bank Deposit</option>
+                                    <option value="Cash" <?php if ($_GET['payment_method'] == 'Cash') {
+                                                                echo 'selected';
+                                                            } ?>>Cash</option>
+                                    <option value="eCheck" <?php if ($_GET['payment_method'] == 'eCheck') {
+                                                                echo 'selected';
+                                                            } ?>>eCheck</option>
+                                    <option value="Repay" <?php if ($_GET['payment_method'] == 'Repay') {
+                                                                echo 'selected';
+                                                            } ?>>Repay</option>
+                                    <option value="Zelle" <?php if ($_GET['payment_method'] == 'Zelle') {
+                                                                echo 'selected';
+                                                            } ?>>Zelle</option>
+                                    <option value="Venmo" <?php if ($_GET['payment_method'] == 'Venmo') {
+                                                                echo 'selected';
+                                                            } ?>>Venmo</option>
+                                </select>
+                            </td>
+                            <td colspan="2" style="font-weight: bold;">
 
                                 Loan Date:
                                 <input type="date" id="loan_date" class="form-control" name="loan_date" placeholder="" value="" style="line-height:20px">
@@ -450,6 +502,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 <th style='width:1%;color:black;text-align:center;'>DPD</th>
                                 <th style='width:1%;color:black;text-align:center;'>LH</th>
                                 <th style='width:7%;color:black;text-align:center;'>Balance Due</th>
+                                <th style='width:7%;color:black;text-align:center;'>Payment Method</th>
+                                <th style='width:7%;color:black;text-align:center;'>Total Payment</th>
                                 <th style='width:15%;color:black;text-align:center;'>Action</th>
                             </tr>
                         </thead>
@@ -487,7 +541,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $keyword_name  = $_GET['keyword_name'];
                             $state_search = $_GET['state'];
                             $status  = $_GET['status'];
-                            $status  = $_GET['status'];
+                            $payment_method  = $_GET['payment_method'];
                             $keyword = $_GET['keyword'];
                             $from_date = $_GET['from_date'];
                             $loan_date = $_GET['loan_date'];
@@ -496,7 +550,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $fund_status = $_GET['fund_status'];
 
 
-                            if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || (isset($_GET['keyword_name']) && $_GET['keyword_name'] != '') ||  (isset($_GET['state']) && $_GET['state'] != 'All') || isset($_GET['from_date'])  || isset($_GET['loan_date']) || isset($_GET['due_date']) || isset($_GET['to_date'])) {
+                            if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || (isset($_GET['state']) && $_GET['state'] != "") || (isset($_GET['payment_method']) && $_GET['payment_method'] != "") || (isset($_GET['from_date']) && $_GET['from_date'] != "")  || (isset($_GET['loan_date']) && $_GET['loan_date'] != "") || (isset($_GET['due_date']) && $_GET['due_date'] != "") || (isset($_GET['to_date']) && $_GET['to_date'] != "")) {
                                 $query_search .= "AND";
                             }
                             $and_check = 0;
@@ -510,6 +564,38 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                     $and_check = 2;
                                 }
                                 $query_search .= "  loan_create_id LIKE '%$keyword%'";
+                                $and_check = 2;
+                            }
+
+                            if ($state_search != "") {
+                                if ($and_check > 1 || $and_check > 0) {
+                                    $query_search .= " AND ";
+                                }
+
+                                $query_search .= " state like '%$state_search%' ";
+                                $and_check = 2;
+                                // $query_keyword = mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE  (`state` LIKE '%$state_search%')");
+                                // $query_search .= "(";
+                                // // echo "SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` LIKE '%$keyword_name%' OR `first_name`LIKE '%$keyword_name%' OR `last_name` LIKE '%$keyword_name%' OR `email` LIKE '%$keyword_name%' OR `mobile_number` LIKE '%$keyword_name%' AND `state` LIKE '%$state_search%'";
+                                // while ($row_keyword = mysqli_fetch_array($query_keyword)) {
+                                //     $payment = $row_keyword['user_fnd_id'];
+
+                                //     $query_search .= " (user_fnd_id = '$payment' )";
+
+                                //     $query_search .= " OR ";
+                                // }
+
+                                // $query_search .= " (user_fnd_id = '$payment' )";
+
+                                // $query_search .= ")";
+                            }
+
+                            if ($payment_method != "") {
+                                if ($and_check > 1 || $and_check > 0) {
+                                    $query_search .= " AND ";
+                                }
+                
+                                $query_search .= " loan_id in (SELECT loan_id from loan_transaction where payment_method = '$payment_method') ";
                                 $and_check = 2;
                             }
 
@@ -572,28 +658,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             }
 
 
-                            if ($state_search != "") {
-                                if ($and_check > 1 || $and_check > 0) {
-                                    $query_search .= " AND ";
-                                    //$and_check = 2;
-                                }
 
-                                $query_search .= " state like '%$state_search%' ";
-                                // $query_keyword = mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE  (`state` LIKE '%$state_search%')");
-                                // $query_search .= "(";
-                                // // echo "SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` LIKE '%$keyword_name%' OR `first_name`LIKE '%$keyword_name%' OR `last_name` LIKE '%$keyword_name%' OR `email` LIKE '%$keyword_name%' OR `mobile_number` LIKE '%$keyword_name%' AND `state` LIKE '%$state_search%'";
-                                // while ($row_keyword = mysqli_fetch_array($query_keyword)) {
-                                //     $payment = $row_keyword['user_fnd_id'];
-
-                                //     $query_search .= " (user_fnd_id = '$payment' )";
-
-                                //     $query_search .= " OR ";
-                                // }
-
-                                // $query_search .= " (user_fnd_id = '$payment' )";
-
-                                // $query_search .= ")";
-                            }
 
 
 
@@ -604,7 +669,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 //$query_search .= " WHERE ";
                             }
 
-                            $query_search .= "order by loan_create_id desc Limit " . $offset . ", " . $total_records_per_page;
+                            $query_search .= " order by loan_create_id desc Limit " . $offset . ", " . $total_records_per_page;
 
 
                             //echo $query_search;
@@ -623,7 +688,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                     $lang = $row_user_fdn['lang'];
                                 }
 
-
+                                $state = $row['state'];
 
 
 
@@ -637,6 +702,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                                 }
 
+                                $payment_methods = array();
+                                $query_payment = mysqli_query($con, "SELECT payment_method FROM loan_transaction where loan_id= '$loan_id_calculation' and payoff_amount > 0");
+                                while ($row_payment = mysqli_fetch_array($query_payment)) {
+                                    array_push($payment_methods, $row_payment['payment_method']);
+                                }
+
+
+                                $payment_method = empty($payment_methods) ? "" : implode(', ', $payment_methods);
 
 
 
@@ -875,6 +948,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 echo "</td>
 		   	   <td style='text-align:center;'>" . $total_loans_lh . "</td>
 		   	  <td style='text-align:center;'>$" . $balns_due . "</td>
+		   	  <td style='text-align:center;'>" . $payment_method . "</td>
+		   	  <td style='text-align:center;'>$" . $payment . "</td>
 		   	  
 		   	  
 		 
@@ -917,8 +992,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                         if ($keyword_name != null && $keyword_name != "") {
                             $filters .= "&keyword_name=$keyword_name";
                         }
-                        if ($state != null && $state != "") {
-                            $filters .= "&state_search=$state";
+                        if ($state_search != null && $state_search != "") {
+                            $filters .= "&state=$state_search";
                         }
                         if ($status != null && $status != "") {
                             $filters .= "&status=$status";
