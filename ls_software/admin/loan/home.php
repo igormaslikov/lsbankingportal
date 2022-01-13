@@ -69,6 +69,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
             $status  = $_GET['status'];
             $keyword = $_GET['keyword'];
+            $keyword_name = $_GET['keyword_name'];
             $state_search = $_GET['state'];
             $payment_method = $_GET['payment_method'];
             $from_date = $_GET['from_date'];
@@ -76,8 +77,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             $due_date = $_GET['due_date'];
             $to_date = $_GET['to_date'];
 
-            if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || (isset($_GET['state']) && $_GET['state'] != "") || (isset($_GET['payment_method']) && $_GET['payment_method'] != "") || (isset($_GET['from_date']) && $_GET['from_date'] != "")  || (isset($_GET['loan_date']) && $_GET['loan_date'] != "") || (isset($_GET['due_date']) && $_GET['due_date'] != "") || (isset($_GET['to_date']) && $_GET['to_date'] != "")) {
-                $query_search .= "AND";
+            if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || (isset($_GET['keyword_name']) && $_GET['keyword_name'] != '') || (isset($_GET['state']) && $_GET['state'] != "") || (isset($_GET['payment_method']) && $_GET['payment_method'] != "") || (isset($_GET['from_date']) && $_GET['from_date'] != "")  || (isset($_GET['loan_date']) && $_GET['loan_date'] != "") || (isset($_GET['due_date']) && $_GET['due_date'] != "") || (isset($_GET['to_date']) && $_GET['to_date'] != "")) {
+                $query_search .= "AND ";
             }
             $and_check = 0;
             if (isset($_GET['status']) && $_GET['status'] != "" && $_GET['status'] != "All") {
@@ -108,6 +109,29 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                 $query_search .= " loan_id in (SELECT loan_id from loan_transaction where payment_method = '$payment_method') ";
                 $and_check = 2;
+            }
+
+            if ($_GET['keyword_name'] != "") {
+                if ($and_check > 1 || $and_check > 0) {
+                    $query_search .= " AND ";
+                    //$and_check = 2;
+                }
+
+
+                $query_keyword = mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` LIKE '%$keyword_name%' OR `first_name`LIKE '%$keyword_name%' OR `last_name` LIKE '%$keyword_name%' OR `email` LIKE '%$keyword_name%' OR `mobile_number` LIKE '%$keyword_name%' AND (`state` LIKE '%$state_search%')");
+                $query_search .= "(";
+                //  echo "SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` LIKE '%$keyword_name%' OR `first_name`LIKE '%$keyword_name%' OR `last_name` LIKE '%$keyword_name%' OR `email` LIKE '%$keyword_name%' OR `mobile_number` LIKE '%$keyword_name%' AND `state` LIKE '%$state_search%'";
+                while ($row_keyword = mysqli_fetch_array($query_keyword)) {
+                    $payment = $row_keyword['user_fnd_id'];
+
+                    $query_search .= " (user_fnd_id = '$payment' )";
+
+                    $query_search .= " OR ";
+                }
+
+                $query_search .= " (user_fnd_id = '$payment' )";
+
+                $query_search .= ")";
             }
 
             if ($_GET['from_date'] != "") {
@@ -550,7 +574,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $fund_status = $_GET['fund_status'];
 
 
-                            if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || (isset($_GET['state']) && $_GET['state'] != "") || (isset($_GET['payment_method']) && $_GET['payment_method'] != "") || (isset($_GET['from_date']) && $_GET['from_date'] != "")  || (isset($_GET['loan_date']) && $_GET['loan_date'] != "") || (isset($_GET['due_date']) && $_GET['due_date'] != "") || (isset($_GET['to_date']) && $_GET['to_date'] != "")) {
+                            if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || (isset($_GET['keyword_name']) && $_GET['keyword_name'] != '') || (isset($_GET['state']) && $_GET['state'] != "") || (isset($_GET['payment_method']) && $_GET['payment_method'] != "") || (isset($_GET['from_date']) && $_GET['from_date'] != "")  || (isset($_GET['loan_date']) && $_GET['loan_date'] != "") || (isset($_GET['due_date']) && $_GET['due_date'] != "") || (isset($_GET['to_date']) && $_GET['to_date'] != "")) {
                                 $query_search .= "AND";
                             }
                             $and_check = 0;
@@ -937,10 +961,10 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                                 if ($last_payment_date == '') {
 
-                                    echo  "$days_between1";
+                                    echo  "$days_between_partial";
                                 } else if ($last_payment_date != '' && $balns_due > 0) {
 
-                                    echo "$days_between_partial";
+                                    echo "$days_between1";
                                 } else {
                                     echo "$days_between";
                                 }
