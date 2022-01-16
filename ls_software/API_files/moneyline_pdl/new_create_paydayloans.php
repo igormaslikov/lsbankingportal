@@ -9,6 +9,7 @@ $customer_fname=$_GET['p_fname'];
 $customer_lname=$_GET['p_lname'];
 $customer_tel=$_GET['p_phone'];
 $customer_email=$_GET['p_email'];
+$member_military=$_GET['member_military'];
 $customer_ssn= "";
 $dobb=$_GET['date_birtth'];
 $address = $_GET['street_address'];
@@ -287,7 +288,7 @@ admin_leads_email_notification($subject_data,$message_data);
 //**************************************** END ***************************************************************************************
           // DB INSERTION STARTS
           
-$query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_number,address,city,state,zip_code,date_of_birth,creation_date,application_status,website,created_time_,loan_request_amount,payback_period,loan_type,application_date,lang)  VALUES ('$customer_fname','$customer_lname','$customer_email','$customer_tel','$address','$customer_city','$customer_state','$customer_zip','$dobb','$date','$app_status','$web_site','$time_created','$amount','$payback','$type_loan','$to_date_filter','$lang')";
+$query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,member_military,mobile_number,address,city,state,zip_code,date_of_birth,creation_date,application_status,website,created_time_,loan_request_amount,payback_period,loan_type,application_date,lang)  VALUES ('$customer_fname','$customer_lname','$customer_email','$member_military','$customer_tel','$address','$customer_city','$customer_state','$customer_zip','$dobb','$date','$app_status','$web_site','$time_created','$amount','$payback','$type_loan','$to_date_filter','$lang')";
         $result = mysqli_query($con, $query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";

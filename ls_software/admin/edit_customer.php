@@ -132,6 +132,7 @@ while ($row = mysqli_fetch_array($sql)) {
 
 
   $ssn = $row['ssn'];
+  $member_military = $row['member_military'];
   $creation_date = $row['creation_date'];
   $creationdate = date("m-d-y", strtotime($creation_date));
   $last_update = $row['last_update_by'];
@@ -471,6 +472,19 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
                   <input type="text" name="dl_code" class="form-control" id="usr" value="<?php echo $fnd_dl_code; ?>">
                 </div>
 
+                <div class="col-lg-2">
+                  <label for="usr"> Member Military</label>
+                  <select name="member_military" id="member_military" class="form-control">
+                    <option></option>
+                    <option value=1 <?php if ($member_military == 1) {
+                                          echo 'selected';
+                                        } ?>>Yes</option>
+                    <option value=0 <?php if ($member_military == 0) {
+                                          echo 'selected';
+                                        } ?>>No</option>
+
+                  </select>
+                </div>
               </div>
 
 
@@ -1696,6 +1710,7 @@ if (isset($_POST['btn-submit'])) {
   $zip_update = $_POST['zip_cus'];
   $dob_update = $_POST['dob'];
   $ssn_update = $_POST['ssn'];
+  $member_military_update = $_POST['member_military'];
   $dl_code_update = $_POST['dl_code'];
 
 
@@ -2053,7 +2068,7 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
 
 
     //mysqli_query ($con,"INSERT INTO `application_status_updates`( `application_id`, `user_id`, `status`, `creation_date`) VALUES ('$id','$u_id','$app_status_update','$date')");
-    mysqli_query($con, "UPDATE fnd_user_profile SET first_name ='$first_name_update' , last_name='$last_name__update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update', last_update_by='$u_id',last_update_date='$date',application_status='$app_status_update',source_of_lead='$source_lead_update',declined_reason='$decline_reason_update', amount_of_loan='$amount_loan_update', dl_code='$dl_code_update', personal_loan='$personal_loan', apr='$update_apr', title_loan_amount='$title_loan_amount', loan_request_amount='$requested_loan_amount_update', payback_period='$payback_period_update', loan_type='$loan_type_update' where user_fnd_id ='$id'");
+    mysqli_query($con, "UPDATE fnd_user_profile SET first_name ='$first_name_update' , last_name='$last_name__update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update',member_military='$member_military', last_update_by='$u_id',last_update_date='$date',application_status='$app_status_update',source_of_lead='$source_lead_update',declined_reason='$decline_reason_update', amount_of_loan='$amount_loan_update', dl_code='$dl_code_update', personal_loan='$personal_loan', apr='$update_apr', title_loan_amount='$title_loan_amount', loan_request_amount='$requested_loan_amount_update', payback_period='$payback_period_update', loan_type='$loan_type_update' where user_fnd_id ='$id'");
 
 
     /**
