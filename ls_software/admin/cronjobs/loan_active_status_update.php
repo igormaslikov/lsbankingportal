@@ -29,21 +29,22 @@ $date=date('Y-m-d');
 $datetime1 = date_create($payment_date);
 $datetime2 = date_create($date);
 $interval = date_diff($datetime1, $datetime2);
+$days = $interval->invert == 1 ? -$interval->days : $interval->days;
 
 $loan_status = "";
-if($interval->days >= 1 && $interval->days <=30)
+if($days >= 1 && $days <=30)
 {
   $loan_status = "Past Due";
 }
-elseif($interval->days >= 31 && $interval->days <=60){
+elseif($days >= 31 && $days <=60){
   $loan_status = "Collections";
 }
-elseif($interval->days > 60){
+elseif($days > 60){
   $loan_status = "Chargeoff";
 }
 
 if($loan_status != "")
-  mysqli_query($con,"UPDATE tbl_loan SET loan_status = '$loan_status', days_past_due=$interval->days  where loan_id= '$loan_id'");
+  mysqli_query($con,"UPDATE tbl_loan SET loan_status = '$loan_status', days_past_due=$days where loan_id= '$loan_id'");
       
       
   $date_update= date('Y-m-d H:i:s');
