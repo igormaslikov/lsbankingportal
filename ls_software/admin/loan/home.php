@@ -958,15 +958,11 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 	 		  <td style='text-align:center;'>" . $due_date . "</td>
 	 		  <td style='text-align:center;'>" . $last_payment_date1 . "</td>
 		   	  <td style='text-align:center;'>";
-
-                                if ($last_payment_date == '') {
-
-                                    echo  "$days_between_partial";
-                                } else if ($last_payment_date != '' && $balns_due > 0) {
+                                if ($last_payment_date != '' && $payoff == $balns_due) {
 
                                     echo "$days_between1";
-                                } else {
-                                    echo "$days_between";
+                                } else{
+                                    echo  "$days_between_partial";
                                 }
 
                                 echo "</td>
