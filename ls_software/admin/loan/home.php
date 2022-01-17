@@ -925,6 +925,10 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                                 $timestamp = strtotime($last_payment_date1);
                                 $last_payment_date1 = date("m-d-Y", $timestamp);
+
+                                if ($last_payment_date1 == '12-31-1969') {
+                                    $last_payment_date1 = str_replace("$last_payment_date1", "", "$last_payment_date1");
+                                }
                                 //difference between two dates
                                 $diff = date_diff($date1, $date2);
 
