@@ -835,7 +835,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
                                 $timestamp = strtotime($last_payment_date);
-                                $last_payment_date = date("m-d-Y", $timestamp);
+                                #$last_payment_date = date("m-d-Y", $timestamp);
 
 
                                 $contract_date = $row['contract_date'];
@@ -922,6 +922,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                     $ld = strtotime($last_payment_date_array[2] . "-" . $last_payment_date_array[0] . "-" . $last_payment_date_array[1]);
                                     $date2 = date_create(date("Y-m-d", $ld));
                                 }
+
+                                $timestamp = strtotime($last_payment_date1);
+                                $last_payment_date1 = date("m-d-Y", $timestamp);
                                 //difference between two dates
                                 $diff = date_diff($date1, $date2);
 
