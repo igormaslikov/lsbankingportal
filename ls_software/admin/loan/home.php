@@ -958,7 +958,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 	 		  <td style='text-align:center;'>" . $due_date . "</td>
 	 		  <td style='text-align:center;'>" . $last_payment_date1 . "</td>
 		   	  <td style='text-align:center;'>";
-                                if ($last_payment_date != '' && $payoff == $balns_due) {
+                                if ($last_payment_date != '' && $payoff == $payment) {
 
                                     echo "$days_between1";
                                 } else{
