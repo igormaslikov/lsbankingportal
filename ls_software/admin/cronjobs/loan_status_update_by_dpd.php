@@ -33,7 +33,7 @@ while($rows = mysqli_fetch_array($sql_loan_ids)){
 
 $query = "SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id ";
 
-$status_array = array("Chargeoff","Collections","Past Due");
+$status_array = array("Chargeoff","Collections","Past Due", "Active");
 
 for ($i = 0; $i < count($status_array); $i++)
 {
