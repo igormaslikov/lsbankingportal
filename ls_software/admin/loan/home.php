@@ -324,7 +324,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 <br><br>
                 <div style="float:left;color:black;font-size:18px">Total Fees Paid: <span style="color:red;"><?php echo $varibl . number_format("$total_loan_fee", 2); ?> </span> </div>
                 <div style="float:right;color:black;font-size:18px">Uncollected Payments: <span style="color:red;"><?php $uncollect = $pay_off - $totall_trans;
-                                                                                                                    if ($uncollect > 0) {
+                                                                                                                    if ($uncollect > 0 || true) {
                                                                                                                         echo $varibl . number_format("$uncollect", 2);
                                                                                                                     } ?>
                     </span> </div>
