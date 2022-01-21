@@ -232,7 +232,7 @@ $style = array(
  <b>Prestamista :</b> MoneyLine <br>
  <b>Direccion        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
  <b>Telefono         :</b> 888-540-7232<br>
- <b>Licencia del Prestatario:</b> 60DBO-88277<br><br>
+ <b>Licencia del Prestatario:</b> 10DBO-93629<br><br>
  </td>
   </tr>
  </tbody>
@@ -307,15 +307,15 @@ tendrá derecho a la devolución de una parte del cargo de financiación.<br>
 cheque o el cargo preautorizado con el que el Prestatario paga es posteriormente devuelto por no suficientes fondos.
 <br>
 <b>Pago Diferido:</b>El cliente no puede ser procesado en una acción penal en relación con una transacción de depósito diferido para un cheque devuelto o
-ser amenazado con persecución. LS Financing Inc. no puede aceptar ninguna garantía en relación con una transacción de depósito diferido. LS Financing
-Inc. no puede hacer una transacción de depósito diferido contingente en la compra de otro producto o servicio. El cheque del Prestatario forma parte
+ser amenazado con persecución. Money Line no puede aceptar ninguna garantía en relación con una transacción de depósito diferido. Money Line 
+no puede hacer una transacción de depósito diferido contingente en la compra de otro producto o servicio. El cheque del Prestatario forma parte
 de una transacción de depósito diferido realizada de conformidad con el artículo 23035 del Código Financiero y no está sujeto a las disposiciones del
 artículo 1719 del Código Civil. No se podrá exigir al Prestatario el pago de daños y perjuicios triples si este cheque no se hace efectivo
 <br>
 <b>Reclamos e inquietudes:</b>El prestatario puede llamar al número de teléfono gratuito del Departamento de Protección e Innovación Financiera: 866-275-
 2677 para presentar quejas e inquietudes.
 <br>
-<u><b>LS Financing Inc. con Licencia # 60DBO-88277 está autorizada por el Departamento de Protección e Innovación Financiera de acuerdo con la Ley de
+<u><b>Money Line con Licencia # 10DBO-93629 está autorizada por el Departamento de Protección e Innovación Financiera de acuerdo con la Ley de
 Transacciones de Depósito Diferido de California. Los préstamos de California que no sean de depósito diferido se emiten de acuerdo con la Ley de
 Financiación de California.</b></u>
 <br>

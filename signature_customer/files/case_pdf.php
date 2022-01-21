@@ -230,7 +230,7 @@ $style = array(
  <b>Lender :</b> MoneyLine <br>
  <b>Address        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
  <b>Phone         :</b> 888-540-7232<br>
- <b>Lender’s License:</b> 60DBO-88277<br><br>
+ <b>Lender’s License:</b> 10DBO-93629<br><br>
  </td>
   </tr>
  </tbody>
@@ -300,13 +300,13 @@ entitled to a refund of a portion of the finance charge.<br>
 <b>Dishonored Item Fee:</b> : Borrower will pay a fee to Lender of $ 15.00 if Borrower makes a payment on Borrower’s loan and the check or preauthorized
 charge with which Borrower pays is later dishonored.<br>
 <b>Deferred Payment:</b> Borrower cannot be prosecuted in a criminal action in conjunction with a deferred deposit transaction for a returned check or be
-threatened with prosecution.LS Financing Inc may not accept any collateral in conjunction with a deferred deposit transaction. LS Financing Inc cannot
+threatened with prosecution.Money Line may not accept any collateral in conjunction with a deferred deposit transaction. Money Line cannot
 make a deferred deposit transaction contingent on the purchase of another product or service. Borrower’s check is part of a deferred deposit
 transaction made pursuant to Section 23035 of the Financial Code and is not subject to the provisions of Section 1719 of the Civil Code. Borrower may
 not be required to pay treble damages if this check does not clear<br>
 <b>Complaints and Concerns:</b> Borrower can call to the Department of Financial Protection and Innovation\'s toll-free telephone number: 866-275-2677 for
 making complaints and concerns calls.<br>
-<u>LS Financing Inc. with License # 60DBO-88277 is licensed by the Department of Financial Protection and Innovation pursuant to the California Deferred
+<u>Money Line with License # 10DBO-93629 is licensed by the Department of Financial Protection and Innovation pursuant to the California Deferred
 Deposit Transaction Law. California loans other than deferred deposit loans are issued pursuant to the California Financing Law. </u><br>
 
 <b>I UNDERSTAND THAT IF I STILL OWE ON ONE OR MORE PAYDAY LOANS AFTER 35 DAYS, I AM ENTITLED TO
