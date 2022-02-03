@@ -26,7 +26,9 @@ if (isset($_POST['btn-submit'])) {
   $contract_date = $_POST['contract_date'];
   $payment_date = $_POST['payment_date'];
   $state_insrt = $_POST['state'];
+  $member_military = $_POST['member_military'];
 
+  $member_military_percent_fee = $member_military == "Yes" ? 0.078222 : 1;
   $amount_loan_ca = number_format((float)$amount_loan_ca, 2, '.', '');
   $amount_loan_nv = number_format((float)$amount_loan_nv, 2, '.', '');
   $amount_loan_il = number_format((float)$amount_loan_il, 2, '.', '');
@@ -47,7 +49,8 @@ if (isset($_POST['btn-submit'])) {
     $query3 = mysqli_query($con, "Select loan_fee from tbl_loan_setting_nv where loan_amount ='$amount_loan_ca' AND state='$state_insrt'");
     while ($row3 = mysqli_fetch_array($query3)) {
       $amount_loan = $amount_loan_ca;
-      $loan_fee = $row3['loan_fee'];
+      $loan_fee = $row3['loan_fee'] * $member_military_percent_fee;
+      $loan_fee = number_format((float)$loan_fee, 2, '.', '');
       $payoff_amount = $amount_loan + $loan_fee;
       $payoff_amount = number_format((float)$payoff_amount, 2, '.', '');
     }
@@ -57,7 +60,8 @@ if (isset($_POST['btn-submit'])) {
     $query33 = mysqli_query($con, "Select loan_fee from tbl_loan_setting_nv where loan_amount ='$amount_loan_nv' AND state='$state_insrt'");
     while ($row33 = mysqli_fetch_array($query33)) {
       $amount_loan = $amount_loan_nv;
-      $loan_fee = $row33['loan_fee'];
+      $loan_fee = $row33['loan_fee']* $member_military_percent_fee;
+      $loan_fee = number_format((float)$loan_fee, 2, '.', '');
       $payoff_amount = $amount_loan + $loan_fee;
       $payoff_amount = number_format((float)$payoff_amount, 2, '.', '');
     }
@@ -68,7 +72,8 @@ if (isset($_POST['btn-submit'])) {
     $query3 = mysqli_query($con, "Select loan_fee from tbl_loan_setting_nv where loan_amount ='$amount_loan_il' AND state='$state_insrt'");
     while ($row3 = mysqli_fetch_array($query3)) {
       $amount_loan = $amount_loan_il;
-      $loan_fee = $row3['loan_fee'];
+      $loan_fee = $row3['loan_fee']* $member_military_percent_fee;
+      $loan_fee = number_format((float)$loan_fee, 2, '.', '');
       $payoff_amount = $amount_loan + $loan_fee;
 
       $payoff_amount = number_format((float)$payoff_amount, 2, '.', '');
@@ -331,6 +336,7 @@ if ($u_access_id == '0') {
 
         while ($row_apr = mysqli_fetch_array($sql_apr)) {
           $apr_date = $row_apr['apr'];
+          $member_military = $row_apr['member_military'] == 0 ? "No" : "Yes";
 
           //echo $apr_date;
 
@@ -368,8 +374,11 @@ if ($u_access_id == '0') {
         <form action="" method="POST" enctype="multipart/form-data">
 
           <h4 style="text-align:center">Creating a New Loan for Customer : <span style="color:red"><?php echo $_GET['name']; ?></span> </h4>
+          <h4 style="text-align:center">Member Military : <span name="member_military" style="color:red"><?php echo $member_military; ?></span> </h4>
           <h4 style="text-align:center">Frequency payment : <span style="color:red"><?php echo $pay_period; ?></span> </h4>
           <h4 style="text-align:center">Day of Week : <span style="color:red"><?php echo $week_day; ?></span> </h4>
+          <input type="text" name="member_military" value="<?php echo $member_military; ?>" class="form-control" style="display:none"/>
+
           <?php 
             if($renew_loan_create_id != "" || $renew_loan_create_id != null){
               echo " <h4 style='text-align:center'>Last loan amount : <span style='color:red'>$amount_of_loan</span> </h4>";

@@ -65,6 +65,7 @@ $creation_date=$row['contract_date'];
 $created_by=$row['created_by'];
 $last_update=$row['last_update_by'];
 $last_update_date=$row['last_update_date'];
+$member_military=$row['member_military'];
 
  $timestamp = strtotime($creation_date);
  
@@ -135,6 +136,7 @@ $ssn=$row_fnd['ssn'];
 $id_photo=$row_fnd['customer_img'];
 $block_status=$row_fnd['block_status'];
 $block_by=$row_fnd['block_by'];
+$member_military=$row_fnd['member_military'];
 
 }
 
@@ -368,6 +370,18 @@ mysqli_query($con,"UPDATE fnd_user_profile SET block_status ='0', block_by ='$u_
       <option value="Other" <?php if($type_of_id=='Other'){ echo 'selected';} ?>>Other</option>
      </select>
     </div>
+    <div class="col-lg-2">
+      <label for="usr"> Member Military</label>
+      <select name="member_military" id="member_military" class="form-control">
+        <option value=1 <?php if ($member_military == 1) {
+                              echo 'selected';
+                            } ?>>Yes</option>
+        <option value=0 <?php if ($member_military == 0) {
+                              echo 'selected';
+                            } ?>>No</option>
+
+      </select>
+    </div>
     </div>
     <br>
     <div class="row">
@@ -490,6 +504,7 @@ $city_update =$_POST['city'];
 $state_update =$_POST['state'];
 $zip_update =$_POST['zip_code'];
 $type_id_update =$_POST['type_id'];
+$member_military =$_POST['member_military'];
 
 $date= date('Y-m-d H:i:s');
 
@@ -508,7 +523,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
 {
   
   
-  mysqli_query($con, "UPDATE fnd_user_profile SET first_name='$first_name_update', last_name='$last_name_update', mobile_number='$phone_number_update', email='$email_update', address='$address_update', city='$city_update', state='$state_update',  zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update' where user_fnd_id ='$user_fnd_id'"); 
+  mysqli_query($con, "UPDATE fnd_user_profile SET first_name='$first_name_update', last_name='$last_name_update', mobile_number='$phone_number_update', email='$email_update', address='$address_update', city='$city_update', state='$state_update',  zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update', member_military='$member_military' where user_fnd_id ='$user_fnd_id'"); 
 
 
 mysqli_query($con, "UPDATE loan_initial_banking SET type_of_id ='$type_id_update'  where user_fnd_id ='$user_fnd_id'"); 

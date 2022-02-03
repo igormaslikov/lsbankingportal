@@ -276,7 +276,7 @@ window.location.href = '../not_authorize.php';
 
 <div class="col-lg-4">
   <label for="week_day">Week Day</label>
-  <select name="week_day" id="week_day_id" class ="form-control">
+  <!-- <select name="week_day" id="week_day_id" class ="form-control"></select>
   <option value=""></option>
   <option value="Sunday" <?php if($week_day=='Sunday'){ echo 'selected';} ?>>Sunday</option>
   <option value="Monday"<?php if($week_day=='Monday'){ echo 'selected';} ?>>Monday</option>
@@ -285,7 +285,19 @@ window.location.href = '../not_authorize.php';
   <option value="Thursday"<?php if($week_day=='Thursday'){ echo 'selected';} ?>>Thursday</option>
   <option value="Friday"<?php if($week_day=='Friday'){ echo 'selected';} ?>>Friday</option>
   <option value="Saturday"<?php if($week_day=='Saturday'){ echo 'selected';} ?>>Saturday</option>
-  </select>
+  </select> -->
+
+  <input type="text" list="week_day_id" class="form-control" name="week_day" value="<?php echo $week_day; ?>"/>
+  <datalist id="week_day_id" >
+    <option value=""></option>
+    <option value="Sunday" <?php if($week_day=='Sunday'){ echo 'selected';} ?>>Sunday</option>
+    <option value="Monday"<?php if($week_day=='Monday'){ echo 'selected';} ?>>Monday</option>
+    <option value="Tuseday"<?php if($week_day=='Tuseday'){ echo 'selected';} ?>>Tuseday</option>
+    <option value="Wednesday"<?php if($week_day=='Wednesday'){ echo 'selected';} ?>>Wednesday</option>
+    <option value="Thursday"<?php if($week_day=='Thursday'){ echo 'selected';} ?>>Thursday</option>
+    <option value="Friday"<?php if($week_day=='Friday'){ echo 'selected';} ?>>Friday</option>
+    <option value="Saturday"<?php if($week_day=='Saturday'){ echo 'selected';} ?>>Saturday</option>
+  </datalist>
 </div>    
 <div class="col-lg-4">
       <label for="usr">Last Paycheck Date</label>
