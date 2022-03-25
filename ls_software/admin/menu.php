@@ -192,7 +192,7 @@ $url_origin = getMyUrl("/loanportal");
 <br><br><br><br>
 <nav class="navbar navbar-default navbar-fixed-top top-menu">
     <div class="container"  style="background-color:white;width:100%;height:60px">
-        <img src='../website/images/Money-Line-Logo.JPG' style="height:100%" align="left"/>
+        <img src='../website/images/Optima_Logo.jpg' style="height:100%" align="left"/>
     </div>
       
       
@@ -212,7 +212,7 @@ $url_origin = getMyUrl("/loanportal");
             <li class="loan">
                 <a href="view_all_customer_main.php?status=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search="  style="color:white; font-size:20px">Applications</a>
                 </li>
-           <li class="loan">
+           <!-- <li class="loan">
            <ul id='menu' style="padding-left:0px">
                 <li class="loan"><a href="view_all_commercial_loans.php"  style="color:white;font-size:20px">Commercial Loan</a>
             
@@ -222,7 +222,7 @@ $url_origin = getMyUrl("/loanportal");
         <li><a href="#"  style="color:white;" title=''>Recently Paid Payments</a></li>
         </ul>
             
-            </li></ul></li>
+            </li></ul></li> -->
             
             
             <li class="loan">
@@ -241,7 +241,7 @@ $url_origin = getMyUrl("/loanportal");
             </li>
             
             
-            <li class="loan">
+            <!-- <li class="loan">
            <ul id='menu' style="padding-left:0px">
             <li class="loan"><a href="view_all_personal_loans.php"  style="color:white;font-size:20px">Personal Loan</a>
             
@@ -254,7 +254,7 @@ $url_origin = getMyUrl("/loanportal");
             
             </li></ul>
             </li>
-            <li class="loan"><a href="view_all_title_loans.php"  style="color:white;">Title Loan</a></li>
+            <li class="loan"><a href="view_all_title_loans.php"  style="color:white;">Title Loan</a></li> -->
             <li class="loan"><a href="#"  style="color:white;">Reports</a></li>
             <!--<li class="loan"><a href="<?php echo $url_origin; ?>/ls_software/admin/marketing.php"  style="color:white;">Marketing</a></li>-->
             

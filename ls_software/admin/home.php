@@ -906,7 +906,7 @@ $DBcon->close();
       <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Payday+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday IL :<b style="color:red"> <?php echo $rowcount_dl_bank_il; ?></b></a></p>
       </div>
-
+<!-- 
       <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Installment+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Commercial CA :<b style="color:red"> <?php echo $rowcount_aprovd_intall_ca; ?></b></a></p>
       </div>
@@ -945,7 +945,7 @@ $DBcon->close();
       </div>
       <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Installment+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Installment NV : <b style="color:red"> <?php echo $rowcount_dl_bank_install_nv; ?> </b></a></p>
-      </div>
+      </div> -->
 
       <!--<div class="col-lg-4"><p style="color:black;font-weight: bold"><a  href = "<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Info+Needed&website=All&keyword=&from_date=&to_date=&search=">Info Needed :<b style="color:red"> <?php echo $rowcount_inf_needed; ?></b></a></p></div>-->
       <!--<div class="col-lg-3"><p style="color:black;font-weight: bold"><a  href = "<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Decision+Logic+Completed&website=All&keyword=&from_date=&to_date=&search=">Decision Logic Completed :<b style="color:red"> <?php //echo $rowcount_dl_completed;
