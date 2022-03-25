@@ -36,7 +36,7 @@ if (isset($_POST['btn-login'])) {
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>LS Financing Admin Login</title>
+<title>Optima Admin Login</title>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen"> 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -49,7 +49,7 @@ if (isset($_POST['btn-login'])) {
      
         
        <form class="form-signin" method="post" id="login-form">
-        <img src="../website/images/Money-Line-Logo.JPG" style="width:100%"/>
+        <img src="../website/images/Optima_Logo.jpg" style="width:100%"/>
         <h2 class="form-signin-heading" style="text-align:center">Sign In.</h2><hr />
         
         <?php
