@@ -197,7 +197,7 @@ $fname=$customer_fname;
   $lname= $customer_lname;
   $message = "Hola ".$fname." ".$lname.", 
 
-Gracias por aplicar con Money Line Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
+Gracias por aplicar con Optima Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
  
 $headers = 'From: support@mymoneyline.com';
 //mail($to_email,$subject,$message,$headers);
@@ -209,7 +209,7 @@ $headers = 'From: support@mymoneyline.com';
   $phone= $customer_tel;
   $fname=$customer_fname;
   $lname= $customer_lname;
-  $message = "Hola ".$fname." ".$lname.",Gracias por aplicar con Money Line Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
+  $message = "Hola ".$fname." ".$lname.",Gracias por aplicar con Optima Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
   
 	send_sms($phone,$message);
 	//Decline SMS End
@@ -242,7 +242,7 @@ $fname=$customer_fname;
   $lname= $customer_lname;
   $message = "Hola ".$fname." ".$lname.", 
 
-Thank you for submitting your application to MoneyLine. Your application has been received. Our team members are reviewing your application and will contact you shortly. If you have any questions you can always contact us at support@mymoneyline.com";
+Thank you for submitting your application to Optima. Your application has been received. Our team members are reviewing your application and will contact you shortly. If you have any questions you can always contact us at support@mymoneyline.com";
  
 $headers = 'From: support@mymoneyline.com';
 //mail($to_email,$subject,$message,$headers);

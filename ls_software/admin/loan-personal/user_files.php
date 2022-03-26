@@ -430,12 +430,12 @@ $state=$row_fnd['state'];
 }
 if ($state=="AZ")
 {
-$address_contarct="https://mymoneyline.com/lsbankingportal/signature_personal_arizona_customer";
+$address_contarct="https://ofsca.com/loanportal/signature_personal_arizona_customer";
 }
 
 if ($state=="NV")
 {
-$address_contarct="https://mymoneyline.com/lsbankingportal/signature_personal_naveda_customer";
+$address_contarct="https://ofsca.com/loanportal/signature_personal_naveda_customer";
 }
 
 
@@ -514,7 +514,7 @@ if($void_img == ''){
         echo"<br><br>";
         if($contract_status=='1')
         {
-        echo "<a onclick='myFunction_contract_manual()' target = '_blank' class='remove-box' href='https://mymoneyline.com/lsbankingportal/ls_software/admin/loan-personal/uploads_contract/$contract_db?id=$id' target='_blank' title='View Contract'>View Echeck Contract</a>";
+        echo "<a onclick='myFunction_contract_manual()' target = '_blank' class='remove-box' href='https://ofsca.com/loanportal/ls_software/admin/loan-personal/uploads_contract/$contract_db?id=$id' target='_blank' title='View Contract'>View Echeck Contract</a>";
         }
         else{
            echo "<a href ='upload_contract.php?id=$id'>Upload Echeck Contract</a>";

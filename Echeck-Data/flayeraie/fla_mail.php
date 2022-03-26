@@ -6,7 +6,7 @@
     <html>
     <body>
     <a href="http://lsprestamos.com/rapido">
-<img  src="https://mymoneyline.com/lsbankingportal/flayeraie/flayerarie.png"  />
+<img  src="https://ofsca.com/loanportal/flayeraie/flayerarie.png"  />
 </a>
 </body>
     </html>
@@ -14,7 +14,7 @@
    
    $to = 'kenneth@lsbanking.com';
 $subject = 'LS BANKING REPIDO';
-$from = 'info@lsbanking.com';
+$from = 'info@ofsca.com';
  
 // To send HTML mail, the Content-type header must be set
 $headers  = 'MIME-Version: 1.0' . "\r\n";

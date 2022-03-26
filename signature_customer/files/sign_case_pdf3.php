@@ -4,7 +4,7 @@ $id=$_GET['id'];
 
 
 <?php
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_customer/completed/";
+$url_logo="https://ofsca.com/loanportal/signature_customer/completed/";
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -225,8 +225,8 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><div style="line-height:7px"><h1>MoneyLine</h1>
- <span style="font-size:8px">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ $html = '<br><div style="line-height:7px"><h1>Optima</h1>
+ <span style="font-size:8px">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
  </div>
   <br>
   
@@ -238,12 +238,12 @@ $style = array(
   
   <br>
   <h2 style="text-align:center"><u>Debit Card Authorization Form</u></h2> 
- <span style="text-align:center">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ <span style="text-align:center">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
  
- Authorization to make payments on my <b>MoneyLine</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuing basis using the
+ Authorization to make payments on my <b>Optima</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuing basis using the
  Debit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Debit Card
  Holder.<br><br>
- Autorización para hacer pagos en mi cuenta de <b>MoneyLine, Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
+ Autorización para hacer pagos en mi cuenta de <b>Optima, Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
  continua utilizando la tarjeta de Débito que se describe a continuación y los términos de este préstamo , a menos
  que se indique lo contrario por escrito por el titular de la Tarjeta de Débito .
  
@@ -273,10 +273,10 @@ $style = array(
  
  <br><br><br>
   I, '.$f_name.', the undersigned hereby states that the above described Debit Card
- is in my name and that i authorize its charge to MoneyLine for full or partial payments.
+ is in my name and that i authorize its charge to Optima for full or partial payments.
  <br><br>
   Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita
- en la parte superior y que autorizo su cargos a MoneyLine para los pagos totales o parciales. <br><br><br>
+ en la parte superior y que autorizo su cargos a Optima para los pagos totales o parciales. <br><br><br>
  
  <img src="../completed/doc_signs/'.$img_signed.'" height="300%" alt=""><br>
  <hr style="width:53%" >
@@ -303,7 +303,7 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 $file_name = $id."page_4";
 $path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
 $pdf->Output($path,'F');
-// $sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_customer/completed/doc_signs/".$img_signed;
+// $sign_image_url= "https://ofsca.com/loanportal/signature_customer/completed/doc_signs/".$img_signed;
 
 // $img = file_get_contents($sign_image_url);
 

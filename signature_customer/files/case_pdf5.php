@@ -246,8 +246,8 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><div style="line-height:7px"><h1>MoneyLine</h1>
-<span style="font-size:8px">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br>
+ $html = '<br><div style="line-height:7px"><h1>Optima</h1>
+<span style="font-size:8px">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br>
 </div>
  <br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
@@ -259,7 +259,7 @@ AUTORIZACIÓN DE PAGO RECURRENTE
 </h3>
 
 <div style="font-size:8px">
-1. Al firmar a continuación, el titular de la cuenta (“<b>usted</b>”) autoriza a Money Line y sus afiliados (“<b>nosotros</b>”, “<b>nos</b>” y “<b>nuestro</b>”) para
+1. Al firmar a continuación, el titular de la cuenta (“<b>usted</b>”) autoriza a Optima y sus afiliados (“<b>nosotros</b>”, “<b>nos</b>” y “<b>nuestro</b>”) para
 retirar automáticamente sus pagos de préstamos de su cuenta de depósito que termina en xxxxxx'.$account_number.' (“<b>Cuenta</b>”) en '.$bank_name.'
 (“<b>Banco</b>”)  a través de entradas de débito electrónico recurrente ACH (“<b>Autorización</b>”). Usted
 nos autoriza a iniciar débitos de $'.$total_loan_payable.' (“<b>importe de débito programado</b>”) cada _ en las fechas de vencimiento de los
@@ -280,7 +280,7 @@ menos que nos diga que no desea volver a inscribirse, en cuyo caso cancelaremos 
 4. Usted declara que es un firmante autorizado en la Cuenta. 5. Se compromete a notificarnos con prontitud cualquier cambio en la
 Cuenta y debe avisarnos con siete (7) días de antelación de cualquier cambio en la misma. Usted reconoce que las transacciones ACH a
 su Cuenta deben cumplir con la legislación de los Estados Unidos.<br>
-5. 5. Cómo cancelar. Puede cancelar esta Autorización llamándonos al (888) 540-7232 durante nuestro horario de atención. Debe
+5. 5. Cómo cancelar. Puede cancelar esta Autorización llamándonos al (866) 275-2677 durante nuestro horario de atención. Debe
 notificarnos la cancelación al menos 3 días antes de la fecha de vencimiento del pago. También puede cancelar estos pagos recurrentes
 de la ACH siguiendo los procedimientos de suspensión de pagos de su banco, pero su banco puede cobrarle una comisión. Si cancela,
 deberá seguir realizando los pagos de su préstamo a tiempo

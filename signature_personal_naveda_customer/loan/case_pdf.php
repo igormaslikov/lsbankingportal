@@ -175,7 +175,7 @@ $pdf->SetFont('helvetica', '', 10);
  $html = '
 
 <br><div style="line-height:7px"><h1 style="text-align:center">LOAN SUMMARY</h1>
-<span style="text-align:center"> Lender: LS Financing, Inc 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</span><br><br>
+<span style="text-align:center"> Lender: Optima Financial Solutions Inc 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</span><br><br>
 </div>
 Account Number:   :  '.$account_number.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Contract Date : '.$contract_date.' <br>
 <br>

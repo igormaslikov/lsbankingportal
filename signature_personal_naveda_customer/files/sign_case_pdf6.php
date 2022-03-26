@@ -4,7 +4,7 @@ $id=$_GET['id'];
 
 
 <?php
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_personal_naveda_customer/completed/";
+$url_logo="https://ofsca.com/loanportal/signature_personal_naveda_customer/completed/";
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -213,7 +213,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
 Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
@@ -235,7 +235,7 @@ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
 <br>
 •	YOU HAVE THE RIGHT TO “OPT OUT” OF THIS ARBITRATION AGREEMENT by following the procedure outlined in the section entitled “Opt out Procedures”.</span>
 <br>
-<b style="font-size:5px;">FOR MORE DETAILS, PLEASE READ CAREFULLY THIS ARBITRATION AGREEMENT CAREFULLY.</b><br><span style="font-size:5px;"> In this Arbitration Agreement, “you” refers to the borrower(s). “we”, “us”, and “our” refers to LS Financing, Inc, our successors-in-interest and assigns. This arbitration agreement is incorporated into and is a part of a loan agreement between you and us.</span>
+<b style="font-size:5px;">FOR MORE DETAILS, PLEASE READ CAREFULLY THIS ARBITRATION AGREEMENT CAREFULLY.</b><br><span style="font-size:5px;"> In this Arbitration Agreement, “you” refers to the borrower(s). “we”, “us”, and “our” refers to Optima Financial Solutions Inc, our successors-in-interest and assigns. This arbitration agreement is incorporated into and is a part of a loan agreement between you and us.</span>
 <br>
 
 <b style="font-size:7px;">Parties and Matters Subject to Arbitration: </b><span style="font-size:6px;">This Arbitration agreement applies to all claims and disputes between you and us. For purposes of this Arbitration agreement the words “claim” and “dispute” are given the broadest possibly meaning. “Claim” and “dispute” mean any claim, dispute, or controversy in contract, tort, statute, common law, or otherwise relating to your credit application, the loan agreement <br>Between you and us, and any other resulting transaction or relationship with us, our successors or assigns. “Claim,” “dealings,” or “dispute” includes the interpretation and scope of this Arbitration Agreement and whether or not the claim or dispute can be arbitrated. Any claim or dispute involving whether or not the claim or dispute can be arbitrated or the validity of the Class Action Waiver (defined below) shall be for the court, and not the arbitrator to resolve<br>Any claim or dispute is to be arbitrated on an individual basis and not as a class action. You expressly waive any right you may have to arbitrate a class action. This I called the “class Action Waiver.” We waive the right to require you to arbitrate an individual claim if the amount you seek to recover qualifies as a small claim within a small claims court’s jurisdiction under applicable law.</span>
@@ -262,7 +262,7 @@ Initials/Iniciales: '."<img src='$result_sig' style='height:130%;width:35%;margi
 <br>•	Este acuerdo de arbitraje y todo arbitraje conforme a este acuerdo será regido por la Ley Federal de Arbitraje/The Federal Arbitración Act (9 U.S.C & 1, et seq.).
 <br>•	USTED TIENE EL DERECHO A EXCLUIRSE DEL PRESENTE ACUERDO DE ARBITRAJE mediante el procedimiento descrito en el párrafo titulado “Procedimiento de Exclusión Voluntaria”.</span>
 <br>
-<b style="font-size:7px;">PARA MAS DETALLES POR FAVOR LEA ESTE ACUERDO DE ARBITRAJE CON   CUIDADO.</b><br><span style="font-size:6px;">En este acuerdo de arbitraje, “usted” se refiere al solicitante(s) del préstamo. “nosotros”, “nos” y “nuestro(a)” se refiere a LS Financing, Inc, y nuestros causahabientes y cesionarios. Este acuerdo de arbitraje es incluido y forma parte del contrato de préstamo entre usted y nosotros.</span>
+<b style="font-size:7px;">PARA MAS DETALLES POR FAVOR LEA ESTE ACUERDO DE ARBITRAJE CON   CUIDADO.</b><br><span style="font-size:6px;">En este acuerdo de arbitraje, “usted” se refiere al solicitante(s) del préstamo. “nosotros”, “nos” y “nuestro(a)” se refiere a Optima Financial Solutions Inc, y nuestros causahabientes y cesionarios. Este acuerdo de arbitraje es incluido y forma parte del contrato de préstamo entre usted y nosotros.</span>
 <br>
 <b style="font-size:7px;">Partes y asuntos sujetos al arbitraje: </b><span style="font-size:6px;">: este acuerdo de arbitraje aplica a toda reclamación y disputa entre usted y nosotros. Para los fines del presente acuerdo de arbitraje, las palabras “reclamación” y “disputa” tendrán el más amplio significado posible. “reclamación” y “disputa” significan toda reclamación o disputa en contacto, respetabilidad objetiva, leyes el derechocomún, o de otra manera en relación con su solicitud de crédito, el contrato de préstamo entre usted y nosotros, y cualquier, otra transacción o relación que resulte con mostros o con nuestros sucesores o cesionarios. “reclamación,” “transacciones” i “disputa” incluye la interpretación y los alcances de este acuerdo de arbitraje de arbitraje y si esta reclamación o dispute se puede arbitrar o no. Toda reclamación o disputa que atañe a si esta reclamación o dispute se puede arbitrar o a la validez de la renuncia de acción de grupo (definido a continuación) tendría que ser resuelto por el tribunal, no por el árbitro.<br>Toda reclamación o disputa se someterá a arbitraje de forma individual y no como una acción de grupo. Usted expresamente renuncia a todo derecho que tenga, de someter a una acción de grupo a arbitraje. A esto se llama la “Renuncia de Acción de Grupo” Renunciamos al derecho de obligarle a someter a arbitraje una reclamación individual si conforme a las leyes vigentes se puede considerar que el monto que usted busca recuperar califica como de cuantía menor dentro de la competencia del juzgado de cuantía menor. Procedimiento para el arbitraje.</span>
 
@@ -276,7 +276,7 @@ Initials/Iniciales: '."<img src='$result_sig' style='height:130%;width:35%;margi
 </table>
 ';
 
-$sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_personal_naveda_customer/completed/doc_signs/".$img_signed;
+$sign_image_url= "https://ofsca.com/loanportal/signature_personal_naveda_customer/completed/doc_signs/".$img_signed;
 
 $img = file_get_contents($sign_image_url);
 

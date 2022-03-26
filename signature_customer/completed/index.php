@@ -1,5 +1,5 @@
 <?php
-$url_logo="https://mymoneyline.com/lsbankingportal/website/images/Money-Line-Logo.JPG"; 
+$url_logo="https://ofsca.com/loanportal/website/images/Money-Line-Logo.JPG"; 
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -10,7 +10,7 @@ $iddd=$_GET['id'];
 
 
 
-$url="https://mymoneyline.com/lsbankingportal/signature_customer/files/sign_contract.php?id=$iddd";
+$url="https://ofsca.com/loanportal/signature_customer/files/sign_contract.php?id=$iddd";
 
 $sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
 

@@ -227,10 +227,10 @@ $style = array(
     <b>City, State, ZIP:</b> '.$city.' '.$state.' '.$zip.'<br><br>
  </td>
  <td>
- <b>Lender :</b> MoneyLine <br>
+ <b>Lender :</b> Optima <br>
  <b>Address        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
- <b>Phone         :</b> 888-540-7232<br>
- <b>Lender’s License:</b> 10DBO-93629<br><br>
+ <b>Phone         :</b> 866-275-2677<br>
+ <b>Lender’s License:</b> 10DBO-133110<br><br>
  </td>
   </tr>
  </tbody>
@@ -300,13 +300,13 @@ entitled to a refund of a portion of the finance charge.<br>
 <b>Dishonored Item Fee:</b> : Borrower will pay a fee to Lender of $ 15.00 if Borrower makes a payment on Borrower’s loan and the check or preauthorized
 charge with which Borrower pays is later dishonored.<br>
 <b>Deferred Payment:</b> Borrower cannot be prosecuted in a criminal action in conjunction with a deferred deposit transaction for a returned check or be
-threatened with prosecution.Money Line may not accept any collateral in conjunction with a deferred deposit transaction. Money Line cannot
+threatened with prosecution.Optima may not accept any collateral in conjunction with a deferred deposit transaction. Optima cannot
 make a deferred deposit transaction contingent on the purchase of another product or service. Borrower’s check is part of a deferred deposit
 transaction made pursuant to Section 23035 of the Financial Code and is not subject to the provisions of Section 1719 of the Civil Code. Borrower may
 not be required to pay treble damages if this check does not clear<br>
 <b>Complaints and Concerns:</b> Borrower can call to the Department of Financial Protection and Innovation\'s toll-free telephone number: 866-275-2677 for
 making complaints and concerns calls.<br>
-<u>Money Line with License # 10DBO-93629 is licensed by the Department of Financial Protection and Innovation pursuant to the California Deferred
+<u>Optima with License # 10DBO-133110 is licensed by the Department of Financial Protection and Innovation pursuant to the California Deferred
 Deposit Transaction Law. California loans other than deferred deposit loans are issued pursuant to the California Financing Law. </u><br>
 
 <b>I UNDERSTAND THAT IF I STILL OWE ON ONE OR MORE PAYDAY LOANS AFTER 35 DAYS, I AM ENTITLED TO
@@ -319,7 +319,7 @@ OFFERED BY OTHER LENDING INSTITUTIONS. THIS LOAN IS REGULATED BY THE DEPARTMENT 
 AND PROFESSIONAL REGULATION.<br><br>
 YOU CANNOT BE PROSECUTED IN CRIMINAL COURT TO COLLECT THIS LOAN.
 </b>
-By signing this Loan Contract and Disclosure Statement (this “contract”) and accepting a loan from LS Financing, Inc (“Lender”) the undersigned
+By signing this Loan Contract and Disclosure Statement (this “contract”) and accepting a loan from Optima Financial Solutions Inc (“Lender”) the undersigned
 borrower (“I”, “you”, “borrower”) agrees to and accept the terms and conditions set forth on all pages of this contract.
 <br>
 </div>
@@ -329,7 +329,7 @@ borrower (“I”, “you”, “borrower”) agrees to and accept the terms and
 <tr>
 <td> Signature of Borrower</td>
 <td> Date</td>
-<td colspan="2"> Lender: MoneyLine</td>
+<td colspan="2"> Lender: Optima</td>
 <td> Date</td>
 </tr>
 <tr>

@@ -217,7 +217,7 @@ $style = array(
 
  $html = '
 <h1 style="text-align:center"> <span style="text-decoration:underline">PRIVACY NOTICE</span><br>
-LS FINANCING, INC</h1>
+Optima Financial Solutions Inc</h1>
  
  
  <table style="width: 100%;" border="1">
@@ -245,7 +245,7 @@ datos pueden incluir:<br><br>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Como ? <br></td>
 <td style="width: 83.1267%;"><br><br>Todas las Empresas Financieras necesitan compartir la informacion personal de sus clientes para llevar a cabo sus actividades
 diarias. En la Seccion siguiente describimos las razones por las que las Empresas Financieras pueden compartir la informacion
-personal de sus clientes; las razones por las cuales LS Financing, Inc elige compartir dicha informacion y si usted puede limitar
+personal de sus clientes; las razones por las cuales Optima Financial Solutions Inc elige compartir dicha informacion y si usted puede limitar
 que se comparten dicha informacion. 
 <br><br></td>
 </tr>
@@ -257,7 +257,7 @@ que se comparten dicha informacion.
 <tbody>
 <tr>
 <td style="width: 60%; text-align:left; color:white; background-color:grey "><b>Razones por las que compartimos su informacion personal</b></td>
-<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>LS Financing, Inc
+<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>Optima Financial Solutions Inc
 Comparte?</b></td>
 <td style="width: 20.8981%; text-align:center;background-color:grey; color:white"><b>Usted puede limitar?</b></td>
 </tr>

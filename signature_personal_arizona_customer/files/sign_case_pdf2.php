@@ -4,7 +4,7 @@ $id=$_GET['id'];
 
 
 <?php
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_personal_arizona_customer/completed/"; 
+$url_logo="https://ofsca.com/loanportal/signature_personal_arizona_customer/completed/"; 
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -245,7 +245,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
 Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
@@ -257,7 +257,7 @@ Loan Agreement/Contrato del Prestamo
 <table>
 <tbody>
 <tr>
-<td><b style="font-size:8px;">•Promise to Pay:</b><span style="font-size:6px;">In return of the loan you receive from us, you promise to pay <u>$'.$amount_of_loan.'</u>, plus interest in accordance with the “Interest” section of this Agreement below, to LS Financing, Inc, it’s successors and assigns. You will pay these amounts in U.S. dollars.</span>
+<td><b style="font-size:8px;">•Promise to Pay:</b><span style="font-size:6px;">In return of the loan you receive from us, you promise to pay <u>$'.$amount_of_loan.'</u>, plus interest in accordance with the “Interest” section of this Agreement below, to Optima Financial Solutions Inc, it’s successors and assigns. You will pay these amounts in U.S. dollars.</span>
 <br>
 <b style="font-size:8px;">•Personal Guarantee:</b><span style="font-size:6px;"> This contract has a personal guarantee from the borrower and co-borrower.</span>
 <br>
@@ -279,7 +279,7 @@ Loan Agreement/Contrato del Prestamo
 
 <td>
 
-<b style="font-size:8px;">•Promesa de pago:</b><span style="font-size:6px;">A cambio del préstamo que usted reciba de nosotros usted promete pagar <u>$'.$amount_of_loan.'</u> de capital, mas intereses, calculado de conformidad con la sección “Intereses” más abajo, a LS Financing, Inc y sus causa habientes y cesionarios. Usted pagara estos importes en dólares estadounidenses.</span>
+<b style="font-size:8px;">•Promesa de pago:</b><span style="font-size:6px;">A cambio del préstamo que usted reciba de nosotros usted promete pagar <u>$'.$amount_of_loan.'</u> de capital, mas intereses, calculado de conformidad con la sección “Intereses” más abajo, a Optima Financial Solutions Inc y sus causa habientes y cesionarios. Usted pagara estos importes en dólares estadounidenses.</span>
 <br>
 
 <b style="font-size:8px;">•Garantía Personal:</b><span style="font-size:6px;">Este contrato tiene una garantía personal del prestatario y el co-prestatario.</span>
@@ -312,7 +312,7 @@ Initials/Iniciales: '."<img src='$sign_image_url' style='height:130%;width:35%;m
 
 ';
 
-$sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_personal_arizona_customer/completed/doc_signs/".$img_signed;
+$sign_image_url= "https://ofsca.com/loanportal/signature_personal_arizona_customer/completed/doc_signs/".$img_signed;
 
 $img = file_get_contents($sign_image_url);
 

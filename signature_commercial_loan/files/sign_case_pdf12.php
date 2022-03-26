@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-$url_logo = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo = "https://ofsca.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -276,7 +276,7 @@ $html = '
 <div style=";display:inline-block">
 	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
 </div>
-<br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+<br><span style="text-align:left;width:100%"><b>11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</b></span>
  <br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">' . $f_name . '</span><br>
 &nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">' . $loan_id_bor . '</span><br>
@@ -292,7 +292,7 @@ ACH RECURRING PAYMENT AUTHORIZATION
 <br/>2. You have the right to receive 10 days’ prior written notice from us of the amount and date of any debit that varies from the scheduled debit amount. However, if we debit your account for any amount in a range from $1 up to the scheduled debit amount, you agree that we do not have to send you such prior written notice, unless required by law. We will not debit your Account for more than the scheduled debit amount above.
 <br/>3. If any payment due date falls on a weekend or holiday, the debit will be processed on the next business day. If your Bank rejects any debit because you do not have an account with the Bank, we will cancel these recurring debits. If your Bank rejects any debit because there is not enough money in your Account, we will suspend these recurring debits and de-enroll you from recurring payments until you have paid all past due payments and any returned payment fees or any other fees due under your promissory note. Once your account is current, we will re-enroll you in recurring ACH payments under this Authorization, unless you tell us that you do not wish to re-enroll, in which case we will cancel the recurring ACH payments.
 <br/>4. You represent that you are an authorized signer on the Account. You agree to notify us promptly of any changes to the Account and must provide us seven (7) days’ advance notice of any changes to the Account. You acknowledge that the ACH transactions to your Account must comply with United States law.
-<br/>5. <b>How to Cancel</b>. You may cancel this Authorization by calling us at <b>(888) 540-7232</b>  during our business hours. You must notify us of the cancellation at least <b>3 days</b> before the payment due date. You may also cancel these recurring ACH payments by following your Bank’s stop payment procedures, but your Bank may charge you a fee. If you cancel, you must still make your loan payments on time.
+<br/>5. <b>How to Cancel</b>. You may cancel this Authorization by calling us at <b>(866) 275-2677</b>  during our business hours. You must notify us of the cancellation at least <b>3 days</b> before the payment due date. You may also cancel these recurring ACH payments by following your Bank’s stop payment procedures, but your Bank may charge you a fee. If you cancel, you must still make your loan payments on time.
 <br/>
 Except as otherwise set forth herein, all capitalized terms used but not defined herein shall have the meaning given to them in the NACHA Rules (as defined below). By using the Services, you agree to the terms and conditions of this Agreement. Except as otherwise expressly provided in this Addendum, to the extent that this Addendum is inconsistent with the terms of the Initial Agreement, this Addendum, and any amendment hereto from time to time shall control, but only to the extent necessary to resolve such conflict. ACH Service; Compliance with the NACHA Rules and Applicable Law. The ACH network is a funds transfer system which provides for the interbank clearing of electronic credit and debit Entries for participating financial institutions. 
 <br/>
@@ -311,7 +311,7 @@ You acknowledge that (1) this Authorization is voluntary and is not required as 
 
 <br><br><br>
 <b>
-Account Holder’s Signature: <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/' . $img_signed . '" alt="" style="height:300%" align="left"/><br><br>
+Account Holder’s Signature: <img src="https://ofsca.com/loanportal/signature_commercial_loan/completed/doc_signs/' . $img_signed . '" alt="" style="height:300%" align="left"/><br><br>
 <span style="text-decoration:underline">' . $f_name . '</span><br> <b>
 Account Holder’s Name
 </div>

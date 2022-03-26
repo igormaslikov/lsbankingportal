@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-$url_logo = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo = "https://ofsca.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -173,9 +173,9 @@ Borrower’s Signature : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&
 <br><br>
 Co-Borrower’s Signature : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-Lender’s Name  : <span style="text-decoration:underline">MY MONEY LINE</span>
+Lender’s Name  : <span style="text-decoration:underline">Optima</span>
 <br><br>
-Lender’s Authorized  Signature :<span style="text-decoration:underline">MY MONEY LINE</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.'
+Lender’s Authorized  Signature :<span style="text-decoration:underline">Optima</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.'
 
 
 

@@ -234,7 +234,7 @@ $pdf->SetFont('helvetica', '', 10);
  $html = '
 
 <br><div style="line-height:7px"><h1 style="text-align:center">Credit Report</h1>
-<span style="text-align:center"> Lender: LS Financing, Inc 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</span>
+<span style="text-align:center"> Lender: Optima Financial Solutions Inc 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</span>
 </div>
  
 <h2 style="text-align:center;">Score : <span style="color:'.$color.'">'.$score.' ('.$score_text.')</span></h2>

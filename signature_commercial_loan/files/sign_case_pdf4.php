@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-$url_logo = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo = "https://ofsca.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -198,7 +198,7 @@ $style = array(
   'module_height' => 1 // height of a single module in points
 );
 
-$html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+$html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">' . $f_name . '</span><br>
 Loan Number/Numero de Prestamo: <span style="text-decoration:underline">' . $loan_id_bor . '</span><br>
 Date/Fecha: <span style="text-decoration:underline">' . $creation_date . '</span>
@@ -213,7 +213,7 @@ Loan Agreement/Contrato del Prestamo
 <tr>
   <td style="vertical-align:baseline;text-align:justify;width:47.5%;">
     <ul>
-      <li style="padding-bottom:0.5em;text-align:justify"><b style="font-size:7px;">Promise to Pay:</b><span style="font-size:7px;">In return of the loan you receive from us, you promise to pay <span style="text-decoration:underline">$' . $principal . '</span>, plus interest in accordance with the “Interest” section of this Agreement below, to LS Financing, Inc, it’s successors and assigns. You will pay these amounts in U.S. dollars.</span></li>
+      <li style="padding-bottom:0.5em;text-align:justify"><b style="font-size:7px;">Promise to Pay:</b><span style="font-size:7px;">In return of the loan you receive from us, you promise to pay <span style="text-decoration:underline">$' . $principal . '</span>, plus interest in accordance with the “Interest” section of this Agreement below, to Optima Financial Solutions Inc, it’s successors and assigns. You will pay these amounts in U.S. dollars.</span></li>
       <li style="padding-bottom:0.5em;text-align:justify"><b style="font-size:7px;">Personal Guarantee: </b><span style="font-size:7px;">This contract has a personal guarantee from the borrower and co-borrower.</span></li>
       <li style="padding-bottom:0.5em;text-align:justify"><b style="font-size:7px;">Interest: </b><span style="font-size:7px;">We will charge you interest from the date of advance until the principal, together with interest, at the rate of <span style="text-decoration:underline">' . $anual_pr . '%</span> per year, is paid. We will calculate interest based on a year of 365 days and the actual number of days elapsed. This interest rate is the rate you will pay before and after any event of default. If any law that applies to this Agreement and sets maximum loan charges is finally interpreted so that the interest or other loan charges collected or to be collected in connection with this loan exceed the permitted limits, then: (i) we will reduce the loan charge by the amount necessary to reduce the charge to the permitted limit; and (ii) we will refund any sums already collected from you that are greater than the permitted limits. We may choose to make this refund by reducing the principle you owe under this Agreement or by making a direct payment to you.</span></li>
       <li style="padding-bottom:0.5em;text-align:justify"><b style="font-size:7px;">Repayment and Maturity Date: </b><span style="font-size:7px;">You will repay the principal and interest on this loan as showing in the payment schedule, which is part of the Truth-in-Lending Disclosure statement printed above. You understand that if any of your payments are received by us on dates other than the due dates or if any additional charges are added to your loan balance under the provisions of this Agreement, your actual final payment will likely be different than the amount shown above, and you agree to pay the actual payment amount. You will make the payments as described above until you have paid all the principal and interest and any other charges that you may owe under this Agreement. Notwithstanding any other provision of this Agreement, you will pay any and all amounts outstanding on <span style="text-decoration:underline">' . $last_payment_date . '</span> (the “Maturity Date”).</span></li>
@@ -227,7 +227,7 @@ Loan Agreement/Contrato del Prestamo
 
   <td style="vertical-align:baseline;text-align:justify;width:47.5%">
     <ul>
-      <li style="padding-bottom:0.5em;text-align:justify"><b style="font-size:7px;">Promesa de pago:</b><span style="font-size:7px;">A cambio del préstamo que usted reciba de nosotros usted promete pagar <span style="text-decoration:underline">$' . $principal . '</span>de capital, mas intereses, calculado de conformidad con la sección “Intereses” más abajo, a LS Financing, Inc y sus causa habientes y cesionarios. Usted pagara estos importes en dólares estadounidenses.</span></li>
+      <li style="padding-bottom:0.5em;text-align:justify"><b style="font-size:7px;">Promesa de pago:</b><span style="font-size:7px;">A cambio del préstamo que usted reciba de nosotros usted promete pagar <span style="text-decoration:underline">$' . $principal . '</span>de capital, mas intereses, calculado de conformidad con la sección “Intereses” más abajo, a Optima Financial Solutions Inc y sus causa habientes y cesionarios. Usted pagara estos importes en dólares estadounidenses.</span></li>
       <li style="padding-bottom:0.5em;text-align:justify"><b style="font-size:7px;">Garantía Personal: </b><span style="font-size:7px;">Este contrato tiene una garantía personal del prestatario y el co-prestatario.</span></li>
       <li style="padding-bottom:0.5em;text-align:justify"><b style="font-size:7px;">Intereses: </b><span style="font-size:7px;">Se cargaran intereses a partir de la fecha del anticipo hasta que se pague el capital, mas todos los intereses, a razón del <span style="text-decoration:underline">' . $anual_pr . '%</span> anual. Calcularemos los intereses con base en un ano de 365 días y el número real de días transcurridos. Esta tasa de interés es la tasa que usted para antes y después de cualquier incumplimiento. Si una ley, que se aplique a este contrato y que establezca cargos de préstamos máximos, es interpretada de manera que los intereses u otros cargos de préstamo cobrados o por cobrar en relación con este préstamo exceden los límites permitidos entonces; (i) restauraremos a dicho cargo o cuota de préstamo la cantidad necesaria para que el caro llegue al límite permitido, y (ii) le reembolsaremos cualquier importe que ya se la haya cobrado y hará excedido los límites permitidos. Podremos optar por efectuar este reembolso mediante la reducción del capital que usted deba según este contrato, o realizando un pago directo a usted.</span></li>
       <li style="padding-bottom:0.5em;text-align:justify"><b style="font-size:7px;">Pago y fecha de vencimiento: </b><span style="font-size:7px;">Usted pagara el capital y los intereses de este préstamo en la forma indicada en el Calendario de pagos, que forma parte de la Declaración Informativa de Veracidad en los Préstamos impresa arriba. Usted comprende que, si recibimos cualquiera de sus pagos en una fecha destina a la fecha de vencimiento, o si se aplican cargos adicionales al saldo de su cuenta de conformidad con los términos de este contrato, es probable que su pago real final sea distinto al importe señalado arriba, y usted conviene en pagar el monto de pago real. Usted realizara los pagos en la forma descrita arriba hasta que haya pagado todo el capital u los intereses y demás caros que adeude conforme a este contrato. No obstante las demás disposiciones de este contrato, usted pagara todos los importes insolutos en <span style="text-decoration:underline">' . $last_payment_date . '</span> (la fecha de Vencimiento”).</span></li>
@@ -241,7 +241,7 @@ Loan Agreement/Contrato del Prestamo
 </tbody>
 </table>
 
-Initials/Iniciales:<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/>
+Initials/Iniciales:<img src="https://ofsca.com/loanportal/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/>
 
 ';
 

@@ -188,7 +188,7 @@ foreach ($response['messages'] as $messages) {
 
 
 
-  if ($author == 'system') {
+  if ($author == 'system' || $author == "Optima") {
     $css = "darker";
 
     $img = "avatar.png";

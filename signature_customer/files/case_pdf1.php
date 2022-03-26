@@ -224,10 +224,10 @@ $style = array(
     <b>Código postal:</b> '.$city.' '.$state.' '.$zip.'<br><br>
  </td>
  <td>
- <b>Prestamista :</b> MoneyLine <br>
+ <b>Prestamista :</b> Optima <br>
  <b>Direccion        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
- <b>Telefono         :</b> 888-540-7232<br>
- <b>Licencia del Prestatario:</b> 10DBO-93629<br><br>
+ <b>Telefono         :</b> 866-275-2677<br>
+ <b>Licencia del Prestatario:</b> 10DBO-133110<br><br>
  </td>
   </tr>
  </tbody>
@@ -302,7 +302,7 @@ tendrá derecho a la devolución de una parte del cargo de financiación.<br>
 cheque o el cargo preautorizado con el que el Prestatario paga es posteriormente devuelto por no suficientes fondos.
 <br>
 <b>Pago Diferido:</b>El cliente no puede ser procesado en una acción penal en relación con una transacción de depósito diferido para un cheque devuelto o
-ser amenazado con persecución. Money Line. no puede aceptar ninguna garantía en relación con una transacción de depósito diferido. Money Line
+ser amenazado con persecución. Optima. no puede aceptar ninguna garantía en relación con una transacción de depósito diferido. Optima
 no puede hacer una transacción de depósito diferido contingente en la compra de otro producto o servicio. El cheque del Prestatario forma parte
 de una transacción de depósito diferido realizada de conformidad con el artículo 23035 del Código Financiero y no está sujeto a las disposiciones del
 artículo 1719 del Código Civil. No se podrá exigir al Prestatario el pago de daños y perjuicios triples si este cheque no se hace efectivo
@@ -310,7 +310,7 @@ artículo 1719 del Código Civil. No se podrá exigir al Prestatario el pago de 
 <b>Reclamos e inquietudes:</b>El prestatario puede llamar al número de teléfono gratuito del Departamento de Protección e Innovación Financiera: 866-275-
 2677 para presentar quejas e inquietudes.
 <br>
-<u><b>Money Line. con Licencia # 10DBO-93629 está autorizada por el Departamento de Protección e Innovación Financiera de acuerdo con la Ley de
+<u><b>Optima. con Licencia # 10DBO-133110 está autorizada por el Departamento de Protección e Innovación Financiera de acuerdo con la Ley de
 Transacciones de Depósito Diferido de California. Los préstamos de California que no sean de depósito diferido se emiten de acuerdo con la Ley de
 Financiación de California.</b></u>
 <br>
@@ -323,7 +323,7 @@ PLAZO. ESTE PRÉSTAMO DEBE SER USADO PARA CUMPLIR CON LAS NECESIDADES DE EFECTIV
 COSTO DE SU PRÉSTAMO PUEDE SER MAYOR QUE LOS PRÉSTAMOS OFRECIDOS POR OTRAS INSTITUCIONES DE
 PRÉSTAMOS. ESTE PRÉSTAMO ESTÁ REGULADO POR EL DEPARTAMENTO DE REGULACIÓN FINANCIERA Y
 PROFESIONAL.<br>
-Al firmar este Contrato de Préstamo y Declaración de Divulgación (este "contrato") y aceptar un préstamo de LS Financing, Inc ("Prestamista") el
+Al firmar este Contrato de Préstamo y Declaración de Divulgación (este "contrato") y aceptar un préstamo de Optima Financial Solutions Inc ("Prestamista") el
 prestatario abajo firmante ("Yo", "usted", "prestatario") está de acuerdo y acepta los términos y condiciones establecidos en todas las páginas de este
 contrato
 </div>
@@ -334,7 +334,7 @@ contrato
 <tr>
 <td> Firma del Prestatario</td>
 <td> Fecha</td>
-<td colspan="2"> Prestamista: MoneyLine</td>
+<td colspan="2"> Prestamista: Optima</td>
 <td> Fecha</td>
 </tr>
 <tr>

@@ -225,7 +225,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
  <br>
  
  
@@ -236,14 +236,14 @@ Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_
  <br>
  
  <h2 style="text-align:center"><u>Credit Card Authorization Form</u><br>
- <span style="text-align:center;font-size:9px"> 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span></h2>
+ <span style="text-align:center;font-size:9px"> 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span></h2>
 
 
 <div style="font-size:8px;">
-Authorization to make payments on my <b>LS Financing, Inc</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuig basis using the
+Authorization to make payments on my <b>Optima Financial Solutions Inc</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuig basis using the
 Credit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card
 Holder.<br><br>
-Autorización para hacer pagos en mi cuenta de <b>LS Financing, Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
+Autorización para hacer pagos en mi cuenta de <b>Optima Financial Solutions Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
 continua utilizando la tarjeta de crédito que se describe a continuación y los términos de este préstamo , a menos
 que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito .
 </div>
@@ -274,10 +274,10 @@ Telephone: '.$mobile_number.' <br><br>
 
 <br><br><br>
  I, '.$f_name.', the undersigned hereby states that the above described Credit Card
-is in my name and that i authorize its charge to LS Financing, Inc for full or partial payments.
+is in my name and that i authorize its charge to Optima Financial Solutions Inc for full or partial payments.
 <br><br>
  Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita
-en la parte superior y que autorizo su cargos a LS Financing, Inc para los pagos totales o parciales. <br><br><br>
+en la parte superior y que autorizo su cargos a Optima Financial Solutions Inc para los pagos totales o parciales. <br><br><br>
 
 '."<img src='$result_sig' style='height:130%;width:35%;margin-bottom:-20%;' />".'<br><br>
 <b>Cardholders Signature/Firma del Titular de la Tarjeta de Credito/Debito<br>
@@ -286,7 +286,7 @@ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span> </
 
 ';
 
-$sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_personal_naveda_customer/completed/doc_signs/".$img_signed;
+$sign_image_url= "https://ofsca.com/loanportal/signature_personal_naveda_customer/completed/doc_signs/".$img_signed;
 
 $img = file_get_contents($sign_image_url);
 

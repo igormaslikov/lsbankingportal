@@ -4,7 +4,7 @@ $id=$_GET['id'];
 
 
 <?php
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_customer/completed/"; 
+$url_logo="https://ofsca.com/loanportal/signature_customer/completed/"; 
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -222,8 +222,8 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><div style="line-height:7px"><h1>MoneyLine</h1>
- <span style="font-size:8px">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ $html = '<br><div style="line-height:7px"><h1>Optima</h1>
+ <span style="font-size:8px">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
  </div>
   Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
   Loan Number/Numero de Prestamo : <span style="text-decoration:underline">'.$loan_id_bor.'</span>
@@ -252,9 +252,9 @@ $style = array(
       sending you a SMS. We may terminate our SMS Policy at any time.
       If you have any questions about this SMS Policy, would like us to mail you a
       paper copy or are having problems receiving or stopping our text messages,
-      please contact us using the following information: LS Financing, Inc 4645 Van
-      Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or
-      (888) 540-7232. You agree and consent to the contracted by the Company, our
+      please contact us using the following information: Optima Financial Solutions Inc 4645 Van
+      Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@ofsca.com or
+      (866) 275-2677. You agree and consent to the contracted by the Company, our
       agents, employees, attorneys, subsequent creditors, loan servicing companies
       and third party collectors through the use of email, and/or telephone calls,
       and/or SMS to your cellular, home or work phone numbers, as well as any other
@@ -262,19 +262,19 @@ $style = array(
       the use of automatic telephoning dialing systems, auto-dialers, or an artificial or
       prerecorded voice.OPT-OUT or STOP This SMS Policy applies to the text
       messages sent by LS Financing to our customers while and after they use our
-      service. If you wish to stop receiving SMS from LS Financing, Inc reply to any
+      service. If you wish to stop receiving SMS from Optima Financial Solutions Inc reply to any
       text message we have sent you and, in your reply, simply type STOP. Your stop
       request will become effective immediately. You may also stop SMS by calling,
-      sending a letter or email us to the following information: LS Financing, Inc 4645
-      Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or
-      (888) 540-7232. HELP or SUPPORT If at any time you need our contact
+      sending a letter or email us to the following information: Optima Financial Solutions Inc 4645
+      Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@ofsca.com or
+      (866) 275-2677. HELP or SUPPORT If at any time you need our contact
       information on how to stop SMS, reply to any text message we have sent you
       and, in this reply, simply type HELP. Upon receiving your text message, we will
       send you a text message with this information. The message we send provide
       you with information about your account. Some of the SMS we send may
       include links to websites. To access these websites, you will need a web
       browser and Internet access. AGREEMENT TO RECEIVE SMS By signing this
-      section, you authorize LS Financing, Inc or Our Agents to send marketing to the
+      section, you authorize Optima Financial Solutions Inc or Our Agents to send marketing to the
       mobile number you have provided and that is listed below using and automatic
       dialing system, you are not required to authorize marketing SMS to obtain
       credit or other services from us. If you do not wish to receive, sales or
@@ -283,7 +283,7 @@ $style = array(
       SMS. You also understand that your mobile phone service provider any charge
       you fees for any SMS that we send you, and you agree that we shall have no
       liability for any cost related to such SMS. At any time, you may withdraw your
-      consent to receive marketing by calling us at (888) 540-7232.
+      consent to receive marketing by calling us at (866) 275-2677.
  
       <br>
       <br><br>
@@ -316,8 +316,8 @@ $style = array(
       tiene alguna pregunta sobre esta Política de SMS, desea que le enviemos una
       copia en papel o tiene problemas para recibir o detener nuestros mensajes de
       texto, póngase en contacto con nosotros utilizando la siguiente información: LS
-      Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403
-      info@lsbanking.com o (888) 540-7232.Usted acepta y consiente la contratación
+      Financing, Inc 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703
+      info@ofsca.com o (866) 275-2677.Usted acepta y consiente la contratación
       por parte de la Compañía, nuestros agentes, empleados, abogados, acreedores
       posteriores, empresas de servicios de préstamos y coleccionistas de terceros a
       través del uso de correo electrónico, y / o llamadas telefónicas, y / o SMS a su
@@ -327,12 +327,12 @@ $style = array(
       automáticos, o una voz artificial o pregrabada. OPTAR o DETENER
       Esta Política de SMS se aplica a los mensajes de texto enviados por LS Financing
       a nuestros clientes mientras y después de que utilicen nuestro servicio. Si desea
-      dejar de recibir SMS de LS Financing, Inc. responda a cualquier mensaje de texto
+      dejar de recibir SMS de Optima Financial Solutions Inc. responda a cualquier mensaje de texto
       que le hayamos enviado y, en su respuesta, simplemente escriba STOP. Su
       solicitud de interrupción se hará efectiva inmediatamente. También puede
       dejar de recibir SMS llamando, enviando una carta o un correo electrónico a la
-      siguiente información LS Financing, Inc 4645 Van Nuys Boulevard Suite 202
-      Sherman Oaks, CA 91403 info@lsbanking.com o (888) 540-7232.
+      siguiente información Optima Financial Solutions Inc 4645 Van Nuys Boulevard Suite 202
+      Sherman Oaks, CA 91403 info@ofsca.com o (866) 275-2677.
       AYUDA o APOYO Si en algún momento necesita nuestra información de
       contacto sobre cómo detener los SMS, responda a cualquier mensaje de texto
       que le hayamos enviado y, en esta respuesta, simplemente escriba AYUDA. Al
@@ -351,7 +351,7 @@ $style = array(
       móvil puede cobrarle tarifas por cualquier SMS que le enviemos, y acepta que
       no tendremos ninguna responsabilidad por cualquier coste relacionado con
       dichos SMS. En cualquier momento, puede retirar su consentimiento para
-      recibir marketing llamándonos al (888) 540-7232.
+      recibir marketing llamándonos al (866) 275-2677.
       </td>
  </tr>
  </tbody>
@@ -378,7 +378,7 @@ $file_name = $id."page_3";
 $path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
 $pdf->Output($path,'F');
 
-// $sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_customer/completed/doc_signs/".$img_signed;
+// $sign_image_url= "https://ofsca.com/loanportal/signature_customer/completed/doc_signs/".$img_signed;
 
 // $img = file_get_contents($sign_image_url);
 

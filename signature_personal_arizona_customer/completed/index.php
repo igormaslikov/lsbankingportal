@@ -1,5 +1,5 @@
 <?php
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_customer/completed"; 
+$url_logo="https://ofsca.com/loanportal/signature_customer/completed"; 
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -385,7 +385,7 @@ while($row_link = mysqli_fetch_array($sql_link)) {
     //echo $mail_key_link;
 }
 
-$url_link="https://mymoneyline.com/lsbankingportal/signature_personal_arizona_customer/files/index.php?id=$mail_key_link";
+$url_link="https://ofsca.com/loanportal/signature_personal_arizona_customer/files/index.php?id=$mail_key_link";
 //echo $url_link;
 ?>
 

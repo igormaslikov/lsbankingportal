@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-$url_logo = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo = "https://ofsca.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -171,13 +171,13 @@ BORROWER ACKNOWLEDGES RECEIPT OF A COMPLETED COPY OF THIS COMMERCIAL LOAN PROMIS
 </b><br><br>
 
 
-Borrower’s Signature : <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Borrower’s Signature : <img src="https://ofsca.com/loanportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-Co-Borrower’s Signature : <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$img_signed_co_borrow.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Co-Borrower’s Signature : <img src="https://ofsca.com/loanportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$img_signed_co_borrow.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-Lender’s Name  : <span style="text-decoration:underline">MY MONEY LINE</span>
+Lender’s Name  : <span style="text-decoration:underline">Optima</span>
 <br><br>
-Lender’s Authorized  Signature :<span style="text-decoration:underline">MY MONEY LINE</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.'
+Lender’s Authorized  Signature :<span style="text-decoration:underline">Optima</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.'
 
 
 
@@ -185,7 +185,7 @@ Lender’s Authorized  Signature :<span style="text-decoration:underline">MY MON
 
 ';
 
-// $sign_image_url= $_SERVER["DOCUMENT_ROOT"]."signature_commercial_loan/completed/doc_signs/".$img_signed; #"https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/".$img_signed;
+// $sign_image_url= $_SERVER["DOCUMENT_ROOT"]."signature_commercial_loan/completed/doc_signs/".$img_signed; #"https://ofsca.com/loanportal/signature_commercial_loan/completed/doc_signs/".$img_signed;
 
 // $img = file_get_contents($sign_image_url);
 

@@ -1,6 +1,6 @@
 <?php
 $id=$_GET['id'];
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo="https://ofsca.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -199,7 +199,7 @@ $style = array(
 <div style="display:inline-block">
 	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
 </div>
-<br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+<br><span style="text-align:left;width:100%"><b>11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</b></span>
  <br><br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
 &nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
@@ -251,7 +251,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 	<tr>
 	
 	<td style="width:35%">
-	<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br>
+	<img src="https://ofsca.com/loanportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br>
 	Borrower Signature/ Firma del deudor:
 	</td>
 	<td style="width:15%">
@@ -259,7 +259,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 		Date/Fecha:
 	</td>
 	<td style="width:35%">
-	<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$img_signed_co_borrow.'" alt="" style="height:300%" align="left"/><br>
+	<img src="https://ofsca.com/loanportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$img_signed_co_borrow.'" alt="" style="height:300%" align="left"/><br>
 	Co-Borrower Signature / Firma de co-deudor:
 	</td>
 	<td style="width:15%">
@@ -271,12 +271,12 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 	</tbody>
 	</table>
 	<br><br>
-	<b>LS Financing, Inc</b>
+	<b>Optima Financial Solutions Inc</b>
 	<p style="font-size:6px;">California Finance Lender License: 60DBO-88277<br>
 	Numero De Licencia Del Prestamista Financiero de California: 60DBO-88277 <br><br>
-	THIS LOAN IS MADE PURSUANT TO THE CALIFORNIA FINANCE LENDERS LAW, DIVISION 9 (COMMENCING WITH SECTION 22000) OF THE FINANCIAL CODE BY LS Financing, Inc UNDER A CALIFORNIA FINANCE LENDER’S LICENSE. THAT LICENSE IS ADMINSITERED BY THE CALIFORNIA DEPARTMENT OF BUSINESS OVERSIGHT. FOR INFORMATION OR COMPLAINTS, CONTACT THE DEPARTMENT OF BUSINESS OVERSIGHT AT 1-866-275-2677 OR www.dbo.ca.gov
+	THIS LOAN IS MADE PURSUANT TO THE CALIFORNIA FINANCE LENDERS LAW, DIVISION 9 (COMMENCING WITH SECTION 22000) OF THE FINANCIAL CODE BY Optima Financial Solutions Inc UNDER A CALIFORNIA FINANCE LENDER’S LICENSE. THAT LICENSE IS ADMINSITERED BY THE CALIFORNIA DEPARTMENT OF BUSINESS OVERSIGHT. FOR INFORMATION OR COMPLAINTS, CONTACT THE DEPARTMENT OF BUSINESS OVERSIGHT AT 1-866-275-2677 OR www.dbo.ca.gov
 	 <br><br>
-	ESTE PRESTAMO ES REALIZADO EN CONFORMIDAD CON LA LEY DE PRESTAMISTAS FINANCIEROS DE CALIFORNIA, DIVISION 9 (COMENZANDO CON LA SECCION 22000) DEL CODIGO FINANCIERO POR LS Financing, Inc CONFORME A UNA LICENCIA DE PRESTAMISTA FINANCIERO DEL ESTADO DE CALIFORNIA. DICHA LICENCIA ES ADMINISTRADA POR EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS DEL ESTADA DE CALIFORNIA. PARA OBTENER INFORMACION O PRESENTAR QUEJAS, COMUNIQUESE CON EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS AL 1-866-275-2677 O EN www.dbo.ca.gov
+	ESTE PRESTAMO ES REALIZADO EN CONFORMIDAD CON LA LEY DE PRESTAMISTAS FINANCIEROS DE CALIFORNIA, DIVISION 9 (COMENZANDO CON LA SECCION 22000) DEL CODIGO FINANCIERO POR Optima Financial Solutions Inc CONFORME A UNA LICENCIA DE PRESTAMISTA FINANCIERO DEL ESTADO DE CALIFORNIA. DICHA LICENCIA ES ADMINISTRADA POR EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS DEL ESTADA DE CALIFORNIA. PARA OBTENER INFORMACION O PRESENTAR QUEJAS, COMUNIQUESE CON EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS AL 1-866-275-2677 O EN www.dbo.ca.gov
 	</p>
 ';
 

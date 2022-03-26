@@ -219,14 +219,14 @@ $type_of_payment=$row_transaction['type_of_payment'];
  
   
   $name=$first_name.' '.$last_name;
-  $message = "($name) Thank you for using Money Line, your for ($$amount_loan) has been deposited into your account. Your due date will be on ($new_next_payment). Have a great day!.";
+  $message = "($name) Thank you for using Optima, your for ($$amount_loan) has been deposited into your account. Your due date will be on ($new_next_payment). Have a great day!.";
   
 send_sms($customer_numbr,$message);
 
 //******************************************************************************** Spanish SMS **********************************************
 
   $name=$first_name.' '.$last_name;
-  $message_spanish = "($name) gracias por usar Money Line, su préstamo de ($$amount_loan) ha sido depositado en su cuenta. La fecha de pago será ($new_next_payment).¡Tenga un excelente día!.";
+  $message_spanish = "($name) gracias por usar Optima, su préstamo de ($$amount_loan) ha sido depositado en su cuenta. La fecha de pago será ($new_next_payment).¡Tenga un excelente día!.";
  
  send_sms($customer_numbr,$message);
 

@@ -128,7 +128,7 @@ $fname=$customer_fname;
 
 You are a customer already,if you want another payday loan please contact us directly. You DO NOT have apply again.";
  
-$headers = 'From: info@lsbanking.com';
+$headers = 'From: info@ofsca.com';
 mail($to_email,$subject,$message,$headers);
     
  // MAIL TO FUNCTION FOR FUNDED APPLICATIONS END  
@@ -148,7 +148,7 @@ $lname_alejandra = $customer_lname;
 
 This is $fname_alejandra $lname_alejandra already customer with this email:$customer_email,and application status is FUNDED Applied again.";
  
-$headers_alejandra = 'From: info@lsbanking.com';
+$headers_alejandra = 'From: info@ofsca.com';
 mail($email_alejandra,$subject_alejandra,$message_alejandra,$headers_alejandra);
     
  // MAIL TO Alejandra FOR FUNDED APPLICATIONS END 
@@ -169,7 +169,7 @@ $lname_mayte = $customer_lname;
 
 This is $fname_mayte $lname_mayte already customer with this email:$customer_email,and application status is FUNDED Applied again.";
  
-$headers_mayte = 'From: info@lsbanking.com';
+$headers_mayte = 'From: info@ofsca.com';
 mail($email_mayte,$subject_mayte,$message_mayte,$headers_mayte);
     
  // MAIL TO Mayte FOR FUNDED APPLICATIONS END
@@ -187,7 +187,7 @@ $lname_denice= $customer_lname;
 
 This is $fname_denice $lname_denice already customer with this email:$customer_email,and application status is FUNDED Applied again.";
  
-$headers_denice = 'From: info@lsbanking.com';
+$headers_denice = 'From: info@ofsca.com';
 mail($email_denice,$subject_denice,$message_denice,$headers_denice);
     
  // MAIL TO Denice FOR FUNDED APPLICATIONS END 
@@ -226,7 +226,7 @@ $fname=$customer_fname;
 
 Gracias por aplicar con LS Financing Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
  
-$headers = 'From: info@lsbanking.com';
+$headers = 'From: info@ofsca.com';
 mail($to_email,$subject,$message,$headers);
 	
 	//declined email end

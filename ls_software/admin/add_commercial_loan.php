@@ -174,7 +174,7 @@ $fnd_idd = $_GET['id'];
             <label for="usr">Secondary Portfolio</label>
             <select name="p_portfolio" id="p_portfolio" class="form-control" value="">
               <option value="None">None</option>
-              <option value="Money Line" >Money Line</option>
+              <option value="Optima" >Optima</option>
               <option value="Kenneth">Kenneth</option>
             </select>
           </div>

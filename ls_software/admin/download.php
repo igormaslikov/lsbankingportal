@@ -1,5 +1,5 @@
 <br><br><div style="width:70%; position:relative; margin:auto;"> 
-<img src="https://mymoneyline.com/lsbankingportal/ls_software/website/images/lss.PNG"> <hr><br>
+<img src="https://ofsca.com/loanportal/ls_software/website/images/lss.PNG"> <hr><br>
 Veronica Lozano<br>SSN : 351-26-6143<br>Address : 7253  7253 1/2  Richfield St     Paramount CA 90723 <br><br><b style="text-align:center">----------------SCORE SUMMARY----------------</b><br><br><table  style="width: 100%; text-align:center" >
 	<tbody>
 		<tr>
@@ -152,7 +152,7 @@ Veronica Lozano<br>SSN : 351-26-6143<br>Address : 7253  7253 1/2  Richfield St  
 
 </div>
 <!--
-<iframe src="https://mymoneyline.com/lsbankingportal/signature_customer/credit_report/credit_report.php?id="  width="100%" height="800"></iframe>
+<iframe src="https://ofsca.com/loanportal/signature_customer/credit_report/credit_report.php?id="  width="100%" height="800"></iframe>
 -->
 </body>
 </html>

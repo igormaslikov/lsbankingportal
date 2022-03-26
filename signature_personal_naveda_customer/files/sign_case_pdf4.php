@@ -4,7 +4,7 @@ $id=$_GET['id'];
 
 
 <?php
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_personal_naveda_customer/completed/"; 
+$url_logo="https://ofsca.com/loanportal/signature_personal_naveda_customer/completed/"; 
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -249,7 +249,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
 Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
@@ -318,16 +318,16 @@ Borrower Signature/ Firma del deudor:
 </tbody>
 </table>
 <br><br>
-<b style="font-size:8px;">LS Financing D/B/A MoneyLine</b>
+<b style="font-size:8px;">LS Financing D/B/A Optima</b>
 <p style="font-size:7px;">California Finance Lender License: 60DBO-88277<br>
 Numero De Licencia Del Prestamista Financiero de California: 60DBO-88277 <br>
-THIS LOAN IS MADE PURSUANT TO THE CALIFORNIA FINANCE LENDERS LAW, DIVISION 9 (COMMENCING WITH SECTION 22000) OF THE FINANCIAL CODE BY LS Financing, Inc UNDER A CALIFORNIA FINANCE LENDER’S LICENSE. THAT LICENSE IS ADMINSITERED BY THE CALIFORNIA DEPARTMENT OF BUSINESS OVERSIGHT. FOR INFORMATION OR COMPLAINTS, CONTACT THE DEPARTMENT OF BUSINESS OVERSIGHT AT 1-866-275-2677 OR www.dbo.ca.gov
+THIS LOAN IS MADE PURSUANT TO THE CALIFORNIA FINANCE LENDERS LAW, DIVISION 9 (COMMENCING WITH SECTION 22000) OF THE FINANCIAL CODE BY Optima Financial Solutions Inc UNDER A CALIFORNIA FINANCE LENDER’S LICENSE. THAT LICENSE IS ADMINSITERED BY THE CALIFORNIA DEPARTMENT OF BUSINESS OVERSIGHT. FOR INFORMATION OR COMPLAINTS, CONTACT THE DEPARTMENT OF BUSINESS OVERSIGHT AT 1-866-275-2677 OR www.dbo.ca.gov
  <br>
-ESTE PRESTAMO ES REALIZADO EN CONFORMIDAD CON LA LEY DE PRESTAMISTAS FINANCIEROS DE CALIFORNIA, DIVISION 9 (COMENZANDO CON LA SECCION 22000) DEL CODIGO FINANCIERO POR LS Financing, Inc CONFORME A UNA LICENCIA DE PRESTAMISTA FINANCIERO DEL ESTADO DE CALIFORNIA. DICHA LICENCIA ES ADMINISTRADA POR EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS DEL ESTADA DE CALIFORNIA. PARA OBTENER INFORMACION O PRESENTAR QUEJAS, COMUNIQUESE CON EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS AL 1-866-275-2677 O EN www.dbo.ca.gov
+ESTE PRESTAMO ES REALIZADO EN CONFORMIDAD CON LA LEY DE PRESTAMISTAS FINANCIEROS DE CALIFORNIA, DIVISION 9 (COMENZANDO CON LA SECCION 22000) DEL CODIGO FINANCIERO POR Optima Financial Solutions Inc CONFORME A UNA LICENCIA DE PRESTAMISTA FINANCIERO DEL ESTADO DE CALIFORNIA. DICHA LICENCIA ES ADMINISTRADA POR EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS DEL ESTADA DE CALIFORNIA. PARA OBTENER INFORMACION O PRESENTAR QUEJAS, COMUNIQUESE CON EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS AL 1-866-275-2677 O EN www.dbo.ca.gov
 </p>
 ';
 
-$sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_personal_naveda_customer/completed/doc_signs/".$img_signed;
+$sign_image_url= "https://ofsca.com/loanportal/signature_personal_naveda_customer/completed/doc_signs/".$img_signed;
 
 $img = file_get_contents($sign_image_url);
 

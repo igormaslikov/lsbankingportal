@@ -33,7 +33,7 @@
    
    Your Application is Declined on the basis of this $zip_code Zip Code.";
    
-   $headers = 'From: info@lsbanking.com';
+   $headers = 'From: info@ofsca.com';
   // mail($to_email,$subject,$message,$headers);
       send_email_notification($to_email,$subject,$message);
    // MAIL TO FUNCTION FOR Declined APPLICATIONS END  
@@ -49,7 +49,7 @@
    
    This is $fname_1 $lname_1  customer with this email:$email and  application status is Declined on the basis of this $zip_code Zip Code.";
    
-   $headers_1 = 'From: info@lsbanking.com';
+   $headers_1 = 'From: info@ofsca.com';
   // mail($to_email_1,$subject_1,$message_1,$headers_1);
       admin_leads_email_notification($subject_1,$message_1);
    // MAIL TO ADMIN FOR Declined APPLICATIONS END

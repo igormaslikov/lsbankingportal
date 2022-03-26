@@ -1,6 +1,6 @@
 <?php
 $id=$_GET['id'];
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo="https://ofsca.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -256,7 +256,7 @@ $style = array(
 <div style=";display:inline-block">
 	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
 </div>
-<br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+<br><span style="text-align:left;width:100%"><b>11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</b></span>
  <br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
 &nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
@@ -264,14 +264,14 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
  <br>
  
  <h2 style="text-align:center"><u>Debit Card Authorization Form</u><br>
- <span style="text-align:center;font-size:9px"> 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span></h2>
+ <span style="text-align:center;font-size:9px"> 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span></h2>
 
 
 <div style="font-size:10px;">
-Authorization to make payments on my <b>LS Financing, Inc</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuig basis using the
+Authorization to make payments on my <b>Optima Financial Solutions Inc</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuig basis using the
 Debit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Debit Card
 Holder.<br><br>
-Autorización para hacer pagos en mi cuenta de <b>LS Financing, Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
+Autorización para hacer pagos en mi cuenta de <b>Optima Financial Solutions Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
 continua utilizando la tarjeta de debito que se describe a continuación y los términos de este préstamo , a menos
 que se indique lo contrario por escrito por el titular de la Tarjeta de Debito .
 </div>
@@ -302,11 +302,11 @@ que se indique lo contrario por escrito por el titular de la Tarjeta de Debito .
 
 <br><br><br>
  I, <span style="text-decoration:underline">'.$f_name.'</span>, the undersigned hereby states that the above described Debit Card
-is in my name and that i authorize its charge to LS Financing, Inc for full or partial payments.
+is in my name and that i authorize its charge to Optima Financial Solutions Inc for full or partial payments.
 <br><br>
  Yo , <span style="text-decoration:underline">'.$f_name.'</span>, el abajo firmante de la tarjeta de debito en mi nombre descrita
-en la parte superior y que autorizo su cargos a LS Financing, Inc para los pagos totales o parciales. <br>
-<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br><br>
+en la parte superior y que autorizo su cargos a Optima Financial Solutions Inc para los pagos totales o parciales. <br>
+<img src="https://ofsca.com/loanportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br><br>
 <b>Cardholders Signature/Firma del Titular de la Tarjeta de Debito<br>
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span> </b>
 

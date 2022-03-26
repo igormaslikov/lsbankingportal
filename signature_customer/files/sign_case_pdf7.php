@@ -4,7 +4,7 @@ $id=$_GET['id'];
 
 
 <?php
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_customer/completed/";
+$url_logo="https://ofsca.com/loanportal/signature_customer/completed/";
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -215,14 +215,14 @@ $style = array(
 
  $html = '
 <h1 style="text-align:center"> <span style="text-decoration:underline">AVISO DE PRIVACIDAD</span><br>
-MoneyLine</h1>
+Optima</h1>
  
  
  <table style="width: 100%;" border="1">
 <tbody>
 <tr>
 <td style="width: 15.8733%; text-align:center; background-color:black;color:white"><br><br>HECHOS<br></td>
-<td style="width: 83.1267%; text-align:center"><br><br>QUE HACE MoneyLine CON SU INFORMACION PERSONAL?<br></td>
+<td style="width: 83.1267%; text-align:center"><br><br>QUE HACE Optima CON SU INFORMACION PERSONAL?<br></td>
 </tr>
 <tr>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Porque?<br></td>
@@ -243,7 +243,7 @@ datos pueden incluir:<br><br>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Como ? <br></td>
 <td style="width: 83.1267%;"><br><br>Todas las Empresas Financieras necesitan compartir la informacion personal de sus clientes para llevar a cabo sus actividades
 diarias. En la Seccion siguiente describimos las razones por las que las Empresas Financieras pueden compartir la informacion
-personal de sus clientes; las razones por las cuales MoneyLine elige compartir dicha informacion y si usted puede limitar
+personal de sus clientes; las razones por las cuales Optima elige compartir dicha informacion y si usted puede limitar
 que se comparten dicha informacion. 
 <br><br></td>
 </tr>
@@ -255,7 +255,7 @@ que se comparten dicha informacion.
 <tbody>
 <tr>
 <td style="width: 60%; text-align:left; color:white; background-color:grey "><b>Razones por las que compartimos su informacion personal</b></td>
-<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>MoneyLine
+<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>Optima
 Comparte?</b></td>
 <td style="width: 20.8981%; text-align:center;background-color:grey; color:white"><b>Usted puede limitar?</b></td>
 </tr>

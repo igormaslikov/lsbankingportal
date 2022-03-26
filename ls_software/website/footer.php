@@ -5,7 +5,7 @@
                     <h4>Contact Customer Service</h4>
                     <ul class="footer_nav"> 
 						<li><a href="#">Phone:747-300-1542</a></li>
-						<li><a href="#">Email:info@lsbanking.com</a></li> 
+						<li><a href="#">Email:info@ofsca.com</a></li> 
 						<li><a href="#">Make A Payment</a></li> 
                     </ul>
                 </div> 

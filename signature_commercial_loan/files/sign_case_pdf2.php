@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-$url_logo = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo = "https://ofsca.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -304,7 +304,7 @@ $html = '
             <td style="width:25%; text-align:center">
               
               <img src="images/Money-Line-Logo.JPG" alt="" style="height:400%" align="left"/><br>
-              <span><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+              <span><b>11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</b></span>
             </td>
           </tr>
         </tbody>
@@ -428,7 +428,7 @@ $html = '
         <p><b>Honorarios de abogados; Gastos: </b><span>El prestamista puede pagar aquí o pagar a otra persona para que le ayude a cobrar este Pagare de Prestamo Comercial si el prestatario no paga. El prestatario le pagará al prestamista ese monto. Esto incluye, sujeto a cualquier límite bajo la ley aplicable, los honorarios del abogado del prestamista y los gastos legales del prestamista, ya sea que exista o no una demanda, incluidos los honorarios del abogado, los gastos por procedimientos de bancarrota (incluidos los esfuerzos para modificar o desocupar una suspensión o mandato judicial), y apelaciones. El prestatario también pagará los costos judiciales, además de todas las demás sumas previstas por la ley.
         </span></p>
         </div>
-       Iniciales:<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:200%" align="left"/>
+       Iniciales:<img src="https://ofsca.com/loanportal/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:200%" align="left"/>
         
 ';
 

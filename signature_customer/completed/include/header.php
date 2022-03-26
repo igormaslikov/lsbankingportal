@@ -14,7 +14,7 @@
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<div class="navbar-header">
 					
-						<a href="#" class="navbar-brand" style=" padding: 5px !important; margin-bottom: 32px; "> <img src="https://mymoneyline.com/lsbankingportal/ls_software/website/images/Money-Line-Logo.JPG" class="site-logo" /></a>
+						<a href="#" class="navbar-brand" style=" padding: 5px !important; margin-bottom: 32px; "> <img src="https://ofsca.com/loanportal/ls_software/website/images/Money-Line-Logo.JPG" class="site-logo" /></a>
 					</div>
 			
 				</div>

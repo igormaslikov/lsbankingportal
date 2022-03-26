@@ -215,7 +215,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
  <b style="text-align:center">CALIFORNIA PROMISSORY NOTE AND SECURITY AGREEMENTCONSUMER GOODS DIRECT -CONSUMER PURPOSE</b>
 <br><br>
 
@@ -227,8 +227,7 @@ $style = array(
 </tr>
 <tr>
 <td style="text-align:center" height="50">Borrower Name and Address</td>
-<td style="text-align:center" height="50">LS Financing, Inc
-DBA Money Line
+<td style="text-align:center" height="50">Optima Financial Solutions Inc
 4645 Van Nuys Blvd Suite 202
 Sherman Oaks, CA 91403
 Ph. (747) 300-1542

@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-$url_logo = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo = "https://ofsca.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -291,7 +291,7 @@ $html = '
         <td style="width:25%; text-align:center">
           
           <img src="images/Money-Line-Logo.JPG" alt="" style="height:400%" align="left"/><br>
-          <span><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+          <span><b>11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</b></span>
         </td>
       </tr>
       </tbody>
@@ -421,13 +421,13 @@ $html = '
         <p><b>Attorney’s Fees; Expenses:</b><span>Lender may here or pay someone else to help collect this Commercial Loan Promissory Note if Borrower does not pay. Borrower will pay Lender that amount. This includes, subject to any limits under applicable law, Lender’s Attorney’s fees, and Lender’s legal expenses, whether or not there is a lawsuit, including Attorney’s fees, expenses for bankruptcy proceedings (Including efforts to modify or vacate an automatic stay or injunction), and appeals. Borrower also will pay any court costs, in addition to all other sums provided by law. 
         </span></p>
         </div>
-        <span>Initials:</span><img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/>
+        <span>Initials:</span><img src="https://ofsca.com/loanportal/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/>
         
 ';
 
 //$html = file_get_contents(dirname(__FILE__)."/contract_page1.html");
 //$pdf->writeHTML($html, true, false, true, false, '');
-// $sign_image_url= $_SERVER["DOCUMENT_ROOT"]."signature_commercial_loan/completed/doc_signs/".$img_signed; #"https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/".$img_signed;
+// $sign_image_url= $_SERVER["DOCUMENT_ROOT"]."signature_commercial_loan/completed/doc_signs/".$img_signed; #"https://ofsca.com/loanportal/signature_commercial_loan/completed/doc_signs/".$img_signed;
 
 // $img = file_get_contents($sign_image_url);
 

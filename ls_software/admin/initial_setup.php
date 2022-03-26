@@ -133,7 +133,7 @@ $fndd_id = $id_fnd;
 $to_email = $email;
 $subject = 'Contract';
 $message = '../../signature_customer/files/contract.php?id=' . $email_key;
-$message_email = 'https://mymoneyline.com/lsbankingportal/signature_customer/completed/index.php?id=' . $email_key;
+$message_email = 'https://ofsca.com/loanportal/signature_customer/completed/index.php?id=' . $email_key;
 $headers = 'From: admin@lsfinancing.com';
 //mail($to_email,$subject,$message,$headers);
 
@@ -154,7 +154,7 @@ while ($row_fetch_user = mysqli_fetch_array($sql_fetch_user)) {
 
 $to_email_admin = $email_admin;
 $subject_admin = 'A New Customer Has Signed The Contract';
-$message_admin = 'https://mymoneyline.com/lsbankingportal/signature_customer/completed/index.php?id=' . $email_key;
+$message_admin = 'https://ofsca.com/loanportal/signature_customer/completed/index.php?id=' . $email_key;
 $headers_admin = 'From: admin@lsfinancing.com';
 //mail($to_email_admin,$subject_admin,$message_admin,$headers_admin);
 

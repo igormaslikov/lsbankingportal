@@ -141,7 +141,7 @@ $fname=$customer_fname;
   $lname= $customer_lname;
   $message_de = "Hola ".$fname." ".$lname.", 
 
-Thank you for submitting your application to MoneyLine. Unfortunately your application has been declined. May be you have already pending application or your application has been rejected in last 7 days. If you have any questions regarding your application, contact us at support@mymoneyline.com and a team member will respond shortly.";
+Thank you for submitting your application to Optima. Unfortunately your application has been declined. May be you have already pending application or your application has been rejected in last 7 days. If you have any questions regarding your application, contact us at support@mymoneyline.com and a team member will respond shortly.";
  
 $headers = 'From: support@mymoneyline.com';
 // mail($to_email,$subject,$message,$headers);
@@ -155,7 +155,7 @@ $headers = 'From: support@mymoneyline.com';
 	$phone= $customer_tel;
   $fname=$customer_fname;
   $lname= $customer_lname;
-  $message = "Hola ".$fname." ".$lname.",Gracias por aplicar con My Money Line Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
+  $message = "Hola ".$fname." ".$lname.",Gracias por aplicar con Optima Financial Solutions Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
   
 send_sms($phone,$message);	
 	//Decline SMS End
@@ -227,8 +227,8 @@ $subject_re = 'Application Received';
 $fname=$customer_fname;
   $lname= $customer_lname;
   $message_re = "Hello ".$fname." ".$lname.", 
-Thank you for applying at MoneyLine. We received your application. A team member will contact you shortly. 
-Gracias por aplicar en MoneyLine. Recibimos su solicitud. Un miembro del equipo se comunicará con usted a la brevedad.
+Thank you for applying at Optima. We received your application. A team member will contact you shortly. 
+Gracias por aplicar en Optima. Recibimos su solicitud. Un miembro del equipo se comunicará con usted a la brevedad.
 If you have any questions you can always contact us at support@mymoneyline.com";
  
 $headers = 'From: support@mymoneyline.com';

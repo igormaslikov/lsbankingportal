@@ -250,7 +250,7 @@ $card_exp_date=$row_user['card_exp_date'];
      echo "Zip Code: $zip_code<br><hr>";
 //********************************************* GET BASE URL 
 
-$sql_payment_api=mysqli_query($con, "select * from payment_api_urls where name='live_url'"); 
+$sql_payment_api=mysqli_query($con, "select * from payment_api_urls where name='live_url2'"); 
 
 while($row_payment_api = mysqli_fetch_array($sql_payment_api)) {
 

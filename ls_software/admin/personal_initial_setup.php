@@ -71,8 +71,8 @@ if($state=='AZ')
 {
 
 
-$azrizona_message='https://mymoneyline.com/lsbankingportal/signature_personal_arizona_customer/files/contract.php?id='.$email_key;
-$azrizona_email='https://mymoneyline.com/lsbankingportal/signature_personal_arizona_customer/completed/index.php?id='.$email_key;
+$azrizona_message='https://ofsca.com/loanportal/signature_personal_arizona_customer/files/contract.php?id='.$email_key;
+$azrizona_email='https://ofsca.com/loanportal/signature_personal_arizona_customer/completed/index.php?id='.$email_key;
 
     //echo $azrizona_message;
     //echo $azrizona_email;
@@ -80,8 +80,8 @@ $azrizona_email='https://mymoneyline.com/lsbankingportal/signature_personal_ariz
 
 else
 {
-     $azrizona_message='https://mymoneyline.com/lsbankingportal/signature_personal_naveda_customer/files/contract.php?id='.$email_key;
-     $azrizona_email='https://mymoneyline.com/lsbankingportal/signature_personal_naveda_customer/completed/index.php?id='.$email_key;
+     $azrizona_message='https://ofsca.com/loanportal/signature_personal_naveda_customer/files/contract.php?id='.$email_key;
+     $azrizona_email='https://ofsca.com/loanportal/signature_personal_naveda_customer/completed/index.php?id='.$email_key;
      
      //echo $azrizona_message;
      //echo $azrizona_email;

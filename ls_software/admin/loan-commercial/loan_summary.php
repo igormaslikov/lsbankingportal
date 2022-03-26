@@ -310,9 +310,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                           <option value="None" <?php if ($primary_port == 'None') {
                                                   echo 'selected';
                                                 } ?>>None</option>
-                          <option value="Money Line" <?php if ($primary_port == 'Money Line') {
+                          <option value="Optima" <?php if ($primary_port == 'Optima') {
                                                         echo 'selected';
-                                                      } ?>>Money Line</option>
+                                                      } ?>>Optima</option>
                           <option value="Kenneth" <?php if ($primary_port == 'Kenneth') {
                                                     echo 'selected';
                                                   } ?>>Kenneth</option>

@@ -709,7 +709,7 @@ $to_denice = "denice@lsbanking.com";
 
 $subject_denice = "Approved Personal Loan";
 $message_denice = "Approved Personal Loan ".$first_name_update." ".$last_name__update.", has been approved ".$phone_number_update." and loan term is ".$personal_loan.". ";
-$headers_denice = "From: info@lsbanking.com";
+$headers_denice = "From: info@ofsca.com";
 
 mail($to_denice,$subject_denice,$message_denice,$headers_denice);
 
@@ -720,7 +720,7 @@ $to_mayte = "mayte@lsbanking.com";
 
 $subject_mayte = "Approved Personal Loan";
 $message_mayte = "Approved Personal Loan ".$first_name_update." ".$last_name__update.", has been approved ".$phone_number_update." and loan term is ".$personal_loan.". ";
-$headers_mayte = "From: info@lsbanking.com";
+$headers_mayte = "From: info@ofsca.com";
 
 //mail($to_mayte,$subject_mayte,$message_mayte,$headers_mayte);
 
@@ -818,7 +818,7 @@ $to_denice = "denice@lsbanking.com";
 
 $subject_denice = "Bank Information Needed";
 $message_denice = "Bank Information Needed ".$first_name_update." ".$last_name__update.", has been approved ".$phone_number_update." and loan term is ".$personal_loan.". ";
-$headers_denice = "From: info@lsbanking.com";
+$headers_denice = "From: info@ofsca.com";
 
 mail($to_denice,$subject_denice,$message_denice,$headers_denice);
 
@@ -829,7 +829,7 @@ $to_mayte = "mayte@lsbanking.com";
 
 $subject_mayte = "Bank Information Needed";
 $message_mayte = "Bank Information Needed ".$first_name_update." ".$last_name__update.", has been approved ".$phone_number_update." and loan term is ".$personal_loan.". ";
-$headers_mayte = "From: info@lsbanking.com";
+$headers_mayte = "From: info@ofsca.com";
 
 //mail($to_mayte,$subject_mayte,$message_mayte,$headers_mayte);
 admin_leads_email_notification($subject_mayte,$message_mayte);	    
@@ -850,7 +850,7 @@ $to_denice = "denice@lsbanking.com";
 
 $subject_denice = "Interview Completed";
 $message_denice = "Interview Completed ".$first_name_update." ".$last_name__update.", has been approved ".$phone_number_update." and loan term is ".$personal_loan.". ";
-$headers_denice = "From: info@lsbanking.com";
+$headers_denice = "From: info@ofsca.com";
 
 mail($to_denice,$subject_denice,$message_denice,$headers_denice);
 
@@ -861,7 +861,7 @@ $to_mayte = "mayte@lsbanking.com";
 
 $subject_mayte = "Interview Completed";
 $message_mayte = "Interview Completed ".$first_name_update." ".$last_name__update.", has been approved ".$phone_number_update." and loan term is ".$personal_loan.". ";
-$headers_mayte = "From: info@lsbanking.com";
+$headers_mayte = "From: info@ofsca.com";
 
 //mail($to_mayte,$subject_mayte,$message_mayte,$headers_mayte);
 	    
@@ -883,7 +883,7 @@ $to_denice = "denice@lsbanking.com";
 
 $subject_denice = "Pending Documents";
 $message_denice = "Pending Documents ".$first_name_update." ".$last_name__update.", has been approved ".$phone_number_update." and loan term is ".$personal_loan.". ";
-$headers_denice = "From: info@lsbanking.com";
+$headers_denice = "From: info@ofsca.com";
 
 mail($to_denice,$subject_denice,$message_denice,$headers_denice);
 
@@ -894,7 +894,7 @@ $to_mayte = "mayte@lsbanking.com";
 
 $subject_mayte = "Pending Documents";
 $message_mayte = "Pending Documents ".$first_name_update." ".$last_name__update.", has been approved ".$phone_number_update." and loan term is ".$personal_loan.". ";
-$headers_mayte = "From: info@lsbanking.com";
+$headers_mayte = "From: info@ofsca.com";
 
 //mail($to_mayte,$subject_mayte,$message_mayte,$headers_mayte);
 	admin_leads_email_notification($subject_mayte,$message_mayte);    
@@ -916,7 +916,7 @@ $to_denice = "denice@lsbanking.com";
 
 $subject_denice = "No Decision Logic For Payday";
 $message_denice = "No Decision Logic For Payday ".$first_name_update." ".$last_name__update.", has been approved ".$phone_number_update." and loan term is ".$personal_loan.". ";
-$headers_denice = "From: info@lsbanking.com";
+$headers_denice = "From: info@ofsca.com";
 
 mail($to_denice,$subject_denice,$message_denice,$headers_denice);
 
@@ -927,7 +927,7 @@ $to_mayte = "mayte@lsbanking.com";
 
 $subject_mayte = "No Decision Logic For Payday";
 $message_mayte = "No Decision Logic For Payday ".$first_name_update." ".$last_name__update.", has been approved ".$phone_number_update." and loan term is ".$personal_loan.". ";
-$headers_mayte = "From: info@lsbanking.com";
+$headers_mayte = "From: info@ofsca.com";
 
 //mail($to_mayte,$subject_mayte,$message_mayte,$headers_mayte);
 	 admin_leads_email_notification($subject_mayte,$message_mayte);   
@@ -948,7 +948,7 @@ $subject = "Approved Payday Loan";
  $message = " Approved Payday Loan ".$first_name_update." ".$last_name__update.", 
 
 has been approved ".$phone_number_update." and loan term is ".$personal_loan.". ";
-$headers = "From: info@lsbanking.com";
+$headers = "From: info@ofsca.com";
 
 //mail($to,$subject,$message,$headers);
 
@@ -1060,4 +1060,4 @@ window.location.href = 'not_authorize.php';
 
 
 <h3 style="color:red;">Conversation  <span style="float:right;">  </span>   </h3>
-<iframe src="https://mymoneyline.com/lsbankingportal/ls_software/admin/sms-chat/chat.php?admin_name=<?php echo $u_name;?>&fnd_id=<?php echo $cu_id ;?>&customer_name=<?php echo $first_name;?>" height="500px" width="100%" id="conversation"></iframe>
+<iframe src="https://ofsca.com/loanportal/ls_software/admin/sms-chat/chat.php?admin_name=<?php echo $u_name;?>&fnd_id=<?php echo $cu_id ;?>&customer_name=<?php echo $first_name;?>" height="500px" width="100%" id="conversation"></iframe>

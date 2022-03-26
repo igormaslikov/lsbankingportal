@@ -256,27 +256,27 @@ Formulario de Autorizacion de ACH
 </h1>
 
 <div>
-I (we) hereby authorize LS FINANCING, INC
+I (we) hereby authorize Optima Financial Solutions Inc
 to initiate entries to my (our)
 checking/savings accounts at The Financial
 Institution listed below and, if necessary,
 initiate adjustments for any transactions
 credited/debited in error. This authority will
-remain in effect until LS FINANCING, INC is
+remain in effect until Optima Financial Solutions Inc is
 notified by me (us) in writing to cancel it in
-such time as to afford LS FINANCING, INC and
+such time as to afford Optima Financial Solutions Inc and
 The Financial Institution a reasonable
 opportunity to act on it. <br><br>
 
-Yo (nosotros) autorizamos a LS FINANCING, INC a
+Yo (nosotros) autorizamos a Optima Financial Solutions Inc a
 iniciar inscripciones a mi (nuestras) cuentas de
 cheques/ahorros en La Institución Financiera que se
 enumera a continuación y, si es necesario, iniciar
 ajustes por cualquier transacción acreditada o
 debitada por error. Esta autoridad permanecerá en
-vigor hasta que LS FINANCING, INC sea notificada
+vigor hasta que Optima Financial Solutions Inc sea notificada
 por escrito (por escrito) para cancelarla en el
-tiempo que se dé a LS FINANCING, INC y La
+tiempo que se dé a Optima Financial Solutions Inc y La
 Institución Financiera una oportunidad razonable
 para actuar en ella. <br><br><br>
 

@@ -216,7 +216,7 @@ $style = array(
 );
 
  $html = '<br><div style="line-height:7px"><h1 style="text-align:center">PAYDAY LOAN CONTRACT AND DISCLOSURE STATEMENT</h1>
-<span style="text-align:center"> Lender: LS Financing, Inc 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</span><br><br>
+<span style="text-align:center"> Lender: Optima Financial Solutions Inc 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</span><br><br>
 </div>
 Contract Date   :  '.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LOAN ID : '.$loan_id_bor.' <br>
 Borrower        : '. $f_name.'<br>
@@ -265,7 +265,7 @@ second business day, immediately following the day on which the payday loan was 
 entitled to a refund of a portion of the finance charge. See below and and/or second page of this contract for any additional
 information about nonpayment, default, any required payment in full before the scheduled date, and prepayment refunds and
 penalties.<br><br>
-By signing this Loan Contract and Disclosure Statement (this “contract”) and accepting a loan from LS Financing, Inc (“Lender”) the
+By signing this Loan Contract and Disclosure Statement (this “contract”) and accepting a loan from Optima Financial Solutions Inc (“Lender”) the
 undersigned borrower (“I”, “you”, “borrower”) agrees to and accept the terms and conditions set forth on all pages of this contract.
 <br><br>
 <b>I UNDERSTAND THAT IF I STILL OWE ON ONE OR MORE PAYDAY LOANS AFTER 35 DAYS, I AM ENTITLED TO
@@ -285,7 +285,7 @@ YOU CANNOT BE PROSECUTED IN CRIMINAL COURT TO COLLECT THIS LOAN.
 <tr>
 <td> Signature of Borrower</td>
 <td> Date</td>
-<td colspan="2"> Lender: LS Financing, Inc</td>
+<td colspan="2"> Lender: Optima Financial Solutions Inc</td>
 <td> Date</td>
 </tr>
 <tr>

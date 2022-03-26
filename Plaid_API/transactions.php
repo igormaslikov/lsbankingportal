@@ -11,7 +11,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS =>"{\n\t\"client_id\": \"5f606a14aaddb00011248436\",\n\t\"secret\": \"892e84129259b3f1237bd4f778e27e\",\n  \"client_name\": \"MoneyLine\",\n  \"country_codes\": [\"US\"],\n  \"language\": \"en\",\n  \"user\": {\n    \"client_user_id\": \"unique_user_id\"\n  },\n  \"products\": [\"auth\", \"transactions\"]\n}",
+  CURLOPT_POSTFIELDS =>"{\n\t\"client_id\": \"5f606a14aaddb00011248436\",\n\t\"secret\": \"892e84129259b3f1237bd4f778e27e\",\n  \"client_name\": \"Optima\",\n  \"country_codes\": [\"US\"],\n  \"language\": \"en\",\n  \"user\": {\n    \"client_user_id\": \"unique_user_id\"\n  },\n  \"products\": [\"auth\", \"transactions\"]\n}",
   CURLOPT_HTTPHEADER => array(
     "Content-Type: application/json"
   ),

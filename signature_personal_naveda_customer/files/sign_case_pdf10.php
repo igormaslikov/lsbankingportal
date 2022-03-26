@@ -245,7 +245,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span>
+ $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span>
  <br><br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
 Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
@@ -257,27 +257,27 @@ Formulario de Autorizacion de ACH
 </h1>
 
 <div>
-I (we) hereby authorize LS FINANCING, INC
+I (we) hereby authorize Optima Financial Solutions Inc
 to initiate entries to my (our)
 checking/savings accounts at The Financial
 Institution listed below and, if necessary,
 initiate adjustments for any transactions
 credited/debited in error. This authority will
-remain in effect until LS FINANCING, INC is
+remain in effect until Optima Financial Solutions Inc is
 notified by me (us) in writing to cancel it in
-such time as to afford LS FINANCING, INC and
+such time as to afford Optima Financial Solutions Inc and
 The Financial Institution a reasonable
 opportunity to act on it. <br><br>
 
-Yo (nosotros) autorizamos a LS FINANCING, INC a
+Yo (nosotros) autorizamos a Optima Financial Solutions Inc a
 iniciar inscripciones a mi (nuestras) cuentas de
 cheques/ahorros en La Institución Financiera que se
 enumera a continuación y, si es necesario, iniciar
 ajustes por cualquier transacción acreditada o
 debitada por error. Esta autoridad permanecerá en
-vigor hasta que LS FINANCING, INC sea notificada
+vigor hasta que Optima Financial Solutions Inc sea notificada
 por escrito (por escrito) para cancelarla en el
-tiempo que se dé a LS FINANCING, INC y La
+tiempo que se dé a Optima Financial Solutions Inc y La
 Institución Financiera una oportunidad razonable
 para actuar en ella. <br><br><br>
 
@@ -298,7 +298,7 @@ Date/Fecha: </b><span style="text-decoration:underline">'.$creation_date.'</span
 
 ';
 
-$sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_personal_naveda_customer/completed/doc_signs/".$img_signed;
+$sign_image_url= "https://ofsca.com/loanportal/signature_personal_naveda_customer/completed/doc_signs/".$img_signed;
 
 $img = file_get_contents($sign_image_url);
 

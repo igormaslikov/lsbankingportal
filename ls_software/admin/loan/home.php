@@ -423,7 +423,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                                             echo 'selected';
                                                         } ?>>California
                                     </option>
-                                    <option value="NV" <?php if ($_GET['state'] == 'NV') {
+                                    <!-- <option value="NV" <?php if ($_GET['state'] == 'NV') {
                                                             echo 'selected';
                                                         } ?>>Nevada</option>
                                     <option value="AZ" <?php if ($_GET['state'] == 'AZ') {
@@ -431,7 +431,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                                         } ?>>Arizona</option>
                                     <option value="IL" <?php if ($_GET['state'] == 'IL') {
                                                             echo 'selected';
-                                                        } ?>>Illinois</option>
+                                                        } ?>>Illinois</option> -->
                                 </select>
                             </td>
                             <td colspan="2" style="font-weight: bold;">
