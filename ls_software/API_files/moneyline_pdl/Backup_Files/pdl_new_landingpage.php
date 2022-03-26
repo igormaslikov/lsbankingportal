@@ -144,7 +144,7 @@ This is $fname_mayte $lname_mayte already customer with this email:$customer_ema
    
      
 
-    	//echo '<meta http-equiv="Refresh" content="1; url=https://www.mymoneyline.com/already-customer-payday-loans/">';
+    	//echo '<meta http-equiv="Refresh" content="1; url=https://www.ofsca.com/already-customer-payday-loans/">';
 
 }
 // if application is already funded end
@@ -168,7 +168,7 @@ if ($rowcount>0){
 	
 	
 	
-//	echo '<meta http-equiv="Refresh" content="1; url=https://www.mymoneyline.com/payday-loans/">';
+//	echo '<meta http-equiv="Refresh" content="1; url=https://www.ofsca.com/payday-loans/">';
 		//declined email
 	
 	$to_email_de = $customer_email;
@@ -286,7 +286,7 @@ admin_leads_email_notification($subject_data,$message_data);
     
     
     
-//	echo '<meta http-equiv="Refresh" content="1; url=https://www.mymoneyline.com/payday-loans/">';
+//	echo '<meta http-equiv="Refresh" content="1; url=https://www.ofsca.com/payday-loans/">';
 }
 
 else {

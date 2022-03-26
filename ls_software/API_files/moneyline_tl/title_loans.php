@@ -152,7 +152,7 @@ mail($email_denice,$subject_denice,$message_denice,$headers_denice);*/
    
      
 
-    	//echo '<meta http-equiv="Refresh" content="1; url=https://www.mymoneyline.com/already-customer-payday-loans/">';
+    	//echo '<meta http-equiv="Refresh" content="1; url=https://www.ofsca.com/already-customer-payday-loans/">';
 
 }
 // if application is already funded end
@@ -173,7 +173,7 @@ if ($rowcount>0){
     
     
 	echo "record exists";
-//	echo '<meta http-equiv="Refresh" content="1; url=https://www.mymoneyline.com/payday-loans/">';
+//	echo '<meta http-equiv="Refresh" content="1; url=https://www.ofsca.com/payday-loans/">';
 		//declined email
 	
 	$to_email = $customer_email;
@@ -217,7 +217,7 @@ $sql_check_d=mysqli_query($con, "$query_check_d");
 if ($rowcount_d>0){
     echo "record duplications";
     
-//	echo '<meta http-equiv="Refresh" content="1; url=https://www.mymoneyline.com/payday-loans/">';
+//	echo '<meta http-equiv="Refresh" content="1; url=https://www.ofsca.com/payday-loans/">';
 }
 
 else {

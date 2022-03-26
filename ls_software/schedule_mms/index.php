@@ -148,7 +148,7 @@ if(isset($_POST["import"])) {
   }
 }
     
-    $target_file = "https://www.mymoneyline.com/lsbankingportal/ls_software/schedule_mms/".$target_file;
+    $target_file = "https://www.ofsca.com/loanportal/ls_software/schedule_mms/".$target_file;
     
     
     if ($_FILES["file"]["size"] > 0) {

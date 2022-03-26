@@ -349,7 +349,7 @@ if ($u_access_id != '1') {
         for($x = 0; $x < $arrlength; $x++) {  
             $rest = substr($cards[$x], -4);
             echo "<div style='display:flex;'><div style='margin: auto auto auto 0'><a href='loan_summary.php?id=$loan_ids[$x]' title='Go to Loan Summary'>$loan_create_id($rest)</a></div>";
-            echo "<div><a target='_blank' href='https://www.mymoneyline.com/lsbankingportal/signature_commercial_loan/files/sign_contract.php?id=$email_keys[$x]'><span class='glyphicon glyphicon-file' title='Contract' aria-hidden='true' alt='Contract'></span></a></div></div>";
+            echo "<div><a target='_blank' href='https://www.ofsca.com/loanportal/signature_commercial_loan/files/sign_contract.php?id=$email_keys[$x]'><span class='glyphicon glyphicon-file' title='Contract' aria-hidden='true' alt='Contract'></span></a></div></div>";
           }
                                               
         echo"</td>

@@ -159,7 +159,7 @@ admin_leads_email_notification($subject_data,$message_data);
     
    
     
-//	echo '<meta http-equiv="Refresh" content="1; url=https://www.mymoneyline.com/payday-loans/">';
+//	echo '<meta http-equiv="Refresh" content="1; url=https://www.ofsca.com/payday-loans/">';
 }
 
 else if($application_status!='New Application') {
