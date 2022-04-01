@@ -234,8 +234,8 @@ $style = array(
  </td>
  <td>
  <b>Lender :</b> Optima <br>
- <b>Address        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
- <b>Phone         :</b> 866-275-2677<br>
+ <b>Address        :</b> 11306 EAST 183RD ST SUITE 305A CERRITOS CA 90703<br>
+ <b>Phone         :</b> 818-856-4302<br>
  <b>Lender’s License:</b> 10DBO-133110<br><br>
  </td>
   </tr>
@@ -306,13 +306,13 @@ entitled to a refund of a portion of the finance charge.<br>
 <b>Dishonored Item Fee:</b> : Borrower will pay a fee to Lender of $ 15.00 if Borrower makes a payment on Borrower’s loan and the check or preauthorized
 charge with which Borrower pays is later dishonored.<br>
 <b>Deferred Payment:</b> Borrower cannot be prosecuted in a criminal action in conjunction with a deferred deposit transaction for a returned check or be
-threatened with prosecution.Optima may not accept any collateral in conjunction with a deferred deposit transaction. Optima cannot
+threatened with prosecution.Optima Financial Solutions Inc may not accept any collateral in conjunction with a deferred deposit transaction. Optima cannot
 make a deferred deposit transaction contingent on the purchase of another product or service. Borrower’s check is part of a deferred deposit
 transaction made pursuant to Section 23035 of the Financial Code and is not subject to the provisions of Section 1719 of the Civil Code. Borrower may
 not be required to pay treble damages if this check does not clear<br>
-<b>Complaints and Concerns:</b> Borrower can call to the Department of Financial Protection and Innovation\'s toll-free telephone number: 866-275-2677 for
+<b>Complaints and Concerns:</b> Borrower can call to the Department of Financial Protection and Innovation\'s toll-free telephone number: 818-856-4302 for
 making complaints and concerns calls.<br>
-<u>Optima with License # 10DBO-133110 is licensed by the Department of Financial Protection and Innovation pursuant to the California Deferred
+<u>Optima Financial Solutions Inc with License # 10DBO-133110 is licensed by the Department of Financial Protection and Innovation pursuant to the California Deferred
 Deposit Transaction Law. California loans other than deferred deposit loans are issued pursuant to the California Financing Law. </u><br>
 
 <b>I UNDERSTAND THAT IF I STILL OWE ON ONE OR MORE PAYDAY LOANS AFTER 35 DAYS, I AM ENTITLED TO
@@ -335,7 +335,7 @@ borrower (“I”, “you”, “borrower”) agrees to and accept the terms and
 <tr>
 <td> Signature of Borrower</td>
 <td> Date</td>
-<td colspan="2"> Lender: Optima</td>
+<td colspan="2"> Lender: Optima Financial Solutions Inc</td>
 <td> Date</td>
 </tr>
 <tr>

@@ -16,7 +16,7 @@ $DBcon->close();
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>LS Financing Registration</title>
+<title>Optima Financial Solutions Inc Registration</title>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen"> 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -72,7 +72,7 @@ curl_setopt_array($curl, array(
   CURLOPT_CUSTOMREQUEST => 'POST',
   CURLOPT_POSTFIELDS =>'{
   "payment_method": "card",
-  "Source": "LS Financing"
+  "Source": "Optima Financial Solutions Inc"
 }',
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json',
@@ -116,7 +116,7 @@ curl_setopt_array($curl, array(
   "card_number": "'.$card.'",
   "card_cvc": "'.$cvv.'",
   "card_expiration": "'.$expire_date.'",
-  "Source": "LS Financing",
+  "Source": "Optima Financial Solutions Inc",
   "PaymentChannel": "web"
 }',
   CURLOPT_HTTPHEADER => array(
@@ -163,7 +163,7 @@ curl_setopt_array($curl, array(
   "card_number": "'.$card.'",
   "card_cvc": "'.$cvv.'",
   "card_expiration": "'.$expire_date.'",
-  "Source": "LS Financing",
+  "Source": "Optima Financial Solutions Inc",
   "PaymentChannel": "web",
   "address_zip" : "'.$zip_code.'"
 }',

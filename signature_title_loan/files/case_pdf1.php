@@ -345,7 +345,7 @@ G. Monto Total del Préstamo
 </span>
 
 </td>
-<td align="left"> <b style="font-size:7px;">ESTE ES UN PRÉSTAMO DE ALTO COSTO. PUEDE PODER OBTENER UN PRÉSTAMO DE ALGUIEN MÁS A UNA TASA DE INTERÉS MENOR. LS FINANCING LE RECOMIENDA PENSAR CUIDADOSAMENTE ANTES DE DECIDIR ADQUIRIR ESTE PRÉSTAMO.</b>
+<td align="left"> <b style="font-size:7px;">ESTE ES UN PRÉSTAMO DE ALTO COSTO. PUEDE PODER OBTENER UN PRÉSTAMO DE ALGUIEN MÁS A UNA TASA DE INTERÉS MENOR. Optima Financial Solutions Inc LE RECOMIENDA PENSAR CUIDADOSAMENTE ANTES DE DECIDIR ADQUIRIR ESTE PRÉSTAMO.</b>
 <br><br>
 Firma del Prestatario &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :
 <br><br>

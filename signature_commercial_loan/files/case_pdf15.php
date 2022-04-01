@@ -60,14 +60,14 @@ $style = array(
 
  $html = '
 <h1 style="text-align:center"> <span style="text-decoration:underline">AVISO DE PRIVACIDAD</span><br>
-LS FINANCING</h1>
+Optima Financial Solutions Inc</h1>
  
  
  <table style="width: 100%;" border="1">
 <tbody>
 <tr>
 <td style="width: 15.8733%; text-align:center; background-color:black;color:white"><br><br>HECHOS<br></td>
-<td style="width: 83.1267%; text-align:center"><br><br>QUE HACE LS FINANCING CON SU INFORMACION PERSONAL?<br></td>
+<td style="width: 83.1267%; text-align:center"><br><br>QUE HACE Optima Financial Solutions Inc CON SU INFORMACION PERSONAL?<br></td>
 </tr>
 <tr>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Porque?<br></td>
@@ -141,7 +141,7 @@ para ofrecerle nuestros productos y servicios<br></td>
 </tr>
 <tr>
 <td style="width: 60%;"><br><b>Preguntas ? </b> &nbsp;</td>
-<td colspan = "2" style="width: 20.1019%;">Llamenos al (866) 275-2677</td>
+<td colspan = "2" style="width: 20.1019%;">Llamenos al (818) 856-4302</td>
 </tr>
 </tbody>
 </table>

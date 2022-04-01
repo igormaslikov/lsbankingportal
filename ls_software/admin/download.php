@@ -88,7 +88,7 @@ Veronica Lozano<br>SSN : 351-26-6143<br>Address : 7253  7253 1/2  Richfield St  
 		</tr>
 		
 	<tr>
-			<td>LS FINANCING INC </td>
+			<td>Optima Financial Solutions Inc </td>
 			<td>1984405 </td>
 			<td>UNK</td>
 			<td>31 </td>
@@ -96,7 +96,7 @@ Veronica Lozano<br>SSN : 351-26-6143<br>Address : 7253  7253 1/2  Richfield St  
 			<td> 09172019</td>
 			<td>UNKNOWN </td>
 		</tr><tr>
-			<td>LS FINANCING INC </td>
+			<td>Optima Financial Solutions Inc </td>
 			<td>1984405 </td>
 			<td>UNK</td>
 			<td>31 </td>

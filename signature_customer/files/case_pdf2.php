@@ -254,20 +254,20 @@ $style = array(
      paper copy or are having problems receiving or stopping our text messages,
      please contact us using the following information: Optima Financial Solutions Inc 4645 Van
      Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@ofsca.com or
-     (866) 275-2677. You agree and consent to the contracted by the Company, our
+     (818) 856-4302. You agree and consent to the contracted by the Company, our
      agents, employees, attorneys, subsequent creditors, loan servicing companies
      and third party collectors through the use of email, and/or telephone calls,
      and/or SMS to your cellular, home or work phone numbers, as well as any other
      phone number you have provided in conjunction with this account, including
      the use of automatic telephoning dialing systems, auto-dialers, or an artificial or
      prerecorded voice.OPT-OUT or STOP This SMS Policy applies to the text
-     messages sent by LS Financing to our customers while and after they use our
+     messages sent by Optima Financial Solutions Inc to our customers while and after they use our
      service. If you wish to stop receiving SMS from Optima Financial Solutions Inc reply to any
      text message we have sent you and, in your reply, simply type STOP. Your stop
      request will become effective immediately. You may also stop SMS by calling,
      sending a letter or email us to the following information: Optima Financial Solutions Inc 4645
      Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@ofsca.com or
-     (866) 275-2677. HELP or SUPPORT If at any time you need our contact
+     (818) 856-4302. HELP or SUPPORT If at any time you need our contact
      information on how to stop SMS, reply to any text message we have sent you
      and, in this reply, simply type HELP. Upon receiving your text message, we will
      send you a text message with this information. The message we send provide
@@ -283,7 +283,7 @@ $style = array(
      SMS. You also understand that your mobile phone service provider any charge
      you fees for any SMS that we send you, and you agree that we shall have no
      liability for any cost related to such SMS. At any time, you may withdraw your
-     consent to receive marketing by calling us at (866) 275-2677.
+     consent to receive marketing by calling us at (818) 856-4302.
 
      <br>
      <br><br>
@@ -315,7 +315,7 @@ $style = array(
      copia en papel o tiene problemas para recibir o detener nuestros mensajes de
      texto, póngase en contacto con nosotros utilizando la siguiente información: LS
      Financing, Inc 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703
-     info@ofsca.com o (866) 275-2677.Usted acepta y consiente la contratación
+     info@ofsca.com o (818) 856-4302.Usted acepta y consiente la contratación
      por parte de la Compañía, nuestros agentes, empleados, abogados, acreedores
      posteriores, empresas de servicios de préstamos y coleccionistas de terceros a
      través del uso de correo electrónico, y / o llamadas telefónicas, y / o SMS a su
@@ -323,14 +323,14 @@ $style = array(
      número de teléfono que ha proporcionado en relación con esta cuenta,
      incluyendo el uso de sistemas de marcación telefónica automática, marcadores
      automáticos, o una voz artificial o pregrabada. OPTAR o DETENER
-     Esta Política de SMS se aplica a los mensajes de texto enviados por LS Financing
+     Esta Política de SMS se aplica a los mensajes de texto enviados por Optima Financial Solutions Inc
      a nuestros clientes mientras y después de que utilicen nuestro servicio. Si desea
      dejar de recibir SMS de Optima Financial Solutions Inc. responda a cualquier mensaje de texto
      que le hayamos enviado y, en su respuesta, simplemente escriba STOP. Su
      solicitud de interrupción se hará efectiva inmediatamente. También puede
      dejar de recibir SMS llamando, enviando una carta o un correo electrónico a la
      siguiente información Optima Financial Solutions Inc 4645 Van Nuys Boulevard Suite 202
-     Sherman Oaks, CA 91403 info@ofsca.com o (866) 275-2677.
+     Sherman Oaks, CA 91403 info@ofsca.com o (818) 856-4302.
      AYUDA o APOYO Si en algún momento necesita nuestra información de
      contacto sobre cómo detener los SMS, responda a cualquier mensaje de texto
      que le hayamos enviado y, en esta respuesta, simplemente escriba AYUDA. Al
@@ -349,7 +349,7 @@ $style = array(
      móvil puede cobrarle tarifas por cualquier SMS que le enviemos, y acepta que
      no tendremos ninguna responsabilidad por cualquier coste relacionado con
      dichos SMS. En cualquier momento, puede retirar su consentimiento para
-     recibir marketing llamándonos al (866) 275-2677.
+     recibir marketing llamándonos al (818) 856-4302.
      </td>
 </tr>
 </tbody>

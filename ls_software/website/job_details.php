@@ -42,7 +42,7 @@ $result = mysqli_query($con,$query);
 
     <link rel="icon" href="images/ok.png" type="image/x-icon" />
     <!-- Theme tittle -->
-    <title>LS Financing</title> 
+    <title>Optima Financial Solutions Inc</title> 
     
     <!-- Theme style CSS -->      
     <link href="css/style.css" rel="stylesheet"> 

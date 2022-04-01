@@ -225,8 +225,8 @@ $style = array(
  </td>
  <td>
  <b>Prestamista :</b> Optima <br>
- <b>Direccion        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
- <b>Telefono         :</b> 866-275-2677<br>
+ <b>Direccion        :</b> 11306 EAST 183RD ST SUITE 305A CERRITOS CA 90703<br>
+ <b>Telefono         :</b> 818-856-4302<br>
  <b>Licencia del Prestatario:</b> 10DBO-133110<br><br>
  </td>
   </tr>

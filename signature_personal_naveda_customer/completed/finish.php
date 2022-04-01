@@ -891,7 +891,7 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p65 ft31">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</P>
 <P class="p66 ft23">Authorization to make payments on my <SPAN class="ft29">Optima Financial Solutions Inc </SPAN>Loan # _______________ on continuig basis using the</P>
 <P class="p67 ft32">Credit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card Holder.</P>
-<P class="p68 ft23">Autorización para hacer pagos en mi cuenta de <SPAN class="ft29">LS Financing, </SPAN>Inc prestamo # _______________ sobre la base</P>
+<P class="p68 ft23">Autorización para hacer pagos en mi cuenta de <SPAN class="ft29">Optima Financial Solutions Inc, </SPAN>Inc prestamo # _______________ sobre la base</P>
 <P class="p69 ft32">continua utilizando la tarjeta de crédito que se describe a continuación y los términos de este préstamo , a menos que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito .</P>
 <P class="p70 ft23"><SPAN class="ft29">Type of Debit/Credit Card: </SPAN> <span style="color:blue"> <?php echo $type_of_card;?> </span> </P>
 <P class="p71 ft23"><SPAN class="ft29">Credit Card Number: </SPAN> <span style="color:blue"> <?php echo $card_number;?> </span></P>
@@ -1230,7 +1230,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD class="tr25 td90"><P class="p2 ft39">&nbsp;</P></TD>
-	<TD colspan=3 class="tr25 td91"><P class="p105 ft41">LS FINANCING</P></TD>
+	<TD colspan=3 class="tr25 td91"><P class="p105 ft41">Optima Financial Solutions Inc</P></TD>
 	<TD class="tr25 td92"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr25 td93"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
@@ -1243,7 +1243,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD class="tr13 td99"><P class="p106 ft48">HECHOS</P></TD>
-	<TD colspan=4 class="tr13 td100"><P class="p107 ft27">QUE HACE LS FINANCING CON SU INFORMACION PERSONAL?</P></TD>
+	<TD colspan=4 class="tr13 td100"><P class="p107 ft27">QUE HACE Optima Financial Solutions Inc CON SU INFORMACION PERSONAL?</P></TD>
 	<TD class="tr13 td101"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>

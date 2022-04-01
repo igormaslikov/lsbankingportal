@@ -345,7 +345,7 @@ B. DMV Registration Fees<br>
 </span>
 
 </td>
-<td align="left"> <b style="font-size:7px;">THIS IS A HIGH-COST LOAN. YOU MAY BE ABLE TO OBTAIN A LOAN FROM SOMEONE ELSE AT A LOWER INTEREST RATE. LS FINANCING ADVISES YOU TO THINK CAREFULLY BEFORE YOU DECIDE TO TAKE THIS LOAN.</b>
+<td align="left"> <b style="font-size:7px;">THIS IS A HIGH-COST LOAN. YOU MAY BE ABLE TO OBTAIN A LOAN FROM SOMEONE ELSE AT A LOWER INTEREST RATE. Optima Financial Solutions Inc ADVISES YOU TO THINK CAREFULLY BEFORE YOU DECIDE TO TAKE THIS LOAN.</b>
 <br><br>
 Borrower’s Signature &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :
 <br><br>

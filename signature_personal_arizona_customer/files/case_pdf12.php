@@ -225,7 +225,7 @@ Optima Financial Solutions Inc</h1>
 <tbody>
 <tr>
 <td style="width: 15.8733%; text-align:center; background-color:black;color:white"><br><br>HECHOS<br></td>
-<td style="width: 83.1267%; text-align:center"><br><br>QUE HACE LS FINANCING CON SU INFORMACION PERSONAL?<br></td>
+<td style="width: 83.1267%; text-align:center"><br><br>QUE HACE Optima Financial Solutions Inc CON SU INFORMACION PERSONAL?<br></td>
 </tr>
 <tr>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Porque?<br></td>

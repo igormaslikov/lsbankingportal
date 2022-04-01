@@ -53,7 +53,7 @@ $DBcon->close();
   $fname=$_GET['f_name'];
   $message = "Hola ".$fname.", 
   
-  Gracias por aplicar con LS Financing. Su aplicación fue recibida, ahora necesitamos verificar sus ingresos enviando el último estado de cuenta de su banco y para esto tenemos la siguientes opciones: - Texto: (818) 452-0541 - Fax: (888) 688-4925 - Email: denice@lsbanking.com";
+  Gracias por aplicar con Optima Financial Solutions Inc. Su aplicación fue recibida, ahora necesitamos verificar sus ingresos enviando el último estado de cuenta de su banco y para esto tenemos la siguientes opciones: - Texto: (818) 452-0541 - Fax: (888) 688-4925 - Email: denice@lsbanking.com";
   send_sms($phone,$message);
   ?>
   

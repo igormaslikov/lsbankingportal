@@ -292,7 +292,7 @@ curl_setopt_array($curl, array(
   CURLOPT_CUSTOMREQUEST => 'POST',
   CURLOPT_POSTFIELDS =>'{
   "payment_method": "card",
-  "Source": "LS Financing"
+  "Source": "Optima Financial Solutions Inc"
 }',
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json',
@@ -335,7 +335,7 @@ curl_setopt_array($curl, array(
   "card_number": "'.$card.'",
   "card_cvc": "'.$cvv.'",
   "card_expiration": "'.$expire_date.'",
-  "Source": "LS Financing",
+  "Source": "Optima Financial Solutions Inc",
   "PaymentChannel": "web"
 }',
   CURLOPT_HTTPHEADER => array(
@@ -381,7 +381,7 @@ curl_setopt_array($curl, array(
   "card_number": "'.$card.'",
   "card_cvc": "'.$cvv.'",
   "card_expiration": "'.$expire_date.'",
-  "Source": "LS Financing",
+  "Source": "Optima Financial Solutions Inc",
   "PaymentChannel": "web",
   "address_zip" : "'.$zip_code.'"
 }',

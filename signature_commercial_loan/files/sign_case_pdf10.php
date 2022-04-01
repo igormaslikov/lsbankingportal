@@ -238,7 +238,7 @@ SMS POLICY LOAN #<span style="text-decoration:underline">'.$loan_id_bor.'</span>
   <b style="text-align:center">OPT-OUT or STOP</b>
 </div>
 <br>
-<span style="font-size:8px">This SMS Policy applies to the text messages sent by LS Financing to our customers while and after they use our service. If you wish to stop receiving SMS from Optima Financial Solutions Inc reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling, sending a letter or email us to the following information: Optima Financial Solutions Inc 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703 info@ofsca.com or (747) 300-1542.</span>
+<span style="font-size:8px">This SMS Policy applies to the text messages sent by Optima Financial Solutions Inc to our customers while and after they use our service. If you wish to stop receiving SMS from Optima Financial Solutions Inc reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling, sending a letter or email us to the following information: Optima Financial Solutions Inc 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703 info@ofsca.com or (747) 300-1542.</span>
 <br>
 <div style="text-align:center;font-size:10px;">
   <b style="text-align:center">HELP or SUPPORT</b><br>

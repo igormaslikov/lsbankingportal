@@ -38,7 +38,7 @@ while($row = mysqli_fetch_array($sql)) {
     
     // Send SMS Start 
     
-      $message = "Hola ".$fname.",Gracias por aplicar con LS Financing. Su aplicaci車n fue pre aprobada ahora necesitamos verificar sus Cuenta Bancaria enviando los 3 迆ltimos estados de cuenta de su banco (Bank Statements) y para esto tenemos la siguientes opciones: email chanel@lsbanking.com por texto (323) 716-0413 Gracias!";
+      $message = "Hola ".$fname.",Gracias por aplicar con Optima Financial Solutions Inc. Su aplicaci車n fue pre aprobada ahora necesitamos verificar sus Cuenta Bancaria enviando los 3 迆ltimos estados de cuenta de su banco (Bank Statements) y para esto tenemos la siguientes opciones: email chanel@lsbanking.com por texto (323) 716-0413 Gracias!";
       send_sms($phone,$message);
     // Send SMS api Code end
     

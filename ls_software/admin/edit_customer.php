@@ -1776,7 +1776,7 @@ if (isset($_POST['btn-submit'])) {
     // Declined SMS Sent  start
 
     if ($app_status_update == 'Declined') {
-      $message = "Hola " . $first_name_update . " " . $last_name__update . ",Gracias por aplicar con LS Financing Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
+      $message = "Hola " . $first_name_update . " " . $last_name__update . ",Gracias por aplicar con Optima Financial Solutions Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
       send_sms($phone_number_update, $message);
     }
 

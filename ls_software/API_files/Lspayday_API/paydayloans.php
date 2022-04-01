@@ -224,7 +224,7 @@ $fname=$customer_fname;
   $lname= $customer_lname;
   $message = "Hola ".$fname." ".$lname.", 
 
-Gracias por aplicar con LS Financing Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
+Gracias por aplicar con Optima Financial Solutions Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
  
 $headers = 'From: info@ofsca.com';
 mail($to_email,$subject,$message,$headers);
@@ -238,7 +238,7 @@ mail($to_email,$subject,$message,$headers);
   $lname= $customer_lname;
   $message = "Hola ".$fname." ".$lname.", 
 
-Gracias por aplicar con LS Financing Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
+Gracias por aplicar con Optima Financial Solutions Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
   $curl = curl_init();
 
 curl_setopt_array($curl, array(
