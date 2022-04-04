@@ -265,8 +265,8 @@ $style = array(
      service. If you wish to stop receiving SMS from Optima Financial Solutions Inc reply to any
      text message we have sent you and, in your reply, simply type STOP. Your stop
      request will become effective immediately. You may also stop SMS by calling,
-     sending a letter or email us to the following information: Optima Financial Solutions Inc 4645
-     Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@ofsca.com or
+     sending a letter or email us to the following information: Optima Financial Solutions Inc 11306
+     EAST 183RD ST SUITE 305A CERRITOS CA 90703 info@ofsca.com or
      (818) 856-4302. HELP or SUPPORT If at any time you need our contact
      information on how to stop SMS, reply to any text message we have sent you
      and, in this reply, simply type HELP. Upon receiving your text message, we will
@@ -329,8 +329,8 @@ $style = array(
      que le hayamos enviado y, en su respuesta, simplemente escriba STOP. Su
      solicitud de interrupción se hará efectiva inmediatamente. También puede
      dejar de recibir SMS llamando, enviando una carta o un correo electrónico a la
-     siguiente información Optima Financial Solutions Inc 4645 Van Nuys Boulevard Suite 202
-     Sherman Oaks, CA 91403 info@ofsca.com o (818) 856-4302.
+     siguiente información Optima Financial Solutions Inc 11306 EAST 183RD ST SUITE 
+     305A CERRITOS CA 90703 info@ofsca.com o (818) 856-4302.
      AYUDA o APOYO Si en algún momento necesita nuestra información de
      contacto sobre cómo detener los SMS, responda a cualquier mensaje de texto
      que le hayamos enviado y, en esta respuesta, simplemente escriba AYUDA. Al

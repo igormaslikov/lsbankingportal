@@ -252,8 +252,8 @@ $style = array(
       sending you a SMS. We may terminate our SMS Policy at any time.
       If you have any questions about this SMS Policy, would like us to mail you a
       paper copy or are having problems receiving or stopping our text messages,
-      please contact us using the following information: Optima Financial Solutions Inc 4645 Van
-      Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@ofsca.com or
+      please contact us using the following information: Optima Financial Solutions Inc 11306 EAST 
+      183RD ST SUITE 305A CERRITOS CA 90703 info@ofsca.com or
       (818) 856-4302. You agree and consent to the contracted by the Company, our
       agents, employees, attorneys, subsequent creditors, loan servicing companies
       and third party collectors through the use of email, and/or telephone calls,
@@ -265,8 +265,8 @@ $style = array(
       service. If you wish to stop receiving SMS from Optima Financial Solutions Inc reply to any
       text message we have sent you and, in your reply, simply type STOP. Your stop
       request will become effective immediately. You may also stop SMS by calling,
-      sending a letter or email us to the following information: Optima Financial Solutions Inc 4645
-      Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@ofsca.com or
+      sending a letter or email us to the following information: Optima Financial Solutions Inc 11306
+      EAST 183RD ST SUITE 305A CERRITOS CA 90703 info@ofsca.com or
       (818) 856-4302. HELP or SUPPORT If at any time you need our contact
       information on how to stop SMS, reply to any text message we have sent you
       and, in this reply, simply type HELP. Upon receiving your text message, we will
@@ -315,8 +315,8 @@ $style = array(
       SMS. Podemos poner fin a nuestra Política de SMS en cualquier momento.Si
       tiene alguna pregunta sobre esta Política de SMS, desea que le enviemos una
       copia en papel o tiene problemas para recibir o detener nuestros mensajes de
-      texto, póngase en contacto con nosotros utilizando la siguiente información: LS
-      Financing, Inc 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703
+      texto, póngase en contacto con nosotros utilizando la siguiente información: Optima
+      Financial Solutions Inc 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703
       info@ofsca.com o (818) 856-4302.Usted acepta y consiente la contratación
       por parte de la Compañía, nuestros agentes, empleados, abogados, acreedores
       posteriores, empresas de servicios de préstamos y coleccionistas de terceros a
@@ -331,8 +331,8 @@ $style = array(
       que le hayamos enviado y, en su respuesta, simplemente escriba STOP. Su
       solicitud de interrupción se hará efectiva inmediatamente. También puede
       dejar de recibir SMS llamando, enviando una carta o un correo electrónico a la
-      siguiente información Optima Financial Solutions Inc 4645 Van Nuys Boulevard Suite 202
-      Sherman Oaks, CA 91403 info@ofsca.com o (818) 856-4302.
+      siguiente información Optima Financial Solutions Inc 11306 EAST 183RD ST SUITE 305A
+      CERRITOS CA 90703 info@ofsca.com o (818) 856-4302.
       AYUDA o APOYO Si en algún momento necesita nuestra información de
       contacto sobre cómo detener los SMS, responda a cualquier mensaje de texto
       que le hayamos enviado y, en esta respuesta, simplemente escriba AYUDA. Al
@@ -340,8 +340,8 @@ $style = array(
       información. El mensaje que enviamos le proporciona información sobre su
       cuenta. Algunos de los SMS que enviamos pueden incluir enlaces a sitios web.
       Para acceder a estos sitios web, necesitará un navegador web y acceso a
-      Internet.ACUERDO PARA RECIBIR SMS Al firmar esta sección, usted autoriza a LS
-      Financing, Inc o a nuestros agentes a enviar marketing al número de móvil que
+      Internet.ACUERDO PARA RECIBIR SMS Al firmar esta sección, usted autoriza a Optima
+      Financial Solutions Inc o a nuestros agentes a enviar marketing al número de móvil que
       nos ha proporcionado y que figura a continuación mediante un sistema de
       marcación automática, no está obligado a autorizar el marketing por SMS para
       obtener crédito u otros servicios de nosotros. Si no desea recibir, ventas o SMS

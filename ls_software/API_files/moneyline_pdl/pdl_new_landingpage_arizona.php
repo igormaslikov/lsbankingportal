@@ -162,7 +162,7 @@ $fname=$customer_fname;
   $lname= $customer_lname;
   $message_de = "Hola ".$fname." ".$lname.", 
 
-Thank you for submitting your application to Optima. Unfortunately your application has been declined. May be you have already pending application or your application has been rejected in last 7 days. If you have any questions regarding your application, contact us at support@mymoneyline.com and a team member will respond shortly.";
+Thank you for submitting your application to Optima Financial Solutions Inc. Unfortunately your application has been declined. May be you have already pending application or your application has been rejected in last 7 days. If you have any questions regarding your application, contact us at support@mymoneyline.com and a team member will respond shortly.";
  
 $headers = 'From: support@mymoneyline.com';
 // mail($to_email,$subject,$message,$headers);
@@ -195,8 +195,8 @@ $subject_re = 'Application Received';
 $fname=$customer_fname;
   $lname= $customer_lname;
   $message_re = "Hello ".$fname." ".$lname.", 
-Thank you for applying at Optima. We received your application. A team member will contact you shortly. 
-Gracias por aplicar en Optima. Recibimos su solicitud. Un miembro del equipo se comunicará con usted a la brevedad.
+Thank you for applying at Optima Financial Solutions Inc. We received your application. A team member will contact you shortly. 
+Gracias por aplicar en Optima Financial Solutions Inc. Recibimos su solicitud. Un miembro del equipo se comunicará con usted a la brevedad.
 If you have any questions you can always contact us at support@mymoneyline.com";
  
 $headers = 'From: support@mymoneyline.com';

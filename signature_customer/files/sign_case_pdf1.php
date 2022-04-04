@@ -229,7 +229,7 @@ $style = array(
     <b>Código postal:</b> '.$city.' '.$state.' '.$zip.'<br><br>
  </td>
  <td>
- <b>Prestamista :</b> Optima <br>
+ <b>Prestamista :</b> Optima Financial Solutions Inc<br>
  <b>Direccion        :</b> 11306 EAST 183RD ST SUITE 305A CERRITOS CA 90703<br>
  <b>Telefono         :</b> 818-856-4302<br>
  <b>Licencia del Prestatario:</b> 10DBO-133110<br><br>
@@ -307,7 +307,7 @@ tendrá derecho a la devolución de una parte del cargo de financiación.<br>
 cheque o el cargo preautorizado con el que el Prestatario paga es posteriormente devuelto por no suficientes fondos.
 <br>
 <b>Pago Diferido:</b>El cliente no puede ser procesado en una acción penal en relación con una transacción de depósito diferido para un cheque devuelto o
-ser amenazado con persecución. Optima no puede aceptar ninguna garantía en relación con una transacción de depósito diferido. Optima 
+ser amenazado con persecución. Optima Financial Solutions Inc no puede aceptar ninguna garantía en relación con una transacción de depósito diferido. Optima Financial Solutions Inc 
 no puede hacer una transacción de depósito diferido contingente en la compra de otro producto o servicio. El cheque del Prestatario forma parte
 de una transacción de depósito diferido realizada de conformidad con el artículo 23035 del Código Financiero y no está sujeto a las disposiciones del
 artículo 1719 del Código Civil. No se podrá exigir al Prestatario el pago de daños y perjuicios triples si este cheque no se hace efectivo
@@ -339,7 +339,7 @@ contrato
 <tr>
 <td> Firma del Prestatario</td>
 <td> Fecha</td>
-<td colspan="2"> Prestamista: Optima</td>
+<td colspan="2"> Prestamista: Optima Financial Solutions Inc</td>
 <td> Fecha</td>
 </tr>
 <tr>
