@@ -222,7 +222,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><div style="line-height:7px"><h1>Optima Financial Solutions Inc<h1>
+ $html = '<br><div style="line-height:7px"><h1>Optima Financial Solutions Inc</h1>
 <span style="font-size:8px">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
 </div>
  Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
@@ -234,7 +234,7 @@ $style = array(
  <div style="font-size:8px">
 <table border="0">
 <tbody>
-<tr >
+<tr>
      <td align="center"><b>SMS POLICY LOAN #</b><u>'.$loan_id_bor.'</u></td>
      <td align="center"><b>POLÍTICA DE SMS PRÉSTAMO #</b><u>'.$loan_id_bor.'</u></td>
 </tr>
