@@ -215,7 +215,7 @@ $style = array(
 
  $html = '
 <h1 style="text-align:center"> <span style="text-decoration:underline">AVISO DE PRIVACIDAD</span><br>
-Optima</h1>
+Optima Financial Solutions Inc</h1>
  
  
  <table style="width: 100%;" border="1">

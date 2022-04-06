@@ -225,7 +225,7 @@ $style = array(
 
 
  $html = '<br><div style="line-height:7px"><h1 style="text-align:center">PAYDAY LOAN CONTRACT AND DISCLOSURE STATEMENT</h1>
-<span style="text-align:center"> Lender: Optima Financial Solutions Inc 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</span><br><br>
+<span style="text-align:center"> Lender: Optima Financial Solutions Inc 11306 EAST 183RD ST SUITE 305A CERRITOS CA 90703</span><br><br>
 </div>
 Contract Date   :  '.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LOAN ID : '.$loan_id_bor.' <br>
 Borrower        : '. $f_name.'<br>
@@ -284,7 +284,7 @@ CHARGES OF ANY KIND. <br><br>
 WARNING: THIS LOAN IS NOT INTENTED TO MEET LONG-TERM FINANCIAL NEEDS. THIS LOAN SHOULD ONLY
 BE USED TO MEET SHORT-TERM CASH NEEDS. THE COST OF YOUR LOAN MAY BE HIGHER THAT LOANS
 OFFERED BY OTHER LENDING INSTITUTIONS. THIS LOAN IS REGULATED BY THE DEPARTMENT OF FINANCIAL
-AND PROFESSIONAL REGULATION.<br><br>
+PROTECTION AND INNOVATION.<br><br>
 YOU CANNOT BE PROSECUTED IN CRIMINAL COURT TO COLLECT THIS LOAN.
 </b>
 <br>

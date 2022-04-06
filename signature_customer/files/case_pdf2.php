@@ -222,7 +222,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><div style="line-height:7px"><h1>Optima</h1>
+ $html = '<br><div style="line-height:7px"><h1>Optima Financial Solutions Inc<h1>
 <span style="font-size:8px">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
 </div>
  Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
@@ -252,8 +252,8 @@ $style = array(
      sending you a SMS. We may terminate our SMS Policy at any time.
      If you have any questions about this SMS Policy, would like us to mail you a
      paper copy or are having problems receiving or stopping our text messages,
-     please contact us using the following information: Optima Financial Solutions Inc 4645 Van
-     Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@ofsca.com or
+     please contact us using the following information: Optima Financial Solutions Inc 11306 EAST 
+     183RD ST SUITE 305A CERRITOS CA 90703 info@ofsca.com or
      (818) 856-4302. You agree and consent to the contracted by the Company, our
      agents, employees, attorneys, subsequent creditors, loan servicing companies
      and third party collectors through the use of email, and/or telephone calls,
@@ -313,8 +313,8 @@ $style = array(
      SMS. Podemos poner fin a nuestra Política de SMS en cualquier momento.Si
      tiene alguna pregunta sobre esta Política de SMS, desea que le enviemos una
      copia en papel o tiene problemas para recibir o detener nuestros mensajes de
-     texto, póngase en contacto con nosotros utilizando la siguiente información: LS
-     Financing, Inc 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703
+     texto, póngase en contacto con nosotros utilizando la siguiente información: Optima
+     Financial Solutions Inc 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703
      info@ofsca.com o (818) 856-4302.Usted acepta y consiente la contratación
      por parte de la Compañía, nuestros agentes, empleados, abogados, acreedores
      posteriores, empresas de servicios de préstamos y coleccionistas de terceros a
@@ -338,8 +338,8 @@ $style = array(
      información. El mensaje que enviamos le proporciona información sobre su
      cuenta. Algunos de los SMS que enviamos pueden incluir enlaces a sitios web.
      Para acceder a estos sitios web, necesitará un navegador web y acceso a
-     Internet.ACUERDO PARA RECIBIR SMS Al firmar esta sección, usted autoriza a LS
-     Financing, Inc o a nuestros agentes a enviar marketing al número de móvil que
+     Internet.ACUERDO PARA RECIBIR SMS Al firmar esta sección, usted autoriza a Optima
+     Financial Solutions Inc o a nuestros agentes a enviar marketing al número de móvil que
      nos ha proporcionado y que figura a continuación mediante un sistema de
      marcación automática, no está obligado a autorizar el marketing por SMS para
      obtener crédito u otros servicios de nosotros. Si no desea recibir, ventas o SMS

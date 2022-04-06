@@ -251,7 +251,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><div style="line-height:7px"><h1>Optima</h1>
+ $html = '<br><div style="line-height:7px"><h1>Optima Financial Solutions Inc<h1>
  <span style="font-size:8px">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
  </div>
   <br>

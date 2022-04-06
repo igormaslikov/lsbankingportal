@@ -614,7 +614,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 
 <P class="p0 ft0">PAYDAY LOAN CONTRACT AND DISCLOSURE STATEMENT</P>
-<P class="p1 ft1">Lender: Optima Financial Solutions Inc 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</P>
+<P class="p1 ft1">Lender: Optima Financial Solutions Inc 11306 EAST 183RD ST SUITE 305A CERRITOS CA 90703</P>
 <TABLE cellpadding=0 cellspacing=0 class="t0">
 <TR>
 	<TD class="tr0 td0"><P class="p2 ft2">Contract Date:<span style="color:blue"><?php echo $creation_date;?></span></P></TD>

@@ -225,7 +225,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><div style="line-height:7px"><h1>Optima</h1>
+ $html = '<br><div style="line-height:7px"><h1>Optima Financial Solutions Inc<h1>
  <span style="font-size:8px">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
  </div>
   <br>
@@ -240,10 +240,10 @@ $style = array(
   <h2 style="text-align:center"><u>Debit Card Authorization Form</u></h2> 
  <span style="text-align:center">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
  
- Authorization to make payments on my <b>Optima</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuing basis using the
+ Authorization to make payments on my <b>Optima Financial Solutions Inc</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuing basis using the
  Debit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Debit Card
  Holder.<br><br>
- Autorización para hacer pagos en mi cuenta de <b>Optima, Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
+ Autorización para hacer pagos en mi cuenta de <b>Optima Financial Solutions Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
  continua utilizando la tarjeta de Débito que se describe a continuación y los términos de este préstamo , a menos
  que se indique lo contrario por escrito por el titular de la Tarjeta de Débito .
  
