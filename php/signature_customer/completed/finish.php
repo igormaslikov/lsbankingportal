@@ -1243,7 +1243,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD class="tr13 td99"><P class="p106 ft48">HECHOS</P></TD>
-	<TD colspan=4 class="tr13 td100"><P class="p107 ft27">QUE HACE Optima Financial Solutions Inc CON SU INFORMACION PERSONAL?</P></TD>
+	<TD colspan=4 class="tr13 td100"><P class="p107 ft27">QUE HACE Optima Financial Solutions Inc Financial Solutions Inc CON SU INFORMACION PERSONAL?</P></TD>
 	<TD class="tr13 td101"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
@@ -1338,7 +1338,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD rowspan=2 class="tr6 td104"><P class="p111 ft42">Como?</P></TD>
-	<TD colspan=4 class="tr18 td100"><P class="p108 ft22">personal de sus clientes; las razones por las cuales Optima Financial Solutions Inc elige compartir dicha informacion y si usted puede limitar</P></TD>
+	<TD colspan=4 class="tr18 td100"><P class="p108 ft22">personal de sus clientes; las razones por las cuales Optima Financial Solutions Inc Financial Solutions Inc elige compartir dicha informacion y si usted puede limitar</P></TD>
 	<TD class="tr18 td101"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>

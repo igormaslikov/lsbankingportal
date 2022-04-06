@@ -225,7 +225,7 @@ Optima Financial Solutions Inc</h1>
 <tbody>
 <tr>
 <td style="width: 15.8733%; text-align:center; background-color:black;color:white"><br><br>HECHOS<br></td>
-<td style="width: 83.1267%; text-align:center"><br><br>QUE HACE Optima Financial Solutions Inc CON SU INFORMACION PERSONAL?<br></td>
+<td style="width: 83.1267%; text-align:center"><br><br>QUE HACE Optima Financial Solutions Inc Financial Solutions Inc CON SU INFORMACION PERSONAL?<br></td>
 </tr>
 <tr>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Porque?<br></td>
@@ -246,7 +246,7 @@ datos pueden incluir:<br><br>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Como ? <br></td>
 <td style="width: 83.1267%;"><br><br>Todas las Empresas Financieras necesitan compartir la informacion personal de sus clientes para llevar a cabo sus actividades
 diarias. En la Seccion siguiente describimos las razones por las que las Empresas Financieras pueden compartir la informacion
-personal de sus clientes; las razones por las cuales Optima Financial Solutions Inc elige compartir dicha informacion y si usted puede limitar
+personal de sus clientes; las razones por las cuales Optima Financial Solutions Inc Financial Solutions Inc elige compartir dicha informacion y si usted puede limitar
 que se comparten dicha informacion. 
 <br><br></td>
 </tr>

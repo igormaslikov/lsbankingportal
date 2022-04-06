@@ -259,7 +259,7 @@ AUTORIZACIÓN DE PAGO RECURRENTE
 </h3>
 
 <div style="font-size:8px">
-1. Al firmar a continuación, el titular de la cuenta (“<b>usted</b>”) autoriza a Optima y sus afiliados (“<b>nosotros</b>”, “<b>nos</b>” y “<b>nuestro</b>”) para
+1. Al firmar a continuación, el titular de la cuenta (“<b>usted</b>”) autoriza a Optima Financial Solutions Inc y sus afiliados (“<b>nosotros</b>”, “<b>nos</b>” y “<b>nuestro</b>”) para
 retirar automáticamente sus pagos de préstamos de su cuenta de depósito que termina en xxxxxx'.$account_number.' (“<b>Cuenta</b>”) en '.$bank_name.'
 (“<b>Banco</b>”)  a través de entradas de débito electrónico recurrente ACH (“<b>Autorización</b>”). Usted
 nos autoriza a iniciar débitos de $'.$total_loan_payable.' (“<b>importe de débito programado</b>”) cada _ en las fechas de vencimiento de los

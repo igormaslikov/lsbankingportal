@@ -273,10 +273,10 @@ $style = array(
  
  <br><br><br>
   I, '.$f_name.', the undersigned hereby states that the above described Debit Card
- is in my name and that i authorize its charge to Optima for full or partial payments.
+ is in my name and that i authorize its charge to Optima Financial Solutions Inc for full or partial payments.
  <br><br>
   Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita
- en la parte superior y que autorizo su cargos a Optima para los pagos totales o parciales. <br><br><br>
+ en la parte superior y que autorizo su cargos aOptima Financial Solutions Inc para los pagos totales o parciales. <br><br><br>
  
  <img src="../completed/doc_signs/'.$img_signed.'" height="300%" alt=""><br>
  <hr style="width:53%" >

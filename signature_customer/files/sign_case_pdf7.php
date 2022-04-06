@@ -222,7 +222,7 @@ Optima Financial Solutions Inc</h1>
 <tbody>
 <tr>
 <td style="width: 15.8733%; text-align:center; background-color:black;color:white"><br><br>HECHOS<br></td>
-<td style="width: 83.1267%; text-align:center"><br><br>QUE HACE Optima CON SU INFORMACION PERSONAL?<br></td>
+<td style="width: 83.1267%; text-align:center"><br><br>QUE HACE Optima Financial Solutions Inc CON SU INFORMACION PERSONAL?<br></td>
 </tr>
 <tr>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Porque?<br></td>
@@ -243,7 +243,7 @@ datos pueden incluir:<br><br>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Como ? <br></td>
 <td style="width: 83.1267%;"><br><br>Todas las Empresas Financieras necesitan compartir la informacion personal de sus clientes para llevar a cabo sus actividades
 diarias. En la Seccion siguiente describimos las razones por las que las Empresas Financieras pueden compartir la informacion
-personal de sus clientes; las razones por las cuales Optima elige compartir dicha informacion y si usted puede limitar
+personal de sus clientes; las razones por las cuales Optima Financial Solutions Inc elige compartir dicha informacion y si usted puede limitar
 que se comparten dicha informacion. 
 <br><br></td>
 </tr>
@@ -255,7 +255,7 @@ que se comparten dicha informacion.
 <tbody>
 <tr>
 <td style="width: 60%; text-align:left; color:white; background-color:grey "><b>Razones por las que compartimos su informacion personal</b></td>
-<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>Optima
+<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>Optima Financial Solutions Inc
 Comparte?</b></td>
 <td style="width: 20.8981%; text-align:center;background-color:grey; color:white"><b>Usted puede limitar?</b></td>
 </tr>
@@ -299,7 +299,7 @@ para ofrecerle nuestros productos y servicios<br></td>
 </tr>
 <tr>
 <td style="width: 60%;"><br><b>Preguntas? </b> &nbsp;</td>
-<td colspan = "2" style="width: 20.1019%;">Llamenos al (888)-540-7232</td>
+<td colspan = "2" style="width: 20.1019%;">Llamenos al (818)-856-4302</td>
 </tr>
 </tbody>
 </table>

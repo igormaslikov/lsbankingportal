@@ -259,7 +259,7 @@ ACH RECURRING PAYMENT AUTHORIZATION
 </h3>
 
 <div style="font-size:8px">
-1. By signing below, Account Holder (“<b>you</b>”) authorizes Optima and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>our</b>”) to automatically withdraw
+1. By signing below, Account Holder (“<b>you</b>”) authorizes  Optima Financial Solutions Inc and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>our</b>”) to automatically withdraw
 your loan payments from your deposit account ending in xxxxxx'.$account_number.' (“<b>Account</b>”) at '.$bank_name.'
 (“<b>Bank</b>”) via recurring electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to
 initiate debits of $'.$total_loan_payable.' (“scheduled <b>debit amount</b>”) Every _ on the payment due dates, beginning on '.$payment_date.',
