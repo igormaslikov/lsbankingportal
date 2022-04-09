@@ -87,14 +87,14 @@ if ($result_count_loans=mysqli_query($con,$sql_count_loans))
     color: #fff;background-color: #2a8206;border-color: #112f01;height: 100px; width:14%;"><b style="text-align: center;line-height: 85px;">Create a Payday Loan</b></button> </a>
   
   
-  <a href="add_commercial_loan.php?id=<?php echo $cu_id ;?>&loan_amount=<?php echo $loan_amount; ?>&name=<?php echo $first_name;?>&ssn=<?php echo $ssn; ?>&loan=<?php echo "Commercial Loan"; ?>&next_pay_date=<?php echo "$next_pay_date"; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%); 
+  <!-- <a href="add_commercial_loan.php?id=<?php echo $cu_id ;?>&loan_amount=<?php echo $loan_amount; ?>&name=<?php echo $first_name;?>&ssn=<?php echo $ssn; ?>&loan=<?php echo "Commercial Loan"; ?>&next_pay_date=<?php echo "$next_pay_date"; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%); 
     color: #fff;background-color: #2a8206;border-color: #112f01;height: 100px; width:15%;"><b style="text-align: center;line-height: 85px;">Create a Commercial Loan</b></button> </a>
   
   <a href="add_personal_loan.php?id=<?php echo $cu_id ;?>&loan_amount=<?php echo $loan_amount; ?>&name=<?php echo $first_name;?>&ssn=<?php echo $ssn; ?>&loan=<?php echo "Personal Loans"; ?>&next_pay_date=<?php echo "$next_pay_date"; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%); 
     color: #fff;background-color: #2a8206;border-color: #112f01;height: 100px; width:14%;"><b style="text-align: center;line-height: 85px;">Create a Personal Loan</b></button> </a>
   
   <a href="add_title_loan.php?id=<?php echo $cu_id ;?>&loan_amount=<?php echo $loan_amount; ?>&name=<?php echo $first_name;?>&ssn=<?php echo $ssn; ?>&loan=<?php echo "Title Loans"; ?>&next_pay_date=<?php echo "$next_pay_date"; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%); 
-    color: #fff;background-color: #2a8206;border-color: #112f01;height: 100px; width:14%;"><b style="text-align: center;line-height: 85px;">Create a Title Loan</b></button> </a>
+    color: #fff;background-color: #2a8206;border-color: #112f01;height: 100px; width:14%;"><b style="text-align: center;line-height: 85px;">Create a Title Loan</b></button> </a> -->
     
 
     
