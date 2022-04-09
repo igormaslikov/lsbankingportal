@@ -396,7 +396,7 @@ if ($u_access_id == '0') {
                 <option value="Payday Loans" <?php if ($loan_name == 'Payday Loans') {
                                                 echo 'selected';
                                               } ?>>Payday Loans</option>
-                <option value="Title Loans" <?php if ($loan_name == 'Title Loans') {
+                <!-- <option value="Title Loans" <?php if ($loan_name == 'Title Loans') {
                                               echo 'selected';
                                             } ?>>Title Loans</option>
                 <option value="Personal Loans" <?php if ($loan_name == 'Personal Loans') {
@@ -404,7 +404,7 @@ if ($u_access_id == '0') {
                                                 } ?>>Personal Loans</option>
                 <option value="Commercial Loans" <?php if ($loan_name == 'Commercial Loans') {
                                                     echo 'selected';
-                                                  } ?>>Commercial Loans</option>
+                                                  } ?>>Commercial Loans</option> -->
 
               </select>
             </div>
