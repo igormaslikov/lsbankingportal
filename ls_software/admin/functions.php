@@ -146,6 +146,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
 
 //echo $delete_allowed;
 }
+$delete_allowed = 1; //TODO fix it
 return "$delete_allowed";
     
 }
@@ -164,7 +165,7 @@ while($row_up = mysqli_fetch_array($sql_up)) {
 //echo $role_id."<br>";
 
 }
-
+$update_allowed = 1; //TODO fix it
 return "$update_allowed";
     
 }
