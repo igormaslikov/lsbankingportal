@@ -514,26 +514,26 @@ $DBcon->close();
 
     //Review Payday CA Start
 
-    $sql_rev_payday_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Payday CA' ";
+    // $sql_rev_payday_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Payday CA' ";
 
-    if ($result_rev_payday_ca = mysqli_query($con, $sql_rev_payday_ca)) {
-      // Return the number of rows in result set
-      $rowcount_rev_payday_ca = mysqli_num_rows($result_rev_payday_ca);
-      // printf($rowcount_rev_payday_ca);
-    }
+    // if ($result_rev_payday_ca = mysqli_query($con, $sql_rev_payday_ca)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_rev_payday_ca = mysqli_num_rows($result_rev_payday_ca);
+    //   // printf($rowcount_rev_payday_ca);
+    // }
 
-    //Review Payday CA  end
+    // //Review Payday CA  end
 
 
-    //DL/Bank Payday CA Start
+    // //DL/Bank Payday CA Start
 
-    $sql_dl_bank_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Payday CA' ";
+    // $sql_dl_bank_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Payday CA' ";
 
-    if ($result_dl_bank_ca = mysqli_query($con, $sql_dl_bank_ca)) {
-      // Return the number of rows in result set
-      $rowcount_dl_bank_ca = mysqli_num_rows($result_dl_bank_ca);
-      // printf($rowcount_dl_bank_ca);
-    }
+    // if ($result_dl_bank_ca = mysqli_query($con, $sql_dl_bank_ca)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_dl_bank_ca = mysqli_num_rows($result_dl_bank_ca);
+    //   // printf($rowcount_dl_bank_ca);
+    // }
 
     // DL/Bank Payday CA end
 
@@ -549,31 +549,31 @@ $DBcon->close();
       // printf($rowcount_dl_bank_install_ca);
     }
 
-    // DL/Bank Installment CA end
+    // // DL/Bank Installment CA end
 
 
-    //DL/Bank Installment NV Start
+    // //DL/Bank Installment NV Start
 
-    $sql_dl_bank_install_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Installment NV' ";
+    // $sql_dl_bank_install_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Installment NV' ";
 
-    if ($result_dl_bank_install_nv = mysqli_query($con, $sql_dl_bank_install_nv)) {
-      // Return the number of rows in result set
-      $rowcount_dl_bank_install_nv = mysqli_num_rows($result_dl_bank_install_nv);
-      // printf($rowcount_dl_bank_install_nv);
-    }
+    // if ($result_dl_bank_install_nv = mysqli_query($con, $sql_dl_bank_install_nv)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_dl_bank_install_nv = mysqli_num_rows($result_dl_bank_install_nv);
+    //   // printf($rowcount_dl_bank_install_nv);
+    // }
 
-    // DL/Bank Installment NV end
+    // // DL/Bank Installment NV end
 
 
-    // DL/Bank Installment AZ Start
+    // // DL/Bank Installment AZ Start
 
-    $sql_dl_bank_install_az = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Installment AZ' ";
+    // $sql_dl_bank_install_az = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Installment AZ' ";
 
-    if ($result_dl_bank_install_az = mysqli_query($con, $sql_dl_bank_install_az)) {
-      // Return the number of rows in result set
-      $rowcount_dl_bank_install_az = mysqli_num_rows($result_dl_bank_install_az);
-      // printf($rowcount_dl_bank_install_az);
-    }
+    // if ($result_dl_bank_install_az = mysqli_query($con, $sql_dl_bank_install_az)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_dl_bank_install_az = mysqli_num_rows($result_dl_bank_install_az);
+    //   // printf($rowcount_dl_bank_install_az);
+    // }
 
     // DL/Bank Installment AZ end
 
@@ -583,30 +583,30 @@ $DBcon->close();
 
     //Approved Payday NV Start
 
-    $sql_aprovd_paydy_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday NV' ";
+    // $sql_aprovd_paydy_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday NV' ";
 
-    if ($result_aprovd_paydy_nv = mysqli_query($con, $sql_aprovd_paydy_nv)) {
-      // Return the number of rows in result set
-      $rowcount_aprovd_paydy_nv = mysqli_num_rows($result_aprovd_paydy_nv);
-      // printf($rowcount_aprovd_paydy_nv);
-    }
+    // if ($result_aprovd_paydy_nv = mysqli_query($con, $sql_aprovd_paydy_nv)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_aprovd_paydy_nv = mysqli_num_rows($result_aprovd_paydy_nv);
+    //   // printf($rowcount_aprovd_paydy_nv);
+    // }
 
-    // Approved Payday NV end
-
-
+    // // Approved Payday NV end
 
 
 
 
-    //Approved Installment NV Start
 
-    $sql_aprovd_install_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Installment NV' ";
 
-    if ($result_install_paydy_nv = mysqli_query($con, $sql_aprovd_install_nv)) {
-      // Return the number of rows in result set
-      $rowcount_install_paydy_nv = mysqli_num_rows($result_install_paydy_nv);
-      // printf($rowcount_install_paydy_nv);
-    }
+    // //Approved Installment NV Start
+
+    // $sql_aprovd_install_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Installment NV' ";
+
+    // if ($result_install_paydy_nv = mysqli_query($con, $sql_aprovd_install_nv)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_install_paydy_nv = mysqli_num_rows($result_install_paydy_nv);
+    //   // printf($rowcount_install_paydy_nv);
+    // }
 
     // Approved Installment NV end
 
@@ -621,9 +621,9 @@ $DBcon->close();
       // printf($rowcount_aprovd_intall_ca);
     }
 
-    // Approved Installment CA end
+    // // Approved Installment CA end
 
-    //Review CA Start
+    // //Review CA Start
 
     $sql_rev_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Installment CA' ";
 
@@ -633,46 +633,46 @@ $DBcon->close();
       // printf($rowcount_rev_ca);
     }
 
-    // Review CA end
+    // // Review CA end
 
 
 
 
-    //Approved Installment AZ Start
+    // //Approved Installment AZ Start
 
-    $sql_aprovd_install_az = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Installment AZ' ";
+    // $sql_aprovd_install_az = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Installment AZ' ";
 
-    if ($result_install_paydy_az = mysqli_query($con, $sql_aprovd_install_az)) {
-      // Return the number of rows in result set
-      $rowcount_install_paydy_az = mysqli_num_rows($result_install_paydy_az);
-      // printf($rowcount_install_paydy_az);
-    }
+    // if ($result_install_paydy_az = mysqli_query($con, $sql_aprovd_install_az)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_install_paydy_az = mysqli_num_rows($result_install_paydy_az);
+    //   // printf($rowcount_install_paydy_az);
+    // }
 
     // Approved Installment AZ end
 
 
     //Review Installment AZ Start
 
-    $sql_rev_install_az = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Installment AZ' ";
+    // $sql_rev_install_az = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Installment AZ' ";
 
-    if ($resul_rev_install_az = mysqli_query($con, $sql_rev_install_az)) {
-      // Return the number of rows in result set
-      $rowcount_rev_install_az = mysqli_num_rows($resul_rev_install_az);
-      // printf($rowcount_rev_install_az);
-    }
+    // if ($resul_rev_install_az = mysqli_query($con, $sql_rev_install_az)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_rev_install_az = mysqli_num_rows($resul_rev_install_az);
+    //   // printf($rowcount_rev_install_az);
+    // }
 
-    // Review Installment AZ end
+    // // Review Installment AZ end
 
 
-    //Review Installment nv Start
+    // //Review Installment nv Start
 
-    $sql_rev_install_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Installment NV' ";
+    // $sql_rev_install_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Installment NV' ";
 
-    if ($resul_rev_install_nv = mysqli_query($con, $sql_rev_install_nv)) {
-      // Return the number of rows in result set
-      $rowcount_rev_install_nv = mysqli_num_rows($resul_rev_install_nv);
-      // printf($rowcount_rev_install_nv);
-    }
+    // if ($resul_rev_install_nv = mysqli_query($con, $sql_rev_install_nv)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_rev_install_nv = mysqli_num_rows($resul_rev_install_nv);
+    //   // printf($rowcount_rev_install_nv);
+    // }
 
     // Review Installment AZ end
 
@@ -693,59 +693,57 @@ $DBcon->close();
 
     //Approved Payday CA Start
 
-    $sql_aprovd_paydy_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday CA' ";
+    // $sql_aprovd_paydy_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday CA' ";
 
-    if ($result_aprovd_paydy_ca = mysqli_query($con, $sql_aprovd_paydy_ca)) {
-      // Return the number of rows in result set
-      $rowcount_aprovd_paydy_ca = mysqli_num_rows($result_aprovd_paydy_ca);
-      // printf($rowcount_aprovd_paydy_ca);
-    }
+    // if ($result_aprovd_paydy_ca = mysqli_query($con, $sql_aprovd_paydy_ca)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_aprovd_paydy_ca = mysqli_num_rows($result_aprovd_paydy_ca);
+    //   // printf($rowcount_aprovd_paydy_ca);
+    // }
 
-    // Approved Payday CA end
-
-
-
-    //Approved Payday NV Start
-
-    $sql_aprovd_paydy_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday NV' ";
-
-    if ($result_aprovd_paydy_nv = mysqli_query($con, $sql_aprovd_paydy_nv)) {
-      // Return the number of rows in result set
-      $rowcount_aprovd_paydy_nv = mysqli_num_rows($result_aprovd_paydy_nv);
-      // printf($rowcount_aprovd_paydy_nv);
-    }
-
-    // Approved Payday NV end
+    // // Approved Payday CA end
 
 
 
+    // //Approved Payday NV Start
 
-    //Review Payday NV Start
+    // $sql_aprovd_paydy_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday NV' ";
 
-    $sql_rev_payday_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Payday NV' ";
+    // if ($result_aprovd_paydy_nv = mysqli_query($con, $sql_aprovd_paydy_nv)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_aprovd_paydy_nv = mysqli_num_rows($result_aprovd_paydy_nv);
+    //   // printf($rowcount_aprovd_paydy_nv);
+    // }
 
-    if ($result_rev_payday_nv = mysqli_query($con, $sql_rev_payday_nv)) {
-      // Return the number of rows in result set
-      $rowcount_rev_payday_nv = mysqli_num_rows($result_rev_payday_nv);
-      // printf($rowcount_rev_payday_nv);
-    }
-
-    //Review Payday NV  end
-
-
-    //DL/Bank Payday NV Start
-
-    $sql_dl_bank_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Payday NV' ";
-
-    if ($result_dl_bank_nv = mysqli_query($con, $sql_dl_bank_nv)) {
-      // Return the number of rows in result set
-      $rowcount_dl_bank_nv = mysqli_num_rows($result_dl_bank_nv);
-      // printf($rowcount_dl_bank_nv);
-    }
-
-    // DL/Bank Payday NV end
+    // // Approved Payday NV end
 
 
+
+
+    // //Review Payday NV Start
+
+    // $sql_rev_payday_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Payday NV' ";
+
+    // if ($result_rev_payday_nv = mysqli_query($con, $sql_rev_payday_nv)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_rev_payday_nv = mysqli_num_rows($result_rev_payday_nv);
+    //   // printf($rowcount_rev_payday_nv);
+    // }
+
+    // //Review Payday NV  end
+
+
+    // //DL/Bank Payday NV Start
+
+    // $sql_dl_bank_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Payday NV' ";
+
+    // if ($result_dl_bank_nv = mysqli_query($con, $sql_dl_bank_nv)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_dl_bank_nv = mysqli_num_rows($result_dl_bank_nv);
+    //   // printf($rowcount_dl_bank_nv);
+    // }
+
+    // // DL/Bank Payday NV end
 
 
 
@@ -753,43 +751,45 @@ $DBcon->close();
 
 
 
-    //Approved Payday IL Start
-
-    $sql_aprovd_paydy_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday IL' ";
-
-    if ($result_aprovd_paydy_il = mysqli_query($con, $sql_aprovd_paydy_il)) {
-      // Return the number of rows in result set
-      $rowcount_aprovd_paydy_il = mysqli_num_rows($result_aprovd_paydy_il);
-      // printf($rowcount_aprovd_paydy_nv);
-    }
-
-    // Approved Payday IL end
 
 
+    // //Approved Payday IL Start
+
+    // $sql_aprovd_paydy_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday IL' ";
+
+    // if ($result_aprovd_paydy_il = mysqli_query($con, $sql_aprovd_paydy_il)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_aprovd_paydy_il = mysqli_num_rows($result_aprovd_paydy_il);
+    //   // printf($rowcount_aprovd_paydy_nv);
+    // }
+
+    // // Approved Payday IL end
 
 
-    //Review Payday IL Start
-
-    $sql_rev_payday_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Payday IL' ";
-
-    if ($result_rev_payday_il = mysqli_query($con, $sql_rev_payday_il)) {
-      // Return the number of rows in result set
-      $rowcount_rev_payday_il = mysqli_num_rows($result_rev_payday_il);
-      // printf($rowcount_rev_payday_il);
-    }
-
-    //Review Payday IL  end
 
 
-    //DL/Bank Payday NV Start
+    // //Review Payday IL Start
 
-    $sql_dl_bank_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Payday IL' ";
+    // $sql_rev_payday_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Payday IL' ";
 
-    if ($result_dl_bank_il = mysqli_query($con, $sql_dl_bank_il)) {
-      // Return the number of rows in result set
-      $rowcount_dl_bank_il = mysqli_num_rows($result_dl_bank_il);
-      // printf($rowcount_dl_bank_il);
-    }
+    // if ($result_rev_payday_il = mysqli_query($con, $sql_rev_payday_il)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_rev_payday_il = mysqli_num_rows($result_rev_payday_il);
+    //   // printf($rowcount_rev_payday_il);
+    // }
+
+    // //Review Payday IL  end
+
+
+    // //DL/Bank Payday NV Start
+
+    // $sql_dl_bank_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Payday IL' ";
+
+    // if ($result_dl_bank_il = mysqli_query($con, $sql_dl_bank_il)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_dl_bank_il = mysqli_num_rows($result_dl_bank_il);
+    //   // printf($rowcount_dl_bank_il);
+    // }
 
     // DL/Bank Payday NV end
 
@@ -799,41 +799,41 @@ $DBcon->close();
 
     //Approved Payday IL Start
 
-    $sql_aprovd_install_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Installment IL' ";
+    // $sql_aprovd_install_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Installment IL' ";
 
-    if ($result_aprovd_install_il = mysqli_query($con, $sql_aprovd_install_il)) {
-      // Return the number of rows in result set
-      $rowcount_aprovd_install_il = mysqli_num_rows($result_aprovd_install_il);
-      // printf($rowcount_aprovd_install_nv);
-    }
+    // if ($result_aprovd_install_il = mysqli_query($con, $sql_aprovd_install_il)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_aprovd_install_il = mysqli_num_rows($result_aprovd_install_il);
+    //   // printf($rowcount_aprovd_install_nv);
+    // }
 
-    // Approved Payday IL end
-
-
+    // // Approved Payday IL end
 
 
-    //Review Payday IL Start
-
-    $sql_rev_install_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Installment IL' ";
-
-    if ($result_rev_install_il = mysqli_query($con, $sql_rev_install_il)) {
-      // Return the number of rows in result set
-      $rowcount_rev_install_il = mysqli_num_rows($result_rev_install_il);
-      // printf($rowcount_rev_install_il);
-    }
-
-    //Review Payday IL  end
 
 
-    //DL/Bank Payday NV Start
+    // //Review Payday IL Start
 
-    $sql_dl_bank_install_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Installment IL' ";
+    // $sql_rev_install_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Installment IL' ";
 
-    if ($result_dl_bank_install_il = mysqli_query($con, $sql_dl_bank_install_il)) {
-      // Return the number of rows in result set
-      $rowcount_dl_bank_install_il = mysqli_num_rows($result_dl_bank_install_il);
-      // printf($rowcount_dl_bank_install_il);
-    }
+    // if ($result_rev_install_il = mysqli_query($con, $sql_rev_install_il)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_rev_install_il = mysqli_num_rows($result_rev_install_il);
+    //   // printf($rowcount_rev_install_il);
+    // }
+
+    // //Review Payday IL  end
+
+
+    // //DL/Bank Payday NV Start
+
+    // $sql_dl_bank_install_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Installment IL' ";
+
+    // if ($result_dl_bank_install_il = mysqli_query($con, $sql_dl_bank_install_il)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_dl_bank_install_il = mysqli_num_rows($result_dl_bank_install_il);
+    //   // printf($rowcount_dl_bank_install_il);
+    // }
 
     // DL/Bank Payday NV end
 
@@ -878,7 +878,7 @@ $DBcon->close();
 -->
 
 
-      <div class="col-lg-4">
+      <!-- <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Payday CA :<b style="color:red"> <?php echo $rowcount_aprovd_paydy_ca; ?></b></a></p>
       </div>
       <div class="col-lg-4">
@@ -905,7 +905,7 @@ $DBcon->close();
       </div>
       <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Payday+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday IL :<b style="color:red"> <?php echo $rowcount_dl_bank_il; ?></b></a></p>
-      </div>
+      </div> -->
 
       <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Installment+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Commercial CA :<b style="color:red"> <?php echo $rowcount_aprovd_intall_ca; ?></b></a></p>
@@ -917,7 +917,7 @@ $DBcon->close();
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Installment+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Commercial CA :<b style="color:red"> <?php echo $rowcount_dl_bank_install_ca; ?></b></a></p>
       </div>
 
-
+<!-- 
       <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Installment+AZ&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Installment AZ :<b style="color:red"> <?php echo $rowcount_install_paydy_az; ?></b></a></p>
       </div>
@@ -945,7 +945,7 @@ $DBcon->close();
       </div>
       <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Installment+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Installment NV : <b style="color:red"> <?php echo $rowcount_dl_bank_install_nv; ?> </b></a></p>
-      </div>
+      </div> -->
 
       <!--<div class="col-lg-4"><p style="color:black;font-weight: bold"><a  href = "<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Info+Needed&website=All&keyword=&from_date=&to_date=&search=">Info Needed :<b style="color:red"> <?php echo $rowcount_inf_needed; ?></b></a></p></div>-->
       <!--<div class="col-lg-3"><p style="color:black;font-weight: bold"><a  href = "<?php echo $url_origin; ?>/ls_software/admin/view_all_customer.php?status=Decision+Logic+Completed&website=All&keyword=&from_date=&to_date=&search=">Decision Logic Completed :<b style="color:red"> <?php //echo $rowcount_dl_completed;
@@ -962,7 +962,7 @@ $DBcon->close();
     </div>
 
 
-    <a href="" style="font-weight: bold; font-weight:900;font-size:22px">PAYDAY LOAN SUMMARY</a><br>
+    <!-- <a href="" style="font-weight: bold; font-weight:900;font-size:22px">PAYDAY LOAN SUMMARY</a><br>
 
 
 
@@ -977,7 +977,7 @@ $DBcon->close();
 -->
 
 
-      <div class="col-lg-2">
+      <!-- <div class="col-lg-2">
         <p style="color:black;font-weight: bold"><a href="view_specific_payday_loans.php?status=Pending&keyword=&from_date=&loan_date=&due_date=&to_date=&search=">Pending:<b style="color:red"> <?php echo $rowcount_pending; ?></b></a></p>
       </div>
       <div class="col-lg-2">
@@ -994,13 +994,13 @@ $DBcon->close();
       </div>
       <div class="col-lg-2">
         <p style="color:black;font-weight: bold"><a href="view_specific_payday_loans.php?status=Chargeback&keyword=&from_date=&loan_date=&due_date=&to_date=&search=">Chargeback:<b style="color:red"> <?php echo $rowcount_chargeback; ?></b></a></p>
-      </div>
+      </div> -->
 
 
 
 
 
-      <div class="col-lg-2">
+      <!-- <div class="col-lg-2">
         <p style="color:black;font-weight: bold"><a href="view_specific_payday_loans.php?status=Disbursement&keyword=&from_date=&loan_date=&due_date=&to_date=&search=">Disbursement:<b style="color:red"> <?php echo $rowcount_disbursement; ?></b></a></p>
       </div>
       <div class="col-lg-2">
@@ -1021,7 +1021,7 @@ $DBcon->close();
 
 
 
-    </div>
+    </div>  -->
 
 
 

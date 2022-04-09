@@ -225,7 +225,7 @@ $url_origin = getMyUrl("/loanportal");
             </li></ul></li>
             
             
-            <li class="loan">
+            <!-- <li class="loan">
             <ul id='menu' style="padding-left:0px">
             <li class="loan">
             <a href="view_all_payday_loans.php" style="color:white;font-size:20px">Payday Loan</a>
@@ -238,10 +238,10 @@ $url_origin = getMyUrl("/loanportal");
                 </ul>
             </li>
             </ul>
-            </li>
+            </li> -->
             
             
-            <li class="loan">
+            <!-- <li class="loan">
            <ul id='menu' style="padding-left:0px">
             <li class="loan"><a href="view_all_personal_loans.php"  style="color:white;font-size:20px">Personal Loan</a>
             
@@ -254,7 +254,7 @@ $url_origin = getMyUrl("/loanportal");
             
             </li></ul>
             </li>
-            <li class="loan"><a href="view_all_title_loans.php"  style="color:white;">Title Loan</a></li>
+            <li class="loan"><a href="view_all_title_loans.php"  style="color:white;">Title Loan</a></li> -->
             <li class="loan"><a href="#"  style="color:white;">Reports</a></li>
             <!--<li class="loan"><a href="<?php echo $url_origin; ?>/ls_software/admin/marketing.php"  style="color:white;">Marketing</a></li>-->
             
