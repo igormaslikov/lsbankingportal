@@ -268,25 +268,7 @@ include('db.php');
 
 include('db.php');
 	      	
-	       	echo "<tr>
-			  <td align='center'>Commercial Loan Application</td>
-	 		  <td align='center'>Letter</td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-print' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-pencil' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-file' alt=''></i></a></td>
-		   	  
-
-		   	  </tr>
-		   	  
-		   	  <tr>
-			  <td align='center'>Personal Loan Application</td>
-	 		  <td align='center'>Letter</td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-print' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-pencil' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-file' alt=''></i></a></td>
-		   	  </tr>
-		   	  
-		   	  
+	       	echo "
 		   	  <tr>
 			  <td align='center'>Payday Loan Contract</td>
 	 		  <td align='center'>Letter</td>
@@ -294,26 +276,6 @@ include('db.php');
 	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-pencil' alt=''></i></a></td>
 	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-file' alt=''></i></a></td>
 		   	  </tr>
-		   	  
-		   	  <tr>
-			  <td align='center'>Personal Loan Contract</td>
-	 		  <td align='center'>Letter</td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-print' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-pencil' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-file' alt=''></i></a></td>
-		   	  </tr>
-		   	  
-		   	  
-		   	  <tr>
-			  <td align='center'>Commercial Loan Contract</td>
-	 		  <td align='center'>Letter</td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-print' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-pencil' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-file' alt=''></i></a></td>
-		   	  </tr>
-		   	  
-		   	  
-		   	  
 		   	  
 		   	  
 		   	  ";
@@ -352,22 +314,6 @@ include('db.php');
 
 		   	  </tr>
 		   	  
-		   	  <tr>
-			  <td align='center'>Delinquent Personal Loan Letter</td>
-	 		  <td align='center'>Letter</td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-print' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-pencil' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-file' alt=''></i></a></td>
-		   	  </tr>
-		   	  
-		   	  
-		   	  <tr>
-			  <td align='center'>Delinquent Commercial Loan Letter</td>
-	 		  <td align='center'>Letter</td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-print' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-pencil' alt=''></i></a></td>
-	 		  <td align='center'><a href='?id=".$transaction_id."' title=''><i class='glyphicon glyphicon-file' alt=''></i></a></td>
-		   	  </tr>
 		   	  ";
      
 	mysqli_close($con);
