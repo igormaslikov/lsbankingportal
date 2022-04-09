@@ -1,7 +1,7 @@
 <?php 
 date_default_timezone_set('America/Los_Angeles');
 //include_once($_SERVER['DOCUMENT_ROOT'].'/dbconnect.php');
-$conn = new mysqli("50.62.151.36","message_chat","admin$$123","message_chat");
+$conn = new mysqli("213.136.93.169","ki902621_pacificafinancegroup_message_chat_user",'5W6DW!uv$$Yx',"ki902621_pacificafinancegroup_message_chat");
 $count=0;
 $sql2="SELECT * FROM webchat_lines WHERE notification_status = 0";
 $result=mysqli_query($conn, $sql2);
@@ -18,7 +18,7 @@ function getMyUrl($added_to_link)
   return $protocol.$server.$port;
 }
 // $url_origin = getMyUrl("/lsbankingportal");
-$url_origin = getMyUrl("/lsbankingportal");
+$url_origin = getMyUrl("/loanportal");
 ?>
 
 <html>
@@ -192,7 +192,7 @@ $url_origin = getMyUrl("/lsbankingportal");
 <br><br><br><br>
 <nav class="navbar navbar-default navbar-fixed-top top-menu">
     <div class="container"  style="background-color:white;width:100%;height:60px">
-        <img src='../website/images/Money-Line-Logo.JPG' style="height:100%" align="left"/>
+        <img src='../website/images/pacifica.jpeg' style="height:100%" align="left"/>
     </div>
       
       
