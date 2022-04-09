@@ -27,6 +27,7 @@ if (isset($_POST['btn-submit'])) {
   $payment_date = $_POST['payment_date'];
   $state_insrt = $_POST['state'];
   $member_military = $_POST['member_military'];
+  $u_id = $_POST['u_id'];
 
   $member_military_percent_fee = $member_military == "Yes" ? 0.078222 : 1;
   $amount_loan_ca = number_format((float)$amount_loan_ca, 2, '.', '');
@@ -387,6 +388,7 @@ if ($u_access_id == '0') {
           <h4 style="text-align:center">Direct deposit : <span style="color:red"><?php echo $direct_deposit; ?></span> </h4>
 
           <input type="text" name="name_id" value="<?php echo $name_id; ?>" style="display:none;">
+          <input type="text" name="u_id" value="<?php echo $u_id; ?>" style="display:none;">
 
           <div class="row">
 
