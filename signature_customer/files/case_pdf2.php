@@ -253,7 +253,7 @@ $style = array(
      If you have any questions about this SMS Policy, would like us to mail you a
      paper copy or are having problems receiving or stopping our text messages,
      please contact us using the following information: Pacifica Finance Group 4645 Van
-     Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or
+     Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@pacificafinancegroup.com or
      (323) 797-5398. You agree and consent to the contracted by the Company, our
      agents, employees, attorneys, subsequent creditors, loan servicing companies
      and third party collectors through the use of email, and/or telephone calls,
@@ -266,7 +266,7 @@ $style = array(
      text message we have sent you and, in your reply, simply type STOP. Your stop
      request will become effective immediately. You may also stop SMS by calling,
      sending a letter or email us to the following information: Pacifica Finance Group 4645
-     Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or
+     Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@pacificafinancegroup.com or
      (323) 797-5398. HELP or SUPPORT If at any time you need our contact
      information on how to stop SMS, reply to any text message we have sent you
      and, in this reply, simply type HELP. Upon receiving your text message, we will
@@ -315,7 +315,7 @@ $style = array(
      copia en papel o tiene problemas para recibir o detener nuestros mensajes de
      texto, póngase en contacto con nosotros utilizando la siguiente información: LS
      Financing, Inc 5900 S Eastern Ave Suite 114 Commerce, CA 90040
-     info@lsbanking.com o (323) 797-5398.Usted acepta y consiente la contratación
+     info@pacificafinancegroup.com o (323) 797-5398.Usted acepta y consiente la contratación
      por parte de la Compañía, nuestros agentes, empleados, abogados, acreedores
      posteriores, empresas de servicios de préstamos y coleccionistas de terceros a
      través del uso de correo electrónico, y / o llamadas telefónicas, y / o SMS a su
@@ -330,7 +330,7 @@ $style = array(
      solicitud de interrupción se hará efectiva inmediatamente. También puede
      dejar de recibir SMS llamando, enviando una carta o un correo electrónico a la
      siguiente información Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202
-     Sherman Oaks, CA 91403 info@lsbanking.com o (323) 797-5398.
+     Sherman Oaks, CA 91403 info@pacificafinancegroup.com o (323) 797-5398.
      AYUDA o APOYO Si en algún momento necesita nuestra información de
      contacto sobre cómo detener los SMS, responda a cualquier mensaje de texto
      que le hayamos enviado y, en esta respuesta, simplemente escriba AYUDA. Al

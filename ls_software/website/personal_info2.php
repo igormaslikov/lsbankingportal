@@ -40,7 +40,7 @@ while ($row_user_id=mysqli_fetch_array($query_userid)){
 $to_email = $emailll;
 $subject = 'Confirmation';
 $message = 'Thank You For Registration!Please Fill all the information to continue.';
-$headers = 'From: info@lsbanking.com';
+$headers = 'From: info@pacificafinancegroup.com';
 mail($to_email,$subject,$message,$headers);
 
 
@@ -55,7 +55,7 @@ while ($row_email=mysqli_fetch_array($query_admin)){
 $to_email_admin = $admin_email;
 $subject_admin = 'New Registration';
 $message_admin = "New User Has Been Registered with email: $emailll";
-$headers_admin = 'From: info@lsbanking.com';
+$headers_admin = 'From: info@pacificafinancegroup.com';
 mail($to_email_admin,$subject_admin,$message_admin,$headers_admin);
     
 }

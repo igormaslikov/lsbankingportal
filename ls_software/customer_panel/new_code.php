@@ -49,7 +49,7 @@ $to = $email;
 
 $subject = "New Password Reset Code";
 $txt = "Please Use This Code: $code  to Reset your Password";
-$headers = "From: info@lsbanking.com";
+$headers = "From: info@pacificafinancegroup.com";
 
 mail($to,$subject,$txt,$headers);
  

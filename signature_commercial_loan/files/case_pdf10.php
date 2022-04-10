@@ -223,14 +223,14 @@ SMS POLICY LOAN #<span style="text-decoration:underline">'.$loan_id_bor.'</span>
     You understand the text messages we send may be seen by anyone with access to your phone. Accordingly, you should take steps to safeguard your phone and your text messages if you want them to remain private (NO CONFIDENTIAL INFORMATION SHOULD BE SENT VIA SMS) <br>
     Please notify us immediately if you change mobile numbers<br>
     If we notify this SMS Policy, we will notify you by sending you a SMS. We may terminate our SMS Policy at any time.<br>
-    If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text messages, please contact us using the following information: Pacifica Finance Group 5900 S Eastern Ave Suite 114 Commerce, CA 90040 info@lsbanking.com or (323) 797-5398.<br>
+    If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text messages, please contact us using the following information: Pacifica Finance Group 5900 S Eastern Ave Suite 114 Commerce, CA 90040 info@pacificafinancegroup.com or (323) 797-5398.<br>
     You agree and consent to the contracted by the Company, our agents, employees, attorneys, subsequent creditors, loan servicing companies and third party collectors through the use of email, and/or telephone calls, and/or SMS to your cellular, home or work phone numbers, as well as any other phone number you have provided in conjunction with this account, including the use of automatic telephoning dialing systems, auto-dialers, or an artificial or prerecorded voice.
 </span>
 <div style="text-align:center;font-size:10px;">
   <b style="text-align:center">OPT-OUT or STOP</b>
 </div>
 <br>
-<span style="font-size:8px">This SMS Policy applies to the text messages sent by Pacifica Finance Group to our customers while and after they use our service. If you wish to stop receiving SMS from Pacifica Finance Group reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling, sending a letter or email us to the following information: Pacifica Finance Group 5900 S Eastern Ave Suite 114 Commerce, CA 90040 info@lsbanking.com or (323) 797-5398.</span>
+<span style="font-size:8px">This SMS Policy applies to the text messages sent by Pacifica Finance Group to our customers while and after they use our service. If you wish to stop receiving SMS from Pacifica Finance Group reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling, sending a letter or email us to the following information: Pacifica Finance Group 5900 S Eastern Ave Suite 114 Commerce, CA 90040 info@pacificafinancegroup.com or (323) 797-5398.</span>
 <br>
 <div style="text-align:center;font-size:10px;">
   <b style="text-align:center">HELP or SUPPORT</b><br>

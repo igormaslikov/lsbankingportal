@@ -343,7 +343,7 @@ curl_setopt_array($curl, array(
   "waive_conv_fee": false,
   "address_street": "'.$address.'",
   "address_zip": "'.$zip_code.'",
-  "ChannelUser":"info@lsbanking.com"
+  "ChannelUser":"info@pacificafinancegroup.com"
 }',
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json'
