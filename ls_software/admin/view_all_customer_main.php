@@ -183,7 +183,7 @@ if ($u_access_id == '0') {
                                     <option value="Rejected By Customer" <?php if ($_GET['status'] == 'Rejected By Customer') {
                                                                                 echo 'selected';
                                                                             } ?>>Rejected By Customer</option>
-                                    <option value="Approved Payday CA" <?php if ($_GET['status'] == 'Approved Payday CA') {
+                                    <!-- <option value="Approved Payday CA" <?php if ($_GET['status'] == 'Approved Payday CA') {
                                                                             echo 'selected';
                                                                         } ?>>Approved Payday CA</option>
                                     <option value="Approved Payday NV" <?php if ($_GET['status'] == 'Approved Payday NV') {
@@ -191,11 +191,11 @@ if ($u_access_id == '0') {
                                                                         } ?>>Approved Payday NV</option>
                                     <option value="Approved Payday IL" <?php if ($_GET['status'] == 'Approved Payday IL') {
                                                                             echo 'selected';
-                                                                        } ?>>Approved Payday IL</option>
+                                                                        } ?>>Approved Payday IL</option> -->
                                     <option value="Approved Installment CA" <?php if ($_GET['status'] == 'Approved Installment CA') {
                                                                                 echo 'selected';
                                                                             } ?>>Approved Installment CA</option>
-                                    <option value="Approved Installment AZ" <?php if ($_GET['status'] == 'Approved Installment AZ') {
+                                    <!-- <option value="Approved Installment AZ" <?php if ($_GET['status'] == 'Approved Installment AZ') {
                                                                                 echo 'selected';
                                                                             } ?>>Approved Installment AZ</option>
                                     <option value="Approved Installment NV" <?php if ($_GET['status'] == 'Approved Installment NV') {
@@ -203,8 +203,8 @@ if ($u_access_id == '0') {
                                                                             } ?>>Approved Installment NV</option>
                                     <option value="Approved Installment IL" <?php if ($_GET['status'] == 'Approved Installment IL') {
                                                                                 echo 'selected';
-                                                                            } ?>>Approved Installment IL</option>
-                                    <option value="Review Payday CA" <?php if ($_GET['status'] == 'Review Payday CA') {
+                                                                            } ?>>Approved Installment IL</option> -->
+                                    <!-- <option value="Review Payday CA" <?php if ($_GET['status'] == 'Review Payday CA') {
                                                                             echo 'selected';
                                                                         } ?>>Review Payday CA</option>
                                     <option value="Review Payday NV" <?php if ($_GET['status'] == 'Review Payday NV') {
@@ -212,11 +212,11 @@ if ($u_access_id == '0') {
                                                                         } ?>>Review Payday NV</option>
                                     <option value="Review Payday IL" <?php if ($_GET['status'] == 'Review Payday IL') {
                                                                             echo 'selected';
-                                                                        } ?>>Review Payday IL</option>
+                                                                        } ?>>Review Payday IL</option> -->
                                     <option value="Review Installment CA" <?php if ($_GET['status'] == 'Review Installment CA') {
                                                                                 echo 'selected';
                                                                             } ?>>Review Installment CA</option>
-                                    <option value="Review Installment AZ" <?php if ($_GET['status'] == 'Review Installment AZ') {
+                                    <!-- <option value="Review Installment AZ" <?php if ($_GET['status'] == 'Review Installment AZ') {
                                                                                 echo 'selected';
                                                                             } ?>>Review Installment AZ</option>
                                     <option value="Review Installment NV" <?php if ($_GET['status'] == 'Review Installment NV') {
@@ -224,8 +224,8 @@ if ($u_access_id == '0') {
                                                                             } ?>>Review Installment NV</option>
                                     <option value="Review Installment IL" <?php if ($_GET['status'] == 'Review Installment IL') {
                                                                                 echo 'selected';
-                                                                            } ?>>Review Installment IL</option>
-                                    <option value="DL/Bank Payday CA" <?php if ($_GET['status'] == 'DL/Bank Payday CA') {
+                                                                            } ?>>Review Installment IL</option> -->
+                                    <!-- <option value="DL/Bank Payday CA" <?php if ($_GET['status'] == 'DL/Bank Payday CA') {
                                                                             echo 'selected';
                                                                         } ?>>DL/Bank Payday CA</option>
                                     <option value="DL/Bank Payday NV" <?php if ($_GET['status'] == 'DL/Bank Payday NV') {
@@ -233,11 +233,11 @@ if ($u_access_id == '0') {
                                                                         } ?>>DL/Bank Payday NV</option>
                                     <option value="DL/Bank Payday IL" <?php if ($_GET['status'] == 'DL/Bank Payday IL') {
                                                                             echo 'selected';
-                                                                        } ?>>DL/Bank Payday IL</option>
+                                                                        } ?>>DL/Bank Payday IL</option> -->
                                     <option value="DL/Bank Installment CA" <?php if ($_GET['status'] == 'DL/Bank Installment CA') {
                                                                                 echo 'selected';
                                                                             } ?>>DL/Bank Installment CA</option>
-                                    <option value="DL/Bank Installment AZ" <?php if ($_GET['status'] == 'DL/Bank Installment AZ') {
+                                    <!-- <option value="DL/Bank Installment AZ" <?php if ($_GET['status'] == 'DL/Bank Installment AZ') {
                                                                                 echo 'selected';
                                                                             } ?>>DL/Bank Installment AZ</option>
                                     <option value="DL/Bank Installment NV" <?php if ($_GET['status'] == 'DL/Bank Installment NV') {
@@ -245,7 +245,7 @@ if ($u_access_id == '0') {
                                                                             } ?>>DL/Bank Installment NV</option>
                                     <option value="DL/Bank Installment IL" <?php if ($_GET['status'] == 'DL/Bank Installment IL') {
                                                                                 echo 'selected';
-                                                                            } ?>>DL/Bank Installment IL</option>
+                                                                            } ?>>DL/Bank Installment IL</option> -->
 
                                     <!--<option value="Ready for review"<?php if ($_GET['status'] == 'Ready for review') {
                                                                             echo 'selected';
@@ -366,7 +366,7 @@ if ($u_access_id == '0') {
                                     <option value="CA" <?php if ($_GET['state'] == 'CA') {
                                                             echo 'selected';
                                                         } ?>>California</option>
-                                    <option value="NV" <?php if ($_GET['state'] == 'NV') {
+                                    <!-- <option value="NV" <?php if ($_GET['state'] == 'NV') {
                                                             echo 'selected';
                                                         } ?>>Nevada</option>
                                     <option value="AZ" <?php if ($_GET['state'] == 'AZ') {
@@ -374,7 +374,7 @@ if ($u_access_id == '0') {
                                                         } ?>>Arizona</option>
                                     <option value="IL" <?php if ($_GET['state'] == 'IL') {
                                                             echo 'selected';
-                                                        } ?>>Illinois</option>
+                                                        } ?>>Illinois</option> -->
                                 </select>
                             </td>
                             <td colspan="2" style="font-weight: bold;">
@@ -383,12 +383,12 @@ if ($u_access_id == '0') {
                                     <option value="All" <?php if ($_GET['loan_type'] == 'All') {
                                                             echo 'selected';
                                                         } ?>>All</option>
-                                    <option value="payday" <?php if ($_GET['loan_type'] == 'payday') {
+                                    <!-- <option value="payday" <?php if ($_GET['loan_type'] == 'payday') {
                                                                 echo 'selected';
                                                             } ?>>payday</option>
                                     <option value="installment" <?php if ($_GET['loan_type'] == 'installment') {
                                                                     echo 'selected';
-                                                                } ?>>installment</option>
+                                                                } ?>>installment</option> -->
                                     <option value="commercial" <?php if ($_GET['loan_type'] == 'commercial') {
                                                                     echo 'selected';
                                                                 } ?>>commercial</option>
@@ -543,14 +543,14 @@ if ($u_access_id == '0') {
 
 
 
-                                $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `fnd_user_profile`");
+                                $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `fnd_user_profile` Where `loan_type`='commercial'");
                                 $total_records = mysqli_fetch_array($result_count);
                                 $total_records = $total_records['total_records'];
                                 $total_records = $rowcount;
                                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 $second_last = $total_no_of_pages - 1; // total page minus 1
                                 //  echo "<br>".$total_no_of_pages;
-                                $query_search = "SELECT * FROM `fnd_user_profile` WHERE user_fnd_id = '$user_fnd_idd' ";
+                                $query_search = "SELECT * FROM `fnd_user_profile` WHERE user_fnd_id = '$user_fnd_idd' and `loan_type`='commercial' ";
 
                                 //echo $query_search;
                                 $result = mysqli_query($con, "$query_search");
