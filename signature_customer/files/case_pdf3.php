@@ -225,7 +225,7 @@ $style = array(
 );
 
  $html = '<br><div style="line-height:7px"><h1>MoneyLine</h1>
-<span style="font-size:8px">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+<span style="font-size:8px">5900 S Eastern Ave Suite 114 Commerce, CA 90040</span><br><br>
 </div>
  <br>
  
@@ -237,7 +237,7 @@ $style = array(
  
  <br>
  <h2 style="text-align:center"><u>Debit Card Authorization Form</u></h2> 
-<span style="text-align:center">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+<span style="text-align:center">5900 S Eastern Ave Suite 114 Commerce, CA 90040</span><br><br>
 
 Authorization to make payments on my <b>MoneyLine</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuing basis using the
 Debit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Debit Card

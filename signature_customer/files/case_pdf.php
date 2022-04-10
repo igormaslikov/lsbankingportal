@@ -202,7 +202,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
-// set style for barcode , 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035
+// set style for barcode , 5900 S Eastern Ave Suite 114 Commerce, CA 900405
 $style = array(
 	'border' => 0,
 	'vpadding' => 'auto',
@@ -228,8 +228,8 @@ $style = array(
  </td>
  <td>
  <b>Lender :</b> MoneyLine <br>
- <b>Address        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
- <b>Phone         :</b> 888-540-7232<br>
+ <b>Address        :</b> 5900 S Eastern Ave Suite 114 Commerce, CA 900405<br>
+ <b>Phone         :</b> 323-797-5398<br>
  <b>Lender’s License:</b> 10DBO-93629<br><br>
  </td>
   </tr>

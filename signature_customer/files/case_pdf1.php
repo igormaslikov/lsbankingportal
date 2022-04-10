@@ -225,8 +225,8 @@ $style = array(
  </td>
  <td>
  <b>Prestamista :</b> MoneyLine <br>
- <b>Direccion        :</b> 4645 Van Nuys Blvd #202 Sherman Oaks, CA 914035<br>
- <b>Telefono         :</b> 888-540-7232<br>
+ <b>Direccion        :</b> 5900 S Eastern Ave Suite 114 Commerce, CA 900405<br>
+ <b>Telefono         :</b> 323-797-5398<br>
  <b>Licencia del Prestatario:</b> 10DBO-93629<br><br>
  </td>
   </tr>

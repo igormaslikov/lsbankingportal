@@ -2,7 +2,7 @@
 		<div class="container">
 			<div class="header_top_inner row m-0">
 				<ul class="top_menu col-lg-4 col-md-6 p-0">
-					<li><a href="#" class="number"><small>Call us</small>747-300-1542</a></li>
+					<li><a href="#" class="number"><small>Call us</small>323-797-5398</a></li>
 					<li><a href="#">Support</a></li>
 				</ul>
 				<div class="col-lg-5 text-center hidden-md">

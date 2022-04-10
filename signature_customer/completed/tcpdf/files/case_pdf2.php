@@ -233,8 +233,8 @@ phone and your text messages if you want them to remain private (NO CONFIDENTIAL
 Please notify us immediately if you change mobile numbers.<br><br>
 If we notufy this SMS Policy, we will notify you by sending you a SMS. We may terminate our SMS Policy at any time.<br><br>
 If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text
-messages, please contact us using the following information: Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403
-info@lsbanking.com or (747) 300-1542.<br><br>
+messages, please contact us using the following information: Pacifica Finance Group 5900 S Eastern Ave Suite 114 Commerce, CA 90040
+info@lsbanking.com or (323) 797-5398.<br><br>
 You agree and consent to the contracted by the Company, our agents, employees, attorneys, subsequent creditors, loan servicing companies and third
 party collectors through the use of email, and/or telephone calls, and/or SMS to your cellular, home or work phone numbers, as well as any other phone
 number you have provided in conjunction with this account, including the use of automatic telephoning dailing systems, auto-dailers, or an artificial or
@@ -245,7 +245,7 @@ prerecorded voice. <br><br>
 This SMS Policy applies to the text messages sent by AAT Capital to our customers while and after they use our service. If you wish to stop receiving
 SMS from Pacifica Finance Group reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective
 immediately. You may also stop SMS by calling us suing the following information: Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202 Sherman
-Oaks, CA 91403 info@lsbanking.com or (747) 300-1542.
+Oaks, CA 91403 info@lsbanking.com or (323) 797-5398.
  <h2 style="text-align:center">HELP or SUPPORT</h2>
 If at any time you need our contact information os information on how to stop SMS, reply to any text message we have sent you and in this reply
 simply type HELP. Upon receiving your text message, we will send you a text message with this information. The message we sne dprovide you with
@@ -257,7 +257,7 @@ below using and automatic dailing system, You are not required to authorize mark
 wish to receive, sales or marketing SMS from us, you should not sign this section. You understand that at any messages we send you may be accessed
 by anyone with access to your SMS. You also understand that your mobile phone service provider amy charge you fees for any SMS that we send you,
 and you agree that we shall have no liability for any cost related to such SMS. At any time, you may withdraw your consent to receive marketing by
-calling us at (747) 300-1542. 
+calling us at (323) 797-5398. 
 
 <br>
 <br><br>

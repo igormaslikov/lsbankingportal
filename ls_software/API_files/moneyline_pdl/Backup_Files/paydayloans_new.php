@@ -209,7 +209,7 @@ send_email_notification($to_email,$subject,$message);
 	$phone= $customer_tel;
   $fname=$customer_fname;
   $lname= $customer_lname;
-  $message = "Hola ".$fname." ".$lname.",Gracias por aplicar con My Money Line Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
+  $message = "Hola ".$fname." ".$lname.",Gracias por aplicar con Pacifica Finance Group, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
   
 	send_sms($phone,$message);
 	//***************************** Decline SMS End ***************************

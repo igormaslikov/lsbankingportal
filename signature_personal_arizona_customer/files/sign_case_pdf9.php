@@ -225,7 +225,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ $html = '<br><br><img src="images/pacifica.jpeg" style="height:400%" align="left"/><br><span style="text-align:left">5900 S Eastern Ave Suite 114 Commerce, CA 90040</span><br><br>
  <br>
  
  
@@ -236,7 +236,7 @@ Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_
  <br>
  
  <h2 style="text-align:center"><u>Credit Card Authorization Form</u><br>
- <span style="text-align:center;font-size:9px"> 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span></h2>
+ <span style="text-align:center;font-size:9px"> 5900 S Eastern Ave Suite 114 Commerce, CA 90040</span></h2>
 
 
 <div style="font-size:8px;">

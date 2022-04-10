@@ -290,8 +290,8 @@ $html = '
         </td>
         <td style="width:25%; text-align:center">
           
-          <img src="images/Money-Line-Logo.JPG" alt="" style="height:400%" align="left"/><br>
-          <span><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+          <img src="images/pacifica.jpeg" alt="" style="height:400%" align="left"/><br>
+          <span><b>5900 S Eastern Ave Suite 114 Commerce, CA 90040</b></span>
         </td>
       </tr>
       </tbody>
@@ -379,7 +379,7 @@ $html = '
             <td style=" text-align: center;">
                 <br><br>
                 <span><b>Lender’s License:</b></span><br><br>
-                <span> 60DBO-88277</span>
+                <span> 603 K724</span>
             </td>
           </tr>
         </tbody>

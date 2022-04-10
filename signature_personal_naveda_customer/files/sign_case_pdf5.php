@@ -214,7 +214,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ $html = '<br><br><img src="images/pacifica.jpeg" style="height:400%" align="left"/><br><span style="text-align:left">5900 S Eastern Ave Suite 114 Commerce, CA 90040</span><br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
 Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
@@ -244,7 +244,7 @@ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
 <b style="font-size:8px;">Autorización para recibir llamadas y mensajes de texto a su celular, y comunicaciones electrónicas</b><span style="font-size:6px;">Usted está de acuerdo en aceptar las llamadas, los mensajes de texto, los correeros electrónicos y otras comunicaciones electrónicas que le enviaremos con respecto a su solicitud de préstamo, los pagos de su préstamo, el cobro de su préstamo, y otras comunicaciones importantes sobre su préstamo. Usted entiende que estas llamadas podrían ser marcadas automáticamente por nuestro sistema y posiblemente sea un mensaje pre-grabado. Usted está de acuerdo que tales llamadas y comunicaciones electrónicas no serán consideradas llamadas no solicitadas en cuanto a la ley estatal y federal. Además, usted esta de acuerdo que podremos monitorizar conversaciones telefónicas entre usted y nosotros a fin de asegurar la calidad de nuestro servicio. Al formar este aviso, usted nos autoriza a realizar llamadas y enviar mensajes de texto al número de teléfono celular que nos ha proporcionado para los fines descritos anteriormente y para promociones. Usted reconoce que usted no está obligado a autorizar llamadas o mensajes de texto de promoción para obtener crédito de nosotros.</span>
 <br>
 
-<b style="font-size:8px;">•Derecho de optar no recibir mensajes:</b><span style="font-size:6px;">Usted puede optar por no recibir llamadas o mensajes de texto de Pacifica Finance Group llamando a nuestro servicio al cliente (747) 300-1542.</span>
+<b style="font-size:8px;">•Derecho de optar no recibir mensajes:</b><span style="font-size:6px;">Usted puede optar por no recibir llamadas o mensajes de texto de Pacifica Finance Group llamando a nuestro servicio al cliente (323) 797-5398.</span>
 <br>  
 <b style="font-size:8px">•Autorización para investigar su empleo:</b><span style="font-size:6px;">Al firmar abajo, usted le autoriza a Pacifica Finance Group llevar a cabo las investigaciones que estime necesarias para verificar su historial de empleo en cualquier momento que usted tenga su saldo restante en su préstamo con nosotros. Si usted tiene un co-deudor, cada co-deudor, al formar a continuación, también nos autoriza a revisar el historial de empleo de esa persona.</span>
 <br>

@@ -234,7 +234,7 @@ $pdf->SetFont('helvetica', '', 10);
  $html = '
 
 <br><div style="line-height:7px"><h1 style="text-align:center">Credit Report</h1>
-<span style="text-align:center"> Lender: Pacifica Finance Group 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</span>
+<span style="text-align:center"> Lender: Pacifica Finance Group 5900 S Eastern Ave Suite 114 Commerce, CA 90040</span>
 </div>
  
 <h2 style="text-align:center;">Score : <span style="color:'.$color.'">'.$score.' ('.$score_text.')</span></h2>

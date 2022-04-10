@@ -247,7 +247,7 @@ $style = array(
 );
 
  $html = '<br><div style="line-height:7px"><h1>MoneyLine</h1>
-<span style="font-size:8px">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+<span style="font-size:8px">5900 S Eastern Ave Suite 114 Commerce, CA 90040</span><br><br>
 </div>
  <br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
@@ -279,7 +279,7 @@ which case we will cancel the recurring ACH payments.<br>
 4. You represent that you are an authorized signer on the Account. You agree to notify us promptly of any changes to the Account and
 must provide us seven (7) days’ advance notice of any changes to the Account. You acknowledge that the ACH transactions to your
 Account must comply with United States law.<br>
-5. <b>How to Cancel</b>. You may cancel this Authorization by calling us at <b>(888) 540-7232</b> during our business hours. You must notify us of
+5. <b>How to Cancel</b>. You may cancel this Authorization by calling us at <b>(323) 797-5398</b> during our business hours. You must notify us of
 the cancellation at least <b>3 days</b> before the payment due date. You may also cancel these recurring ACH payments by following your
 Bank’s stop payment procedures, but your Bank may charge you a fee. If you cancel, you must still make your loan payments on time.
 Except as otherwise set forth herein, all capitalized terms used but not defined herein shall have the meaning given to them in the

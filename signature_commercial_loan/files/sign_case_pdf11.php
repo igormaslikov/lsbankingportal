@@ -254,9 +254,9 @@ $style = array(
  $html = '
 <br>
 <div style=";display:inline-block">
-	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
+	<img src="images/pacifica.jpeg" style="height:400%;clear: both" align="left"/>
 </div>
-<br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+<br><span style="text-align:left;width:100%"><b>5900 S Eastern Ave Suite 114 Commerce, CA 90040</b></span>
  <br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
 &nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br>
@@ -264,7 +264,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
  <br>
  
  <h2 style="text-align:center"><u>Debit Card Authorization Form</u><br>
- <span style="text-align:center;font-size:9px"> 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span></h2>
+ <span style="text-align:center;font-size:9px"> 5900 S Eastern Ave Suite 114 Commerce, CA 90040</span></h2>
 
 
 <div style="font-size:10px;">

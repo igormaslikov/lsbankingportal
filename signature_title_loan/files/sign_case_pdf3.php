@@ -235,7 +235,7 @@ Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_
  
  <br>
  <h2 style="text-align:center">Credit Card Authorization Form</h2> 
-<span style="text-align:center">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+<span style="text-align:center">5900 S Eastern Ave Suite 114 Commerce, CA 90040</span><br><br>
 
 Authorization to make payments on my <b>Pacifica Finance Group</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuig basis using the
 Credit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card

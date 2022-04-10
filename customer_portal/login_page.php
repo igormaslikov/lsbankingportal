@@ -20,7 +20,7 @@ require_once 'dbconnect.php';
      
         
        <form class="form-signin" method="post" id="login-form">
-        <img src="Money-Line-Logo.JPG" style="width:100%"/>
+        <img src="pacifica.jpeg" style="width:100%"/>
         <h2 class="form-signin-heading" style="text-align:center">Customer Panel</h2><hr />
         
         <?php

@@ -215,7 +215,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
- $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+ $html = '<br><br><img src="images/pacifica.jpeg" style="height:400%" align="left"/><br><span style="text-align:left">5900 S Eastern Ave Suite 114 Commerce, CA 90040</span><br><br>
  <b style="text-align:center">CALIFORNIA PROMISSORY NOTE AND SECURITY AGREEMENTCONSUMER GOODS DIRECT -CONSUMER PURPOSE</b>
 <br><br>
 
@@ -231,12 +231,12 @@ $style = array(
 DBA Money Line
 4645 Van Nuys Blvd Suite 202
 Sherman Oaks, CA 91403
-Ph. (747) 300-1542
+Ph. (323) 797-5398
 </td>
 </tr>
 <tr>
 <td style="text-align:left">Co-Borrower Name and Address</td>
-<td style="text-align:left">License No.:60DBO-88277</td>
+<td style="text-align:left">License No.:603 K724</td>
 </tr>
 <tr>
 <td style="text-align:center" height="50"></td>

@@ -497,7 +497,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 
 <P class="p0 ft0">PAYDAY LOAN CONTRACT AND DISCLOSURE STATEMENT</P>
-<P class="p1 ft1">Lender: Pacifica Finance Group 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</P>
+<P class="p1 ft1">Lender: Pacifica Finance Group 5900 S Eastern Ave Suite 114 Commerce, CA 90040</P>
 <TABLE cellpadding=0 cellspacing=0 class="t0">
 <TR>
 	<TD class="tr0 td0"><P class="p2 ft2">Contract Date:<span style="color:blue"><?php echo $creation_date;?></span></P></TD>
@@ -724,7 +724,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 <DIV id="id3_1">
 <P class="p37 ft21"><IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAUABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2PxUNmkNcrNcRvCfl8mV03E8YO1hkfjx79K5HS9YvdL11Tc3V0Y2mitp7eSV5lJd/LBG5jsYPImcHBAYEE7cdn4l1W20bQrm9uXRQmPL3Lu/eE4XA74PP4Zry7SNQsdZ161tf7RVJpLmGUO6MNzJMkpGSAMnYQPcj6V6GHhGVCTktjz8RKca8OVvXfse0UUg6UV556BleINAi8RWMdrLfX9mEkEgksZ/KckAjBOOnPT6VgW3w1tLW6guB4i8SSGGRZAkmoFkYgg4I28g45FFFUpNKyE4pna0UUVIz/9k=" id="p3inl_img1">Pacifica Finance Group</P>
-<P class="p38 ft22">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</P>
+<P class="p38 ft22">5900 S Eastern Ave Suite 114 Commerce, CA 90040</P>
 <P class="p39 ft23">Borrower Name/Nombre del Deudor: _________________________________________</P>
 <P class="p40 ft23">Loan Number/Numero de Prestamo: _________________________________________</P>
 <P class="p41 ft23">Date/Fecha: _________________________________________</P>
@@ -733,10 +733,10 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p44 ft25">You understand the text messages we send may be seen by anyone with access to your phone. Accordingly, you should tahe steps to safeguard your phone and your text messages if you want them to remain private (NO CONFIDENTIAL INFORMATION SHOULD BE SENT VIA SMS)</P>
 <P class="p45 ft26">Please notify us immediately if you change mobile numbers.</P>
 <P class="p46 ft26">If we notufy this SMS Policy, we will notify you by sending you a SMS. We may terminate our SMS Policy at any time.</P>
-<P class="p47 ft26">If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text messages, please contact us using the following information: Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) <NOBR>300-1542.</NOBR></P>
+<P class="p47 ft26">If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text messages, please contact us using the following information: Pacifica Finance Group 5900 S Eastern Ave Suite 114 Commerce, CA 90040 info@lsbanking.com or (747) <NOBR>300-1542.</NOBR></P>
 <P class="p48 ft26">You agree and consent to the contracted by the Company, our agents, employees, attorneys, subsequent creditors, loan servicing companies and third party collectors through the use of email, and/or telephone calls, and/or SMS to your cellular, home or work phone numbers, as well as any other phone number you have provided in conjunction with this account, including the use of automatic telephoning dailing systems, <NOBR>auto-dailers,</NOBR> or an artificial or prerecorded voice.</P>
 <P class="p49 ft27"><NOBR>OPT-OUT</NOBR> or STOP</P>
-<P class="p50 ft26">This SMS Policy applies to the text messages sent by AAT Capital to our customers while and after they use our service. If you wish to stop receiving SMS from Pacifica Finance Group reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling us suing the following information: Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) <NOBR>300-1542.</NOBR></P>
+<P class="p50 ft26">This SMS Policy applies to the text messages sent by AAT Capital to our customers while and after they use our service. If you wish to stop receiving SMS from Pacifica Finance Group reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling us suing the following information: Pacifica Finance Group 5900 S Eastern Ave Suite 114 Commerce, CA 90040 info@lsbanking.com or (747) <NOBR>300-1542.</NOBR></P>
 <P class="p51 ft27">HELP or SUPPORT</P>
 <P class="p52 ft26">If at any time you need our contact information os information on how to stop SMS, reply to any text message we have sent you and in this reply simply type HELP. Upon receiving your text message, we will send you a text message with this information. The message we sne dprovide you with information about your account. Some of the SMS we send may include links to websites. To access these websites, you will need a web browser and Internet access.</P>
 <P class="p53 ft28">AGREEMENT TO RECEIVE SMS</P>
@@ -759,12 +759,12 @@ body {margin-top: 0px;margin-left: 0px;}
 
 <DIV id="id4_1">
 <P class="p37 ft21"><IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAUABUDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2HxdB52guxury18mRH8y0naNiM7SCVKkjDE4zjIFcTZ3ms6DfA/bbkCEi4vI76eW43W6oXdVDMdrbcsMYO4AHjNeha/qFlpWiXV7qKo1pEoLK6lgSSAoIAPcjnHFeUWOs6VrWqPZyasBNqKS23mCCQkPKjIDjaB1Yeg+lehhoqVGV1sefieeNaDi30/pntGeaKO9FeeegZmvaFb+IbBLO5uLuBFkEga1mMbEgEYyO3PSudPwv0hgR/aeuc/8AUQaiiqUmthOKZ21FFFSM/9k=" id="p4inl_img1">Pacifica Finance Group</P>
-<P class="p45 ft22">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</P>
+<P class="p45 ft22">5900 S Eastern Ave Suite 114 Commerce, CA 90040</P>
 <P class="p61 ft23">Borrower Name/Nombre del Deudor: _________________________________________</P>
 <P class="p62 ft23">Loan Number/Numero de Prestamo: _________________________________________</P>
 <P class="p63 ft23">Date/Fecha: _________________________________________</P>
 <P class="p64 ft30">Credit Card Authorization Form</P>
-<P class="p65 ft31">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</P>
+<P class="p65 ft31">5900 S Eastern Ave Suite 114 Commerce, CA 90040</P>
 <P class="p66 ft23">Authorization to make payments on my <SPAN class="ft29">Pacifica Finance Group </SPAN>Loan # _______________ on continuig basis using the</P>
 <P class="p67 ft32">Credit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card Holder.</P>
 <P class="p68 ft23">Autorización para hacer pagos en mi cuenta de <SPAN class="ft29">Pacifica Finance Group, </SPAN>Inc prestamo # _______________ sobre la base</P>
@@ -793,7 +793,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 <DIV id="id5_1">
 <P class="p81 ft21"><IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAUABUDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD1/wAYQ+f4fkcXV5beTIjh7Sd4mPO0glSCRhicZ6gVw1vf6p4cumuWuNSlNshmuYLq7km3wgK7/LIxwwjViu3adxGSRlT6Nr9/Zabod1d6h5Qto1GfOQuhYkBcgAkjcR2ry2PUdH1a7uLWTxBbibUY5rfzBby8PMjIGwUUdXz1Ar0MMoyoyUkefifaKtFwbPZe9FHeivPPQMrX9DGv2KWp1LUbAJKJPNsJ/Kc4BG0nB45zj1ArnD8NUII/4TDxdz6an/8AY0UVSk1sJxTO4oooqRn/2Q==" id="p5inl_img1">Pacifica Finance Group</P>
-<P class="p82 ft22">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</P>
+<P class="p82 ft22">5900 S Eastern Ave Suite 114 Commerce, CA 90040</P>
 <P class="p83 ft23">Borrower Name/Nombre del Deudor: _________________________________________</P>
 <P class="p84 ft23">Loan Number/Numero de Prestamo: _________________________________________</P>
 <P class="p85 ft23">Date/Fecha: _________________________________________</P>

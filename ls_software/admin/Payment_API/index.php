@@ -49,7 +49,7 @@ if (isset($_POST['btn-login'])) {
      
         
        <form class="form-signin" method="post" id="login-form">
-        <img src="../../website/images/Money-Line-Logo.JPG" style="width:100%"/>
+        <img src="../../website/images/pacifica.jpeg" style="width:100%"/>
         <h2 class="form-signin-heading" style="text-align:center">Sign In.</h2><hr />
         
         <?php

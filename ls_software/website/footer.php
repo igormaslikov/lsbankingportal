@@ -4,7 +4,7 @@
              <div class="footer_widget col-xl-4 col-md-5 col-sm-7 wow fadeIn" data-wow-delay="0.2s">
                     <h4>Contact Customer Service</h4>
                     <ul class="footer_nav"> 
-						<li><a href="#">Phone:747-300-1542</a></li>
+						<li><a href="#">Phone:323-797-5398</a></li>
 						<li><a href="#">Email:info@lsbanking.com</a></li> 
 						<li><a href="#">Make A Payment</a></li> 
                     </ul>

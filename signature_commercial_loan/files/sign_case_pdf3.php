@@ -139,7 +139,7 @@ $style = array(
 	'module_height' => 1 // height of a single module in points
 );
 
-  $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br>
+  $html = '<br><br><img src="images/pacifica.jpeg" style="height:400%" align="left"/><br>
   Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
 Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
 
@@ -180,9 +180,9 @@ Firma del Prestatario : <img src="https://pacificafinancegroup.com/loanportal/si
 <br>
 Firma del Co-Prestatario :  <img src="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$img_signed_co_borrow.'" alt="" style="height:250%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-Nombre del Prestamista   : <span style="text-decoration:underline">MY MONEY LINE</span>
+Nombre del Prestamista   : <span style="text-decoration:underline">Pacifica Finance Group</span>
 <br>
-Firma Autorizada del Prestamista :<span style="text-decoration:underline">MY MONEY LINE</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.'
+Firma Autorizada del Prestamista :<span style="text-decoration:underline">Pacifica Finance Group</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :'.$creation_date.'
 
 ';
 

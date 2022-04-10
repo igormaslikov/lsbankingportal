@@ -216,7 +216,7 @@ $style = array(
 );
 
  $html = '<br><div style="line-height:7px"><h1 style="text-align:center">PAYDAY LOAN CONTRACT AND DISCLOSURE STATEMENT</h1>
-<span style="text-align:center"> Lender: Pacifica Finance Group 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</span><br><br>
+<span style="text-align:center"> Lender: Pacifica Finance Group 5900 S Eastern Ave Suite 114 Commerce, CA 90040</span><br><br>
 </div>
 Contract Date   :  '.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LOAN ID : '.$loan_id_bor.' <br>
 Borrower        : '. $f_name.'<br>

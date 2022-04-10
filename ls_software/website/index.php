@@ -37,7 +37,7 @@
 			<div class="header_top_inner row m-0">
 				<ul class="top_menu col-lg-6 col-md-7 p-0">
 				    <img src="images/lss.PNG" style="width:30%;" alt="">
-					<li><a href="#" class="number"><small>Call us</small>747-300-1542</a></li>
+					<li><a href="#" class="number"><small>Call us</small>323-797-5398</a></li>
 					
 					<!--<li><a href="#">Support</a></li>-->
 				</ul>

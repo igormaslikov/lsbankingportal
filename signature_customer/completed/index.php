@@ -1,5 +1,5 @@
 <?php
-$url_logo="https://pacificafinancegroup.com/loanportal/website/images/Money-Line-Logo.JPG"; 
+$url_logo="https://pacificafinancegroup.com/loanportal/website/images/pacifica.jpeg"; 
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];

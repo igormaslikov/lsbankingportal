@@ -260,7 +260,7 @@ $name=$firstName.' '.$surname;
 
 ?>
 <div style="width:70%; position:relative; margin:auto;"> 
-<img src="https://pacificafinancegroup.com/loanportal/ls_software/website/images/Money-Line-Logo.JPG"> <hr><br>
+<img src="https://pacificafinancegroup.com/loanportal/ls_software/website/images/pacifica.jpeg"> <hr><br>
 <?php 
 $id=$_GET['id'];
    include 'dbconnect.php';

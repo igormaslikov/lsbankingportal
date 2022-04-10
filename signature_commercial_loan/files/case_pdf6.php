@@ -194,9 +194,9 @@ $style = array(
  $html = '
  <br>
 <div style="display:inline-block">
-	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
+	<img src="images/pacifica.jpeg" style="height:400%;clear: both" align="left"/>
 </div>
-<br><span style="text-align:left;width:100%"><b>4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</b></span>
+<br><span style="text-align:left;width:100%"><b>5900 S Eastern Ave Suite 114 Commerce, CA 90040</b></span>
  <br><br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
 &nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>
@@ -269,8 +269,8 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 	</table>
 	<br><br>
 	<b>Pacifica Finance Group</b>
-	<p style="font-size:6px;">California Finance Lender License: 60DBO-88277<br>
-	Numero De Licencia Del Prestamista Financiero de California: 60DBO-88277 <br><br>
+	<p style="font-size:6px;">California Finance Lender License: 603 K724<br>
+	Numero De Licencia Del Prestamista Financiero de California: 603 K724 <br><br>
 	THIS LOAN IS MADE PURSUANT TO THE CALIFORNIA FINANCE LENDERS LAW, DIVISION 9 (COMMENCING WITH SECTION 22000) OF THE FINANCIAL CODE BY Pacifica Finance Group UNDER A CALIFORNIA FINANCE LENDER’S LICENSE. THAT LICENSE IS ADMINSITERED BY THE CALIFORNIA DEPARTMENT OF BUSINESS OVERSIGHT. FOR INFORMATION OR COMPLAINTS, CONTACT THE DEPARTMENT OF BUSINESS OVERSIGHT AT 1-866-275-2677 OR www.dbo.ca.gov
 	 <br><br>
 	ESTE PRESTAMO ES REALIZADO EN CONFORMIDAD CON LA LEY DE PRESTAMISTAS FINANCIEROS DE CALIFORNIA, DIVISION 9 (COMENZANDO CON LA SECCION 22000) DEL CODIGO FINANCIERO POR Pacifica Finance Group CONFORME A UNA LICENCIA DE PRESTAMISTA FINANCIERO DEL ESTADO DE CALIFORNIA. DICHA LICENCIA ES ADMINISTRADA POR EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS DEL ESTADA DE CALIFORNIA. PARA OBTENER INFORMACION O PRESENTAR QUEJAS, COMUNIQUESE CON EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS AL 1-866-275-2677 O EN www.dbo.ca.gov

@@ -223,7 +223,7 @@ $style = array(
 );
 
  $html = '<br><div style="line-height:7px"><h1>MoneyLine</h1>
-<span style="font-size:8px">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</span><br><br>
+<span style="font-size:8px">5900 S Eastern Ave Suite 114 Commerce, CA 90040</span><br><br>
 </div>
  Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br>
  Loan Number/Numero de Prestamo : <span style="text-decoration:underline">'.$loan_id_bor.'</span>
@@ -254,7 +254,7 @@ $style = array(
      paper copy or are having problems receiving or stopping our text messages,
      please contact us using the following information: Pacifica Finance Group 4645 Van
      Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or
-     (888) 540-7232. You agree and consent to the contracted by the Company, our
+     (323) 797-5398. You agree and consent to the contracted by the Company, our
      agents, employees, attorneys, subsequent creditors, loan servicing companies
      and third party collectors through the use of email, and/or telephone calls,
      and/or SMS to your cellular, home or work phone numbers, as well as any other
@@ -267,7 +267,7 @@ $style = array(
      request will become effective immediately. You may also stop SMS by calling,
      sending a letter or email us to the following information: Pacifica Finance Group 4645
      Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or
-     (888) 540-7232. HELP or SUPPORT If at any time you need our contact
+     (323) 797-5398. HELP or SUPPORT If at any time you need our contact
      information on how to stop SMS, reply to any text message we have sent you
      and, in this reply, simply type HELP. Upon receiving your text message, we will
      send you a text message with this information. The message we send provide
@@ -283,7 +283,7 @@ $style = array(
      SMS. You also understand that your mobile phone service provider any charge
      you fees for any SMS that we send you, and you agree that we shall have no
      liability for any cost related to such SMS. At any time, you may withdraw your
-     consent to receive marketing by calling us at (888) 540-7232.
+     consent to receive marketing by calling us at (323) 797-5398.
 
      <br>
      <br><br>
@@ -314,8 +314,8 @@ $style = array(
      tiene alguna pregunta sobre esta Política de SMS, desea que le enviemos una
      copia en papel o tiene problemas para recibir o detener nuestros mensajes de
      texto, póngase en contacto con nosotros utilizando la siguiente información: LS
-     Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403
-     info@lsbanking.com o (888) 540-7232.Usted acepta y consiente la contratación
+     Financing, Inc 5900 S Eastern Ave Suite 114 Commerce, CA 90040
+     info@lsbanking.com o (323) 797-5398.Usted acepta y consiente la contratación
      por parte de la Compañía, nuestros agentes, empleados, abogados, acreedores
      posteriores, empresas de servicios de préstamos y coleccionistas de terceros a
      través del uso de correo electrónico, y / o llamadas telefónicas, y / o SMS a su
@@ -330,7 +330,7 @@ $style = array(
      solicitud de interrupción se hará efectiva inmediatamente. También puede
      dejar de recibir SMS llamando, enviando una carta o un correo electrónico a la
      siguiente información Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202
-     Sherman Oaks, CA 91403 info@lsbanking.com o (888) 540-7232.
+     Sherman Oaks, CA 91403 info@lsbanking.com o (323) 797-5398.
      AYUDA o APOYO Si en algún momento necesita nuestra información de
      contacto sobre cómo detener los SMS, responda a cualquier mensaje de texto
      que le hayamos enviado y, en esta respuesta, simplemente escriba AYUDA. Al
@@ -349,7 +349,7 @@ $style = array(
      móvil puede cobrarle tarifas por cualquier SMS que le enviemos, y acepta que
      no tendremos ninguna responsabilidad por cualquier coste relacionado con
      dichos SMS. En cualquier momento, puede retirar su consentimiento para
-     recibir marketing llamándonos al (888) 540-7232.
+     recibir marketing llamándonos al (323) 797-5398.
      </td>
 </tr>
 </tbody>

@@ -94,7 +94,7 @@ tr:nth-child(even) {
 </head>
 <body>
 <div>
-    <img src="Money-Line-Logo.JPG" style="width:20%"/>
+    <img src="pacifica.jpeg" style="width:20%"/>
     </div>
 <div class="topnav">
  
@@ -112,7 +112,7 @@ tr:nth-child(even) {
       <div class="w3-card w3-round w3-white">
         <div class="w3-container">
          <h4 class="w3-center"><?php  echo $first_name;  ?> &nbsp;<?php  echo $last_name;  ?></h4>
-         <p class="w3-center"><img src="Money-Line-Logo.JPG" class="w3-circle" style="height:106px;width:206px" alt="Avatar"></p>
+         <p class="w3-center"><img src="pacifica.jpeg" class="w3-circle" style="height:106px;width:206px" alt="Avatar"></p>
          <hr>
          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-text-theme"></i><?php  echo $_SESSION['email'];  ?></p>
          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i><?php  echo $city;  ?> &nbsp;<?php  echo $address;  ?></p>

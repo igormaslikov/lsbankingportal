@@ -140,7 +140,7 @@ $style = array(
   'module_height' => 1 // height of a single module in points
 );
 
-$html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br>
+$html = '<br><br><img src="images/pacifica.jpeg" style="height:400%" align="left"/><br>
  Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">' . $f_name . '</span><br>
 Loan Number/Numero de Prestamo: <span style="text-decoration:underline">' . $loan_id_bor . '</span><br><br>
 
@@ -175,9 +175,9 @@ Borrower’s Signature : <img src="https://pacificafinancegroup.com/loanportal/s
 <br><br>
 Co-Borrower’s Signature : <img src="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$img_signed_co_borrow.'" alt="" style="height:300%" align="left"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br><br>
-Lender’s Name  : <span style="text-decoration:underline">MY MONEY LINE</span>
+Lender’s Name  : <span style="text-decoration:underline">Pacifica Finance Group</span>
 <br><br>
-Lender’s Authorized  Signature :<span style="text-decoration:underline">MY MONEY LINE</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.'
+Lender’s Authorized  Signature :<span style="text-decoration:underline">Pacifica Finance Group</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.'
 
 
 
