@@ -529,7 +529,7 @@ if ($u_access_id == '0') {
                             $previous_page = $page_no - 1;
                             $next_page = $page_no + 1;
                             $adjacents = "2";
-                            $query_main_search = "select * from fnd_user_profile_submission ";
+                            $query_main_search = "select * from fnd_user_profile_submission as fups left join fnd_user_profile as fup on fups.user_fnd_id = fup.user_fnd_id where fup.loan_type='commercial'";
 
                             $query_main_search .= "ORDER By id DESC  LIMIT $offset, $total_records_per_page ";
                             //echo $query_main_search;
