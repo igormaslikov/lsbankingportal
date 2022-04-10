@@ -227,7 +227,7 @@ $style = array(
 </tr>
 <tr>
 <td style="text-align:center" height="50">Borrower Name and Address</td>
-<td style="text-align:center" height="50">LS Financing, Inc
+<td style="text-align:center" height="50">Pacifica Finance Group
 DBA Money Line
 4645 Van Nuys Blvd Suite 202
 Sherman Oaks, CA 91403
@@ -346,7 +346,7 @@ B. DMV Registration Fees<br>
 </span>
 
 </td>
-<td align="left"> <b style="font-size:7px;">THIS IS A HIGH-COST LOAN. YOU MAY BE ABLE TO OBTAIN A LOAN FROM SOMEONE ELSE AT A LOWER INTEREST RATE. LS FINANCING ADVISES YOU TO THINK CAREFULLY BEFORE YOU DECIDE TO TAKE THIS LOAN.</b>
+<td align="left"> <b style="font-size:7px;">THIS IS A HIGH-COST LOAN. YOU MAY BE ABLE TO OBTAIN A LOAN FROM SOMEONE ELSE AT A LOWER INTEREST RATE. Pacifica Finance Group ADVISES YOU TO THINK CAREFULLY BEFORE YOU DECIDE TO TAKE THIS LOAN.</b>
 <br><br>
 Borrower’s Signature &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :
 <br><br>

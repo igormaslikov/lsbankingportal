@@ -231,14 +231,14 @@ SMS POLICY LOAN #<span style="text-decoration:underline">'.$loan_id_bor.'</span>
     You understand the text messages we send may be seen by anyone with access to your phone. Accordingly, you should take steps to safeguard your phone and your text messages if you want them to remain private (NO CONFIDENTIAL INFORMATION SHOULD BE SENT VIA SMS) <br>
     Please notify us immediately if you change mobile numbers<br>
     If we notify this SMS Policy, we will notify you by sending you a SMS. We may terminate our SMS Policy at any time.<br>
-    If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text messages, please contact us using the following information: LS Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) 300-1542.<br>
+    If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text messages, please contact us using the following information: Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) 300-1542.<br>
     You agree and consent to the contracted by the Company, our agents, employees, attorneys, subsequent creditors, loan servicing companies and third party collectors through the use of email, and/or telephone calls, and/or SMS to your cellular, home or work phone numbers, as well as any other phone number you have provided in conjunction with this account, including the use of automatic telephoning dialing systems, auto-dialers, or an artificial or prerecorded voice.
 </span>
 <div style="text-align:center;font-size:10px;">
   <b style="text-align:center">OPT-OUT or STOP</b>
 </div>
 <br>
-<span style="font-size:8px">This SMS Policy applies to the text messages sent by LS Financing to our customers while and after they use our service. If you wish to stop receiving SMS from LS Financing, Inc reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling, sending a letter or email us to the following information: LS Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) 300-1542.</span>
+<span style="font-size:8px">This SMS Policy applies to the text messages sent by Pacifica Finance Group to our customers while and after they use our service. If you wish to stop receiving SMS from Pacifica Finance Group reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling, sending a letter or email us to the following information: Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) 300-1542.</span>
 <br>
 <div style="text-align:center;font-size:10px;">
   <b style="text-align:center">HELP or SUPPORT</b><br>
@@ -249,7 +249,7 @@ SMS POLICY LOAN #<span style="text-decoration:underline">'.$loan_id_bor.'</span>
   <b style="text-align:center">AGREEMENT TO RECEIVE SMS</b>
 </div>
 <br>
-<span style="font-size:8px; text-align:justify">By signing this section, you authorize LS Financing, Inc or Our Agents to send marketing to the mobile number you have provided and that is listed below using and automatic dialing system, You are not required to authorize marketing SMS to obtain credit or other services from us. If you do not wish to receive, sales or marketing SMS from us, you should not sign this section. You understand that at any messages we send you may be accessed by anyone with access to your SMS. You also understand that your mobile phone service provider any charge you fees for any SMS that we send you, and you agree that we shall have no liability for any cost related to such SMS. At any time, you may withdraw your consent to receive marketing by calling us at (747) 300-1542.</span>
+<span style="font-size:8px; text-align:justify">By signing this section, you authorize Pacifica Finance Group or Our Agents to send marketing to the mobile number you have provided and that is listed below using and automatic dialing system, You are not required to authorize marketing SMS to obtain credit or other services from us. If you do not wish to receive, sales or marketing SMS from us, you should not sign this section. You understand that at any messages we send you may be accessed by anyone with access to your SMS. You also understand that your mobile phone service provider any charge you fees for any SMS that we send you, and you agree that we shall have no liability for any cost related to such SMS. At any time, you may withdraw your consent to receive marketing by calling us at (747) 300-1542.</span>
 
 <br><br>
 <table style="width:100%; font-size:10px; text-align:left">

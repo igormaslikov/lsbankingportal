@@ -227,7 +227,7 @@ $style = array(
 </tr>
 <tr>
 <td style="text-align:center" height="50">Borrower Name and Address</td>
-<td style="text-align:center" height="50">LS Financing, Inc
+<td style="text-align:center" height="50">Pacifica Finance Group
 DBA Money Line
 4645 Van Nuys Blvd Suite 202
 Sherman Oaks, CA 91403
@@ -345,7 +345,7 @@ G. Monto Total del Préstamo
 </span>
 
 </td>
-<td align="left"> <b style="font-size:7px;">ESTE ES UN PRÉSTAMO DE ALTO COSTO. PUEDE PODER OBTENER UN PRÉSTAMO DE ALGUIEN MÁS A UNA TASA DE INTERÉS MENOR. LS FINANCING LE RECOMIENDA PENSAR CUIDADOSAMENTE ANTES DE DECIDIR ADQUIRIR ESTE PRÉSTAMO.</b>
+<td align="left"> <b style="font-size:7px;">ESTE ES UN PRÉSTAMO DE ALTO COSTO. PUEDE PODER OBTENER UN PRÉSTAMO DE ALGUIEN MÁS A UNA TASA DE INTERÉS MENOR. Pacifica Finance Group LE RECOMIENDA PENSAR CUIDADOSAMENTE ANTES DE DECIDIR ADQUIRIR ESTE PRÉSTAMO.</b>
 <br><br>
 Firma del Prestatario &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :
 <br><br>

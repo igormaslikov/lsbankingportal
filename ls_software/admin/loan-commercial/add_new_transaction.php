@@ -355,7 +355,7 @@ if ($u_access_id != '1') {
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS => '{
                     "payment_method": "card",
-                    "Source": "LS Financing"
+                    "Source": "Pacifica Finance Group"
                     }',
                 CURLOPT_HTTPHEADER => array(
                     'Content-Type: application/json',
@@ -428,7 +428,7 @@ if ($u_access_id != '1') {
                     "card_number": "' . $cardNumber . '",
                     "card_cvc": "' . $cvv . '",
                     "card_expiration": "' . str_replace("/", "", $expDate) . '",
-                    "Source": "LS Financing",
+                    "Source": "Pacifica Finance Group",
                     "PaymentChannel": "web",
                     "convenience_fee": "0",
                     "waive_conv_fee": false,

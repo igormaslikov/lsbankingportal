@@ -8,7 +8,7 @@
 
     <link rel="icon" href="images/ok.png" type="image/x-icon" />
     <!-- Theme tittle -->
-    <title>LS Financing</title> 
+    <title>Pacifica Finance Group</title> 
     
     <!-- Theme style CSS -->      
     <link href="css/style.css" rel="stylesheet"> 
@@ -397,8 +397,8 @@
             <div class="alons_text">
                 <h2>LEARN MORE ABOUT US</h2>
                 <h4>More the 20 years experience </h4>
-                <p><b>LS Financing Inc</b> is a technologically driven financial company that specializes in providing affordable range of different kinds of loans to help people with little or low credit history to establish credits and build a better future.Thanks to the coverage and scope that the new technologies offer, we have devised a fast, easy and secure access through any mobile device or a computer.</p>
-                <p>Thanks to our highly trained staff and our newly developed technologies,<b>LS Financing</b> is proud to offer our customers with quick,simple and secure funding from any mobile device or computer.</p>
+                <p><b>Pacifica Finance Group</b> is a technologically driven financial company that specializes in providing affordable range of different kinds of loans to help people with little or low credit history to establish credits and build a better future.Thanks to the coverage and scope that the new technologies offer, we have devised a fast, easy and secure access through any mobile device or a computer.</p>
+                <p>Thanks to our highly trained staff and our newly developed technologies,<b>Pacifica Finance Group</b> is proud to offer our customers with quick,simple and secure funding from any mobile device or computer.</p>
                 
             </div>
             <div class="projects_done row" style="display:none;">
@@ -556,7 +556,7 @@
 					<div class="client_info fast_i">
 						<img src="images/Juan.jpg" alt="">
 						<h4>Financial Loan</h4>
-						<p>With LS Financing it is very easy to obtain a loan and the money is quickly transferred to your bank account.<br><br></p>
+						<p>With Pacifica Finance Group it is very easy to obtain a loan and the money is quickly transferred to your bank account.<br><br></p>
 					</div>
 				</div>
 				<div class="item">
@@ -564,7 +564,7 @@
 					<div class="client_info">
 						<img src="images/senora.png" alt="">
 						<h4>Financial Loan</h4>
-						<p>"I came across LS Financing when doing a search on the Internet.The simplicity of the process is very comforting and I received my loan in 48 hours. </p>
+						<p>"I came across Pacifica Finance Group when doing a search on the Internet.The simplicity of the process is very comforting and I received my loan in 48 hours. </p>
 					</div>
 				</div>
 			</div>

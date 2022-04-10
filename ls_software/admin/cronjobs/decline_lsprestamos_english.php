@@ -175,7 +175,7 @@ $customer_email = $row_name['email'];
 $phone = $row_name['mobile_number'];
 $user_fnd_id = $row_name['user_fnd_id'];
 }
-	 $message = "Hola ".$customer_name." ".",Gracias por aplicar con LS Financing Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
+	 $message = "Hola ".$customer_name." ".",Gracias por aplicar con Pacifica Finance Group, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
 //$to_email = "umersharif905@yahoo.com";
 $to_email = $customer_email;
 $subject = 'LS BANKING DECLINED';
@@ -226,7 +226,7 @@ $customer_email = $row_name['email'];
 $phone = $row_name['mobile_number'];
 $user_fnd_id = $row_name['user_fnd_id'];
 }
-	 $message = "Hola ".$customer_name." ".",Gracias por aplicar con LS Financing Inc, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
+	 $message = "Hola ".$customer_name." ".",Gracias por aplicar con Pacifica Finance Group, lamentamos informarle que su aplicación ha sido declinada, usted no ha cumplido con los criterios correpondientes para extenderle un préstamo en estos momentos. Puede volver a aplicar después de 90 días.";
 //$to_email = "umersharif905@yahoo.com";
 $to_email = $customer_email;
 $subject = 'LS BANKING DECLINED';

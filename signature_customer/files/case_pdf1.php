@@ -323,7 +323,7 @@ PLAZO. ESTE PRÉSTAMO DEBE SER USADO PARA CUMPLIR CON LAS NECESIDADES DE EFECTIV
 COSTO DE SU PRÉSTAMO PUEDE SER MAYOR QUE LOS PRÉSTAMOS OFRECIDOS POR OTRAS INSTITUCIONES DE
 PRÉSTAMOS. ESTE PRÉSTAMO ESTÁ REGULADO POR EL DEPARTAMENTO DE REGULACIÓN FINANCIERA Y
 PROFESIONAL.<br>
-Al firmar este Contrato de Préstamo y Declaración de Divulgación (este "contrato") y aceptar un préstamo de LS Financing, Inc ("Prestamista") el
+Al firmar este Contrato de Préstamo y Declaración de Divulgación (este "contrato") y aceptar un préstamo de Pacifica Finance Group ("Prestamista") el
 prestatario abajo firmante ("Yo", "usted", "prestatario") está de acuerdo y acepta los términos y condiciones establecidos en todas las páginas de este
 contrato
 </div>

@@ -224,7 +224,7 @@ $style = array(
  
  
  <br><div style="line-height:7px"><h2 style="text-align:center">CONTRATO DE PRÉSTAMO DE PAGO Y DECLARACIÓN DE DIVULGACIÓN</h2>
-<span style="text-align:center"> Prestamista: LS Financing, Inc 4645 Van Nuys Blvd # 202 Sherman Oaks, CA 91403</span><br><br>
+<span style="text-align:center"> Prestamista: Pacifica Finance Group 4645 Van Nuys Blvd # 202 Sherman Oaks, CA 91403</span><br><br>
 </div>
 
 Fecha del Contrato:    :  '.$creation_date.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LOAN ID : '.$loan_id_bor.' <br>
@@ -278,7 +278,7 @@ tardar al final del segundo día hábil, inmediatamente después del día en que
 anticipadamente, no tendrá derecho a un reembolso de una parte del cargo financiero. Consulte a continuación y / o la segunda
 página de este contrato para obtener información adicional sobre la falta de pago, el incumplimiento de pago, cualquier pago
 requerido en su totalidad antes de la fecha programada y los reembolsos y multas por pago anticipado.<br><br>
-Al firmar este Contrato de préstamo y Declaración de divulgación (este "contrato") y aceptar un préstamo de LS Financing, Inc
+Al firmar este Contrato de préstamo y Declaración de divulgación (este "contrato") y aceptar un préstamo de Pacifica Finance Group
 ("Prestador"), el prestatario abajo firmante ("yo", "usted", "prestatario") esta de acuerdo y acepta los términos y condiciones
 establecidas en todas las páginas de este contrato.
 <br><br>
@@ -299,7 +299,7 @@ NO SE PUEDE PROCESADO EN LA CORTE PENAL PARA RECOGER ESTE PRÉSTAMO.
 <tr>
 <td> Firma del Prestatario</td>
 <td> Fecha</td>
-<td colspan="2"> Prestamista: LS Financing, Inc</td>
+<td colspan="2"> Prestamista: Pacifica Finance Group</td>
 <td> Fecha</td>
 </tr>
 <tr>

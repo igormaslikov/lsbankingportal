@@ -222,14 +222,14 @@ $style = array(
 
  $html = '
 <h1 style="text-align:center"> <span style="text-decoration:underline">PRIVACY NOTICE</span><br>
-LS FINANCING, INC</h1>
+Pacifica Finance Group</h1>
  
  
  <table style="width: 100%;" border="1">
 <tbody>
 <tr>
 <td style="width: 15.8733%; text-align:center; background-color:black;color:white"><br><br>FACTS<br></td>
-<td style="width: 83.1267%; text-align:center"><br><br>WHAT DOES LS FINANCING, INC DO WITH YOUR PERSONAL INFORMATION?<br></td>
+<td style="width: 83.1267%; text-align:center"><br><br>WHAT DOES Pacifica Finance Group DO WITH YOUR PERSONAL INFORMATION?<br></td>
 </tr>
 <tr>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>WHY ?<br></td>
@@ -249,7 +249,7 @@ can include:<br><br>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>HOW ? <br></td>
 <td style="width: 83.1267%;"><br><br>All financial companies need to share customer’s personal information to run their everyday business.<br>
 In the section below, we list the reasons financial companies can share their customers’ personal information; the
-reasons LS Financing, Inc chooses to share; and whether you can limit this sharing. 
+reasons Pacifica Finance Group chooses to share; and whether you can limit this sharing. 
 <br><br></td>
 </tr>
 </tbody>
@@ -260,7 +260,7 @@ reasons LS Financing, Inc chooses to share; and whether you can limit this shari
 <tbody>
 <tr>
 <td style="width: 60%; text-align:left; color:white; background-color:grey "><b>Reason we can share your personal information</b></td>
-<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>Does LS Financing, Inc
+<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>Does Pacifica Finance Group
 Share?</b></td>
 <td style="width: 20.8981%; text-align:center;background-color:grey; color:white"><b>Can you limit this
 sharing?</b></td>

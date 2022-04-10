@@ -43,7 +43,7 @@ while ($row_user_id=mysqli_fetch_array($query_userid)){
 
     <link rel="icon" href="images/ok.png" type="image/x-icon" />
     <!-- Theme tittle -->
-    <title>LS Financing</title> 
+    <title>Pacifica Finance Group</title> 
     
     <!-- Theme style CSS -->      
     <link href="css/style.css" rel="stylesheet"> 

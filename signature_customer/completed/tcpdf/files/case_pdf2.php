@@ -233,7 +233,7 @@ phone and your text messages if you want them to remain private (NO CONFIDENTIAL
 Please notify us immediately if you change mobile numbers.<br><br>
 If we notufy this SMS Policy, we will notify you by sending you a SMS. We may terminate our SMS Policy at any time.<br><br>
 If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text
-messages, please contact us using the following information: LS Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403
+messages, please contact us using the following information: Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403
 info@lsbanking.com or (747) 300-1542.<br><br>
 You agree and consent to the contracted by the Company, our agents, employees, attorneys, subsequent creditors, loan servicing companies and third
 party collectors through the use of email, and/or telephone calls, and/or SMS to your cellular, home or work phone numbers, as well as any other phone
@@ -243,8 +243,8 @@ prerecorded voice. <br><br>
 
 <h2 style="text-align:center">OPT-OUT or STOP</h2>
 This SMS Policy applies to the text messages sent by AAT Capital to our customers while and after they use our service. If you wish to stop receiving
-SMS from LS Financing, Inc reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective
-immediately. You may also stop SMS by calling us suing the following information: LS Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman
+SMS from Pacifica Finance Group reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective
+immediately. You may also stop SMS by calling us suing the following information: Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202 Sherman
 Oaks, CA 91403 info@lsbanking.com or (747) 300-1542.
  <h2 style="text-align:center">HELP or SUPPORT</h2>
 If at any time you need our contact information os information on how to stop SMS, reply to any text message we have sent you and in this reply
@@ -252,7 +252,7 @@ simply type HELP. Upon receiving your text message, we will send you a text mess
 information about your account. Some of the SMS we send may include links to websites. To access these websites, you will need a web browser and
 Internet access.
  <h2 style="text-align:center">AGREEMENT TO RECEIVE SMS</h2>
-By signing this section, you authorize LS Financing, Inc or Our Agents to send marketing to the mobile number you have provided and that is listed
+By signing this section, you authorize Pacifica Finance Group or Our Agents to send marketing to the mobile number you have provided and that is listed
 below using and automatic dailing system, You are not required to authorize marketing SMS to obtain credit or other services from us. If you do not
 wish to receive, sales or marketing SMS from us, you should not sign this section. You understand that at any messages we send you may be accessed
 by anyone with access to your SMS. You also understand that your mobile phone service provider amy charge you fees for any SMS that we send you,

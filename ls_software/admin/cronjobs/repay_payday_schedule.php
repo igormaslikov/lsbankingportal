@@ -278,7 +278,7 @@ $app_token_payment=$row_payment_api['token'];
   CURLOPT_CUSTOMREQUEST => 'POST',
   CURLOPT_POSTFIELDS =>'{
   "payment_method": "card",
-  "Source": "LS Financing"
+  "Source": "Pacifica Finance Group"
 }',
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json',
@@ -353,7 +353,7 @@ curl_setopt_array($curl, array(
   "card_number": "'.$card.'",
   "card_cvc": "'.$cvv.'",
   "card_expiration": "'.$expire_date.'",
-  "Source": "LS Financing",
+  "Source": "Pacifica Finance Group",
   "PaymentChannel": "web",
   "convenience_fee": "0",
   "waive_conv_fee": false,
@@ -379,7 +379,7 @@ curl_close($curl);
   "card_number": "'.$card.'",
   "card_cvc": "'.$cvv.'",
   "card_expiration": "'.$expire_date.'",
-  "Source": "LS Financing",
+  "Source": "Pacifica Finance Group",
   "PaymentChannel": "web",
   "convenience_fee": "0",
   "waive_conv_fee": false,
@@ -396,7 +396,7 @@ curl_close($curl);
 //   "card_number": "'.$card.'",
 //   "card_cvc": "'.$cvv.'",
 //   "card_expiration": "'.$expire_date.'",
-//   "Source": "LS Financing",
+//   "Source": "Pacifica Finance Group",
 //   "PaymentChannel": "web",
 //   "convenience_fee": "0",
 //   "waive_conv_fee": false,

@@ -257,7 +257,7 @@ Loan Agreement/Contrato del Prestamo
 <table>
 <tbody>
 <tr>
-<td><b style="font-size:8px;">•Promise to Pay:</b><span style="font-size:6px;">In return of the loan you receive from us, you promise to pay <u>$'.$amount_of_loan.'</u>, plus interest in accordance with the “Interest” section of this Agreement below, to LS Financing, Inc, it’s successors and assigns. You will pay these amounts in U.S. dollars.</span>
+<td><b style="font-size:8px;">•Promise to Pay:</b><span style="font-size:6px;">In return of the loan you receive from us, you promise to pay <u>$'.$amount_of_loan.'</u>, plus interest in accordance with the “Interest” section of this Agreement below, to Pacifica Finance Group, it’s successors and assigns. You will pay these amounts in U.S. dollars.</span>
 <br>
 <b style="font-size:8px;">•Personal Guarantee:</b><span style="font-size:6px;"> This contract has a personal guarantee from the borrower and co-borrower.</span>
 <br>
@@ -279,7 +279,7 @@ Loan Agreement/Contrato del Prestamo
 
 <td>
 
-<b style="font-size:8px;">•Promesa de pago:</b><span style="font-size:6px;">A cambio del préstamo que usted reciba de nosotros usted promete pagar <u>$'.$amount_of_loan.'</u> de capital, mas intereses, calculado de conformidad con la sección “Intereses” más abajo, a LS Financing, Inc y sus causa habientes y cesionarios. Usted pagara estos importes en dólares estadounidenses.</span>
+<b style="font-size:8px;">•Promesa de pago:</b><span style="font-size:6px;">A cambio del préstamo que usted reciba de nosotros usted promete pagar <u>$'.$amount_of_loan.'</u> de capital, mas intereses, calculado de conformidad con la sección “Intereses” más abajo, a Pacifica Finance Group y sus causa habientes y cesionarios. Usted pagara estos importes en dólares estadounidenses.</span>
 <br>
 
 <b style="font-size:8px;">•Garantía Personal:</b><span style="font-size:6px;">Este contrato tiene una garantía personal del prestatario y el co-prestatario.</span>

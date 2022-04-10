@@ -9,7 +9,7 @@
 
     <link rel="icon" href="images/ok.png" type="image/x-icon" />
     <!-- Theme tittle -->
-    <title>LS Financing</title> 
+    <title>Pacifica Finance Group</title> 
     
     <!-- Theme style CSS -->      
     <link href="css/style.css" rel="stylesheet"> 
@@ -25,7 +25,7 @@
     <section class="banner_area" >
     	<div class="container">
     		<h6>About Us</h6>
-    		<h2>Short story about <span>LS Financing</span></h2>
+    		<h2>Short story about <span>Pacifica Finance Group</span></h2>
     		<ol class="breadcrumb">
                 <li><a href="index.php">Home</a></li>     
                 <li><a href="about.php" class="active">About Us</a></li> 
@@ -73,7 +73,7 @@
         <div class="previous_right">
            <div class="previous_content"> 
 				<div class="alons_text">
-					<h2>LS Financing Previous Record</h2>
+					<h2>Pacifica Finance Group Previous Record</h2>
 					<h4>More the 20 years experience </h4>
 					<p>Helping Your Business Reach Its Full Potential , Whether you are a start-up or a large corporation, RBC has the tools you need to start and run your business all in one place.</p>
 					<p>Starting a business is both exciting and challenging. We can help you every step of the way.</p>

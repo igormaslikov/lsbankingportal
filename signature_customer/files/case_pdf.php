@@ -319,7 +319,7 @@ OFFERED BY OTHER LENDING INSTITUTIONS. THIS LOAN IS REGULATED BY THE DEPARTMENT 
 AND PROFESSIONAL REGULATION.<br><br>
 YOU CANNOT BE PROSECUTED IN CRIMINAL COURT TO COLLECT THIS LOAN.
 </b>
-By signing this Loan Contract and Disclosure Statement (this “contract”) and accepting a loan from LS Financing, Inc (“Lender”) the undersigned
+By signing this Loan Contract and Disclosure Statement (this “contract”) and accepting a loan from Pacifica Finance Group (“Lender”) the undersigned
 borrower (“I”, “you”, “borrower”) agrees to and accept the terms and conditions set forth on all pages of this contract.
 <br>
 </div>

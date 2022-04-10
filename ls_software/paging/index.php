@@ -1,12 +1,12 @@
 <html>
 <head>
-<title>LS Financing</title>
+<title>Pacifica Finance Group</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
 <div style="width:700px; margin:0 auto;">
 
-<h3>LS Financing</h3>
+<h3>Pacifica Finance Group</h3>
 <table class="table table-striped table-bordered">
 <thead>
 <tr>

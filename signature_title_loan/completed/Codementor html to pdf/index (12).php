@@ -455,7 +455,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 
 <P class="p0 ft0">PAYDAY LOAN CONTRACT AND DISCLOSURE STATEMENT</P>
-<P class="p1 ft1">Lender: LS Financing, Inc 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</P>
+<P class="p1 ft1">Lender: Pacifica Finance Group 4645 Van Nuys Blvd #202 Sherman Oaks, CA 91403</P>
 <TABLE cellpadding=0 cellspacing=0 class="t0">
 <TR>
 	<TD class="tr0 td0"><P class="p2 ft2">Contract Date:</P></TD>
@@ -547,7 +547,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TABLE>
 <P class="p16 ft5">Prepayment</P>
 <P class="p17 ft9">A Consumer may cancel future payment obligations on a payday loan, without cost or finance charges, no later than the end of the second business day, immediately following the day on which the payday loan was executed. If you pay off early, you will not be entitled to a refund of a portion of the finance charge. See below and and/or second page of this contract for any additional information about nonpayment, default, any required payment in full before the scheduled date, and prepayment refunds and penalties.</P>
-<P class="p18 ft11">By signing this Loan Contract and Disclosure Statement (this "contract") and accepting a loan from LS Financing, Inc ("Lender") the undersigned borrower ("I", "you", "borrower") agrees to and accept the terms and conditions set forth on all pages of this contract.</P>
+<P class="p18 ft11">By signing this Loan Contract and Disclosure Statement (this "contract") and accepting a loan from Pacifica Finance Group ("Lender") the undersigned borrower ("I", "you", "borrower") agrees to and accept the terms and conditions set forth on all pages of this contract.</P>
 <P class="p19 ft12">I UNDERSTAND THAT IF I STILL OWE ON ONE OR MORE PAYDAY LOANS AFTER 35 DAYS, I AM ENTITLED TO ENTER INTO A REPAYMENT TO ENTER INTO A REPAYMENT PLAN THAT I WILL GIVE ME AT LEAST 55 DAYS TO REPAY THE LOAN IN INSTALLMENTS WITH NO ADDITIONAL FINANCE CHARGES, INTEREST, FEES, OR OTHER CHARGES OF ANY KIND.</P>
 <P class="p20 ft12">WARNING: THIS LOAN IS NOT INTENTED TO MEET <NOBR>LONG-TERM</NOBR> FINANCIAL NEEDS. THIS LOAN SHOULD ONLY BE USED TO MEET <NOBR>SHORT-TERM</NOBR> CASH NEEDS. THE COST OF YOUR LOAN MAY BE HIGHER THAT LOANS OFFERED BY OTHER LENDING INSTITUTIONS. THIS LOAN IS REGULATED BY THE DEPARTMENT OF FINANCIAL AND PROFESSIONAL REGULATION.</P>
 <P class="p21 ft13">YOU CANNOT BE PROSECUTED IN CRIMINAL COURT TO COLLECT THIS LOAN.</P>
@@ -555,7 +555,7 @@ body {margin-top: 0px;margin-left: 0px;}
 <TR>
 	<TD class="tr9 td20"><P class="p2 ft7">Signature of Borrower</P></TD>
 	<TD class="tr9 td21"><P class="p2 ft7">Date</P></TD>
-	<TD class="tr9 td22"><P class="p2 ft7">Lender: LS Financing, Inc</P></TD>
+	<TD class="tr9 td22"><P class="p2 ft7">Lender: Pacifica Finance Group</P></TD>
 	<TD class="tr9 td23"><P class="p2 ft7">Date</P></TD>
 </TR>
 </TABLE>
@@ -567,7 +567,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 
 <P class="p23 ft14">CONTRATO DE PRÉSTAMO DE PAGO Y DECLARACIÓN DE DIVULGACIÓN</P>
-<P class="p24 ft1">Prestamista: LS Financing, Inc 4645 Van Nuys Blvd # 202 Sherman Oaks, CA 91403</P>
+<P class="p24 ft1">Prestamista: Pacifica Finance Group 4645 Van Nuys Blvd # 202 Sherman Oaks, CA 91403</P>
 <TABLE cellpadding=0 cellspacing=0 class="t3">
 <TR>
 	<TD class="tr10 td24"><P class="p2 ft15">Fecha del Contrato:</P></TD>
@@ -663,7 +663,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TABLE>
 <P class="p16 ft5">Pago por adelantado</P>
 <P class="p32 ft9">Un Consumidor puede cancelar futuras obligaciones de pago en un préstamo de día de pago, sin costos ni cargos financieros, a más tardar al final del segundo día hábil, inmediatamente después del día en que se ejecutó el préstamo de día de pago. Si paga anticipadamente, no tendrá derecho a un reembolso de una parte del cargo financiero. Consulte a continuación y / o la segunda página de este contrato para obtener información adicional sobre la falta de pago, el incumplimiento de pago, cualquier pago requerido en su totalidad antes de la fecha programada y los reembolsos y multas por pago anticipado.</P>
-<P class="p33 ft9">Al firmar este Contrato de préstamo y Declaración de divulgación (este "contrato") y aceptar un préstamo de LS Financing, Inc ("Prestador"), el prestatario abajo firmante ("yo", "usted", "prestatario") esta de acuerdo y acepta los términos y condiciones establecidas en todas las páginas de este contrato.</P>
+<P class="p33 ft9">Al firmar este Contrato de préstamo y Declaración de divulgación (este "contrato") y aceptar un préstamo de Pacifica Finance Group ("Prestador"), el prestatario abajo firmante ("yo", "usted", "prestatario") esta de acuerdo y acepta los términos y condiciones establecidas en todas las páginas de este contrato.</P>
 <P class="p34 ft19">ENTIENDO QUE SI AÚN DEBO EN UNO O MÁS PRÉSTAMOS DE DIA DE PAGO DESPUÉS DE 35 DÍAS, SE ME PERMITE ENTRAR EN UN PLAN DE REPAGO QUE ME DARÁ  AL MENOS 55 DÍAS  PARA REPAGAR EL PRESTAMOS EN PAGOS SIN CARGOS DE FINANCIAMIENTO, INTERESES, HONORARIOS O OTROS CARGOS DE CUALQUIER TIPO.</P>
 <P class="p35 ft20">ADVERTENCIA: ESTE PRÉSTAMO NO ESTÁ  INTENCIONADO A CUMPLIR CON LAS NECESIDADES FINANCIERAS A LARGO PLAZO. ESTE PRÉSTAMO DEBE SER USADO PARA CUMPLIR CON LAS NECESIDADES DE EFECTIVO A CORTO PLAZO. EL COSTO DE SU PRÉSTAMO PUEDE SER MAYOR QUE LOS PRÉSTAMOS OFRECIDOS POR OTRAS INSTITUCIONES DE PRÉSTAMOS. ESTE PRÉSTAMO ESTÁ  REGULADO POR EL DEPARTAMENTO DE REGULACIÓN FINANCIERA Y PROFESIONAL.</P>
 <P class="p36 ft20">NO SE PUEDE PROCESADO EN LA CORTE PENAL PARA RECOGER ESTE PRÉSTAMO.</P>
@@ -671,7 +671,7 @@ body {margin-top: 0px;margin-left: 0px;}
 <TR>
 	<TD class="tr9 td20"><P class="p2 ft7">Firma del Prestatario</P></TD>
 	<TD class="tr9 td21"><P class="p2 ft7">Fecha</P></TD>
-	<TD class="tr9 td22"><P class="p2 ft7">Prestamista: LS Financing, Inc</P></TD>
+	<TD class="tr9 td22"><P class="p2 ft7">Prestamista: Pacifica Finance Group</P></TD>
 	<TD class="tr9 td46"><P class="p2 ft6">Fecha</P></TD>
 </TR>
 </TABLE>
@@ -681,7 +681,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 
 <DIV id="id3_1">
-<P class="p37 ft21"><IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAUABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2PxUNmkNcrNcRvCfl8mV03E8YO1hkfjx79K5HS9YvdL11Tc3V0Y2mitp7eSV5lJd/LBG5jsYPImcHBAYEE7cdn4l1W20bQrm9uXRQmPL3Lu/eE4XA74PP4Zry7SNQsdZ161tf7RVJpLmGUO6MNzJMkpGSAMnYQPcj6V6GHhGVCTktjz8RKca8OVvXfse0UUg6UV556BleINAi8RWMdrLfX9mEkEgksZ/KckAjBOOnPT6VgW3w1tLW6guB4i8SSGGRZAkmoFkYgg4I28g45FFFUpNKyE4pna0UUVIz/9k=" id="p3inl_img1">LS Financing, Inc</P>
+<P class="p37 ft21"><IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAUABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2PxUNmkNcrNcRvCfl8mV03E8YO1hkfjx79K5HS9YvdL11Tc3V0Y2mitp7eSV5lJd/LBG5jsYPImcHBAYEE7cdn4l1W20bQrm9uXRQmPL3Lu/eE4XA74PP4Zry7SNQsdZ161tf7RVJpLmGUO6MNzJMkpGSAMnYQPcj6V6GHhGVCTktjz8RKca8OVvXfse0UUg6UV556BleINAi8RWMdrLfX9mEkEgksZ/KckAjBOOnPT6VgW3w1tLW6guB4i8SSGGRZAkmoFkYgg4I28g45FFFUpNKyE4pna0UUVIz/9k=" id="p3inl_img1">Pacifica Finance Group</P>
 <P class="p38 ft22">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</P>
 <P class="p39 ft23">Borrower Name/Nombre del Deudor: _________________________________________</P>
 <P class="p40 ft23">Loan Number/Numero de Prestamo: _________________________________________</P>
@@ -691,14 +691,14 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p44 ft25">You understand the text messages we send may be seen by anyone with access to your phone. Accordingly, you should tahe steps to safeguard your phone and your text messages if you want them to remain private (NO CONFIDENTIAL INFORMATION SHOULD BE SENT VIA SMS)</P>
 <P class="p45 ft26">Please notify us immediately if you change mobile numbers.</P>
 <P class="p46 ft26">If we notufy this SMS Policy, we will notify you by sending you a SMS. We may terminate our SMS Policy at any time.</P>
-<P class="p47 ft26">If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text messages, please contact us using the following information: LS Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) <NOBR>300-1542.</NOBR></P>
+<P class="p47 ft26">If you have any questions about this SMS Policy, would like us to mail you a paper copy or are having problems receiving or stopping our text messages, please contact us using the following information: Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) <NOBR>300-1542.</NOBR></P>
 <P class="p48 ft26">You agree and consent to the contracted by the Company, our agents, employees, attorneys, subsequent creditors, loan servicing companies and third party collectors through the use of email, and/or telephone calls, and/or SMS to your cellular, home or work phone numbers, as well as any other phone number you have provided in conjunction with this account, including the use of automatic telephoning dailing systems, <NOBR>auto-dailers,</NOBR> or an artificial or prerecorded voice.</P>
 <P class="p49 ft27"><NOBR>OPT-OUT</NOBR> or STOP</P>
-<P class="p50 ft26">This SMS Policy applies to the text messages sent by AAT Capital to our customers while and after they use our service. If you wish to stop receiving SMS from LS Financing, Inc reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling us suing the following information: LS Financing, Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) <NOBR>300-1542.</NOBR></P>
+<P class="p50 ft26">This SMS Policy applies to the text messages sent by AAT Capital to our customers while and after they use our service. If you wish to stop receiving SMS from Pacifica Finance Group reply to any text message we have sent you and, in your reply, simply type STOP. Your stop request will become effective immediately. You may also stop SMS by calling us suing the following information: Pacifica Finance Group 4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403 info@lsbanking.com or (747) <NOBR>300-1542.</NOBR></P>
 <P class="p51 ft27">HELP or SUPPORT</P>
 <P class="p52 ft26">If at any time you need our contact information os information on how to stop SMS, reply to any text message we have sent you and in this reply simply type HELP. Upon receiving your text message, we will send you a text message with this information. The message we sne dprovide you with information about your account. Some of the SMS we send may include links to websites. To access these websites, you will need a web browser and Internet access.</P>
 <P class="p53 ft28">AGREEMENT TO RECEIVE SMS</P>
-<P class="p54 ft26">By signing this section, you authorize LS Financing, Inc or Our Agents to send marketing to the mobile number you have provided and that is listed below using and automatic dailing system, You are not required to authorize marketing SMS to obtain credit or other services from us. If you do not wish to receive, sales or marketing SMS from us, you should not sign this section. You understand that at any messages we send you may be accessed by anyone with access to your SMS. You also understand that your mobile phone service provider amy charge you fees for any SMS that we send you, and you agree that we shall have no liability for any cost related to such SMS. At any time, you may withdraw your consent to receive marketing by calling us at (747) <NOBR>300-1542.</NOBR></P>
+<P class="p54 ft26">By signing this section, you authorize Pacifica Finance Group or Our Agents to send marketing to the mobile number you have provided and that is listed below using and automatic dailing system, You are not required to authorize marketing SMS to obtain credit or other services from us. If you do not wish to receive, sales or marketing SMS from us, you should not sign this section. You understand that at any messages we send you may be accessed by anyone with access to your SMS. You also understand that your mobile phone service provider amy charge you fees for any SMS that we send you, and you agree that we shall have no liability for any cost related to such SMS. At any time, you may withdraw your consent to receive marketing by calling us at (747) <NOBR>300-1542.</NOBR></P>
 <P class="p55 ft29">Borrower's Name:</P>
 <P class="p56 ft23">______________________________</P>
 <P class="p57 ft29">Borrower's Mobile Telephone #:</P>
@@ -716,16 +716,16 @@ body {margin-top: 0px;margin-left: 0px;}
 
 
 <DIV id="id4_1">
-<P class="p37 ft21"><IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAUABUDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2HxdB52guxury18mRH8y0naNiM7SCVKkjDE4zjIFcTZ3ms6DfA/bbkCEi4vI76eW43W6oXdVDMdrbcsMYO4AHjNeha/qFlpWiXV7qKo1pEoLK6lgSSAoIAPcjnHFeUWOs6VrWqPZyasBNqKS23mCCQkPKjIDjaB1Yeg+lehhoqVGV1sefieeNaDi30/pntGeaKO9FeeegZmvaFb+IbBLO5uLuBFkEga1mMbEgEYyO3PSudPwv0hgR/aeuc/8AUQaiiqUmthOKZ21FFFSM/9k=" id="p4inl_img1">LS Financing, Inc</P>
+<P class="p37 ft21"><IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAUABUDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2HxdB52guxury18mRH8y0naNiM7SCVKkjDE4zjIFcTZ3ms6DfA/bbkCEi4vI76eW43W6oXdVDMdrbcsMYO4AHjNeha/qFlpWiXV7qKo1pEoLK6lgSSAoIAPcjnHFeUWOs6VrWqPZyasBNqKS23mCCQkPKjIDjaB1Yeg+lehhoqVGV1sefieeNaDi30/pntGeaKO9FeeegZmvaFb+IbBLO5uLuBFkEga1mMbEgEYyO3PSudPwv0hgR/aeuc/8AUQaiiqUmthOKZ21FFFSM/9k=" id="p4inl_img1">Pacifica Finance Group</P>
 <P class="p45 ft22">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</P>
 <P class="p61 ft23">Borrower Name/Nombre del Deudor: _________________________________________</P>
 <P class="p62 ft23">Loan Number/Numero de Prestamo: _________________________________________</P>
 <P class="p63 ft23">Date/Fecha: _________________________________________</P>
 <P class="p64 ft30">Credit Card Authorization Form</P>
 <P class="p65 ft31">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</P>
-<P class="p66 ft23">Authorization to make payments on my <SPAN class="ft29">LS Financing, Inc </SPAN>Loan # _______________ on continuig basis using the</P>
+<P class="p66 ft23">Authorization to make payments on my <SPAN class="ft29">Pacifica Finance Group </SPAN>Loan # _______________ on continuig basis using the</P>
 <P class="p67 ft32">Credit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card Holder.</P>
-<P class="p68 ft23">Autorización para hacer pagos en mi cuenta de <SPAN class="ft29">LS Financing, </SPAN>Inc prestamo # _______________ sobre la base</P>
+<P class="p68 ft23">Autorización para hacer pagos en mi cuenta de <SPAN class="ft29">Pacifica Finance Group, </SPAN>Inc prestamo # _______________ sobre la base</P>
 <P class="p69 ft32">continua utilizando la tarjeta de crédito que se describe a continuación y los términos de este préstamo , a menos que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito .</P>
 <P class="p70 ft23"><SPAN class="ft29">Type of Debit/Credit Card: </SPAN>_______________________________</P>
 <P class="p71 ft23"><SPAN class="ft29">Credit Card Number: </SPAN>____________________________________</P>
@@ -736,9 +736,9 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p74 ft23">______________________________________________________</P>
 <P class="p75 ft23"><SPAN class="ft29">Telephone: </SPAN>_______________________</P>
 <P class="p76 ft23">I, __________________________________, the undersigned hereby states that the above described Credit Card</P>
-<P class="p77 ft23">is in my name and that i authorize its charge to <SPAN class="ft29">LS Financing, Inc </SPAN>for full or partial payments.</P>
+<P class="p77 ft23">is in my name and that i authorize its charge to <SPAN class="ft29">Pacifica Finance Group </SPAN>for full or partial payments.</P>
 <P class="p78 ft23">Yo , __________________________________, el abajo firmante de la tarjeta de crédito en mi nombre descrita</P>
-<P class="p79 ft23">en la parte superior y que autorizo su cargos a <SPAN class="ft29">LS Financing, Inc </SPAN>para los pagos totales o parciales.</P>
+<P class="p79 ft23">en la parte superior y que autorizo su cargos a <SPAN class="ft29">Pacifica Finance Group </SPAN>para los pagos totales o parciales.</P>
 <P class="p80 ft33">____________________________________________________</P>
 <P class="p77 ft34">Cardholder's Signature/Firma del Titular de la Tarjeta de Credito/Debito</P>
 </DIV>
@@ -750,7 +750,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 
 <DIV id="id5_1">
-<P class="p81 ft21"><IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAUABUDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD1/wAYQ+f4fkcXV5beTIjh7Sd4mPO0glSCRhicZ6gVw1vf6p4cumuWuNSlNshmuYLq7km3wgK7/LIxwwjViu3adxGSRlT6Nr9/Zabod1d6h5Qto1GfOQuhYkBcgAkjcR2ry2PUdH1a7uLWTxBbibUY5rfzBby8PMjIGwUUdXz1Ar0MMoyoyUkefifaKtFwbPZe9FHeivPPQMrX9DGv2KWp1LUbAJKJPNsJ/Kc4BG0nB45zj1ArnD8NUII/4TDxdz6an/8AY0UVSk1sJxTO4oooqRn/2Q==" id="p5inl_img1">LS Financing, Inc</P>
+<P class="p81 ft21"><IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAUABUDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD1/wAYQ+f4fkcXV5beTIjh7Sd4mPO0glSCRhicZ6gVw1vf6p4cumuWuNSlNshmuYLq7km3wgK7/LIxwwjViu3adxGSRlT6Nr9/Zabod1d6h5Qto1GfOQuhYkBcgAkjcR2ry2PUdH1a7uLWTxBbibUY5rfzBby8PMjIGwUUdXz1Ar0MMoyoyUkefifaKtFwbPZe9FHeivPPQMrX9DGv2KWp1LUbAJKJPNsJ/Kc4BG0nB45zj1ArnD8NUII/4TDxdz6an/8AY0UVSk1sJxTO4oooqRn/2Q==" id="p5inl_img1">Pacifica Finance Group</P>
 <P class="p82 ft22">4645 Van Nuys Boulevard Suite 202 Sherman Oaks, CA 91403</P>
 <P class="p83 ft23">Borrower Name/Nombre del Deudor: _________________________________________</P>
 <P class="p84 ft23">Loan Number/Numero de Prestamo: _________________________________________</P>
@@ -760,10 +760,10 @@ body {margin-top: 0px;margin-left: 0px;}
 </DIV>
 <DIV id="id5_2">
 <DIV id="id5_2_1">
-<P class="p88 ft37">I (we) hereby authorize <SPAN class="ft36">LS FINANCING, INC </SPAN>to initiate entries to my (our) checking/savings accounts at The Financial Institution listed below and, if necessary, initiate adjustments for any transactions credited/debited in error. This authority will remain in effect until <SPAN class="ft36">LS FINANCING, INC </SPAN>is notified by me (us) in writing to cancel it in such time as to afford <SPAN class="ft36">LS FINANCING, INC </SPAN>and The Financial Institution a reasonable opportunity to act on it.</P>
+<P class="p88 ft37">I (we) hereby authorize <SPAN class="ft36">Pacifica Finance Group </SPAN>to initiate entries to my (our) checking/savings accounts at The Financial Institution listed below and, if necessary, initiate adjustments for any transactions credited/debited in error. This authority will remain in effect until <SPAN class="ft36">Pacifica Finance Group </SPAN>is notified by me (us) in writing to cancel it in such time as to afford <SPAN class="ft36">Pacifica Finance Group </SPAN>and The Financial Institution a reasonable opportunity to act on it.</P>
 </DIV>
 <DIV id="id5_2_2">
-<P class="p88 ft23">Yo (nosotros) autorizamos a <SPAN class="ft38">LS FINANCING, INC </SPAN>a iniciar inscripciones a mi (nuestras) cuentas de cheques/ahorros en La Institución Financiera que se enumera a continuación y, si es necesario, iniciar ajustes por cualquier transacción acreditada o debitada por error. Esta autoridad permanecerá en vigor hasta que <SPAN class="ft38">LS FINANCING, INC </SPAN>sea notificada por escrito (por escrito) para cancelarla en el tiempo que se dé a <SPAN class="ft38">LS FINANCING, INC </SPAN>y La Institución Financiera una oportunidad razonable para actuar en ella.</P>
+<P class="p88 ft23">Yo (nosotros) autorizamos a <SPAN class="ft38">Pacifica Finance Group </SPAN>a iniciar inscripciones a mi (nuestras) cuentas de cheques/ahorros en La Institución Financiera que se enumera a continuación y, si es necesario, iniciar ajustes por cualquier transacción acreditada o debitada por error. Esta autoridad permanecerá en vigor hasta que <SPAN class="ft38">Pacifica Finance Group </SPAN>sea notificada por escrito (por escrito) para cancelarla en el tiempo que se dé a <SPAN class="ft38">Pacifica Finance Group </SPAN>y La Institución Financiera una oportunidad razonable para actuar en ella.</P>
 </DIV>
 </DIV>
 <DIV id="id5_3">
@@ -790,7 +790,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD class="tr10 td47"><P class="p2 ft39">&nbsp;</P></TD>
-	<TD colspan=3 class="tr10 td51"><P class="p94 ft41">LS FINANCING, INC</P></TD>
+	<TD colspan=3 class="tr10 td51"><P class="p94 ft41">Pacifica Finance Group</P></TD>
 	<TD class="tr10 td50"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
@@ -801,7 +801,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD class="tr14 td55"><P class="p5 ft42">FACTS</P></TD>
-	<TD colspan=4 class="tr14 td56"><P class="p95 ft43">WHAT DOES LS FINANCING, INC DO WITH YOUR PERSONAL INFORMATION?</P></TD>
+	<TD colspan=4 class="tr14 td56"><P class="p95 ft43">WHAT DOES Pacifica Finance Group DO WITH YOUR PERSONAL INFORMATION?</P></TD>
 </TR>
 <TR>
 	<TD class="tr15 td57"><P class="p2 ft39">&nbsp;</P></TD>
@@ -875,7 +875,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD colspan=4 class="tr5 td56"><P class="p96 ft26">In the section below, we list the reasons financial companies can share their customers’ personal information; the</P></TD>
 </TR>
 <TR>
-	<TD colspan=3 rowspan=2 class="tr18 td51"><P class="p96 ft26">reasons LS Financing, Inc chooses to share; and whether you can limit this sharing.</P></TD>
+	<TD colspan=3 rowspan=2 class="tr18 td51"><P class="p96 ft26">reasons Pacifica Finance Group chooses to share; and whether you can limit this sharing.</P></TD>
 	<TD class="tr21 td60"><P class="p2 ft45">&nbsp;</P></TD>
 </TR>
 <TR>
@@ -898,7 +898,7 @@ body {margin-top: 0px;margin-left: 0px;}
 <TR>
 	<TD colspan=2 class="tr11 td68"><P class="p97 ft42">Reason we can share your personal information</P></TD>
 	<TD class="tr11 td69"><P class="p2 ft39">&nbsp;</P></TD>
-	<TD class="tr11 td70"><P class="p98 ft42">Does LS Financing, Inc</P></TD>
+	<TD class="tr11 td70"><P class="p98 ft42">Does Pacifica Finance Group</P></TD>
 	<TD class="tr11 td71"><P class="p6 ft42">Can you limit this</P></TD>
 </TR>
 <TR>
@@ -1062,7 +1062,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD class="tr25 td90"><P class="p2 ft39">&nbsp;</P></TD>
-	<TD colspan=3 class="tr25 td91"><P class="p105 ft41">LS FINANCING</P></TD>
+	<TD colspan=3 class="tr25 td91"><P class="p105 ft41">Pacifica Finance Group</P></TD>
 	<TD class="tr25 td92"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr25 td93"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
@@ -1075,7 +1075,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD class="tr13 td99"><P class="p106 ft48">HECHOS</P></TD>
-	<TD colspan=4 class="tr13 td100"><P class="p107 ft27">QUE HACE LS FINANCING CON SU INFORMACION PERSONAL?</P></TD>
+	<TD colspan=4 class="tr13 td100"><P class="p107 ft27">QUE HACE Pacifica Finance Group CON SU INFORMACION PERSONAL?</P></TD>
 	<TD class="tr13 td101"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
@@ -1170,7 +1170,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD rowspan=2 class="tr6 td104"><P class="p111 ft42">Como?</P></TD>
-	<TD colspan=4 class="tr18 td100"><P class="p108 ft22">personal de sus clientes; las razones por las cuales LS Financing, Inc elige compartir dicha informacion y si usted puede limitar</P></TD>
+	<TD colspan=4 class="tr18 td100"><P class="p108 ft22">personal de sus clientes; las razones por las cuales Pacifica Finance Group elige compartir dicha informacion y si usted puede limitar</P></TD>
 	<TD class="tr18 td101"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
@@ -1203,7 +1203,7 @@ body {margin-top: 0px;margin-left: 0px;}
 <TR>
 	<TD colspan=2 class="tr5 td114"><P class="p97 ft42">Razones por las que compartimos su informacion personal</P></TD>
 	<TD class="tr5 td115"><P class="p2 ft39">&nbsp;</P></TD>
-	<TD class="tr5 td116"><P class="p2 ft42">LS Financing, Inc</P></TD>
+	<TD class="tr5 td116"><P class="p2 ft42">Pacifica Finance Group</P></TD>
 	<TD rowspan=2 class="tr17 td117"><P class="p8 ft42">Usted puede limitar?</P></TD>
 	<TD class="tr5 td93"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>

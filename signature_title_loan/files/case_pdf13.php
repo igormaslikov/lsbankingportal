@@ -239,10 +239,10 @@ Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_
 
 
 <div style="font-size:8px;">
-Authorization to make payments on my <b>LS Financing, Inc</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuig basis using the
+Authorization to make payments on my <b>Pacifica Finance Group</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuig basis using the
 Credit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card
 Holder.<br><br>
-Autorización para hacer pagos en mi cuenta de <b>LS Financing, Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
+Autorización para hacer pagos en mi cuenta de <b>Pacifica Finance Group</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
 continua utilizando la tarjeta de crédito que se describe a continuación y los términos de este préstamo , a menos
 que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito .
 </div>
@@ -273,10 +273,10 @@ Telephone: '.$mobile_number.' <br><br>
 
 <br><br><br>
  I, '.$f_name.', the undersigned hereby states that the above described Credit Card
-is in my name and that i authorize its charge to LS Financing, Inc for full or partial payments.
+is in my name and that i authorize its charge to Pacifica Finance Group for full or partial payments.
 <br><br>
  Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita
-en la parte superior y que autorizo su cargos a LS Financing, Inc para los pagos totales o parciales. <br><br><br>
+en la parte superior y que autorizo su cargos a Pacifica Finance Group para los pagos totales o parciales. <br><br><br>
 
 ____________________________________________________<br><br>
 <b>Cardholders Signature/Firma del Titular de la Tarjeta de Credito/Debito<br>
