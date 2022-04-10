@@ -1060,4 +1060,4 @@ window.location.href = 'not_authorize.php';
 
 
 <h3 style="color:red;">Conversation  <span style="float:right;">  </span>   </h3>
-<iframe src="https://mymoneyline.com/lsbankingportal/ls_software/admin/sms-chat/chat.php?admin_name=<?php echo $u_name;?>&fnd_id=<?php echo $cu_id ;?>&customer_name=<?php echo $first_name;?>" height="500px" width="100%" id="conversation"></iframe>
+<iframe src="https://pacificafinancegroup.com/loanportal/ls_software/admin/sms-chat/chat.php?admin_name=<?php echo $u_name;?>&fnd_id=<?php echo $cu_id ;?>&customer_name=<?php echo $first_name;?>" height="500px" width="100%" id="conversation"></iframe>

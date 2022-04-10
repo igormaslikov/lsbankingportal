@@ -26,8 +26,8 @@ include('dbconnect.php');
 include('dbconfig.php');
 
 
-//$mesg .= get_headers('https://mymoneyline.com/lsbankingportal/ls_software/admin/chat_plugin/incoming.php');
-//$url = 'https://mymoneyline.com/lsbankingportal/ls_software/admin/chat_plugin/incoming.php';
+//$mesg .= get_headers('https://pacificafinancegroup.com/loanportal/ls_software/admin/chat_plugin/incoming.php');
+//$url = 'https://pacificafinancegroup.com/loanportal/ls_software/admin/chat_plugin/incoming.php';
 
   //         $headers = get_headers($url,0);
 //foreach ($headers as $header => $key) {

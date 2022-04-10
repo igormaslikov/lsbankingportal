@@ -134,7 +134,7 @@ $gravatar =  "http://profiles.google.com/s2/photos/profile/". $row['email']."?sz
 	 		  <td>".$row_fnd_idd['payment_method']."</td>
 	 		  <td>".$repay_response."</td>
 		   	  
-<td> <a href='https://www.mymoneyline.com/lsbankingportal/ls_software/admin/view_all_payday_loans.php' title='View Loan'><span class='glyphicon glyphicon-edit' aria-hidden='true' alt='edit'></span></a>
+<td> <a href='https://www.pacificafinancegroup.com/loanportal/ls_software/admin/view_all_payday_loans.php' title='View Loan'><span class='glyphicon glyphicon-edit' aria-hidden='true' alt='edit'></span></a>
 
 
 

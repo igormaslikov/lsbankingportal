@@ -4,7 +4,7 @@ $id=$_GET['id'];
 
 
 <?php
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_customer/completed/"; 
+$url_logo="https://pacificafinancegroup.com/loanportal/signature_customer/completed/"; 
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -277,7 +277,7 @@ Borrowers Signature<br>'."<img src='$result_sig' style='height:130%;width:35%;ma
 Date: '.$creation_date.'<br>
 </b>
 ';
-$sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_customer/completed/doc_signs/".$img_signed;
+$sign_image_url= "https://pacificafinancegroup.com/loanportal/signature_customer/completed/doc_signs/".$img_signed;
 
 $img = file_get_contents($sign_image_url);
 

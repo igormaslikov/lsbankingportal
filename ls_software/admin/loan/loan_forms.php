@@ -108,11 +108,11 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 if($sign_status>0){
     $signed_button_payday = "(Contract Signed)";
-    $signed_button_payday .= '<a target="_blank" href="https://mymoneyline.com/lsbankingportal/signature_customer/files/sign_contract.php?id='.$mail_key.'" title=""><i class="glyphicon glyphicon-search" alt="" title="Preview The Payday Contract"></i></a>';
+    $signed_button_payday .= '<a target="_blank" href="https://pacificafinancegroup.com/loanportal/signature_customer/files/sign_contract.php?id='.$mail_key.'" title=""><i class="glyphicon glyphicon-search" alt="" title="Preview The Payday Contract"></i></a>';
 
 }
 else {
-    $signed_button_payday = '<a target="_blank" href="https://mymoneyline.com/lsbankingportal/signature_customer/files/sign_contract.php?id='.$mail_key.'" title=""><i class="glyphicon glyphicon-search" alt="" title="Preview The Payday Contract"></i></a>';
+    $signed_button_payday = '<a target="_blank" href="https://pacificafinancegroup.com/loanportal/signature_customer/files/sign_contract.php?id='.$mail_key.'" title=""><i class="glyphicon glyphicon-search" alt="" title="Preview The Payday Contract"></i></a>';
     $signed_button_payday .= ' <a target="_blank" href="functions/contract_pdf_mail.php?email_key='.$mail_key.'&email='.$customer_email.'&user_id='.$u_id.'&loan_id='.$loan_create_id.'&customer_id='.$user_fnd_id.'" title=""><i class="glyphicon glyphicon-envelope" alt="" title="Send Contract via Mail"></i></a>';
     $signed_button_payday .= ' <a target="_blank" href="functions/contract_pdf_sms.php?email_key='.$mail_key.'&phone_number='.$customer_numbr.'&user_id='.$u_id.'&loan_id='.$loan_create_id.'&customer_id='.$user_fnd_id.'" title=""><i class="glyphicon glyphicon-phone" alt="" title="Send Contract via SMS"></i></a>';
 }

@@ -1,5 +1,5 @@
 <?php
-$host = "mymoneyline.com/lsbankingportal/"; 
+$host = "pacificafinancegroup.com/loanportal/"; 
 $user = "android_devloper"; 
 $password = "vvP8qe083iL9"; 
 $database = "dbs57337"; 

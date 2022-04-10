@@ -10,7 +10,7 @@ $user_fnd_id = $_GET['user_fnd_id'];
 //$loan_id = $_GET['loan_id'];
 $phone_number = $_GET['phone_number'];
 $email_key = $_GET['email_key'];
-$url = "https://mymoneyline.com/lsbankingportal/signature_customer/completed/index.php?id=".$email_key;
+$url = "https://pacificafinancegroup.com/loanportal/signature_customer/completed/index.php?id=".$email_key;
 $message = "Hello, Please sign your loan contract by clicking on this url : ".$url;
 
 

@@ -4,7 +4,7 @@ $id=$_GET['id'];
 
 
 <?php
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_customer/completed/";
+$url_logo="https://pacificafinancegroup.com/loanportal/signature_customer/completed/";
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -303,7 +303,7 @@ $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL 
 $file_name = $id."page_4";
 $path=dirname(__FILE__)."/Barcodes/".$file_name.".pdf";
 $pdf->Output($path,'F');
-// $sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_customer/completed/doc_signs/".$img_signed;
+// $sign_image_url= "https://pacificafinancegroup.com/loanportal/signature_customer/completed/doc_signs/".$img_signed;
 
 // $img = file_get_contents($sign_image_url);
 

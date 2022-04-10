@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('America/Los_Angeles');
-$host = "mymoneyline.com/lsbankingportal/"; 
+$host = "pacificafinancegroup.com/loanportal/"; 
 $user = "dblsuser2021"; 
 $password = "^%D24L*!Ti5%"; 
 $database = "dbs57337"; 

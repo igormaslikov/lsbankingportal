@@ -145,7 +145,7 @@ $surname= $quoteJson->creditProfile[0]->consumerIdentity->name[0]->surname;
 
 ?>
 <div style="width:70%; position:relative; margin:auto;"> 
-<img src="https://mymoneyline.com/lsbankingportal/ls_software/website/images/Money-Line-Logo.JPG"> <hr><br>
+<img src="https://pacificafinancegroup.com/loanportal/ls_software/website/images/Money-Line-Logo.JPG"> <hr><br>
 <?php 
 
 $id_credit= "2";
@@ -429,7 +429,7 @@ while($row_msg = mysqli_fetch_array($sql_msg)) {
 </div>
 
 <!--
-<iframe src="https://mymoneyline.com/lsbankingportal/signature_customer/credit_report/credit_report.php?id=<?php echo $id;?>"  width="100%" height="800"></iframe>
+<iframe src="https://pacificafinancegroup.com/loanportal/signature_customer/credit_report/credit_report.php?id=<?php echo $id;?>"  width="100%" height="800"></iframe>
 -->
 </body>
 </html>

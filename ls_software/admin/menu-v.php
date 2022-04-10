@@ -188,12 +188,12 @@ $count=mysqli_num_rows($result);
        
         <div id="navbar" class="navbar-collapse collapse" style="float:right; position:relative; display:block; width:100%">
           <ul class="nav navbar-nav nav1" style="flex-direction:row !important; ">
-            <a class="navbar-brand" href="https://mymoneyline.com/lsbankingportal/ls_software/admin/home.php" style="color:white;"><span class="glyphicon glyphicon-home" style="font-size:20px;color:white"></span></a>
-            <li class="loan"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/view_all_customer.php?status=All&keyword=&from_date=&to_date=&search=&website=All"  style="color:white; font-size:20px">Applications</a></li>
-            <li class="loan"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/view_all_payday_loans.php" style="color:white;">Payday Loans</a></li>
+            <a class="navbar-brand" href="https://pacificafinancegroup.com/loanportal/ls_software/admin/home.php" style="color:white;"><span class="glyphicon glyphicon-home" style="font-size:20px;color:white"></span></a>
+            <li class="loan"><a href="https://pacificafinancegroup.com/loanportal/ls_software/admin/view_all_customer.php?status=All&keyword=&from_date=&to_date=&search=&website=All"  style="color:white; font-size:20px">Applications</a></li>
+            <li class="loan"><a href="https://pacificafinancegroup.com/loanportal/ls_software/admin/view_all_payday_loans.php" style="color:white;">Payday Loans</a></li>
             <li class="loan"><a href="#"  style="color:white;">Personal Loans</a></li>
             <li class="loan"><a href="#"  style="color:white;">Reports</a></li>
-            <li class="loan"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/marketing.php"  style="color:white;">Marketing</a></li>
+            <li class="loan"><a href="https://pacificafinancegroup.com/loanportal/ls_software/admin/marketing.php"  style="color:white;">Marketing</a></li>
             
             
              
@@ -202,10 +202,10 @@ $count=mysqli_num_rows($result);
                  <ul id='menu' style="padding-left:0px; font-size:16px">
     <li class = "loan"><a  href='#' title='Menu' style="font-size:20px">Settings</a>
       <ul class='menus'>
-        <li><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/sms_settings.php"  style="color:white;" title='Dropdown 1'>SMS Settings</a>
+        <li><a href="https://pacificafinancegroup.com/loanportal/ls_software/admin/sms_settings.php"  style="color:white;" title='Dropdown 1'>SMS Settings</a>
         </li>
-        <li class="portfolio"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/view_all_companies.php"  style="color:white;">Portfolios</a></li>
-        <li class="user"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/view_all_user.php"  style="color:white;">User</a></li>
+        <li class="portfolio"><a href="https://pacificafinancegroup.com/loanportal/ls_software/admin/view_all_companies.php"  style="color:white;">Portfolios</a></li>
+        <li class="user"><a href="https://pacificafinancegroup.com/loanportal/ls_software/admin/view_all_user.php"  style="color:white;">User</a></li>
         
       </ul>
     </li>
@@ -217,8 +217,8 @@ $count=mysqli_num_rows($result);
     <li class="loan"><a  href='#' title='Menu' style="font-size:20px">Tools</a>
       <ul class='menus'>
        
-        <li class="loan"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/calculator/payday_loan.php"  style="color:white;">Calculator</a></li>
-        <li class="loan"><a href="https://mymoneyline.com/lsbankingportal/ls_software/admin/view_all_credit_reports.php"  style="color:white;">View All Credit Reports</a></li>
+        <li class="loan"><a href="https://pacificafinancegroup.com/loanportal/ls_software/admin/calculator/payday_loan.php"  style="color:white;">Calculator</a></li>
+        <li class="loan"><a href="https://pacificafinancegroup.com/loanportal/ls_software/admin/view_all_credit_reports.php"  style="color:white;">View All Credit Reports</a></li>
            
         
       </ul>

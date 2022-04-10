@@ -1,6 +1,6 @@
 <?php
 
-$url_logo="https://mymoneyline.com/lsbankingportal/ls_software/signature/"; 
+$url_logo="https://pacificafinancegroup.com/loanportal/ls_software/signature/"; 
 
 include 'dbconnect.php';
 include 'dbconfig.php';

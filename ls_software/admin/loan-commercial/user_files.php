@@ -397,7 +397,7 @@ $state=$row_fnd['state'];
 
 
 
-$address_contarct="https://mymoneyline.com/lsbankingportal/signature_commercial_loan";
+$address_contarct="https://pacificafinancegroup.com/loanportal/signature_commercial_loan";
 
 
 
@@ -476,7 +476,7 @@ if($void_img == ''){
         echo"<br><br>";
         if($contract_status=='1')
         {
-        echo "<a onclick='myFunction_contract_manual()' target = '_blank' class='remove-box' href='https://mymoneyline.com/lsbankingportal/ls_software/admin/loan-commercial/uploads_contract/$contract_db?id=$id' target='_blank' title='View Contract'>View Echeck Contract</a>";
+        echo "<a onclick='myFunction_contract_manual()' target = '_blank' class='remove-box' href='https://pacificafinancegroup.com/loanportal/ls_software/admin/loan-commercial/uploads_contract/$contract_db?id=$id' target='_blank' title='View Contract'>View Echeck Contract</a>";
         }
         else{
            echo "<a href ='upload_contract.php?id=$id'>Upload Echeck Contract</a>";

@@ -29,7 +29,7 @@ $message .=
 
 A line above
 <br>
-<<img style="position:absolute;top:2px;left:3px;width:50px;height:80px" src="https://mymoneyline.com/lsbankingportal/ci_1.png"  />
+<<img style="position:absolute;top:2px;left:3px;width:50px;height:80px" src="https://pacificafinancegroup.com/loanportal/ci_1.png"  />
 <br>
 a line below
 </body>
@@ -37,11 +37,11 @@ a line below
 </html>'."\n\n".
 $bound;
 
-$file = file_get_contents("https://mymoneyline.com/lsbankingportal/ci_1.png");
+$file = file_get_contents("https://pacificafinancegroup.com/loanportal/ci_1.png");
 
-$message .= "Content-Type: image/jpeg; name=\"https://mymoneyline.com/lsbankingportal/ci_1.png\"\r\n"
+$message .= "Content-Type: image/jpeg; name=\"https://pacificafinancegroup.com/loanportal/ci_1.png\"\r\n"
 ."Content-Transfer-Encoding: base64\r\n"
-."Content-ID: <https://mymoneyline.com/lsbankingportal/ci_1.png>\r\n"
+."Content-ID: <https://pacificafinancegroup.com/loanportal/ci_1.png>\r\n"
 ."\r\n"
 .chunk_split(base64_encode($file))
 .$bound_last;

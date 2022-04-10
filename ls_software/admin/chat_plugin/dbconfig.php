@@ -1,5 +1,5 @@
 <?php
-$host = "mymoneyline.com/lsbankingportal/"; 
+$host = "pacificafinancegroup.com/loanportal/"; 
 $user = "message_chat"; 
 $password = "admin$$123"; 
 $database = "message_chat"; 

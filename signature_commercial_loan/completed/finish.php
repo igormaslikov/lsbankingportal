@@ -1,6 +1,6 @@
 <?php
 
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed"; 
+$url_logo="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed"; 
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -1559,7 +1559,7 @@ body {margin-top: 0px;margin-left: 0px;}
 
 <?php
 
-$url = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/finish.php?id=".$idd;
+$url = "https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/finish.php?id=".$idd;
 
  //Code to get the file...
  $data = file_get_contents($url);

@@ -1,6 +1,6 @@
 <?php
 $id=$_GET['id'];
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';

@@ -1,6 +1,6 @@
 <?php
 $id=$_GET['id'];
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -251,7 +251,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 	<tr>
 	
 	<td style="width:35%">
-	<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br>
+	<img src="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br>
 	Borrower Signature/ Firma del deudor:
 	</td>
 	<td style="width:15%">
@@ -259,7 +259,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 		Date/Fecha:
 	</td>
 	<td style="width:35%">
-	<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$img_signed_co_borrow.'" alt="" style="height:300%" align="left"/><br>
+	<img src="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/doc_signs_coborrow/'.$img_signed_co_borrow.'" alt="" style="height:300%" align="left"/><br>
 	Co-Borrower Signature / Firma de co-deudor:
 	</td>
 	<td style="width:15%">

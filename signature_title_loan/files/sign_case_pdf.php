@@ -5,7 +5,7 @@ $id=$_GET['id'];
 
 <?php
 
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_customer/completed/";
+$url_logo="https://pacificafinancegroup.com/loanportal/signature_customer/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -308,7 +308,7 @@ YOU CANNOT BE PROSECUTED IN CRIMINAL COURT TO COLLECT THIS LOAN.
 </table>
 
 ';
-$sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_customer/completed/doc_signs/".$img_signed;
+$sign_image_url= "https://pacificafinancegroup.com/loanportal/signature_customer/completed/doc_signs/".$img_signed;
 
 $img = file_get_contents($sign_image_url);
 

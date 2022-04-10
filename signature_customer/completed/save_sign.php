@@ -32,5 +32,5 @@ mysqli_query ($con,"UPDATE `tbl_loan` SET `sign_status`='1' WHERE `loan_create_i
 ?>
 
 <script type="text/javascript">
-window.location.href = 'https://mymoneyline.com/lsbankingportal/signature_customer/files/sign_contract.php?id=<?php echo $key ;?>';
+window.location.href = 'https://pacificafinancegroup.com/loanportal/signature_customer/files/sign_contract.php?id=<?php echo $key ;?>';
 </script>

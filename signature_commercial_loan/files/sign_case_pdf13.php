@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-$url_logo = "https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo = "https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -311,7 +311,7 @@ Servicio ACH; cumplimiento de las normas de la NACHA y de la legislación aplica
 <br><br><br>
 
 <br> <b>
-Firma del Titular de la Cuenta de Banco: <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/' . $img_signed . '" alt="" style="height:300%" align="left"/><br><br>
+Firma del Titular de la Cuenta de Banco: <img src="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/doc_signs/' . $img_signed . '" alt="" style="height:300%" align="left"/><br><br>
 <span style="text-decoration:underline">' . $f_name . '</span><br> <b>
 Nombre del Titular de la Cuenta de Banco
 </div>

@@ -4,7 +4,7 @@ $id=$_GET['id'];
 
 
 <?php
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_personal_naveda_customer/completed/";
+$url_logo="https://pacificafinancegroup.com/loanportal/signature_personal_naveda_customer/completed/";
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
@@ -281,7 +281,7 @@ Borrower Signature/ Firma del deudor: '."<img src='$result_sig' style='height:13
 </table>
 ';
 
-$sign_image_url= "https://mymoneyline.com/lsbankingportal/signature_personal_naveda_customer/completed/doc_signs/".$img_signed;
+$sign_image_url= "https://pacificafinancegroup.com/loanportal/signature_personal_naveda_customer/completed/doc_signs/".$img_signed;
 
 $img = file_get_contents($sign_image_url);
 

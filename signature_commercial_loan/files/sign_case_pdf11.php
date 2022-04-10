@@ -1,6 +1,6 @@
 <?php
 $id=$_GET['id'];
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -306,7 +306,7 @@ is in my name and that i authorize its charge to LS Financing, Inc for full or p
 <br><br>
  Yo , <span style="text-decoration:underline">'.$f_name.'</span>, el abajo firmante de la tarjeta de debito en mi nombre descrita
 en la parte superior y que autorizo su cargos a LS Financing, Inc para los pagos totales o parciales. <br>
-<img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br><br>
+<img src="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/doc_signs/'.$img_signed.'" alt="" style="height:300%" align="left"/><br><br>
 <b>Cardholders Signature/Firma del Titular de la Tarjeta de Debito<br>
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span> </b>
 

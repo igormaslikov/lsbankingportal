@@ -1,6 +1,6 @@
 <?php
 
-	 $DBhost = "mymoneyline.com/lsbankingportal/";
+	 $DBhost = "pacificafinancegroup.com/loanportal/";
 	 $DBuser = "dblsuser2021";
 	 $DBpass = "^%D24L*!Ti5%";
 	 $DBname = "dbs57337";

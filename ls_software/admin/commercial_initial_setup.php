@@ -69,7 +69,7 @@ if ($u_access_id == '0') {
 
 
    $azrizona_message = '../../signature_commercial_loan/files/contract.php?id=' . $email_key;
-   $azrizona_email = 'https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/index.php?id=' . $email_key;
+   $azrizona_email = 'https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/index.php?id=' . $email_key;
 
 
 

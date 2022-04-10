@@ -1,6 +1,6 @@
 <?php
 $id=$_GET['id'];
-$url_logo="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/";
+$url_logo="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -314,7 +314,7 @@ Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_na
 <tr>
 
 <td>
-Initials/Iniciales: <img src="https://mymoneyline.com/lsbankingportal/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/>
+Initials/Iniciales: <img src="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/doc_initials/'.$img_signed.'" alt="" style="height:300%" align="left"/>
 </td>
 
 </tr>

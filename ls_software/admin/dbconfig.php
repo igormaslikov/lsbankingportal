@@ -1,5 +1,5 @@
 <?php
-$host = "mymoneyline.com/lsbankingportal/"; 
+$host = "pacificafinancegroup.com/loanportal/"; 
 //$host = "localhost"; 
 $user = "dblsuser2021"; 
 $password = "^%D24L*!Ti5%"; 
