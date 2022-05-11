@@ -242,12 +242,12 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Crunch Apple');
-$pdf->SetTitle('LSBANKING');
-$pdf->SetSubject('');
-$pdf->SetKeywords('');
+// $pdf->SetAuthor('Crunch Apple');
+// $pdf->SetTitle('LSBANKING');
+// $pdf->SetSubject('');
+// $pdf->SetKeywords('');
 
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH);
+// $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH);
 
 
 if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
@@ -256,46 +256,31 @@ if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
 }
 
 // ---------------------------------------------------------
-$pdf->SetFont('helvetica', '', 11);
-
-// add a page
-$pdf->AddPage();
-
-//$pdf->MultiCell(70, 50, $key1 , 0, 'J', false, 1, 125, 30, true, 0, false, true, 0, 'T', false);
-
 $pdf->SetFont('helvetica', '', 8.25);
-
+$tagvs = [
+  'p' => [
+    ['h'=>0.1, ],
+    ['h'=>0.1, ]
+  ]
+];
+// $tagvs = array('p' => array(0 => array('h' => 0, 'n' => 0), 1 => array('h' => 0, 'n'=> 0)));
+$pdf->setHtmlVSpace($tagvs);
+$pdf->SetPrintHeader(false);
+$pdf->SetPrintFooter(false);
+$pdf->SetMargins(7,0,7);
+$pdf->SetAutoPageBreak(TRUE, 0);
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+$pdf->AddPage();
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// set style for barcode
-$style = array(
-  'border' => false,
-  'vpadding' => 'auto',
-  'hpadding' => 'auto',
-  'fgcolor' => array(0, 0, 0),
-  'bgcolor' => false, //array(255,255,255)
-  'module_width' => 1, // width of a single module in points
-  'module_height' => 1 // height of a single module in points
-);
-
-// set style for barcode
-$style = array(
-  'border' => 0,
-  'vpadding' => 'auto',
-  'hpadding' => 'auto',
-  'fgcolor' => array(0, 0, 0),
-  'bgcolor' => false, //array(255,255,255)
-  'module_width' => 1, // width of a single module in points
-  'module_height' => 1 // height of a single module in points
-);
 
 
 $html = '
-       <div style="text-align: center;">
-      <h1>PAGARE DE PRESTAMO COMERCIA</h1>
-    </div>
-    <b>Numero de Contrato:</b><span>' . $loan_id_bor . '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Fecha:</b><span>' . $creation_date . '</span>
-    <br><br>
+        <p style="text-align:center">
+          <h1>PAGARE DE PRESTAMO COMERCIA</h1>
+        </p>
+        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Numero de Contrato:</b><span style="text-decoration:underline">' . $loan_id_bor . '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Fecha:</b><span style="text-decoration:underline">' . $creation_date . '</span>
+      <br><br>
 
 
       <table style="width: 100%;">
@@ -304,15 +289,15 @@ $html = '
             <td style="width:63%">
             <b>Prestatario:</b><span style="text-decoration:underline">' . $f_name . '</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' . $address . '</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>'.$address.'</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' . $city . ', ' . $state . ' ' . $zip . '</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>'.$city.', '.$state.' '.$zip.'</span>
             <br><br>
             <b>Co-Prestatario:</b><span>____________________________</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>____________________________</span>
             </td>
             <td style="width:12%">
               <span><b>Prestamista:</b></span>
@@ -320,133 +305,127 @@ $html = '
             <td style="width:25%; text-align:center">
               
               <img src="images/pacifica.jpeg" alt="" style="height:400%" align="left"/><br>
-              <span><b>5900 S Eastern Ave Suite 114 Commerce, CA 90040</b></span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br><br>      
-      <table style="width: 100%;" border="1">
-        <tbody>
-          <tr>
-            <td colspan="6" style="text-align: center;"><b>DECLARACIONES INFORMATIVAS DE VERACIDAD EN LOS PRESTAMOS</b></td>
-          </tr>
-          <tr>
-            <td style=" text-align: center;">
-              <div>
-                <b>TASA DE PORCENTAJE ANUAL</b>
-              </div>
-              <div>
-                <span>El costo del credito expresado como tasa anual</span>
-              </div>
-              <div>
-                <span>' . $anual_pr . '%</span>
-              </div>
-            </td>
-            <td colspan="2" style=" text-align: center;">
-              <div>
-                  <b>MONTO FINANCIADO</b>
-                </div>
-                <div>
-                  <span>Cantidad de credito provista a usted o en su nombre. </span>
-                </div>
-                <div>
-                  <span>$' . $principal . '</span>
-                </div>
-            </td>
-            <td style=" text-align: center;">
-              <div>
-                  <b>CARGOS DE FINANCIAMIENTO</b>
-                </div>
-                <div>
-                  <span>El importe en dolares que le costara el credito</span>
-                </div>
-                <div>
-                  <span>$' . $interest_rate . '</span>
-                </div>
-            </td>
-            <td colspan="2" style=" text-align: center;">
-              <div>
-                  <b>TOTAL DE PAGOS</b>
-                </div>
-                <div >
-                  <span>El monto que Habra pagado despues de haber efectuado todos los pagos programados.</span>
-                </div>
-                <div>
-                  <span>$' . $totLoan . '</span>
-                </div>
-            </td>
-          </tr>
-          <tr>
-            <td rowspan="4" style=" text-align: center;"><b>Calendario de Pagos:</b></td>
-            <td style=" text-align: center;"><b>Numero de Pagos</b></td>
-            <td style=" text-align: center;"><b>Cantidad del Pago</b></td>
-            <td colspan="3" style=" text-align: center;"><b>Cuando Vence el Pago</b></td>
-          </tr>
-          <tr>
-            <td style=" text-align: center;"><br><br>1<br></td>
-            <td style=" text-align: center;"><br><br>' . $fitst_payment . '<br></td>
-            <td colspan="3" style=" text-align: left;"><br><br>Pago  ' . $installment_plan . ', empezando el  ' . $fitst_payment_date . '.<br></td>
-          </tr>
-          <tr>
-            <td style=" text-align: center;">' . $count_payments . '</td>
-            <td style=" text-align: center;">' . $second_payment . '</td>
-            <td colspan="3" style=" text-align: left;" >Pagos ' . $installment_plan . '.</td>
-          </tr>
-          <tr>
-            <td style=" text-align: center;">Ultimo Pago de </td>
-            <td style=" text-align: center;">' . $last_payment . '</td>
-            <td colspan="3" style=" text-align: left;">Que vence en  ' . $last_payment_date . '.</td>
-          </tr>
-          <tr>
-            <td colspan="5" style="text-align: left; ">
-              <br><br>
-              <span><b>Pagos Adelantados: </b>  Usted puede liquidar su prestamo en cualquier momento. Si usted paga por adelantado, no tendra que pagar penalidad.</span><br><br>
-              <span><b>Cargo por Incumplimiento: </b> Si un pago se hace con mas de 10 dias de retraso, se le cobrara $10 </span> <br><br>
-              <span><b>Cargo de Originación:</b> Se agregará un cargo prepago de financiamiento por $'.$contract_fee.' para cubrir el costo de procesar su solicitud y el acuerdo.</span> <br>
-            </td>
-            <td style=" text-align: center;">
-                <br><br>
-                <span><b>Licencia del Prestamista:</b></span><br><br>
-                <span> 603 K724</span>
+              <span><b>Pacifica Financial Group</b></span><br>
+              <span><b>5900 S Eastern Ave Suite 114 Commerce, CA 90040</b></span><br>
+              <span><b>Tel: 323-797-5398</b></span>
             </td>
           </tr>
         </tbody>
       </table>
       <br><br>
       <table style="width: 100%;" border="1">
-      <tbody>
-        <tr>
-          <td>
-            <div style="text-align:center"><b style="text-align: center;">Itemization of the Amount Financed</b></div>
-            <div style="text-align:left">
-              <span>Cantidad entregada a usted directamente……………………………………………………………………… $' . ($principal_f - $in_hand) . '</span><br>
-              <span>Cantidad pagada por su préstamo existente con nosotros……………………………………………………+$' . $in_hand . ' </span><br>
-              <span>Monto financiado…………………………………………………………………………………………………...=$' . $principal_f . ' </span><br>
-              <span>Cargo por financiamiento pagado por adelantado (Tarifa Administrativa)…………………………………...+$' . $contract_fee . '  </span><br>
-              <span>Capital…………………………………………………………………………………………………………….....=$' . ($principal_f + $contract_fee) . ' </span><br>
-            </div>
-            
-          </td>
-        </tr>
-      </tbody>
-    </table>
-      <div style="text-align: justify;">
-      <p><b>Derecho del prestamista: </b><span> En caso de incumplimiento del prestatario, el prestamista puede declarar todo el saldo de capital impago en este Pagare de Prestamo Comercial y luego el prestatario pagará ese monto.
-        </span></p>
-       
-        <p><b>Valor predeterminado del prestatario: </b> <span>El valor predeterminado del prestatario incluye, entre otros, los siguientes: procedimientos de quiebra voluntarios o involuntarios en los que el prestatario es nombrado deudor; cualquier gravamen o gravamenes registrado sobre la propiedad actual del Prestatario, como se menciona anteriormente, ya sea voluntario, involuntario o mediante la operación de la ley.
-        </span></p>
-        
-        <p><b>Cargo por articulo devuelto: </b><span>El prestatario pagará al prestamista una tarifa de $ 25.00 si el prestatario hace un pago al  Pagare de Prestamo Comercial  y el cheque o  cargo con autorizacion previa con la que el prestatario paga es deshonrado despues. 
-        </span></p>
-        
-        <p><b>Honorarios de abogados; Gastos: </b><span>El prestamista puede pagar aquí o pagar a otra persona para que le ayude a cobrar este Pagare de Prestamo Comercial si el prestatario no paga. El prestatario le pagará al prestamista ese monto. Esto incluye, sujeto a cualquier límite bajo la ley aplicable, los honorarios del abogado del prestamista y los gastos legales del prestamista, ya sea que exista o no una demanda, incluidos los honorarios del abogado, los gastos por procedimientos de bancarrota (incluidos los esfuerzos para modificar o desocupar una suspensión o mandato judicial), y apelaciones. El prestatario también pagará los costos judiciales, además de todas las demás sumas previstas por la ley.
-        </span></p>
-        </div>
-        <span style="text-align:right"><span>Iniciales:__________________________</span></span>
+        <tbody>
+          <tr>
+            <td colspan="6" style="text-align: center;line-height:1.5"><b>DECLARACIONES INFORMATIVAS DE VERACIDAD EN LOS PRESTAMOS</b></td>
+          </tr>
+          <tr>
+            <td style="width:25%;">
+              <b style="font-size:7px;">TASA DE PORCENTAJE ANUAL</b>
+              <p>El costo del credito expresado como tasa anual </p>
+              <p style="text-decoration:underline; text-align:center; line-height:7">' . $anual_pr . '%</p>
+            </td>
+            <td colspan="2" style="width:25%">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="font-size:7px;">MONTO FINANCIADO</b>
+              <p>Cantidad de credito provista a usted o en su nombre. </p>
+              <p style="text-decoration:underline; text-align:center; line-height:7">' . $principal . '%</p>
+            </td>
+            <td style="width:25%">
+              <b style="font-size:7px;">CARGOS DE FINANCIAMIENTO</b>
+              <p>El importe en dolares que le costara el credito. </p>
+              <p style="text-decoration:underline; text-align:center; line-height:7">$' . $interest_rate . '</p>
+            </td>
+            <td colspan="2" style="width:25%">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b style="font-size:7px;">TOTAL DE PAGOS</b>
+              <p>El monto que Habra pagado despues de haber efectuado todos los pagos programados.</p>
+              <p style="text-decoration:underline; text-align:center; line-height:4">$' . $totLoan . '</p>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="4" style="text-align: center;"><br><br><br><br><b>Calendario de Pagos:</b></td>
+            <td style=" text-align: center;"><br><br><b>Numero de Pagos</b><br></td>
+            <td style=" text-align: center;"><br><br>&nbsp;&nbsp;<b>Cantidad del Pago</b></td>
+            <td colspan="3" style=" text-align: left;"><br><br><b>Cuando Vence el Pago</b></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;"><br><br>1<br></td>
+            <td style=" text-align: center;"><br><br>'.$fitst_payment.'<br></td>
+            <td colspan="3" style=" text-align: left;"><br><br>Pago '.$installment_plan.', empezando el ' .$fitst_payment_date.'.<br></td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;"><br><br>' . $count_payments . '<br></td>
+            <td style=" text-align: center;"><br><br>'.$second_payment.'</td>
+            <td colspan="3" style=" text-align: left;"><br><br>Pagos ' . $installment_plan . '.</td>
+          </tr>
+          <tr>
+            <td style=" text-align: center;"><br><br>Ultimo Pago de<br></td>
+            <td style=" text-align: center;"><br><br>'.$last_payment.'</td>
+            <td colspan="3" style=" text-align: left;"><br><br>Que vence en ' . $last_payment_date . '.</td>
+          </tr>
+          <tr>
+            <td colspan="5" style="text-align: left; width:80%">
+              <p style="line-height:1"><b>Pagos Adelantados:</b> Usted puede liquidar su prestamo en cualquier momento. Si usted paga por adelantado, no tendra que pagar penalidad. </p><br>
+              <p style="line-height:normal"><b>Cargo por Incumplimiento:</b> Si un pago se hace con mas de 10 dias de retraso, se le cobrara $10 </p><br>
+              <p style="line-height:normal"><b>Cargo de Originación:</b> Se agregará un cargo prepago de financiamiento por $'.$contract_fee.' para cubrir el costo de procesar su solicitud y el acuerdo</p><br>
+            </td>
+            <td style=" text-align: center; width:20%">
+                <br><br>
+                <span><b>Licencia del Prestamist:</b></span><br><br>
+                <span> 603K724</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br><br>
+      <table style="width: 100%;" border="1">
+        <tbody>
+          <tr>
+            <td>
+              <div style="text-align:center"><b style="text-align: center;">Itemization of the Amount Financed</b></div>
+              <div style="text-align:left">
+                <span>Cantidad entregada a usted directamente……………………………………………………………………… $' . ($principal_f - $in_hand) . '</span><br>
+                <span>Cantidad pagada por su préstamo existente con nosotros……………………………………………………+$' . $in_hand . ' </span><br>
+                <span>Monto financiado…………………………………………………………………………………………………...=$' . $principal_f . ' </span><br>
+                <span>Cargo por financiamiento pagado por adelantado (Tarifa Administrativa)…………………………………...+$' . $contract_fee . '  </span><br>
+                <span>Capital…………………………………………………………………………………………………………….....=$' . ($principal_f + $contract_fee) . ' </span><br>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <p><b>Derecho del prestamista:</b><span> En caso de incumplimiento del prestatario, el prestamista puede declarar todo el saldo de capital impago
+              en este Pagare de Prestamo Comercial y luego el prestatario pagará ese monto
+              </span></p><br>
+              
+              <p><b>Valor predeterminado del prestatario:</b> <span> El valor predeterminado del prestatario incluye, entre otros, los siguientes: procedimientos de
+              quiebra voluntarios o involuntarios en los que el prestatario es nombrado deudor; cualquier gravamen o gravamenes registrado sobre
+              la propiedad actual del Prestatario, como se menciona anteriormente, ya sea voluntario, involuntario o mediante la operación de la
+              ley.
+              </span></p><br>
+              
+              <p><b>Cargo por articulo devuelto:</b><span>: El prestatario pagará al prestamista una tarifa de $ 25.00 si el prestatario hace un pago al Pagare de
+              Prestamo Comercial y el cheque o cargo con autorizacion previa con la que el prestatario paga es deshonrado despues. 
+              </span></p><br>
+              
+              <p><b>Honorarios de abogados; Gastos:</b><span>El prestamista puede pagar aquí o pagar a otra persona para que le ayude a cobrar este Pagare de
+              Prestamo Comercial si el prestatario no paga. El prestatario le pagará al prestamista ese monto. Esto incluye, sujeto a cualquier límite
+              bajo la ley aplicable, los honorarios del abogado del prestamista y los gastos legales del prestamista, ya sea que exista o no una
+              demanda, incluidos los honorarios del abogado, los gastos por procedimientos de bancarrota (incluidos los esfuerzos para modificar
+              o desocupar una suspensión o mandato judicial), y apelaciones. El prestatario también pagará los costos judiciales, además de todas
+              las demás sumas previstas por la ley.
+              </span></p>
+              <br><br><br>
+              <p style="text-align:right;line-height:4"><span>Iniciales:__________________________</span></p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
         
 ';
+
 
 $pdf->writeHTML($html, 25, 30);
 

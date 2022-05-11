@@ -145,6 +145,8 @@ if ($u_access_id == '0') {
       $contract_datee = $_POST['contract_datee'];
       $payment_datee = $_POST['payment_datee'];
       $daily_interest = $_GET['daily_interest'];
+      $apr = $_GET['anual_pr'];
+      $daily_interest = "";
       
 
 
@@ -340,6 +342,8 @@ if ($u_access_id == '0') {
          //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
       } else {
          echo "<h3> Error Inserting Data </h3>";
+         echo $query_in;
+         exit;
       }
 
       switch ($installment_plann) {
@@ -358,17 +362,19 @@ if ($u_access_id == '0') {
       }
 
       $anual_pr = $daily_interest * $number_n;
-      $anual_pr = number_format($anual_pr, 2);
+      $anual_pr = number_format($apr, 2);
       $in_hand = $_GET['in_hand'];
       
    
 
-      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`secondary_portfolio`,`previous_amount_loan`, `amount_of_loan`,`daily_interest`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`)  VALUES ('$fndd_id','$sourcee','$secondary_portfolio','$in_hand','$principal_amountt',$daily_interest,'$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state')";
+      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`secondary_portfolio`,`previous_amount_loan`, `amount_of_loan`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`)  VALUES ('$fndd_id','$sourcee','$secondary_portfolio','$in_hand','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state')";
       $result = mysqli_query($con, $query);
       if ($result) {
          //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
       } else {
          echo "<h3> Error Inserting Data </h3>";
+         echo $query;
+         exit;
       }
 
       //Add to other fees//

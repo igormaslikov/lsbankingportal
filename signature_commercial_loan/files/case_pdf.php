@@ -98,19 +98,19 @@ while ($row2 = mysqli_fetch_array($sql2)) {
   $mobile_number = $row2['mobile_number'];
   $address = $row2['address'];
 }
-$search_dir = "doc_signs/$result";
-$images = glob("$search_dir/*.png");
-sort($images);
+// $search_dir = "doc_signs/$result";
+// $images = glob("$search_dir/*.png");
+// sort($images);
 
 // Image selection and display:
 
 //display first image
-if (count($images) > 0) { // make sure at least one image exists
-  $img = $images[0]; // first image
-  // echo "<img src='$img' height='150' width='150' /> ";
-} else {
-  // possibly display a placeholder image?
-}
+// if (count($images) > 0) { // make sure at least one image exists
+//   $img = $images[0]; // first image
+//   // echo "<img src='$img' height='150' width='150' /> ";
+// } else {
+//   // possibly display a placeholder image?
+// }
 
 // $sql_installment = mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
 // while ($row_installment = mysqli_fetch_array($sql_installment)) {
@@ -212,12 +212,12 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Crunch Apple');
-$pdf->SetTitle('LSBANKING');
-$pdf->SetSubject('');
-$pdf->SetKeywords('');
+// $pdf->SetAuthor('Crunch Apple');
+// $pdf->SetTitle('LSBANKING');
+// $pdf->SetSubject('');
+// $pdf->SetKeywords('');
 
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH);
+// $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH);
 
 
 if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
@@ -226,45 +226,34 @@ if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
 }
 
 // ---------------------------------------------------------
-$pdf->SetFont('helvetica', '', 11);
+// $pdf->SetFont('helvetica', '', 11);
 
 // add a page
-$pdf->AddPage();
+ 
 
 //$pdf->MultiCell(70, 50, $key1 , 0, 'J', false, 1, 125, 30, true, 0, false, true, 0, 'T', false);
 
 $pdf->SetFont('helvetica', '', 8.25);
-
+$tagvs = [
+  'p' => [
+    ['h'=>0.1, ],
+    ['h'=>0.1, ]
+  ]
+];
+// $tagvs = array('p' => array(0 => array('h' => 0, 'n' => 0), 1 => array('h' => 0, 'n'=> 0)));
+$pdf->setHtmlVSpace($tagvs);
+$pdf->SetPrintHeader(false);
+$pdf->SetPrintFooter(false);
+$pdf->SetMargins(10,0,10);
+$pdf->SetAutoPageBreak(TRUE, 0);
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-// set style for barcode
-$style = array(
-  'border' => false,
-  'vpadding' => 'auto',
-  'hpadding' => 'auto',
-  'fgcolor' => array(0, 0, 0),
-  'bgcolor' => false, //array(255,255,255)
-  'module_width' => 1, // width of a single module in points
-  'module_height' => 1 // height of a single module in points
-);
-
-// set style for barcode
-$style = array(
-  'border' => 0,
-  'vpadding' => 'auto',
-  'hpadding' => 'auto',
-  'fgcolor' => array(0, 0, 0),
-  'bgcolor' => false, //array(255,255,255)
-  'module_width' => 1, // width of a single module in points
-  'module_height' => 1 // height of a single module in points
-);
-
+$pdf->AddPage();
 
 $html = '
-        <div style="text-align: center;">
+        <p style="text-align:center">
           <h1>COMMERCIAL LOAN PROMISSORY NOTE</h1>
-        </div>
-      <b>Contract N:</b><span style="text-decoration:underline">' . $loan_id_bor . '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Date:</b><span style="text-decoration:underline">' . $creation_date . '</span>
+        </p>
+        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contract N:</b><span style="text-decoration:underline">' . $loan_id_bor . '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Date:</b><span style="text-decoration:underline">' . $creation_date . '</span>
       <br><br>
 
 
@@ -290,7 +279,9 @@ $html = '
             <td style="width:25%; text-align:center">
               
               <img src="images/pacifica.jpeg" alt="" style="height:400%" align="left"/><br>
-              <span><b>5900 S Eastern Ave Suite 114 Commerce, CA 90040</b></span>
+              <span><b>Pacifica Financial Group</b></span><br>
+              <span><b>5900 S Eastern Ave Suite 114 Commerce, CA 90040</b></span><br>
+              <span><b>Tel: 323-797-5398</b></span>
             </td>
           </tr>
         </tbody>
@@ -299,59 +290,35 @@ $html = '
       <table style="width: 100%;" border="1">
         <tbody>
           <tr>
-            <td colspan="6" style="text-align: center;"><b>TRUTH-IN-LENDING ACT DISCLOSURES</b></td>
+            <td colspan="6" style="text-align: center;line-height:1.5"><b>TRUTH-IN-LENDING ACT DISCLOSURES</b></td>
           </tr>
           <tr>
-            <td style=" text-align: center;">
-              <div>
-                <b>ANNUAL PERCENTAGE RATE</b>
-              </div>
-              <div>
-                <span>The cost of your credit as a yearly rate.</span>
-              </div>
-              <div>
-                <span>' . $anual_pr . '%</span>
-              </div>
+            <td style="width:25%;">
+              <b>ANNUAL PERCENTAGE RATE</b>
+              <p>The cost of your credit as a yearly rate.</p>
+              <p style="text-decoration:underline; text-align:center; line-height:5">' . $anual_pr . '%</p>
             </td>
-            <td colspan="2" style=" text-align: center;">
-              <div>
-                  <b>AMOUNT FINANCED</b>
-                </div>
-                <div>
-                  <span>The amount of credit provided to you or on your behalf.</span>
-                </div>
-                <div>
-                  <span>$' . $principal . '</span>
-                </div>
+            <td colspan="2" style="width:25%">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>AMOUNT FINANCED</b>
+              <p>The amount of credit provided to you or on your behalf.</p>
+              <p style="text-decoration:underline; text-align:center; line-height:5">' . $principal . '%</p>
             </td>
-            <td style=" text-align: center;">
-              <div>
-                  <b>FINANCE CHARGE</b>
-                </div>
-                <div>
-                  <span>The dollar amount the credit will coast you.</span>
-                </div>
-                <div>
-                  <span>$' . $interest_rate . '</span>
-                </div>
+            <td style="width:20%">
+              &nbsp;&nbsp;&nbsp;&nbsp;<b>FINANCE CHARGE</b>
+              <p>The dollar amount the credit will coast you.</p>
+              <p style="text-decoration:underline; text-align:center; line-height:5">$' . $interest_rate . '</p>
             </td>
-            <td colspan="2" style=" text-align: center;">
-              <div>
-                  <b>TOTAL OF PAYMENTS</b>
-                </div>
-                <div >
-                  <span>The amount you will have paid after making all scheduled payments.</span>
-                </div>
-                <div>
-                  <span>$' . $totLoan . '</span>
-                </div>
+            <td colspan="2" style="width:30%">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>TOTAL OF PAYMENTS</b>
+              <p>The amount you will have paid after making all scheduled payments.</p>
+              <p style="text-decoration:underline; text-align:center; line-height:5">$' . $totLoan . '</p>
             </td>
           </tr>
           <tr>
-            <td rowspan="4" style=" text-align: center;"><b>Payment Schedule:</b></td>
-            <td style=" text-align: center;"><b>Number of Payments</b></td>
-            <td style=" text-align: center;"><b>Payment Amount</b></td>
-            <td colspan="3" style=" text-align: center;"><b>When Payments Are Due</b></td>
+            <td rowspan="4" style="text-align: center;"><br><br><br><br><b>Payment Schedule:</b></td>
+            <td style=" text-align: center;"><br><br><b>Number of Payments</b><br></td>
+            <td style=" text-align: center;"><br><br>&nbsp;&nbsp;<b>Payment Amount</b></td>
+            <td colspan="3" style=" text-align: left;"><br><br><b>When Payments Are Due</b></td>
           </tr>
           <tr>
             <td style=" text-align: center;"><br><br>1<br></td>
@@ -359,23 +326,22 @@ $html = '
             <td colspan="3" style=" text-align: left;"><br><br>Due '.$installment_plan.', beginning ' .$fitst_payment_date.'.<br></td>
           </tr>
           <tr>
-            <td style=" text-align: center;">' . $count_payments . '</td>
-            <td style=" text-align: center;">'.$second_payment.'</td>
-            <td colspan="3" style=" text-align: left;" >Due ' . $installment_plan . '.</td>
+            <td style=" text-align: center;"><br><br>' . $count_payments . '<br></td>
+            <td style=" text-align: center;"><br><br>'.$second_payment.'</td>
+            <td colspan="3" style=" text-align: left;"><br><br>Due ' . $installment_plan . '.</td>
           </tr>
           <tr>
-            <td style=" text-align: center;">Last Payment of</td>
-            <td style=" text-align: center;">'.$last_payment.'</td>
-            <td colspan="3" style=" text-align: left;">Due on ' . $last_payment_date . '.</td>
+            <td style=" text-align: center;"><br><br>Last Payment of<br></td>
+            <td style=" text-align: center;"><br><br>'.$last_payment.'</td>
+            <td colspan="3" style=" text-align: left;"><br><br>Due on ' . $last_payment_date . '.</td>
           </tr>
           <tr>
-            <td colspan="5" style="text-align: left; ">
-              <br><br>
-              <span><b>Prepayment:</b> You may prepay your loan at any time. If you pay early, you will not have to pay a penalty.</span><br><br>
-              <span><b>Late Charge:</b> If a payment is more than 10 days late, you will be charged $10. </span> <br><br>
-              <span><b>Origination Fee:</b> A prepaid finance charge for $'.$contract_fee.' will de add to cover the cost of processing your application and the agreement.</span> <br>
+            <td colspan="5" style="text-align: left; width:80%">
+              <p style="line-height:1"><b>Prepayment:</b> You may prepay your loan at any time. If you pay early, you will not have to pay a penalty.</p><br>
+              <p style="line-height:normal"><b>Late Charge:</b> If a payment is more than 10 days late, you will be charged $10. </p><br>
+              <p style="line-height:normal"><b>Origination Fee:</b> A prepaid finance charge for $'.$contract_fee.' will de add to cover the cost of processing your application and the agreement.</p><br>
             </td>
-            <td style=" text-align: center;">
+            <td style=" text-align: center; width:20%">
                 <br><br>
                 <span><b>Lender’s License:</b></span><br><br>
                 <span> 603 K724</span>
@@ -401,32 +367,39 @@ $html = '
           </tr>
         </tbody>
       </table>
-      <div style="text-align: justify;">
-      <p><b>Lender’s Right:</b><span> Upon Borrower’s default, Lender may declare the entire
-        unpaid principal balance on this Commercial Loan Promissory Note and
-        then Borrower will pay that amount.
-        </span></p>
-       
-        <p><b>Borrower’s Default:</b> <span> Default by Borrower includes, but is not limited
-        to, the following: Voluntary or involuntary bankruptcy proceedings
-        wherein Borrower is named a debtor; any liens or encumbrances recorded
-        upon Borrower’s current property, as listed above, whether voluntary,
-        involuntary or through operation of law.
-        </span></p>
-        
-        <p><b>Dishonored Item Fee:</b><span>Borrower will pay a fee to Lender of $ 25.00 if Borrower makes a payment on Borrower’s loan and the check or preauthorized charge with which Borrower pays is later dishonored.
-        </span></p>
-        
-        <p><b>Attorney’s Fees; Expenses:</b><span>Lender may here or pay someone else to help collect this Commercial Loan Promissory Note if Borrower does not pay. Borrower will pay Lender that amount. This includes, subject to any limits under applicable law, Lender’s Attorney’s fees, and Lender’s legal expenses, whether or not there is a lawsuit, including Attorney’s fees, expenses for bankruptcy proceedings (Including efforts to modify or vacate an automatic stay or injunction), and appeals. Borrower also will pay any court costs, in addition to all other sums provided by law. 
-        </span></p>
-        </div>
-        <p style="text-align:right"><span>Initials:__________________________</span></p>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <p><b>Lender’s Right:</b><span> Upon Borrower’s default, Lender may declare the entire
+              unpaid principal balance on this Commercial Loan Promissory Note and
+              then Borrower will pay that amount.
+              </span></p><br>
+              
+              <p><b>Borrower’s Default:</b> <span> Default by Borrower includes, but is not limited
+              to, the following: Voluntary or involuntary bankruptcy proceedings
+              wherein Borrower is named a debtor; any liens or encumbrances recorded
+              upon Borrower’s current property, as listed above, whether voluntary,
+              involuntary or through operation of law.
+              </span></p><br>
+              
+              <p><b>Dishonored Item Fee:</b><span>Borrower will pay a fee to Lender of $ 25.00 if Borrower makes a payment on Borrower’s loan and the check or preauthorized charge with which Borrower pays is later dishonored.
+              </span></p><br>
+              
+              <p><b>Attorney’s Fees; Expenses:</b><span>Lender may here or pay someone else to help collect this Commercial Loan Promissory Note if Borrower does not pay. Borrower will pay Lender that amount. This includes, subject to any limits under applicable law, Lender’s Attorney’s fees, and Lender’s legal expenses, whether or not there is a lawsuit, including Attorney’s fees, expenses for bankruptcy proceedings (Including efforts to modify or vacate an automatic stay or injunction), and appeals. Borrower also will pay any court costs, in addition to all other sums provided by law. 
+              </span></p>
+              <br><br><br>
+              <p style="text-align:right;line-height:4"><span>Initials:__________________________</span></p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
         
 ';
 
 //$html = file_get_contents(dirname(__FILE__)."/contract_page1.html");
 //$pdf->writeHTML($html, true, false, true, false, '');
-$pdf->writeHTML($html, 25, 30);
+$pdf->writeHTML($html, false, false);
 
 
 
@@ -434,9 +407,9 @@ $data_shipment  = ":";
 
 
 
-$pdf->Ln();
-$html = '<h1>LSBANKING </h1>';
-$html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL UNCOVERED.</b>';
+// $pdf->Ln();
+// $html = '<h1>LSBANKING </h1>';
+// $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL UNCOVERED.</b>';
 // ---------------------------------------------------------
 
 //Close and output PDF document

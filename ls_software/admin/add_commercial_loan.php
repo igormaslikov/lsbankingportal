@@ -174,7 +174,7 @@ $fnd_idd = $_GET['id'];
             <label for="usr">Secondary Portfolio</label>
             <select name="p_portfolio" id="p_portfolio" class="form-control" value="">
               <option value="None">None</option>
-              <option value="Money Line" >Money Line</option>
+              <option value="Pacifica Finance Group" >Pacifica Finance Group</option>
               <option value="Kenneth">Kenneth</option>
             </select>
           </div>
@@ -252,8 +252,8 @@ $fnd_idd = $_GET['id'];
           </div>
 
           <div class="col-lg-6">
-            <label for="usr">Interest per payment %</label>
-            <input type="text" name="interest" class="form-control" id="usr" placeholder="" value="" readonly>
+            <label for="usr">APR %</label>
+            <input type="text" name="apr" class="form-control" id="usr" placeholder="" value="" readonly>
           </div>
 
           <div class="col-lg-6">
@@ -347,7 +347,7 @@ $fnd_idd = $_GET['id'];
     var source = formData.get('source');
     let loan_create_id = formData.get('loan_id');
     let principal_amount = formData.get('principal');
-    let interest = formData.get('interest');
+    //let interest = formData.get('interest');
     let years = formData.get('years');
     let late_fee = formData.get('late_fee');
     let installment_plan = formData.get('installment_plan');
@@ -379,10 +379,10 @@ $fnd_idd = $_GET['id'];
       type: 'POST',
       success: function(response) {
         var data = $.parseJSON(response);
-        let rate = data[0].rate;
+        let apr = data[0].apr;
         let table = String(data[0].table);
         let last_payment = data[0].last_payment;
-        document.getElementsByName("interest")[0].value = rate;
+        document.getElementsByName("apr")[0].value = apr;
         document.getElementsByName("payment_date")[0].value = last_payment;
         $("#tablePayments")[0].innerHTML = table;
 

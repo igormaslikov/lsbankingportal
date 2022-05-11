@@ -26,7 +26,7 @@ $fnd_idd = $_POST['fnd_id'];
 $source = $_POST['source'];
 $loan_create_id = $_POST['loan_id'];
 $principal = $_POST['principal'];
-$loan_interest = $_POST['interest'];
+#$loan_interest = $_POST['interest'];
 // $years=$_GET['years'];
 
 $late_fee = $_POST['late_fee'];
@@ -50,7 +50,7 @@ if ($installment_plan == 'Weekly') {
     $num_of_days = date_diff(date_create(date('Y-m-d', strtotime("$contract_date +1 month"))), date_create($contract_date))->format("%a");
 }
 
-$one_payment_interest = (int)$loan_interest / $number_of_payments;
+#$one_payment_interest = (int)$loan_interest / $number_of_payments;
 
 $rate = calc_rate($principal, $total_payments, $payment);
 $strRate = strVal($rate);
@@ -67,10 +67,10 @@ $rate_late_days = $rate_per_day * $num_late_days;
 //echo "<script type='text/javascript'>document.getElementsByName('interest')[0].value = 2</script>";
 //echo $_POST['source'];
 
-list($htmlTble, $last_payment) = print_schedule($principal, $rate, $payment, $rate_late_days);
+list($htmlTble, $last_payment, $apr) = print_schedule($principal, $rate, $payment, $rate_late_days, $num_of_days);
 $articles[] = array(
     'table'         =>  (string)$htmlTble,
-    'rate'   =>  (string)$rate,
+    'apr'   =>  (string)$apr,
     'last_payment' => (string)$last_payment
 );
 echo json_encode($articles);
@@ -142,7 +142,7 @@ function calc_payment($pv, $payno, $int, $accuracy)
 } // calc_payment ====================================================================
 
 
-function print_schedule($balance, $rate, $payment, $rate_late_days)
+function print_schedule($balance, $rate, $payment, $rate_late_days, $num_of_days)
 {
     include 'dbconfig.php';
     $loan_create_id = $_POST['loan_id'];
@@ -278,7 +278,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     $varTable .= '<colgroup align="right" width="115">';
     $varTable .= '<colgroup align="right" width="115">';
     $varTable .= '<colgroup align="right" width="115">';
-    $varTable .= '<tr style="background-color: #F5E09E;"><th>#</th><th>DATE</th><th>PAYMENT</th><th>INTEREST</th><th>PRINCIPAL</th><th>BALANCE</th><th>INTEREST PER PAYMENT %</th></tr>';
+    $varTable .= '<tr style="background-color: #F5E09E;"><th>#</th><th>DATE</th><th>PER DIEM</th><th>PAYMENT</th><th>INTEREST</th><th>PRINCIPAL</th><th>BALANCE</th></tr>';
 
 
     $payment_date_weekly = $payment_date;
@@ -286,18 +286,21 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     mysqli_query($con, "DELETE FROM `tbl_commercial_loan_installments` WHERE `loan_create_id` = '$loan_create_id'");
     $count = 0;
     $balance_p = 1;
+    $apr = 0;
     do {
         $count++;
 
 
-
+       
 
         // calculate interest on outstanding balance
         $interest = $balance * $rate / 100;
+        $per_diem = $interest / $num_of_days; #TODO set number of days
         //$interest = $balance * ($rate+$rate_late_days) / 100;
         if ($count == 1) {
             $interest = $balance * ($rate + $rate_late_days) / 100;
             $rate = $rate + $rate_late_days;
+            $apr = 365 * 100 * $per_diem / $balance;
         }
         // what portion of payment applies to principal?
         $principal = $payment - $interest;
@@ -340,14 +343,15 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
         $payment_date = date("m-d-Y", strtotime($payment_date));
 
+        
         $varTable .= "<tr>";
         $varTable .= "<td>$count</td>";
         $varTable .= "<td>$payment_date</td>";
+        $varTable .= "<td>" . number_format($per_diem,   2, ".", ",") . "</td>";
         $varTable .= "<td>" . number_format($payment,   2, ".", ",") . "</td>";
         $varTable .= "<td>" . number_format($interest,  2, ".", ",") . "</td>";
         $varTable .= "<td>" . number_format($principal, 2, ".", ",") . "</td>";
         $varTable .= "<td>" . number_format($balance,   2, ".", ",") . "</td>";
-        $varTable .= "<td>" . number_format($rate,   9, ".", ",") . "</td>";
         $varTable .= "</tr>";
 
         $payment_p = number_format($payment,   2, ".", ",");
@@ -404,6 +408,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     $varTable .= "<tr>";
     $varTable .= "<td>&nbsp;</td>";
     $varTable .= "<td>&nbsp;</td>";
+    $varTable .= "<td>&nbsp;</td>";
     $varTable .= "<td><b>" . number_format($totPayment,   2, ".", ",") . "</b></td>";
     $varTable .= "<td><b>" . number_format($totInterest,  2, ".", ",") . "</b></td>";
     $varTable .= "<td><b>" . number_format($totPrincipal, 2, ".", ",") . "</b></td>";
@@ -429,11 +434,11 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     
 
     
-    $varTable .= "<a id='comInitSetupHref' href = 'commercial_initial_setup.php?fnd_id=$fnd_idd&interest=$totInterest&daily_interest=$rate&bg_id=$source&secondary_portfolio=$secondary_portfolio&loan_create_id=$loan_create_id$prev_loan_id&principal_amount=$principal_amount&loan_interest=$loan_interest&years=$years&late_fee=$late_fee&contract_fee=$origination&installment_plan=$installment_plan&total_payments=$total_payments&contract_date=$contract_date&payment_date=$payment_date&state=$state&in_hand=$in_hand'><button name='' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;'>Create Installment Loan</button></a>";
+    $varTable .= "<a id='comInitSetupHref' href = 'commercial_initial_setup.php?fnd_id=$fnd_idd&interest=$totInterest&anual_pr=$apr&bg_id=$source&secondary_portfolio=$secondary_portfolio&loan_create_id=$loan_create_id$prev_loan_id&principal_amount=$principal_amount&loan_interest=$loan_interest&years=$years&late_fee=$late_fee&contract_fee=$origination&installment_plan=$installment_plan&total_payments=$total_payments&contract_date=$contract_date&payment_date=$payment_date&state=$state&in_hand=$in_hand'><button name='' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;'>Create Installment Loan</button></a>";
 
     $last_payment_date_array = explode("-", $payment_date);
 
     $ld = strtotime($last_payment_date_array[2] . "-" . $last_payment_date_array[0] . "-" . $last_payment_date_array[1]);
-    return array($varTable, date("m/d/Y", $ld));
+    return array($varTable, date("m/d/Y", $ld), $apr);
 }
 ?>

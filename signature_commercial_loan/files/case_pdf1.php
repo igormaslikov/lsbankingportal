@@ -91,12 +91,12 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Crunch Apple');
-$pdf->SetTitle('LSBANKING');
-$pdf->SetSubject('');
-$pdf->SetKeywords('');
+// $pdf->SetAuthor('Crunch Apple');
+// $pdf->SetTitle('LSBANKING');
+// $pdf->SetSubject('');
+// $pdf->SetKeywords('');
 
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH);
+// $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH);
 
 
 if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
@@ -106,40 +106,29 @@ if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
 
 // ---------------------------------------------------------
 $pdf->SetFont('helvetica', '', 11);
-
-// add a page
+$tagvs = [
+  'p' => [
+    ['h'=>0.1, ],
+    ['h'=>0.1, ]
+  ]
+];
+// $tagvs = array('p' => array(0 => array('h' => 0, 'n' => 0), 1 => array('h' => 0, 'n'=> 0)));
+$pdf->setHtmlVSpace($tagvs);
+$pdf->SetPrintHeader(false);
+$pdf->SetPrintFooter(false);
+$pdf->SetMargins(10,0,10);
+$pdf->SetAutoPageBreak(TRUE, 0);
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 $pdf->AddPage();
+
 
 //$pdf->MultiCell(70, 50, $key1 , 0, 'J', false, 1, 125, 30, true, 0, false, true, 0, 'T', false);
 
-$pdf->SetFont('helvetica', '', 10);
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// set style for barcode
-$style = array(
-  'border' => false,
-  'vpadding' => 'auto',
-  'hpadding' => 'auto',
-  'fgcolor' => array(0, 0, 0),
-  'bgcolor' => false, //array(255,255,255)
-  'module_width' => 1, // width of a single module in points
-  'module_height' => 1 // height of a single module in points
-);
-
-// set style for barcode
-$style = array(
-  'border' => 0,
-  'vpadding' => 'auto',
-  'hpadding' => 'auto',
-  'fgcolor' => array(0, 0, 0),
-  'bgcolor' => false, //array(255,255,255)
-  'module_width' => 1, // width of a single module in points
-  'module_height' => 1 // height of a single module in points
-);
 
 $html = '<br><br><img src="images/pacifica.jpeg" style="height:400%" align="left"/><br>
- Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">' . $f_name . '</span><br>
+Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">' . $f_name . '</span><br>
 Loan Number/Numero de Prestamo: <span style="text-decoration:underline">' . $loan_id_bor . '</span><br><br>
 
 
@@ -148,8 +137,6 @@ Loan Number/Numero de Prestamo: <span style="text-decoration:underline">' . $loa
 <b>Governing Law : </b>This Commercial Loan Promissory Note will be governed by California Lender’s law applicable to Lender, and to the extent not preempted by federal Law, without regard to its conflict of law provisions. This Commercial Loan Promissory Note has been accepted by Borrower and Lender in the State of California.
 <br>
 <b>Choice of Venue : </b>If there is a lawsuit, Borrower agrees upon Lender’s request to submit to the jurisdiction of the courts of Los Angeles County, State of California or, if required, to the courts of the Central District of California. Any suit brought hereunder shall be filed in the Van Nuys Courthouse, or in the Western Division of the Central District of California, as applicable.
-<br>
-<b>Collateral : </b>All present and future inventory of that business known as <span style="text-decoration:underline">'.$business_name.'</span> as well as all accounts receivable.
 <br>
 
 
@@ -162,40 +149,65 @@ Loan Number/Numero de Prestamo: <span style="text-decoration:underline">' . $loa
 
 <b>General Provisions : </b>Lender may delay or forgo enforcing any of its rights or remedies under this Commercial Loan Promissory Note without losing them. Upon any change in the terms of this Commercial Loan Promissory Note, and unless otherwise expressly states in writing, no party who signs this Commercial Loan Promissory Note, whether as maker, guarantor, accommodation maker or endorser, shall be released from liability. All such parties agree that Lender may renew or extend (repeatedly and for any length of time) this loan or release any party or guarantor; and take any other action deemed necessary by Lender without the consent of or notice to anyone. All such parties also agree that Lender may modify this loan without the consent of or notice to anyone other than the party with whom the modification is made. The obligations under this Commercial Loan Promissory Note are joint and several. 
 <br>
-<b>
-<span style="font-size: 9px">PRIOR TO SIGNING THIS COMMERCIAL LOAN PROMISSORY NOTE, BORROWER READ AND UNDERSTOOD ALL THE PROVISIONS OF THIS COMMERCIAL LOAN PROMISSORY NOTE, INCLUDING THE INTEREST RATE PROVISIONS, BORROWER AGREES TO THE TERMS OF THE NOTE.
-BORROWER ACKNOWLEDGES RECEIPT OF A COMPLETED COPY OF THIS COMMERCIAL LOAN PROMISSORY NOTE</span>
+<b style="font-size: 9px">
+PRIOR TO SIGNING THIS COMMERCIAL LOAN PROMISSORY NOTE, BORROWER READ AND UNDERSTOOD ALL THE PROVISIONS OF THIS COMMERCIAL LOAN PROMISSORY NOTE, INCLUDING THE INTEREST RATE PROVISIONS, BORROWER AGREES TO THE TERMS OF THE NOTE.
+BORROWER ACKNOWLEDGES RECEIPT OF A COMPLETED COPY OF THIS COMMERCIAL LOAN PROMISSORY NOTE
+</b><br><br><br><br>
 
-</b><br><br>
-
-
-Borrower’s Signature : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<br><br>
-Co-Borrower’s Signature : _________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<br><br>
-Lender’s Name  : <span style="text-decoration:underline">Pacifica Finance Group</span>
-<br><br>
-Lender’s Authorized  Signature :<span style="text-decoration:underline">Pacifica Finance Group</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :'.$creation_date.'
-
+<table>
+  <tbody>
+    <tr>
+      <td style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$creation_date.'</td>
+      <td style="text-decoration:underline">&nbsp;&nbsp;<b>Pacifica Finance Group</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+      <td>
+        Borrower’s Signature &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date
+      </td>
+      <td>
+        Lender’s Name
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$creation_date.'</td>
+      <td style="text-decoration:underline;">&nbsp;&nbsp;<b style="font-family:">Pacifica Finance Group</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$creation_date.'&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+      <td>
+      Co-Borrower’s Signature &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date
+      </td>
+      <td>
+      Lender’s Authorized  Signature &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date
+      </td>
+    </tr>
+  </tbody>
+</table> 
 
 
 
 
 ';
 
-
-$pdf->writeHTML($html, 25, 30);
-
-
-
-$data_shipment  = ":";
+ $pdf->writeHTML($html, 25, 30);
 
 
 
-$pdf->Ln();
-$html = '<h1>LSBANKING </h1>';
-$html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL UNCOVERED.</b>';
-// ---------------------------------------------------------
+// $data_shipment  = ":";
+
+
+
+// $pdf->Ln();
+// $html = '<h1>LSBANKING </h1>';
+// $html_underline = '<b style="text-decoration:underline">PLEASE LEAVE THIS LABEL UNCOVERED.</b>';
+// // ---------------------------------------------------------
 
 //Close and output PDF document
 
