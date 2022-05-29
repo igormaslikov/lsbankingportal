@@ -448,16 +448,16 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             <tr>
               <th rowspan="3">Transaction ID</th>
               <th rowspan="3">Loan ID</th>
+              <th rowspan="3">Due Date</th>
+              <th rowspan="3">Payment Date</th>
+              <th rowspan="3">DPD</th>
               <th rowspan="3">Payment</th>
               <th rowspan="3">Interest</th>
               <th rowspan="3">Principal</th>
               <th rowspan="3">Balance</th>
-              <th colspan="4" style="text-align:center">Fees</th>
-              <th rowspan="3">Due Date</th>
-              <th rowspan="3">Payment Date</th>
               <th rowspan="3">Payment Method</th>
               <th rowspan="3">User Name</th>
-              <th rowspan="3">DPD</th>
+              <th colspan="4" style="text-align:center">Fees</th>
               <th rowspan="3">Action</th>
             </tr>
             <tr>
@@ -630,19 +630,19 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               echo "<tr style='$row_color'>
               <td>" . $transaction_id . "</td>
               <td>" . $loan_create_id . "</td>
+              <td>" . $created_at_f . "</td>
+              <td>" . $payment_date_f . "</td>
+              <td>" . $dpd . "</td>
               <td>$" . number_format($payment_amount,   2, ".", ",") . "</td>
               <td>$" . number_format($interest_amount,   2, ".", ",") . "</td>
               <td>$" . number_format($principal_amount,   2, ".", ",") . "</td>
               <td>$" . $remaining_balance . "</td>
+              <td " . $card_info_tooltip . ">" . $start_mark . $payment_method . $end_mark . "</td>
+              <td>" . $final_activity_by_user . "</td>
               <td>$" . $late_fee . "</td>
               <td>$" . $convenience_fee . "</td>
               <td>$" . $other_fee . "</td>
               <td>" . $description . "</td>
-              <td>" . $payment_date_f . "</td>
-              <td>" . $created_at_f . "</td>
-              <td " . $card_info_tooltip . ">" . $start_mark . $payment_method . $end_mark . "</td>
-              <td>" . $final_activity_by_user . "</td>
-              <td>" . $dpd . "</td>
               <td>" . $action . "</td>
 		   	  </tr>";
             }

@@ -362,7 +362,8 @@ if ($u_access_id == '0') {
       }
 
       $anual_pr = $daily_interest * $number_n;
-      $anual_pr = number_format($apr, 2);
+      // $anual_pr = number_format($apr, 2);
+      $anual_pr = $apr;
       $in_hand = $_GET['in_hand'];
       
    

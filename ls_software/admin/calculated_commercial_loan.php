@@ -380,7 +380,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days, $num_of_days
 
         $payment_week_day = date("l", strtotime("$payment_date_weekly"));
         //$payment_p = 
-        $query_install1  = "INSERT INTO `tbl_commercial_loan_installments`(`loan_create_id`, `payment`, `interest`, `principal`, `balance`, `payment_date`, `week_day`) VALUES ('$loan_create_id','$payment_p','$interest_p','$principal_p','$balance_p','$payment_date', '$payment_week_day')";
+        $query_install1  = "INSERT INTO `tbl_commercial_loan_installments`(`number_of_payment`,`loan_create_id`, `payment`, `interest`, `principal`, `balance`, `payment_date`,`per_diem`,`days`, `week_day`) VALUES ('$count','$loan_create_id','$payment_p','$interest','$principal','$balance','$payment_date','$per_diem','$num_of_days','$payment_week_day')";
         $result_install1 = mysqli_query($con, $query_install1);
         if ($result_install1) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
