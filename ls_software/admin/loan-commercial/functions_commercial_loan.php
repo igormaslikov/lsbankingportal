@@ -676,9 +676,11 @@ function UpdateOtherFee()
     $otherFeeId = $_POST['otherFeeId'];
     $description = $_POST['description'];
     $amountFee = $_POST['amountFee'];
+    $number_installment = $_POST['number_installment'];
     $newOtherFee = $_POST['newOtherFee'];
 
-    mysqli_query($con, "INSERT INTO tbl_lists (kind, item) select 'Other Fee', '$description' where not exists( select * from tbl_lists where kind='Other Fee' and item='$description')");
+
+    mysqli_query($con, "INSERT INTO tbl_lists (kind, item) select * from (SELECT 'Other Fee' as other_fee , '$description' as description) as new_value where not exists( select * from tbl_lists where kind='Other Fee' and item='$description')");
 
     $sql = mysqli_query($con, "select tbl_lists_id from tbl_lists where kind='Other Fee' and item='$description'");
 
@@ -695,11 +697,11 @@ function UpdateOtherFee()
     //     return;
     // }
 
-    $action_query = "UPDATE `tbl_other_fees` SET `kind_fee` = '$kind', `amount_fee` = '$amountFee', `user_fnd_id` = '$userId',`loan_created_id` = '$loanId' WHERE `tbl_other_fees_id` = '$otherFeeId'";
+    $action_query = "UPDATE `tbl_other_fees` SET `kind_fee` = '$kind', `amount_fee` = '$amountFee', `user_fnd_id` = '$userId',`loan_created_id` = '$loanId', `installment_id` = '$number_installment' WHERE `tbl_other_fees_id` = '$otherFeeId'";
     $message = "Other fee updated";
     if ($newOtherFee == "true") {
 
-        $action_query = "INSERT INTO `tbl_other_fees` (`tbl_other_fees_id`, `kind_fee`, `user_fnd_id`, `loan_created_id`, `amount_fee`, `amount_fee_paid`) VALUES (NULL, '$kind', '$userId', '$loanId', '$amountFee', 0)";
+        $action_query = "INSERT INTO `tbl_other_fees` (`tbl_other_fees_id`, `kind_fee`, `user_fnd_id`, `loan_created_id`,`installment_id`, `amount_fee`, `amount_fee_paid`) VALUES (NULL, '$kind', '$userId', '$loanId', '$number_installment' ,'$amountFee', 0)";
         $message = "Other fee inserted";
     }
     mysqli_query($con, $action_query);
@@ -1666,8 +1668,10 @@ function CalculateInstallmetsPerDiem()
     $total_principal = 0;
     $total_balance = 0;
     if ($transactions) {
-        $result = mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' order by id");
+        $result = mysqli_query($con,"select tcli.*, tof.sum_fee, tof.sum_fee_paid, (tof.sum_fee - tof.sum_fee_paid) as sum_fee_unpaid, tof.description from tbl_commercial_loan_installments as tcli left join (select installment_id, SUM(amount_fee) as sum_fee, SUM(amount_fee_paid) as sum_fee_paid, group_concat(tl.item SEPARATOR ',') as description from tbl_other_fees left join tbl_lists tl on tl.tbl_lists_id = kind_fee WHERE loan_created_id = '$loan_create_id' GROUP by installment_id ) as tof on tcli.number_of_payment = tof.installment_id where tcli.loan_create_id='$loan_create_id' order by tcli.id");
+       // $result = mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' order by id");
         $i = 1;
+        // $res =  mysqli_fetch_array($result);
         while ($row = mysqli_fetch_array($result)) {
             $due_date_real = $row['payment_date'];
             $payment_date = $row['paid_date'];
@@ -1678,6 +1682,10 @@ function CalculateInstallmetsPerDiem()
             $principal = $row['principal'];
             $balance = $row['balance'];
             $status = $row['status'];
+            $sum_fee = $row['sum_fee'] == null ? 0 : $row['sum_fee'] ;
+            $sum_fee_paid = $row['sum_fee_paid']== null ? 0 : $row['sum_fee_paid'];
+            $sum_fee_unpaid = $row['sum_fee_unpaid']== null ? 0 : $row['sum_fee_unpaid'];
+            $description = $row['description']== null ? "" : $row['description'];
             $total_payment += $loan_payment_amount;
 
             $total_interest += $interest;
@@ -1714,10 +1722,10 @@ function CalculateInstallmetsPerDiem()
                 // $a = "<a href='add_new_transaction.php?intallment_id=$intallment_id&id=$id' $en_action>PayNow</a>";
             }
 
-            $fee_added = 0;
-            $fee_unpaid = 0;
-            $fee_paid = 0;
-            $fee_description = "";
+            $fee_added = $sum_fee;
+            $fee_unpaid = $sum_fee_unpaid;
+            $fee_paid = $sum_fee_paid;
+            $fee_description = $description;
 
 
             $due_date_real_array = explode("-", $due_date_real);
@@ -1755,6 +1763,8 @@ function CalculateInstallmetsPerDiem()
     $add_to_interest = 0;
     $status="0";
     $installment_status = "Unpaid";
+    $query_all_installments = mysqli_query($con, "SELECT * from `tbl_commercial_loan_installments` where `loan_create_id` = $loan_create_id order by id asc");
+
     for ($i = 1; $i <= (int)$total_payments and !$transactions; $i++) {
 
        
@@ -1850,11 +1860,19 @@ function CalculateInstallmetsPerDiem()
             $principal = 0;
         }
 
+
+
         $balance = $balance - $principal;
 
         if ($balance < 0) {
             $loan_payment_amount = $loan_payment_amount + $balance;
             $principal = $loan_payment_amount - $interest;
+            $balance = 0;
+        }
+
+        if ($i == (int)$total_payments and $balance > 0){
+            $principal = $balance + $principal;
+            $loan_payment_amount =  $principal + $interest;
             $balance = 0;
         }
 

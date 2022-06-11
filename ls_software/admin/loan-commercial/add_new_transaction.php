@@ -225,9 +225,12 @@ if ($u_access_id != '1') {
         $sum_late_fee = $_GET['late_fee'];
     }
 
+    $previous_payment_date_con = date("Y-m-d",strtotime($previous_payment_date->date));
 
-
-
+    $count = 0;
+    // while ($previous_payment_date_con == "1969-12-31"){
+    //     $previous_payment_date_con = date("Y-m-d",strtotime($previous_payment_date->date));
+    // }
 
     ?>
 
@@ -676,11 +679,11 @@ if ($u_access_id != '1') {
             mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid_late_fee` = '$paid_late_fee' where id ='$intallment_id'");
         }
 
-        $other_fee_id = 0;
-        if ($type_of_description != "") {
-            $other_fee_id = str_replace(array("(", ")"), array("", ""), end(explode(" ", $type_of_description)));
-            mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $other_fee where tbl_other_fees_id = $other_fee_id");
-        }
+
+        // if ($type_of_description != "") {
+        //     $other_fee_id = str_replace(array("(", ")"), array("", ""), end(explode(" ", $type_of_description)));
+        //     mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $other_fee where tbl_other_fees_id = $other_fee_id");
+        // }
 
 
 
@@ -695,6 +698,26 @@ if ($u_access_id != '1') {
         if ($result_insert_trans) {
             $transaction_id = mysqli_insert_id($con);
 
+            $other_fee_id = 0;
+            $other_fee = array();
+            $other_fee_ids = array();
+            foreach($_POST as $key => $value) {
+                if (strpos($key, 'other_fee_') === 0) {
+                    $other_fee_id = end(explode("_", $key));
+                    mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $value, transaction_id = $transaction_id  where tbl_other_fees_id = $other_fee_id");
+                    array_push($other_fee,$value);
+                    array_push($other_fee_ids,$other_fee_id);
+                }
+              }
+
+            if(count($other_fee) > 0){
+                $other_fee_tran = join(",",$other_fee);
+                $other_fee_ids_tran = join(",",$other_fee_ids);
+                mysqli_query($con, "UPDATE commercial_loan_transaction SET other_fee='$other_fee_tran',other_fee_id='$other_fee_ids_tran' where transaction_id ='$transaction_id'");
+            }
+
+            
+              //join(" ",$arr);
             if ($repay_transaction != "") {
                 mysqli_query($con, "UPDATE tbl_pay_with_card SET loan_transaction_id='$transaction_id' where id ='$repay_transaction'");
             }
@@ -770,6 +793,14 @@ if ($u_access_id != '1') {
                         $payment = $payment + $balance;
                         $principal = $payment - $interest;
                         $balance = 0;
+                    }
+
+                    if ($index_installment == $query_all_installments->num_rows and $balance > 0){
+                        $principal = $balance + $principal;
+                        $loan_payment_amount =  $principal + $interest;
+                        $balance = 0;
+                        mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `payment` = '$loan_payment_amount' where id ='$intallment_id'");
+
                     }
                     $previous_balance =  $balance;
                     
@@ -967,7 +998,7 @@ if ($u_access_id != '1') {
                         <input type="text" name="contract_late_fee" id="contractLateFeeId" value="<?php echo $late_fee; ?>" style="display:none;">
                         <input type="text" name="add_interest" id="addInterestId" value="<?php echo $add_interest; ?>" style="display:none;">
                         <input type="text" name="due_date" value="<?php echo strftime('%Y-%m-%d', strtotime($payment_date)); ?>" style="display:none;">
-                        <input type="text" name="previous_payment_date" value="<?php echo date("Y-m-d",strtotime($previous_payment_date->date)); ?>" style="display:none;">
+                        <input type="text" name="previous_payment_date" value="<?php echo $previous_payment_date_con; ?>" style="display:none;">
 
                         <div class="row">
                             <div class="col-lg-2">
@@ -1003,7 +1034,8 @@ if ($u_access_id != '1') {
                                 <input type="text" name="days_from_last_payment" class="form-control" id="usr" placeholder="" value="<?php echo $days_from_last_payment; ?>" style="display:none;"><i id="days_from_last_payment_id"><?php echo $days_from_last_payment; ?></i>
 
                             </div>
-
+                        </div>
+                        <div class="row">
                             <!-- <div class="col-lg-12">
                                 <label for="usr">DPD:</label>
                                 <input type="text" name="dpd" class="form-control" id="usr" placeholder="" value="<?php echo $dpd; ?>" style="display:none;"><i><?php echo $dpd; ?></i>
@@ -1018,7 +1050,7 @@ if ($u_access_id != '1') {
 
                             </div>
 
-                            <div class="col-lg-2">
+                            <!-- <div class="col-lg-2">
                                 <label for="usr">Late Fee ($):</label>
                                 <input type="text" name="late_fee" class="form-control" id="usr" placeholder="" value="<?php echo $sum_late_fee; ?>" oninput="calculate_summary(event)" required>
 
@@ -1028,23 +1060,20 @@ if ($u_access_id != '1') {
                                 <label for="usr">Convenience Fee ($):</label>
                                 <input type="text" name="convenience_fee" class="form-control" id="usr" placeholder="" value="0" oninput="calculate_summary(event)" required>
 
-                            </div>
-                            <div class="col-lg-2">
+                            </div> -->
+                            <div class="col-lg-6">
                                 <label style="width:100%" for="other_fee_id">Other Fee ($):</label>
-                                <select name="type_of_description" id="lblTypeOfDescription" onchange="GetUnpaidOtherFee(this,event)" style="width:70%">
-                                    <option value=""></option>
-                                    <?php
+                                <?php
                                     $sql_loan = mysqli_query($con, "select * from tbl_other_fees tof inner join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_created_id='$loan_create_id' and user_fnd_id = '$user_fnd_id' and amount_fee_paid != amount_fee");
 
                                     while ($row_loan = mysqli_fetch_array($sql_loan)) {
                                         $row_item = $row_loan['item'];
                                         $id = $row_loan['tbl_other_fees_id'];
-                                        echo "<option value='$row_item ($id)'>$row_item ($id)</option>";
+                                        $installment_id = $row_loan['installment_id'];
+                                        $unpaid_fee =  $row_loan['amount_fee'] -  $row_loan['amount_fee_paid'];
+                                        echo "<div>$row_item ($id) - ($installment_id): <input type='text' name='other_fee_$id' class='form-control' id='other_fee_id_$id' placeholder='' value='$unpaid_fee' style='width:25%; display:inline!important;' oninput='calculate_summary(event)' required> </div>";
                                     }
-                                    ?>
-                                </select>
-                                <input type="text" name="other_fee" class="form-control" id="other_fee_id" placeholder="" value="0" style="width:25%; display:inline!important;" oninput="calculate_summary(event)" required>
-
+                                ?>                           
 
                             </div>
                             <div class="col-lg-6">
@@ -1392,11 +1421,16 @@ if ($u_access_id != '1') {
 
             function calculate_summary(e, fees = true) {
                 let to_be_paid_amount = parseToFloat(document.getElementsByName('to_be_paid_amount')[0].value);
-                let late_fee = parseToFloat(document.getElementsByName('late_fee')[0].value);
-                let convenience_fee = parseToFloat(document.getElementsByName('convenience_fee')[0].value);
-                let other_fee = parseToFloat(document.getElementsByName('other_fee')[0].value);
-                document.getElementById('summary_amount_id').innerText = to_be_paid_amount + late_fee + convenience_fee + other_fee;
-                document.getElementById('summary_amount_id').innerHTML = to_be_paid_amount + late_fee + convenience_fee + other_fee;
+                // let late_fee = parseToFloat(document.getElementsByName('late_fee')[0].value);
+                // let convenience_fee = parseToFloat(document.getElementsByName('convenience_fee')[0].value);
+                let other_fees = $("input[name^='other_fee_']");
+                let other_fee_sum = 0;
+                for (let index = 0; index < other_fees.length; index++) {
+                    other_fee_sum += parseToFloat(other_fees[index].value);
+                    
+                }
+                document.getElementById('summary_amount_id').innerText = to_be_paid_amount + other_fee_sum
+                document.getElementById('summary_amount_id').innerHTML = to_be_paid_amount + other_fee_sum
 
                 if (!fees) {
                     calculate_interest_principal(e)
@@ -1415,6 +1449,10 @@ if ($u_access_id != '1') {
                 let add_interest = parseToFloat(document.getElementsByName('add_interest')[0].value);
                 let interest_amount = per_diem * days_from_last_payment + add_interest;
                 let principal = to_be_paid_amount - interest_amount;
+                if(to_be_paid_amount == 0){
+                    interest_amount = 0;
+                    principal = 0;
+                }
                 document.getElementById('principal_amount_id').innerText = Math.round(principal * 100) / 100;
                 document.getElementById('principal_amount_id').innerHTML = Math.round(principal * 100) / 100;
                 document.getElementsByName('principal_amount')[0].value = principal

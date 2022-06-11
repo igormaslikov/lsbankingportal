@@ -43,12 +43,10 @@ $(document).ready(function () {
           .append("<td></td>")
           .append("<td></td>")
           .append("<td><b>$" + summary(11, api, false) + "</b></td>")
-          .append("<td><b>$" + summary(12, api, false) + "</b></td>")
-          .append("<td><b>$" + summary(13, api, false) + "</b></td>")
+          .append("<td></td>")
           .append("<td></td>")
           // .append("<td><b>$" + summary(10, api, false) + "</b></td>")
           // .append("<td></td>")
-          .append("<td colspan=6></td>");
       },
       endRender: function (rows, group) {
         var api = $("#example").dataTable().api();
@@ -85,12 +83,10 @@ $(document).ready(function () {
           .append("<td></td>")
           .append("<td></td>")
           .append("<td><b>$" + summary(11, api, false) + "</b></td>")
-          .append("<td><b>$" + summary(12, api, false) + "</b></td>")
-          .append("<td><b>$" + summary(13, api, false) + "</b></td>")
+          .append("<td></td>")
           .append("<td></td>")
           // .append("<td><b>$" + summary(10, api, false) + "</b></td>")
           // .append("<td></td>")
-          .append("<td colspan=6></td>");
       },
       dataSrc: 1,
     },

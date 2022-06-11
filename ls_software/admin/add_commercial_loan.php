@@ -175,7 +175,6 @@ $fnd_idd = $_GET['id'];
             <select name="p_portfolio" id="p_portfolio" class="form-control" value="">
               <option value="None">None</option>
               <option value="Pacifica Finance Group" >Pacifica Finance Group</option>
-              <option value="Kenneth">Kenneth</option>
             </select>
           </div>
           <div class="col-lg-6">
@@ -226,7 +225,6 @@ $fnd_idd = $_GET['id'];
             <select name="state" id="state" class="form-control" value="">
               <option value=""></option>
               <option value="CA">California</option>
-              <option value="NV">Naveda</option>
             </select>
           </div>
 

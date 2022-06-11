@@ -370,6 +370,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                         </tr>
                         <tr>
                           <th>ID</th>
+                          <th>Number</th>
                           <th>Description</th>
                           <th>Amount Fee</th>
                           <th>Paid</th>
@@ -385,6 +386,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                           $row_item_fee = $row_loan['item'];
                           $amount_fee = $row_loan['amount_fee'];
                           $amount_fee_paid = $row_loan['amount_fee_paid'];
+                          $installment_id = $row_loan['installment_id'];
 
                           $background_color = "";
                           if ($amount_fee_paid == $amount_fee) {
@@ -393,6 +395,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                           echo "
                             <tr style='$background_color'>
                               <td>$other_fee_id</td>
+                              <td>$installment_id</td>
                               <td>$row_item_fee</td>
                               <td>$amount_fee</td>
                               <td>$amount_fee_paid</td>
@@ -446,26 +449,24 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
         <table id="example" class="display">
           <thead>
             <tr>
-              <th rowspan="3">Transaction ID</th>
-              <th rowspan="3">Loan ID</th>
-              <th rowspan="3">Due Date</th>
-              <th rowspan="3">Payment Date</th>
-              <th rowspan="3">DPD</th>
-              <th rowspan="3">Payment</th>
-              <th rowspan="3">Interest</th>
-              <th rowspan="3">Principal</th>
-              <th rowspan="3">Balance</th>
-              <th rowspan="3">Payment Method</th>
-              <th rowspan="3">User Name</th>
-              <th colspan="4" style="text-align:center">Fees</th>
-              <th rowspan="3">Action</th>
+              <th rowspan="2">Transaction ID</th>
+              <th rowspan="2">Loan ID</th>
+              <th rowspan="2">Due Date</th>
+              <th rowspan="2">Payment Date</th>
+              <th rowspan="2">DPD</th>
+              <th rowspan="2">Payment</th>
+              <th rowspan="2">Interest</th>
+              <th rowspan="2">Principal</th>
+              <th rowspan="2">Balance</th>
+              <th rowspan="2">Payment Method</th>
+              <th rowspan="2">User Name</th>
+              <th colspan="2" style="text-align:center">Fees</th>
+              <th rowspan="2">Action</th>
             </tr>
-            <tr>
-              <th rowspan="2">Late</th>
-              <th rowspan="2">Convenience</th>
-              <th colspan="2" style="text-align:center">Other</th>
+            <!-- <tr> -->
+              <!-- <th colspan="2" style="text-align:center">Fees</th> -->
               <!-- <th colspan="2" style="text-align:center">Chargeback</th> -->
-            </tr>
+            <!-- </tr> -->
             <tr>
               <th>Amount</th>
               <th>Description</th>
@@ -484,7 +485,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             $total_no_of_pages = ceil($total_records / $total_records_per_page);
             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-            $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction clt LEFT join tbl_other_fees tof on clt.other_fee_id = tof.tbl_other_fees_id LEFT JOIN tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_id='$id' order by transaction_id desc");
+            $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction clt where loan_id='$id' order by transaction_id desc");
             $count = 0;
             while ($row_loan = mysqli_fetch_array($sql_loan)) {
               $count++;
@@ -502,7 +503,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $late_fee = $row_loan['late_fee'];
               $convenience_fee = $row_loan['convenience_fee'];
               $other_fee = $row_loan['other_fee'];
-              $description = $row_loan['item'] == null ? "" : $row_loan['item'] . " (" . $row_loan['other_fee_id'] . ")";
+              $other_fee_id = $row_loan['other_fee_id'];
+              // $description = $row_loan['item'] == null ? "" : $row_loan['item'] . " (" . $row_loan['other_fee_id'] . ")";
               $chargeback_fee = $row_loan['chargeback_fee'];
               $chargeback_fee_id = $row_loan['chargeback_fee_id'];
               $description_chargeback = "";
@@ -512,7 +514,23 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                   $description_chargeback = $row_chargeback['item'] == null ? "" : $row_loan['item'] . " (" . $row_loan['chargeback_fee_id'] . ")";
                 }
               }
-              $other_fee = $row_loan['other_fee'];
+              $description = "";
+              $other_fee_sum = 0;
+              if($other_fee != 0 and $other_fee != ""){
+                $other_fee_amounts = explode(",", $other_fee);
+                $other_fee_ids = explode(",", $other_fee_id);
+                $arr_description = array();
+                for ($i=0; $i < count($other_fee_amounts) ; $i++) {
+                  $sql_loan_fees = mysqli_query($con, "select * from tbl_other_fees tof LEFT JOIN tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where tbl_other_fees_id = '$other_fee_ids[$i]'");
+                  while ($row_loan = mysqli_fetch_array($sql_loan_fees)) {
+                      $item = $row_loan['item'];
+                  }
+                  array_push($arr_description,$item  . " (" . $other_fee_ids[$i] . ")");
+                  $other_fee_sum += $other_fee_amounts[$i];
+                }
+                $description = join(", ",$arr_description);
+              }
+              
               $card_info = $row_loan['card_info'];
               $is_chargeback = $row_loan['is_chargeback'];
 
@@ -630,8 +648,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               echo "<tr style='$row_color'>
               <td>" . $transaction_id . "</td>
               <td>" . $loan_create_id . "</td>
-              <td>" . $created_at_f . "</td>
               <td>" . $payment_date_f . "</td>
+              <td>" . $created_at_f . "</td>
               <td>" . $dpd . "</td>
               <td>$" . number_format($payment_amount,   2, ".", ",") . "</td>
               <td>$" . number_format($interest_amount,   2, ".", ",") . "</td>
@@ -639,9 +657,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               <td>$" . $remaining_balance . "</td>
               <td " . $card_info_tooltip . ">" . $start_mark . $payment_method . $end_mark . "</td>
               <td>" . $final_activity_by_user . "</td>
-              <td>$" . $late_fee . "</td>
-              <td>$" . $convenience_fee . "</td>
-              <td>$" . $other_fee . "</td>
+              <td>$" . $other_fee_sum . "</td>
               <td>" . $description . "</td>
               <td>" . $action . "</td>
 		   	  </tr>";
@@ -811,6 +827,26 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                       $row_item = $row_loan['item'];
                       echo "
                         <option value='$row_item'></option>";
+                    }
+                    ?>
+                  </datalist>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 col-sm-5 col-lg-5"><label style="text-align:left">Installment nummber<mark class="red">*</mark></label></div>
+                <div class="col-md-5 col-sm-5 col-lg-5">
+                  <input list="numbers_installment" name="number_installment" id="lblNumberInstallment" style="width:100%">
+                  <datalist id="numbers_installment">
+                    <?php
+                    $sql_loan = mysqli_query($con, "select count(id) as number_installment FROM `tbl_commercial_loan_installments` where loan_create_id= '$loan_create_id'");
+
+                    while ($row_loan = mysqli_fetch_array($sql_loan)) {
+                      $count = $row_loan['number_installment'];
+                    }
+
+                    for ($i=1; $i <= $count ; $i++) { 
+                      echo "
+                      <option value='$i'></option>";
                     }
                     ?>
                   </datalist>

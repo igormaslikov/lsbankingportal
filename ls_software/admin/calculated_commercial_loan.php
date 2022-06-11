@@ -62,12 +62,13 @@ $num_late_days = $num_days_from_contract - $num_of_days;
 
 $rate_late_days = $rate_per_day * $num_late_days;
 
+$apr =  calc_apr($principal,$total_payments, $payment, $num_days_from_contract ,$num_of_days);
 
 
 //echo "<script type='text/javascript'>document.getElementsByName('interest')[0].value = 2</script>";
 //echo $_POST['source'];
 
-list($htmlTble, $last_payment, $apr) = print_schedule($principal, $rate, $payment, $rate_late_days, $num_of_days);
+list($htmlTble, $last_payment) = print_schedule($principal, $apr, $payment, $rate_late_days, $num_of_days, $num_late_days);
 $articles[] = array(
     'table'         =>  (string)$htmlTble,
     'apr'   =>  (string)$apr,
@@ -80,7 +81,6 @@ echo json_encode($articles);
 function calc_rate($pv, $payno, $pmt)
 {
     //echo "calc start\n";
-
     // now try and guess the value using the binary chop technique
     $GuessHigh   = (float)100;    // maximum value
     $GuessMiddle = (float)2.5;    // first guess
@@ -121,6 +121,53 @@ function calc_rate($pv, $payno, $pmt)
 } // calc_rate =======================================================================
 
 
+function get_updated_balance($apr,$pv, $payno, $pmt,$first_days_installment, $days_per_installment){
+    $balance = $pv;
+    for ($i=0; $i < $payno; $i++) { 
+        $per_diem = $balance * $apr / 36500;
+        $days = $days_per_installment;
+        if ($i == 0){
+            $days = $first_days_installment;
+        }
+
+        $interest = $per_diem * $days;
+        $principal = $pmt - $interest;
+        $balance = $balance - $principal;
+    }
+    return $balance;
+}
+
+function calc_apr($pv, $payno, $pmt,$first_days_installment, $days_per_installment)
+{
+    //echo "calc start\n";
+    $GuessHigh = (float)1000;
+    $GuessApr= (float)100;
+    $GuessLow = (float)0;
+
+    $balance = 0;
+    do{
+
+        $balance = get_updated_balance($GuessApr, $pv, $payno, $pmt,$first_days_installment, $days_per_installment);
+        
+        if ($balance > 0) {
+            $GuessHigh  = $GuessApr;
+            $GuessApr = $GuessApr + $GuessLow;
+            $GuessApr = $GuessApr / 2;           
+        }
+
+        if ($balance < 0){
+            $GuessLow    = $GuessApr;
+            $GuessApr = $GuessApr + $GuessHigh;
+            $GuessApr = $GuessApr / 2; 
+        }
+
+        $balance = number_format($balance, 9, ".", ""); 
+
+    }while ($balance != 0);
+
+    return $GuessApr;
+} // calc_rate =======================================================================
+
 function calc_payment($pv, $payno, $int, $accuracy)
 {
     // now do the calculation using this formula:
@@ -142,7 +189,7 @@ function calc_payment($pv, $payno, $int, $accuracy)
 } // calc_payment ====================================================================
 
 
-function print_schedule($balance, $rate, $payment, $rate_late_days, $num_of_days)
+function print_schedule($balance, $apr, $payment, $rate_late_days, $num_of_days, $num_late_days)
 {
     include 'dbconfig.php';
     $loan_create_id = $_POST['loan_id'];
@@ -286,22 +333,32 @@ function print_schedule($balance, $rate, $payment, $rate_late_days, $num_of_days
     mysqli_query($con, "DELETE FROM `tbl_commercial_loan_installments` WHERE `loan_create_id` = '$loan_create_id'");
     $count = 0;
     $balance_p = 1;
-    $apr = 0;
     do {
         $count++;
 
+        $per_diem = $balance * $apr / 36500;
+        $days = $num_of_days;
+        if ($count == 1){
+            $days = $num_of_days + $num_late_days;
+        }
 
+        $interest = $per_diem * $days;
+        // $principal = $pmt - $interest;
+        // $balance = $balance - $principal;
        
 
         // calculate interest on outstanding balance
-        $interest = $balance * $rate / 100;
-        $per_diem = $interest / $num_of_days; #TODO set number of days
-        //$interest = $balance * ($rate+$rate_late_days) / 100;
-        if ($count == 1) {
-            $interest = $balance * ($rate + $rate_late_days) / 100;
-            $rate = $rate + $rate_late_days;
-            $apr = 365 * 100 * $per_diem / $balance;
-        }
+        // $interest = $balance * $rate / 100;
+        // $per_diem = $interest / $num_of_days; #TODO set number of days
+        // //$interest = $balance * ($rate+$rate_late_days) / 100;
+        // $apr = 365 * 100 * $per_diem / $balance;
+        // if ($count == 1) {
+        //     $interest = $balance * ($rate + $rate_late_days) / 100;
+        //     $rate = $rate + $rate_late_days;
+        //     $per_diem = $interest / ($num_of_days + $num_late_days);
+        //     $apr = 365 * 100 * $per_diem / $balance;
+        // }
+       
         // what portion of payment applies to principal?
         $principal = $payment - $interest;
 
@@ -400,9 +457,9 @@ function print_schedule($balance, $rate, $payment, $rate_late_days, $num_of_days
 
         $payment = $tmp_payment;
 
-        if ($count == 1) {
-            $rate = calc_rate($balance, $total_payments - 1, $payment_fix);
-        }
+        // if ($count == 1) {
+        //     $rate = calc_rate($balance, $total_payments - 1, $payment_fix);
+        // }
     } while ($balance_p > 0);
 
     $varTable .= "<tr>";
@@ -439,6 +496,6 @@ function print_schedule($balance, $rate, $payment, $rate_late_days, $num_of_days
     $last_payment_date_array = explode("-", $payment_date);
 
     $ld = strtotime($last_payment_date_array[2] . "-" . $last_payment_date_array[0] . "-" . $last_payment_date_array[1]);
-    return array($varTable, date("m/d/Y", $ld), $apr);
+    return array($varTable, date("m/d/Y", $ld));
 }
 ?>
