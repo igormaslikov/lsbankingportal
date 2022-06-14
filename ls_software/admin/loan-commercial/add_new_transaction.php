@@ -143,7 +143,7 @@ if ($u_access_id != '1') {
         $username = $row_user['username'];
     }
 
-    $previous_payment_date =  date_create(date("Y-m-d", strtotime($creation_date)));
+    
 
     if ($intallment_id == null) {
         $sql_transaction = mysqli_query($con, "select id from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' and status='0' order by id asc limit 1");
@@ -190,11 +190,13 @@ if ($u_access_id != '1') {
 
     $add_interest = $interest_amount - $per_diem * $days;
 
-
+    $previous_payment_date =  $creation_date;
+    $previous_payment_date_for_last = date_create(date("Y-m-d", strtotime($creation_date)));
     $per_diem_loan_amount = $amount_loan;
     $sql_transaction = mysqli_query($con, "select paid_date, per_diem from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' and paid_date is not NULL order by id desc limit 1");
     while ($row_transaction = mysqli_fetch_array($sql_transaction)) {
-        $previous_payment_date = date_create(date("Y-m-d",strtotime($row_transaction['paid_date'])));
+        $previous_payment_date =$row_transaction['paid_date'];
+        $previous_payment_date_for_last= date_create(date("Y-m-d",strtotime($previous_payment_date)));
         $per_diem_loan_amount = $rem_balance;
        
     }
@@ -215,7 +217,7 @@ if ($u_access_id != '1') {
     $dpd = $interval->format('%r%a');
 
     #Per Diem
-    $days_from_last_payment = date_diff($previous_payment_date, $date_now)->format('%r%a');
+    $days_from_last_payment = date_diff($previous_payment_date_for_last, $date_now)->format('%r%a');
     $per_diem_rate = $per_diem_loan_amount * $apr / 36500;
 
     // $sum_late_fee = $dpd > 0 ? $dpd * $late_fee : 0;
@@ -226,7 +228,7 @@ if ($u_access_id != '1') {
         $sum_late_fee = $_GET['late_fee'];
     }
 
-    $previous_payment_date_con = date("Y-m-d",strtotime($previous_payment_date->date));
+    $previous_payment_date_con  = explode(" ",$previous_payment_date->date)[0];
 
     $count = 0;
     // while ($previous_payment_date_con == "1969-12-31"){
@@ -1029,7 +1031,7 @@ if ($u_access_id != '1') {
                         <input type="text" name="contract_late_fee" id="contractLateFeeId" value="<?php echo $late_fee; ?>" style="display:none;">
                         <input type="text" name="add_interest" id="addInterestId" value="<?php echo $add_interest; ?>" style="display:none;">
                         <input type="text" name="due_date" value="<?php echo strftime('%Y-%m-%d', strtotime($payment_date)); ?>" style="display:none;">
-                        <input type="text" name="previous_payment_date" value="<?php echo $previous_payment_date_con; ?>" style="display:none;">
+                        <input type="text" name="previous_payment_date" value="<?php echo strftime('%Y-%m-%d', strtotime($previous_payment_date)); ?>" style="display:none;">
 
                         <div class="row">
                             <div class="col-lg-2">
