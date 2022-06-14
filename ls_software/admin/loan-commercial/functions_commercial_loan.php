@@ -1835,6 +1835,10 @@ function CalculateInstallmetsPerDiem()
             $loan_payment_amount = $payment;
         }
 
+        if ($i == (int)$total_payments and $balance > 0){
+            $loan_payment_amount =$payoff - $total_payment;
+        }
+       
         $due_date = $loan_payment_date;
 
 
@@ -1870,11 +1874,7 @@ function CalculateInstallmetsPerDiem()
             $balance = 0;
         }
 
-        if ($i == (int)$total_payments and $balance > 0){
-            $principal = $balance + $principal;
-            $loan_payment_amount =  $principal + $interest;
-            $balance = 0;
-        }
+
 
 
 
@@ -1908,6 +1908,7 @@ function CalculateInstallmetsPerDiem()
         }
 
         $previous_balance =  $balance;
+        $total_balance = $balance;
         $previous_due_date = $due_date_real;
         $previous_payment_date = $payment_date;
     }

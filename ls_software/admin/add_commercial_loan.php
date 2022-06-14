@@ -251,7 +251,7 @@ $fnd_idd = $_GET['id'];
 
           <div class="col-lg-6">
             <label for="usr">APR %</label>
-            <input type="text" name="apr" class="form-control" id="usr" placeholder="" value="" readonly>
+            <input type="text" name="apr" class="form-control" id="apr" placeholder="" value="" >
           </div>
 
           <div class="col-lg-6">

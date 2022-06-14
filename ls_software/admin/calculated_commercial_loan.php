@@ -38,6 +38,7 @@ $payment_date = $_POST['payment_date'];
 $payment_start_date = $_POST['payment_start_date'];
 $state = $_POST['state'];
 $payment = $_POST['payment'];
+$apr = $_POST['apr'];
 
 if ($installment_plan == 'Weekly') {
     $number_of_payments = 52;
@@ -52,23 +53,25 @@ if ($installment_plan == 'Weekly') {
 
 #$one_payment_interest = (int)$loan_interest / $number_of_payments;
 
-$rate = calc_rate($principal, $total_payments, $payment);
-$strRate = strVal($rate);
+// $rate = calc_rate($principal, $total_payments, $payment);
+// $strRate = strVal($rate);
 
-$rate_per_day = $rate / $num_of_days;
+// $rate_per_day = $rate / $num_of_days;
 $num_days_from_contract = date_diff(date_create($payment_start_date), date_create($contract_date))->format("%a");
 
 $num_late_days = $num_days_from_contract - $num_of_days;
 
-$rate_late_days = $rate_per_day * $num_late_days;
 
-$apr =  calc_apr($principal,$total_payments, $payment, $num_days_from_contract ,$num_of_days);
+if($apr == ""){
+    $apr =  calc_apr($principal,$total_payments, $payment, $num_days_from_contract ,$num_of_days);
+}
+
 
 
 //echo "<script type='text/javascript'>document.getElementsByName('interest')[0].value = 2</script>";
 //echo $_POST['source'];
 
-list($htmlTble, $last_payment) = print_schedule($principal, $apr, $payment, $rate_late_days, $num_of_days, $num_late_days);
+list($htmlTble, $last_payment) = print_schedule($principal, $apr, $payment, $num_of_days, $num_late_days);
 $articles[] = array(
     'table'         =>  (string)$htmlTble,
     'apr'   =>  (string)$apr,
@@ -189,7 +192,7 @@ function calc_payment($pv, $payno, $int, $accuracy)
 } // calc_payment ====================================================================
 
 
-function print_schedule($balance, $apr, $payment, $rate_late_days, $num_of_days, $num_late_days)
+function print_schedule($balance, $apr, $payment, $num_of_days, $num_late_days)
 {
     include 'dbconfig.php';
     $loan_create_id = $_POST['loan_id'];
@@ -363,10 +366,10 @@ function print_schedule($balance, $apr, $payment, $rate_late_days, $num_of_days,
         $principal = $payment - $interest;
 
         // watch out for balance < payment
-        if ($balance < $payment) {
-            $principal = $balance;
-            $payment   = $interest + $principal;
-        } // if
+        // if ($balance < $payment) {
+        //     $principal = $balance;
+        //     $payment   = $interest + $principal;
+        // } // if
 
         $tmp_payment = $payment;
         // if ($count == 1) {
@@ -377,11 +380,11 @@ function print_schedule($balance, $apr, $payment, $rate_late_days, $num_of_days,
         $balance = $balance - $principal;
 
         // watch for rounding error that leaves a tiny balance
-        if ($balance < 0) {
-            $principal = $principal + $balance;
-            $interest  = $interest - $balance;
-            $balance   = 0;
-        } // if
+        // if ($balance < 0) {
+        //     $principal = $principal + $balance;
+        //     $interest  = $interest - $balance;
+        //     $balance   = 0;
+        // } // if
 
         if ($count > 1) {
             if ($installment_plan == 'Weekly') {

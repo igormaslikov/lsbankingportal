@@ -55,7 +55,8 @@ if ($u_access_id != '1') {
     while ($row = mysqli_fetch_array($sql)) {
 
 
-
+        $amount_loan = $row['amount_of_loan'];
+        $loan_interest = $row['loan_interest'];
         $loan_id = $row['loan_id'];
 
         $user_fnd_id = $row['user_fnd_id'];
@@ -687,7 +688,7 @@ if ($u_access_id != '1') {
 
 
 
-        $query_insert_trans = "INSERT INTO `commercial_loan_transaction`(`loan_id`, `loan_create_id`, `user_fnd_id`, `installment_id`, `payment_amount`, `interest`, `principal_amount`,
+         $query_insert_trans = "INSERT INTO `commercial_loan_transaction`(`loan_id`, `loan_create_id`, `user_fnd_id`, `installment_id`, `payment_amount`, `interest`, `principal_amount`,
         `remaining_balance`,`late_fee`,`convenience_fee` ,`other_fee`,`other_fee_id`,`payment_date`,`payment_description`,`payment_method`, `created_at`, `created_by`) 
         VALUES ('$id','$loan_create_id','$user_fnd_id','$installment_id_post','$db_totalamountpaid','$db_interestpaid','$db_principlepaid',
           '$rem_balance','$db_latefeepaid','$convenience_fee','$other_fee','$other_fee_id','$due_date','$payment_description','$payment_method','$paid_date','$u_id')";
@@ -701,14 +702,35 @@ if ($u_access_id != '1') {
             $other_fee_id = 0;
             $other_fee = array();
             $other_fee_ids = array();
-            foreach($_POST as $key => $value) {
-                if (strpos($key, 'other_fee_') === 0) {
-                    $other_fee_id = end(explode("_", $key));
-                    mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $value, transaction_id = $transaction_id  where tbl_other_fees_id = $other_fee_id");
-                    array_push($other_fee,$value);
-                    array_push($other_fee_ids,$other_fee_id);
+            $other_fee_sum = $_POST['other_fee'];
+            $query_all_other_fees = mysqli_query($con, "SELECT * from `tbl_other_fees` where `loan_created_id` = $loan_create_id and `amount_fee` <> `amount_fee_paid` order by tbl_other_fees_id asc");
+            while ($other_fee_query = mysqli_fetch_array($query_all_other_fees)){
+                if($other_fee_sum  <= 0){
+                    break;
                 }
-              }
+
+                $amount_fee_unpaid = $other_fee_query['amount_fee'] - $other_fee_query['amount_fee_paid'];
+                $other_fee_id = $other_fee_query['tbl_other_fees_id'];
+
+                if($other_fee_sum < $amount_fee_unpaid){
+                    $amount_fee_unpaid  = $other_fee_sum;
+                }
+                array_push($other_fee,$amount_fee_unpaid);
+                array_push($other_fee_ids,$other_fee_id);
+                
+                mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $amount_fee_unpaid , transaction_id = $transaction_id  where tbl_other_fees_id = $other_fee_id");
+
+                $other_fee_sum -= $amount_fee_unpaid;
+
+            }
+            // foreach($_POST as $key => $value) {
+            //     if (strpos($key, 'other_fee_') === 0) {
+            //         $other_fee_id = end(explode("_", $key));
+            //         mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $value, transaction_id = $transaction_id  where tbl_other_fees_id = $other_fee_id");
+            //         array_push($other_fee,$value);
+            //         array_push($other_fee_ids,$other_fee_id);
+            //     }
+            //   }
 
             if(count($other_fee) > 0){
                 $other_fee_tran = join(",",$other_fee);
@@ -735,7 +757,9 @@ if ($u_access_id != '1') {
             }
 
             foreach ($installment_dict as $installment_id => $paid_amount) {
-                $query_insert_chargeback = "INSERT INTO `tbl_commercial_loan_chargeback` (`id`, `loan_create_id`, `transaction_id`, `installment_id`, `installment_paid`, `late_fee_paid`, `convenience_fee_paid`, `other_fee_id`, `other_fee_paid`) VALUES (NULL, $loan_create_id, $transaction_id, $installment_id,  $paid_amount, $late_fee, $convenience_fee, $other_fee_id,  $other_fee)";
+                $query_insert_chargeback = "INSERT INTO `tbl_commercial_loan_chargeback` (`id`, `loan_create_id`, `transaction_id`, `installment_id`, `installment_paid`, `late_fee_paid`, `convenience_fee_paid`, `other_fee_id`, `other_fee_paid`) 
+                VALUES (NULL, $loan_create_id, $transaction_id, $installment_id,  $paid_amount, $late_fee, $convenience_fee, $other_fee_id,  $other_fee)";
+
                 $result_insert_chargeback = mysqli_query($con, $query_insert_chargeback);
                 $late_fee = 0;
                 $convenience_fee = 0;
@@ -753,19 +777,20 @@ if ($u_access_id != '1') {
                 $query_all_installments = mysqli_query($con, "SELECT * from `tbl_commercial_loan_installments` where `loan_create_id` = $loan_create_id order by id asc");
                 $index_installment = 1;
                 $add_to_interest = 0;
+                $total_payment = 0;
                 while ($installment = mysqli_fetch_array($query_all_installments)){
                     $paid_date = $installment['paid_date'];
                     $status = $installment['status'];
                     $payment_date = $installment['payment_date'];
                     $payment =  $installment['payment'];
                     $intallment_id = $installment['id'];
-        
+                    
                     $payment_date_array = explode("-", $payment_date);
                     $payment_date = $payment_date_array[2] . "-" . $payment_date_array[0] . "-" . $payment_date_array[1];
         
                     $date_due_date = date_create(date("Y-m-d", strtotime($payment_date)));
                     #$previous_payment_date = $date_due_date;
-        
+    
                     $balance = $previous_balance;
         
                     if($index_installment == 1){
@@ -788,25 +813,31 @@ if ($u_access_id != '1') {
                         $add_to_interest = abs($principal);
                         $principal = 0;
                     }
+    
+                    if ($index_installment == $query_all_installments->num_rows){
+                        
+                        $payoff = round((float)($amount_loan + $loan_interest), 2);
+                        $loan_payment_amount =$payoff - $total_payment;
+                        $principal = $loan_payment_amount - $interest;
+    
+                        mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `payment` = '$loan_payment_amount' where id ='$intallment_id'");
+    
+                    }
+    
                     $balance = $balance - $principal;
                     if($balance < 0){
                         $payment = $payment + $balance;
                         $principal = $payment - $interest;
                         $balance = 0;
                     }
-
-                    if ($index_installment == $query_all_installments->num_rows and $balance > 0){
-                        $principal = $balance + $principal;
-                        $loan_payment_amount =  $principal + $interest;
-                        $balance = 0;
-                        mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `payment` = '$loan_payment_amount' where id ='$intallment_id'");
-
-                    }
+                    
                     $previous_balance =  $balance;
                     
                     $previous_payment_date = $date_due_date;
                     mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `days` = '$days_from_last_payment', `per_diem` = '$per_diem', `interest` = '$interest', `principal`= $principal, `balance`= '$balance' where id ='$intallment_id'");
                     $index_installment++;
+    
+                    $total_payment += $payment ;
                 }
             }
 
@@ -1065,15 +1096,17 @@ if ($u_access_id != '1') {
                                 <label style="width:100%" for="other_fee_id">Other Fee ($):</label>
                                 <?php
                                     $sql_loan = mysqli_query($con, "select * from tbl_other_fees tof inner join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_created_id='$loan_create_id' and user_fnd_id = '$user_fnd_id' and amount_fee_paid != amount_fee");
-
+                                    $sum_unpaid_fee = 0;
                                     while ($row_loan = mysqli_fetch_array($sql_loan)) {
                                         $row_item = $row_loan['item'];
                                         $id = $row_loan['tbl_other_fees_id'];
                                         $installment_id = $row_loan['installment_id'];
                                         $unpaid_fee =  $row_loan['amount_fee'] -  $row_loan['amount_fee_paid'];
-                                        echo "<div>$row_item ($id) - ($installment_id): <input type='text' name='other_fee_$id' class='form-control' id='other_fee_id_$id' placeholder='' value='$unpaid_fee' style='width:25%; display:inline!important;' oninput='calculate_summary(event)' required> </div>";
+                                        $sum_unpaid_fee  += $unpaid_fee;
+                                        // echo "<div>$row_item ($id) - ($installment_id): <input type='text' name='other_fee_$id' class='form-control' id='other_fee_id_$id' placeholder='' value='$unpaid_fee' style='width:25%; display:inline!important;' oninput='calculate_summary(event)' required> </div>";
                                     }
                                 ?>                           
+                                <input type="number" name="other_fee" class="form-control" id="other_fee_id" placeholder=""  max="<?php echo $sum_unpaid_fee; ?>" value="0" oninput="calculate_summary(event)" required>
 
                             </div>
                             <div class="col-lg-6">
@@ -1423,12 +1456,21 @@ if ($u_access_id != '1') {
                 let to_be_paid_amount = parseToFloat(document.getElementsByName('to_be_paid_amount')[0].value);
                 // let late_fee = parseToFloat(document.getElementsByName('late_fee')[0].value);
                 // let convenience_fee = parseToFloat(document.getElementsByName('convenience_fee')[0].value);
-                let other_fees = $("input[name^='other_fee_']");
-                let other_fee_sum = 0;
-                for (let index = 0; index < other_fees.length; index++) {
-                    other_fee_sum += parseToFloat(other_fees[index].value);
+                // let other_fees = $("input[name^='other_fee_']");
+                // let other_fee_sum = 0;
+                // for (let index = 0; index < other_fees.length; index++) {
+                //     other_fee_sum += parseToFloat(other_fees[index].value);
                     
+                // }
+                let other_fee_sum =  parseToFloat(document.getElementById('other_fee_id').value);
+                let other_fee_max = parseToFloat(document.getElementById('other_fee_id').max);
+                if (other_fee_sum > other_fee_max){
+                    other_fee_sum = other_fee_max;
                 }
+                else if (other_fee_sum < 0){
+                    other_fee_sum = 0;
+                }
+                document.getElementById('other_fee_id').value = other_fee_sum;
                 document.getElementById('summary_amount_id').innerText = to_be_paid_amount + other_fee_sum
                 document.getElementById('summary_amount_id').innerHTML = to_be_paid_amount + other_fee_sum
 
