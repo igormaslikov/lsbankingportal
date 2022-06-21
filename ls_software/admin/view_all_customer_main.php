@@ -507,7 +507,7 @@ if ($u_access_id == '0') {
                                 <th style='width:6%;color:black;'>State</th>
                                 <th style='width:9%;color:black;'>App Type</th>
                                 <th style='width:15%;color:black;'>Application Status</th>
-                                <th style='width:10%;color:black;'>Website</th>
+                                <th style='width:7%;color:black;'>Website</th>
                                 <th style='width:10%;color:black;'>Action</th>
                             </tr>
                         </thead>
