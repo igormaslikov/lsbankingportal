@@ -704,35 +704,35 @@ if ($u_access_id != '1') {
             $other_fee_id = 0;
             $other_fee = array();
             $other_fee_ids = array();
-            $other_fee_sum = $_POST['other_fee'];
-            $query_all_other_fees = mysqli_query($con, "SELECT * from `tbl_other_fees` where `loan_created_id` = $loan_create_id and `amount_fee` <> `amount_fee_paid` order by tbl_other_fees_id asc");
-            while ($other_fee_query = mysqli_fetch_array($query_all_other_fees)){
-                if($other_fee_sum  <= 0){
-                    break;
-                }
-
-                $amount_fee_unpaid = $other_fee_query['amount_fee'] - $other_fee_query['amount_fee_paid'];
-                $other_fee_id = $other_fee_query['tbl_other_fees_id'];
-
-                if($other_fee_sum < $amount_fee_unpaid){
-                    $amount_fee_unpaid  = $other_fee_sum;
-                }
-                array_push($other_fee,$amount_fee_unpaid);
-                array_push($other_fee_ids,$other_fee_id);
-                
-                mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $amount_fee_unpaid , transaction_id = $transaction_id  where tbl_other_fees_id = $other_fee_id");
-
-                $other_fee_sum -= $amount_fee_unpaid;
-
-            }
-            // foreach($_POST as $key => $value) {
-            //     if (strpos($key, 'other_fee_') === 0) {
-            //         $other_fee_id = end(explode("_", $key));
-            //         mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $value, transaction_id = $transaction_id  where tbl_other_fees_id = $other_fee_id");
-            //         array_push($other_fee,$value);
-            //         array_push($other_fee_ids,$other_fee_id);
+            // $other_fee_sum = $_POST['other_fee'];
+            // $query_all_other_fees = mysqli_query($con, "SELECT * from `tbl_other_fees` where `loan_created_id` = $loan_create_id and `amount_fee` <> `amount_fee_paid` order by tbl_other_fees_id asc");
+            // while ($other_fee_query = mysqli_fetch_array($query_all_other_fees)){
+            //     if($other_fee_sum  <= 0){
+            //         break;
             //     }
-            //   }
+
+            //     $amount_fee_unpaid = $other_fee_query['amount_fee'] - $other_fee_query['amount_fee_paid'];
+            //     $other_fee_id = $other_fee_query['tbl_other_fees_id'];
+
+            //     if($other_fee_sum < $amount_fee_unpaid){
+            //         $amount_fee_unpaid  = $other_fee_sum;
+            //     }
+            //     array_push($other_fee,$amount_fee_unpaid);
+            //     array_push($other_fee_ids,$other_fee_id);
+                
+            //     mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $amount_fee_unpaid , transaction_id = $transaction_id  where tbl_other_fees_id = $other_fee_id");
+
+            //     $other_fee_sum -= $amount_fee_unpaid;
+
+            // }
+            foreach($_POST as $key => $value) {
+                if (strpos($key, 'other_fee_') === 0 and $value != 0) {
+                    $other_fee_id = end(explode("_", $key));
+                    mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $value, transaction_id = $transaction_id  where tbl_other_fees_id = $other_fee_id");
+                    array_push($other_fee,$value);
+                    array_push($other_fee_ids,$other_fee_id);
+                }
+            }
 
             if(count($other_fee) > 0){
                 $other_fee_tran = join(",",$other_fee);
@@ -1105,10 +1105,10 @@ if ($u_access_id != '1') {
                                         $installment_id = $row_loan['installment_id'];
                                         $unpaid_fee =  $row_loan['amount_fee'] -  $row_loan['amount_fee_paid'];
                                         $sum_unpaid_fee  += $unpaid_fee;
-                                        // echo "<div>$row_item ($id) - ($installment_id): <input type='text' name='other_fee_$id' class='form-control' id='other_fee_id_$id' placeholder='' value='$unpaid_fee' style='width:25%; display:inline!important;' oninput='calculate_summary(event)' required> </div>";
+                                        echo "<div>$row_item ($id) - Installment ($installment_id)- Amount ($unpaid_fee): <input type='text' name='other_fee_$id' class='form-control' id='other_fee_id_$id' placeholder='' max='$unpaid_fee' min='0' value='0' style='width:25%; display:inline!important;' oninput='calculate_summary(event)' required> </div>";
                                     }
                                 ?>                           
-                                <input type="number" name="other_fee" class="form-control" id="other_fee_id" placeholder=""  max="<?php echo $sum_unpaid_fee; ?>" value="0" oninput="calculate_summary(event)" required>
+                                <!-- <input type="number" name="other_fee" class="form-control" id="other_fee_id" placeholder=""  max="<?php echo $sum_unpaid_fee; ?>" value="0" oninput="calculate_summary(event)" required> -->
 
                             </div>
                             <div class="col-lg-6">
@@ -1458,21 +1458,21 @@ if ($u_access_id != '1') {
                 let to_be_paid_amount = parseToFloat(document.getElementsByName('to_be_paid_amount')[0].value);
                 // let late_fee = parseToFloat(document.getElementsByName('late_fee')[0].value);
                 // let convenience_fee = parseToFloat(document.getElementsByName('convenience_fee')[0].value);
-                // let other_fees = $("input[name^='other_fee_']");
-                // let other_fee_sum = 0;
-                // for (let index = 0; index < other_fees.length; index++) {
-                //     other_fee_sum += parseToFloat(other_fees[index].value);
+                let other_fees = $("input[name^='other_fee_']");
+                let other_fee_sum = 0;
+                for (let index = 0; index < other_fees.length; index++) {
+                    other_fee_sum += parseToFloat(other_fees[index].value);
                     
+                }
+                // let other_fee_sum =  parseToFloat(document.getElementById('other_fee_id').value);
+                // let other_fee_max = parseToFloat(document.getElementById('other_fee_id').max);
+                // if (other_fee_sum > other_fee_max){
+                //     other_fee_sum = other_fee_max;
                 // }
-                let other_fee_sum =  parseToFloat(document.getElementById('other_fee_id').value);
-                let other_fee_max = parseToFloat(document.getElementById('other_fee_id').max);
-                if (other_fee_sum > other_fee_max){
-                    other_fee_sum = other_fee_max;
-                }
-                else if (other_fee_sum < 0){
-                    other_fee_sum = 0;
-                }
-                document.getElementById('other_fee_id').value = other_fee_sum;
+                // else if (other_fee_sum < 0){
+                //     other_fee_sum = 0;
+                // }
+                // document.getElementById('other_fee_id').value = other_fee_sum;
                 document.getElementById('summary_amount_id').innerText = to_be_paid_amount + other_fee_sum
                 document.getElementById('summary_amount_id').innerHTML = to_be_paid_amount + other_fee_sum
 
