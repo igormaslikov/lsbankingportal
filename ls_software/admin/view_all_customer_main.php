@@ -558,7 +558,7 @@ if ($u_access_id == '0') {
                                 while ($row = mysqli_fetch_array($result)) {
 
                                     $id = $row['user_fnd_id'];
-                                    $cr_date = $row['creation_date'];
+                                    $cr_date = $row['application_date'];
                                     $created_time = $row['created_time_'];
                                     $lang = $row['lang'];
                                     $bold_status = $row['bold_status'];

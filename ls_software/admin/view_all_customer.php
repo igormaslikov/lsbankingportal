@@ -452,7 +452,7 @@ if (isset($_GET['loan_type']) && $_GET['loan_type']!='All') {
     while($row = mysqli_fetch_array($result)){
         
 		 $id=$row['user_fnd_id'];
-		 $cr_date= $row['creation_date'];
+		 $cr_date= $row['application_date'];
 		 $created_time = $row['created_time_'];
 		 $origDate = "$cr_date";
 		 $lang=$row['lang'];
