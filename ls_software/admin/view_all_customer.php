@@ -363,6 +363,7 @@ Application Date To:
 <th style='width:6%;color:black;'>State</th>
 <th style='width:9%;color:black;'>App Type</th>
 <th style='width:15%;color:black;'>Application Status</th>
+<th style='width:5%;color:black;'>Website</th>
 <th style='width:10%;color:black;'>Action</th>
 </tr>
 </thead>
@@ -456,6 +457,7 @@ if (isset($_GET['loan_type']) && $_GET['loan_type']!='All') {
 		 $origDate = "$cr_date";
 		 $lang=$row['lang'];
 		 $bold_status=$row['bold_status'];
+     $website_company = $row['website_company'];
  $newDate = date("m-d-y", strtotime($origDate));
 //echo $newDate;
 
@@ -519,6 +521,7 @@ $gravatar =  "http://profiles.google.com/s2/photos/profile/". $row['email']."?sz
 	 		  <td>".$row['loan_type']."</td>
             
 		   	  <td>".$row['application_status']."</td>
+           <td>" . $row['website_company'] . "</td>
 		   	  
 <td> <a href='edit_customer.php?id=$id&$delete_customer_string' title='Edit This Customer'><span class='glyphicon glyphicon-edit' aria-hidden='true' alt='edit'></span></a>
 <a class='remove-box' href='delete_customer.php?id=$id&$delete_customer_string' title='Delete This Customer'><span class='glyphicon glyphicon-remove' aria-hidden='true' alt='delete'></span>".$decision_logic_Status.$experian_credit_score."</a>
