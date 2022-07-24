@@ -7,7 +7,11 @@ include_once '../dbconnect.php';
 include '../dbconfig.php';
 if (!isset($_SESSION['userSession'])) {
     header("Location: ../index.php");
+
 }
+
+
+$if_optima = ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True") ? "loan_create_id >= 90000" : "loan_create_id < 90000";
 
 $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $_SESSION['userSession']);
 $userRow = $query->fetch_array();
@@ -64,8 +68,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
             // Check connection
 
-
-            $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' ";
+            $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' AND $if_optima ";
 
             $status  = $_GET['status'];
             $keyword = $_GET['keyword'];
@@ -423,15 +426,6 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                                             echo 'selected';
                                                         } ?>>California
                                     </option>
-                                    <!-- <option value="NV" <?php if ($_GET['state'] == 'NV') {
-                                                            echo 'selected';
-                                                        } ?>>Nevada</option>
-                                    <option value="AZ" <?php if ($_GET['state'] == 'AZ') {
-                                                            echo 'selected';
-                                                        } ?>>Arizona</option>
-                                    <option value="IL" <?php if ($_GET['state'] == 'IL') {
-                                                            echo 'selected';
-                                                        } ?>>Illinois</option> -->
                                 </select>
                             </td>
                             <td colspan="2" style="font-weight: bold;">
@@ -550,15 +544,16 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $next_page = $page_no + 1;
                             $adjacents = "2";
 
-                            $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `tbl_loan` where sign_status= '1'");
+                            $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `tbl_loan` where sign_status= '1' AND $if_optima");
                             $total_records = mysqli_fetch_array($result_count);
                             $total_records = $total_records['total_records'];
                             $total_records = $rowcount;
                             $total_no_of_pages = ceil($total_records / $total_records_per_page);
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-
-                            $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' ";
+                            $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' AND $if_optima";
+                
+                            // $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' ";
 
 
                             // $keyword_phone  = $_GET['keyword_phone'];

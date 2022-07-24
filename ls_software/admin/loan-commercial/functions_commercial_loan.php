@@ -26,6 +26,9 @@ if ($u_access_id != '1') {
     $func = $_POST['func']; //remember to escape it
 
     switch ($func) {
+        case 'SetOpima':
+            SetOpima();
+            break;
         case 'UpdateBankInfo':
             UpdateBankInfo();
             break;
@@ -84,6 +87,14 @@ if ($u_access_id != '1') {
             //function not found, error or something
             break;
     }
+}
+
+function SetOpima(){
+    $_SESSION["Optima"] = $_POST["optima"];
+    $articles[] = array(
+        'status'         =>  "ok"
+    );
+    echo json_encode($articles);
 }
 
 function UpdateBankInfo()

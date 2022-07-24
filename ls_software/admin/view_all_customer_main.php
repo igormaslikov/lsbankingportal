@@ -67,7 +67,12 @@ if ($u_access_id == '0') {
 
             <br><br>
             <?php
+            $if_optima = "NOT LIKE";
+            if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
 
+                $if_optima = "LIKE";
+                // $and_check = 1;
+            }
             $query_search = "SELECT * FROM `fnd_user_profile` ";
             $status  = $_GET['status'];
             $keyword = $_GET['keyword'];
@@ -78,7 +83,7 @@ if ($u_access_id == '0') {
             $loan_type = $_GET['loan_type'];
 
             if (isset($_GET['status']) || isset($_GET['keyword']) || isset($_GET['website']) || isset($_GET['state']) || isset($_GET['loan_type']) || isset($_GET['from_date']) || isset($_GET['to_date'])) {
-                $query_search .= " WHERE ";
+                $query_search .= " WHERE website_company $if_optima 'Optima' AND";
             }
             $and_check = 0;
             if (isset($_GET['status']) && $_GET['status'] != 'All') {
@@ -126,6 +131,8 @@ if ($u_access_id == '0') {
                 $query_search .= " loan_type = '$loan_type' ";
                 // $and_check = 1;
             }
+
+
             // $query_search .= " ORDER By user_fnd_id DESC  LIMIT $offset, $total_records_per_page ";
 
             //echo "<br><br><br><br>" . $query_search;
@@ -138,7 +145,7 @@ if ($u_access_id == '0') {
                 //echo $ye;
             }
 
-            if ($result_UNREAD = mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE `bold_status` = '0'")) {
+            if ($result_UNREAD = mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE `bold_status` = '0' where website_company $if_optima 'Optima'")) {
                 // Return the number of rows in result set
                 $rowcount_UNREAD = mysqli_num_rows($result_UNREAD);
                 // printf($rowcount);
@@ -530,7 +537,18 @@ if ($u_access_id == '0') {
                             $previous_page = $page_no - 1;
                             $next_page = $page_no + 1;
                             $adjacents = "2";
+
+
+
                             $query_main_search = "select * from fnd_user_profile_submission ";
+
+                            $if_optima = "NOT LIKE";
+                            if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
+  
+                                $if_optima = "LIKE";
+                                // $and_check = 1;
+                            }
+                            $query_main_search .= "where user_fnd_id in (select user_fnd_id from fnd_user_profile where website_company $if_optima 'Optima') ";
 
                             $query_main_search .= "ORDER By id DESC  LIMIT $offset, $total_records_per_page ";
                             //echo $query_main_search;
@@ -544,7 +562,7 @@ if ($u_access_id == '0') {
 
 
 
-                                $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `fnd_user_profile`");
+                                $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `fnd_user_profile` where website_company $if_optima 'Optima'");
                                 $total_records = mysqli_fetch_array($result_count);
                                 $total_records = $total_records['total_records'];
                                 $total_records = $rowcount;

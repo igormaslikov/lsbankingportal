@@ -8,6 +8,7 @@ include_once '../dbconnect.php';
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
 }
+$if_optima = ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True") ? "loan_create_id >= 90000" : "loan_create_id < 90000";
 
 $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
 $userRow=$query->fetch_array();
@@ -59,7 +60,7 @@ if(isset($_GET['delete_loan'])) {
     $signed_loan_id = $_GET['delete_loan'];
     mysqli_query($con,"DELETE FROM `tbl_loan` WHERE `loan_id` = '$signed_loan_id'");
 }  
-$query_search = "SELECT * FROM `tbl_loan` where  where sign_status= '0'";
+$query_search = "SELECT * FROM `tbl_loan` where  where sign_status= '0' AND $if_optima ";
  
     $status  = $_GET['status'];
     $keyword = $_GET['keyword'];
@@ -131,7 +132,7 @@ if ($result_t=mysqli_query($con,$query_search))
     <?php
 
 
-$query_us = mysqli_query($con,"SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '0'");
+$query_us = mysqli_query($con,"SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '0' AND $if_optima ");
 while ($row_us=mysqli_fetch_array($query_us)){
     $us = $row_us['value_sum'];
     
@@ -141,13 +142,13 @@ break;
 }
 
 
-$query_le = mysqli_query($con,"SELECT SUM(loan_total_payable) AS value_sum FROM tbl_loan where sign_status= '0'");
+$query_le = mysqli_query($con,"SELECT SUM(loan_total_payable) AS value_sum FROM tbl_loan where sign_status= '0' AND $if_optima ");
 while ($row_le=mysqli_fetch_array($query_le)){
     $pay_off = $row_le['value_sum'];
 break;
 }
 
-$query_trns = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction ");
+$query_trns = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction "); //TODO add optima check
 while ($row_trns=mysqli_fetch_array($query_trns)){
     $totall_trans = $row_trns['value_sum'];
 break;
@@ -164,7 +165,7 @@ $avg_amount=$us/$rowcount;
 $avg = number_format((float)$avg_amount, 2, '.', '');
 
 
- $sql_fees="SELECT loan_create_id, COUNT(*) FROM loan_transaction GROUP BY loan_create_id;";
+ $sql_fees="SELECT loan_create_id, COUNT(*) FROM loan_transaction GROUP BY loan_create_id;"; //TODO add optima check
 
 if ($result_fees=mysqli_query($con,$sql_fees))
   {
@@ -176,7 +177,7 @@ if ($result_fees=mysqli_query($con,$sql_fees))
  // echo"". $rowcount_fees;
   }
 
-$sql=mysqli_query($con, "select * from tbl_loan where sign_status= '0'"); 
+$sql=mysqli_query($con, "select * from tbl_loan where sign_status= '0' AND $if_optima "); 
 $total_loan_fee="0";
 while($row = mysqli_fetch_array($sql)) {
 
@@ -354,7 +355,7 @@ $total_records_per_page = 200;
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `tbl_loan` where sign_status= '0'");
+	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `tbl_loan` where sign_status= '0' AND $if_optima ");
 	$total_records = mysqli_fetch_array($result_count);
 	$total_records = $total_records['total_records'];
 	$total_records = $rowcount;
@@ -362,7 +363,7 @@ $total_records_per_page = 200;
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 	
 
-$query_search = "SELECT * FROM `tbl_loan`  where sign_status= '0'";
+$query_search = "SELECT * FROM `tbl_loan`  where sign_status= '0' AND $if_optima ";
  
 
    // $keyword_phone  = $_GET['keyword_phone'];
