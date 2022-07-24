@@ -67,7 +67,12 @@ include 'dbconfig.php';
   
  <br><br>
  <?php
+$if_optima = "NOT LIKE";
+if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
 
+    $if_optima = "LIKE";
+    // $and_check = 1;
+}
  $query_search = "SELECT * FROM `fnd_user_profile` ";
     $status  = $_GET['status'];
     $keyword = $_GET['keyword'];
@@ -78,7 +83,7 @@ include 'dbconfig.php';
 	$loan_type = $_GET['loan_type'];
     
 if (isset($_GET['status']) || isset($_GET['keyword']) || isset($_GET['website']) || isset($_GET['state']) || isset($_GET['loan_type']) || isset($_GET['from_date']) || isset($_GET['to_date'])) {
-    $query_search .= " WHERE ";
+    $query_search .= "  WHERE website_company $if_optima 'Optima' AND ";
 }
   $and_check = 0;
 if (isset($_GET['status']) && $_GET['status']!='All') {
@@ -396,7 +401,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 //  echo "<br>".$total_no_of_pages;
     $query_search = "SELECT * FROM `fnd_user_profile` ";
 if (isset($_GET['status']) || isset($_GET['state']) || isset($_GET['loan_type']) || isset($_GET['keyword']) || isset($_GET['from_date']) || isset($_GET['to_date'])) {
-    $query_search .= " WHERE ";
+  $query_search .= " WHERE website_company $if_optima 'Optima' AND";
 }
   $and_check = 0;
 if (isset($_GET['status']) && $_GET['status']!='All') {

@@ -73,7 +73,7 @@ if ($u_access_id == '0') {
                 $if_optima = "LIKE";
                 // $and_check = 1;
             }
-            $query_search = "SELECT * FROM `fnd_user_profile` ";
+            $query_search = "SELECT * FROM `fnd_user_profile`";
             $status  = $_GET['status'];
             $keyword = $_GET['keyword'];
             $from_date = $_GET['from_date'];

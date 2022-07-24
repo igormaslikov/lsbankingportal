@@ -551,7 +551,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $total_no_of_pages = ceil($total_records / $total_records_per_page);
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                            $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' AND $if_optima";
+                            $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' AND $if_optima ";
                 
                             // $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' ";
 
