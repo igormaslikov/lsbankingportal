@@ -144,7 +144,7 @@ $primary_port=$row['secondary_portfolio'];
     $end = strtotime($payment_date);
     $days_between_apr = ceil(abs($end - $start) / 86400);
 
-    $calculation = $loan_fee/$amount_loan*365/$days_between*100;
+    $calculation = $loan_fee/$amount_loan*365/$days_between_apr*100;
     $calculation = round($calculation, 2);
   	$anual_pr= $calculation;
 $anual_pr=str_replace("-","",$anual_pr);
