@@ -84,7 +84,7 @@ $fname=$customer_fname;
 
 You are a customer already,if you want another payday loan please contact us directly. You DO NOT have apply again.";
  
-$headers = 'From: support@mymoneyline.com';
+$headers = 'From: support@ofsca.com';
 // mail($to_email,$subject,$message,$headers);
 
 send_email_notification($to_email,$subject,$message);
@@ -106,7 +106,7 @@ $lname_alejandra = $customer_lname;
 
 This is $fname_alejandra $lname_alejandra already customer with this email:$customer_email,and application status is FUNDED Applied again.";
  
-$headers_alejandra = 'From: support@mymoneyline.com';
+$headers_alejandra = 'From: support@ofsca.com';
 //mail($email_alejandra,$subject_alejandra,$message_alejandra,$headers_alejandra);
 
 admin_leads_email_notification($subject_alejandra,$message_alejandra);
@@ -129,7 +129,7 @@ admin_leads_email_notification($subject_alejandra,$message_alejandra);
 
 This is $fname_mayte $lname_mayte already customer with this email:$customer_email,and application status is FUNDED Applied again.";*/
  
-//$headers_mayte = 'From: support@mymoneyline.com';
+//$headers_mayte = 'From: support@ofsca.com';
 //mail($email_mayte,$subject_mayte,$message_mayte,$headers_mayte);
 
 //admin_email_notification($email_alejandra,$subject_alejandra,$message_alejandra);
@@ -173,9 +173,9 @@ $fname=$customer_fname;
   $lname= $customer_lname;
   $message_de = "Hola ".$fname." ".$lname.", 
 
-Thank you for submitting your application to Optima Financial Solutions Inc. Unfortunately your application has been declined. If you have any questions regarding your application, contact us at support@mymoneyline.com and a team member will respond shortly.";
+Thank you for submitting your application to Optima Financial Solutions Inc. Unfortunately your application has been declined. If you have any questions regarding your application, contact us at support@ofsca.com and a team member will respond shortly.";
  
-$headers = 'From: support@mymoneyline.com';
+$headers = 'From: support@ofsca.com';
 // mail($to_email,$subject,$message,$headers);
 
 	send_email_notification($subject_de,$message_de);
@@ -297,9 +297,9 @@ $fname=$customer_fname;
   $message_re = "Hello ".$fname." ".$lname.", 
 Thank you for applying at Optima Financial Solutions Inc. We received your application. A team member will contact you shortly. 
 Gracias por aplicar en Optima Financial Solutions Inc. Recibimos su solicitud. Un miembro del equipo se comunicará con usted a la brevedad.
-If you have any questions you can always contact us at support@mymoneyline.com";
+If you have any questions you can always contact us at support@ofsca.com";
  
-$headers = 'From: support@mymoneyline.com';
+$headers = 'From: support@ofsca.com';
 //mail($to_email,$subject,$message,$headers);
 
 send_email_notification($to_email_re,$subject_re,$message_re);

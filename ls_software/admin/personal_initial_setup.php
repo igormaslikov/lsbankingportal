@@ -94,7 +94,7 @@ $to_email = $email;
 $subject = 'Contract';
 $message = $azrizona_message;
 $message_email = $azrizona_email;
-$headers = 'From: support@mymoneyline.com';
+$headers = 'From: support@ofsca.com';
 //mail($to_email,$subject,$message,$headers);
 
 //CUSTOMER EMAIL ENDS
@@ -115,7 +115,7 @@ $email_admin=$row_fetch_user['email'];
 $to_email_admin = $email_admin;
 $subject_admin = 'A New Customer Has Signed The Contract';
 $message_admin = $azrizona_email;
-$headers_admin = 'From: support@mymoneyline.com';
+$headers_admin = 'From: support@ofsca.com';
 mail($to_email_admin,$subject_admin,$message_admin,$headers_admin);
 
 //ADMIN EMAIL ENDS

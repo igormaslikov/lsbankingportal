@@ -324,7 +324,7 @@ $style = array(
  <td style="text-align:center">'.$f_name.'</td>
  </tr>
  <tr>
-	<td style="text-align:left;"><b><span style="text-decoration: overline">Firma del Ttitular de la Cuenta</span></b></td>
+	<td style="text-align:left;"><b><span style="text-decoration: overline">Firma del Titularde la Cuenta</span></b></td>
 	<td style="text-align:center;"><b><span style="text-decoration: overline">Nombre del Titular de la Cuenta</span></b></td>
  </tr>
  </tbody>

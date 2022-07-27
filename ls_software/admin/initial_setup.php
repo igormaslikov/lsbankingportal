@@ -481,7 +481,7 @@ if (isset($_POST['btttn-submit'])) {
                     if (empty($id_photo)) {
                         echo '<div class="col-lg-6">
       <label for="usr">Upload Picture of ID</label>
-      <input type="file" name="file_image"  class="form-control" accept="image/*" ><br>
+      <input type="file" name="file_image"  class="form-control" accept="image/* required" ><br>
     </div>';
                     } else {
 
@@ -624,7 +624,7 @@ if (isset($_POST['btttn-submit'])) {
                     if (empty($bank_front)) {
                         echo '<div class="col-lg-6">
       <label for="usr">Upload Bank Card Front</label>
-      <input type="file" name="imageee"  class="form-control" accept="image/*"><br>
+      <input type="file" name="imageee"  class="form-control" accept="image/*" required><br>
     </div>';
                     } else {
 
@@ -648,7 +648,7 @@ if (isset($_POST['btttn-submit'])) {
     
     <div class="col-lg-6">
       <label for="usr">Upload Bank Card Back</label>
-      <input type="file" name="imageeee"  class="form-control" accept="image/*">
+      <input type="file" name="imageeee"  class="form-control" accept="image/*" required>
     </div>';
                     } else {
 
@@ -695,7 +695,7 @@ if (isset($_POST['btttn-submit'])) {
                         echo '
     <div class="col-lg-6">
       <label for="usr">Upload Void Check</label>
-      <input type="file" name="imageeeee"  class="form-control" accept="image/*">
+      <input type="file" name="imageeeee"  class="form-control" accept="image/*" required>
     </div>';
                     } else {
 

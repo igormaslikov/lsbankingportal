@@ -193,67 +193,12 @@ if ($u_access_id == '0') {
                                     <option value="Approved Payday CA" <?php if ($_GET['status'] == 'Approved Payday CA') {
                                                                             echo 'selected';
                                                                         } ?>>Approved Payday CA</option>
-                                    <option value="Approved Payday NV" <?php if ($_GET['status'] == 'Approved Payday NV') {
-                                                                            echo 'selected';
-                                                                        } ?>>Approved Payday NV</option>
-                                    <option value="Approved Payday IL" <?php if ($_GET['status'] == 'Approved Payday IL') {
-                                                                            echo 'selected';
-                                                                        } ?>>Approved Payday IL</option>
-                                    <option value="Approved Installment CA" <?php if ($_GET['status'] == 'Approved Installment CA') {
-                                                                                echo 'selected';
-                                                                            } ?>>Approved Installment CA</option>
-                                    <option value="Approved Installment AZ" <?php if ($_GET['status'] == 'Approved Installment AZ') {
-                                                                                echo 'selected';
-                                                                            } ?>>Approved Installment AZ</option>
-                                    <option value="Approved Installment NV" <?php if ($_GET['status'] == 'Approved Installment NV') {
-                                                                                echo 'selected';
-                                                                            } ?>>Approved Installment NV</option>
-                                    <option value="Approved Installment IL" <?php if ($_GET['status'] == 'Approved Installment IL') {
-                                                                                echo 'selected';
-                                                                            } ?>>Approved Installment IL</option>
                                     <option value="Review Payday CA" <?php if ($_GET['status'] == 'Review Payday CA') {
                                                                             echo 'selected';
                                                                         } ?>>Review Payday CA</option>
-                                    <option value="Review Payday NV" <?php if ($_GET['status'] == 'Review Payday NV') {
-                                                                            echo 'selected';
-                                                                        } ?>>Review Payday NV</option>
-                                    <option value="Review Payday IL" <?php if ($_GET['status'] == 'Review Payday IL') {
-                                                                            echo 'selected';
-                                                                        } ?>>Review Payday IL</option>
-                                    <option value="Review Installment CA" <?php if ($_GET['status'] == 'Review Installment CA') {
-                                                                                echo 'selected';
-                                                                            } ?>>Review Installment CA</option>
-                                    <option value="Review Installment AZ" <?php if ($_GET['status'] == 'Review Installment AZ') {
-                                                                                echo 'selected';
-                                                                            } ?>>Review Installment AZ</option>
-                                    <option value="Review Installment NV" <?php if ($_GET['status'] == 'Review Installment NV') {
-                                                                                echo 'selected';
-                                                                            } ?>>Review Installment NV</option>
-                                    <option value="Review Installment IL" <?php if ($_GET['status'] == 'Review Installment IL') {
-                                                                                echo 'selected';
-                                                                            } ?>>Review Installment IL</option>
                                     <option value="DL/Bank Payday CA" <?php if ($_GET['status'] == 'DL/Bank Payday CA') {
                                                                             echo 'selected';
                                                                         } ?>>DL/Bank Payday CA</option>
-                                    <option value="DL/Bank Payday NV" <?php if ($_GET['status'] == 'DL/Bank Payday NV') {
-                                                                            echo 'selected';
-                                                                        } ?>>DL/Bank Payday NV</option>
-                                    <option value="DL/Bank Payday IL" <?php if ($_GET['status'] == 'DL/Bank Payday IL') {
-                                                                            echo 'selected';
-                                                                        } ?>>DL/Bank Payday IL</option>
-                                    <option value="DL/Bank Installment CA" <?php if ($_GET['status'] == 'DL/Bank Installment CA') {
-                                                                                echo 'selected';
-                                                                            } ?>>DL/Bank Installment CA</option>
-                                    <option value="DL/Bank Installment AZ" <?php if ($_GET['status'] == 'DL/Bank Installment AZ') {
-                                                                                echo 'selected';
-                                                                            } ?>>DL/Bank Installment AZ</option>
-                                    <option value="DL/Bank Installment NV" <?php if ($_GET['status'] == 'DL/Bank Installment NV') {
-                                                                                echo 'selected';
-                                                                            } ?>>DL/Bank Installment NV</option>
-                                    <option value="DL/Bank Installment IL" <?php if ($_GET['status'] == 'DL/Bank Installment IL') {
-                                                                                echo 'selected';
-                                                                            } ?>>DL/Bank Installment IL</option>
-
                                     <!--<option value="Ready for review"<?php if ($_GET['status'] == 'Ready for review') {
                                                                             echo 'selected';
                                                                         } ?>>Ready for review</option>-->
@@ -367,38 +312,23 @@ if ($u_access_id == '0') {
                             <td colspan="2" style="font-weight: bold;">
                                 State
                                 <select name="state" id="state" class="form-control" value="" style="padding: 6px 15px;">
-                                    <option value="All" <?php if ($_GET['state'] == 'All') {
+                                    <!-- <option value="All" <?php if ($_GET['state'] == 'All') {
                                                             echo 'selected';
-                                                        } ?>>All</option>
+                                                        } ?>>All</option> -->
                                     <option value="CA" <?php if ($_GET['state'] == 'CA') {
                                                             echo 'selected';
                                                         } ?>>California</option>
-                                    <option value="NV" <?php if ($_GET['state'] == 'NV') {
-                                                            echo 'selected';
-                                                        } ?>>Nevada</option>
-                                    <option value="AZ" <?php if ($_GET['state'] == 'AZ') {
-                                                            echo 'selected';
-                                                        } ?>>Arizona</option>
-                                    <option value="IL" <?php if ($_GET['state'] == 'IL') {
-                                                            echo 'selected';
-                                                        } ?>>Illinois</option>
                                 </select>
                             </td>
                             <td colspan="2" style="font-weight: bold;">
                                 Application Type
                                 <select name="loan_type" id="loan_type" class="form-control" value="" style="padding: 6px 15px;">
-                                    <option value="All" <?php if ($_GET['loan_type'] == 'All') {
+                                    <!-- <option value="All" <?php if ($_GET['loan_type'] == 'All') {
                                                             echo 'selected';
-                                                        } ?>>All</option>
+                                                        } ?>>All</option> -->
                                     <option value="payday" <?php if ($_GET['loan_type'] == 'payday') {
                                                                 echo 'selected';
                                                             } ?>>payday</option>
-                                    <option value="installment" <?php if ($_GET['loan_type'] == 'installment') {
-                                                                    echo 'selected';
-                                                                } ?>>installment</option>
-                                    <option value="commercial" <?php if ($_GET['loan_type'] == 'commercial') {
-                                                                    echo 'selected';
-                                                                } ?>>commercial</option>
                                 </select>
                             </td>
 

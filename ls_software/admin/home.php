@@ -887,7 +887,7 @@ $DBcon->close();
       <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Payday+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday CA :<b style="color:red"> <?php echo $rowcount_dl_bank_ca; ?></b></a></p>
       </div>
-      <div class="col-lg-4">
+      <!-- <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Payday+NV&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Payday NV :<b style="color:red"> <?php echo $rowcount_aprovd_paydy_nv; ?></b></a></p>
       </div>
       <div class="col-lg-4">
@@ -905,7 +905,7 @@ $DBcon->close();
       </div>
       <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=DL/Bank+Payday+IL&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">DL/Bank Payday IL :<b style="color:red"> <?php echo $rowcount_dl_bank_il; ?></b></a></p>
-      </div>
+      </div> -->
 <!-- 
       <div class="col-lg-4">
         <p style="color:black;font-weight: bold"><a href="view_all_customer.php?status=Approved+Installment+CA&website=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=">Approved Commercial CA :<b style="color:red"> <?php echo $rowcount_aprovd_intall_ca; ?></b></a></p>

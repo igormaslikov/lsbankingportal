@@ -230,9 +230,9 @@ $fname=$customer_fname;
   $lname= $customer_lname;
   $message = "Hola ".$fname." ".$lname.", 
 
-Thank you for submitting your application to Optima Financial Solutions Inc. Your application has been received. Our team members are reviewing your application and will contact you shortly. If you have any questions you can always contact us at support@mymoneyline.com";
+Thank you for submitting your application to Optima Financial Solutions Inc. Your application has been received. Our team members are reviewing your application and will contact you shortly. If you have any questions you can always contact us at support@ofsca.com";
  
-$headers = 'From: support@mymoneyline.com';
+$headers = 'From: support@ofsca.com';
 //mail($to_email,$subject,$message,$headers);
 
 send_email_notification($to_email,$subject,$message);

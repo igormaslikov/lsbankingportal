@@ -22,7 +22,7 @@ $email = $_GET['email'];
    
    Please sign, Here is the link to your Payday Loan Contract :  $url ";
    
-   $headers = 'From: support@mymoneyline.com';
+   $headers = 'From: support@ofsca.com';
    //mail($to_email,$subject,$message,$headers);
     send_email_notification($to_email,$subject,$message);
  

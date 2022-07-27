@@ -189,14 +189,14 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 }
 
 // ---------------------------------------------------------
-$pdf->SetFont('helvetica', '', 11);
+$pdf->SetFont('helvetica', '', 10);
 
 // add a page
 $pdf->AddPage();
 
 //$pdf->MultiCell(70, 50, $key1 , 0, 'J', false, 1, 125, 30, true, 0, false, true, 0, 'T', false);
 
-$pdf->SetFont('helvetica', '', 11);
+$pdf->SetFont('helvetica', '', 10);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

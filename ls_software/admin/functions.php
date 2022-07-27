@@ -3,22 +3,22 @@ date_default_timezone_set('America/Los_Angeles');
 include 'dbconnect.php';
 include 'dbconfig.php';
 function send_email_notification($to_email,$subject,$message){
-    $headers = 'From: support@mymoneyline.com';
+    $headers = 'From: support@ofsca.com';
     mail($to_email,$subject,$message,$headers);
     
 }
 
 
 function admin_email_notification($admin_subject,$admin_message){
-    $admin_headers = 'From: support@mymoneyline.com';
-    $admin_email = "support@mymoneyline.com";
+    $admin_headers = 'From: support@ofsca.com';
+    $admin_email = "support@ofsca.com";
     mail($admin_email,$admin_subject,$admin_message,$admin_headers);
     
 }
 
 
 function admin_leads_email_notification($admin_subject,$admin_message){
-    $admin_headers = 'From: support@mymoneyline.com';
+    $admin_headers = 'From: support@ofsca.com';
     $admin_email = "leads@mymoneyline.com";
     mail($admin_email,$admin_subject,$admin_message,$admin_headers);
     
