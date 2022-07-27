@@ -179,7 +179,7 @@ if (isset($_POST['btttn-submit'])) {
     $cvv_number = $_POST['cvv_number'];
     $expiry_year_card = $_POST['expiry_year_card'];
     $expiry_month_card = $_POST['expiry_month_card'];
-    $card_exp_date = $expiry_year_card . "/" . $expiry_month_card;
+    $card_exp_date = $expiry_month_card . "/" . $expiry_year_card;
     $date = date('Y-m-d H:i:s');
 
     $imgFile = $_FILES['file_image']['name'];
