@@ -223,7 +223,7 @@ $username=$row_user['username'];
     $type_card= $_POST['type_card'];
     $expiry_year_card = $_POST['expiry_year_card'];
     $expiry_month_card = $_POST['expiry_month_card'];
-    $card_exp_date = $expiry_year_card. "/".$expiry_month_card;
+    $card_exp_date = $expiry_month_card. "/".$expiry_year_card;
      $card_number= $_POST['card_number'];
     
      $bank_name= $_POST['bank_name'];
@@ -306,7 +306,7 @@ window.location.href = 'view_all_bank_info.php?id=<?php echo $id; ?>';
       <label for="usr">Card Expiration Date*</label>
       <div class="row">
       <div class="col-lg-6">
-      <select style="width:60%" name="expiry_year_card" id="expiry_year_card" class="form-control"  value="" required>
+      <select style="width:60%" name="expiry_month_card" id="expiry_month_card" class="form-control"  value="" required>
      <option>Select Month</option>
      <option value="01">01</option>
      <option value="02">02</option>
@@ -323,7 +323,7 @@ window.location.href = 'view_all_bank_info.php?id=<?php echo $id; ?>';
      </select>
      </div>
      <div class="col-lg-6">
-      <select  style="width:50%" name="expiry_month_card" id="expiry_month_card" class="form-control"  value="" required>
+      <select  style="width:50%" name="expiry_year_card" id="expiry_year_card" class="form-control"  value="" required>
      <option>Select Year</option>
      <option value="20">20</option>
      <option value="21">21</option>
@@ -348,12 +348,12 @@ window.location.href = 'view_all_bank_info.php?id=<?php echo $id; ?>';
     
     <div class="col-lg-6">
       <label for="usr">Routing Number*</label>
-      <input type="text" name="routing_number"  class="form-control" id="usr" value="<?php echo $routing_number;?>" required disabled>
+      <input type="text" name="routing_number"  class="form-control" id="usr" value="<?php echo $routing_number;?>" required>
     </div>
     
     <div class="col-lg-6">
       <label for="usr">Account Number*</label>
-      <input type="text" name="account_number"  class="form-control" id="usr" value="<?php echo $account_number;?>" required disabled>
+      <input type="text" name="account_number"  class="form-control" id="usr" value="<?php echo $account_number;?>" required>
     </div>
     
     
