@@ -59,7 +59,7 @@ $DBcon->close();
   
                           $message = $email_link;
                           send_sms($phone_number,$message); 
-                          $subject="Contract Signature From MyMoneyLine";
+                          $subject="Contract Signature From Optima Financial Solutions";
                           $message_contract = "Please Sign here by clicking on this link : ".$email_link;
                           send_email_notification($to_email,$subject,$message_contract);
                           

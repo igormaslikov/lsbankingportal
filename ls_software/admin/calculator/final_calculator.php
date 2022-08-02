@@ -25,7 +25,7 @@
 </head>
 <body>
 <div align="center">
-<h1>Loan MyMoneyLine Calculator Schedule</h1>
+<h1>Loan Optima Financial Solutions Calculator Schedule</h1>
 
 <?php
 

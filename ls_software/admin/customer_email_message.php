@@ -112,7 +112,7 @@ if(isset($_POST['button_pressed']))
    //CUSTOMER EMAIL STARTS
 
 $to_email = $user_email;
-$subject = 'Contract Signature From MyMoneyLine';
+$subject = 'Contract Signature From Optima Financial Solutions';
 $message = "Please Sign here by clicking on this link : ".$email_link;
 $headers = 'From: support@ofsca.com';
 //mail($to_email,$subject,$message,$headers);
