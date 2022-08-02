@@ -46,16 +46,17 @@ session_start();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-if (!isset($_SESSION['userSession'])) {
-  header("Location: ../index.php");
-}
+// if (!isset($_SESSION['userSession'])) {
+//   header("Location: ../index.php");
+// }
 
-$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $_SESSION['userSession']);
-$userRow = $query->fetch_array();
-$u_id = $userRow['user_id'];
-$u_access_id = $userRow['access_id'];
-if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
-  echo "YOU ARE NOT AUTHORISED TO ACCESS THIS PAGE.";
+// $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $_SESSION['userSession']);
+// $userRow = $query->fetch_array();
+// $u_id = $userRow['user_id'];
+// $u_access_id = $userRow['access_id'];
+// if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
+//   echo "YOU ARE NOT AUTHORISED TO ACCESS THIS PAGE.";
+  if(False){
 } else {
   $DBcon->close();
 

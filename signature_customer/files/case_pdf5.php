@@ -319,7 +319,7 @@ esta Autorización cuando la firmó
    <td style="text-align:center">____________________________________</td>
 </tr>
 <tr>
-   <td style="text-align:left"><b>Firma del Titularde la Cuenta</b></td>
+   <td style="text-align:left"><b>Firma del Titular de la Cuenta</b></td>
    <td style="text-align:center"><b>Nombre del Titular de la Cuenta</b></td>
 </tr>
 </tbody>

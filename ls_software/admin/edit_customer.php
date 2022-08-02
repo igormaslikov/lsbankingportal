@@ -861,57 +861,12 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
                     <option value="Approved Payday CA" <?php if ($appli_status == 'Approved Payday CA') {
                                                           echo 'selected';
                                                         } ?>>Approved Payday CA</option>
-                    <option value="Approved Payday NV" <?php if ($appli_status == 'Approved Payday NV') {
-                                                          echo 'selected';
-                                                        } ?>>Approved Payday NV</option>
-                    <option value="Approved Payday IL" <?php if ($appli_status == 'Approved Payday IL') {
-                                                          echo 'selected';
-                                                        } ?>>Approved Payday IL</option>
-                    <option value="Approved Installment CA" <?php if ($appli_status == 'Approved Installment CA') {
-                                                              echo 'selected';
-                                                            } ?>>Approved Installment CA</option>
-                    <option value="Approved Installment AZ" <?php if ($appli_status == 'Approved Installment AZ') {
-                                                              echo 'selected';
-                                                            } ?>>Approved Installment AZ</option>
-                    <option value="Approved Installment NV" <?php if ($appli_status == 'Approved Installment NV') {
-                                                              echo 'selected';
-                                                            } ?>>Approved Installment NV</option>
                     <option value="Review Payday CA" <?php if ($appli_status == 'Review Payday CA') {
                                                         echo 'selected';
                                                       } ?>>Review Payday CA</option>
-                    <option value="Review Payday NV" <?php if ($appli_status == 'Review Payday NV') {
-                                                        echo 'selected';
-                                                      } ?>>Review Payday NV</option>
-                    <option value="Review Payday IL" <?php if ($appli_status == 'Review Payday IL') {
-                                                        echo 'selected';
-                                                      } ?>>Review Payday IL</option>
-                    <option value="Review Installment CA" <?php if ($appli_status == 'Review Installment CA') {
-                                                            echo 'selected';
-                                                          } ?>>Review Installment CA</option>
-                    <option value="Review Installment AZ" <?php if ($appli_status == 'Review Installment AZ') {
-                                                            echo 'selected';
-                                                          } ?>>Review Installment AZ</option>
-                    <option value="Review Installment NV" <?php if ($appli_status == 'Review Installment NV') {
-                                                            echo 'selected';
-                                                          } ?>>Review Installment NV</option>
                     <option value="DL/Bank Payday CA" <?php if ($appli_status == 'DL/Bank Payday CA') {
                                                         echo 'selected';
                                                       } ?>>DL/Bank Payday CA</option>
-                    <option value="DL/Bank Payday NV" <?php if ($appli_status == 'DL/Bank Payday NV') {
-                                                        echo 'selected';
-                                                      } ?>>DL/Bank Payday NV</option>
-                    <option value="DL/Bank Payday IL" <?php if ($appli_status == 'DL/Bank Payday IL') {
-                                                        echo 'selected';
-                                                      } ?>>DL/Bank Payday IL</option>
-                    <option value="DL/Bank Installment CA" <?php if ($appli_status == 'DL/Bank Installment CA') {
-                                                              echo 'selected';
-                                                            } ?>>DL/Bank Installment CA</option>
-                    <option value="DL/Bank Installment AZ" <?php if ($appli_status == 'DL/Bank Installment AZ') {
-                                                              echo 'selected';
-                                                            } ?>>DL/Bank Installment AZ</option>
-                    <option value="DL/Bank Installment NV" <?php if ($appli_status == 'DL/Bank Installment NV') {
-                                                              echo 'selected';
-                                                            } ?>>DL/Bank Installment NV</option>
 
 
 

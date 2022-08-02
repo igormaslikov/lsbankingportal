@@ -228,10 +228,20 @@ $to_email_re = $email;
 $subject_re = 'Application Received';
 $fname=$first_name;
   $lname= $last_name;
-  $message_re = "Hello ".$fname." ".$lname.", 
-Thank you for applying at Optima Financial Solutions Inc. We received your application. A team member will contact you shortly. 
-Gracias por aplicar en Optima Financial Solutions Inc. Recibimos su solicitud. Un miembro del equipo se comunicará con usted a la brevedad.
-If you have any questions you can always contact us at support@ofsca.com";
+  $message_re = "Hello ".$fname." ".$lname."
+
+Thank you for applying at Optima Financial Solutions Inc. We received your application. A team member will contact you shortly.
+
+If you have any questions you can always contact us at support@ofsca.com
+
+Hola ".$fname." ".$lname."
+
+Gracias por aplicar en Optima Financial Solutions Inc. Recibimos su solicitud. Un miembro del equipo se comunicará con usted breve.
+
+Si tiene alguna pregunta, usted siempre puede contactarnos a support@ofsca.com
+
+Optima Financial Solutions.
+";
  
 $headers = 'From: support@ofsca.com';
 //mail($to_email,$subject,$message,$headers);

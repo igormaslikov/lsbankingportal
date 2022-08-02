@@ -1,6 +1,8 @@
 <?php
 error_reporting(0);
 session_start();
+date_default_timezone_set('America/Los_Angeles');
+
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 if (!isset($_SESSION['userSession'])) {
