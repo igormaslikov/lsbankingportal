@@ -8,7 +8,7 @@ include_once '../dbconnect.php';
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
 }
-$if_optima = ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True") ? "loan_create_id >= 90000" : "loan_create_id < 90000";
+$if_optima = ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True") ? "loan_create_id >= 90001" : "loan_create_id < 90000";
 
 $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
 $userRow=$query->fetch_array();
