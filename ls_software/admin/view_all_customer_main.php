@@ -478,7 +478,7 @@ if ($u_access_id == '0') {
                                 $if_optima = "LIKE";
                                 // $and_check = 1;
                             }
-                            $query_main_search .= "where user_fnd_id in (select user_fnd_id from fnd_user_profile where website_company $if_optima 'Optima') ";
+                            $query_main_search .= "user_fnd_id in (select user_fnd_id from fnd_user_profile where website_company $if_optima 'Optima') ";
 
                             $query_main_search .= "ORDER By id DESC  LIMIT $offset, $total_records_per_page ";
                             //echo $query_main_search;
