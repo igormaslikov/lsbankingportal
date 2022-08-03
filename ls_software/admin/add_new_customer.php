@@ -126,7 +126,7 @@ $sql_fnd=mysqli_query($con, "select * from fnd_user_profile where email = '$emai
          
 if ($creation_date<$date_duplicate){
 mysqli_query($con, "UPDATE fnd_user_profile SET application_status='New Application', application_date='$to_date_filter', loan_type='$loan_type',website_company='Optima' where user_fnd_id ='$user_fnd_iddd'");
-$query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id)  VALUES ('$user_fnd_iddd')";
+$query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id, website_company)  VALUES ('$user_fnd_iddd','Optima')";
         $result_fnd = mysqli_query($con, $query_fnd_id);
         if ($result_fnd) {
             echo "<div class='form'><h3> Duplicated successfully added.</h3><br/></div>";

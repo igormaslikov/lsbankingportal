@@ -470,7 +470,7 @@ if ($u_access_id == '0') {
 
 
 
-                            $query_main_search = "select * from fnd_user_profile_submission ";
+                            $query_main_search = "select * from fnd_user_profile_submission where website_company $if_optima 'Optima' ";
 
                             $if_optima = "NOT LIKE";
                             if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
