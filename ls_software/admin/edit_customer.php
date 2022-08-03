@@ -12,6 +12,7 @@ include_once 'functions.php';
 if (!isset($_SESSION['userSession'])) {
   header("Location: index.php");
 }
+$if_optima = ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True") ? "loan_id >= 90001" : "loan_id < 90000";
 
 $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $_SESSION['userSession']);
 $userRow = $query->fetch_array();
@@ -707,13 +708,13 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
                     $next_page = $page_no + 1;
                     $adjacents = "2";
 
-                    $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM loan_initial_banking where user_fnd_id = '$id'");
+                    $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM loan_initial_banking where user_fnd_id = '$id' and $if_optima");
                     $total_records = mysqli_fetch_array($result_count);
                     $total_records = $total_records['total_records'];
                     $total_no_of_pages = ceil($total_records / $total_records_per_page);
                     $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                    $sql_loan = mysqli_query($con, "select * from loan_initial_banking where user_fnd_id = '$id'");
+                    $sql_loan = mysqli_query($con, "select * from loan_initial_banking where user_fnd_id = '$id' and $if_optima");
 
                     while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
                       $initial_id = $row_bank_detail_sec['initial_id'];
