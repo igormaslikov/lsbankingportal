@@ -1520,9 +1520,14 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
           <hr>
           <?php
 
+          $if_optima = "NOT LIKE";
+          if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
 
+              $if_optima = "LIKE";
+              // $and_check = 1;
+          }
 
-          $lender_documents = mysqli_query($con, "SELECT * FROM lender_documents where fnd_user_id = '$id' ");
+          $lender_documents = mysqli_query($con, "SELECT * FROM lender_documents where fnd_user_id = '$id' and website_company $if_optima 'Optima'");
 
           echo '<br><table style="width:100%;padding:10px" class="table table-striped table-bordered">' . "
 <tr>
@@ -1622,8 +1627,14 @@ if (isset($_POST['submit_lender_documents'])) {
     // if everything is ok, try to upload file
   } else {
     if (move_uploaded_file($_FILES["lender_documents"]["tmp_name"], $target_file)) {
+      $if_optima = "";
+      if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
+
+          $if_optima = "Optima";
+          // $and_check = 1;
+      }
       echo "The file " . basename($_FILES["lender_documents"]["name"]) . " has been uploaded.";
-      $insert_query_lender_docs = "INSERT Into lender_documents(fnd_user_id, file_name, date_created, created_by) VALUES ('$id','$target_file_db','$date','$u_id')";
+      $insert_query_lender_docs = "INSERT Into lender_documents(fnd_user_id, file_name, date_created, created_by, website_company) VALUES ('$id','$target_file_db','$date','$u_id','$if_optima')";
       mysqli_query($con, $insert_query_lender_docs);
 
       echo '<meta http-equiv="refresh" content="0">';
