@@ -1160,10 +1160,6 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
               </div>
 
 
-
-
-              WHERE cast(creation_date as date) <= cast('2022-07-15' as date)
-
               <?php
               $if_optima = "cast(creation_date as date) <= cast('2022-07-15' as date)";
               if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
