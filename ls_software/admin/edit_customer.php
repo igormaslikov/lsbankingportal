@@ -1162,10 +1162,16 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
 
 
 
+              WHERE cast(creation_date as date) <= cast('2022-07-15' as date)
 
               <?php
+              $if_optima = "cast(creation_date as date) <= cast('2022-07-15' as date)";
+              if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
 
-              $result_status = mysqli_query($con, "SELECT * FROM application_status_updates where application_id = '$id' ORDER BY id desc limit 30");
+                  $if_optima = "cast(creation_date as date) > cast('2022-07-15' as date)";
+                  // $and_check = 1;
+              }
+              $result_status = mysqli_query($con, "SELECT * FROM application_status_updates where application_id = '$id' and $if_optima ORDER BY id desc limit 30");
 
               echo '<br><table style="width:100%;padding:10px" class="table table-striped table-bordered">' . "
 <tr>
