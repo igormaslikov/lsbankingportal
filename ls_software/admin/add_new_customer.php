@@ -327,7 +327,7 @@ while ($row_user_id=mysqli_fetch_array($query_userid)){
 
 }
 
-$query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,created_by,creation_date)  VALUES ('$user_id','$employer_name','$work_phone','$net_amount','$direct_deposit','$get_paid','$last_check','$next_check','$u_id','$date')";
+$query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,created_by,creation_date, website_company)  VALUES ('$user_id','$employer_name','$work_phone','$net_amount','$direct_deposit','$get_paid','$last_check','$next_check','$u_id','$date','Optima')";
         $result3 = mysqli_query($con, $query3);
         if ($result3) {
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";

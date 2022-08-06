@@ -8,7 +8,6 @@ include_once '../dbconnect.php';
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
 }
-$if_optima = ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True") ? "loan_create_id >= 90001" : "loan_create_id < 90000";
 
 $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
 $userRow=$query->fetch_array();
@@ -132,7 +131,7 @@ if ($result_t=mysqli_query($con,$query_search))
     <?php
 
 
-$query_us = mysqli_query($con,"SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '0' AND $if_optima ");
+$query_us = mysqli_query($con,"SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '0' AND $if_optima_loan_id ");
 while ($row_us=mysqli_fetch_array($query_us)){
     $us = $row_us['value_sum'];
     
@@ -142,7 +141,7 @@ break;
 }
 
 
-$query_le = mysqli_query($con,"SELECT SUM(loan_total_payable) AS value_sum FROM tbl_loan where sign_status= '0' AND $if_optima ");
+$query_le = mysqli_query($con,"SELECT SUM(loan_total_payable) AS value_sum FROM tbl_loan where sign_status= '0' AND $if_optima_loan_id ");
 while ($row_le=mysqli_fetch_array($query_le)){
     $pay_off = $row_le['value_sum'];
 break;
@@ -177,7 +176,7 @@ if ($result_fees=mysqli_query($con,$sql_fees))
  // echo"". $rowcount_fees;
   }
 
-$sql=mysqli_query($con, "select * from tbl_loan where sign_status= '0' AND $if_optima "); 
+$sql=mysqli_query($con, "select * from tbl_loan where sign_status= '0' AND $if_optima_loan_id "); 
 $total_loan_fee="0";
 while($row = mysqli_fetch_array($sql)) {
 
@@ -355,7 +354,7 @@ $total_records_per_page = 200;
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `tbl_loan` where sign_status= '0' AND $if_optima ");
+	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `tbl_loan` where sign_status= '0' AND $if_optima_loan_id ");
 	$total_records = mysqli_fetch_array($result_count);
 	$total_records = $total_records['total_records'];
 	$total_records = $rowcount;
@@ -363,7 +362,7 @@ $total_records_per_page = 200;
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 	
 
-$query_search = "SELECT * FROM `tbl_loan`  where sign_status= '0' AND $if_optima ";
+$query_search = "SELECT * FROM `tbl_loan`  where sign_status= '0' AND $if_optima_loan_id ";
  
 
    // $keyword_phone  = $_GET['keyword_phone'];

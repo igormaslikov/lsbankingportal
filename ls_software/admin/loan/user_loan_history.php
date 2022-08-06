@@ -6,7 +6,6 @@ include_once '../dbconfig.php';
 if (!isset($_SESSION['userSession'])) {
   header("Location: ../index.php");
 }
-$if_optima = ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True") ? "loan_create_id >= 90001" : "loan_create_id < 90000";
 
 $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $_SESSION['userSession']);
 $userRow = $query->fetch_array();
@@ -141,7 +140,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
 
-  $sql_t = "SELECT loan_id FROM tbl_loan  where sign_status='1' AND user_fnd_id= '$user_fnd_id' where $if_optima ORDER BY loan_id";
+  $sql_t = "SELECT loan_id FROM tbl_loan  where sign_status='1' AND user_fnd_id= '$user_fnd_id' where $if_optima_loan_id ORDER BY loan_id";
 
   if ($result_t = mysqli_query($con, $sql_t)) {
     // Return the number of rows in result set
@@ -283,7 +282,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 //echo "FND_ID" .$user_fnd_id;
               }
 
-              $sql_loan_his = mysqli_query($con, "select * from tbl_loan where user_fnd_id = '$user_fnd_id' AND sign_status='1' AND $if_optima");
+              $sql_loan_his = mysqli_query($con, "select * from tbl_loan where user_fnd_id = '$user_fnd_id' AND sign_status='1' AND $if_optima_loan_id");
 
               while ($row_loan_his = mysqli_fetch_array($sql_loan_his)) {
 

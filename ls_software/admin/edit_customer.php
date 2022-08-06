@@ -195,7 +195,7 @@ while ($row = mysqli_fetch_array($sql)) {
 
 
 
-$sql_source = mysqli_query($con, "select * from source_income where user_fnd_id= '$id'");
+$sql_source = mysqli_query($con, "select * from source_income where user_fnd_id= '$id' and website_company $if_optima 'Optima'");
 
 while ($row_source = mysqli_fetch_array($sql_source)) {
 
@@ -293,7 +293,7 @@ while ($row_bq = mysqli_fetch_array($sql_bq)) {
 }
 
 
-$sql_emp = "SELECT employer_name FROM source_income where user_fnd_id = '$id' ";
+$sql_emp = "SELECT employer_name FROM source_income where user_fnd_id = '$id' and website_company $if_optima 'Optima'";
 
 if ($result_emp = mysqli_query($con, $sql_emp)) {
   // Return the number of rows in result set
@@ -2129,11 +2129,11 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
     };
 
 
-    mysqli_query($con, "UPDATE source_income SET employer_name ='$employer_name_update', work_phone_no='$work_phone_update', net_check_amount='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id',last_update_date='$date',business_type='$business_type_up',business_create='$business_create_up' where user_fnd_id ='$id'");
+    mysqli_query($con, "UPDATE source_income SET employer_name ='$employer_name_update', work_phone_no='$work_phone_update', net_check_amount='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id',last_update_date='$date',business_type='$business_type_up',business_create='$business_create_up' where user_fnd_id ='$id' and website_company $if_optima 'Optima'");
     if (if_insert($con)) {
       // *********************************** Employee Info Insertion **********************************************
 
-      $query_emp  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,creation_date,business_type,business_create)  VALUES ('$id','$employer_name_update','$work_phone_update','$net_amount_update','$direct_deposit_update','$pay_fre_update','$last_date_update','$next_date_update','$date','$business_type_up','$business_create_up')";
+      $query_emp  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,creation_date,business_type,business_create,website_company)  VALUES ('$id','$employer_name_update','$work_phone_update','$net_amount_update','$direct_deposit_update','$pay_fre_update','$last_date_update','$next_date_update','$date','$business_type_up','$business_create_up', 'Optima')";
       $result_emp = mysqli_query($con, $query_emp);
       if ($result_emp) {
         //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
@@ -2142,11 +2142,11 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
       }
     }
 
-    mysqli_query($con, "UPDATE tbl_business_info SET business_name ='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date' where user_fnd_id ='$id'");
+    mysqli_query($con, "UPDATE tbl_business_info SET business_name ='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date' where user_fnd_id ='$id' and website_company $if_optima 'Optima'");
     if (if_insert($con)) {
       // *********************************** Business Info Insertion **********************************************
 
-      $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,monthly_gross_amount,direct_deposit,how_paid,business_docs,created_by,created_at)  VALUES ('$id','$business_name_update','$business_phone_update','$gross_amount_update','$business_direct_deposit_update','$business_get_paid_update','$business_docs_update','$u_id','$date')";
+      $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,monthly_gross_amount,direct_deposit,how_paid,business_docs,created_by,created_at, website_company)  VALUES ('$id','$business_name_update','$business_phone_update','$gross_amount_update','$business_direct_deposit_update','$business_get_paid_update','$business_docs_update','$u_id','$date', 'Optima')";
       $result_business = mysqli_query($con, $query_business);
       if ($result_business) {
         //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
