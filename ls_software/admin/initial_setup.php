@@ -94,7 +94,7 @@ while ($row_fetch_fnd = mysqli_fetch_array($sql_fetch_fnd)) {
 }
 
 
-$sql_bank_detail = mysqli_query($con, "select * from loan_initial_banking where user_fnd_id = '$id_fnd'");
+$sql_bank_detail = mysqli_query($con, "select * from loan_initial_banking where user_fnd_id = '$id_fnd' and $if_optima_loan");
 
 while ($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
 
@@ -516,7 +516,7 @@ if (isset($_POST['btttn-submit'])) {
                         <!-- <input type="search" name="card_number" id="card_number" list="card_numbers" class="form-control" value="<?php echo $card_number; ?>" required>
                         <datalist id="card_numbers">
                             <?php
-                            $sql_card_details = mysqli_query($con, "SELECT DISTINCT card_number FROM `loan_initial_banking` WHERE user_fnd_id = '$id_fnd'");
+                            $sql_card_details = mysqli_query($con, "SELECT DISTINCT card_number FROM `loan_initial_banking` WHERE user_fnd_id = '$id_fnd' and $if_optima_loan");
 
                             while ($row_bank_detail = mysqli_fetch_array($sql_card_details)) {
 
