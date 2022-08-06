@@ -749,7 +749,8 @@ if (isset($_POST['btttn-submit'])) {
                     <tbody>
                         <?php
                         $fnd_id = $_GET['fnd_id'];
-                        $sql_bank_detail = mysqli_query($con, "select distinct `type_of_id`,`type_of_card`, `card_exp_date`, `card_number`,`cvv_number`, `bank_name`, `routing_number`, `account_number` from loan_initial_banking where user_fnd_id = '$fnd_id'");
+
+                        $sql_bank_detail = mysqli_query($con, "select distinct `type_of_id`,`type_of_card`, `card_exp_date`, `card_number`,`cvv_number`, `bank_name`, `routing_number`, `account_number` from loan_initial_banking where user_fnd_id = '$fnd_id' and $if_optima_loan");
                         $index = 0;
                         while ($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
                             $index++;
