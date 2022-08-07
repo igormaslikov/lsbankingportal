@@ -1290,9 +1290,14 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
           <?php
           // decision login api start
 
+          $if_optima_date = "cast(date as date) <= cast('2022-07-15' as date)";
+          if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
 
+              $if_optima_date = "cast(date as date) > cast('2022-07-15' as date)";
+              // $and_check = 1;
+          }
           $finalDL_code = $fnd_dl_code;
-          $decision_login_code = mysqli_query($con, "SELECT * FROM decision_login_codes where email ='$customer_email' ");
+          $decision_login_code = mysqli_query($con, "SELECT * FROM decision_login_codes where email ='$customer_email' and $if_optima_date ");
           while ($row_decision_login_code = mysqli_fetch_array($decision_login_code)) {
             $finalDL_code = $fnd_dl_code;
           }
