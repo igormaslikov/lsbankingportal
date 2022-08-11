@@ -14,10 +14,13 @@
 
 	$if_optima = "NOT LIKE";
 	$if_optima_loan_id = "loan_create_id < 90000";
+	$website_company = "";
 	if (isset($_SESSION['Optima']) && ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True")) {
 
 		$if_optima = "LIKE";
 		$if_optima_loan_id = "loan_create_id >= 90001";
+		$website_company = 'Optima';
+		#$db_name = "ki902621_ofsca_portal_new";
 
 		// $and_check = 1;
 	}
