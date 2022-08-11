@@ -103,7 +103,7 @@ if ($u_access_id == '0') {
                     $query_search .= " AND ";
                     $and_check = 3;
                 }
-                $query_search .= " (creation_date BETWEEN '$from_date'AND '$to_date')";
+                $query_search .= " (creation_date BETWEEN '$from_date' AND '$to_date')";
             }
             if (isset($_GET['website']) && $_GET['website'] != 'All') {
                 if ($and_check > 1 || $and_check > 0) {
