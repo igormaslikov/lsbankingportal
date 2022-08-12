@@ -329,7 +329,7 @@ if ($u_access_id == '0') {
 
         $sql_apr = mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_loan");
         while ($row_apr = mysqli_fetch_array($sql_apr)) {
-          $next_loan_id = $row_apr['next_id'];
+          $next_loan_id = $row_apr['next_id'] == NULL ? 1 : $row_apr['next_id'];
         }
 
 
