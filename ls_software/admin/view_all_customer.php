@@ -67,12 +67,6 @@ include 'dbconfig.php';
   
  <br><br>
  <?php
-$if_optima = "NOT LIKE";
-if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
-
-    $if_optima = "LIKE";
-    // $and_check = 1;
-}
  $query_search = "SELECT * FROM `fnd_user_profile` ";
     $status  = $_GET['status'];
     $keyword = $_GET['keyword'];
@@ -83,7 +77,7 @@ if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
 	$loan_type = $_GET['loan_type'];
     
 if (isset($_GET['status']) || isset($_GET['keyword']) || isset($_GET['website']) || isset($_GET['state']) || isset($_GET['loan_type']) || isset($_GET['from_date']) || isset($_GET['to_date'])) {
-    $query_search .= "  WHERE website_company $if_optima 'Optima' AND ";
+    $query_search .= "  WHERE ";
 }
   $and_check = 0;
 if (isset($_GET['status']) && $_GET['status']!='All') {
@@ -401,7 +395,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 //  echo "<br>".$total_no_of_pages;
     $query_search = "SELECT * FROM `fnd_user_profile` ";
 if (isset($_GET['status']) || isset($_GET['state']) || isset($_GET['loan_type']) || isset($_GET['keyword']) || isset($_GET['from_date']) || isset($_GET['to_date'])) {
-  $query_search .= " WHERE website_company $if_optima 'Optima' AND";
+  $query_search .= " WHERE ";
 }
   $and_check = 0;
 if (isset($_GET['status']) && $_GET['status']!='All') {
@@ -462,7 +456,6 @@ if (isset($_GET['loan_type']) && $_GET['loan_type']!='All') {
 		 $origDate = "$cr_date";
 		 $lang=$row['lang'];
 		 $bold_status=$row['bold_status'];
-     $website_company = $row['website_company'];
  $newDate = date("m-d-y", strtotime($origDate));
 //echo $newDate;
 
@@ -526,7 +519,6 @@ $gravatar =  "http://profiles.google.com/s2/photos/profile/". $row['email']."?sz
 	 		  <td>".$row['loan_type']."</td>
             
 		   	  <td>".$row['application_status']."</td>
-           <td>" . $row['website_company'] . "</td>
 		   	  
 <td> <a href='edit_customer.php?id=$id&$delete_customer_string' title='Edit This Customer'><span class='glyphicon glyphicon-edit' aria-hidden='true' alt='edit'></span></a>
 <a class='remove-box' href='delete_customer.php?id=$id&$delete_customer_string' title='Delete This Customer'><span class='glyphicon glyphicon-remove' aria-hidden='true' alt='delete'></span>".$decision_logic_Status.$experian_credit_score."</a>

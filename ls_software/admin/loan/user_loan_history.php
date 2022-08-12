@@ -282,7 +282,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 //echo "FND_ID" .$user_fnd_id;
               }
 
-              $sql_loan_his = mysqli_query($con, "select * from tbl_loan where user_fnd_id = '$user_fnd_id' AND sign_status='1' AND $if_optima_loan_id");
+              $sql_loan_his = mysqli_query($con, "select * from tbl_loan where user_fnd_id = '$user_fnd_id' AND sign_status='1' ");
 
               while ($row_loan_his = mysqli_fetch_array($sql_loan_his)) {
 

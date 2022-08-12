@@ -110,7 +110,7 @@ if ($rowcount_funded > 0) {
     $user_id = "";
     $status = "This is Already Customer And Applied Again on $to_date_filter.";
     $loan_transaction_id = "";
-    mysqli_query($con, "UPDATE fnd_user_profile SET application_status='New Application', application_date='$to_date_filter', loan_type='$type_loan', website_company='Optima' where user_fnd_id ='$user_fnd_iddd'");
+    mysqli_query($con, "UPDATE fnd_user_profile SET application_status='New Application', application_date='$to_date_filter', loan_type='$type_loan' user_fnd_id ='$user_fnd_iddd'");
     $query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id)  VALUES ('$user_fnd_iddd')";
     $result_fnd = mysqli_query($con, $query_fnd_id);
     if ($result_fnd) {
@@ -284,7 +284,7 @@ Optima Financial Solutions.
   //**************************************** END ***************************************************************************************
   // DB INSERTION STARTS
 
-  $query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,member_military,mobile_number,address,city,state,zip_code,date_of_birth,creation_date,application_status,website,created_time_,loan_request_amount,payback_period,loan_type,application_date,lang,website_company)  VALUES ('$customer_fname','$customer_lname','$customer_email','$member_military','$customer_tel','$address','$customer_city','$customer_state','$customer_zip','$dobb','$date','$app_status','$web_site','$time_created','$amount','$payback','$type_loan','$to_date_filter','$lang','Optima')";
+  $query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,member_military,mobile_number,address,city,state,zip_code,date_of_birth,creation_date,application_status,website,created_time_,loan_request_amount,payback_period,loan_type,application_date,lang)  VALUES ('$customer_fname','$customer_lname','$customer_email','$member_military','$customer_tel','$address','$customer_city','$customer_state','$customer_zip','$dobb','$date','$app_status','$web_site','$time_created','$amount','$payback','$type_loan','$to_date_filter','$lang')";
   $result = mysqli_query($con, $query);
   if ($result) {
     //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";

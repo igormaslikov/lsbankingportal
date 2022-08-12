@@ -125,8 +125,8 @@ $sql_fnd=mysqli_query($con, "select * from fnd_user_profile where email = '$emai
      if($rowcount_funded>0){
          
 if ($creation_date<$date_duplicate){
-mysqli_query($con, "UPDATE fnd_user_profile SET application_status='New Application', application_date='$to_date_filter', loan_type='$loan_type',website_company='Optima' where user_fnd_id ='$user_fnd_iddd'");
-$query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id, website_company)  VALUES ('$user_fnd_iddd','Optima')";
+mysqli_query($con, "UPDATE fnd_user_profile SET application_status='New Application', application_date='$to_date_filter', loan_type='$loan_type' where user_fnd_id ='$user_fnd_iddd'");
+$query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id)  VALUES ('$user_fnd_iddd')";
         $result_fnd = mysqli_query($con, $query_fnd_id);
         if ($result_fnd) {
             echo "<div class='form'><h3> Duplicated successfully added.</h3><br/></div>";
@@ -294,7 +294,7 @@ admin_leads_email_notification($subject_data,$message_data);
           
           
            
-$query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_number,address,city,state,zip_code,date_of_birth,ssn,created_by,creation_date,user_key,application_status,website,created_time_,source_of_lead,declined_reason,loan_type,website_company)  VALUES ('$first_name','$last_name','$email','$phone_number','$address','$city','$state','$zip','$dob','$ssn','$u_id','$date','$user_key','New Application','By Office','$time_created','$source_of_lead','$decline_reason','$loan_type','Optima')";
+$query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_number,address,city,state,zip_code,date_of_birth,ssn,created_by,creation_date,user_key,application_status,website,created_time_,source_of_lead,declined_reason,loan_type)  VALUES ('$first_name','$last_name','$email','$phone_number','$address','$city','$state','$zip','$dob','$ssn','$u_id','$date','$user_key','New Application','By Office','$time_created','$source_of_lead','$decline_reason','$loan_type')";
         $result = mysqli_query($con, $query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
@@ -310,7 +310,7 @@ $user_fnd_iddd = $row_fnd_id['user_fnd_id'];
 
 }
 
-$query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id, website_company)  VALUES ('$user_fnd_iddd','Optima')";
+$query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id)  VALUES ('$user_fnd_iddd')";
         $result_fnd = mysqli_query($con, $query_fnd_id);
         if ($result_fnd) {
             echo "<div class='form'><h3> New successfully added.</h3><br/></div>";
@@ -327,7 +327,7 @@ while ($row_user_id=mysqli_fetch_array($query_userid)){
 
 }
 
-$query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,created_by,creation_date, website_company)  VALUES ('$user_id','$employer_name','$work_phone','$net_amount','$direct_deposit','$get_paid','$last_check','$next_check','$u_id','$date','Optima')";
+$query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,created_by,creation_date)  VALUES ('$user_id','$employer_name','$work_phone','$net_amount','$direct_deposit','$get_paid','$last_check','$next_check','$u_id','$date')";
         $result3 = mysqli_query($con, $query3);
         if ($result3) {
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";

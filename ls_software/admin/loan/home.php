@@ -66,7 +66,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
             // Check connection
 
-            $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' AND $if_optima_loan_id ";
+            $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' ";
 
             $status  = $_GET['status'];
             $keyword = $_GET['keyword'];
@@ -542,14 +542,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $next_page = $page_no + 1;
                             $adjacents = "2";
 
-                            $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `tbl_loan` where sign_status= '1' AND $if_optima_loan_id");
+                            $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `tbl_loan` where sign_status= '1'");
                             $total_records = mysqli_fetch_array($result_count);
                             $total_records = $total_records['total_records'];
                             $total_records = $rowcount;
                             $total_no_of_pages = ceil($total_records / $total_records_per_page);
                             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                            $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' AND $if_optima_loan_id ";
+                            $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' ";
                 
                             // $query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' ";
 

@@ -351,7 +351,7 @@ if ($u_access_id == '0') {
           $portfolio = $row1['bg_name'];
         }
 
-        $sql1 = mysqli_query($con, "SELECT * From source_income WHERE user_fnd_id= '$fnd_idd' and website_company $if_optima 'Optima'");
+        $sql1 = mysqli_query($con, "SELECT * From source_income WHERE user_fnd_id= '$fnd_idd' ");
         $row1 = mysqli_num_rows($sql1);
 
         while ($row1 = mysqli_fetch_array($sql1)) {

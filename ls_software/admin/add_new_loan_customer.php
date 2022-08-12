@@ -216,7 +216,7 @@ while ($row_user_id=mysqli_fetch_array($query_userid)){
 
 }
 
-$query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,pay_period,last_pay_date,next_pay_date,monthly_income,created_by,start_date,creation_date, website_company)  VALUES ('$user_id','$employer_name','$work_phone','$get_paid','$last_check','$next_check','$income_month','$u_id','$working','$date','Optima')";
+$query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,pay_period,last_pay_date,next_pay_date,monthly_income,created_by,start_date,creation_date)  VALUES ('$user_id','$employer_name','$work_phone','$get_paid','$last_check','$next_check','$income_month','$u_id','$working','$date')";
         $result3 = mysqli_query($con, $query3);
         if ($result3) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";

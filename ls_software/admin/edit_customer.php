@@ -12,7 +12,6 @@ include_once 'functions.php';
 if (!isset($_SESSION['userSession'])) {
   header("Location: index.php");
 }
-$if_optima = ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True") ? "loan_id >= 90001" : "loan_id < 90000";
 
 $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $_SESSION['userSession']);
 $userRow = $query->fetch_array();
@@ -195,7 +194,7 @@ while ($row = mysqli_fetch_array($sql)) {
 
 
 
-$sql_source = mysqli_query($con, "select * from source_income where user_fnd_id= '$id' and website_company $if_optima 'Optima'");
+$sql_source = mysqli_query($con, "select * from source_income where user_fnd_id= '$id' ");
 
 while ($row_source = mysqli_fetch_array($sql_source)) {
 
@@ -293,7 +292,7 @@ while ($row_bq = mysqli_fetch_array($sql_bq)) {
 }
 
 
-$sql_emp = "SELECT employer_name FROM source_income where user_fnd_id = '$id' and website_company $if_optima 'Optima'";
+$sql_emp = "SELECT employer_name FROM source_income where user_fnd_id = '$id' ";
 
 if ($result_emp = mysqli_query($con, $sql_emp)) {
   // Return the number of rows in result set
@@ -708,13 +707,13 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
                     $next_page = $page_no + 1;
                     $adjacents = "2";
 
-                    $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM loan_initial_banking where user_fnd_id = '$id' and $if_optima");
+                    $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM loan_initial_banking where user_fnd_id = '$id'");
                     $total_records = mysqli_fetch_array($result_count);
                     $total_records = $total_records['total_records'];
                     $total_no_of_pages = ceil($total_records / $total_records_per_page);
                     $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                    $sql_loan = mysqli_query($con, "select * from loan_initial_banking where user_fnd_id = '$id' and $if_optima");
+                    $sql_loan = mysqli_query($con, "select * from loan_initial_banking where user_fnd_id = '$id'");
 
                     while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
                       $initial_id = $row_bank_detail_sec['initial_id'];
@@ -1161,13 +1160,8 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
 
 
               <?php
-              $if_optima = "cast(creation_date as date) <= cast('2022-07-15' as date)";
-              if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
 
-                  $if_optima = "cast(creation_date as date) > cast('2022-07-15' as date)";
-                  // $and_check = 1;
-              }
-              $result_status = mysqli_query($con, "SELECT * FROM application_status_updates where application_id = '$id' and $if_optima ORDER BY id desc limit 30");
+              $result_status = mysqli_query($con, "SELECT * FROM application_status_updates where application_id = '$id'  ORDER BY id desc limit 30");
 
               echo '<br><table style="width:100%;padding:10px" class="table table-striped table-bordered">' . "
 <tr>
@@ -1290,14 +1284,8 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
           <?php
           // decision login api start
 
-          $if_optima_date = "cast(date as date) <= cast('2022-07-15' as date)";
-          if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
-
-              $if_optima_date = "cast(date as date) > cast('2022-07-15' as date)";
-              // $and_check = 1;
-          }
           $finalDL_code = $fnd_dl_code;
-          $decision_login_code = mysqli_query($con, "SELECT * FROM decision_login_codes where email ='$customer_email' and $if_optima_date ");
+          $decision_login_code = mysqli_query($con, "SELECT * FROM decision_login_codes where email ='$customer_email' ");
           while ($row_decision_login_code = mysqli_fetch_array($decision_login_code)) {
             $finalDL_code = $fnd_dl_code;
           }
@@ -1527,14 +1515,7 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
           <hr>
           <?php
 
-          $if_optima = "NOT LIKE";
-          if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
-
-              $if_optima = "LIKE";
-              // $and_check = 1;
-          }
-
-          $lender_documents = mysqli_query($con, "SELECT * FROM lender_documents where fnd_user_id = '$id' and website_company $if_optima 'Optima'");
+          $lender_documents = mysqli_query($con, "SELECT * FROM lender_documents where fnd_user_id = '$id' ");
 
           echo '<br><table style="width:100%;padding:10px" class="table table-striped table-bordered">' . "
 <tr>
@@ -1634,14 +1615,9 @@ if (isset($_POST['submit_lender_documents'])) {
     // if everything is ok, try to upload file
   } else {
     if (move_uploaded_file($_FILES["lender_documents"]["tmp_name"], $target_file)) {
-      $if_optima = "";
-      if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
 
-          $if_optima = "Optima";
-          // $and_check = 1;
-      }
       echo "The file " . basename($_FILES["lender_documents"]["name"]) . " has been uploaded.";
-      $insert_query_lender_docs = "INSERT Into lender_documents(fnd_user_id, file_name, date_created, created_by, website_company) VALUES ('$id','$target_file_db','$date','$u_id','$if_optima')";
+      $insert_query_lender_docs = "INSERT Into lender_documents(fnd_user_id, file_name, date_created, created_by) VALUES ('$id','$target_file_db','$date','$u_id')";
       mysqli_query($con, $insert_query_lender_docs);
 
       echo '<meta http-equiv="refresh" content="0">';
@@ -2134,11 +2110,11 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
     };
 
 
-    mysqli_query($con, "UPDATE source_income SET employer_name ='$employer_name_update', work_phone_no='$work_phone_update', net_check_amount='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id',last_update_date='$date',business_type='$business_type_up',business_create='$business_create_up' where user_fnd_id ='$id' and website_company $if_optima 'Optima'");
+    mysqli_query($con, "UPDATE source_income SET employer_name ='$employer_name_update', work_phone_no='$work_phone_update', net_check_amount='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id',last_update_date='$date',business_type='$business_type_up',business_create='$business_create_up' where user_fnd_id ='$id' ");
     if (if_insert($con)) {
       // *********************************** Employee Info Insertion **********************************************
 
-      $query_emp  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,creation_date,business_type,business_create,website_company)  VALUES ('$id','$employer_name_update','$work_phone_update','$net_amount_update','$direct_deposit_update','$pay_fre_update','$last_date_update','$next_date_update','$date','$business_type_up','$business_create_up', 'Optima')";
+      $query_emp  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,creation_date,business_type,business_create)  VALUES ('$id','$employer_name_update','$work_phone_update','$net_amount_update','$direct_deposit_update','$pay_fre_update','$last_date_update','$next_date_update','$date','$business_type_up','$business_create_up')";
       $result_emp = mysqli_query($con, $query_emp);
       if ($result_emp) {
         //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
@@ -2147,11 +2123,11 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
       }
     }
 
-    mysqli_query($con, "UPDATE tbl_business_info SET business_name ='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date' where user_fnd_id ='$id' and website_company $if_optima 'Optima'");
+    mysqli_query($con, "UPDATE tbl_business_info SET business_name ='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date' where user_fnd_id ='$id' ");
     if (if_insert($con)) {
       // *********************************** Business Info Insertion **********************************************
 
-      $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,monthly_gross_amount,direct_deposit,how_paid,business_docs,created_by,created_at, website_company)  VALUES ('$id','$business_name_update','$business_phone_update','$gross_amount_update','$business_direct_deposit_update','$business_get_paid_update','$business_docs_update','$u_id','$date', 'Optima')";
+      $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,monthly_gross_amount,direct_deposit,how_paid,business_docs,created_by,created_at)  VALUES ('$id','$business_name_update','$business_phone_update','$gross_amount_update','$business_direct_deposit_update','$business_get_paid_update','$business_docs_update','$u_id','$date')";
       $result_business = mysqli_query($con, $query_business);
       if ($result_business) {
         //echo "<div class='form'><h3> successfully added.</h3><br/></div>";

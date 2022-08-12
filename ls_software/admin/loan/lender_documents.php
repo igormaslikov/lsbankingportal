@@ -227,7 +227,7 @@ if ($uploadOk == 0) {
 } else {
     if (move_uploaded_file($_FILES["lender_documents"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["lender_documents"]["name"]). " has been uploaded.";
-		$insert_query_lender_docs = "INSERT Into lender_documents(fnd_user_id, loan_id, file_name, date_created, created_by, description, website_company) VALUES ('$user_fnd_id','$id','$target_file_db','$date','$u_id','$description',$website_company)";
+		$insert_query_lender_docs = "INSERT Into lender_documents(fnd_user_id, loan_id, file_name, date_created, created_by, description) VALUES ('$user_fnd_id','$id','$target_file_db','$date','$u_id','$description')";
 		mysqli_query($con,$insert_query_lender_docs);
 		
 		echo '<meta http-equiv="refresh" content="0">';

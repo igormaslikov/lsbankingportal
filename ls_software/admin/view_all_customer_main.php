@@ -67,12 +67,7 @@ if ($u_access_id == '0') {
 
             <br><br>
             <?php
-            $if_optima = "NOT LIKE";
-            if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
 
-                $if_optima = "LIKE";
-                // $and_check = 1;
-            }
             $query_search = "SELECT * FROM `fnd_user_profile`";
             $status  = $_GET['status'];
             $keyword = $_GET['keyword'];
@@ -83,7 +78,7 @@ if ($u_access_id == '0') {
             $loan_type = $_GET['loan_type'];
 
             if (isset($_GET['status']) || isset($_GET['keyword']) || isset($_GET['website']) || isset($_GET['state']) || isset($_GET['loan_type']) || isset($_GET['from_date']) || isset($_GET['to_date'])) {
-                $query_search .= " WHERE website_company $if_optima 'Optima' AND";
+                $query_search .= " WHERE ";
             }
             $and_check = 0;
             if (isset($_GET['status']) && $_GET['status'] != 'All') {
@@ -145,7 +140,7 @@ if ($u_access_id == '0') {
                 //echo $ye;
             }
 
-            if ($result_UNREAD = mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE `bold_status` = '0' where website_company $if_optima 'Optima'")) {
+            if ($result_UNREAD = mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE `bold_status` = '0'")) {
                 // Return the number of rows in result set
                 $rowcount_UNREAD = mysqli_num_rows($result_UNREAD);
                 // printf($rowcount);
@@ -470,15 +465,9 @@ if ($u_access_id == '0') {
 
 
 
-                            $query_main_search = "select * from fnd_user_profile_submission where website_company $if_optima 'Optima' AND ";
+                            $query_main_search = "select * from fnd_user_profile_submission";
 
-                            $if_optima = "NOT LIKE";
-                            if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
-  
-                                $if_optima = "LIKE";
-                                // $and_check = 1;
-                            }
-                            $query_main_search .= "user_fnd_id in (select user_fnd_id from fnd_user_profile where website_company $if_optima 'Optima') ";
+                            $query_main_search .= "user_fnd_id in (select user_fnd_id from fnd_user_profile) ";
 
                             $query_main_search .= "ORDER By id DESC  LIMIT $offset, $total_records_per_page ";
                             //echo $query_main_search;
@@ -492,14 +481,14 @@ if ($u_access_id == '0') {
 
 
 
-                                $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `fnd_user_profile` where website_company $if_optima 'Optima'");
+                                $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `fnd_user_profile`");
                                 $total_records = mysqli_fetch_array($result_count);
                                 $total_records = $total_records['total_records'];
                                 $total_records = $rowcount;
                                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 $second_last = $total_no_of_pages - 1; // total page minus 1
                                 //  echo "<br>".$total_no_of_pages;
-                                $query_search = "SELECT * FROM `fnd_user_profile` WHERE user_fnd_id = '$user_fnd_idd' ";
+                                $query_search = "SELECT * FROM `fnd_user_profile` WHERE user_fnd_id = '$user_fnd_idd'";
 
                                 //echo $query_search;
                                 $result = mysqli_query($con, "$query_search");
@@ -510,7 +499,6 @@ if ($u_access_id == '0') {
                                     $created_time = $row['created_time_'];
                                     $lang = $row['lang'];
                                     $bold_status = $row['bold_status'];
-                                    $website_company = $row['website_company'];
                                     $origDate = "$cr_date";
                                     $newDate = date("m-d-y", strtotime($origDate));
                                     //echo $newDate;
@@ -560,7 +548,6 @@ if ($u_access_id == '0') {
 	 		  <td>" . $row['state'] . "</td>
 	 		  <td>" . $row['loan_type'] . "</td>
 		   	  <td>" . $row['application_status'] . "</td>
-		   	  <td>" . $row['website_company'] . "</td>
 		   	  
 <td> <a href='edit_customer.php?id=$id&$delete_customer_string' title='Edit This Customer'><span class='glyphicon glyphicon-edit' aria-hidden='true' alt='edit'></span></a>
 <a class='remove-box' href='delete_customer.php?id=$id&$delete_customer_string' title='Delete This Customer'><span class='glyphicon glyphicon-remove' aria-hidden='true' alt='delete'></span>" . $decision_logic_Status . $experian_credit_score . "</a>

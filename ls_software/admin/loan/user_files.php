@@ -363,13 +363,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             }
 
 
-            $if_optima = "NOT LIKE";
-            if (isset($_SESSION['Optima']) && $_SESSION['Optima'] == "true") {
-  
-                $if_optima = "LIKE";
-                // $and_check = 1;
-            }
-            $sql_doc = mysqli_query($con, "select * from lender_documents where fnd_user_id = '$user_fnd_id' and website_company $if_optima 'Optima' ORDER BY id desc");
+            $sql_doc = mysqli_query($con, "select * from lender_documents where fnd_user_id = '$user_fnd_id'  ORDER BY id desc");
             //echo $sql_doc;
             while ($row_doc = mysqli_fetch_array($sql_doc)) {
 
