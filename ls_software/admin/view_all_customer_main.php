@@ -465,7 +465,7 @@ if ($u_access_id == '0') {
 
 
 
-                            $query_main_search = "select * from fnd_user_profile_submission";
+                            $query_main_search = "select * from fnd_user_profile_submission ";
 
                             $query_main_search .= "user_fnd_id in (select user_fnd_id from fnd_user_profile) ";
 
