@@ -439,7 +439,7 @@ if ($u_access_id == '0') {
                                 <th style='width:6%;color:black;'>State</th>
                                 <th style='width:9%;color:black;'>App Type</th>
                                 <th style='width:15%;color:black;'>Application Status</th>
-                                <th style='width:5%;color:black;'>Website</th>
+                                <!-- <th style='width:5%;color:black;'>Website</th> -->
                                 <th style='width:10%;color:black;'>Action</th>
                             </tr>
                         </thead>
@@ -465,7 +465,7 @@ if ($u_access_id == '0') {
 
 
 
-                            $query_main_search = "select * from fnd_user_profile_submission ";
+                            $query_main_search = "select * from fnd_user_profile_submission where ";
 
                             $query_main_search .= "user_fnd_id in (select user_fnd_id from fnd_user_profile) ";
 

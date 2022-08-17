@@ -1,4 +1,5 @@
 <?php
+session_start();
 $id1 = "case_pdf.php?id=".$_GET['id'];
 $id2 = "case_pdf1.php?id=".$_GET['id'];
 $id3 = "case_pdf2.php?id=".$_GET['id'];

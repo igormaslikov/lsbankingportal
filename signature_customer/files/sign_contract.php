@@ -1,4 +1,5 @@
 <?php
+session_start();
 $id1 = "sign_case_pdf.php?t=<?=time();?>&id=".$_GET['id'];
 $id2 = "sign_case_pdf1.php?t=<?=time();?>&id=".$_GET['id'];
 $id3 = "sign_case_pdf2.php?t=<?=time();?>&id=".$_GET['id'];
