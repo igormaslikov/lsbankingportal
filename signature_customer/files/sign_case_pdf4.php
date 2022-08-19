@@ -66,7 +66,7 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
      $timestamp = strtotime($payment_date);
      $payment_date= date("m-d-Y", $timestamp);
      
-    $creation_date=$row_loan['creation_date'];
+    $creation_date=$row_loan['contract_date'];
     
      $timestamp = strtotime($creation_date);
      $creation_date= date("m-d-Y", $timestamp);

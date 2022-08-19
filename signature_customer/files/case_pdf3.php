@@ -59,7 +59,9 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
 		 $var = "$payment_datee";
 	$payment_date= date("m-d-Y", strtotime($var) );
    
-    
+    $creation_datee=$row_loan['contract_date'];
+    $var = "$creation_datee";
+    $creation_date= date("m-d-Y", strtotime($var) );
      
     $payoff=$row_loan['amount_of_loan'];
     
