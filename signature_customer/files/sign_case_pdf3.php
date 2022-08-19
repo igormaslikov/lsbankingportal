@@ -49,7 +49,7 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_id= '$loan_id_bor' "); 
+$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
 while($row_loan = mysqli_fetch_array($sql_loan)) {
     
