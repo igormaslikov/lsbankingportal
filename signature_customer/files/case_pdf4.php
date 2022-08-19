@@ -27,9 +27,6 @@ $type_of_card=$row1['type_of_card'];
 $card_number=$row1['card_number'];
 $card_exp_date=$row1['card_exp_date'];
 
-$creation_datee=$row1['creation_date'];
-     $timestamp = strtotime($creation_datee);
-     $creation_date= date("m-d-Y", $timestamp);
      
 $bank_name=$row1['bank_name'];
 $routing_number=$row1['routing_number'];
@@ -61,9 +58,9 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
     $timestamp = strtotime($payment_date);
     $payment_date= date("m-d-Y", $timestamp);
     
-    $creation_date=$row_loan['contract_date'];
+    $creation_datee=$row_loan['contract_date'];
     
-     $timestamp = strtotime($creation_date);
+     $timestamp = strtotime($creation_datee);
     $creation_date= date("m-d-Y", $timestamp);
     
 //$loan_fee = $row_loan['loan_fee'];

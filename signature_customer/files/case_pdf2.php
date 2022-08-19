@@ -19,10 +19,6 @@ while($row1 = mysqli_fetch_array($sql1)) {
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
 
-$creation_datee=$row1['creation_date'];
-$var = "$creation_datee";
-$creation_date= date("m-d-Y", strtotime($var) );
-
 $fnd_id=$row1['user_fnd_id'];
 $loan_id_bor=$row1['loan_id'];
 $type_of_card=$row1['type_of_card'];
@@ -52,13 +48,14 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
     
     $amount_of_loan=$row_loan['amount_of_loan'];
    
-   $payment_datee=$row_loan['payment_date'];
+     $payment_datee=$row_loan['payment_date'];
      $var = "$payment_datee";
-$payment_date= date("m-d-Y", strtotime($var) );
+     $payment_date= date("m-d-Y", strtotime($var) );
     
-     $creation_datee=$row_loan['contract_date'];
-     $var = "$creation_datee";
-     $creation_date= date("m-d-Y", strtotime($var) );
+     $creation_date=$row_loan['contract_date'];
+     $creation_date_db=$row_loan['contract_date'];
+     $timestamp = strtotime($creation_date);
+     $creation_date= date("m-d-Y", $timestamp);
     
      
     $payoff=$row_loan['amount_of_loan'];
