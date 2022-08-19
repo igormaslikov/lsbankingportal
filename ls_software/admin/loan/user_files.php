@@ -307,19 +307,20 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
           <td><img id='mmmmyImg' src ='../../../ls_software/dl_client_files/void_img/$void_img' style='height:100px; width:100px' /><br><br> <a href ='change_void_img.php?id=$id'>Change/Update</a></td>
         
         
-        <td><a onclick='myFunction_contract()' target = '_blank' href='https://www.ofsca.com/loanportal/signature_customer/files/sign_contract.php?id=$mail_key' title='View Contract'>View Contract</a>" ?><?php
-                                                                                                                                                                                                                                                          echo "<br><br>";
-                                                                                                                                                                                                                                                          if ($contract_status == '1') {
-                                                                                                                                                                                                                                                            echo "<a onclick='myFunction_contract_manual()' target = '_blank' class='remove-box' href='https://ofsca.com/loanportal/ls_software/admin/loan/uploads_contract/$contract_db?id=$id' target='_blank' title='View Contract'>View Manual Contract</a>";
-                                                                                                                                                                                                                                                          } else {
-                                                                                                                                                                                                                                                            echo "<a href ='upload_contract.php?id=$id'>Upload Manual Contract</a>";
-                                                                                                                                                                                                                                                          }
-                                                                                                                                                                                                                                                          echo " </td>
+        <td><a onclick='myFunction_contract()' target = '_blank' href='https://www.ofsca.com/loanportal/signature_customer/files/sign_contract.php?id=$mail_key' title='View Contract'>View Contract</a>" ?>
+            <?php
+              echo "<br><br>";
+              if ($contract_status == '1') {
+                echo "<a onclick='myFunction_contract_manual()' target = '_blank' class='remove-box' href='https://ofsca.com/loanportal/ls_software/admin/loan/uploads_contract/$contract_db?id=$id' target='_blank' title='View Contract'>View Manual Contract</a>";
+              } else {
+                echo "<a href ='upload_contract.php?id=$id'>Upload Manual Contract</a>";
+              }
+              echo " </td>
         
         </tr>";
-                                                                                                                                                                                                                                                        }
+            }
 
-                                                                                                                                                                                                                                                          ?>
+            ?>
 
             </tbody>
           </table>
@@ -424,8 +425,6 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             span.onclick = function() {
               modal.style.display = "none";
             }
-
-
           </script>
 
           <!--ID image end-->
@@ -551,10 +550,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
           <script>
-            $(document).ready(function() {
-              $('#pdf_file').trigger('click');
 
-            })
           </script>
 
           <div id="document" style="display:none; color:red">
@@ -628,19 +624,24 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
     <!-- Menu Toggle Script -->
     <script>
+      $(document).ready(function() {
+        $('#pdf_file').trigger('click');
+
+      });
+      
       $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
       });
 
       $('.remove-box').on('click', function() {
-              var x = confirm('Are you sure you want to delete?');
-              if (x)
-                return true;
-              else
-                return false;
+        var x = confirm('Are you sure you want to delete?');
+        if (x)
+          return true;
+        else
+          return false;
 
-            });
+      });
     </script>
   <?php
 }
