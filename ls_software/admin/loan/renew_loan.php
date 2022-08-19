@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (!isset($_POST['btn-submit']) && isset($_REQUEST['card_number'])) {
   header("Content-type: application/json");
   //var_dump($_REQUEST);
