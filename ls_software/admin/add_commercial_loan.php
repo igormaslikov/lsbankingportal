@@ -355,11 +355,14 @@ $fnd_idd = $_GET['id'];
         success: function(data) {
             //var tableCard = data[0].cardTable;
             var valid = data[0].valid;
-            var message = "Valid Loand Id"
+            var message = ": " + id + " is valid";
+            var color = "green";
             if (!valid){
               elem.value = "";
-              message = "Loan ID: " + id + " exists in DB";
+              message = ": " + id + " exists in DB";
+              color = "red";
             }
+            document.getElementById("error_message_id").style.color = color;
             document.getElementById("error_message_id").value = message;
             document.getElementById("error_message_id").innerHTML = message;
             document.getElementById("error_message_id").innerText = message;
