@@ -179,7 +179,7 @@ $fnd_idd = $_GET['id'];
           </div>
           <div class="col-lg-6">
             <label for="usr"> Loan ID</label>
-            <input type="text" name="loan_id" value="<?php echo  $loan_create_id; ?>" class="form-control" readonly />
+            <input type="text" name="loan_id" value="<?php echo  $loan_create_id; ?>" class="form-control" />
             <input type="text" name="previous_loan_id" value="<?php echo  $previous_loan_create_id; ?>" style="display:none" />
           </div>
 
