@@ -341,7 +341,7 @@ $fnd_idd = $_GET['id'];
 
   function validate_loan_id(e,elem){
     let id = elem.value;
-    var url = 'loan-commercial/functions_commercial_loan.php';
+    var url = '/loan-commercial/functions_commercial_loan.php';
 
     $.ajax({
         url: url,
@@ -354,7 +354,7 @@ $fnd_idd = $_GET['id'];
         async: true,
         success: function(data) {
             //var tableCard = data[0].cardTable;
-            var valid = data[0].valid;
+            var valid = data[0].count;
             var message = "Valid Loand Id"
             if (!valid){
               elem.value = "";
