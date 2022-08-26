@@ -358,7 +358,7 @@ $fnd_idd = $_GET['id'];
             var message = "Valid Loand Id"
             if (!valid){
               elem.value = "";
-              message = "Loan ID: " + id + " exists in DB"  
+              message = "Loan ID: " + id + " exists in DB";
             }
             document.getElementById("error_message_id").value = message;
             document.getElementById("error_message_id").innerHTML = message;

@@ -1609,11 +1609,12 @@ function ValidateLoanId()
     $loan_id = $_POST["id"];
 
     $query_loan = mysqli_query($con, "select COUNT(loan_create_id) as count FROM `tbl_commercial_loan` WHERE loan_create_id LIKE '10395'");
+    $count = 0;
     while ($loan = mysqli_fetch_array($query_loan)) {
         $count = $loan['count'];    
     }
 
-    $valid = $loan['count'] == 0;
+    $valid = $count == 0;
     $articles[] = array(
         'status'         =>  "ok",
         'count'       => $valid
