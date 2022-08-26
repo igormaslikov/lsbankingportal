@@ -83,6 +83,9 @@ if ($u_access_id != '1') {
         case 'CalculateInstallmetsPerDiem':
             CalculateInstallmetsPerDiem();
             break;
+        case 'ValidateLoanId':
+            ValidateLoanId();
+            break;
         default:
             //function not found, error or something
             break;
@@ -1599,6 +1602,24 @@ function if_insert($con)
 
     return $matched == 0;
 };
+
+function ValidateLoanId()
+{
+    global $con;
+    $loan_id = $_POST["id"];
+
+    $query_loan = mysqli_query($con, "select COUNT(loan_create_id) as count FROM `tbl_commercial_loan` WHERE loan_create_id LIKE '10395'");
+    while ($loan = mysqli_fetch_array($query_loan)) {
+        $count = $loan['count'];    
+    }
+
+    $valid = $loan['count'] == 0;
+    $articles[] = array(
+        'status'         =>  "ok",
+        'count'       => $valid
+    );
+    echo json_encode($articles);
+}
 
 function CalculateInstallmetsPerDiem()
 {

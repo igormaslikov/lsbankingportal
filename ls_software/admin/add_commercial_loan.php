@@ -178,8 +178,8 @@ $fnd_idd = $_GET['id'];
             </select>
           </div>
           <div class="col-lg-6">
-            <label for="usr"> Loan ID</label>
-            <input type="text" name="loan_id" value="<?php echo  $loan_create_id; ?>" class="form-control" />
+            <label for="usr"> Loan ID <i id="error_message_id"></i></label>
+            <input type="text" name="loan_id" value="<?php echo  $loan_create_id; ?>" onchange="validate_loan_id(event,this)" class="form-control" required/>
             <input type="text" name="previous_loan_id" value="<?php echo  $previous_loan_create_id; ?>" style="display:none" />
           </div>
 
@@ -331,11 +331,50 @@ $fnd_idd = $_GET['id'];
   }
 
 
+
   function recalculateDirectlyLoan(e, elem, balance) {
     directly_loan = document.getElementById("directlyLoanId");
     directly_loan.innerText = balance - elem.value;
     document.getElementById("comInitSetupHref").href = document.getElementById("comInitSetupHref").href.replace("in_hand=" + elem.oldvalue, "in_hand=" + elem.value);
     e.preventDefault();
+  }
+
+  function validate_loan_id(e,elem){
+    let id = elem.value;
+    var url = 'functions_commercial_loan.php';
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'func': "ValidateLoanId",
+            'id': id
+        },
+        async: true,
+        success: function(data) {
+            //var tableCard = data[0].cardTable;
+            var valid = data[0].valid;
+            var message = "Valid Loand Id"
+            if (!valid){
+              elem.value = "";
+              message = "Loan ID: " + id + " exists in DB"  
+            }
+            document.getElementById("error_message_id").value = message;
+            document.getElementById("error_message_id").innerHTML = message;
+            document.getElementById("error_message_id").innerText = message;
+            event.preventDefault();
+
+        },
+        error: function(err) {
+            if (err.responseText == "") {
+                alert(err.responseText);
+            } else {
+                alert(err.responseText);
+            }
+            window.location.reload();
+        }
+    });
   }
 
   function calculate(e) {
