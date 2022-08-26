@@ -354,7 +354,7 @@ $fnd_idd = $_GET['id'];
         async: true,
         success: function(data) {
             //var tableCard = data[0].cardTable;
-            var valid = data[0].count;
+            var valid = data[0].valid;
             var message = "Valid Loand Id"
             if (!valid){
               elem.value = "";
