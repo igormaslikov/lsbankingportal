@@ -113,7 +113,7 @@ $user_fnd_id = $_GET['user_fnd_id'];
       $to_email = $user_email;
       $subject = 'Contract Signature From MyMoneyLine';
       $message = "Please Sign here by clicking on this link : " . $email_link;
-      $headers = 'From: support@mymoneyline.com';
+      $headers = 'From: support@pacificafinancegroup.com';
       mail($to_email, $subject, $message, $headers);
       send_email_notification($to_email, $subject, $message);
       //CUSTOMER EMAIL ENDS
