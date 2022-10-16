@@ -215,7 +215,7 @@ $url_origin = getMyUrl("/loanportal");
         <li class="loan">
           <a href="view_all_customer_main.php?status=All&state=All&loan_type=All&keyword=&from_date=&to_date=&search=" style="color:white; font-size:20px">Applications</a>
         </li>
-        <!-- <li class="loan">
+        <li class="loan">
            <ul id='menu' style="padding-left:0px">
                 <li class="loan"><a href="view_all_commercial_loans.php"  style="color:white;font-size:20px">Commercial Loan</a>
             
@@ -225,7 +225,7 @@ $url_origin = getMyUrl("/loanportal");
         <li><a href="#"  style="color:white;" title=''>Recently Paid Payments</a></li>
         </ul>
             
-            </li></ul></li> -->
+            </li></ul></li>
 
 
         <li class="loan">

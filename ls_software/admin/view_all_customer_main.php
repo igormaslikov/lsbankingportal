@@ -318,12 +318,15 @@ if ($u_access_id == '0') {
                             <td colspan="2" style="font-weight: bold;">
                                 Application Type
                                 <select name="loan_type" id="loan_type" class="form-control" value="" style="padding: 6px 15px;">
-                                    <!-- <option value="All" <?php if ($_GET['loan_type'] == 'All') {
+                                    <option value="All" <?php if ($_GET['loan_type'] == 'All') {
                                                             echo 'selected';
-                                                        } ?>>All</option> -->
+                                                        } ?>>All</option>
                                     <option value="payday" <?php if ($_GET['loan_type'] == 'payday') {
                                                                 echo 'selected';
                                                             } ?>>payday</option>
+                                    <option value="commercial" <?php if ($_GET['loan_type'] == 'commercial') {
+                                                                echo 'selected';
+                                                            } ?>>commercial</option>
                                 </select>
                             </td>
 

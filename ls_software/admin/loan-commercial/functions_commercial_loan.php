@@ -83,6 +83,12 @@ if ($u_access_id != '1') {
         case 'GetEditTransactionModal':
             GetEditTransactionModal();
             break;
+        case 'CalculateInstallmetsPerDiem':
+            CalculateInstallmetsPerDiem();
+            break;
+        case 'ValidateLoanId':
+            ValidateLoanId();
+            break;
         default:
             //function not found, error or something
             break;
@@ -658,7 +664,7 @@ function SetChargeback()
     $action_query = "UPDATE `tbl_other_fees` SET `amount_fee`=`amount_fee` + 15 WHERE `loan_created_id` = '$loan_id' AND `kind_fee` = $kind AND `user_fnd_id` = '$user_fnd_id'";
     $update_result = mysqli_query($con, $action_query);
 
-    if(if_insert($con)){
+    if (if_insert($con)) {
         $action_query = "INSERT INTO `tbl_other_fees` (`tbl_other_fees_id`, `kind_fee`, `user_fnd_id`, `loan_created_id`, `amount_fee`, `amount_fee_paid`) VALUES (NULL, '$kind', '$user_fnd_id', '$loan_id', 15, 0)";
         mysqli_query($con, $action_query);
         $other_fee_transaction = mysqli_insert_id($con);
@@ -684,9 +690,11 @@ function UpdateOtherFee()
     $otherFeeId = $_POST['otherFeeId'];
     $description = $_POST['description'];
     $amountFee = $_POST['amountFee'];
+    $number_installment = $_POST['number_installment'];
     $newOtherFee = $_POST['newOtherFee'];
 
-    mysqli_query($con, "INSERT INTO tbl_lists (kind, item) select 'Other Fee', '$description' where not exists( select * from tbl_lists where kind='Other Fee' and item='$description')");
+
+    mysqli_query($con, "INSERT INTO tbl_lists (kind, item) select * from (SELECT 'Other Fee' as other_fee , '$description' as description) as new_value where not exists( select * from tbl_lists where kind='Other Fee' and item='$description')");
 
     $sql = mysqli_query($con, "select tbl_lists_id from tbl_lists where kind='Other Fee' and item='$description'");
 
@@ -703,11 +711,11 @@ function UpdateOtherFee()
     //     return;
     // }
 
-    $action_query = "UPDATE `tbl_other_fees` SET `kind_fee` = '$kind', `amount_fee` = '$amountFee', `user_fnd_id` = '$userId',`loan_created_id` = '$loanId' WHERE `tbl_other_fees_id` = '$otherFeeId'";
+    $action_query = "UPDATE `tbl_other_fees` SET `kind_fee` = '$kind', `amount_fee` = '$amountFee', `user_fnd_id` = '$userId',`loan_created_id` = '$loanId', `installment_id` = '$number_installment' WHERE `tbl_other_fees_id` = '$otherFeeId'";
     $message = "Other fee updated";
     if ($newOtherFee == "true") {
 
-        $action_query = "INSERT INTO `tbl_other_fees` (`tbl_other_fees_id`, `kind_fee`, `user_fnd_id`, `loan_created_id`, `amount_fee`, `amount_fee_paid`) VALUES (NULL, '$kind', '$userId', '$loanId', '$amountFee', 0)";
+        $action_query = "INSERT INTO `tbl_other_fees` (`tbl_other_fees_id`, `kind_fee`, `user_fnd_id`, `loan_created_id`,`installment_id`, `amount_fee`, `amount_fee_paid`) VALUES (NULL, '$kind', '$userId', '$loanId', '$number_installment' ,'$amountFee', 0)";
         $message = "Other fee inserted";
     }
     mysqli_query($con, $action_query);
@@ -1009,7 +1017,8 @@ function UpdateTransaction()
     echo json_encode($articles);
 }
 
-function UpdateChargebackTransaction(){
+function UpdateChargebackTransaction()
+{
     global $con;
     $u_id = $_POST["u_id"];
     $user_fnd_id = $_POST["user_fnd_id"];
@@ -1037,7 +1046,7 @@ function UpdateChargebackTransaction(){
 
     $tmp = explode(" ", $payment_method);
     $last =  end($tmp);
-    $transaction_id = str_replace(array("(", ")"), array("", ""),$last );
+    $transaction_id = str_replace(array("(", ")"), array("", ""), $last);
 
     $sql_chargeback = mysqli_query($con, "SELECT sum(`installment_paid`) as transaction_amount FROM `tbl_commercial_loan_chargeback` where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
     while ($row_chargeback = mysqli_fetch_array($sql_chargeback)) {
@@ -1086,19 +1095,19 @@ function UpdateChargebackTransaction(){
     // * Update chargeback transaction with installments
 
 
-    if($to_be_paid_amount == ""){
+    if ($to_be_paid_amount == "") {
         $to_be_paid_amount = -$payment_amount;
     }
 
-    if($late_fee == ""){
+    if ($late_fee == "") {
         $late_fee = -$late_fee_chargeback;
     }
 
-    if($convenience_fee == ""){
+    if ($convenience_fee == "") {
         $convenience_fee = -$convenience_fee_chargeback;
     }
 
-    if($other_fee == ""){
+    if ($other_fee == "") {
         $other_fee = -$other_fee_chargeback;
     }
 
@@ -1174,11 +1183,10 @@ function UpdateChargebackTransaction(){
         'message'       => $message
     );
     echo json_encode($articles);
-
-
 }
 
-function DeleteChargebackTransaction(){
+function DeleteChargebackTransaction()
+{
     global $con;
     $chargeback_transaction_id = $_POST["transactionId"];
 
@@ -1197,7 +1205,7 @@ function DeleteChargebackTransaction(){
 
     $tmp = explode(" ", $payment_method);
     $last =  end($tmp);
-    $transaction_id = str_replace(array("(", ")"), array("", ""),$last );
+    $transaction_id = str_replace(array("(", ")"), array("", ""), $last);
 
     $sql_chargeback = mysqli_query($con, "SELECT sum(`installment_paid`) as transaction_amount FROM `tbl_commercial_loan_chargeback` where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
     while ($row_chargeback = mysqli_fetch_array($sql_chargeback)) {
@@ -1243,10 +1251,10 @@ function DeleteChargebackTransaction(){
     while ($row_fees = mysqli_fetch_array($sql_other_fees)) {
         $amount_fee = $row_fees['amount_fee'];
         $amount_fee_paid = $row_fees['amount_fee_paid'];
-        $tbl_other_fees_id= $row_fees['tbl_other_fees_id'];
+        $tbl_other_fees_id = $row_fees['tbl_other_fees_id'];
 
         $action_query = "UPDATE `tbl_other_fees` SET `amount_fee`= amount_fee - 15 WHERE `tbl_other_fees_id` = '$tbl_other_fees_id'";
-        if($amount_fee <= 15){
+        if ($amount_fee <= 15) {
             $action_query = "DELETE FROM `tbl_other_fees` WHERE `tbl_other_fees_id` = '$tbl_other_fees_id'";
         }
 
@@ -1268,7 +1276,8 @@ function DeleteChargebackTransaction(){
     echo json_encode($articles);
 }
 
-function DeleteTransaction(){
+function DeleteTransaction()
+{
     global $con;
     $transaction_id = $_POST['transactionId'];
 
@@ -1319,7 +1328,7 @@ function DeleteTransaction(){
         mysqli_query($con, "DELETE FROM commercial_loan_transaction_cards_info where card_info_id='$card_info'");
     }
 
-    if($payment_method == "Repay"){
+    if ($payment_method == "Repay") {
         /**
          * TODO: disable repay transaction via Repay API
          */
@@ -1445,21 +1454,21 @@ function GetEditTransactionModal()
     ';
     }
 
-    $payment_definition = array("placeholder"=>"","disabled"=>"","max"=>"");
-    $late_fee_definition = array("placeholder"=>"","disabled"=>"","max"=>"");
-    $convenience_fee_definition = array("placeholder"=>"","disabled"=>"","max"=>"");
-    $other_fee_definition = array("placeholder"=>"","disabled"=>"","max"=>"");
-    
+    $payment_definition = array("placeholder" => "", "disabled" => "", "max" => "");
+    $late_fee_definition = array("placeholder" => "", "disabled" => "", "max" => "");
+    $convenience_fee_definition = array("placeholder" => "", "disabled" => "", "max" => "");
+    $other_fee_definition = array("placeholder" => "", "disabled" => "", "max" => "");
 
-    $is_chargback_payment = stripos($payment_method,'Chargeback', 0) === 0;
+
+    $is_chargback_payment = stripos($payment_method, 'Chargeback', 0) === 0;
     $payment_method_disabled = $is_chargback_payment ? "style='pointer-events: none;background-color:#E9ECEF'" : "";
     $select_other_fee = "";
     $other_fee_description_disabled = "";
     $payment_method_chargeback = "";
-    if($is_chargback_payment){
+    if ($is_chargback_payment) {
         $tmp = explode(" ", $payment_method);
         $last =  end($tmp);
-        $chargeback_transaction_id = str_replace(array("(", ")"), array("", ""),$last );
+        $chargeback_transaction_id = str_replace(array("(", ")"), array("", ""), $last);
         $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$chargeback_transaction_id'");
         while ($row_loan = mysqli_fetch_array($sql_loan)) {
             $payment_amount_chargeback = $row_loan['payment_amount'];
@@ -1517,26 +1526,26 @@ function GetEditTransactionModal()
         <div class="row">
             <div class="col-lg-6">
                 <label for="usr">Amount to be Paid ($):</label>
-                <input type="text" name="to_be_paid_amount" class="form-control" id="usr" placeholder="'.$payment_definition["placeholder"].'" value="" oninput="oniputChange(this)" '. $payment_definition["disabled"].' '.$payment_definition["max"].'>
+                <input type="text" name="to_be_paid_amount" class="form-control" id="usr" placeholder="' . $payment_definition["placeholder"] . '" value="" oninput="oniputChange(this)" ' . $payment_definition["disabled"] . ' ' . $payment_definition["max"] . '>
 
             </div>
 
             <div class="col-lg-2">
                 <label for="usr">Late Fee ($):</label>
-                <input type="text" name="late_fee" class="form-control" id="usr" placeholder="'.$late_fee_definition["placeholder"].'" value="" oninput="oniputChange(this)" '. $late_fee_definition["disabled"].' '. $late_fee_definition["max"].'>
+                <input type="text" name="late_fee" class="form-control" id="usr" placeholder="' . $late_fee_definition["placeholder"] . '" value="" oninput="oniputChange(this)" ' . $late_fee_definition["disabled"] . ' ' . $late_fee_definition["max"] . '>
 
             </div>
 
             <div class="col-lg-2">
                 <label for="usr">Convenience Fee ($):</label>
-                <input type="text" name="convenience_fee" class="form-control" id="usr" placeholder="'.$convenience_fee_definition["placeholder"].'" value="" oninput="oniputChange(this)" '. $convenience_fee_definition["disabled"].' '. $convenience_fee_definition["max"].'>
+                <input type="text" name="convenience_fee" class="form-control" id="usr" placeholder="' . $convenience_fee_definition["placeholder"] . '" value="" oninput="oniputChange(this)" ' . $convenience_fee_definition["disabled"] . ' ' . $convenience_fee_definition["max"] . '>
 
             </div>
 
             <div class="col-lg-2">
                 <label style="width:100%" for="other_fee_id">Other Fee ($):</label>
-                <select name="type_of_description" id="lblTypeOfDescription" onchange="GetUnpaidOtherFee(this,event)" style="width:65%;'. $other_fee_description_disabled.'"  value="'.$select_other_fee.'">
-                    <option value="'.$select_other_fee.'">'.$select_other_fee.'</option>';
+                <select name="type_of_description" id="lblTypeOfDescription" onchange="GetUnpaidOtherFee(this,event)" style="width:65%;' . $other_fee_description_disabled . '"  value="' . $select_other_fee . '">
+                    <option value="' . $select_other_fee . '">' . $select_other_fee . '</option>';
 
     $sql_loan = mysqli_query($con, "select * from tbl_other_fees tof inner join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_created_id='$loan_id' and user_fnd_id = '$user_fnd_id' and (amount_fee_paid != amount_fee or tbl_other_fees_id = $other_fee_id)");
 
@@ -1547,15 +1556,15 @@ function GetEditTransactionModal()
     }
 
     $editModal .= '</select>
-                <input type="text" name="other_fee" class="form-control" id="other_fee_id" placeholder="'.$other_fee_definition["placeholder"].'" value="" style="width:30%; display:inline!important;'. $other_fee_definition["disabled"].'" oninput="oniputChange(this)"  '. $other_fee_definition["max"].'>
+                <input type="text" name="other_fee" class="form-control" id="other_fee_id" placeholder="' . $other_fee_definition["placeholder"] . '" value="" style="width:30%; display:inline!important;' . $other_fee_definition["disabled"] . '" oninput="oniputChange(this)"  ' . $other_fee_definition["max"] . '>
 
 
             </div>
 
             <div class="col-lg-6">
                 <label for="usr">Payment Method</label>
-                <select name="payment_method" id="payment_method" class="form-control" onchange="payment_method_info(this,event)" '.$payment_method_disabled.' value="'.$payment_method_chargeback.'">
-                    <option value="'.$payment_method_chargeback.'">'.$payment_method_chargeback.'</option>
+                <select name="payment_method" id="payment_method" class="form-control" onchange="payment_method_info(this,event)" ' . $payment_method_disabled . ' value="' . $payment_method_chargeback . '">
+                    <option value="' . $payment_method_chargeback . '">' . $payment_method_chargeback . '</option>
                     <option value="Cash">Cash</option>
                     <option value="Debit Card">Debit Card</option>
                     <option value="Bank Deposit">Bank Deposit</option>
@@ -1599,8 +1608,444 @@ function GetEditTransactionModal()
 
 function if_insert($con)
 {
-  $matched = explode(": ", explode('  ', $con->info)[0])[1]; // Rows matched
-  $changed = explode(": ", explode('  ', $con->info)[1])[1]; // Changed
+    $matched = explode(": ", explode('  ', $con->info)[0])[1]; // Rows matched
+    $changed = explode(": ", explode('  ', $con->info)[1])[1]; // Changed
 
-  return $matched == 0;
+    return $matched == 0;
 };
+
+function ValidateLoanId()
+{
+    global $con;
+    $loan_id = $_POST["id"];
+
+    $query_loan = mysqli_query($con, "select COUNT(loan_create_id) as cnt FROM `tbl_commercial_loan` WHERE loan_create_id = '$loan_id'");
+    $count = 0;
+    while ($loan = mysqli_fetch_array($query_loan)) {
+        $count = $loan['cnt'];    
+    }
+
+    $valid = $count == 0;
+    $articles[] = array(
+        'status'         =>  "ok",
+        'valid'       => $valid,
+    );
+    echo json_encode($articles);
+}
+
+function CalculateInstallmetsPerDiem()
+{
+    global $con;
+    $loan_create_id = $_POST["loan_create_id"];
+    $number_payment = isset($_POST["number_payment"]) ? $_POST["number_payment"] : -1;
+
+    $default = isset($_POST["default_installment"]) ? json_decode($_POST["default_installment"]) : False;
+    $transactions = isset($_POST["transactions"]) ? json_decode($_POST["transactions"]) : False;
+
+    $query_loan = mysqli_query($con, "SELECT * from `tbl_commercial_loan` where `loan_create_id` = $loan_create_id");
+    while ($loan = mysqli_fetch_array($query_loan)) {
+        $apr = $loan['apr'];
+        $amount_loan = $loan['amount_of_loan'];
+        $loan_interest = $loan['loan_interest'];
+        $total_payments = $loan['total_payments'];
+        $creation_date = $loan['creation_date'];
+        $installment_plan = $loan['installment_plan'];
+    }
+
+    switch ($installment_plan) {
+        case "Weekly":
+            $num_of_days = 7;
+            #payment_start_date[0].value = getFormattedDate(new Date(chooseDate.setDate(chooseDate.getDate() + 7)));
+            break;
+        case "Bi-Weekly":
+            $num_of_days = 14;
+            #payment_start_date[0].value = getFormattedDate(new Date(chooseDate.setDate(chooseDate.getDate() + 14)));
+            break;
+        case "Monthly":
+            $num_of_days = 30;
+            #payment_start_date[0].value = getFormattedDate(new Date(chooseDate.setDate(chooseDate.getDate() + 30)));
+            break;
+    }
+
+
+    $payoff = round((float)($amount_loan + $loan_interest), 2);
+    $payment = round((float)($payoff / $total_payments), 2);
+
+    $installmentInfo = "
+        <table class='table table-striped table-bordered' id='installmentTableModalid'>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Due Date</th>
+                <th>Payment Date</th>
+                <th>Days</th>
+                <th>Per Diem</th>
+                <th>Payment Amount</th>
+                <th>Interest</th>
+                <th>Principal</th>
+                <th>Balance</th>
+                <th>Status</th>
+                <th>Fee Added</th>
+                <th>Fee Paid</th>
+                <th>Fee Unpaid</th>
+                <th>Fee Description</th>
+            </tr>
+        </thead>
+        <tbody>";
+    if ($default or $transactions) {
+        mysqli_query($con, "DELETE FROM `tbl_commercial_loan_installmets_calculated` WHERE `loan_create_id` = '$loan_create_id'");
+    }
+    $total_payment = 0;
+
+    $total_interest = 0;
+    $total_principal = 0;
+    $total_balance = 0;
+    if ($transactions) {
+        $result = mysqli_query($con,"select tcli.*, tof.sum_fee, tof.sum_fee_paid, (tof.sum_fee - tof.sum_fee_paid) as sum_fee_unpaid, tof.description from tbl_commercial_loan_installments as tcli left join (select installment_id, SUM(amount_fee) as sum_fee, SUM(amount_fee_paid) as sum_fee_paid, group_concat(tl.item SEPARATOR ',') as description from tbl_other_fees left join tbl_lists tl on tl.tbl_lists_id = kind_fee WHERE loan_created_id = '$loan_create_id' GROUP by installment_id ) as tof on tcli.number_of_payment = tof.installment_id where tcli.loan_create_id='$loan_create_id' order by tcli.id");
+       // $result = mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' order by id");
+        $i = 1;
+        // $res =  mysqli_fetch_array($result);
+        while ($row = mysqli_fetch_array($result)) {
+            $due_date_real = $row['payment_date'];
+            $payment_date = $row['paid_date'];
+            $days_from_last_payment = $row['days'];
+            $per_diem = $row['per_diem'];
+            $loan_payment_amount = $row['payment'];
+            $interest = $row['interest'];
+            $principal = $row['principal'];
+            $balance = $row['balance'];
+            $status = $row['status'];
+            $sum_fee = $row['sum_fee'] == null ? 0 : $row['sum_fee'] ;
+            $sum_fee_paid = $row['sum_fee_paid']== null ? 0 : $row['sum_fee_paid'];
+            $sum_fee_unpaid = $row['sum_fee_unpaid']== null ? 0 : $row['sum_fee_unpaid'];
+            $description = $row['description']== null ? "" : $row['description'];
+            $total_payment += $loan_payment_amount;
+
+            $total_interest += $interest;
+            $total_principal += $principal;
+            $string_red_rejected = '';
+
+            if ($status == '1') {
+                $count_row = 0;
+                $installment_status = "Paid";
+                $string_red_rejected = 'style="color:green;font-weight:bold"';
+                // $a = "<a href='add_new_transaction.php?intallment_id=$intallment_id&id=$id' class='disabled'>Paid</a>";
+                $a = "";
+                // if ($dpd >= 10 && $paid_late_fee < $late_fee) {
+                //     $still_pay_fee = $late_fee - $paid_late_fee;
+                //     $string_red_rejected = 'style="color:purple;font-weight:bold"';
+                //     $a = "<a href='add_new_transaction.php?intallment_id=$intallment_id&id=$id&late_fee=$still_pay_fee'>PayFee</a>";
+                // } else if ($chargeback_amount > 0) {
+                //     $string_red_rejected = 'style="color:deeppink;font-weight:bold"';
+                // }
+            } else if ($status == '2') {
+                $installment_status = "Settlement";
+                $a = "";
+            } else if ($status == '3') {
+                $installment_status = "Paid Ref";
+                $string_red_rejected = 'style="color:limegreen;font-weight:bold"';
+                $a = "";
+            } else if ($status == '4') {
+                $installment_status = "Credit";
+                $string_red_rejected = 'style="color:coral;font-weight:bold"';
+                $a = "";
+            } else {
+                $installment_status = "Unpaid";
+                $a = "";
+                // $a = "<a href='add_new_transaction.php?intallment_id=$intallment_id&id=$id' $en_action>PayNow</a>";
+            }
+
+            $fee_added = $sum_fee;
+            $fee_unpaid = $sum_fee_unpaid;
+            $fee_paid = $sum_fee_paid;
+            $fee_description = $description;
+
+
+            $due_date_real_array = explode("-", $due_date_real);
+            $due_date_real = $due_date_real_array[2] . "-" . $due_date_real_array[0] . "-" . $due_date_real_array[1];
+            if ($payment_date == null) {
+                $payment_date = $due_date_real;
+            }
+
+            $installmentInfo .= "<tr id='idInstallment_" . $i . "_" . $loan_create_id . "' ".$string_red_rejected.">
+            <td>" . $i . "</td>
+            <td>" . $due_date_real . "</td>
+            <td><input type='date' style='width:100%;height:100%' value='" . $payment_date . "' onchange=recalculate_installments_date(event,this,'" . $i . "')></td>
+            <td>" . $days_from_last_payment . "</td>
+            <td>" . number_format($per_diem,   2, ".", ",") . "</td>
+            <td><input type='text' style='width:100%;height:100%' value='" . number_format($loan_payment_amount,   2, ".", ",") . "' onchange=recalculate_installments_payment(event,this,'" . $i . "')></td>
+            <td>" . number_format($interest,   2, ".", ",") . "</td>
+            <td>" . number_format($principal,   2, ".", ",") . "</td>
+            <td>" . number_format($balance,   2, ".", ",") . "</td>
+            <td>" . $installment_status . "</td>
+            <td>" . $fee_added . "</td>
+            <td>" . $fee_paid . "</td>
+            <td>" . $fee_unpaid . "</td>
+            <td>" . $fee_description . "</td>
+            </tr>";
+
+            $query_install = "INSERT INTO `tbl_commercial_loan_installmets_calculated` (`number_of_payment`, `loan_create_id`, `due_date`, `payment_date`, `days`, `per_diem`, `payment_amount`, `interest`, `principal`, `balance`, `status`)
+            VALUES ('$i', '$loan_create_id', '$due_date_real', '$payment_date','$days_from_last_payment', '$per_diem', '$loan_payment_amount', '$interest', '$principal', '$balance', '$status')";
+            $result_install = mysqli_query($con, $query_install);
+            $i++;
+        }
+        $total_balance = $balance;
+
+
+    }
+    $add_to_interest = 0;
+    $status="0";
+    $installment_status = "Unpaid";
+    $query_all_installments = mysqli_query($con, "SELECT * from `tbl_commercial_loan_installments` where `loan_create_id` = $loan_create_id order by id asc");
+
+    for ($i = 1; $i <= (int)$total_payments and !$transactions; $i++) {
+
+       
+        if ($i == 1) {
+            $balance = $amount_loan;
+            #$open_date = date_create(date("Y-m-d", strtotime($creation_date)));
+            $previous_payment_date = $creation_date;
+            $previous_due_date = $creation_date;
+        }
+
+        $due_date_real = strtotime("+" . $num_of_days . " days", strtotime($previous_due_date));
+        $due_date_real = date("Y-m-d", $due_date_real);
+
+        if (isset($_POST["payment_date_updated"]) and $_POST["payment_date_updated"] == "" and $number_payment != null && $number_payment == $i) {
+            $installmentInfo .= "<tr id='idInstallment_" . $i . "_" . $loan_create_id . "'>
+            <td>" . $i . "</td>
+            <td>" . $due_date_real . "</td>
+            <td><input type='date' style='width:100%;height:100%' value='" . $_POST["payment_date_updated"] . "' onchange=recalculate_installments_date(event,this,'" . $i . "')></td>
+            <td>0</td>
+            <td>" . number_format(0,   2, ".", ",") . "</td>
+            <td><input type='text' style='width:100%;height:100%' value='" . number_format(0,   2, ".", ",") . "' onchange=recalculate_installments_payment(event,this,'" . $i . "')></td>
+            <td>" . number_format(0,   2, ".", ",") . "</td>
+            <td>" . number_format(0,   2, ".", ",") . "</td>
+            <td>" . number_format(0,   2, ".", ",") . "</td>
+            <td>" . $installment_status . "</td>
+            </tr>";
+            $action_query = "UPDATE `tbl_commercial_loan_installmets_calculated` SET `due_date`= '$due_date_real', `payment_date` = null, `days` = '0', `per_diem` = '0', `payment_amount` = '0', `interest` = '0', `principal` = '0', `balance` = '0' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
+            mysqli_query($con, $action_query);
+            $previous_due_date = $due_date_real;
+            continue;
+        }
+
+        $loan_payment_date = null;
+        $loan_payment_amount = $payment;
+        $result = mysqli_query($con, "select * from tbl_commercial_loan_installmets_calculated where loan_create_id='$loan_create_id' and number_of_payment='$i'");
+        while ($row = mysqli_fetch_array($result)) {
+            $loan_payment_date = $row['payment_date'];
+            $loan_due_date = $row['due_date'];
+            $loan_payment_amount = $row['payment_amount'];
+            $loan_balance = $row['balance'];
+        }
+
+        if (!$default and $loan_payment_date == null) {
+            $installmentInfo .= "<tr id='idInstallment_" . $i . "_" . $loan_create_id . "'>
+            <td>" . $i . "</td>
+            <td>" . $due_date_real . "</td>
+            <td><input type='date' style='width:100%;height:100%' value='' onchange=recalculate_installments_date(event,this,'" . $i . "')></td>
+            <td>0</td>
+            <td>" . number_format(0,   2, ".", ",") . "</td>
+            <td><input type='text' style='width:100%;height:100%' value='" . number_format(0,   2, ".", ",") . "' onchange=recalculate_installments_payment(event,this,'" . $i . "')></td>
+            <td>" . number_format(0,   2, ".", ",") . "</td>
+            <td>" . number_format(0,   2, ".", ",") . "</td>
+            <td>" . number_format(0,   2, ".", ",") . "</td>
+            <td>" . $installment_status. "</td>
+            </tr>";
+            $action_query = "UPDATE `tbl_commercial_loan_installmets_calculated` SET `due_date`= '$due_date_real', `payment_date` = null, `days` = '0', `per_diem` = '0', `payment_amount` = '0', `interest` = '0', `principal` = '0', `balance` = '0' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
+            mysqli_query($con, $action_query);
+            $previous_due_date = $due_date_real;
+            continue;
+        }
+
+        if ($number_payment != null && $number_payment == $i) {
+            $loan_payment_date  = isset($_POST["payment_date_updated"]) ? $_POST["payment_date_updated"] : $loan_payment_date;
+            $loan_payment_amount = isset($_POST["payment_amount"]) ? $_POST["payment_amount"] : $loan_payment_amount;
+        }
+
+        if ((isset($_POST["payment_date_updated"]) or isset($_POST["payment_amount"])) and $loan_balance == 0) {
+            $loan_payment_amount = $payment;
+        }
+
+        if ($i == (int)$total_payments and $balance > 0){
+            $loan_payment_amount =$payoff - $total_payment;
+        }
+       
+        $due_date = $loan_payment_date;
+
+
+        if ($default) {
+            $due_date = strtotime("+" . $num_of_days . " days", strtotime($previous_due_date));
+            $due_date = date("Y-m-d", $due_date);
+        }
+
+        $payment_date = $due_date;
+
+
+        $days_from_last_payment = date_diff(date_create(date("Y-m-d", strtotime($previous_payment_date))), date_create($payment_date))->format('%r%a');
+
+        $per_diem = $balance * $apr / 36500;
+
+        $interest = $days_from_last_payment * $per_diem + $add_to_interest;
+
+        $principal = $loan_payment_amount - $interest;
+
+        $add_to_interest = 0;
+        if ($principal < 0) {
+            $add_to_interest = abs($principal);
+            $principal = 0;
+        }
+
+
+
+        $balance = $balance - $principal;
+
+        if ($balance < 0) {
+            $loan_payment_amount = $loan_payment_amount + $balance;
+            $principal = $loan_payment_amount - $interest;
+            $balance = 0;
+        }
+
+
+
+
+
+
+        $installmentInfo .= "<tr id='idInstallment_" . $i . "_" . $loan_create_id . "'>
+        <td>" . $i . "</td>
+        <td>" . $due_date_real . "</td>
+        <td><input type='date' style='width:100%;height:100%' value='" . $payment_date . "' onchange=recalculate_installments_date(event,this,'" . $i . "')></td>
+        <td>" . $days_from_last_payment . "</td>
+        <td>" . number_format($per_diem,   2, ".", ",") . "</td>
+        <td><input type='text' style='width:100%;height:100%' value='" . number_format($loan_payment_amount,   2, ".", ",") . "' onchange=recalculate_installments_payment(event,this,'" . $i . "')></td>
+        <td>" . number_format($interest,   2, ".", ",") . "</td>
+        <td>" . number_format($principal,   2, ".", ",") . "</td>
+        <td>" . number_format($balance,   2, ".", ",") . "</td>
+        <td>" . $installment_status . "</td>
+        </tr>";
+        $total_payment += $loan_payment_amount;
+
+        $total_interest += $interest;
+        $total_principal += $principal;
+
+        if ($default) {
+            $query_install = "INSERT INTO `tbl_commercial_loan_installmets_calculated` (`number_of_payment`, `loan_create_id`, `due_date`, `payment_date`, `days`, `per_diem`, `payment_amount`, `interest`, `principal`, `balance`)
+            VALUES ('$i', '$loan_create_id', '$due_date_real', '$payment_date','$days_from_last_payment', '$per_diem', '$loan_payment_amount', '$interest', '$principal', '$balance')";
+            $result_install = mysqli_query($con, $query_install);
+        }
+
+        if ($number_payment != -1) {
+            $action_query = "UPDATE `tbl_commercial_loan_installmets_calculated` SET `due_date`= '$due_date_real', `payment_date` = '$payment_date', `days` = '$days_from_last_payment', `per_diem` = '$per_diem', `payment_amount` = '$loan_payment_amount', `interest` = '$interest', `principal` = '$principal', `balance` = '$balance' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
+            mysqli_query($con, $action_query);
+        }
+
+        $previous_balance =  $balance;
+        $total_balance = $balance;
+        $previous_due_date = $due_date_real;
+        $previous_payment_date = $payment_date;
+    }
+
+    $installmentInfo .= "<tr>
+	 	      
+    <td colspan='5'>Total</td>
+    <td>$" . number_format($total_payment,   2, ".", ",") . "</td>
+    <td>$" . number_format($total_interest,   2, ".", ",") . "</td>
+    <td>$" . number_format($total_principal,   2, ".", ",") . "</td>
+    <td>$" . number_format($total_balance,   2, ".", ",") . "</td>
+    
+    </tr>";
+
+    $installmentInfo .= "</tbody>
+    </table> ";
+
+    $articles[] = array(
+        'installmentInfo'         =>  (string)$installmentInfo,
+    );
+    echo json_encode($articles);
+    // $paid_date = $installment['paid_date'];
+    // $status = $installment['status'];
+    // $payment_date = $installment['payment_date'];
+    // $payment =  $installment['payment'];
+    // $intallment_id = $installment['id'];
+
+    // $payment_date_array = explode("-", $payment_date);
+    // $payment_date = $payment_date_array[2] . "-" . $payment_date_array[0] . "-" . $payment_date_array[1];
+
+    // $date_due_date = date_create(date("Y-m-d", strtotime($payment_date)));
+    // #$previous_payment_date = $date_due_date;
+
+    // $balance = $previous_balance;
+
+    // if($index_installment == 1){
+    //     $balance = $amount_loan ;
+    //     $open_date = date_create(date("Y-m-d", strtotime($creation_date)));
+    //     $previous_payment_date = $open_date;
+    // }
+
+    // if ($paid_date != null){
+    //     $date_due_date  = date_create(date("Y-m-d",strtotime($paid_date)));
+    // }
+
+    // $days_from_last_payment = date_diff( $previous_payment_date, $date_due_date )->format('%r%a');
+
+    // $per_diem = round($balance * $apr / 36500, 2);
+    // $interest = round($days_from_last_payment * $per_diem,2);
+    // $principal = $payment - $interest;
+    // $balance = $balance - $principal;
+
+    // $previous_balance =  $balance;
+
+    // $previous_payment_date = $date_due_date;
+    // mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `interest` = '$interest', `principal`= $principal, `balance`= '$balance' where id ='$intallment_id'");
+}
+
+
+
+
+
+
+    // $previous_payment_date = null;
+    // $previous_balance =  null;
+    
+    // //$apr
+    // $query_all_installments = mysqli_query($con, "SELECT * from `tbl_commercial_loan_installments` where `loan_create_id` = $loan_create_id order by id asc");
+    // $index_installment = 1;
+    // while ($installment = mysqli_fetch_array($query_all_installments)){
+    //     $paid_date = $installment['paid_date'];
+    //     $status = $installment['status'];
+    //     $payment_date = $installment['payment_date'];
+    //     $payment =  $installment['payment'];
+    //     $intallment_id = $installment['id'];
+
+    //     $payment_date_array = explode("-", $payment_date);
+    //     $payment_date = $payment_date_array[2] . "-" . $payment_date_array[0] . "-" . $payment_date_array[1];
+
+    //     $date_due_date = date_create(date("Y-m-d", strtotime($payment_date)));
+    //     #$previous_payment_date = $date_due_date;
+
+    //     $balance = $previous_balance;
+
+    //     if($index_installment == 1){
+    //         $balance = $amount_loan ;
+    //         $open_date = date_create(date("Y-m-d", strtotime($creation_date)));
+    //         $previous_payment_date = $open_date;
+    //     }
+        
+    //     if ($paid_date != null){
+    //         $date_due_date  = date_create(date("Y-m-d",strtotime($paid_date)));
+    //     }
+
+    //     $days_from_last_payment = date_diff( $previous_payment_date, $date_due_date )->format('%r%a');
+
+    //     $per_diem = round($balance * $apr / 36500, 2);
+    //     $interest = round($days_from_last_payment * $per_diem,2);
+    //     $principal = $payment - $interest;
+    //     $balance = $balance - $principal;
+
+    //     $previous_balance =  $balance;
+        
+    //     $previous_payment_date = $date_due_date;
+    //     mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `interest` = '$interest', `principal`= $principal, `balance`= '$balance' where id ='$intallment_id'");
+    //     $index_installment++;
+    // }

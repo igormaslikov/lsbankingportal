@@ -28,6 +28,7 @@ $ssn=$_GET['cu_ssn'];
 $next_pay_date=$_GET['next_pay_date'];
 $loan_amount=$_GET['loan_amount'];
 $state=$_GET['state'];
+$loan_type=$_GET['loan_type'];
 //echo "<br><br><br><br><br><br><br><br><br><br>Name Is: $name_id";
 ?>
 
@@ -83,9 +84,21 @@ if ($result_count_loans=mysqli_query($con,$sql_count_loans))
 
 <div align="center">
 
-<a href="add_new_loan.php?id=<?php echo $cu_id ;?>&loan_amount=<?php echo $loan_amount; ?>&name=<?php echo $first_name;?>&ssn=<?php echo $ssn; ?>&loan=<?php echo "Payday Loans"; ?>&next_pay_date=<?php echo "$next_pay_date"; ?>&loan_amount=<?php echo "$loan_amount"; ?>&state=<?php echo $state;?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%); 
+<?php 
+  if ($loan_type == "payday"){
+   ?> 
+    <a href="add_new_loan.php?id=<?php echo $cu_id ;?>&loan_amount=<?php echo $loan_amount; ?>&name=<?php echo $first_name;?>&ssn=<?php echo $ssn; ?>&loan=<?php echo "Payday Loans"; ?>&next_pay_date=<?php echo "$next_pay_date"; ?>&loan_amount=<?php echo "$loan_amount"; ?>&state=<?php echo $state;?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%); 
     color: #fff;background-color: #2a8206;border-color: #112f01;height: 100px; width:14%;"><b style="text-align: center;line-height: 85px;">Create a Payday Loan</b></button> </a>
-  
+  <?php
+  }
+  if ($loan_type == "commercial"){
+    ?>
+    <a href="add_commercial_loan.php?id=<?php echo $cu_id ;?>&loan_amount=<?php echo $loan_amount; ?>&name=<?php echo $first_name;?>&ssn=<?php echo $ssn; ?>&loan=<?php echo "Commercial Loan"; ?>&next_pay_date=<?php echo "$next_pay_date"; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%); 
+    color: #fff;background-color: #2a8206;border-color: #112f01;height: 100px; width:15%;"><b style="text-align: center;line-height: 85px;">Create a Commercial Loan</b></button> </a>
+  <?php
+  }
+  ?>
+
   
   <!-- <a href="add_commercial_loan.php?id=<?php echo $cu_id ;?>&loan_amount=<?php echo $loan_amount; ?>&name=<?php echo $first_name;?>&ssn=<?php echo $ssn; ?>&loan=<?php echo "Commercial Loan"; ?>&next_pay_date=<?php echo "$next_pay_date"; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%); 
     color: #fff;background-color: #2a8206;border-color: #112f01;height: 100px; width:15%;"><b style="text-align: center;line-height: 85px;">Create a Commercial Loan</b></button> </a>

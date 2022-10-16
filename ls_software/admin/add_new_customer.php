@@ -89,6 +89,7 @@ $acc_number = $_POST['acc_number'];
 $application_status=$_POST['app_status'];
 $source_of_lead=$_POST['source_of_lead'];
 $decline_reason=$_POST['decline_reason'];
+$application_date=$_POST['application_date'];
 
 $application_notes=$_POST['notes'];
 $to_date_filter = date('Y-m-d');
@@ -294,7 +295,7 @@ admin_leads_email_notification($subject_data,$message_data);
           
           
            
-$query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_number,address,city,state,zip_code,date_of_birth,ssn,created_by,creation_date,user_key,application_status,website,created_time_,source_of_lead,declined_reason,loan_type)  VALUES ('$first_name','$last_name','$email','$phone_number','$address','$city','$state','$zip','$dob','$ssn','$u_id','$date','$user_key','New Application','By Office','$time_created','$source_of_lead','$decline_reason','$loan_type')";
+$query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_number,address,city,state,zip_code,date_of_birth,ssn,created_by,creation_date,user_key,application_status,website,created_time_,source_of_lead,declined_reason,loan_type, application_date)  VALUES ('$first_name','$last_name','$email','$phone_number','$address','$city','$state','$zip','$dob','$ssn','$u_id','$date','$user_key','New Application','By Office','$time_created','$source_of_lead','$decline_reason','$loan_type','$application_date')";
         $result = mysqli_query($con, $query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
@@ -643,6 +644,10 @@ window.location.href = 'view_all_customer_main.php';
 </select>
     </div>
 
+    <div class="col-lg-6">
+      <label for="usr">Application Date*</label>
+ <input type="date" name="application_date" class="form-control" id="usr" required>
+    </div>
     </div>
 
 <div class="row">

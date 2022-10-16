@@ -1212,11 +1212,11 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
 
 
 
-                <a href="all_loans_bridge.php?fnd_id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&cu_ssn=<?php echo $ssn; ?>&next_pay_date=<?php echo $next_pay_date; ?>&loan_amount=<?php echo $loan_amount; ?>&state=<?php echo $statee; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%); 
+                <a href="all_loans_bridge.php?fnd_id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&cu_ssn=<?php echo $ssn; ?>&next_pay_date=<?php echo $next_pay_date; ?>&loan_amount=<?php echo $loan_amount; ?>&state=<?php echo $statee; ?>&loan_type=<?php echo $loan_type; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%); 
     color: #fff;
     background-color: #2a8206;
     border-color: #112f01;height: 35px; width:14%">Create a Loan</button> </a>
-                <a href="sms_decline_application.php?id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&l_name=<?php echo $last_name; ?>&phone=<?php echo $customer_phone; ?>&lang=<?php echo $lang; ?>" <button name="newloan" type="" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#e60000 0,#ff0000 100%); width:13%;
+                <a href="sms_decline_application.php?id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&l_name=<?php echo $last_name; ?>&phone=<?php echo $customer_phone; ?>&lang=<?php echo $lang; ?>&loan_type=<?php echo $loan_type; ?>" <button name="newloan" type="" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#e60000 0,#ff0000 100%); width:13%;
     color: #fff;
     background-color: #ff1e1e;
     border-color: #ad0404;height: 35px;">Declined SMS</button> </a>
