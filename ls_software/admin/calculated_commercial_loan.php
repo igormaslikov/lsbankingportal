@@ -26,7 +26,7 @@ $fnd_idd = $_POST['fnd_id'];
 $source = $_POST['source'];
 $loan_create_id = $_POST['loan_id'];
 $principal = $_POST['principal'];
-$loan_interest = $_POST['interest'];
+#$loan_interest = $_POST['interest'];
 // $years=$_GET['years'];
 
 $late_fee = $_POST['late_fee'];
@@ -38,6 +38,7 @@ $payment_date = $_POST['payment_date'];
 $payment_start_date = $_POST['payment_start_date'];
 $state = $_POST['state'];
 $payment = $_POST['payment'];
+$apr = $_POST['apr'];
 
 if ($installment_plan == 'Weekly') {
     $number_of_payments = 52;
@@ -50,27 +51,30 @@ if ($installment_plan == 'Weekly') {
     $num_of_days = date_diff(date_create(date('Y-m-d', strtotime("$contract_date +1 month"))), date_create($contract_date))->format("%a");
 }
 
-$one_payment_interest = (int)$loan_interest / $number_of_payments;
+#$one_payment_interest = (int)$loan_interest / $number_of_payments;
 
-$rate = calc_rate($principal, $total_payments, $payment);
-$strRate = strVal($rate);
+// $rate = calc_rate($principal, $total_payments, $payment);
+// $strRate = strVal($rate);
 
-$rate_per_day = $rate / $num_of_days;
+// $rate_per_day = $rate / $num_of_days;
 $num_days_from_contract = date_diff(date_create($payment_start_date), date_create($contract_date))->format("%a");
 
 $num_late_days = $num_days_from_contract - $num_of_days;
 
-$rate_late_days = $rate_per_day * $num_late_days;
+
+if($apr == ""){
+    $apr =  calc_apr($principal,$total_payments, $payment, $num_days_from_contract ,$num_of_days);
+}
 
 
 
 //echo "<script type='text/javascript'>document.getElementsByName('interest')[0].value = 2</script>";
 //echo $_POST['source'];
 
-list($htmlTble, $last_payment) = print_schedule($principal, $rate, $payment, $rate_late_days);
+list($htmlTble, $last_payment) = print_schedule($principal, $apr, $payment, $num_of_days, $num_late_days);
 $articles[] = array(
     'table'         =>  (string)$htmlTble,
-    'rate'   =>  (string)$rate,
+    'apr'   =>  (string)$apr,
     'last_payment' => (string)$last_payment
 );
 echo json_encode($articles);
@@ -80,7 +84,6 @@ echo json_encode($articles);
 function calc_rate($pv, $payno, $pmt)
 {
     //echo "calc start\n";
-
     // now try and guess the value using the binary chop technique
     $GuessHigh   = (float)100;    // maximum value
     $GuessMiddle = (float)2.5;    // first guess
@@ -121,6 +124,53 @@ function calc_rate($pv, $payno, $pmt)
 } // calc_rate =======================================================================
 
 
+function get_updated_balance($apr,$pv, $payno, $pmt,$first_days_installment, $days_per_installment){
+    $balance = $pv;
+    for ($i=0; $i < $payno; $i++) { 
+        $per_diem = $balance * $apr / 36500;
+        $days = $days_per_installment;
+        if ($i == 0){
+            $days = $first_days_installment;
+        }
+
+        $interest = $per_diem * $days;
+        $principal = $pmt - $interest;
+        $balance = $balance - $principal;
+    }
+    return $balance;
+}
+
+function calc_apr($pv, $payno, $pmt,$first_days_installment, $days_per_installment)
+{
+    //echo "calc start\n";
+    $GuessHigh = (float)1000;
+    $GuessApr= (float)100;
+    $GuessLow = (float)0;
+
+    $balance = 0;
+    do{
+
+        $balance = get_updated_balance($GuessApr, $pv, $payno, $pmt,$first_days_installment, $days_per_installment);
+        
+        if ($balance > 0) {
+            $GuessHigh  = $GuessApr;
+            $GuessApr = $GuessApr + $GuessLow;
+            $GuessApr = $GuessApr / 2;           
+        }
+
+        if ($balance < 0){
+            $GuessLow    = $GuessApr;
+            $GuessApr = $GuessApr + $GuessHigh;
+            $GuessApr = $GuessApr / 2; 
+        }
+
+        $balance = number_format($balance, 9, ".", ""); 
+
+    }while ($balance != 0);
+
+    return $GuessApr;
+} // calc_rate =======================================================================
+
 function calc_payment($pv, $payno, $int, $accuracy)
 {
     // now do the calculation using this formula:
@@ -142,7 +192,7 @@ function calc_payment($pv, $payno, $int, $accuracy)
 } // calc_payment ====================================================================
 
 
-function print_schedule($balance, $rate, $payment, $rate_late_days)
+function print_schedule($balance, $apr, $payment, $num_of_days, $num_late_days)
 {
     include 'dbconfig.php';
     $loan_create_id = $_POST['loan_id'];
@@ -278,7 +328,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     $varTable .= '<colgroup align="right" width="115">';
     $varTable .= '<colgroup align="right" width="115">';
     $varTable .= '<colgroup align="right" width="115">';
-    $varTable .= '<tr style="background-color: #F5E09E;"><th>#</th><th>DATE</th><th>PAYMENT</th><th>INTEREST</th><th>PRINCIPAL</th><th>BALANCE</th><th>INTEREST PER PAYMENT %</th></tr>';
+    $varTable .= '<tr style="background-color: #F5E09E;"><th>#</th><th>DATE</th><th>PER DIEM</th><th>PAYMENT</th><th>INTEREST</th><th>PRINCIPAL</th><th>BALANCE</th></tr>';
 
 
     $payment_date_weekly = $payment_date;
@@ -289,24 +339,37 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     do {
         $count++;
 
+        $per_diem = $balance * $apr / 36500;
+        $days = $num_of_days;
+        if ($count == 1){
+            $days = $num_of_days + $num_late_days;
+        }
 
-
+        $interest = $per_diem * $days;
+        // $principal = $pmt - $interest;
+        // $balance = $balance - $principal;
+       
 
         // calculate interest on outstanding balance
-        $interest = $balance * $rate / 100;
-        //$interest = $balance * ($rate+$rate_late_days) / 100;
-        if ($count == 1) {
-            $interest = $balance * ($rate + $rate_late_days) / 100;
-            $rate = $rate + $rate_late_days;
-        }
+        // $interest = $balance * $rate / 100;
+        // $per_diem = $interest / $num_of_days; #TODO set number of days
+        // //$interest = $balance * ($rate+$rate_late_days) / 100;
+        // $apr = 365 * 100 * $per_diem / $balance;
+        // if ($count == 1) {
+        //     $interest = $balance * ($rate + $rate_late_days) / 100;
+        //     $rate = $rate + $rate_late_days;
+        //     $per_diem = $interest / ($num_of_days + $num_late_days);
+        //     $apr = 365 * 100 * $per_diem / $balance;
+        // }
+       
         // what portion of payment applies to principal?
         $principal = $payment - $interest;
 
         // watch out for balance < payment
-        if ($balance < $payment) {
-            $principal = $balance;
-            $payment   = $interest + $principal;
-        } // if
+        // if ($balance < $payment) {
+        //     $principal = $balance;
+        //     $payment   = $interest + $principal;
+        // } // if
 
         $tmp_payment = $payment;
         // if ($count == 1) {
@@ -317,11 +380,11 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
         $balance = $balance - $principal;
 
         // watch for rounding error that leaves a tiny balance
-        if ($balance < 0) {
-            $principal = $principal + $balance;
-            $interest  = $interest - $balance;
-            $balance   = 0;
-        } // if
+        // if ($balance < 0) {
+        //     $principal = $principal + $balance;
+        //     $interest  = $interest - $balance;
+        //     $balance   = 0;
+        // } // if
 
         if ($count > 1) {
             if ($installment_plan == 'Weekly') {
@@ -340,14 +403,15 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
         $payment_date = date("m-d-Y", strtotime($payment_date));
 
+        
         $varTable .= "<tr>";
         $varTable .= "<td>$count</td>";
         $varTable .= "<td>$payment_date</td>";
+        $varTable .= "<td>" . number_format($per_diem,   2, ".", ",") . "</td>";
         $varTable .= "<td>" . number_format($payment,   2, ".", ",") . "</td>";
         $varTable .= "<td>" . number_format($interest,  2, ".", ",") . "</td>";
         $varTable .= "<td>" . number_format($principal, 2, ".", ",") . "</td>";
         $varTable .= "<td>" . number_format($balance,   2, ".", ",") . "</td>";
-        $varTable .= "<td>" . number_format($rate,   9, ".", ",") . "</td>";
         $varTable .= "</tr>";
 
         $payment_p = number_format($payment,   2, ".", ",");
@@ -376,7 +440,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
         $payment_week_day = date("l", strtotime("$payment_date_weekly"));
         //$payment_p = 
-        $query_install1  = "INSERT INTO `tbl_commercial_loan_installments`(`loan_create_id`, `payment`, `interest`, `principal`, `balance`, `payment_date`, `week_day`) VALUES ('$loan_create_id','$payment_p','$interest_p','$principal_p','$balance_p','$payment_date', '$payment_week_day')";
+        $query_install1  = "INSERT INTO `tbl_commercial_loan_installments`(`number_of_payment`,`loan_create_id`, `payment`, `interest`, `principal`, `balance`, `payment_date`,`per_diem`,`days`, `week_day`) VALUES ('$count','$loan_create_id','$payment_p','$interest','$principal','$balance','$payment_date','$per_diem','$num_of_days','$payment_week_day')";
         $result_install1 = mysqli_query($con, $query_install1);
         if ($result_install1) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
@@ -396,12 +460,13 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
         $payment = $tmp_payment;
 
-        if ($count == 1) {
-            $rate = calc_rate($balance, $total_payments - 1, $payment_fix);
-        }
+        // if ($count == 1) {
+        //     $rate = calc_rate($balance, $total_payments - 1, $payment_fix);
+        // }
     } while ($balance_p > 0);
 
     $varTable .= "<tr>";
+    $varTable .= "<td>&nbsp;</td>";
     $varTable .= "<td>&nbsp;</td>";
     $varTable .= "<td>&nbsp;</td>";
     $varTable .= "<td><b>" . number_format($totPayment,   2, ".", ",") . "</b></td>";
@@ -429,7 +494,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     
 
     
-    $varTable .= "<a id='comInitSetupHref' href = 'commercial_initial_setup.php?fnd_id=$fnd_idd&interest=$totInterest&daily_interest=$rate&bg_id=$source&secondary_portfolio=$secondary_portfolio&loan_create_id=$loan_create_id$prev_loan_id&principal_amount=$principal_amount&loan_interest=$loan_interest&years=$years&late_fee=$late_fee&contract_fee=$origination&installment_plan=$installment_plan&total_payments=$total_payments&contract_date=$contract_date&payment_date=$payment_date&state=$state&in_hand=$in_hand'><button name='' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;'>Create Installment Loan</button></a>";
+    $varTable .= "<a id='comInitSetupHref' href = 'commercial_initial_setup.php?fnd_id=$fnd_idd&interest=$totInterest&anual_pr=$apr&bg_id=$source&secondary_portfolio=$secondary_portfolio&loan_create_id=$loan_create_id$prev_loan_id&principal_amount=$principal_amount&loan_interest=$loan_interest&years=$years&late_fee=$late_fee&contract_fee=$origination&installment_plan=$installment_plan&total_payments=$total_payments&contract_date=$contract_date&payment_date=$payment_date&state=$state&in_hand=$in_hand'><button name='' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;'>Create Installment Loan</button></a>";
 
     $last_payment_date_array = explode("-", $payment_date);
 

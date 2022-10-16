@@ -61,14 +61,14 @@ $style = array(
 
  $html = '
 <h1 style="text-align:center"> <span style="text-decoration:underline">PRIVACY NOTICE</span><br>
-Optima Financial Solutions Inc</h1>
+Pacifica Finance Group</h1>
  
  
  <table style="width: 100%;" border="1">
 <tbody>
 <tr>
 <td style="width: 15.8733%; text-align:center; background-color:black;color:white"><br><br>FACTS<br></td>
-<td style="width: 83.1267%; text-align:center"><br><br>WHAT DOES Optima Financial Solutions Inc DO WITH YOUR PERSONAL INFORMATION?<br></td>
+<td style="width: 83.1267%; text-align:center"><br><br>WHAT DOES Pacifica Finance Group DO WITH YOUR PERSONAL INFORMATION?<br></td>
 </tr>
 <tr>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>WHY ?<br></td>
@@ -88,7 +88,7 @@ can include:<br><br>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>HOW ? <br></td>
 <td style="width: 83.1267%;"><br><br>All financial companies need to share customer’s personal information to run their everyday business.<br>
 In the section below, we list the reasons financial companies can share their customers’ personal information; the
-reasons Optima Financial Solutions Inc chooses to share; and whether you can limit this sharing. 
+reasons Pacifica Finance Group chooses to share; and whether you can limit this sharing. 
 <br><br></td>
 </tr>
 </tbody>
@@ -99,7 +99,7 @@ reasons Optima Financial Solutions Inc chooses to share; and whether you can lim
 <tbody>
 <tr>
 <td style="width: 60%; text-align:left; color:white; background-color:grey "><b>Reason we can share your personal information</b></td>
-<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>Does Optima Financial Solutions Inc
+<td style="width: 20.1019%; text-align:center;background-color:grey; color:white"><b>Does Pacifica Finance Group
 Share?</b></td>
 <td style="width: 20.8981%; text-align:center;background-color:grey; color:white"><b>Can you limit this
 sharing?</b></td>
@@ -147,7 +147,7 @@ information about your creditworthiness<br><br>&nbsp;</td>
 </tr>
 <tr>
 <td style="width: 60%;"><br><b>Questions ? </b> &nbsp;</td>
-<td colspan = "2" style="width: 20.1019%;">Please Call (818) 856-4302</td>
+<td colspan = "2" style="width: 20.1019%;">Please Call (323) 797-5398</td>
 </tr>
 </tbody>
 </table>

@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-$url_logo = "https://ofsca.com/loanportal/signature_commercial_loan/completed/";
+$url_logo = "https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -276,9 +276,9 @@ $style = array(
 $html = '
 <br>
 <div style=";display:inline-block">
-	<img src="images/Money-Line-Logo.JPG" style="height:400%;clear: both" align="left"/>
+	<img src="images/pacifica.jpeg" style="height:400%;clear: both" align="left"/>
 </div>
-<br><span style="text-align:left;width:100%"><b>11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</b></span>
+<br><span style="text-align:left;width:100%"><b>5900 S Eastern Ave Suite 114 Commerce, CA 90040</b></span>
  <br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">' . $f_name . '</span><br>
 &nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">' . $loan_id_bor . '</span><br>
@@ -290,11 +290,11 @@ AUTHORIZACION DE PAGOS RECURRENTES POR ACH
 
 <div style="font-size:8px;">
 <p>
-1. Al firmar a continuación, el titular de la Cuenta  (“<b>usted</b>”) autoriza a Optima Financial Solutions Inc y a sus afiliados  (“<b>nosotros</b>”y “<b>nuestro</b>”) a retirar automáticamente los pagos de su préstamo de su cuenta de depósito terminada en xxxxxx' . $account_number . '(“<b>Cuenta</b>”) del banco ' . $bank_name . '(“<b>Banco</b>”), a través de débitos electrónicos recurrentes por ACH (“<b>Autorización</b>”). Usted nos autoriza a comenzar a hacer débitos de $' . $fitst_payment . ' (“<b>monto a debitar programado</b>”) Cada  ' . $every . '  en las fechas de vencimiento del pago, a partir del  ' . $fitst_payment_date . ', que es la fecha de entrada en vigor de esta Autorizacíon. Estos débitos continuarán hasta que el monto adeudado de su préstamo se pague en su totalidad o hasta que se cancele esta Autorización. Usted también nos autoriza a iniciar débitos o créditos por ACH a su Cuenta, según sea necesario, para corregir transacciones equivocadas.
+1. Al firmar a continuación, el titular de la Cuenta  (“<b>usted</b>”) autoriza a Pacifica Finance Group y a sus afiliados  (“<b>nosotros</b>”y “<b>nuestro</b>”) a retirar automáticamente los pagos de su préstamo de su cuenta de depósito terminada en xxxxxx' . $account_number . '(“<b>Cuenta</b>”) del banco ' . $bank_name . '(“<b>Banco</b>”), a través de débitos electrónicos recurrentes por ACH (“<b>Autorización</b>”). Usted nos autoriza a comenzar a hacer débitos de $' . $fitst_payment . ' (“<b>monto a debitar programado</b>”) Cada  ' . $every . '  en las fechas de vencimiento del pago, a partir del  ' . $fitst_payment_date . ', que es la fecha de entrada en vigor de esta Autorizacíon. Estos débitos continuarán hasta que el monto adeudado de su préstamo se pague en su totalidad o hasta que se cancele esta Autorización. Usted también nos autoriza a iniciar débitos o créditos por ACH a su Cuenta, según sea necesario, para corregir transacciones equivocadas.
 <br/>2. Usted tiene el derecho de recibir una notificación por escrito de parte de nosotros, con 10 días de anticipación, sobre el monto y fecha de cualquier débito que difiera del monto a debitar programado. Sin embargo, si debitamos de su Cuenta cualquier monto entre $1 hasta el monto a debitar programado, usted acepta que no tenemos que enviarle dicha notificación previa por escrito, excepto que la ley así lo exija. No debitaremos de su cuenta un monto superior al monto a debitar programado indicado anteriormente.
 <br/>3. Si cualquier fecha de pago cae en fin de semana o día festivo, el débito será procesado el siguiente día hábil. Si su Banco rechaza cualquier débito porque usted no tiene una cuenta con ese Banco, cancelaremos estos débitos recurrentes. Si su Banco rechaza cualquier débito porque no hay suficiente dinero en su Cuenta, suspenderemos estos débitos recurrentes y daremos de baja su suscripción a los pagos recurrentes hasta que usted haya efectuado todos los pagos atrasados y haya pagado cualquier cargo por pago rechazado u otros cargos debidos según el pagaré. Cuando su Cuenta vuelva a estar al día, volveremos a inscribirlo a los pagos recurrentes por ACH acorde a esta Autorización, excepto que nos indique que no desea volver a inscribirse; en ese caso, cancelaremos los pagos recurrentes por ACH.
 <br/>4. Usted declara que es un firmante autorizado de la Cuenta. Usted acuerda notificarnos de inmediato cualquier cambio en la Cuenta y debe proporcionarnos un aviso con siete (7) días de anticipación sobre cualquier cambio en la Cuenta. Reconoce que las transacciones por ACH de su Cuenta deben cumplir con las leyes de los Estados Unidos.
-<br/>5. <b>Cómo cancelar</b>. Usted puede cancelar esta Autorización llamándonos a (818) 856-4302 durante nuestro horario comercial. Debe notificarnos sobre la cancelación por lo menos <b>3 días</b> antes de la fecha de vencimiento del pago. También puede cancelar estos pagos recurrentes por ACH siguiendo los procedimientos de su Banco para detener pagos, pero su Banco puede cobrarle un cargo. Aun si usted los cancela, debe seguir realizando los pagos del préstamo a tiempo.
+<br/>5. <b>Cómo cancelar</b>. Usted puede cancelar esta Autorización llamándonos a (323) 797-5398 durante nuestro horario comercial. Debe notificarnos sobre la cancelación por lo menos <b>3 días</b> antes de la fecha de vencimiento del pago. También puede cancelar estos pagos recurrentes por ACH siguiendo los procedimientos de su Banco para detener pagos, pero su Banco puede cobrarle un cargo. Aun si usted los cancela, debe seguir realizando los pagos del préstamo a tiempo.
 </p>
 
 

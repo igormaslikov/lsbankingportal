@@ -33,17 +33,20 @@ $(document).ready(function () {
         return $("<tr/>")
           .append("<td><b>Total:</b></td>")
           .append("<td></td>")
-          .append("<td><b>$" + summary(2, api, false) + "</b></td>")
-          .append("<td><b>$" + summary(3, api, false) + "</b></td>")
-          .append("<td><b>$" + summary(4, api, false) + "</b></td>")
-          .append("<td><b>$" + summary(4, api, true) + "</b></td>")
+          .append("<td></td>")
+          .append("<td></td>")
+          .append("<td></td>")
+          .append("<td><b>$" + summary(5, api, false) + "</b></td>")
           .append("<td><b>$" + summary(6, api, false) + "</b></td>")
           .append("<td><b>$" + summary(7, api, false) + "</b></td>")
-          .append("<td><b>$" + summary(8, api, false) + "</b></td>")
+          .append("<td><b>$" + summary(7, api, true) + "</b></td>")
+          .append("<td></td>")
+          .append("<td></td>")
+          .append("<td><b>$" + summary(11, api, false) + "</b></td>")
+          .append("<td></td>")
           .append("<td></td>")
           // .append("<td><b>$" + summary(10, api, false) + "</b></td>")
           // .append("<td></td>")
-          .append("<td colspan=6></td>");
       },
       endRender: function (rows, group) {
         var api = $("#example").dataTable().api();
@@ -70,17 +73,20 @@ $(document).ready(function () {
 
         return $("<tr/>")
           .append("<td colspan=2><b>Page summary:</b></td>")
-          .append("<td><b>$" + summary(2, api, false) + "</b></td>")
-          .append("<td><b>$" + summary(3, api, false) + "</b></td>")
-          .append("<td><b>$" + summary(4, api, false) + "</b></td>")
           .append("<td></td>")
+          .append("<td></td>")
+          .append("<td></td>")
+          .append("<td><b>$" + summary(5, api, false) + "</b></td>")
           .append("<td><b>$" + summary(6, api, false) + "</b></td>")
           .append("<td><b>$" + summary(7, api, false) + "</b></td>")
-          .append("<td><b>$" + summary(8, api, false) + "</b></td>")
+          .append("<td></td>")
+          .append("<td></td>")
+          .append("<td></td>")
+          .append("<td><b>$" + summary(11, api, false) + "</b></td>")
+          .append("<td></td>")
           .append("<td></td>")
           // .append("<td><b>$" + summary(10, api, false) + "</b></td>")
           // .append("<td></td>")
-          .append("<td colspan=6></td>");
       },
       dataSrc: 1,
     },

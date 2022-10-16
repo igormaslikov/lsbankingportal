@@ -1,6 +1,6 @@
 <?php
 $id=$_GET['id'];
-$url_logo="https://ofsca.com/loanportal/signature_commercial_loan/completed/";
+$url_logo="https://pacificafinancegroup.com/loanportal/signature_commercial_loan/completed/";
 
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -255,9 +255,9 @@ $style = array(
  $html = '
  <br>
 <div style="display:inline-block">
-	<img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/>
+	<img src="images/pacifica.jpeg" style="height:400%" align="left"/>
 </div>
-<br><span style="text-align:left;width:100%"><b>11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</b></span>
+<br><span style="text-align:left;width:100%"><b>5900 S Eastern Ave Suite 114 Commerce, CA 90040</b></span>
  <br><br><br>
 Borrower Name/Nombre del Deudor: <span style="text-decoration:underline">'.$f_name.'</span><br><br>
 &nbsp;&nbsp;Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_id_bor.'</span><br><br>

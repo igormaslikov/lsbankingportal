@@ -403,10 +403,10 @@ if ($u_access_id == '0') {
                                             } ?>>Title Loans</option>
                 <option value="Personal Loans" <?php if ($loan_name == 'Personal Loans') {
                                                   echo 'selected';
-                                                } ?>>Personal Loans</option>
+                                                } ?>>Personal Loans</option> -->
                 <option value="Commercial Loans" <?php if ($loan_name == 'Commercial Loans') {
                                                     echo 'selected';
-                                                  } ?>>Commercial Loans</option> -->
+                                                  } ?>>Commercial Loans</option>
 
               </select>
             </div>

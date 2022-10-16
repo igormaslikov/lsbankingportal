@@ -174,13 +174,12 @@ $fnd_idd = $_GET['id'];
             <label for="usr">Secondary Portfolio</label>
             <select name="p_portfolio" id="p_portfolio" class="form-control" value="">
               <option value="None">None</option>
-              <option value="Optima" >Optima</option>
-              <option value="Kenneth">Kenneth</option>
+              <option value="Pacifica Finance Group" >Pacifica Finance Group</option>
             </select>
           </div>
           <div class="col-lg-6">
-            <label for="usr"> Loan ID</label>
-            <input type="text" name="loan_id" value="<?php echo  $loan_create_id; ?>" class="form-control" readonly />
+            <label for="usr"> Loan ID <i id="error_message_id"></i></label>
+            <input type="text" name="loan_id" value="<?php echo  $loan_create_id; ?>" onchange="validate_loan_id(event,this)" class="form-control" required/>
             <input type="text" name="previous_loan_id" value="<?php echo  $previous_loan_create_id; ?>" style="display:none" />
           </div>
 
@@ -226,7 +225,6 @@ $fnd_idd = $_GET['id'];
             <select name="state" id="state" class="form-control" value="">
               <option value=""></option>
               <option value="CA">California</option>
-              <option value="NV">Naveda</option>
             </select>
           </div>
 
@@ -252,8 +250,8 @@ $fnd_idd = $_GET['id'];
           </div>
 
           <div class="col-lg-6">
-            <label for="usr">Interest per payment %</label>
-            <input type="text" name="interest" class="form-control" id="usr" placeholder="" value="" readonly>
+            <label for="usr">APR %</label>
+            <input type="text" name="apr" class="form-control" id="apr" placeholder="" value="" >
           </div>
 
           <div class="col-lg-6">
@@ -333,11 +331,53 @@ $fnd_idd = $_GET['id'];
   }
 
 
+
   function recalculateDirectlyLoan(e, elem, balance) {
     directly_loan = document.getElementById("directlyLoanId");
     directly_loan.innerText = balance - elem.value;
     document.getElementById("comInitSetupHref").href = document.getElementById("comInitSetupHref").href.replace("in_hand=" + elem.oldvalue, "in_hand=" + elem.value);
     e.preventDefault();
+  }
+
+  function validate_loan_id(e,elem){
+    let id = elem.value;
+    var url = 'loan-commercial/functions_commercial_loan.php';
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'func': "ValidateLoanId",
+            'id': id
+        },
+        async: true,
+        success: function(data) {
+            //var tableCard = data[0].cardTable;
+            var valid = data[0].valid;
+            var message = ": " + id + " is valid";
+            var color = "green";
+            if (!valid){
+              elem.value = "";
+              message = ": " + id + " exists in DB";
+              color = "red";
+            }
+            document.getElementById("error_message_id").style.color = color;
+            document.getElementById("error_message_id").value = message;
+            document.getElementById("error_message_id").innerHTML = message;
+            document.getElementById("error_message_id").innerText = message;
+            event.preventDefault();
+
+        },
+        error: function(err) {
+            if (err.responseText == "") {
+                alert(err.responseText);
+            } else {
+                alert(err.responseText);
+            }
+            window.location.reload();
+        }
+    });
   }
 
   function calculate(e) {
@@ -347,7 +387,7 @@ $fnd_idd = $_GET['id'];
     var source = formData.get('source');
     let loan_create_id = formData.get('loan_id');
     let principal_amount = formData.get('principal');
-    let interest = formData.get('interest');
+    //let interest = formData.get('interest');
     let years = formData.get('years');
     let late_fee = formData.get('late_fee');
     let installment_plan = formData.get('installment_plan');
@@ -379,10 +419,10 @@ $fnd_idd = $_GET['id'];
       type: 'POST',
       success: function(response) {
         var data = $.parseJSON(response);
-        let rate = data[0].rate;
+        let apr = data[0].apr;
         let table = String(data[0].table);
         let last_payment = data[0].last_payment;
-        document.getElementsByName("interest")[0].value = rate;
+        document.getElementsByName("apr")[0].value = apr;
         document.getElementsByName("payment_date")[0].value = last_payment;
         $("#tablePayments")[0].innerHTML = table;
 

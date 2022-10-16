@@ -118,7 +118,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="../../website/css/slick-loader.min.css" />
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
     <style>
@@ -175,7 +175,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             <p>Money Amount: <b style="color:red"> <?php echo $val . $amount_loan; ?></b></p>
           </div>
           <div class="col-lg-4">
-            <p>Loan ID:<b style="color:red"> <?php echo $loan_create_id; ?> </b></p>
+            <p id="loan_create_id" value="<?php echo $loan_create_id;?>">Loan ID:<b style="color:red" > <?php echo $loan_create_id; ?> </b></p>
           </div>
 
 
@@ -188,14 +188,21 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               <h3>All Installments</h3>
 
             </div>
+            <div class="col-lg-4">
+              <button type="button" onclick="show_installments(event,false, true)">Show current installments</buuton>
 
+            </div>
+            <div class="col-lg-4">
+              <button type="button" onclick="show_installments(event,true, false)">Show installments by contract </buuton>
 
-
-
+            </div>
 
           </div>
           <br>
-          <table class="table table-striped table-bordered">
+          <div id=installmentsTableId>
+
+          </div>
+          <!-- <table class="table table-striped table-bordered">
             <thead>
               <tr style="background-color: #F5E09E;color: white">
                 <th style='width:9%;color:black;'>Loan ID</th>
@@ -272,8 +279,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 $en_action = "";
 
                 $paymefnt_date_array = explode("-", $payment_date);
-                $paymefnt_date = date(strtotime($paymefnt_date_array[2]."-".$paymefnt_date_array[0]."-".$paymefnt_date_array[1]));
-                if($count_row > 1 & (date("Y-m-d",strtotime("now")) < date("Y-m-d",strtotime($paymefnt_date_array[2]."-".$paymefnt_date_array[0]."-".$paymefnt_date_array[1])))){
+                $paymefnt_date = date(strtotime($paymefnt_date_array[2] . "-" . $paymefnt_date_array[0] . "-" . $paymefnt_date_array[1]));
+                if ($count_row > 1 & (date("Y-m-d", strtotime("now")) < date("Y-m-d", strtotime($paymefnt_date_array[2] . "-" . $paymefnt_date_array[0] . "-" . $paymefnt_date_array[1])))) {
                   $en_action = "hidden";
                 }
 
@@ -283,28 +290,25 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                   $string_red_rejected = 'style="color:green;font-weight:bold"';
                   $a = "<a href='add_new_transaction.php?intallment_id=$intallment_id&id=$id' class='disabled'>Paid</a>";
 
-                  if($dpd >= 10 && $paid_late_fee < $late_fee){
+                  if ($dpd >= 10 && $paid_late_fee < $late_fee) {
                     $still_pay_fee = $late_fee - $paid_late_fee;
                     $string_red_rejected = 'style="color:purple;font-weight:bold"';
-                    $a = "<a href='add_new_transaction.php?intallment_id=$intallment_id&id=$id&late_fee=$still_pay_fee'>PayFee</a>";                   
-                  }
-                  else if($chargeback_amount > 0){
+                    $a = "<a href='add_new_transaction.php?intallment_id=$intallment_id&id=$id&late_fee=$still_pay_fee'>PayFee</a>";
+                  } else if ($chargeback_amount > 0) {
                     $string_red_rejected = 'style="color:deeppink;font-weight:bold"';
                   }
-
-                } else if($status == '2'){
+                } else if ($status == '2') {
                   $installment_status = "Settlement";
                   $a = "";
-                }else if($status == '3'){
+                } else if ($status == '3') {
                   $installment_status = "Paid Ref";
                   $string_red_rejected = 'style="color:limegreen;font-weight:bold"';
                   $a = "";
-                }else if($status == '4'){
+                } else if ($status == '4') {
                   $installment_status = "Credit";
                   $string_red_rejected = 'style="color:coral;font-weight:bold"';
                   $a = "";
-                }
-                else {
+                } else {
                   $installment_status = "Unpaid";
                   $a = "<a href='add_new_transaction.php?intallment_id=$intallment_id&id=$id' $en_action>PayNow</a>";
                 }
@@ -317,46 +321,46 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                   $string_red_rejected = 'style="color:black;font-weight:bold"';
                 }
 
-                if($paid_amount >0 & $paid_amount < $payment){
+                if ($paid_amount > 0 & $paid_amount < $payment) {
                   $string_red_rejected = 'style="color:orange;font-weight:bold"';
                 }
 
 
                 echo "<tr " . $string_red_rejected . ">
 	 	      
-              <td>" . $loan_create_id . "</td>
-              <td>$" . $payment . "</td>
-              <td>$" . $interest . "</td>
-              <td>$" . $principal. "</td>
-              <td>$" . $balance . "</td>
-              <td>" . $pay_period . "</td>
-              <td>" . $installment_status . "</td>
-              <td>" . $payment_date . "</td>
-              <td>" .($paid_date != '' ? date('m-d-Y',strtotime($paid_date)) : '') . "</td>
-              <td>" . $paid_amount . "</td>
-              <td>" . $paid_late_fee . "</td>
-              <td>" . $chargeback_amount . "</td>
-              <td>" . $refinanced_amount . "</td>
-              <td>" . $credit_amount . "</td>
+                <td>" . $loan_create_id . "</td>
+                <td>$" . $payment . "</td>
+                <td>$" . number_format($interest,   2, ".", ",") . "</td>
+                <td>$" . number_format($principal,   2, ".", ","). "</td>
+                <td>$" . number_format($balance,   2, ".", ","). "</td>
+                <td>" . $pay_period . "</td>
+                <td>" . $installment_status . "</td>
+                <td>" . $payment_date . "</td>
+                <td>" . ($paid_date != '' ? date('m-d-Y', strtotime($paid_date)) : '') . "</td>
+                <td>" . $paid_amount . "</td>
+                <td>" . $paid_late_fee . "</td>
+                <td>" . $chargeback_amount . "</td>
+                <td>" . $refinanced_amount . "</td>
+                <td>" . $credit_amount . "</td>
 
-              <td>" . $dpd . "</td>
-              <td>" . $a . "</td>
-	 		  
-		   	  </tr>";
+                <td>" . $dpd . "</td>
+                <td>" . $a . "</td>
+              
+                </tr>";
               }
               echo "<tr>
 	 	      
-			  <td>Total</td>
-			  <td>$" . number_format($total_payment,   2, ".", ",") . "</td>
-	 		  <td>$" . number_format($total_interest,   2, ".", ",") . "</td>
-	 		  <td>$" . number_format($total_principal,   2, ".", ",") . "</td>
-	 		  <td>$" . number_format($total_balance,   2, ".", ",") . "</td>
-	 		  
-		   	  </tr>";
+            <td>Total</td>
+            <td>$" . number_format($total_payment,   2, ".", ",") . "</td>
+            <td>$" . number_format($total_interest,   2, ".", ",") . "</td>
+            <td>$" . number_format($total_principal,   2, ".", ",") . "</td>
+            <td>$" . number_format($total_balance,   2, ".", ",") . "</td>
+            
+              </tr>";
               mysqli_close($con);
               ?>
             </tbody>
-          </table>
+          </table> -->
 
         </div>
       </div>
@@ -368,13 +372,121 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    <script src="../../website/js/slick-loader.min.js"></script>
+    
     <!-- Menu Toggle Script -->
     <script>
       $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
       });
+
+      
+    </script>
+    <script>
+      $(document).ready(function(){
+        show_installments(event,false,true);
+      });
+
+      function show_installments(e, default_installment, transactions) {
+        SlickLoader.enable();
+        var url = "functions_commercial_loan.php";
+        $.ajax({
+          url: url,
+          type: "POST",
+          dataType: "json",
+          data: {
+            func: "CalculateInstallmetsPerDiem",
+            loan_create_id: $("#loan_create_id")[0].attributes.value.value,
+            default_installment: default_installment,
+            transactions: transactions
+          },
+          async: true,
+          success: function(data) {
+            //var tableCard = data[0].cardTable;
+            var installmentInfo = data[0].installmentInfo;
+            document.getElementById("installmentsTableId").innerHTML = installmentInfo;
+            document.getElementById("installmentsTableId").innerHTML.reload;
+            SlickLoader.disable(); 
+            // var selected_data = $("#tbl_bank_info tr.success td");
+          },
+          error: function(err) {
+            if (err.responseText == "") {
+              alert(err.responseText);
+            } else {
+              alert(err.responseText);
+            }
+            window.location.reload();
+          },
+        });
+        
+      }
+
+      function recalculate_installments_date(e,elem,number_of_payments){
+        SlickLoader.enable();
+        var url = "functions_commercial_loan.php";
+        $.ajax({
+          url: url,
+          type: "POST",
+          dataType: "json",
+          data: {
+            func: "CalculateInstallmetsPerDiem",
+            loan_create_id: $("#loan_create_id")[0].attributes.value.value,
+            number_payment: number_of_payments,
+            payment_date_updated: elem.value
+          },
+          async: true,
+          success: function(data) {
+            //var tableCard = data[0].cardTable;
+            var installmentInfo = data[0].installmentInfo;
+            document.getElementById("installmentsTableId").innerHTML = installmentInfo;
+            document.getElementById("installmentsTableId").innerHTML.reload;
+            SlickLoader.disable(); 
+            // var selected_data = $("#tbl_bank_info tr.success td");
+          },
+          error: function(err) {
+            if (err.responseText == "") {
+              alert(err.responseText);
+            } else {
+              alert(err.responseText);
+            }
+            window.location.reload();
+          },
+        });  
+      }
+
+      function recalculate_installments_payment(e,elem,number_of_payments){
+        SlickLoader.enable();
+        var url = "functions_commercial_loan.php";
+        $.ajax({
+          url: url,
+          type: "POST",
+          dataType: "json",
+          data: {
+            func: "CalculateInstallmetsPerDiem",
+            loan_create_id: $("#loan_create_id")[0].attributes.value.value,
+            number_payment: number_of_payments,
+            payment_amount: elem.value
+          },
+          async: true,
+          success: function(data) {
+            //var tableCard = data[0].cardTable;
+            var installmentInfo = data[0].installmentInfo;
+            document.getElementById("installmentsTableId").innerHTML = installmentInfo;
+            document.getElementById("installmentsTableId").innerHTML.reload;
+            // var selected_data = $("#tbl_bank_info tr.success td");
+            SlickLoader.disable(); 
+          },
+          error: function(err) {
+            if (err.responseText == "") {
+              alert(err.responseText);
+            } else {
+              alert(err.responseText);
+            }
+            window.location.reload();
+          },
+        }); 
+      }
     </script>
   <?php
 }

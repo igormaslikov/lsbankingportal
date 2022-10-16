@@ -59,14 +59,14 @@ $(document).ready(function () {
         orderable: false,
       },
       {
-        targets: [4],
+        targets: [5],
         data: null,
         // defaultContent:
         //   "<div style='display:flex;justify-content:space-between; align-items:center'><div><i id='editBtn' class='fa fa-pencil-square' style='color:orange; cursor:pointer'></i></div>" +
         //   "<div><i id='removeBtn' class='fa fa-trash' style='color:red;cursor:pointer'></i></div></div>",
         render: function (data, type, full, meta){
             var btnData = "<div style='display:flex;justify-content:space-between; align-items:center'><div><i id='editBtn' class='fa fa-pencil-square' style='color:orange; cursor:pointer'></i></div>";
-            if(data[3] == 0 ){
+            if(data[4] == 0 ){
               btnData += "<div><i id='removeBtn' class='fa fa-trash' style='color:red;cursor:pointer'></i></div></div>";
             }
             return btnData;
@@ -200,6 +200,7 @@ function updateOtherFee(event) {
 
   var otherFeeId = document.getElementById("lblOtherFeeId").value;
   var description = document.getElementById("lblTypeOfDescription").value;
+  var number_installment = document.getElementById("lblNumberInstallment").value;
   var amountFee = document.getElementById("lblAmountFee").value;
   var newOtherFee = document.getElementById("newOtherFee").innerText;
   otherFeeModal.hide();
@@ -215,6 +216,7 @@ function updateOtherFee(event) {
       otherFeeId: otherFeeId,
       description: description,
       amountFee: amountFee,
+      number_installment: number_installment,
       newOtherFee: newOtherFee,
     },
     async: true,
@@ -241,6 +243,7 @@ function editOtherFee(otherFeeId) {
   document.getElementById("lblOtherFeeId").value = "";
   document.getElementById("lblAmountFee").value = "";
   document.getElementById("lblTypeOfDescription").value = "";
+  document.getElementById("lblNumberInstallment").value = "";
   document.getElementById("newOtherFee").innerText = "true";
 
   let otherFee = table_fees.data();
@@ -250,8 +253,9 @@ function editOtherFee(otherFeeId) {
       document.getElementById("type_alert_fee_title").innerText =
         "Edit other fee";
       document.getElementById("lblOtherFeeId").value = otherFee[i][0];
-      document.getElementById("lblAmountFee").value = otherFee[i][2];
-      document.getElementById("lblTypeOfDescription").value = otherFee[i][1];
+      document.getElementById("lblAmountFee").value = otherFee[i][3];
+      document.getElementById("lblTypeOfDescription").value = otherFee[i][2];
+      document.getElementById("lblNumberInstallment").value = otherFee[i][1];
 
       document.getElementById("newOtherFee").innerText = "false";
     }
