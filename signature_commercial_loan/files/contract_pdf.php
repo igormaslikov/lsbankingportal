@@ -1,7 +1,7 @@
 <?php
 $id = $_GET['id'];
 $url_logo = "https://ofsca.com/loanportal/signature_commercial_loan/completed/";
-
+$_SESSION['Optima'] = "true";
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd = $_GET['id'];
