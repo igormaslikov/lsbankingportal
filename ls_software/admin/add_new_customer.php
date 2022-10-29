@@ -96,8 +96,8 @@ $to_date_filter = date('Y-m-d');
 $date_duplicate= date('Y-m-d', strtotime('-7 day'));
 //$hashed_password = password_hash($password, PASSWORD_DEFAULT); 
 
-$business_type_up = $_POST['business_type'];
-$business_create_up = $_POST['business_create'];
+$business_type_update = $_POST['business_type'];
+$business_create_update = $_POST['business_create'];
 $business_name_update = $_POST['business_name'];
 $business_phone_update = $_POST['business_phone'];
 $business_address_update = $_POST['business_address'];
@@ -342,7 +342,7 @@ while ($row_user_id=mysqli_fetch_array($query_userid)){
 
 }
 
-$query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,created_by,creation_date)  VALUES ('$user_id','$employer_name','$work_phone','$net_amount','$direct_deposit','$get_paid','$last_check','$next_check','$u_id','$date')";
+$query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,created_by,creation_date,business_type,business_create)  VALUES ('$user_id','$employer_name','$work_phone','$net_amount','$direct_deposit','$get_paid','$last_check','$next_check','$u_id','$date','$business_type_update', '$business_create_update')";
         $result3 = mysqli_query($con, $query3);
         if ($result3) {
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
