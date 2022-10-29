@@ -722,7 +722,7 @@ function page_14($pdf){
     set_info($pdf,14,69.5,20,10,$every_es);
     set_info($pdf,117,70,15,10,$first_payment_date);
 
-    set_image($pdf,$signed_picg,30,227,-200);
+    set_image($pdf,$signed_pic,30,227,-200);
     set_info($pdf,14,243,60,10,$f_name);
 }
 
