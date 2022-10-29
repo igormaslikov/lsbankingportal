@@ -824,7 +824,7 @@ page_8($pdf);
 page_9($pdf);
 page_10($pdf);
 page_11($pdf);
-page_12($pdf);
+// page_12($pdf);
 page_13($pdf);
 page_14($pdf);
 page_15($pdf);
