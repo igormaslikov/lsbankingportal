@@ -144,6 +144,8 @@ if ($u_access_id == '0') {
       $total_paymentss = $_POST['total_paymentss'];
       $contract_datee = $_POST['contract_datee'];
       $payment_datee = $_POST['payment_datee'];
+      $first_payment = $_POST['first_payment'];
+      $last_payment = $_POST['last_payment'];
       $daily_interest = $_GET['daily_interest'];
       $apr = $_GET['anual_pr'];
       $daily_interest = "";      
@@ -368,7 +370,7 @@ if ($u_access_id == '0') {
       
    
 
-      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`secondary_portfolio`,`previous_amount_loan`, `amount_of_loan`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`)  VALUES ('$fndd_id','$sourcee','$secondary_portfolio','$in_hand','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state')";
+      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`secondary_portfolio`,`previous_amount_loan`, `amount_of_loan`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`,`first_payment`,`last_payment`)  VALUES ('$fndd_id','$sourcee','$secondary_portfolio','$in_hand','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state','$first_payment','$last_payment')";
       $result = mysqli_query($con, $query);
       if ($result) {
          //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
@@ -587,6 +589,8 @@ if ($u_access_id == '0') {
                <input type="text" name="total_paymentss" value="<?php echo $_GET['total_payments'];; ?>" style="display:none;">
                <input type="text" name="contract_datee" value="<?php echo $_GET['contract_date'];; ?>" style="display:none;">
                <input type="text" name="payment_datee" value="<?php echo $_GET['payment_date'];; ?>" style="display:none;">
+               <input type="text" name="first_payment" value="<?php echo $_GET['first_payment'];; ?>" style="display:none;">
+               <input type="text" name="last_payment" value="<?php echo $_GET['last_payment'];; ?>" style="display:none;">
 
 
                <h3>User Information</h3>

@@ -174,7 +174,7 @@ $fnd_idd = $_GET['id'];
             <label for="usr">Secondary Portfolio</label>
             <select name="p_portfolio" id="p_portfolio" class="form-control" value="">
               <option value="None">None</option>
-              <option value="Pacifica Finance Group" >Pacifica Finance Group</option>
+              <option value="Optima Financial Solutions Inc" >Optima Financial Solutions Inc</option>
             </select>
           </div>
           <div class="col-lg-6">
@@ -257,6 +257,17 @@ $fnd_idd = $_GET['id'];
           <div class="col-lg-6">
             <label for="usr">Muturity Date</label>
             <input type="input" name="payment_date" class="form-control" id="usr" placeholder="DD/MM/YYYY" readonly>
+          </div>
+
+          <div class="col-lg-6">
+            <label for="usr">First Payment</label>
+            <input type="text" name="first_payment" class="form-control" id="first_payment" placeholder="" value="" >
+          </div>
+
+
+          <div class="col-lg-6">
+            <label for="usr">Last payment</label>
+            <input type="text" name="last_payment" class="form-control" id="last_payment" placeholder="" value="" >
           </div>
         </div>
 

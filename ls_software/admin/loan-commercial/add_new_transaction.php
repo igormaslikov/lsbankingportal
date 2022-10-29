@@ -387,7 +387,7 @@ if ($u_access_id != '1') {
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS => '{
                     "payment_method": "card",
-                    "Source": "Pacifica Finance Group"
+                    "Source": "Optima Financial Solutions Inc"
                     }',
                 CURLOPT_HTTPHEADER => array(
                     'Content-Type: application/json',
@@ -460,7 +460,7 @@ if ($u_access_id != '1') {
                     "card_number": "' . $cardNumber . '",
                     "card_cvc": "' . $cvv . '",
                     "card_expiration": "' . str_replace("/", "", $expDate) . '",
-                    "Source": "Pacifica Finance Group",
+                    "Source": "Optima Financial Solutions Inc",
                     "PaymentChannel": "web",
                     "convenience_fee": "0",
                     "waive_conv_fee": false,

@@ -503,7 +503,7 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
 
                 <div class="col-lg-4">
                   <label for="usr">Work Address</label>
-                  <input type="text" name="work_address" class="form-control" id="usr" placeholder="" value="<?php echo $address_b; ?>">
+                  <input type="text" name="address_b" class="form-control" id="usr" placeholder="" value="<?php echo $address_b; ?>">
                 </div>
 
                 <div class="col-lg-4">
@@ -1679,6 +1679,10 @@ if (isset($_POST['btn-submit'])) {
   $business_direct_deposit_update = $_POST['business_direct_deposit'];
   $business_get_paid_update = $_POST['business_get_paid'];
   $business_docs_update = $_POST['business_docs'];
+  $address_b = $_POST['address_b'];
+  $city_b = $_POST['city_b'];
+  $state_b = $_POST['state_b'];
+  $zip_b = $_POST['zip_b'];
 
 
   $vehicle_year_update = $_POST['vehicle_year'];
