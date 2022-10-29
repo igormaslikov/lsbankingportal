@@ -1,4 +1,5 @@
 <?php
+$_SESSION['Optima'] = "true";
 $url_logo = "https://ofsca.com/loanportal/signature_commercial_loan/completed";
 include 'dbconnect.php';
 include 'dbconfig.php';
