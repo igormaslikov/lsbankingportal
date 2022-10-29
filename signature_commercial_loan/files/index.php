@@ -1,4 +1,4 @@
-<iframe src="contract.php?id=<?php echo $_GET['id'] ;?>" style="width:100%; height:94%;overflow:hidden"></iframe>
+<iframe src="contract_pdf.php?id=<?php echo $_GET['id'] ;?>" style="width:100%; height:94%;overflow:hidden"></iframe>
 
 
 
