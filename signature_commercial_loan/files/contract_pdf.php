@@ -108,7 +108,7 @@ while ($row2 = mysqli_fetch_array($sql2)) {
   $zip_b = $row2['zip_b'];
 }
 
-$sql_business_query = mysqli_query($con, "select * from tbl_business_info where user_fnd_id= '$id'");
+$sql_business_query = mysqli_query($con, "select * from tbl_business_info where user_fnd_id= '$fnd_id'");
 
 while ($row_business_source = mysqli_fetch_array($sql_business_query)) {
 
