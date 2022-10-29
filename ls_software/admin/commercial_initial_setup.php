@@ -68,7 +68,7 @@ if ($u_access_id == '0') {
 
 
 
-   $azrizona_message = '../../signature_commercial_loan/files/contract.php?id=' . $email_key;
+   $azrizona_message = '../../signature_commercial_loan/files/contract_pdf.php?id=' . $email_key;
    $azrizona_email = 'https://ofsca.com/loanportal/signature_commercial_loan/completed/index.php?id=' . $email_key;
 
 
