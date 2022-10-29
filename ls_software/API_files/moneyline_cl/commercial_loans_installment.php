@@ -52,16 +52,23 @@ else{
 
 $customer_zip=$_GET['zip'];
 
-$emp_name=$_GET['p_emp_name'];
-$emp_name = str_replace("-"," ","$emp_name");
-$emp_phone=$_GET['emp_mobile'];
+$business_name=$_GET['business_name'];
+$business_name = str_replace("-"," ","$business_name");
+$business_phone=$_GET['business_phone'];
 $emp_amount=$_GET['p_net_amount'];
 
 $direct_deposit=$_GET['p_dirct_dep'];
 $business_type=$_GET['business_type'];
 $business_create=$_GET['business_create'];
 $business_address= $_GET['business_address'];
+$business_state = $_GET['business_state'];
+$business_city= $_GET['business_city'];
+$business_zip= $_GET['business_zip'];
 $business_address = str_replace("-"," ","$business_address");
+$business_state = str_replace("-"," ","$business_state");
+$business_city = str_replace("-"," ","$business_city");
+$business_zip = str_replace("-"," ","$business_zip");
+
 
 $business_type = str_replace("-"," ","$business_type");
 $business_create = str_replace("-"," ","$business_create");
@@ -111,7 +118,7 @@ $query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id)  VALUES 
         echo "<h3> Error Inserting Data tbl_loan </h3>";
         } 
         
-        application_notes_update($user_fnd_iddd,$loan_create_id,$user_id,$status,$loan_transaction_id);
+        application_notes($user_fnd_iddd,$loan_create_id,$user_id,$status,$loan_transaction_id);
     
     //********************************* ADMIN EMAIL ******************************************************
 
@@ -136,9 +143,9 @@ $message_data = '
   City: '.$customer_city.' 
   State: '.$customer_state.' 
   Zip: '.$customer_zip.' 
-  Employer Name: '.$emp_name.' 
+  Business Name: '.$business_name.' 
   
-  Employer Phone: '.$emp_phone.' 
+  Business Phone: '.$business_phone.' 
   Net Amount of Salary (in $ s): '.$emp_amount.' 
   Direct Deposit: '.$direct_deposit.' 
   Payment Frequency: '.$emp_payfre.' 
@@ -255,9 +262,9 @@ $message_data = '
   City: '.$customer_city.' 
   State: '.$customer_state.' 
   Zip: '.$customer_zip.' 
-  Employer Name: '.$emp_name.' 
+  Business Name: '.$business_name.' 
   
-  Employer Phone: '.$emp_phone.' 
+  Business Phone: '.$business_phone.' 
   Net Amount of Salary (in $ s): '.$emp_amount.' 
   Direct Deposit: '.$direct_deposit.' 
   Payment Frequency: '.$emp_payfre.' 
@@ -327,6 +334,13 @@ $user_fnd_id=$row_sql_source_fndid['user_fnd_id'];
         //echo "<h3> Error Inserting Data tbl_loan </h3>";
         } 
 
+        $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,business_address,business_city,busines_state,business_zip,monthly_gross_amount,created_at)  VALUES ('$user_fnd_id','$business_name','$business_phone','$business_address','$business_city','$business_state','$business_zip','$emp_amount','$date')";
+        $result_business = mysqli_query($con, $query_business);
+        if ($result_business) {
+          //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
+        } else {
+          echo "<h3> Error Inserting Data </h3>";
+        }
 
 }
 ?>

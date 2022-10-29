@@ -255,6 +255,10 @@ while ($row_business_source = mysqli_fetch_array($sql_business_query)) {
 
   $business_name = $row_business_source['business_name'];
   $business_phone = $row_business_source['business_phone'];
+  $business_address = $row_business_source['business_address'];
+  $business_state = $row_business_source['business_state'];
+  $business_city = $row_business_source['business_city'];
+  $business_zip = $row_business_source['business_zip'];
   $gross_amount = $row_business_source['monthly_gross_amount'];
   $business_direct_deposit = $row_business_source['direct_deposit'];
   $how_paid_business = $row_business_source['how_paid'];
@@ -488,6 +492,46 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
               </div>
 
 
+              <h3 style="color:red;">Co-Borrow Info</h3>
+              <div class="row">
+
+                <div class="col-lg-4">
+                  <label for="usr">Full Name</label>
+                  <input type="text" name="co_borrow_full_name" class="form-control" id="usr" value="<?php echo $co_borrow_full_name; ?>">
+                </div>
+
+                <div class="col-lg-4">
+                  <label for="usr">Phone Number</label>
+                  <input type="tel" name="co_borrow_phone" class="form-control" id="usr" placeholder="Format:123-456-7890" value="<?php echo $co_borrow_phone; ?>" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                </div>
+
+                
+                <div class="col-lg-4">
+                  <label for="usr">Address</label>
+                  <input type="text" name="co_borrow_address" class="form-control" id="usr" value="<?php echo $co_borrow_address; ?>">
+                </div>
+
+                
+                <div class="col-lg-4">
+                  <label for="usr">State</label>
+                  <input type="text" name="co_borrow_state" class="form-control" id="usr" value="<?php echo $co_borrow_state; ?>">
+                </div>
+
+                                
+                <div class="col-lg-4">
+                  <label for="usr">City</label>
+                  <input type="text" name="co_borrow_city" class="form-control" id="usr" value="<?php echo $co_borrow_city; ?>">
+                </div>
+                                                
+                <div class="col-lg-4">
+                  <label for="usr">Zip</label>
+                  <input type="text" name="co_borrow_zip" class="form-control" id="usr" value="<?php echo $co_borrow_zip; ?>">
+                </div>
+
+
+              </div>
+
+
               <h3 style="color:red;">Employment Info</h3>
               <div class="row">
 
@@ -573,18 +617,7 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
                   <label for="usr">Next Paycheck Date</label>
                   <input type="date" name="next_check" class="form-control" id="usr" value="<?php echo $new_next_pay_date; ?>">
                 </div>
-                <div class="col-lg-4">
 
-                  <label for="usr">Business Type</label>
-                  <input type="text" name="business_type" class="form-control" id="usr" value="<?php echo $business_type; ?>">
-                </div>
-
-
-                <div class="col-lg-4">
-
-                  <label for="usr">Business Create</label>
-                  <input type="text" name="business_create" class="form-control" id="usr" value="<?php echo $business_create_date; ?>">
-                </div>
 
               </div>
               <hr>
@@ -601,6 +634,41 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
                   <input type="tel" name="business_phone" class="form-control" id="usr" placeholder="Format:123-456-7890" value="<?php echo $business_phone; ?>" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
                 </div>
 
+                
+                <div class="col-lg-4">
+                  <label for="usr">Business Address</label>
+                  <input type="text" name="business_address" class="form-control" id="usr" value="<?php echo $business_address; ?>">
+                </div>
+
+                
+                <div class="col-lg-4">
+                  <label for="usr">Business State</label>
+                  <input type="text" name="business_state" class="form-control" id="usr" value="<?php echo $business_state; ?>">
+                </div>
+
+                                
+                <div class="col-lg-4">
+                  <label for="usr">Business City</label>
+                  <input type="text" name="business_city" class="form-control" id="usr" value="<?php echo $business_city; ?>">
+                </div>
+                                                
+                <div class="col-lg-4">
+                  <label for="usr">Business Zip</label>
+                  <input type="text" name="business_zip" class="form-control" id="usr" value="<?php echo $business_zip; ?>">
+                </div>
+
+                <div class="col-lg-4">
+
+                  <label for="usr">Business Type</label>
+                  <input type="text" name="business_type" class="form-control" id="usr" value="<?php echo $business_type; ?>">
+                </div>
+
+
+                <div class="col-lg-4">
+
+                  <label for="usr">Business Create</label>
+                  <input type="text" name="business_create" class="form-control" id="usr" value="<?php echo $business_create_date; ?>">
+                </div>
                 <div class="col-lg-4">
                   <label for="usr">Monthly Gross Amount</label>
                   <input type="text" name="gross_amount" class="form-control" id="usr" placeholder="" value="<?php echo $gross_amount; ?>">
@@ -1663,6 +1731,13 @@ if (isset($_POST['btn-submit'])) {
   $member_military_update = $_POST['member_military'];
   $dl_code_update = $_POST['dl_code'];
 
+  $co_borrow_full_name_update = $_POST['co_borrow_full_name'];
+  $co_borrow_phone_update = $_POST['co_borrow_phone'];
+  $co_borrow_address_update = $_POST['co_borrow_address'];
+  $co_borrow_state_update = $_POST['co_borrow_state'];
+  $co_borrow_city_update = $_POST['co_borrow_city'];
+  $co_borrow_zip_update = $_POST['co_borrow_zip'];
+
 
   $employer_name_update = $_POST['employer_name'];
   $work_phone_update = $_POST['work_phone'];
@@ -1675,6 +1750,10 @@ if (isset($_POST['btn-submit'])) {
   $business_create_up = $_POST['business_create'];
   $business_name_update = $_POST['business_name'];
   $business_phone_update = $_POST['business_phone'];
+  $business_address_update = $_POST['business_address'];
+  $business_state_update = $_POST['business_state'];
+  $business_city_update = $_POST['business_city'];
+  $business_zip_update = $_POST['business_zip'];
   $gross_amount_update = $_POST['gross_amount'];
   $business_direct_deposit_update = $_POST['business_direct_deposit'];
   $business_get_paid_update = $_POST['business_get_paid'];
@@ -2022,7 +2101,7 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
 
 
     //mysqli_query ($con,"INSERT INTO `application_status_updates`( `application_id`, `user_id`, `status`, `creation_date`) VALUES ('$id','$u_id','$app_status_update','$date')");
-    mysqli_query($con, "UPDATE fnd_user_profile SET first_name ='$first_name_update' , last_name='$last_name__update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update',member_military='$member_military_update', last_update_by='$u_id',last_update_date='$date',application_status='$app_status_update',source_of_lead='$source_lead_update',declined_reason='$decline_reason_update', amount_of_loan='$amount_loan_update', dl_code='$dl_code_update', personal_loan='$personal_loan', apr='$update_apr', title_loan_amount='$title_loan_amount', loan_request_amount='$requested_loan_amount_update', payback_period='$payback_period_update', loan_type='$loan_type_update' where user_fnd_id ='$id'");
+    mysqli_query($con, "UPDATE fnd_user_profile SET first_name ='$first_name_update' , last_name='$last_name__update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update',member_military='$member_military_update', last_update_by='$u_id',last_update_date='$date',application_status='$app_status_update',source_of_lead='$source_lead_update',declined_reason='$decline_reason_update', amount_of_loan='$amount_loan_update', dl_code='$dl_code_update', personal_loan='$personal_loan', apr='$update_apr', title_loan_amount='$title_loan_amount', loan_request_amount='$requested_loan_amount_update', payback_period='$payback_period_update', loan_type='$loan_type_update',co_borrow_full_name='$co_borrow_full_name_update',co_borrow_phone='$co_borrow_phone_update',co_borrow_address='$co_borrow_address_update',co_borrow_city='$co_borrow_city_update',co_borrow_state='$co_borrow_state_update',co_borrow_zip='$co_borrow_zip_update' where user_fnd_id ='$id'");
 
 
     /**
@@ -2127,11 +2206,11 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
       }
     }
 
-    mysqli_query($con, "UPDATE tbl_business_info SET business_name ='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date' where user_fnd_id ='$id' ");
+    mysqli_query($con, "UPDATE tbl_business_info SET business_name ='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date',address_b='$business_address_update',city_b='$business_city_update',state_b='$business_state_update',zip_b='$business_zip_update' where user_fnd_id ='$id' ");
     if (if_insert($con)) {
       // *********************************** Business Info Insertion **********************************************
 
-      $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,monthly_gross_amount,direct_deposit,how_paid,business_docs,created_by,created_at)  VALUES ('$id','$business_name_update','$business_phone_update','$gross_amount_update','$business_direct_deposit_update','$business_get_paid_update','$business_docs_update','$u_id','$date')";
+      $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,business_address,business_city,busines_state,business_zip,monthly_gross_amount,direct_deposit,how_paid,business_docs,created_by,created_at)  VALUES ('$id','$business_name_update','$business_phone_update','$business_address_update','$business_city_update','$business_state_update','$business_zip_update','$gross_amount_update','$business_direct_deposit_update','$business_get_paid_update','$business_docs_update','$u_id','$date')";
       $result_business = mysqli_query($con, $query_business);
       if ($result_business) {
         //echo "<div class='form'><h3> successfully added.</h3><br/></div>";

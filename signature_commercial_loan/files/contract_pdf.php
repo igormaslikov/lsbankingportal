@@ -92,6 +92,12 @@ while ($row2 = mysqli_fetch_array($sql2)) {
   $zip = $row2['zip_code'];
   $mobile_number = $row2['mobile_number'];
   $address = $row2['address'];
+  $co_borrow_full_name = $row2['co_borrow_full_name'];
+  $co_borrow_phone = $row2['co_borrow_phone'];
+  $co_borrow_address = $row2['co_borrow_address'];
+  $co_borrow_state = $row2['co_borrow_state'];
+  $co_borrow_city = $row2['co_borrow_city'];
+  $co_borrow_zip = $row2['co_borrow_zip'];
 }
 
 $sql2 = mysqli_query($con, "select * from source_income where user_fnd_id='$fnd_id' ");
@@ -102,6 +108,17 @@ while ($row2 = mysqli_fetch_array($sql2)) {
   $zip_b = $row2['zip_b'];
 }
 
+$sql_business_query = mysqli_query($con, "select * from tbl_business_info where user_fnd_id= '$id'");
+
+while ($row_business_source = mysqli_fetch_array($sql_business_query)) {
+
+  $business_name = $row_business_source['business_name'];
+  $business_phone = $row_business_source['business_phone'];
+  $business_address = $row_business_source['business_address'];
+  $business_state = $row_business_source['business_state'];
+  $business_city = $row_business_source['business_city'];
+  $business_zip = $row_business_source['business_zip'];
+}
 
 $sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 1");
 while ($row_installment = mysqli_fetch_array($sql_installment)) {
@@ -176,7 +193,7 @@ function set_image($pdf,$image_path,$x,$y,$w){
     if(!file_exists($image_path)){
         return;
     }
-    
+
     $image = imagecreatefrompng($image_path);
     imagealphablending($image, true);
     $transparentcolour = imagecolorallocatealpha($image, 255,255,255,127);
@@ -236,15 +253,22 @@ function page_1($pdf){
     global $loan_id_bor;
     global $creation_date;
     global $f_name;
-    global $co_borrow_name;
     global $address;
     global $city;
     global $state;
     global $zip;
-    global $address_b;
-    global $city_b;
-    global $state_b;
-    global $zip_b;
+    global $co_borrow_full_name;
+    global $co_borrow_phone;
+    global $co_borrow_address;
+    global $co_borrow_state;
+    global $co_borrow_city;
+    global $co_borrow_zip;
+    global $business_name;
+    global $business_phone;;
+    global $business_address;
+    global $business_state;
+    global $business_city;
+    global $business_zip;
     global $anual_pr;
     global $principal;
     global $total_interest;
@@ -276,15 +300,15 @@ function page_1($pdf){
     
     
     //===========Co-Borrower=========
-    set_info($pdf,50,32,30,5,$co_borrow_name);
-    set_info($pdf,50,37,30,5,"");
-    set_info($pdf,50,42,30,5,"");
+    set_info($pdf,50,32,30,5,$co_borrow_full_name);
+    set_info($pdf,50,37,30,5,$co_borrow_address);
+    set_info($pdf,50,42,30,5,$co_borrow_city.", ".$co_borrow_state." ".$co_borrow_zip);
     
     
     #=============Business================
-    set_info($pdf,50,47,30,5,"Business name");
-    set_info($pdf,50,51,30,5,$address_b);
-    set_info($pdf,50,56,30,5,$city_b.", ".$state_b." ".$zip_b);
+    set_info($pdf,50,47,30,5,$business_name);
+    set_info($pdf,50,51,30,5,$business_address);
+    set_info($pdf,50,56,30,5,$business_city.", ".$business_state." ".$business_zip);
     
     #=============Date================
     set_info($pdf,160,13, 30,10,$creation_date);
@@ -358,15 +382,22 @@ function page_3($pdf){
     global $loan_id_bor;
     global $creation_date;
     global $f_name;
-    global $co_borrow_name;
     global $address;
     global $city;
     global $state;
     global $zip;
-    global $address_b;
-    global $city_b;
-    global $state_b;
-    global $zip_b;
+    global $co_borrow_full_name;
+    global $co_borrow_phone;
+    global $co_borrow_address;
+    global $co_borrow_state;
+    global $co_borrow_city;
+    global $co_borrow_zip;
+    global $business_name;
+    global $business_phone;;
+    global $business_address;
+    global $business_state;
+    global $business_city;
+    global $business_zip;
     global $anual_pr;
     global $principal;
     global $total_interest;
@@ -397,17 +428,16 @@ function page_3($pdf){
     set_info($pdf,50,25,30,5,$address);
     set_info($pdf,50,30,30,5,$city.", ".$state." ".$zip);
     
-    
     //===========Co-Borrower=========
-    set_info($pdf,50,35,30,5,$co_borrow_name);
-    set_info($pdf,50,40,30,5,"");
-    set_info($pdf,50,45,30,5,"");
+    set_info($pdf,50,35,30,5,$co_borrow_full_name);
+    set_info($pdf,50,40,30,5,$co_borrow_address);
+    set_info($pdf,50,45,30,5,$co_borrow_city.", ".$co_borrow_state." ".$co_borrow_zip);
     
     
     #=============Business================
-    set_info($pdf,50,51,30,5,"Business name");
-    set_info($pdf,50,56,30,5,$address_b);
-    set_info($pdf,50,61,30,5,$city_b.", ".$state_b." ".$zip_b);
+    set_info($pdf,50,51,30,5,$business_name);
+    set_info($pdf,50,56,30,5,$business_address);
+    set_info($pdf,50,61,30,5,$business_city.", ".$business_state." ".$business_zip);
     
     #=============Date================
     set_info($pdf,172,13, 30,10,$creation_date);
@@ -610,11 +640,12 @@ function page_11($pdf){
     global $loan_id_bor;
     global $f_name;
     global $creation_date;
-    global $co_borrow_name;
-    global $co_borrow_mobile;
     global $mobile_number;
     global $signed_pic;
     global $sig_coborrow_pic;
+
+    global $co_borrow_full_name;
+    global $co_borrow_phone;
 
     $tpl = $pdf->importPage(11);
     $pdf->grid = false;
@@ -629,8 +660,8 @@ function page_11($pdf){
     set_info($pdf,50,208,30,10,$mobile_number);
     set_image($pdf,$signed_pic,50,226,-200);
     
-    set_info($pdf,140,189,30,10,$co_borrow_name);
-    set_info($pdf,140,207,30,10,$co_borrow_mobile);
+    set_info($pdf,140,189,30,10,$co_borrow_full_name);
+    set_info($pdf,140,207,30,10,$co_borrow_phone);
     set_image($pdf,$sig_coborrow_pic,140,227,-200);
 }
 

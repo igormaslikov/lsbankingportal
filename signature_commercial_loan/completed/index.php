@@ -379,7 +379,7 @@ if ($signed_status > 0) {
 					type: 'post',
 					dataType: 'json',
 					success: function(response) {
-						window.location.href = "../files/sign_contract.php?id=<?php echo $iddd; ?>";
+						window.location.href = "../files/contract_pdf.php?id=<?php echo $iddd; ?>";
 					},
 					error: function(res) {
 						console.log(res);

@@ -96,6 +96,20 @@ $to_date_filter = date('Y-m-d');
 $date_duplicate= date('Y-m-d', strtotime('-7 day'));
 //$hashed_password = password_hash($password, PASSWORD_DEFAULT); 
 
+$business_type_up = $_POST['business_type'];
+$business_create_up = $_POST['business_create'];
+$business_name_update = $_POST['business_name'];
+$business_phone_update = $_POST['business_phone'];
+$business_address_update = $_POST['business_address'];
+$business_state_update = $_POST['business_state'];
+$business_city_update = $_POST['business_city'];
+$business_zip_update = $_POST['business_zip'];
+$gross_amount_update = $_POST['gross_amount'];
+$business_direct_deposit_update = $_POST['business_direct_deposit'];
+$business_get_paid_update = $_POST['business_get_paid'];
+$business_docs_update = $_POST['business_docs'];
+
+
 $date = date('Y-m-d H:i:s');
 
 
@@ -334,6 +348,15 @@ $query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,n
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
         } else {
         echo "<h3> Error Inserting Data source_income </h3>";
+        }
+
+
+        $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,business_address,business_city,busines_state,business_zip,monthly_gross_amount,direct_deposit,how_paid,business_docs,created_by,created_at)  VALUES ('$id','$business_name_update','$business_phone_update','$business_address_update','$business_city_update','$business_state_update','$business_zip_update','$gross_amount_update','$business_direct_deposit_update','$business_get_paid_update','$business_docs_update','$u_id','$date')";
+        $result_business = mysqli_query($con, $query_business);
+        if ($result_business) {
+          //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
+        } else {
+          echo "<h3> Error Inserting Business Data </h3>";
         }
         
     $query3  = "INSERT INTO binary_questions (user_fnd_id,bq_answer,created_by,creation_date)  VALUES ('$user_id','$payment','$u_id','$date')";
@@ -595,7 +618,116 @@ window.location.href = 'view_all_customer_main.php';
     </div>
 
     </div>
+    <hr>
+              <h3 style="color:red;">Business Info</h3>
+              <div class="row">
 
+                <div class="col-lg-4">
+                  <label for="usr">Business Name</label>
+                  <input type="text" name="business_name" class="form-control" id="usr" value="<?php echo $business_name; ?>">
+                </div>
+
+                <div class="col-lg-4">
+                  <label for="usr">Business Phone Number</label>
+                  <input type="tel" name="business_phone" class="form-control" id="usr" placeholder="Format:123-456-7890" value="<?php echo $business_phone; ?>" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                </div>
+
+                
+                <div class="col-lg-4">
+                  <label for="usr">Business Address</label>
+                  <input type="text" name="business_address" class="form-control" id="usr" value="<?php echo $business_address; ?>">
+                </div>
+
+                
+                <div class="col-lg-4">
+                  <label for="usr">Business State</label>
+                  <input type="text" name="business_state" class="form-control" id="usr" value="<?php echo $business_state; ?>">
+                </div>
+
+                                
+                <div class="col-lg-4">
+                  <label for="usr">Business City</label>
+                  <input type="text" name="business_city" class="form-control" id="usr" value="<?php echo $business_city; ?>">
+                </div>
+                                                
+                <div class="col-lg-4">
+                  <label for="usr">Business Zip</label>
+                  <input type="text" name="business_zip" class="form-control" id="usr" value="<?php echo $business_zip; ?>">
+                </div>
+
+                <div class="col-lg-4">
+
+                  <label for="usr">Business Type</label>
+                  <input type="text" name="business_type" class="form-control" id="usr" value="<?php echo $business_type; ?>">
+                </div>
+
+
+                <div class="col-lg-4">
+
+                  <label for="usr">Business Create</label>
+                  <input type="text" name="business_create" class="form-control" id="usr" value="<?php echo $business_create_date; ?>">
+                </div>
+                <div class="col-lg-4">
+                  <label for="usr">Monthly Gross Amount</label>
+                  <input type="text" name="gross_amount" class="form-control" id="usr" placeholder="" value="<?php echo $gross_amount; ?>">
+                </div>
+
+                <div class="col-lg-4">
+                  <label for="usr"> Direct Deposit</label>
+                  <select name="business_direct_deposit" id="payment" class="form-control">
+                    <option></option>
+                    <option value="Yes" <?php if ($business_direct_deposit == 'Yes') {
+                                          echo 'selected';
+                                        } ?>>Yes</option>
+                    <option value="No" <?php if ($business_direct_deposit == 'No') {
+                                          echo 'selected';
+                                        } ?>>No</option>
+
+                  </select>
+                </div>
+
+
+
+                <div class="col-lg-4">
+                  <label for="usr">Payment Frequency</label>
+                  <select name="business_get_paid" id="get_paid" class="form-control">
+                    <option></option>
+                    <option value="Weekly" <?php if ($how_paid_business == 'Weekly') {
+                                              echo 'selected';
+                                            } ?>>Weekly</option>
+                    <option value="Bi-Weekly" <?php if ($how_paid_business == 'Bi-Weekly') {
+                                                echo 'selected';
+                                              } ?>>Bi-Weekly</option>
+                    <option value="Semi Monthly" <?php if ($how_paid_business == 'Semi Monthly') {
+                                                    echo 'selected';
+                                                  } ?>>Semi Monthly</option>
+                    <option value="Monthly" <?php if ($how_paid_business == 'Monthly') {
+                                              echo 'selected';
+                                            } ?>>Monthly</option>
+
+                  </select>
+
+                </div>
+
+                <div class="col-lg-4">
+                  <label for="usr">Business Documentation</label>
+                  <select name="business_docs" id="payment" class="form-control">
+                    <option></option>
+                    <option value="Business License" <?php if ($business_docs == 'Business License') {
+                                                        echo 'selected';
+                                                      } ?>>Business License</option>
+                    <option value="Sellers Permit" <?php if ($business_docs == 'Sellers Permit') {
+                                                      echo 'selected';
+                                                    } ?>>Sellers Permit</option>
+                    <option value="DBA" <?php if ($business_docs == 'DBA') {
+                                          echo 'selected';
+                                        } ?>>DBA</option>
+
+                  </select>
+                </div>
+
+
+              </div>
     <h3 style="color:red">Application Status</h3>
     <div class="row">
     <div class="col-lg-6">
