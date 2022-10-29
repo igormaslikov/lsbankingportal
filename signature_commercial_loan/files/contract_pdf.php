@@ -351,10 +351,10 @@ function page_2($pdf){
     global $signed_pic;
     global $sig_coborrow_pic;
     global $creation_date;
-    global $address_b;
-    global $city_b;
-    global $state_b;
-    global $zip_b;
+    global $business_address;
+    global $business_state;
+    global $business_city;
+    global $business_zip;
 
     $tpl = $pdf->importPage(2);
     $pdf->grid = false;
@@ -364,7 +364,7 @@ function page_2($pdf){
     set_info($pdf,100,30, 30,10,$f_name);
     set_info($pdf,100,36, 30,10,$loan_id_bor);
 
-    set_info($pdf,75,153, 50,10,$address_b . '  ' . $city_b . ' ' . $state_b . ' ' . $zip_b);
+    set_info($pdf,75,153, 50,10,$business_address . '  ' . $business_city . ' ' . $business_state . ' ' . $business_zip);
 
     set_image($pdf,$signed_pic,20,228,-200);
     set_info($pdf,70,232, 30,10,$creation_date);
@@ -424,20 +424,20 @@ function page_3($pdf){
     set_info($pdf,50,12,30,10,$loan_id_bor);
 
     //Borrower
-    set_info($pdf,50,20,30,5,$f_name);
-    set_info($pdf,50,25,30,5,$address);
-    set_info($pdf,50,30,30,5,$city.", ".$state." ".$zip);
+    set_info($pdf,50+10,20,30,5,$f_name);
+    set_info($pdf,50+10,25,30,5,$address);
+    set_info($pdf,50+10,30,30,5,$city.", ".$state." ".$zip);
     
     //===========Co-Borrower=========
-    set_info($pdf,50,35,30,5,$co_borrow_full_name);
-    set_info($pdf,50,40,30,5,$co_borrow_address);
-    set_info($pdf,50,45,30,5,$co_borrow_city.", ".$co_borrow_state." ".$co_borrow_zip);
+    set_info($pdf,50+10,35,30,5,$co_borrow_full_name);
+    set_info($pdf,50+10,40,30,5,$co_borrow_address);
+    set_info($pdf,50+10,45,30,5,$co_borrow_city.", ".$co_borrow_state." ".$co_borrow_zip);
     
     
     #=============Business================
-    set_info($pdf,50,51,30,5,$business_name);
-    set_info($pdf,50,56,30,5,$business_address);
-    set_info($pdf,50,61,30,5,$business_city.", ".$business_state." ".$business_zip);
+    set_info($pdf,50+10,51,30,5,$business_name);
+    set_info($pdf,50+10,56,30,5,$business_address);
+    set_info($pdf,50+10,61,30,5,$business_city.", ".$business_state." ".$business_zip);
     
     #=============Date================
     set_info($pdf,172,13, 30,10,$creation_date);
@@ -476,10 +476,10 @@ function page_4($pdf){
     global $signed_pic;
     global $sig_coborrow_pic;
     global $creation_date;
-    global $address_b;
-    global $city_b;
-    global $state_b;
-    global $zip_b;
+    global $business_address;
+    global $business_state;
+    global $business_city;
+    global $business_zip;
 
     $tpl = $pdf->importPage(4);
     $pdf->grid = false;
@@ -489,7 +489,7 @@ function page_4($pdf){
     set_info($pdf,100,20, 30,10,$f_name);
     set_info($pdf,100,26, 30,10,$loan_id_bor);
 
-    set_info($pdf,75,136, 50,10,$address_b . '  ' . $city_b . ' ' . $state_b . ' ' . $zip_b);
+    set_info($pdf,75,136, 50,10,$business_address . '  ' . $business_city . ' ' . $business_state . ' ' . $business_zip);
 
     set_image($pdf,$signed_pic,20,223,-200);
     set_info($pdf,70,227, 30,10,$creation_date);
