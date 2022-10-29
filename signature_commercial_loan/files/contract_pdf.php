@@ -34,9 +34,14 @@ while ($row1 = mysqli_fetch_array($sql1)) {
 
   $cvv_number = $row1['cvv_number'];
 
-  $initial_pic = '../completed/doc_initials/'.$row1['initial_pic'];
-  $signed_pic = '../completed/doc_signs/'.$row1['signed_pic'];
-  $sig_coborrow_pic = '../completed/doc_signs_coborrow/'.$row1['sig_coborrow_pic'];
+
+  $initial_pic = $row1['initial_pic'] == "" ? "" : '../completed/doc_initials/'.$row1['initial_pic'] ;
+  $signed_pic = $row1['signed_pic'] == "" ? "" : '../completed/doc_signs/'.$row1['signed_pic'];
+  $sig_coborrow_pic = $row1['sig_coborrow_pic'] == "" ? "" : '../completed/doc_signs_coborrow/'.$row1['sig_coborrow_pic'];
+
+//   $initial_pic = '../completed/doc_initials/'.$row1['initial_pic'];
+//   $signed_pic = '../completed/doc_signs/'.$row1['signed_pic'];
+//   $sig_coborrow_pic = '../completed/doc_signs_coborrow/'.$row1['sig_coborrow_pic'];
 
   $co_borrow_name = $row1['co_borrow_name'];
   $co_borrow_mobile = $row1['co_borrow_mobile'];
@@ -168,6 +173,10 @@ function set_info($pdf,$x,$y,$w,$h,$info,$bold='I',$font_size=8){
 }
 
 function set_image($pdf,$image_path,$x,$y,$w){
+    if(!file_exists($image_path)){
+        return;
+    }
+    
     $image = imagecreatefrompng($image_path);
     imagealphablending($image, true);
     $transparentcolour = imagecolorallocatealpha($image, 255,255,255,127);
@@ -745,13 +754,20 @@ function page_17($pdf){
     global $creation_date;
     global $signed_pic;
 
+    global $initial_pic;
+    global $signed_pic;
+    global $sig_coborrow_pic;
+
     $tpl = $pdf->importPage(1);
     $pdf->grid = false;
     $pdf->AddPage();
     $pdf->useTemplate($tpl);
 
     set_info($pdf,60,54,80,10,$f_name);
-    set_info($pdf,24.5,128.5,5,5,"X",'B',12);
+
+    if($initial_pic != "" and $signed_pic != "" and $sig_coborrow_pic != ""){
+        set_info($pdf,24.5,128.5,5,5,"X",'B',12);
+    }
 
     set_image($pdf,$signed_pic,64,202,-200);
     set_info($pdf,156,206,30,10,$creation_date);
