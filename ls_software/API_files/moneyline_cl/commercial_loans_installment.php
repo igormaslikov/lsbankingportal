@@ -334,7 +334,7 @@ $user_fnd_id=$row_sql_source_fndid['user_fnd_id'];
         //echo "<h3> Error Inserting Data tbl_loan </h3>";
         } 
 
-        $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,business_address,business_city,busines_state,business_zip,monthly_gross_amount,created_at)  VALUES ('$user_fnd_id','$business_name','$business_phone','$business_address','$business_city','$business_state','$business_zip','$emp_amount','$date')";
+        $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,business_address,business_city,business_state,business_zip,monthly_gross_amount,created_at)  VALUES ('$user_fnd_id','$business_name','$business_phone','$business_address','$business_city','$business_state','$business_zip','$emp_amount','$date')";
         $result_business = mysqli_query($con, $query_business);
         if ($result_business) {
           //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
