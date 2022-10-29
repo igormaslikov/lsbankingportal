@@ -599,7 +599,7 @@ if ($u_access_id == '0') {
 
                   <div class="col-lg-6">
                      <label for="type_id">Type of ID<i style="color:red">*</i></label>
-                     <select name="type_id" id="type_id" class="form-control" value="" required>
+                     <select name="type_id" id="type_id" class="form-control" value="" >
                         <option></option>
                         <option value="Drivers License">Drivers License</option>
                         <option value="State Personal ID">State Personal ID</option>
@@ -618,7 +618,7 @@ if ($u_access_id == '0') {
                   if (empty($id_photo)) {
                      echo '<div class="col-lg-6">
       <label for="usr">Upload Picture of ID<i style="color:red">*</i></label>
-      <input type="file" name="file_image"  class="form-control" accept="image/*" required><br>
+      <input type="file" name="file_image"  class="form-control" accept="image/*" ><br>
     </div>';
                   } else {
 
@@ -636,7 +636,7 @@ if ($u_access_id == '0') {
 
                   <div class="col-lg-6">
                      <label for="type_card">Type of Card<i style="color:red">*</i></label>
-                     <select name="type_card" id="type_card" class="form-control" value="" required>
+                     <select name="type_card" id="type_card" class="form-control" value="">
                         <option></option>
                         <option value="Visa">Visa</option>
                         <option value="Master Card">Master Card</option>
@@ -645,14 +645,14 @@ if ($u_access_id == '0') {
 
                   <div class="col-lg-6">
                      <label for="card_number">Card Number<i style="color:red">*</i></label>
-                     <input type="text" name="card_number" class="form-control" id="card_number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="16" required><br>
+                     <input type="text" name="card_number" class="form-control" id="card_number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="16" ><br>
                   </div>
 
                   <div class="col-lg-6">
                      <label for="usr">Card Expiration Date</label>
                      <br>
                      Month<i style="color:red">*</i>
-                     <select style="width:20%" name="expiry_month_card" id="expiry_month_card" class="form-control" value="" required>
+                     <select style="width:20%" name="expiry_month_card" id="expiry_month_card" class="form-control" value="">
                         <option></option>
                         <option value="01">01</option>
                         <option value="02">02</option>
@@ -669,7 +669,7 @@ if ($u_access_id == '0') {
                      </select>
 
                      Year<i style="color:red">*</i>
-                     <select style="width:20%" name="expiry_year_card" id="expiry_year_card" class="form-control" value="" required>
+                     <select style="width:20%" name="expiry_year_card" id="expiry_year_card" class="form-control" value="" >
                         <option></option>
                         <option value="20">20</option>
                         <option value="21">21</option>
@@ -693,7 +693,7 @@ if ($u_access_id == '0') {
                   if (empty($bank_front)) {
                      echo '<div class="col-lg-6">
       <label for="usr">Upload Bank Card Front<i style="color:red">*</i></label>
-      <input type="file" name="imageee"  class="form-control" accept="image/*" required><br>
+      <input type="file" name="imageee"  class="form-control" accept="image/*" ><br>
     </div>';
                   } else {
 
@@ -717,7 +717,7 @@ if ($u_access_id == '0') {
     
     <div class="col-lg-6">
       <label for="usr">Upload Bank Card Back<i style="color:red">*</i></label>
-      <input type="file" name="imageeee"  class="form-control" accept="image/*" required>
+      <input type="file" name="imageeee"  class="form-control" accept="image/*" >
     </div>';
                   } else {
 
@@ -736,7 +736,7 @@ if ($u_access_id == '0') {
 
                   <div class="col-lg-6">
                      <label for="bank_name">Bank Name<i style="color:red">*</i></label>
-                     <input list="banks" name="bank_name" id="bank_name" class="form-control" value="" required>
+                     <input list="banks" name="bank_name" id="bank_name" class="form-control" value="" >
                      <datalist id="banks">
                         <option value="Bank Of America">Bank Of America</option>
                         <option value="Chase">Chase</option>
@@ -758,12 +758,12 @@ if ($u_access_id == '0') {
 
                   <div class="col-lg-6">
                      <label for="routing_number">Routing Number<i style="color:red">*</i></label>
-                     <input type="text" name="routing_number" id="routing_number" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+                     <input type="text" name="routing_number" id="routing_number" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
                   </div>
 
                   <div class="col-lg-6">
                      <label for="account_number">Account Number<i style="color:red">*</i></label>
-                     <input type="text" name="account_number" id="account_number" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required><br>
+                     <input type="text" name="account_number" id="account_number" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ><br>
                   </div>
 
                   <?php
@@ -771,7 +771,7 @@ if ($u_access_id == '0') {
                      echo '
     <div class="col-lg-6">
       <label for="usr">Upload Void Check<i style="color:red">*</i></label>
-      <input type="file" name="imageeeee"  class="form-control" accept="image/*" required>
+      <input type="file" name="imageeeee"  class="form-control" accept="image/*" >
     </div>';
                   } else {
 
@@ -791,7 +791,7 @@ if ($u_access_id == '0') {
 
                   <div class="col-lg-6">
                      <label for="cvv_number">CVV Number<i style="color:red">*</i></label>
-                     <input type="text" name="cvv_number" id='cvv_number' class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" required>
+                     <input type="text" name="cvv_number" id='cvv_number' class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" >
                   </div>
 
                </div>

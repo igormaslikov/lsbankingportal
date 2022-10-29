@@ -261,13 +261,13 @@ $fnd_idd = $_GET['id'];
 
           <div class="col-lg-6">
             <label for="usr">First Payment</label>
-            <input type="text" name="first_payment" class="form-control" id="first_payment" placeholder="" value="" >
+            <input type="text" name="first_payment" class="form-control" id="first_payment" placeholder="" value="" required>
           </div>
 
 
           <div class="col-lg-6">
             <label for="usr">Last payment</label>
-            <input type="text" name="last_payment" class="form-control" id="last_payment" placeholder="" value="" >
+            <input type="text" name="last_payment" class="form-control" id="last_payment" placeholder="" value="" required>
           </div>
         </div>
 
