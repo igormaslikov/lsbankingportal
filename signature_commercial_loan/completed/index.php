@@ -256,7 +256,7 @@ if ($signed_status > 0) {
 							<div class="panel panel-default">
 								<div class="panel-heading">Co-Borrow Digital Signature:</div>
 								<div class="panel-body center-text">
-									<div style="display:justify">
+									<div style="display:none" >
 										<div style="padding-bottom: 10px;">
 											<label for="coBorrowName">Name: </label>
 											<input type="text" id="coBorrowName">
@@ -364,8 +364,8 @@ if ($signed_status > 0) {
 				var sig_data = getDataFromCanvasById('sign-pad').replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
 				var initial_data = getDataFromCanvasById('initial-pad').replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
 				var sig_data_co_borrow = getDataFromCanvasById('sign-pad-coborrow').replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
-				var co_borrow_name = document.getElementById('coBorrowName').value;
-				var co_borrow_mobile = document.getElementById('coBorrowCellPhone').value;
+				var co_borrow_name = "";//document.getElementById('coBorrowName').value;
+				var co_borrow_mobile = "";//document.getElementById('coBorrowCellPhone').value;
 				var key = '<?php echo $iddd; ?>';
 				$.ajax({
 					url: 'save_sign.php',
