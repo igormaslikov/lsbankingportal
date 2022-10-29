@@ -161,6 +161,13 @@ while ($row = mysqli_fetch_array($sql)) {
   $loan_request_amount = $row['loan_request_amount'];
   $payback_period = $row['payback_period'];
   $loan_type = $row['loan_type'];
+
+  $co_borrow_full_name = $row['co_borrow_full_name'];
+  $co_borrow_phone = $row['co_borrow_phone'];
+  $co_borrow_address = $row['co_borrow_address'];
+  $co_borrow_state = $row['co_borrow_state'];
+  $co_borrow_city = $row['co_borrow_city'];
+  $co_borrow_zip = $row['co_borrow_zip'];
 }
 
 $sql_loan = mysqli_query($con, "select * from tbl_loan where user_fnd_id= '$id'");
@@ -2206,7 +2213,7 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
       }
     }
 
-    mysqli_query($con, "UPDATE tbl_business_info SET business_name ='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date',address_b='$business_address_update',city_b='$business_city_update',state_b='$business_state_update',zip_b='$business_zip_update' where user_fnd_id ='$id' ");
+    mysqli_query($con, "UPDATE tbl_business_info SET business_name ='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date',business_address='$business_address_update',business_city='$business_city_update',business_state='$business_state_update',business_zip='$business_zip_update' where user_fnd_id ='$id' ");
     if (if_insert($con)) {
       // *********************************** Business Info Insertion **********************************************
 
