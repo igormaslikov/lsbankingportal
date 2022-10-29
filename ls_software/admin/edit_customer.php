@@ -2114,7 +2114,7 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
     };
 
 
-    mysqli_query($con, "UPDATE source_income SET employer_name ='$employer_name_update', work_phone_no='$work_phone_update', net_check_amount='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id',last_update_date='$date',business_type='$business_type_up',business_create='$business_create_up', 'address_b'='$address_b', 'city_b'='$city_b', 'state_b'='$state_b','zip_b'='$zip_b' where user_fnd_id ='$id' ");
+    mysqli_query($con, "UPDATE source_income SET employer_name ='$employer_name_update', work_phone_no='$work_phone_update', net_check_amount='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id',last_update_date='$date',business_type='$business_type_up',business_create='$business_create_up', address_b='$address_b', city_b='$city_b', state_b='$state_b',zip_b='$zip_b' where user_fnd_id ='$id' ");
     if (if_insert($con)) {
       // *********************************** Employee Info Insertion **********************************************
 
