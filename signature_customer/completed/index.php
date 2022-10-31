@@ -1,4 +1,5 @@
 <?php
+$_SESSION["Optima"] = "true";
 $url_logo="https://ofsca.com/loanportal/website/images/Money-Line-Logo.JPG"; 
 include 'dbconnect.php';
 include 'dbconfig.php';
