@@ -125,10 +125,12 @@ while ($row_installment = mysqli_fetch_array($sql_installment)) {
   $first_payment_date = $row_installment['payment_date'];
 }
 
-$sql_installment = mysqli_query($con, "select first_payment, last_payment from tbl_commercial_loan where loan_create_id=$loan_id_bor");
+$sql_installment = mysqli_query($con, "select first_payment, last_payment,total_payments from tbl_commercial_loan where loan_create_id=$loan_id_bor");
 while ($row_installment = mysqli_fetch_array($sql_installment)) {
   $first_payment = $row_installment['first_payment'];
   $last_payment = $row_installment['last_payment'];
+  $count_payments = $row_installment['total_payments'];
+
 }
 
 $sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id desc limit 1");
@@ -137,10 +139,10 @@ while ($row_installment = mysqli_fetch_array($sql_installment)) {
 }
 
 
-$sql_installment = mysqli_query($con, "select count(id) as count from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
-while ($row_installment = mysqli_fetch_array($sql_installment)) {
-  $count_payments = $row_installment['count'];
-}
+// $sql_installment = mysqli_query($con, "select  as count from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
+// while ($row_installment = mysqli_fetch_array($sql_installment)) {
+//   $count_payments = $row_installment['count'];
+// }
 
 $second_payment = 0;
 

@@ -1,4 +1,5 @@
 <?php
+$_SESSION["Optima"] = "true";
 date_default_timezone_set('America/Los_Angeles');
 include('../../admin/dbconfig.php');
 include('../../admin/dbconnect.php');
