@@ -259,8 +259,8 @@ ACH PAYMENT AUTHORIZATION
 <div style="font-size:8px">
 1. By signing below, Account Holder (“<b>you</b>”) authorizes  Optima Financial Solutions Inc and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>our</b>”) to automatically withdraw
 your loan payments from your deposit account ending in xxxxxx'.$account_number.' (“<b>Account</b>”) at '.$bank_name.'
-(“<b>Bank</b>”) via electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to
-initiate debits of $'.$total_loan_payable.' (“scheduled <b>debit amount</b>”) on the payment due date'.$payment_date.',
+(“<b>Bank</b>”) via electronic ACH debit entry (“<b>Authorization</b>”). You authorize us to
+initiate debit of $'.$total_loan_payable.' (“scheduled <b>debit amount</b>”) on the payment due date'.$payment_date.',
 which is the effective date of this Authorization. These debit will continue until the amount due under your loan is paid in full or until this
 Authorization is canceled. You also authorize us to initiate ACH debits or credits to your Account as necessary to correct erroneous
 transactions.<br>
