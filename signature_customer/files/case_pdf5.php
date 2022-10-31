@@ -261,49 +261,47 @@ AUTORIZACIÓN DE PAGO RECURRENTE
 
 <div style="font-size:8px">
 1. Al firmar a continuación, el titular de la cuenta (“<b>usted</b>”) autoriza a Optima Financial Solutions Inc y sus afiliados (“<b>nosotros</b>”, “<b>nos</b>” y “<b>nuestro</b>”) para
-retirar automáticamente sus pagos de préstamos de su cuenta de depósito que termina en xxxxxx'.$account_number.' (“<b>Cuenta</b>”) en '.$bank_name.'
-(“<b>Banco</b>”)  a través de entradas de débito electrónico recurrente ACH (“<b>Autorización</b>”). Usted
-nos autoriza a iniciar débitos de $'.$total_loan_payable.' (“<b>importe de débito programado</b>”) cada _ en las fechas de vencimiento de los
-pagos, a partir de '.$payment_date.',
-que es la fecha de entrada en vigor de esta Autorización. Estos débitos continuarán hasta que el monto
-adeudado bajo su préstamo sea pagado en su totalidad o hasta que esta Autorización sea cancelada. También nos autoriza a iniciar
-débitos o créditos ACH en su Cuenta según sea necesario para corregir transacciones erróneas.<br>
-2. Usted tiene derecho a que le notifiquemos por escrito, con 10 días de antelación, el importe y la fecha de cualquier cargo que varíe el
-importe programado. No obstante, si cargamos en su cuenta cualquier importe comprendido entre 1 dólar y el importe de cargo
-programado, usted acepta que no tenemos que enviarle dicha notificación previa por escrito, a menos que lo exija la ley. No cargaremos
-en su Cuenta un importe superior al importe de cargo programado anteriormente.<br>
-3. Si cualquier fecha de pago cae en un fin de semana o en un día festivo, el débito se procesará el siguiente día hábil. 4. Si su Banco
-rechaza cualquier cargo porque usted no tiene una cuenta en el Banco, cancelaremos estos cargos recurrentes. Si su Banco rechaza
-cualquier débito porque no hay suficiente dinero en su Cuenta, suspenderemos estos débitos recurrentes y le daremos de baja de los
-pagos recurrentes hasta que haya pagado todos los pagos atrasados y cualquier tarifa de pago devuelto o cualquier otra tarifa debida
-bajo su pagaré. Una vez que su cuenta esté al día, le volveremos a inscribir en los pagos recurrentes de la ACH bajo esta Autorización, a
-menos que nos diga que no desea volver a inscribirse, en cuyo caso cancelaremos los pagos recurrentes de la ACH.<br>
-4. Usted declara que es un firmante autorizado en la Cuenta. 5. Se compromete a notificarnos con prontitud cualquier cambio en la
-Cuenta y debe avisarnos con siete (7) días de antelación de cualquier cambio en la misma. Usted reconoce que las transacciones ACH a
-su Cuenta deben cumplir con la legislación de los Estados Unidos.<br>
-5. Cómo cancelar. Puede cancelar esta Autorización llamándonos al (818) 856-4302 durante nuestro horario de atención. Debe
-notificarnos la cancelación al menos 3 días antes de la fecha de vencimiento del pago. También puede cancelar estos pagos recurrentes
-de la ACH siguiendo los procedimientos de suspensión de pagos de su banco, pero su banco puede cobrarle una comisión. Si cancela,
-deberá seguir realizando los pagos de su préstamo a tiempo
+retirar automáticamente su pago del préstamo de su cuenta de depósito que termina en xxxxxx'.$account_number.' (“<b>Cuenta</b>”) en '.$bank_name.'
+(“<b>Banco</b>”)  a través de entradas de débito electrónico ACH (“<b>Autorización</b>”). Usted
+nos autoriza a iniciar el débito de $'.$total_loan_payable.' (“<b>importe de débito programado</b>”) en la fecha de vencimiento del pago, a partir de '.$payment_date.',
+que es la fecha de entrada en vigor de esta Autorización. Este débito continuarán hasta
+que el monto adeudado bajo su préstamo sea pagado en su totalidad o hasta que esta Autorización sea cancelada. También nos autoriza a iniciar
+débitos o créditos ACH en su Cuenta según sea necesario para corregir transacciones erróneas..<br>
+2. Usted tiene derecho a que le notifiquemos por escrito, con 10 días de antelación, el importe y la fecha de cualquier cargo que varíe el importe
+programado. No obstante, si cargamos en su cuenta cualquier importe comprendido entre 1 dólar y el importe de cargo programado, usted acepta que
+no tenemos que enviarle dicha notificación previa por escrito, a menos que lo exija la ley. No cargaremos en su Cuenta un importe superior al importe
+de cargo programado anteriormente.<br>
+3. Si cualquier fecha de pago cae en un fin de semana o en un día festivo, el débito se procesará el siguiente día hábil. 4. Si su Banco rechaza
+cualquier cargo porque usted no tiene una cuenta en el Banco, cancelaremos estos cargos recurrentes. Si su Banco rechaza cualquier débito porque
+no hay suficiente dinero en su Cuenta, suspenderemos estos débitos recurrentes y le daremos de baja de los pagos recurrentes hasta que haya
+pagado todos los pagos atrasados y cualquier tarifa de pago devuelto o cualquier otra tarifa debida bajo su pagaré. Una vez que su cuenta esté al día,
+le volveremos a inscribir en los pagos recurrentes de la ACH bajo esta Autorización, a menos que nos diga que no desea volver a inscribirse, en cuyo
+caso cancelaremos los pagos recurrentes de la ACH..<br>
+4. Usted declara que es un firmante autorizado en la Cuenta. Se compromete a notificarnos con prontitud cualquier cambio en la Cuenta y debe
+avisarnos con siete (7) días de antelación de cualquier cambio en la misma. Usted reconoce que las transacciones ACH a su Cuenta deben cumplir
+con la legislación de los Estados Unidos.<br>
+5. Cómo cancelar. Puede cancelar esta Autorización llamándonos al (818) 856-4302 durante nuestro horario de atención. Debe notificarnos la
+cancelación al menos 3 días antes de la fecha de vencimiento del pago. También puede cancelar estos pagos recurrentes de la ACH siguiendo los
+procedimientos de suspensión de pagos de su banco, pero su banco puede cobrarle una comisión. Si cancela, deberá seguir realizando los pagos de
+su préstamo a tiempo
 <br><br>
-Salvo que se indique lo contrario, todos los términos en mayúsculas utilizados, pero no definidos en el presente documento tendrán el
-significado que se les atribuye en las Normas de la NACHA (según se definen más adelante). Al utilizar los Servicios, usted acepta los
-términos y condiciones de este Acuerdo. Salvo que se estipule expresamente lo contrario en el presente Anexo, en la medida en que este
-Anexo sea incompatible con los términos del Acuerdo inicial, prevalecerá el presente Anexo y cualquier modificación de este que se
-realice periódicamente, pero sólo en la medida necesaria para resolver dicho conflicto. Servicio ACH; cumplimiento de las normas de la
-NACHA y de la legislación aplicable. La red ACH es un sistema de transferencia de fondos que permite la compensación interbancaria de
-las entradas electrónicas de crédito y débito de las instituciones financieras participantes.
+Salvo que se indique lo contrario, todos los términos en mayúsculas utilizados, pero no definidos en el presente documento tendrán el significado que
+se les atribuye en las Normas de la NACHA (según se definen más adelante). Al utilizar los Servicios, usted acepta los términos y condiciones de este
+Acuerdo. Salvo que se estipule expresamente lo contrario en el presente Anexo, en la medida en que este Anexo sea incompatible con los términos del
+Acuerdo inicial, prevalecerá el presente Anexo y cualquier modificación de este que se realice periódicamente, pero sólo en la medida necesaria para
+resolver dicho conflicto. Servicio ACH; cumplimiento de las normas de la NACHA y de la legislación aplicable. La red ACH es un sistema de
+transferencia de fondos que permite la compensación interbancaria de las entradas electrónicas de crédito y débito de las instituciones financieras
+participantes.
 <br><br>
 El sistema ACH se rige por las Normas de funcionamiento y las Directrices de funcionamiento de la Asociación Nacional de Cámaras de
-Compensación Automatizadas ("NACHA") (colectivamente, las "Normas NACHA"). Sus derechos y obligaciones con respecto a cualquier
-Entrada se rigen por las Normas de la NACHA, el presente Acuerdo y la legislación aplicable. Usted reconoce que tiene acceso a una copia
-de las Normas de NACHA y acepta obtener y revisar una copia. (Las Reglas de NACHA pueden obtenerse en el sitio web de NACHA en
-www.NACHA.org o poniéndose en contacto directamente con NACHA en el 703-561-1100). También acepta suscribirse para recibir las
-revisiones de las Normas de NACHA directamente de NACHA. Usted declara y garantiza que cumplirá las Normas de NACHA y las leyes,
-reglamentos y requisitos normativos aplicables. Asimismo, declara y garantiza que no transmitirá ninguna Entrada ni participará en
-ningún acto u omisión que infrinja o nos haga infringir las Normas de la NACHA o las leyes de los Estados Unidos, o cualquier otra ley,
-reglamento o requisito normativo aplicable, incluidos, entre otros, los reglamentos de la Oficina de Control de Activos Extranjeros
-("OFAC"), las sanciones o las órdenes ejecutivas
+Compensación Automatizadas ("NACHA") (colectivamente, las "Normas NACHA"). Sus derechos y obligaciones con respecto a cualquier Entrada se
+rigen por las Normas de la NACHA, el presente Acuerdo y la legislación aplicable. Usted reconoce que tiene acceso a una copia de las Normas de
+NACHA y acepta obtener y revisar una copia. (Las Reglas de NACHA pueden obtenerse en el sitio web de NACHA en www.NACHA.org o poniéndose
+en contacto directamente con NACHA en el 703-561-1100). También acepta suscribirse para recibir las revisiones de las Normas de NACHA
+directamente de NACHA. Usted declara y garantiza que cumplirá las Normas de NACHA y las leyes, reglamentos y requisitos normativos aplicables.
+Asimismo, declara y garantiza que no transmitirá ninguna Entrada ni participará en ningún acto u omisión que infrinja o nos haga infringir las Normas de
+la NACHA o las leyes de los Estados Unidos, o cualquier otra ley, reglamento o requisito normativo aplicable, incluidos, entre otros, los reglamentos de
+la Oficina de Control de Activos Extranjeros ("OFAC"), las sanciones o las órdenes ejecutivas
 <br><br>
 <b>IMPORTANTE<b><br>
 Para evitar cualquier comisión por devolución de pago, usted acepta que tendrá suficiente dinero en su Cuenta para cubrir el importe del

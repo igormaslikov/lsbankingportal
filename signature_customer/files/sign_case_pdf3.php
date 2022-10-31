@@ -243,12 +243,11 @@ $style = array(
   <h2 style="text-align:center"><u>Debit Card Authorization Form</u></h2> 
  <span style="text-align:center">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
  
- Authorization to make payments on my <b>Optima Financial Solutions Inc</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> on continuing basis using the
- Debit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Debit Card
- Holder.<br><br>
- Autorización para hacer pagos en mi cuenta de <b>Optima Financial Solutions Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> sobre la base
- continua utilizando la tarjeta de Débito que se describe a continuación y los términos de este préstamo , a menos
- que se indique lo contrario por escrito por el titular de la Tarjeta de Débito .
+ Authorization to make payment on my <b>Optima Financial Solutions Inc</b> Loan # <span style="text-decoration:underline">'.$loan_id_bor.'</span> using the
+Debit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Debit Card
+Holder.<br><br>
+Autorización para hacer el pago en mi cuenta de <b>Optima Financial Solutions Inc</b> prestamo # <span style="text-decoration:underline">'.$loan_id_bor.'</span> utilizando la tarjeta de Débito que se describe a continuación y los términos de este préstamo , a menos
+que se indique lo contrario por escrito por el titular de la Tarjeta de Débito .
  
  
  <br><br>
@@ -275,11 +274,11 @@ $style = array(
  
  
  <br><br><br>
-  I, '.$f_name.', the undersigned hereby states that the above described Debit Card
- is in my name and that i authorize its charge to Optima Financial Solutions Inc for full or partial payments.
+  I, '.$f_name.', the undersigned hereby states that the above described Debit Card is in my name and
+  that I authorize its charge to Optima Financial Solutions Inc for full payment.
  <br><br>
-  Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita
- en la parte superior y que autorizo su cargos aOptima Financial Solutions Inc para los pagos totales o parciales. <br><br><br>
+  Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita en la parte superior y
+  que autorizo su cargo a Optima Financial Solutions Inc para el pago total. <br><br><br>
  
  <img src="../completed/doc_signs/'.$img_signed.'" height="300%" alt=""><br>
  <hr style="width:53%" >

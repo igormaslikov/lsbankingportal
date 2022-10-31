@@ -253,48 +253,45 @@ Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
  <br><br><br>
 <h3 style="text-align:center">
-ACH RECURRING PAYMENT AUTHORIZATION
+ACH PAYMENT AUTHORIZATION
 </h3>
 
 <div style="font-size:8px">
 1. By signing below, Account Holder (“<b>you</b>”) authorizes  Optima Financial Solutions Inc and its affiliates (“<b>we</b>”, “<b>us</b>” and “<b>our</b>”) to automatically withdraw
 your loan payments from your deposit account ending in xxxxxx'.$account_number.' (“<b>Account</b>”) at '.$bank_name.'
-(“<b>Bank</b>”) via recurring electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to
-initiate debits of $'.$total_loan_payable.' (“scheduled <b>debit amount</b>”) Every _ on the payment due dates, beginning on '.$payment_date.',
-which is the effective date of this Authorization. These debits will continue until the amount due under your loan is paid in full or until this
+(“<b>Bank</b>”) via electronic ACH debit entries (“<b>Authorization</b>”). You authorize us to
+initiate debits of $'.$total_loan_payable.' (“scheduled <b>debit amount</b>”) on the payment due date'.$payment_date.',
+which is the effective date of this Authorization. These debit will continue until the amount due under your loan is paid in full or until this
 Authorization is canceled. You also authorize us to initiate ACH debits or credits to your Account as necessary to correct erroneous
 transactions.<br>
-2. You have the right to receive 10 days’ prior written notice from us of the amount and date of any debit that varies from the scheduled
-debit amount. However, if we debit your account for any amount in a range from $1 up to the scheduled debit amount, you agree that
-we do not have to send you such prior written notice, unless required by law. We will not debit your Account for more than the scheduled
-debit amount above.<br>
-3. If any payment due date falls on a weekend or holiday, the debit will be processed on the next business day. If your Bank rejects any
-debit because you do not have an account with the Bank, we will cancel these recurring debits. If your Bank rejects any debit because
-there is not enough money in your Account, we will suspend these recurring debits and de-enroll you from recurring payments until you
-have paid all past due payments and any returned payment fees or any other fees due under your promissory note. Once your account is
-current, we will re-enroll you in recurring ACH payments under this Authorization, unless you tell us that you do not wish to re-enroll, in
-which case we will cancel the recurring ACH payments.<br>
-4. You represent that you are an authorized signer on the Account. You agree to notify us promptly of any changes to the Account and
-must provide us seven (7) days’ advance notice of any changes to the Account. You acknowledge that the ACH transactions to your
-Account must comply with United States law.<br>
-5. <b>How to Cancel</b>. You may cancel this Authorization by calling us at <b>(818) 856-4302</b> during our business hours. You must notify us of
-the cancellation at least <b>3 days</b> before the payment due date. You may also cancel these recurring ACH payments by following your
-Bank’s stop payment procedures, but your Bank may charge you a fee. If you cancel, you must still make your loan payments on time.
-Except as otherwise set forth herein, all capitalized terms used but not defined herein shall have the meaning given to them in the
-NACHA Rules (as defined below). By using the Services, you agree to the terms and conditions of this Agreement. Except as otherwise
-expressly provided in this Addendum, to the extent that this Addendum is inconsistent with the terms of the Initial Agreement, this
-Addendum, and any amendment hereto from time to time shall control, but only to the extent necessary to resolve such conflict. ACH
-Service; Compliance with the NACHA Rules and Applicable Law. The ACH network is a funds transfer system which provides for the 
-interbank clearing of electronic credit and debit Entries for participating financial institutions.
-The ACH system is governed by the National Automated Clearing House Association’s (“NACHA”) Operating Rules and Operating
-Guidelines (collectively, the “NACHA Rules”). Your rights and obligations with respect to any Entry are governed by the NACHA Rules, this
-Agreement and applicable law. You acknowledge that you have access to a copy of the NACHA Rules and agree to obtain and review a
-copy. (The NACHA Rules may be obtained at NACHA’s website at www.NACHA.org or by contacting NACHA directly at 703-561-1100.)
-You also agree to subscribe to receive revisions to the NACHA Rules directly from NACHA. You represent and warrant that you will comply
-with the NACHA Rules and applicable laws, regulations, and regulatory requirements. You further represent and warrant that you will not
-transmit any Entry or engage in any act or omission that violates or causes us to violate the NACHA Rules or the laws of the United
-States, or any other applicable laws, regulations, or regulatory requirements, including, without limitation, regulations of the Office of
-Foreign Asset Control (“OFAC”), sanctions or executive orders.<br><br>
+2. You have the right to receive 10 days’ prior written notice from us of the amount and date of any debit that varies from the scheduled debit amount.
+However, if we debit your account for any amount in a range from $1 up to the scheduled debit amount, you agree that we do not have to send you such
+prior written notice, unless required by law. We will not debit your Account for more than the scheduled debit amount above.<br>
+3. If any payment due date falls on a weekend or holiday, the debit will be processed on the next business day. If your Bank rejects any debit because you
+do not have an account with the Bank, we will cancel these recurring debits. If your Bank rejects any debit because there is not enough money in your
+Account, we will suspend these recurring debits and de-enroll you from recurring payments until you have paid all past due payments and any returned
+payment fees or any other fees due under your promissory note. Once your account is current, we will re-enroll you in recurring ACH payments under this
+Authorization, unless you tell us that you do not wish to re-enroll, in which case we will cancel the recurring ACH payments.<br>
+4. .You represent that you are an authorized signer on the Account. You agree to notify us promptly of any changes to the Account and must provide us
+seven (7) days’ advance notice of any changes to the Account. You acknowledge that the ACH transactions to your Account must comply with United States
+law.<br>
+5. <b>How to Cancel</b>. You may cancel this Authorization by calling us at <b>(818) 856-4302</b> during our business hours. You must notify us of the cancellation at
+least <b>3 days</b> before the payment due date. You may also cancel these recurring ACH payments by following your Bank’s stop payment procedures, but your
+Bank may charge you a fee. If you cancel, you must still make your loan payments on time. Except as otherwise set forth herein, all capitalized terms used
+but not defined herein shall have the meaning given to them in the NACHA Rules (as defined below). By using the Services, you agree to the terms and
+conditions of this Agreement. Except as otherwise expressly provided in this Addendum, to the extent that this Addendum is inconsistent with the terms of
+the Initial Agreement, this Addendum, and any amendment hereto from time to time shall control, but only to the extent necessary to resolve such conflict.
+ACH Service; Compliance with the NACHA Rules and Applicable Law. The ACH network is a funds transfer system which provides for the interbank
+clearing of electronic credit and debit Entries for participating financial institutions. The ACH system is governed by the National Automated Clearing House
+Association’s (“NACHA”) Operating Rules and Operating Guidelines (collectively, the “NACHA Rules”). Your rights and obligations with respect to any Entry
+are governed by the NACHA Rules, this Agreement and applicable law. You acknowledge that you have access to a copy of the NACHA Rules and agree to
+obtain and review a copy. (The NACHA Rules may be obtained at NACHA’s website at
+www.NACHA.org or by contacting NACHA directly at 703-561-1100.) You also agree to subscribe to receive revisions to the NACHA Rules directly from
+NACHA. You represent and warrant that you will comply with the NACHA Rules and applicable laws, regulations, and regulatory requirements. You further
+represent and warrant that you will not transmit any Entry or engage in any act or omission that violates or causes us to violate the NACHA Rules or the laws
+of the United States, or any other applicable laws, regulations, or regulatory requirements, including, without limitation, regulations of the Office of Foreign
+Asset Control (“OFAC”), sanctions or executive orders.
+<br><br>
 <b>IMPORTANT</b><br>
 To avoid any returned payment fees, you agree you will have enough money in your Account to cover the amount of the scheduled debit.
 ACH debits could take up to <b>5 business days</b> to be deducted from your Account.<br><br>
