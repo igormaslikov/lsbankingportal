@@ -447,8 +447,8 @@ if (isset($_POST['btttn-submit'])) {
                 <div class="row">
 
                     <div class="col-lg-6">
-                        <label for="usr">Type of ID*</label>
-                        <select name="type_id" id="type_id" class="form-control" value="" required>
+                        <label for="usr">Type of ID</label>
+                        <select name="type_id" id="type_id" class="form-control" value="" >
                             <option></option>
                             <option value="Drivers License" <?php if ($type_of_id == 'Drivers License') {
                                                                 echo 'selected';
@@ -481,7 +481,7 @@ if (isset($_POST['btttn-submit'])) {
                     if (empty($id_photo)) {
                         echo '<div class="col-lg-6">
       <label for="usr">Upload Picture of ID</label>
-      <input type="file" name="file_image"  class="form-control" accept="image/* required" ><br>
+      <input type="file" name="file_image"  class="form-control" accept="image/* " ><br>
     </div>';
                     } else {
 
@@ -498,8 +498,8 @@ if (isset($_POST['btttn-submit'])) {
 
 
                     <div class="col-lg-6">
-                        <label for="usr">Type of Card*</label>
-                        <select name="type_card" id="type_card" class="form-control" value="" required>
+                        <label for="usr">Type of Card</label>
+                        <select name="type_card" id="type_card" class="form-control" value="" >
                             <option></option>
                             <option value="Visa" <?php if ($type_of_card == 'Visa') {
                                                         echo 'selected';
@@ -511,9 +511,9 @@ if (isset($_POST['btttn-submit'])) {
                     </div>
 
                     <div class="col-lg-6">
-                        <label for="card_number">Card Number*</label>
-                        <input type="search" name="card_number" class="form-control" id="card_number" value="<?php echo $card_number; ?>" required>
-                        <!-- <input type="search" name="card_number" id="card_number" list="card_numbers" class="form-control" value="<?php echo $card_number; ?>" required>
+                        <label for="card_number">Card Number</label>
+                        <input type="search" name="card_number" class="form-control" id="card_number" value="<?php echo $card_number; ?>" >
+                        <!-- <input type="search" name="card_number" id="card_number" list="card_numbers" class="form-control" value="<?php echo $card_number; ?>" >
                         <datalist id="card_numbers">
                             <?php
                             $sql_card_details = mysqli_query($con, "SELECT DISTINCT card_number FROM `loan_initial_banking` WHERE user_fnd_id = '$id_fnd' and $if_optima_loan");
@@ -535,10 +535,10 @@ if (isset($_POST['btttn-submit'])) {
                     </div>
 
                     <div class="col-lg-6">
-                        <label for="usr">Card Expiration Date*</label>
+                        <label for="usr">Card Expiration Date</label>
                         <br>
                         Month
-                        <select style="width:20%" name="expiry_month_card" id="expiry_month_card" class="form-control" value="" required>
+                        <select style="width:20%" name="expiry_month_card" id="expiry_month_card" class="form-control" value="" >
                             <option></option>
                             <option value="01" <?php if ($renew_month == '01') {
                                                     echo 'selected';
@@ -579,7 +579,7 @@ if (isset($_POST['btttn-submit'])) {
                         </select>
 
                         Year
-                        <select style="width:20%" name="expiry_year_card" id="expiry_year_card" class="form-control" value="" required>
+                        <select style="width:20%" name="expiry_year_card" id="expiry_year_card" class="form-control" value="" >
                             <option></option>
                             <option value="20" <?php if ($renew_year == '20') {
                                                     echo 'selected';
@@ -624,7 +624,7 @@ if (isset($_POST['btttn-submit'])) {
                     if (empty($bank_front)) {
                         echo '<div class="col-lg-6">
       <label for="usr">Upload Bank Card Front</label>
-      <input type="file" name="imageee"  class="form-control" accept="image/*" required><br>
+      <input type="file" name="imageee"  class="form-control" accept="image/*" ><br>
     </div>';
                     } else {
 
@@ -648,7 +648,7 @@ if (isset($_POST['btttn-submit'])) {
     
     <div class="col-lg-6">
       <label for="usr">Upload Bank Card Back</label>
-      <input type="file" name="imageeee"  class="form-control" accept="image/*" required>
+      <input type="file" name="imageeee"  class="form-control" accept="image/*" >
     </div>';
                     } else {
 
@@ -666,8 +666,8 @@ if (isset($_POST['btttn-submit'])) {
                                                                                                                         ?>
 
                     <div class="col-lg-6">
-                        <label for="bank_name">Bank Name*</label>
-                        <input type="search" name="bank_name" list="bank_names" class="form-control" id="bank_name" value="<?php echo $bank_name; ?>" required>
+                        <label for="bank_name">Bank Name</label>
+                        <input type="search" name="bank_name" list="bank_names" class="form-control" id="bank_name" value="<?php echo $bank_name; ?>" >
 
                         <datalist id="bank_names">
                             <option value="Bank Of America">
@@ -681,13 +681,13 @@ if (isset($_POST['btttn-submit'])) {
                     </div>
 
                     <div class="col-lg-6">
-                        <label for="routing_number">Routing Number*</label>
-                        <input type="text" name="routing_number" class="form-control" id="routing_number" value="<?php echo $routing_number; ?>" required>
+                        <label for="routing_number">Routing Number</label>
+                        <input type="text" name="routing_number" class="form-control" id="routing_number" value="<?php echo $routing_number; ?>" >
                     </div>
 
                     <div class="col-lg-6">
-                        <label for="account_number">Account Number*</label>
-                        <input type="text" name="account_number" class="form-control" id="account_number" value="<?php echo $account_number; ?>" required>
+                        <label for="account_number">Account Number</label>
+                        <input type="text" name="account_number" class="form-control" id="account_number" value="<?php echo $account_number; ?>" >
                     </div>
 
                     <?php
@@ -695,7 +695,7 @@ if (isset($_POST['btttn-submit'])) {
                         echo '
     <div class="col-lg-6">
       <label for="usr">Upload Void Check</label>
-      <input type="file" name="imageeeee"  class="form-control" accept="image/*" required>
+      <input type="file" name="imageeeee"  class="form-control" accept="image/*" >
     </div>';
                     } else {
 
@@ -714,8 +714,8 @@ if (isset($_POST['btttn-submit'])) {
 
 
                     <div class="col-lg-6">
-                        <label for="usr">CVV Number*</label>
-                        <input type="text" name="cvv_number" id="cvv_number" class="form-control" id="usr" value="<?php echo $cvv_number; ?>" required>
+                        <label for="usr">CVV Number</label>
+                        <input type="text" name="cvv_number" id="cvv_number" class="form-control" id="usr" value="<?php echo $cvv_number; ?>" >
                     </div>
 
                 </div>
