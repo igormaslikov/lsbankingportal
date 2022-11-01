@@ -71,13 +71,15 @@ $fnd_idd = $_GET['id'];
       include 'dbconnect.php';
       include 'dbconfig.php';
 
+      
 
-      $sql_apr = mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_commercial_loan");
+      // $sql_apr = mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_commercial_loan");
+      $sql_apr = mysqli_query($con, "SELECT CONCAT(SUBSTRING(loan_create_id,1,2), (MAX(CAST(SUBSTRING(loan_create_id FROM 3) AS UNSIGNED))+1)) as next_id from tbl_commercial_loan");
       while ($row_apr = mysqli_fetch_array($sql_apr)) {
         $next_loan_id = $row_apr['next_id'];
       }
       //echo '<script type="text/javascript">alert("Loan ID ' . $loan_create_id . ' is exists. LoanID well be regerated to '.$next_loan_id.')</script>';
-      $loan_create_id = $next_loan_id;
+      $loan_create_id = $next_loan_id == NULL ? "OF10005" : $next_loan_id;
       $sql_apr = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'");
 
       while ($row_apr = mysqli_fetch_array($sql_apr)) {
