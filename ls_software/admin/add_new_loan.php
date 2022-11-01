@@ -411,8 +411,8 @@ if ($u_access_id == '0') {
               </select>
             </div>
             <!-- Upcoming Loan IDs: CA: <?php echo $rowcount_count_ca ?> , NV: <?php echo $rowcount_count_nv; ?> , IL: <?php echo $rowcount_count_il; ?> -->
-            <div class="col-lg-6" hidden>
-              <label for="usr"> Loan ID*</label>
+            <div class="col-lg-6">
+              <label for="usr"> Loan ID</label>
               <input type="text" name="loan_id" value="<?php echo $next_loan_id; ?>" class="form-control" readonly>
             </div>
 
