@@ -11,7 +11,7 @@ $iddd=$_GET['id'];
 
 
 
-$url="https://ofsca.com/loanportal/signature_customer/files/sign_contract.php?id=$iddd";
+$url="https://ofsca.com/loanportal/signature_customer/files/contract_pdf.php?id=$iddd";
 
 $sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
 

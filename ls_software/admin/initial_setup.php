@@ -132,7 +132,7 @@ $fndd_id = $id_fnd;
 
 $to_email = $email;
 $subject = 'Contract';
-$message = '../../signature_customer/files/contract.php?id=' . $email_key;
+$message = '../../signature_customer/files/contract_pdf.php?id=' . $email_key;
 $message_email = 'https://ofsca.com/loanportal/signature_customer/completed/index.php?id=' . $email_key;
 $headers = 'From: admin@lsfinancing.com';
 //mail($to_email,$subject,$message,$headers);
