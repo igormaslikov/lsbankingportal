@@ -307,7 +307,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
           <td><img id='mmmmyImg' src ='../../../ls_software/dl_client_files/void_img/$void_img' style='height:100px; width:100px' /><br><br> <a href ='change_void_img.php?id=$id'>Change/Update</a></td>
         
         
-        <td><a onclick='myFunction_contract()' target = '_blank' href='https://www.ofsca.com/loanportal/signature_customer/files/sign_contract.php?id=$mail_key' title='View Contract'>View Contract</a>" ?>
+        <td><a onclick='myFunction_contract()' target = '_blank' href='https://www.ofsca.com/loanportal/signature_customer/files/contract_pdf.php?id=$mail_key' title='View Contract'>View Contract</a>" ?>
             <?php
               echo "<br><br>";
               if ($contract_status == '1') {
