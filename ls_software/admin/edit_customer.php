@@ -373,9 +373,9 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
         <div class="col-lg-4">
           <p> Customer Name:<b style="color:red"> <?php echo $first_name; ?></b></p>
         </div>
-        <div class="col-lg-4">
+        <!-- <div class="col-lg-4">
           <p> Creation Date:<b style="color:red"> <?php echo $creationdate; ?> </b></p>
-        </div>
+        </div> -->
         <div class="col-lg-4">
           <p> Application Date:<b style="color:red"> <?php echo $applicationdate; ?> </b></p>
         </div>
