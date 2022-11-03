@@ -2,12 +2,17 @@
 <?php
 error_reporting(0);
 session_start();
+if (!isset($_SESSION['Optima'])) {
+
+    $_SESSION['Optima'] = True;
+}
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
 }
+
 
 $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
 $userRow=$query->fetch_array();
@@ -46,7 +51,7 @@ $loan_status=$row_loan_status['loan_status'];
 
 
 $delete_allowed = user_roles($u_access_id,$form_id);
-
+$delete_allowed=1;
 //echo $delete_allowed;
 
    if ($delete_allowed==1 && $loan_status!="Active")

@@ -134,7 +134,9 @@ while ($row = mysqli_fetch_array($sql)) {
   $ssn = $row['ssn'];
   $member_military = $row['member_military'];
   $creation_date = $row['creation_date'];
+  $app_date_date = $row['application_date'];
   $creationdate = date("m-d-y", strtotime($creation_date));
+  $applicationdate = date("m-d-y", strtotime($app_date_date));
   $last_update = $row['last_update_by'];
   $created_by = $row['created_by'];
   $last_update_date = $row['last_update_date'];
@@ -373,6 +375,9 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
         </div>
         <div class="col-lg-4">
           <p> Creation Date:<b style="color:red"> <?php echo $creationdate; ?> </b></p>
+        </div>
+        <div class="col-lg-4">
+          <p> Application Date:<b style="color:red"> <?php echo $applicationdate; ?> </b></p>
         </div>
         <div class="col-lg-4">
           <p>Last Update By: <b style="color:red"><?php echo $name_update; ?> </b></p>
