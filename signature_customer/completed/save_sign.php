@@ -1,4 +1,5 @@
 <?php 
+    $_SESSION["Optima"] = "true";
 	$result = array();
 	$imagedata = base64_decode($_POST['img_data']);
 	$filename = md5(date("dmYhisA"));
@@ -32,5 +33,5 @@ mysqli_query ($con,"UPDATE `tbl_loan` SET `sign_status`='1' WHERE `loan_create_i
 ?>
 
 <script type="text/javascript">
-window.location.href = 'https://ofsca.com/loanportal/signature_customer/files/sign_contract.php?id=<?php echo $key ;?>';
+window.location.href = 'https://ofsca.com/loanportal/signature_customer/files/contract_pdf.php?id=<?php echo $key ;?>';
 </script>

@@ -1,4 +1,5 @@
 <?php 
+    $_SESSION['Optima'] = "true";
 	$result = array();
 	$sigdata = base64_decode($_POST['sig_data']);
 	$initialdata = base64_decode($_POST['initial_data']);
