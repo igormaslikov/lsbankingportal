@@ -553,7 +553,7 @@ if ($u_access_id == '0') {
 		   	  <td>" . $row['application_status'] . "</td>
 		   	  
 <td> <a href='edit_customer.php?id=$id&$delete_customer_string' title='Edit This Customer'><span class='glyphicon glyphicon-edit' aria-hidden='true' alt='edit'></span></a>
-<a class='remove-box' href='delete_customer.php?id=$id&$delete_customer_string' title='Delete This Customer'><span class='glyphicon glyphicon-remove' aria-hidden='true' alt='delete'></span>" . $decision_logic_Status . $experian_credit_score . "</a>
+<a class='remove-box' href='delete_customer.php?id=$id&uid=$u_id&$delete_customer_string' title='Delete This Customer'><span class='glyphicon glyphicon-remove' aria-hidden='true' alt='delete'></span>" . $decision_logic_Status . $experian_credit_score . "</a>
 <a href='customer_loan_history.php?id=$id'  title='Loan History'><span class='glyphicon glyphicon-collapse-up' aria-hidden='true' alt='Loan History'></span>  <span style = 'color:green; text-align:left'></span></a>
 </td>
 
