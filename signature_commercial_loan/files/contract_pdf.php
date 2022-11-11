@@ -58,8 +58,8 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
   $payment_date = $row_loan['payment_date'];
   $interest_rate_f = $row_loan['loan_interest'];
   $interest_rate = number_format($interest_rate_f, 2);
-  $timestamp = strtotime($payment_date);
-  $payment_date = date("m-d-Y", $timestamp);
+//   $timestamp = strtotime($payment_date);
+//   $payment_date = date("m-d-Y", $timestamp);
   $totLoan = number_format(
     $row_loan['amount_of_loan'] + $row_loan['loan_interest'],
     2
@@ -120,12 +120,12 @@ while ($row_business_source = mysqli_fetch_array($sql_business_query)) {
   $business_zip = $row_business_source['business_zip'];
 }
 
-$sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 1");
+$sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id asc limit 1");
 while ($row_installment = mysqli_fetch_array($sql_installment)) {
   $first_payment_date = $row_installment['payment_date'];
 }
 
-$sql_installment = mysqli_query($con, "select first_payment, last_payment,total_payments from tbl_commercial_loan where loan_create_id=$loan_id_bor");
+$sql_installment = mysqli_query($con, "select first_payment, last_payment,total_payments from tbl_commercial_loan where loan_create_id='$loan_id_bor'");
 while ($row_installment = mysqli_fetch_array($sql_installment)) {
   $first_payment = $row_installment['first_payment'];
   $last_payment = $row_installment['last_payment'];
@@ -133,7 +133,7 @@ while ($row_installment = mysqli_fetch_array($sql_installment)) {
 
 }
 
-$sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id desc limit 1");
+$sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id desc limit 1");
 while ($row_installment = mysqli_fetch_array($sql_installment)) {
   $last_payment_date =  $row_installment['payment_date'];
 }
@@ -148,7 +148,7 @@ $second_payment = 0;
 
 if ($count_payments > 2) {
   $count_payments = $count_payments - 2;
-  $sql_installment = mysqli_query($con, "select payment from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 2");
+  $sql_installment = mysqli_query($con, "select payment from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id asc limit 2");
   while ($row_installment = mysqli_fetch_array($sql_installment)) {
     $second_payment = $row_installment['payment'];
   }
@@ -366,7 +366,7 @@ function page_2($pdf){
     set_info($pdf,100,30, 30,10,$f_name);
     set_info($pdf,100,36, 30,10,$loan_id_bor);
 
-    set_info($pdf,75,153, 50,10,$business_address . '  ' . $business_city . ' ' . $business_state . ' ' . $business_zip);
+    set_info($pdf,75,153, 100,10,$business_address . '  ' . $business_city . ' ' . $business_state . ' ' . $business_zip);
 
     set_image($pdf,$signed_pic,20,228,-200);
     set_info($pdf,70,232, 30,10,$creation_date);
@@ -491,7 +491,7 @@ function page_4($pdf){
     set_info($pdf,100,20, 30,10,$f_name);
     set_info($pdf,100,26, 30,10,$loan_id_bor);
 
-    set_info($pdf,75,136, 50,10,$business_address . '  ' . $business_city . ' ' . $business_state . ' ' . $business_zip);
+    set_info($pdf,75,136, 100,10,$business_address . '  ' . $business_city . ' ' . $business_state . ' ' . $business_zip);
 
     set_image($pdf,$signed_pic,20,223,-200);
     set_info($pdf,70,227, 30,10,$creation_date);
