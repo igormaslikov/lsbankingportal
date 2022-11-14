@@ -378,7 +378,9 @@ function print_schedule($balance, $apr, $payment, $num_of_days, $num_late_days)
         // }
         // reduce balance by principal paid
         $balance = $balance - $principal;
-
+        if ($balance < 0){
+            break;
+        }
         // watch for rounding error that leaves a tiny balance
         // if ($balance < 0) {
         //     $principal = $principal + $balance;
