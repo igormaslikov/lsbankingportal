@@ -407,7 +407,7 @@ if ($u_access_id == '0') {
 
 
       if ($count == 0) {
-         $action_query = "INSERT INTO `tbl_bank_info` (`bank_id`, `usr_fnd_id`, `bank_name`, `account_number`, `routing_number`, `is_active`) VALUES (NULL, '$fndd_id', '$bank_name', '$account_number', '$routing_number', '1')";
+         $action_query = "INSERT INTO `tbl_bank_info` (`usr_fnd_id`, `bank_name`, `account_number`, `routing_number`, `is_active`) VALUES ('$fndd_id', '$bank_name', '$account_number', '$routing_number', '1')";
          mysqli_query($con, $action_query);
          $bank_id = mysqli_insert_id($con);
       }
@@ -419,7 +419,7 @@ if ($u_access_id == '0') {
       }
 
       if ($count == 0) {
-         $action_query = "INSERT INTO `tbl_bank_cards` (`id`,`bank_id`, `user_fnd_id`, `type_of_id`, `type_of_card`, `card_number`, `card_exp_date`,`cvv_number`, `is_active`) VALUES (NULL,'$bank_id', '$fndd_id', '$type_id','$type_card', '$card_number', '$card_exp_date','$cvv_number', '1')";
+         $action_query = "INSERT INTO `tbl_bank_cards` (`bank_id`, `user_fnd_id`, `type_of_id`, `type_of_card`, `card_number`, `card_exp_date`,`cvv_number`, `is_active`) VALUES ('$bank_id', '$fndd_id', '$type_id','$type_card', '$card_number', '$card_exp_date','$cvv_number', '1')";
          mysqli_query($con, $action_query);
       }
 
