@@ -138,10 +138,14 @@ foreach ([3, 5] as $pg) {
     $rows[] = row($TPL, $pg, 'loan.total_interest',  113, 83, 38);
     $rows[] = row($TPL, $pg, 'loan.total_payments',  151, 83, 38);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_first_num',      75, 106, 15);
+    $rows[] = row($TPL, $pg, 'loan.pay_sched_first_amount',   97, 106, 18);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_first_date',    120, 106, 35);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_beginning_date',153, 106, 30);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_count',          75, 114, 15);
+    $rows[] = row($TPL, $pg, 'loan.pay_sched_each_amount',    97, 114, 18);
+    $rows[] = row($TPL, $pg, 'loan.pay_sched_frequency',     108, 114, 16);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_each_date',     120, 114, 22);
+    $rows[] = row($TPL, $pg, 'loan.pay_sched_last_amount',    97, 121, 18);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_last_date',     120, 121, 35);
     $rows[] = row($TPL, $pg, 'loan.contract_fee',             85, 139, 22);
     $rows[] = row($TPL, $pg, 'loan.itemization_given',       170, 158, 30, 4, 8);
@@ -216,10 +220,14 @@ foreach ([3, 13] as $pg) {
     $rows[] = row($TPL, $pg, 'loan.total_payments',  164, 168, 38);
     // Payment schedule
     $rows[] = row($TPL, $pg, 'loan.pay_sched_first_num',      70, 199, 15);
+    $rows[] = row($TPL, $pg, 'loan.pay_sched_first_amount',   92, 199, 18);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_first_date',    115, 199, 22);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_beginning_date',150, 199, 40);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_count',          70, 207, 15);
+    $rows[] = row($TPL, $pg, 'loan.pay_sched_each_amount',    92, 207, 18);
+    $rows[] = row($TPL, $pg, 'loan.pay_sched_frequency',     108, 207, 18);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_each_date',     115, 207, 30);
+    $rows[] = row($TPL, $pg, 'loan.pay_sched_last_amount',    92, 215, 18);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_last_date',     125, 215, 40);
     // Itemization
     $rows[] = row($TPL, $pg, 'loan.itemization_given',       180, 230, 30, 4, 8);

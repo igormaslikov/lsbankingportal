@@ -86,12 +86,16 @@ $CONTRACT_FIELD_CATALOG = [
     'loan.principal'            => ['label' => 'Loan: Amount Financed ($)',    'type' => 'text'],
     'loan.total_interest'       => ['label' => 'Loan: Finance Charge ($)',     'type' => 'text'],
     'loan.total_payments'       => ['label' => 'Loan: Total of Payments ($)',  'type' => 'text'],
-    'loan.pay_sched_first_num'  => ['label' => 'Loan: First Payment Number (literal 1)', 'type' => 'text'],
-    'loan.pay_sched_first_date' => ['label' => 'Loan: First Payment Date',     'type' => 'text'],
-    'loan.pay_sched_beginning_date' => ['label' => 'Loan: Payments begin on',  'type' => 'text'],
-    'loan.pay_sched_count'      => ['label' => 'Loan: Number of recurring payments', 'type' => 'text'],
-    'loan.pay_sched_each_date'  => ['label' => 'Loan: Recurring payment date / frequency', 'type' => 'text'],
-    'loan.pay_sched_last_date'  => ['label' => 'Loan: Last Payment Date',      'type' => 'text'],
+    'loan.pay_sched_first_num'    => ['label' => 'Loan: First Payment Number (literal 1)', 'type' => 'text'],
+    'loan.pay_sched_first_date'   => ['label' => 'Loan: First Payment Date',     'type' => 'text'],
+    'loan.pay_sched_beginning_date' => ['label' => 'Loan: Payments begin on',    'type' => 'text'],
+    'loan.pay_sched_first_amount' => ['label' => 'Loan: First Payment Amount $', 'type' => 'text'],
+    'loan.pay_sched_count'        => ['label' => 'Loan: Number of recurring payments', 'type' => 'text'],
+    'loan.pay_sched_each_date'    => ['label' => 'Loan: Recurring payment date',  'type' => 'text'],
+    'loan.pay_sched_each_amount'  => ['label' => 'Loan: Recurring Payment Amount $', 'type' => 'text'],
+    'loan.pay_sched_frequency'    => ['label' => 'Loan: Installment Plan word (Weekly/Monthly/...)', 'type' => 'text'],
+    'loan.pay_sched_last_date'    => ['label' => 'Loan: Last Payment Date',       'type' => 'text'],
+    'loan.pay_sched_last_amount'  => ['label' => 'Loan: Last Payment Amount $',   'type' => 'text'],
     'loan.contract_fee'         => ['label' => 'Loan: Origination / Contract Fee', 'type' => 'text'],
     'loan.itemization_given'    => ['label' => 'Loan: Itemization Amount Given',     'type' => 'text'],
     'loan.itemization_paid'     => ['label' => 'Loan: Itemization Amount Paid',      'type' => 'text'],
@@ -139,7 +143,8 @@ function build_context_from_globals() {
           'contract_fee','in_hand','count_payments','first_payment_date','last_payment_date',
           'loan_id_bor','creation_date','f_name',
           'signed_pic','sig_coborrow_pic','initial_pic',
-          'bank_name','account_number','first_payment','fnd_id'];
+          'bank_name','account_number','first_payment','second_payment','last_payment',
+          'installment_plan','fnd_id'];
     $ctx = [];
     foreach ($g as $name) {
         if (isset($GLOBALS[$name])) $ctx[$name] = $GLOBALS[$name];
@@ -203,6 +208,9 @@ function build_demo_context() {
         'bank_name' => 'Bank Of America',
         'account_number' => '1234567',
         'first_payment' => 802.08,
+        'second_payment' => 802.08,
+        'last_payment'  => 802.08,
+        'installment_plan' => 'Monthly',
         'fnd_id' => 0,
         'veh' => [
             'vehicle_year' => '2022',
@@ -308,9 +316,13 @@ function resolve_field_value($key, array $ctx) {
         case 'loan.pay_sched_first_num':       return '1';
         case 'loan.pay_sched_first_date':      return (string)$get('first_payment_date');
         case 'loan.pay_sched_beginning_date':  return (string)$get('first_payment_date');
+        case 'loan.pay_sched_first_amount':    return number_format((float)$get('first_payment', 0), 2);
         case 'loan.pay_sched_count':           return (string)$get('count_payments');
         case 'loan.pay_sched_each_date':       return (string)$get('first_payment_date');
+        case 'loan.pay_sched_each_amount':     return number_format((float)$get('second_payment', 0), 2);
+        case 'loan.pay_sched_frequency':       return (string)$get('installment_plan');
         case 'loan.pay_sched_last_date':       return (string)$get('last_payment_date');
+        case 'loan.pay_sched_last_amount':     return number_format((float)$get('last_payment', 0), 2);
         case 'loan.contract_fee':              return number_format((float)$get('contract_fee', 0), 2);
         case 'loan.itemization_given':     return number_format((float)$get('principal_f',0) - (float)$get('in_hand',0), 2);
         case 'loan.itemization_paid':      return number_format((float)$get('in_hand',0), 2);
