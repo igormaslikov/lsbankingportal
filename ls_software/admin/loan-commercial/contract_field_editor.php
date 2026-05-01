@@ -173,7 +173,9 @@ if ($qpick && $rp = mysqli_fetch_assoc($qpick)) $preview_real_loan_key = $rp['em
       border: 1px solid rgba(30,144,255,0.7); background: rgba(30,144,255,0.12);
       cursor: move; pointer-events: auto; touch-action: none;
       font-size: 10px; color: #1565c0; user-select: none;
-      display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      /* No overflow:hidden here — it would clip the resize handle which sits
+         OUTSIDE the marker bounds. Long labels are clipped on .marker-label. */
   }
   .marker.image { border-color: rgba(217,83,79,0.7); background: rgba(217,83,79,0.15); color: #8a2626; }
   .marker:hover { background: rgba(30,144,255,0.22); }
