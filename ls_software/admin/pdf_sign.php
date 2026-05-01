@@ -312,8 +312,8 @@
     <!-- Bootstrap Select Js -->
     <script src="js/bootstrap-select.js"></script>
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	
 	<link href="./css/jquery.signaturepad.css" rel="stylesheet">
 	<script src="./js/numeric-1.2.6.min.js"></script> 
