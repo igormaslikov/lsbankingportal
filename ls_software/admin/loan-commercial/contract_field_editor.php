@@ -432,10 +432,27 @@ async function delRow(btn) {
     if (!id) { tr.remove(); return; }
     if (!confirm('Delete this field placement?')) return;
     const body = new URLSearchParams({action: 'delete', id});
-    const res = await fetch(SELF, { method: 'POST', body });
-    const j = await res.json();
-    if (j.ok) { tr.remove(); removeMarker(id); statusEl.textContent = 'deleted'; }
-    else { alert('Delete failed: ' + (j.error || '?')); }
+    let res;
+    try {
+        res = await fetch(SELF, { method: 'POST', body, credentials: 'same-origin' });
+    } catch (e) {
+        alert('Delete network error: ' + e.message);
+        return;
+    }
+    const txt = await res.text();
+    let j;
+    try { j = JSON.parse(txt); }
+    catch (e) {
+        alert('Delete returned non-JSON (HTTP ' + res.status + '). First 200 chars:\n\n' + txt.slice(0, 200));
+        return;
+    }
+    if (j.ok) {
+        tr.remove();
+        removeMarker(id);
+        statusEl.textContent = 'deleted';
+    } else {
+        alert('Delete failed (HTTP ' + res.status + '): ' + (j.error || '?'));
+    }
 }
 
 async function insertNew() {
