@@ -125,10 +125,29 @@ $CONTRACT_FIELD_CATALOG = [
 
     // ---- ACH authorization band ----
     'ach.account_number'        => ['label' => 'ACH: Account Number',          'type' => 'text'],
+    'ach.account_last4'         => ['label' => 'ACH: Account last-4 ("ending in xxxxxx___")', 'type' => 'text'],
     'ach.bank_name'             => ['label' => 'ACH: Bank Name',               'type' => 'text'],
     'ach.payment_amount'        => ['label' => 'ACH: Scheduled Debit Amount',  'type' => 'text'],
+    'ach.frequency_short_en'    => ['label' => 'ACH: "Every ___" (EN: week/month/two weeks)', 'type' => 'text'],
+    'ach.frequency_short_es'    => ['label' => 'ACH: "Cada ___" (ES: semana/mes/dos semanas)', 'type' => 'text'],
     'ach.first_payment_date'    => ['label' => 'ACH: First Payment Date',      'type' => 'text'],
     'ach.borrower_printed_name' => ['label' => 'ACH: Borrower printed name',   'type' => 'text'],
+
+    // ---- SMS Policy Authorization (Unsec p13 / equivalent) ----
+    'sms.borrower_name'         => ['label' => 'SMS: Borrower Name',           'type' => 'text'],
+    'sms.borrower_phone'        => ['label' => 'SMS: Borrower Phone',          'type' => 'text'],
+    'sms.coborrower_name'       => ['label' => 'SMS: Co-Borrower Name',        'type' => 'text'],
+    'sms.coborrower_phone'      => ['label' => 'SMS: Co-Borrower Phone',       'type' => 'text'],
+    'sms.borrower_sig_img'      => ['label' => 'SMS: Borrower Signature (image)',    'type' => 'image'],
+    'sms.coborrower_sig_img'    => ['label' => 'SMS: Co-Borrower Signature (image)', 'type' => 'image'],
+
+    // ---- Card authorization (legacy Optima only; no equivalent page on the
+    //      new Unsecured/Secured templates so unused for now, kept for
+    //      forward-compat if a card-auth page is added later) ----
+    'card.type'                 => ['label' => 'Card: Type (Visa/MC/...)',     'type' => 'text'],
+    'card.number_masked'        => ['label' => 'Card: Number (masked, **** + last 4)', 'type' => 'text'],
+    'card.exp_date'             => ['label' => 'Card: Expiration Date',        'type' => 'text'],
+    'card.cvv'                  => ['label' => 'Card: CVV',                    'type' => 'text'],
 ];
 
 /**
@@ -148,7 +167,9 @@ function build_context_from_globals() {
           'loan_id_bor','creation_date','f_name',
           'signed_pic','sig_coborrow_pic','initial_pic',
           'bank_name','account_number','first_payment','second_payment','last_payment',
-          'installment_plan','fnd_id'];
+          'installment_plan','every_en','every_es',
+          'type_of_card','card_number','card_exp_date','cvv_number',
+          'fnd_id'];
     $ctx = [];
     foreach ($g as $name) {
         if (isset($GLOBALS[$name])) $ctx[$name] = $GLOBALS[$name];
@@ -215,6 +236,12 @@ function build_demo_context() {
         'second_payment' => 802.08,
         'last_payment'  => 802.08,
         'installment_plan' => 'Monthly',
+        'every_en' => 'month',
+        'every_es' => 'mes',
+        'type_of_card' => 'Visa',
+        'card_number'  => '4111111111111234',
+        'card_exp_date'=> '12/29',
+        'cvv_number'   => '***',
         'fnd_id' => 0,
         'veh' => [
             'vehicle_year' => '2022',
@@ -357,10 +384,33 @@ function resolve_field_value($key, array $ctx) {
 
         // ACH
         case 'ach.account_number':      return (string)$get('account_number');
+        case 'ach.account_last4':       {
+            $a = (string)$get('account_number');
+            return strlen($a) > 4 ? substr($a, -4) : $a;
+        }
         case 'ach.bank_name':           return (string)$get('bank_name');
         case 'ach.payment_amount':      return number_format((float)$get('first_payment',0), 2);
+        case 'ach.frequency_short_en':  return (string)$get('every_en');
+        case 'ach.frequency_short_es':  return (string)$get('every_es');
         case 'ach.first_payment_date':  return (string)$get('first_payment_date');
         case 'ach.borrower_printed_name': return (string)$get('f_name');
+
+        // SMS Policy Authorization
+        case 'sms.borrower_name':       return (string)$get('f_name');
+        case 'sms.borrower_phone':      return (string)$get('mobile_number');
+        case 'sms.coborrower_name':     return (string)$get('co_borrow_full_name');
+        case 'sms.coborrower_phone':    return (string)$get('co_borrow_phone');
+        case 'sms.borrower_sig_img':    return (string)$get('signed_pic');
+        case 'sms.coborrower_sig_img':  return (string)$get('sig_coborrow_pic');
+
+        // Card authorization
+        case 'card.type':               return (string)$get('type_of_card');
+        case 'card.number_masked':      {
+            $cn = (string)$get('card_number');
+            return '************' . (strlen($cn) > 4 ? substr($cn, -4) : $cn);
+        }
+        case 'card.exp_date':           return (string)$get('card_exp_date');
+        case 'card.cvv':                return (string)$get('cvv_number');
     }
     return '';  // unknown field — render nothing
 }

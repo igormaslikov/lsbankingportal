@@ -177,16 +177,40 @@ $rows[] = row($TPL, 7, 'loan.promise_amount_es',131, 82,  21, 4, 8);
 $rows[] = row($TPL, 7, 'loan.interest_rate_en',  66, 164, 27, 4, 8);
 $rows[] = row($TPL, 7, 'loan.interest_rate_es', 127, 159, 25, 4, 8);
 
-// Unsec ACH (pages 14, 15)
-foreach ([14, 15] as $pg) {
-    emit_header_trio($rows, $TPL, $pg, 20, 26, 32);
-    $rows[] = row($TPL, $pg, 'ach.account_number',      25, 100, 40);
-    $rows[] = row($TPL, $pg, 'ach.bank_name',           80, 100, 60);
-    $rows[] = row($TPL, $pg, 'ach.payment_amount',     150, 100, 30);
-    $rows[] = row($TPL, $pg, 'ach.first_payment_date',  50, 110, 40);
-    $rows[] = row($TPL, $pg, 'signature.borrower_img',  30, 218, 60, 15, 9, 'image');
-    $rows[] = row($TPL, $pg, 'ach.borrower_printed_name',15,248, 60);
-}
+// Unsec p13 — SMS Policy Authorization (legacy page_11)
+emit_header_trio($rows, $TPL, 13, 20, 26, 32);
+$rows[] = row($TPL, 13, 'sms.borrower_name',     35, 194, 60);
+$rows[] = row($TPL, 13, 'sms.coborrower_name',  121, 193, 60);
+$rows[] = row($TPL, 13, 'sms.borrower_phone',    35, 212, 60);
+$rows[] = row($TPL, 13, 'sms.coborrower_phone', 121, 212, 60);
+$rows[] = row($TPL, 13, 'sms.borrower_sig_img',  35, 220, 60, 15, 9, 'image');
+$rows[] = row($TPL, 13, 'sms.coborrower_sig_img',121, 220, 60, 15, 9, 'image');
+
+// Unsec p14 — ACH (English). Positions match the recurring-debit
+// paragraph blanks: "...ending in xxxxxx____ at ___ ('Bank') ...
+// debits of $___ Every ___ payment due dates, beginning on ___, ..."
+$rows[] = row($TPL, 14, 'header.borrower_name',  75,  20, 100);
+$rows[] = row($TPL, 14, 'header.loan_number',    75,  26, 100);
+$rows[] = row($TPL, 14, 'header.date',           75,  32, 100);
+$rows[] = row($TPL, 14, 'ach.account_last4',     23,  65,  9);
+$rows[] = row($TPL, 14, 'ach.bank_name',         60,  65, 56);
+$rows[] = row($TPL, 14, 'ach.payment_amount',    98,  68, 13);
+$rows[] = row($TPL, 14, 'ach.frequency_short_en',165, 68, 22);
+$rows[] = row($TPL, 14, 'ach.first_payment_date',62,  72, 14);
+$rows[] = row($TPL, 14, 'signature.borrower_img',13, 218, 60, 15, 9, 'image');
+$rows[] = row($TPL, 14, 'ach.borrower_printed_name',15,245, 70);
+
+// Unsec p15 — ACH (Spanish). Approximate positions; drag to fine-tune.
+$rows[] = row($TPL, 15, 'header.borrower_name',  75,  33, 100);
+$rows[] = row($TPL, 15, 'header.loan_number',    75,  38, 100);
+$rows[] = row($TPL, 15, 'header.date',           75,  44, 100);
+$rows[] = row($TPL, 15, 'ach.account_last4',    180,  64,  9);
+$rows[] = row($TPL, 15, 'ach.bank_name',         48,  67, 60);
+$rows[] = row($TPL, 15, 'ach.payment_amount',   115,  71, 13);
+$rows[] = row($TPL, 15, 'ach.frequency_short_es', 14, 74, 30);
+$rows[] = row($TPL, 15, 'ach.first_payment_date',119, 74, 26);
+$rows[] = row($TPL, 15, 'signature.borrower_img',13, 224, 60, 15, 9, 'image');
+$rows[] = row($TPL, 15, 'ach.borrower_printed_name',15,249, 70);
 
 // Pages 16-35: static (no overlays needed)
 
