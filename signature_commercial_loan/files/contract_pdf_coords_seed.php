@@ -141,6 +141,7 @@ foreach ([3, 5] as $pg) {
     $rows[] = row($TPL, $pg, 'loan.pay_sched_first_date',    120, 106, 35);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_beginning_date',153, 106, 30);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_count',          75, 114, 15);
+    $rows[] = row($TPL, $pg, 'loan.pay_sched_each_date',     120, 114, 22);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_last_date',     120, 121, 35);
     $rows[] = row($TPL, $pg, 'loan.contract_fee',             85, 139, 22);
     $rows[] = row($TPL, $pg, 'loan.itemization_given',       170, 158, 30, 4, 8);
@@ -218,6 +219,7 @@ foreach ([3, 13] as $pg) {
     $rows[] = row($TPL, $pg, 'loan.pay_sched_first_date',    115, 199, 22);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_beginning_date',150, 199, 40);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_count',          70, 207, 15);
+    $rows[] = row($TPL, $pg, 'loan.pay_sched_each_date',     115, 207, 30);
     $rows[] = row($TPL, $pg, 'loan.pay_sched_last_date',     125, 215, 40);
     // Itemization
     $rows[] = row($TPL, $pg, 'loan.itemization_given',       180, 230, 30, 4, 8);

@@ -90,6 +90,7 @@ $CONTRACT_FIELD_CATALOG = [
     'loan.pay_sched_first_date' => ['label' => 'Loan: First Payment Date',     'type' => 'text'],
     'loan.pay_sched_beginning_date' => ['label' => 'Loan: Payments begin on',  'type' => 'text'],
     'loan.pay_sched_count'      => ['label' => 'Loan: Number of recurring payments', 'type' => 'text'],
+    'loan.pay_sched_each_date'  => ['label' => 'Loan: Recurring payment date / frequency', 'type' => 'text'],
     'loan.pay_sched_last_date'  => ['label' => 'Loan: Last Payment Date',      'type' => 'text'],
     'loan.contract_fee'         => ['label' => 'Loan: Origination / Contract Fee', 'type' => 'text'],
     'loan.itemization_given'    => ['label' => 'Loan: Itemization Amount Given',     'type' => 'text'],
@@ -308,6 +309,7 @@ function resolve_field_value($key, array $ctx) {
         case 'loan.pay_sched_first_date':      return (string)$get('first_payment_date');
         case 'loan.pay_sched_beginning_date':  return (string)$get('first_payment_date');
         case 'loan.pay_sched_count':           return (string)$get('count_payments');
+        case 'loan.pay_sched_each_date':       return (string)$get('first_payment_date');
         case 'loan.pay_sched_last_date':       return (string)$get('last_payment_date');
         case 'loan.contract_fee':              return number_format((float)$get('contract_fee', 0), 2);
         case 'loan.itemization_given':     return number_format((float)$get('principal_f',0) - (float)$get('in_hand',0), 2);
