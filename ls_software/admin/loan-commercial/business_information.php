@@ -119,11 +119,14 @@ $business_docs=$row_business_source['business_docs'];
 
 
   <!-- Bootstrap core CSS -->
- 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
+
+  <!-- Shared scoped styles for loan-commercial detail tabs -->
+  <link href="css/ui-tabs.css" rel="stylesheet">
 
 </head>
 
@@ -154,96 +157,96 @@ $business_docs=$row_business_source['business_docs'];
 
        
       </nav>
-  <br>
 
-<div class="row container-fluid" style="background-color: #F5E09E;color:black;padding:20px;">
+      <!-- Page toolbar -->
+      <div class="ui-toolbar">
+        <h3 class="ui-page-title">
+          <span class="glyphicon glyphicon-tower"></span>
+          Business Information
+          <small>&nbsp;·&nbsp;<?php echo htmlspecialchars((string)$loan_create_id); ?> · <?php echo htmlspecialchars(trim((string)$first_name . ' ' . (string)$last_name)); ?></small>
+        </h3>
+        <a href="loan_summary.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-default">
+          <span class="glyphicon glyphicon-arrow-left"></span> Back to loan
+        </a>
+      </div>
 
-<div class="col-lg-4"><p>Customer First Name:<b style="color:red"> <?php echo $first_name;?></b></p></div>
-<div class="col-lg-4"><p>Customer Last Name: <b style="color:red"><?php echo $last_name;?> </b></p></div>
-<div class="col-lg-4"><p>Customer Phone:<b style="color:red"> <?php echo $customer_numbr;?> </b> </p></div>
-<div class="col-lg-4"><p>Loan Date:<b style="color:red"> <?php echo $new_creation_date;?> </b></p></div>
-<div class="col-lg-4"><p>Loan Amount: <b style="color:red">$<?php echo $amount_loan;?></b></p></div>
-<div class="col-lg-4"><p>Loan ID:<b style="color:red"> <?php echo $loan_create_id;?> </b> </p></div>
+      <!-- Customer summary -->
+      <div class="ui-summary">
+        <div class="row">
+          <div class="col-md-3"><p><strong>Name</strong><b><?php echo htmlspecialchars(trim((string)$first_name . ' ' . (string)$last_name)); ?></b></p></div>
+          <div class="col-md-3"><p><strong>Phone</strong><b><?php echo htmlspecialchars((string)$customer_numbr); ?></b></p></div>
+          <div class="col-md-2"><p><strong>Loan Date</strong><b><?php echo htmlspecialchars((string)$new_creation_date); ?></b></p></div>
+          <div class="col-md-2"><p><strong>Loan Amount</strong><b>$<?php echo htmlspecialchars((string)$amount_loan); ?></b></p></div>
+          <div class="col-md-2"><p><strong>Loan ID</strong><b><?php echo htmlspecialchars((string)$loan_create_id); ?></b></p></div>
+        </div>
+      </div>
 
+      <form action="" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="emaill" value="<?php echo htmlspecialchars((string)($email ?? '')); ?>">
+        <input type="hidden" name="link"   value="<?php echo htmlspecialchars((string)($message ?? '')); ?>">
 
-</div>
-      <br><br>
-      
-    
-         <div class="container-fluid" style="width:100%; margin:0 auto;">
-        
+        <div class="ui-panel">
+          <div class="ui-panel-head">
+            Business Info
+            <span class="ui-panel-hint">Employer-entity details on file</span>
+          </div>
+          <div class="ui-panel-body">
+            <div class="row">
+              <div class="col-md-4 ui-field">
+                <label>Business Name</label>
+                <input type="text" name="business_name" class="form-control" value="<?php echo htmlspecialchars((string)($business_name ?? '')); ?>">
+              </div>
+              <div class="col-md-4 ui-field">
+                <label>Business Phone</label>
+                <input type="tel" name="business_phone" class="form-control" placeholder="123-456-7890"
+                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                       value="<?php echo htmlspecialchars((string)($business_phone ?? '')); ?>">
+              </div>
+              <div class="col-md-4 ui-field">
+                <label>Monthly Gross Amount</label>
+                <input type="text" name="gross_amount" class="form-control" placeholder="e.g. 15000"
+                       value="<?php echo htmlspecialchars((string)($gross_amount ?? '')); ?>">
+              </div>
 
-  <form action ="" method="POST" enctype="multipart/form-data">
- <input type="text" name="emaill" value="<?php echo $email;?>" style="display:none;">
-<input type="text" name="link" value="<?php echo $message;?>" style="display:none;">
+              <div class="col-md-4 ui-field">
+                <label>Direct Deposit</label>
+                <select name="business_direct_deposit" class="form-control">
+                  <option value=""></option>
+                  <option value="Yes" <?php if (($business_direct_deposit ?? '') === 'Yes') echo 'selected'; ?>>Yes</option>
+                  <option value="No"  <?php if (($business_direct_deposit ?? '') === 'No')  echo 'selected'; ?>>No</option>
+                </select>
+              </div>
+              <div class="col-md-4 ui-field">
+                <label>Pay Frequency</label>
+                <select name="business_get_paid" class="form-control">
+                  <option value=""></option>
+                  <?php foreach (['Weekly','Bi-Weekly','Semi Monthly','Monthly'] as $__pf): ?>
+                    <option value="<?php echo htmlspecialchars($__pf); ?>"
+                      <?php if (($how_paid_business ?? '') === $__pf) echo 'selected'; ?>><?php echo htmlspecialchars($__pf); ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="col-md-4 ui-field">
+                <label>Business Documentation</label>
+                <select name="business_docs" class="form-control">
+                  <option value=""></option>
+                  <?php foreach (['Business License','Sellers Permit','DBA'] as $__d): ?>
+                    <option value="<?php echo htmlspecialchars($__d); ?>"
+                      <?php if (($business_docs ?? '') === $__d) echo 'selected'; ?>><?php echo htmlspecialchars($__d); ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
-
- <h3>Business Info</h3>
- <br>
-    <div class="row">
- 
-    <div class="col-lg-4">
-      <label for="usr">Business Name</label>
- <input type="text" name="business_name"  class="form-control" id="usr" value="<?php echo $business_name; ?>">
-    </div>
-    
-    <div class="col-lg-4">
-      <label for="usr">Business Phone Number</label>
- <input type="tel" name="business_phone"  class="form-control" id="usr" placeholder="Format:123-456-7890" value="<?php echo $business_phone; ?>" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-    </div>
-    
-	<div class="col-lg-4">
-      <label for="usr">Monthly Gross Amount</label>
- <input type="text" name="gross_amount"  class="form-control" id="usr" placeholder="" value="<?php echo $gross_amount; ?>">
-    </div>
-	
-     <div class="col-lg-4">
-      <label for="usr"> Direct Deposit</label>
-<select name="business_direct_deposit" id="payment" class="form-control">
-    <option></option>
-<option value="Yes" <?php if($business_direct_deposit=='Yes'){ echo 'selected';} ?>>Yes</option>
-<option value="No"  <?php if($business_direct_deposit=='No'){ echo 'selected';} ?>>No</option>
-
-</select>
-    </div>
-
-    	
-
-<div class="col-lg-4">
-      <label for="usr">How often do you get paid?</label>
- <select name="business_get_paid" id="get_paid" class="form-control">
-     <option></option>
-<option value="Weekly" <?php if($how_paid_business=='Weekly'){ echo 'selected';} ?>>Weekly</option>
-<option value="Bi-Weekly" <?php if($how_paid_business=='Bi-Weekly'){ echo 'selected';} ?>>Bi-Weekly</option>
-<option value="Semi Monthly" <?php if($how_paid_business=='Semi Monthly'){ echo 'selected';} ?>>Semi Monthly</option>
-<option value="Monthly" <?php if($how_paid_business=='Monthly'){ echo 'selected';} ?>>Monthly</option>
-
-</select>
- 
-    </div>
-
-<div class="col-lg-4">
-      <label for="usr">Business Documentation</label>
- <select name="business_docs" id="payment" class="form-control">
-    <option></option>
-<option value="Business License" <?php if($business_docs=='Business License'){ echo 'selected';} ?>>Business License</option>
-<option value="Sellers Permit"  <?php if($business_docs=='Sellers Permit'){ echo 'selected';} ?>>Sellers Permit</option>
-<option value="DBA"  <?php if($business_docs=='DBA'){ echo 'selected';} ?>>DBA</option>
-
-</select>
-    </div>
-
-
-    </div>
-       <br> 
-       
-      
-      <button name="btn-submit" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: white;background-color: #1E90FF;border-radius: 0px;border-color: #1E90FF;">Update</button>
-    </form>
-
-</div>
-</div>
-</div>
+        <div class="ui-action-bar">
+          <a href="loan_summary.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-default">Cancel</a>
+          <button name="btn-submit" type="submit" class="btn btn-save">
+            <span class="glyphicon glyphicon-save"></span> Update
+          </button>
+        </div>
+      </form>
         
     </div>
     <!-- /#page-content-wrapper -->

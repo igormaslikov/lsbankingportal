@@ -117,10 +117,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../website/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.3.1/dt-1.10.25/b-1.7.1/sl-1.3.3/datatables.min.css" />
     <link rel="stylesheet" href="css/bankInfoStyle.css">
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- Shared scoped styles for loan-commercial detail tabs -->
+    <link href="css/ui-tabs.css" rel="stylesheet">
 
   </head>
 
@@ -149,34 +153,32 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
         </nav>
-        <br>
 
-        <div class="row container-fluid" style="background-color: #F5E09E;color:black;padding:20px;">
-
-          <div class="col-lg-4">
-            <p>Customer First Name:<b style="color:red"> <?php echo $first_name; ?></b></p>
-          </div>
-          <div class="col-lg-4">
-            <p>Customer Last Name: <b style="color:red"><?php echo $last_name; ?> </b></p>
-          </div>
-          <div class="col-lg-4">
-            <p>Customer Phone:<b style="color:red"> <?php echo $customer_numbr; ?> </b> </p>
-          </div>
-          <div class="col-lg-3">
-            <p>Loan Date:<b style="color:red"> <?php echo $new_creation_date; ?> </b></p>
-          </div>
-          <div class="col-lg-3">
-            <p>Money Amount: <b style="color:red"> <?php echo $val . $amount_loan; ?></b></p>
-          </div>
-          <div class="col-lg-3">
-            <p>Loan ID:<b style="color:red"> <?php echo $loan_create_id; ?> </b> </p>
-          </div>
-          <div class="col-lg-3" id="idUserId" value="<?php echo $user_fnd_id; ?>">
-            <p>User ID:<b style="color:red"> <?php echo $user_fnd_id; ?> </b> </p>
-          </div>
-
+        <!-- Page toolbar -->
+        <div class="ui-toolbar">
+          <h3 class="ui-page-title">
+            <span class="glyphicon glyphicon-credit-card"></span>
+            Bank Information
+            <small>&nbsp;·&nbsp;<?php echo htmlspecialchars((string)$loan_create_id); ?> · <?php echo htmlspecialchars(trim((string)$first_name . ' ' . (string)$last_name)); ?></small>
+          </h3>
+          <a href="loan_summary.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-default">
+            <span class="glyphicon glyphicon-arrow-left"></span> Back to loan
+          </a>
         </div>
-        <br><br>
+
+        <!-- Customer summary -->
+        <div class="ui-summary">
+          <div class="row">
+            <div class="col-md-3"><p><strong>Name</strong><b><?php echo htmlspecialchars(trim((string)$first_name . ' ' . (string)$last_name)); ?></b></p></div>
+            <div class="col-md-3"><p><strong>Phone</strong><b><?php echo htmlspecialchars((string)$customer_numbr); ?></b></p></div>
+            <div class="col-md-2"><p><strong>Loan Date</strong><b><?php echo htmlspecialchars((string)$new_creation_date); ?></b></p></div>
+            <div class="col-md-2"><p><strong>Loan Amount</strong><b><?php echo htmlspecialchars((string)($val . $amount_loan)); ?></b></p></div>
+            <div class="col-md-2"><p><strong>Loan ID</strong><b><?php echo htmlspecialchars((string)$loan_create_id); ?></b></p></div>
+          </div>
+        </div>
+
+        <!-- Preserved for JS: user id lookup -->
+        <div id="idUserId" value="<?php echo htmlspecialchars((string)$user_fnd_id); ?>" style="display:none;"></div>
 
         <!-- <div class="container-fluid">
           <div class="row">
@@ -235,7 +237,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $total_records = $total_records['total_records'];
               $total_no_of_pages = ceil($total_records / $total_records_per_page);
               $second_last = $total_no_of_pages - 1; // total page minus 1
-
+                echo "test ".$total_no_of_pages;
               $sql_loan = mysqli_query($con, "select * from commercial_loan_initial_banking where user_fnd_id = '$user_fnd_id'");
 
               while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
@@ -283,31 +285,24 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
           </table>
         </div> -->
 
-        <div class="container-fluid">
-          <!-- <div class="row">
-            <div class="col-lg-12">
-              <h3>All Banks Info</h3>
-
-            </div>
+        <div class="ui-panel">
+          <div class="ui-panel-head" style="padding:0 16px;">
+            <!-- Nav pills -->
+            <ul class="nav nav-tabs" style="border-bottom:0; margin-bottom:-1px;">
+              <li class="nav-item" hidden="true">
+                <a class="nav-link" data-toggle="tab" href="#home">Loans</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#menu1">Banks</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu2">Cards</a>
+              </li>
+            </ul>
           </div>
-          <br> -->
-          <h2>Bank Information</h2>
-          <br>
-          <!-- Nav pills -->
-          <ul class="nav nav-tabs">
-            <li class="nav-item" hidden = "true">
-              <a class="nav-link " data-toggle="tab" href="#home">Loans</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" data-toggle="tab" href="#menu1">Banks</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#menu2">Cards</a>
-            </li>
-          </ul>
 
           <!-- Tab panes -->
-          <div class="tab-content">
+          <div class="tab-content ui-panel-body" style="padding:16px;">
             <div id="home" class="container tab-pane " hidden><br>
               <div>
                 <table id="tbl_loans_info" class="table table-striped table-bordered">

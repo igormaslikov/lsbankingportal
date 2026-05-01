@@ -1,4 +1,7 @@
 <?php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 $_SESSION["Optima"] = "true";
 $url_logo="../signature_customer/completed";
 
@@ -62,9 +65,12 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
     $payment_date= date("m-d-Y", $timestamp);
     
     $creation_date=$row_loan['contract_date'];
+    $timestamp_2023_06_04 = strtotime('2023-06-04');
+    $timestamp_2024_09_01 = strtotime('2024-09-01');
     $creation_date_db=$row_loan['contract_date'];
     $timestamp = strtotime($creation_date);
     $creation_date= date("m-d-Y", $timestamp);
+    $creation_date_year= date("Y", $timestamp);
     
 //$payment_date= date("m-d-Y", strtotime($var) );
 //$loan_fee = $row_loan['loan_fee'];
@@ -207,6 +213,7 @@ class PDF_Grid extends Fpdi {
 function page_1($pdf){
     global $loan_id_bor;
     global $creation_date;
+    global $creation_date_year;
     global $f_name;
     global $address;
     global $city;
@@ -219,12 +226,15 @@ function page_1($pdf){
     global $payment_date;
     global $username;
     global $signed_pic;
+    global $timestamp;
+    global $timestamp_2023_06_04;
 
 
     $tpl = $pdf->importPage(1);
     $pdf->grid = false;
     $pdf->AddPage();
-    $pdf->useTemplate($tpl);
+    $originalSize = $pdf->getTemplateSize($tpl);
+    $pdf->useTemplate($tpl,0,0,$originalSize["width"],$originalSize["height"]);
 
     set_info($pdf,28,21,50,6,$loan_id_bor,'L');
     set_info($pdf,38,25.5,50,6,$creation_date,'L');
@@ -246,13 +256,20 @@ function page_1($pdf){
     set_info($pdf,78,144,50,6,"$".$loan_payable);
     set_info($pdf,149,144,38,6,$payment_date);
     
-    set_image($pdf,$signed_pic,11,264,-200);//$initial_pic
-    set_info($pdf,51,270,33,6,$creation_date);
-    set_info($pdf,87,270,36,6,$username);
-    set_info($pdf,125,270,36,6,"Rep");
-    set_info($pdf,163,270,36,6,$creation_date);
-
-
+    if($creation_date_year<2023 || $timestamp <= $timestamp_2023_06_04){
+        set_image($pdf,$signed_pic,11,264,-200);//$initial_pic
+        set_info($pdf,51,270,33,6,$creation_date);
+        set_info($pdf,87,270,36,6,$username);
+        set_info($pdf,125,270,36,6,"Rep");
+        set_info($pdf,163,270,36,6,$creation_date);
+    }
+    else{
+        set_image($pdf,$signed_pic,11,275,-200);//$initial_pic
+        set_info($pdf,51,286,33,-10,$creation_date);
+        set_info($pdf,87,286,36,-10,$username);
+        set_info($pdf,125,286,36,-10,"Rep");
+        set_info($pdf,163,286,36,-10,$creation_date);
+    }
 
 }
 
@@ -262,6 +279,7 @@ function page_1($pdf){
 function page_2($pdf){
     global $loan_id_bor;
     global $creation_date;
+    global $creation_date_year;
     global $f_name;
     global $address;
     global $city;
@@ -274,9 +292,11 @@ function page_2($pdf){
     global $payment_date;
     global $username;
     global $signed_pic;
+    global $timestamp;
+    global $timestamp_2023_06_04;
 
     $tpl = $pdf->importPage(2);
-    $pdf->grid = false;
+    $pdf->grid = true;
     $pdf->AddPage();
     $pdf->useTemplate($tpl);
 
@@ -300,11 +320,21 @@ function page_2($pdf){
     set_info($pdf,78,141,50,6,"$".$loan_payable);
     set_info($pdf,149,141,38,6,$payment_date);
     
-    set_image($pdf,$signed_pic,11,264-2,-200);//$initial_pic
-    set_info($pdf,51,270-2,33,6,$creation_date);
-    set_info($pdf,87,270-2,36,6,$username);
-    set_info($pdf,125,270-2,36,6,"Rep");
-    set_info($pdf,163,270-2,36,6,$creation_date);
+
+    if($creation_date_year<2023 || $timestamp <= $timestamp_2023_06_04){
+        set_image($pdf,$signed_pic,11,264-2,-200);//$initial_pic
+        set_info($pdf,51,270-2,33,6,$creation_date);
+        set_info($pdf,87,270-2,36,6,$username);
+        set_info($pdf,125,270-2,36,6,"Rep");
+        set_info($pdf,163,270-2,36,6,$creation_date);
+    }
+    else{
+        set_image($pdf,$signed_pic,11,275,-200);//$initial_pic
+        set_info($pdf,51,286,33,-10,$creation_date);
+        set_info($pdf,87,286-2,36,-10,$username);
+        set_info($pdf,125,286-2,36,-10,"Rep");
+        set_info($pdf,163,286-2,36,-10,$creation_date);
+    }
 
 }
 
@@ -447,7 +477,17 @@ function page_8($pdf){
 
 $pdf = new PDF_Grid();
 
-$pagecount = $pdf->setSourceFile("../Optima Contract-PDF.pdf");
+
+if($timestamp >= $timestamp_2024_09_01){
+    $creation_date_year = 2025;
+}
+
+$file_name = "../Optima Contract-PDF".$creation_date_year.".pdf";
+if($creation_date_year == 2023 && $timestamp <= $timestamp_2023_06_04){
+    $file_name = "../Optima Contract-PDF".$creation_date_year."_old.pdf";
+}
+
+$pagecount = $pdf->setSourceFile($file_name);
 
 
 page_1($pdf);

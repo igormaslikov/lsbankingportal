@@ -42,7 +42,7 @@ if (isset($_POST['btn-submit'])) {
 
     $apr = $row_user_id3['apr'];
 
-    //echo"<br><br><br><br><br><br><br><br> <br><br>User_Key:" .$fnd_id;
+    echo"<br><br><br><br><br><br><br><br> <br><br>User_Key:" .$fnd_id;
 
   }
 
@@ -182,6 +182,7 @@ if ($u_access_id == '0') {
   $renew_loan_status = $_GET['renew_status'];
   $name_id = $_POST['keyword'];
   $state_loan = $_GET['state'];
+
   //echo "<br><br><br><br><br><br><br><br><br><br>Name Is: $name_id";
   ?>
 
@@ -226,95 +227,95 @@ if ($u_access_id == '0') {
         <?php
 
 
-        if ($state_loan == 'CA') {
-          $sql_count_loans = "SELECT * FROM tbl_loan where state='CA'";
-          if ($result_count_loans = mysqli_query($con, $sql_count_loans)) {
-            // Return the number of rows in result set
-            $rowcount_count_loans = mysqli_num_rows($result_count_loans) + 71019;
+        // if ($state_loan == 'CA') {
+        //   $sql_count_loans = "SELECT * FROM tbl_loan where state='CA'";
+        //   if ($result_count_loans = mysqli_query($con, $sql_count_loans)) {
+        //     // Return the number of rows in result set
+        //     $rowcount_count_loans = mysqli_num_rows($result_count_loans) + 71019;
 
-            $rowcount_count_loans = $rowcount_count_loans - 143;
-            //echo "<br><br><br><br><br>".$rowcount_count_loans;
-          }
-        }
+        //     $rowcount_count_loans = $rowcount_count_loans - 143;
+        //     //echo "<br><br><br><br><br>".$rowcount_count_loans;
+        //   }
+        // }
 
-        $sql_count_ca = "SELECT * FROM tbl_loan where state='CA'";
-        if ($result_count_ca = mysqli_query($con, $sql_count_ca)) {
-          // Return the number of rows in result set
-          $rowcount_count_ca = mysqli_num_rows($result_count_ca) + 71019;
+        // $sql_count_ca = "SELECT * FROM tbl_loan where state='CA'";
+        // if ($result_count_ca = mysqli_query($con, $sql_count_ca)) {
+        //   // Return the number of rows in result set
+        //   $rowcount_count_ca = mysqli_num_rows($result_count_ca) + 71019;
 
-          $rowcount_count_ca = $rowcount_count_ca - 143;
-          //echo "<br><br><br><br><br>".$rowcount_count_loans;
-        }
-        //******************************8 row count for NV
+        //   $rowcount_count_ca = $rowcount_count_ca - 143;
+        //   //echo "<br><br><br><br><br>".$rowcount_count_loans;
+        // }
+        // //******************************8 row count for NV
 
-        if ($state_loan == 'NV') {
-          $sql_count_nv = "SELECT * FROM tbl_loan where state='NV'";
-          if ($result_count_nv = mysqli_query($con, $sql_count_nv)) {
-            // Return the number of rows in result set
-            $rowcount_count_loans = mysqli_num_rows($result_count_nv);
+        // if ($state_loan == 'NV') {
+        //   $sql_count_nv = "SELECT * FROM tbl_loan where state='NV'";
+        //   if ($result_count_nv = mysqli_query($con, $sql_count_nv)) {
+        //     // Return the number of rows in result set
+        //     $rowcount_count_loans = mysqli_num_rows($result_count_nv);
 
-            //echo "<br><br><br><br><br>".$rowcount_count_nv;
+        //     //echo "<br><br><br><br><br>".$rowcount_count_nv;
 
-            $string = 500000 + $rowcount_count_loans;
-            $insertion = "-";
-            $index = 1;
-            $rowcount_count_loans = substr_replace($string, $insertion, $index, 0);
-            $rowcount_count_loans = "0" . '' . $rowcount_count_loans;
-            //echo $result;
-          }
-        }
-
-
-
-        $sql_count_nv = "SELECT * FROM tbl_loan where state='NV'";
-        if ($result_count_nv = mysqli_query($con, $sql_count_nv)) {
-          // Return the number of rows in result set
-          $rowcount_count_nv = mysqli_num_rows($result_count_nv);
-
-          //echo "<br><br><br><br><br>".$rowcount_count_nv;
-
-          $string = 500000 + $rowcount_count_nv;
-          $insertion = "-";
-          $index = 1;
-          $rowcount_count_nv = substr_replace($string, $insertion, $index, 0);
-          $rowcount_count_nv = "0" . '' . $rowcount_count_nv;
-          //echo $result;
-        }
-        //***************************** NV END
+        //     $string = 500000 + $rowcount_count_loans;
+        //     $insertion = "-";
+        //     $index = 1;
+        //     $rowcount_count_loans = substr_replace($string, $insertion, $index, 0);
+        //     $rowcount_count_loans = "0" . '' . $rowcount_count_loans;
+        //     //echo $result;
+        //   }
+        // }
 
 
-        //******************************8 row count for IL
 
-        if ($state_loan == 'IL') {
-          $sql_count_il = "SELECT * FROM tbl_loan where state='IL'";
-          if ($result_count_il = mysqli_query($con, $sql_count_il)) {
-            // Return the number of rows in result set
-            $rowcount_count_loans = mysqli_num_rows($result_count_il);
-            $string = 600000 + $rowcount_count_loans;
-            $insertion = "-";
-            $index = 1;
-            $rowcount_count_loans = substr_replace($string, $insertion, $index, 0);
-            $rowcount_count_loans = "0" . '' . $rowcount_count_loans;
-            //echo $result;
+        // $sql_count_nv = "SELECT * FROM tbl_loan where state='NV'";
+        // if ($result_count_nv = mysqli_query($con, $sql_count_nv)) {
+        //   // Return the number of rows in result set
+        //   $rowcount_count_nv = mysqli_num_rows($result_count_nv);
 
-            //echo "<br><br><br><br><br>".$rowcount_count_il;
-          }
-        }
+        //   //echo "<br><br><br><br><br>".$rowcount_count_nv;
 
-        $sql_count_il = "SELECT * FROM tbl_loan where state='IL'";
-        if ($result_count_il = mysqli_query($con, $sql_count_il)) {
-          // Return the number of rows in result set
-          $rowcount_count_il = mysqli_num_rows($result_count_il);
-          $string = 600000 + $rowcount_count_il;
-          $insertion = "-";
-          $index = 1;
-          $rowcount_count_il = substr_replace($string, $insertion, $index, 0);
-          $rowcount_count_il = "0" . '' . $rowcount_count_il;
-          //echo $result;
+        //   $string = 500000 + $rowcount_count_nv;
+        //   $insertion = "-";
+        //   $index = 1;
+        //   $rowcount_count_nv = substr_replace($string, $insertion, $index, 0);
+        //   $rowcount_count_nv = "0" . '' . $rowcount_count_nv;
+        //   //echo $result;
+        // }
+        // //***************************** NV END
 
-          //echo "<br><br><br><br><br>".$rowcount_count_il;
-        }
-        //***************************** IL END
+
+        // //******************************8 row count for IL
+
+        // if ($state_loan == 'IL') {
+        //   $sql_count_il = "SELECT * FROM tbl_loan where state='IL'";
+        //   if ($result_count_il = mysqli_query($con, $sql_count_il)) {
+        //     // Return the number of rows in result set
+        //     $rowcount_count_loans = mysqli_num_rows($result_count_il);
+        //     $string = 600000 + $rowcount_count_loans;
+        //     $insertion = "-";
+        //     $index = 1;
+        //     $rowcount_count_loans = substr_replace($string, $insertion, $index, 0);
+        //     $rowcount_count_loans = "0" . '' . $rowcount_count_loans;
+        //     //echo $result;
+
+        //     //echo "<br><br><br><br><br>".$rowcount_count_il;
+        //   }
+        // }
+
+        // $sql_count_il = "SELECT * FROM tbl_loan where state='IL'";
+        // if ($result_count_il = mysqli_query($con, $sql_count_il)) {
+        //   // Return the number of rows in result set
+        //   $rowcount_count_il = mysqli_num_rows($result_count_il);
+        //   $string = 600000 + $rowcount_count_il;
+        //   $insertion = "-";
+        //   $index = 1;
+        //   $rowcount_count_il = substr_replace($string, $insertion, $index, 0);
+        //   $rowcount_count_il = "0" . '' . $rowcount_count_il;
+        //   //echo $result;
+
+        //   //echo "<br><br><br><br><br>".$rowcount_count_il;
+        // }
+        // //***************************** IL END
         ?>
 
         <?php
@@ -336,14 +337,14 @@ if ($u_access_id == '0') {
         $sql_apr = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'");
 
         while ($row_apr = mysqli_fetch_array($sql_apr)) {
-          $apr_date = $row_apr['apr'];
+        //   $apr_date = $row_apr['apr'];
           $member_military = $row_apr['member_military'] == 0 ? "No" : "Yes";
 
-          //echo $apr_date;
+        //   echo $apr_date;
 
         }
 
-        $sql1 = mysqli_query($con, "SELECT  From business_group WHERE bg_name= '$loan_name'");
+        $sql1 = mysqli_query($con, "SELECT * From business_group WHERE bg_name= '$loan_name'");
         $row1 = mysqli_num_rows($sql1);
 
         while ($row1 = mysqli_fetch_array($sql1)) {
@@ -494,7 +495,7 @@ if ($u_access_id == '0') {
             <?php
             ////$Date = "2019-09-20";
 
-            $dayss = date('Y-m-d', strtotime($date . "+ {$apr_date} days"));
+            // $dayss = date('Y-m-d', strtotime($date . "+ {$apr_date} days"));
 
 
             ?>

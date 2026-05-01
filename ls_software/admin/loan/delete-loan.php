@@ -1,6 +1,9 @@
 <?php
 error_reporting(0);
 session_start();
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
@@ -210,13 +213,13 @@ while($row_role = mysqli_fetch_array($sql_role)) {
  $form_id=$row_role['id'];
  
 }
-   $delete_allowed =  user_roles($u_access_id,$form_id);
+//   $delete_allowed =  user_roles($u_access_id,$form_id);
    $delete_allowed  = 1;
     
     if ($delete_allowed==1)
 {
     
-    
+    echo $user_fnd_id;
     $date=date('Y-m-d');
 $del_reason ="Loan ID $id is deleted,".$_POST['del_reason']." and User ID is $user_fnd_id.";
 
@@ -237,7 +240,7 @@ $transaction_id=$row_transaction['transaction_id'];
 }
     
     
-application_notes_update($user_fnd_id,$loan_create_id,$u_id,$del_reason,$transaction_id);
+// application_notes_update($user_fnd_id,$loan_create_id,$u_id,$del_reason,$transaction_id);
     
       
 ?>

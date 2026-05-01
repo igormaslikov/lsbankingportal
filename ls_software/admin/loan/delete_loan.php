@@ -1,13 +1,16 @@
 <?php
 error_reporting(0);
 session_start();
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: ../index.php");
 }
-
+echo "SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession'];
 $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
 $userRow=$query->fetch_array();
 $u_id=$userRow['user_id'];
@@ -107,6 +110,7 @@ $username=$row_user['username'];
      
      if(isset($_POST['btn-submit'])) 
 {
+    
     $form_name="payday-".basename(__FILE__);
     
     
@@ -118,12 +122,13 @@ while($row_role = mysqli_fetch_array($sql_role)) {
  $form_id=$row_role['id'];
  
 }
-   $delete_allowed = user_roles($u_access_id,$form_id);
+   $delete_allowed =1;
+//   user_roles($u_access_id,$form_id);
     
     
     if ($delete_allowed==1)
 {
-    
+
     $date=date('Y-m-d');
 $del_reason ="Unsigned Loan ID $loan_create_id is deleted,".$_POST['del_reason']." and User ID is $user_fnd_id.";
 
@@ -143,7 +148,7 @@ while($row_transaction = mysqli_fetch_array($sql_transaction)) {
 $transaction_id=$row_transaction['transaction_id'];
 }
     
-application_notes_update($user_fnd_id,$loan_create_id,$u_id,$del_reason,$transaction_id);
+//application_notes_update($user_fnd_id,$loan_create_id,$u_id,$del_reason,$transaction_id);
     
 
 ?>

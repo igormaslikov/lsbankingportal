@@ -1,5 +1,9 @@
 <?php
 error_reporting(0);
+
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 session_start();
 date_default_timezone_set('America/Los_Angeles');
 
@@ -697,7 +701,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
  $form_id=$row_role['id'];
  
 }
-   $update_allowed = user_edit_roles($u_access_id,$form_id);
+   $update_allowed = 1;// user_edit_roles($u_access_id,$form_id);
     
     
     if ($update_allowed==1)

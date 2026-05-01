@@ -137,38 +137,20 @@ $blocked_by=$row_block['username'];
 
 <head>
 
-<style>
-.buttonHolder{ text-align: left; 
-    margin-left: 15px;
-}
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
 
-
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
+
+  <!-- Shared scoped styles for loan-commercial detail tabs -->
+  <link href="css/ui-tabs.css" rel="stylesheet">
 
 </head>
 
@@ -180,7 +162,6 @@ tr:nth-child(even) {
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading"> </div>
       <div class="list-group list-group-flush">
- 
         <?php include('vertical_menu.php'); ?>
       </div>
     </div>
@@ -194,255 +175,184 @@ tr:nth-child(even) {
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-
-       
       </nav>
-      <br>
-      <div class="row container-fluid" style="background-color: #F5E09E;color:black;padding:20px;">
 
-<div class="col-lg-4"><p>Customer First Name:<b style="color:red"> <?php echo $first_name;?></b></p></div>
-<div class="col-lg-4"><p>Customer Last Name: <b style="color:red"><?php echo $last_name;?> </b></p></div>
-<div class="col-lg-4"><p>Customer Phone:<b style="color:red"> <?php echo $mobile_number;?> </b> </p></div>
-<div class="col-lg-4"><p>Loan Date:<b style="color:red"> <?php echo $new_creation_date;?> </b></p></div>
-<div class="col-lg-4"><p>Loan Amount: <b style="color:red"> <?php echo $val.$amount_loan.$variable;?></b></p></div>
-<div class="col-lg-4"><p>Loan ID:<b style="color:red"> <?php echo $loan_create_id;?> </b> </p></div>
+    <!-- Page toolbar -->
+    <div class="ui-toolbar">
+      <h3 class="ui-page-title">
+        <span class="glyphicon glyphicon-user"></span>
+        Customer's Information
+        <small>&nbsp;·&nbsp;<?php echo htmlspecialchars((string)$loan_create_id); ?> · <?php echo htmlspecialchars(trim((string)$first_name . ' ' . (string)$last_name)); ?></small>
+      </h3>
+      <div>
+        <a href="loan_summary.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-default">
+          <span class="glyphicon glyphicon-arrow-left"></span> Back to loan
+        </a>
+      </div>
+    </div>
 
+    <!-- Summary card -->
+    <div class="ui-summary">
+      <div class="row">
+        <div class="col-md-3"><p><strong>Name</strong><b><?php echo htmlspecialchars(trim((string)$first_name . ' ' . (string)$last_name)); ?></b></p></div>
+        <div class="col-md-2"><p><strong>Phone</strong><b><?php echo htmlspecialchars((string)$mobile_number); ?></b></p></div>
+        <div class="col-md-2"><p><strong>DOB</strong><b><?php echo htmlspecialchars((string)$date_of_birth); ?></b></p></div>
+        <div class="col-md-2"><p><strong>Loan Amount</strong><b><?php echo htmlspecialchars((string)($val . $amount_loan)); ?></b></p></div>
+        <div class="col-md-2"><p><strong>Loan Date</strong><b><?php echo htmlspecialchars((string)$new_creation_date); ?></b></p></div>
+        <div class="col-md-1"><p><strong>Loan ID</strong><b><?php echo htmlspecialchars((string)$loan_create_id); ?></b></p></div>
+      </div>
+    </div>
 
-</div>
-<?php
-if($block_status=='5'){
+    <?php if ((string)$block_status === '5'): ?>
+      <div class="ui-blacklist">
+        <span class="glyphicon glyphicon-ban-circle"></span>
+        This customer has been blacklisted by <?php echo htmlspecialchars((string)$blocked_by); ?>.
+      </div>
+    <?php endif; ?>
 
-      echo "<div class='row container-fluid' style='background-color: red;color:black;padding:20px;'>
-          <b style='text-align:center;'> This User has been blacklisted by $blocked_by</b>
-
-    </div>";
-
-}
-?>
-   <br><br>
- 
-      <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-6">
-            <h3>Customer Information: </h3><br>
-        
-        </div>
-        
-        <div class="col-lg-6">
-            <form action="" method="post" enctype="multipart/form-data">
-                 <?php
-     if($block_status=='0'){
-         echo"
-            <span class='glyphicon glyphicon-ban-circle' aria-hidden='true' alt='Block This Customer' style='font-size:35px;'><button name='btn-block' type='submit' style='height:35px;width:35px;'><img src='imgs/ban.png' height='35px'; width='35px' style='margin-top: -32px;margin-left: -7px;'/></button></span> <span style='font-size:35px;margin-left: 5px;'>Blacklist</span>";
-        }
-         else {
-         echo"
-	<span class='glyphicon glyphicon-ban-circle' aria-hidden='true' alt='Block This Customer' style='font-size:35px;'><button name='btn-unblock' type='submit' style='height:35px;width:35px;'><img src='imgs/ban.png' height='35px'; width='35px' style='margin-top: -32px;margin-left: -7px;'/></button></span> <span style='font-size:35px;margin-left: 5px;'>Remove from Blacklist</span>";
-       
-     }
-        ?>
+    <!-- Photo + blacklist actions -->
+    <div class="ui-photo-panel">
+      <?php $__photo_src = (empty($id_photo)) ? 'imgs/DP.jpg' : '../../dl_client_files/customer_imgs/' . $id_photo; ?>
+      <img src="<?php echo htmlspecialchars($__photo_src); ?>" alt="Customer photo" class="ui-photo-img"/>
+      <div class="ui-photo-actions">
+        <a href="upload_user_img.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-primary">
+          <span class="glyphicon glyphicon-camera"></span> Change Picture
+        </a>
+        <form action="" method="post" style="display:inline-block;margin:0;">
+          <?php if ((string)$block_status === '0'): ?>
+            <button name="btn-block" type="submit" class="btn btn-danger"
+                    onclick="return confirm('Blacklist this customer?');">
+              <span class="glyphicon glyphicon-ban-circle"></span> Blacklist
+            </button>
+          <?php else: ?>
+            <button name="btn-unblock" type="submit" class="btn btn-success">
+              <span class="glyphicon glyphicon-ok-sign"></span> Remove from Blacklist
+            </button>
+          <?php endif; ?>
         </form>
-        </div>
-        
-     <?php
-if(isset($_POST['btn-block'])) {
+      </div>
+    </div>
 
-mysqli_query($con,"UPDATE fnd_user_profile SET block_status ='5', block_by ='$u_id' where user_fnd_id= '$user_fnd_id' ");
+    <form action="" method="POST" enctype="multipart/form-data">
 
-}
+      <!-- Personal Info -->
+      <div class="ui-panel">
+        <div class="ui-panel-head">
+          Personal Information
+          <span class="ui-panel-hint">Identity &amp; ID document</span>
+        </div>
+        <div class="ui-panel-body">
+          <div class="row">
+            <div class="col-md-4 ui-field">
+              <label>First Name</label>
+              <input type="text" name="full_name" class="form-control" value="<?php echo htmlspecialchars((string)$first_name); ?>">
+            </div>
+            <div class="col-md-4 ui-field">
+              <label>Last Name</label>
+              <input type="text" name="last_name" class="form-control" value="<?php echo htmlspecialchars((string)$last_name); ?>">
+            </div>
+            <div class="col-md-4 ui-field">
+              <label>Date of Birth</label>
+              <input type="text" name="dob" class="form-control" placeholder="MM-DD-YYYY" value="<?php echo htmlspecialchars((string)$date_of_birth); ?>">
+            </div>
+            <div class="col-md-4 ui-field">
+              <label>SSN / ITIN</label>
+              <input type="text" name="ssn" class="form-control" value="<?php echo htmlspecialchars((string)$ssn); ?>">
+            </div>
+            <div class="col-md-8 ui-field">
+              <label>Type of ID</label>
+              <select name="type_id" id="type_id" class="form-control">
+                <option value=""></option>
+                <?php foreach (['Drivers License','State Personal ID','Matricula Consular ID','Tribal ID','Passport','Military ID','Other'] as $opt): ?>
+                  <option value="<?php echo htmlspecialchars($opt); ?>" <?php echo ($type_of_id == $opt) ? 'selected' : ''; ?>><?php echo htmlspecialchars($opt); ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
 
-?>
-<?php
-if(isset($_POST['btn-unblock'])) {
+      <!-- Contact Info -->
+      <div class="ui-panel">
+        <div class="ui-panel-head">
+          Contact Information
+          <span class="ui-panel-hint">Email, phone, address</span>
+        </div>
+        <div class="ui-panel-body">
+          <div class="row">
+            <div class="col-md-6 ui-field">
+              <label>Email</label>
+              <input type="email" name="email" class="form-control" value="<?php echo htmlspecialchars((string)$email); ?>">
+              <?php if (!empty($email)): ?>
+                <a href='mailto:<?php echo htmlspecialchars((string)$email); ?>' class="ui-email-link">
+                  <span class="glyphicon glyphicon-envelope"></span> Send Email via Outlook
+                </a>
+              <?php endif; ?>
+            </div>
+            <div class="col-md-6 ui-field">
+              <label>Phone Number</label>
+              <input type="tel" name="ph_numbr" class="form-control" value="<?php echo htmlspecialchars((string)$mobile_number); ?>">
+            </div>
+            <div class="col-md-6 ui-field">
+              <label>Primary Address</label>
+              <input type="text" name="p_address" class="form-control" value="<?php echo htmlspecialchars((string)$address); ?>">
+            </div>
+            <div class="col-md-3 ui-field">
+              <label>City</label>
+              <input type="text" name="city" class="form-control" value="<?php echo htmlspecialchars((string)$city); ?>">
+            </div>
+            <div class="col-md-1 ui-field">
+              <label>State</label>
+              <input type="text" name="state" class="form-control" value="<?php echo htmlspecialchars((string)$state); ?>">
+            </div>
+            <div class="col-md-2 ui-field">
+              <label>Zip</label>
+              <input type="text" name="zip_code" class="form-control" value="<?php echo htmlspecialchars((string)$zip); ?>">
+            </div>
+          </div>
+        </div>
+      </div>
 
-mysqli_query($con,"UPDATE fnd_user_profile SET block_status ='0', block_by ='$u_id' where user_fnd_id= '$user_fnd_id' ");
+      <!-- References (collapsed by default) -->
+      <div class="ui-panel ui-collapsible collapsed" id="ui-refs">
+        <div class="ui-panel-head" onclick="this.parentElement.classList.toggle('collapsed')">
+          References
+          <span class="ui-panel-hint">Optional · click to expand <span class="caret"></span></span>
+        </div>
+        <div class="ui-panel-body">
+          <?php for ($rn = 1; $rn <= 4; $rn++):
+            $suffix = ($rn === 1) ? '' : (string)$rn;
+            $phone_field = ($rn === 4) ? 'ref_phon4' : 'ref_phone' . $suffix; // preserve original typo for field 4
+          ?>
+            <div class="ui-ref-row">
+              <div class="ui-ref-label">Reference <?php echo $rn; ?></div>
+              <div class="row">
+                <div class="col-md-4 ui-field">
+                  <label>Name</label>
+                  <input type="text" name="ref_name<?php echo $suffix; ?>" class="form-control" value="">
+                </div>
+                <div class="col-md-4 ui-field">
+                  <label>Phone</label>
+                  <input type="text" name="<?php echo $phone_field; ?>" class="form-control" value="">
+                </div>
+                <div class="col-md-4 ui-field">
+                  <label>Relationship</label>
+                  <input type="text" name="ref_relation<?php echo $suffix; ?>" class="form-control" value="">
+                </div>
+              </div>
+            </div>
+          <?php endfor; ?>
+        </div>
+      </div>
 
-}
-
-?>   
-        
-        
-        
-         </div>
-    <img style="height:150px;border-radius: 10px;"<?php if($id_photo == ''){ echo 'src="imgs/DP.jpg';} else { ?> src="../../dl_client_files/customer_imgs/<?php echo $id_photo; } ?>"/>
-    <br>
-    
-     
-   <a href="upload_user_img.php?id=<?php echo $id;?>"> <button name="btn" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Change Picture</button></a>
-    
-     
-  
-
-    <div class="col-lg-12">
-    
-    <br><br>
-    <form action ="" method="POST" enctype="multipart/form-data">
-         <div class="form-group" >
-    <div class="row">
-    <div class="col-lg-6">
-      <label for="usr">First Name</label>
-      <input type="text" name="full_name" class="form-control" id="usr" placeholder="Full Name" value="<?php echo $first_name; ?>" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Last Name</label>
-      <input type="text" name="last_name" class="form-control" id="usr" placeholder="Full Name" value="<?php echo $last_name; ?>" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">SSN</label>
-      <input type="text" name="ssn" class="form-control" id="usr" placeholder="SSN" value="<?php echo $ssn; ?>" >
-    </div>
-     <div class="col-lg-6">
-      <label for="usr">Date of Birth</label>
-      <input type="text" name="dob" class="form-control" id="usr" placeholder="Date of Birth" value="<?php echo $date_of_birth; ?>" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Email Address</label>
-      <input type="text" name="email" class="form-control" id="usr" placeholder="Email Address" value="<?php echo $email; ?>" >
-      <a href='mailto:<?php echo $email; mail($email, $subject, $message, $headers); ?>'>Send Email via Outlook</a>
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Phone Number</label>
-      <input type="text" name="ph_numbr" class="form-control" id="usr" placeholder="Phone Number" value="<?php echo $mobile_number; ?>" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Primary Address</label>
-      <input type="text" name="p_address" class="form-control" id="usr" placeholder="Primary Address" value="<?php echo $address; ?>" >
-    </div>
-    
-    <div class="col-lg-3">
-      <label for="usr">City</label>
-      <input type="text" name="city"  class="form-control" id="usr" value="<?php echo $city;?>">
-    </div>
-    
-    <div class="col-lg-1">
-      <label for="usr">State</label>
-      <input type="text" name="state"  class="form-control" id="usr" value="<?php echo $state;?>">
-    </div>
-    
-    <div class="col-lg-2">
-      <label for="usr">Zip Code</label>
-      <input type="text" name="zip_code"  class="form-control" id="usr" value="<?php echo $zip;?>">
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Type of ID & Number</label>
-     <select name="type_id" id="type_id" class="form-control"  value="" >
-     <option></option>
-     <option value="Drivers License" <?php if($type_of_id=='Drivers License'){ echo 'selected';} ?>>Drivers License</option>
-      <option value="State Personal ID" <?php if($type_of_id=='State Personal ID'){ echo 'selected';} ?>>State Personal ID</option>
-      <option value="Matricula Consular ID" <?php if($type_of_id=='Matricula Consular ID'){ echo 'selected';} ?>>Matricula Consular ID</option>
-      <option value="Tribal ID" <?php if($type_of_id=='Tribal ID'){ echo 'selected';} ?>>Tribal ID</option>
-      <option value="Passport" <?php if($type_of_id=='Passport'){ echo 'selected';} ?>>Passport</option>
-      <option value="Military ID" <?php if($type_of_id=='Military ID'){ echo 'selected';} ?>>Military ID</option>
-      <option value="Other" <?php if($type_of_id=='Other'){ echo 'selected';} ?>>Other</option>
-     </select>
-    </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-lg-6">
-        <span style="font-weight:bold">Reference1: </span><br>
-        </div>
-         <div class="col-lg-6">
-        </div>
-        
-    <div class="col-lg-6">
-      <label for="usr">Name</label>
-      <input type="text" name="ref_name" class="form-control" id="usr" placeholder="Name" value="" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Phone</label>
-      <input type="text" name="ref_phone" class="form-control" id="usr" placeholder="Phone" value="" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Relationship</label>
-      <input type="text" name="ref_relation" class="form-control" id="usr" placeholder="Relationship" value="" >
-    </div>
-    
-    
-    </div>
-    <br>
-     <div class="row">
-        <div class="col-lg-6">
-        <span style="font-weight:bold">Reference2: </span><br>
-        </div>
-         <div class="col-lg-6">
-        </div>
-        
-    <div class="col-lg-6">
-      <label for="usr">Name</label>
-      <input type="text" name="ref_name2" class="form-control" id="usr" placeholder="Name" value="" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Phone</label>
-      <input type="text" name="ref_phone2" class="form-control" id="usr" placeholder="Phone" value="" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Relationship</label>
-      <input type="text" name="ref_relation2" class="form-control" id="usr" placeholder="Relationship" value="" >
-    </div>
-    </div>
-    <br>
-     <div class="row">
-        <div class="col-lg-6">
-        <span style="font-weight:bold">Reference3: </span><br>
-        </div>
-         <div class="col-lg-6">
-        </div>
-        
-    <div class="col-lg-6">
-      <label for="usr">Name</label>
-      <input type="text" name="ref_name3" class="form-control" id="usr" placeholder="Name" value="" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Phone</label>
-      <input type="text" name="ref_phone3" class="form-control" id="usr" placeholder="Phone" value="" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Relationship</label>
-      <input type="text" name="ref_relation3" class="form-control" id="usr" placeholder="Relationship" value="" >
-    </div>
-     </div>
-    <br>
-     <div class="row">
-        <div class="col-lg-6">
-        <span style="font-weight:bold">Reference4: </span><br>
-        </div>
-         <div class="col-lg-6">
-        </div>
-        
-    <div class="col-lg-6">
-      <label for="usr">Name</label>
-      <input type="text" name="ref_name4" class="form-control" id="usr" placeholder="Name" value="" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Phone</label>
-      <input type="text" name="ref_phon4" class="form-control" id="usr" placeholder="Phone" value="" >
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Relationship</label>
-      <input type="text" name="ref_relation4" class="form-control" id="usr" placeholder="Relationship" value="" >
-    </div>
-   </div>
-    </div>
-    <br>
-    <button name="btn-submit" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: white;background-color: #1E90FF;border-radius: 0px;border-color: #1E90FF;">Update</button>
+      <!-- Action bar -->
+      <div class="ui-action-bar">
+        <a href="loan_summary.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-default">Cancel</a>
+        <button name="btn-submit" type="submit" class="btn btn-save">
+          <span class="glyphicon glyphicon-save"></span> Save Customer
+        </button>
+      </div>
     </form>
-</div>
- </div>
     </div>
     <!-- /#page-content-wrapper -->
 

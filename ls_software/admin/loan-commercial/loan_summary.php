@@ -156,7 +156,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   }
 
   $unpaid_other_fee = 0;
-  $query_payment = mysqli_query($con, "SELECT sum(amount_fee - amount_fee_paid) as unpaid FROM `tbl_other_fees` WHERE loan_created_id = $loan_create_id ");
+  $query_payment = mysqli_query($con, "SELECT sum(amount_fee - amount_fee_paid) as unpaid FROM `tbl_other_fees` WHERE loan_created_id = '$loan_create_id'");
   while ($row_payment = mysqli_fetch_array($query_payment)) {
     $unpaid_other_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
   }
@@ -203,6 +203,95 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
       .lock{
         pointer-events: none;
       }
+
+      /* ============================================================
+         Scoped "ls-*" loan-summary redesign overlay. Tames the yellow
+         banner + red inline labels + gradient buttons + cramped grid
+         so the page matches the rest of the redesigned admin pages.
+         ============================================================ */
+
+      /* Page toolbar at the very top */
+      .ls-toolbar {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 14px 20px 10px; margin: 0 0 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .ls-page-title { font-size: 20px; font-weight: 600; color: #333; margin: 0; }
+      .ls-page-title small { color: #888; font-weight: normal; font-size: 13px; }
+
+      /* Convert the yellow #F5E09E banner into a clean blue-accent summary card.
+         We target the inline style directly so we don't have to touch markup. */
+      .row.container-fluid[style*="F5E09E"] {
+        background: #fff !important;
+        color: #333 !important;
+        padding: 16px 20px !important;
+        border: 1px solid #e4e4e4 !important;
+        border-left: 4px solid #1E90FF !important;
+        border-radius: 4px !important;
+        margin: 12px 20px 18px !important;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      }
+      .row.container-fluid[style*="F5E09E"] p { margin: 4px 0; font-size: 13px; color: #555; }
+      .row.container-fluid[style*="F5E09E"] b[style*="color:red"],
+      .row.container-fluid[style*="color:red"] { color: #222 !important; font-weight: 600; }
+
+      /* "Loan Summary:" header — turn the bare <h3> into a subtle section label */
+      .container-fluid > h3 {
+        font-size: 15px; text-transform: uppercase; letter-spacing: .5px;
+        color: #888; font-weight: 600; margin: 24px 20px 12px; padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
+      }
+
+      /* Form field labels — kill the cramped look */
+      .container-fluid form label {
+        font-size: 11px; color: #888; font-weight: 600;
+        text-transform: uppercase; letter-spacing: .3px;
+        margin-bottom: 4px; display: block;
+      }
+      .container-fluid form input.form-control,
+      .container-fluid form select.form-control,
+      .container-fluid form textarea.form-control {
+        padding: 8px 12px !important; margin-bottom: 10px;
+        border-radius: 4px; border: 1px solid #d0d7de;
+      }
+      .container-fluid form input.form-control:focus,
+      .container-fluid form select.form-control:focus {
+        border-color: #1E90FF; box-shadow: 0 0 0 2px rgba(30,144,255,0.15);
+        outline: none;
+      }
+      /* Read-only (pointer-events:none) fields get a visual cue */
+      .container-fluid form input.lock, .container-fluid form input.form-control.lock {
+        background: #f7f8fa !important; color: #555 !important; cursor: not-allowed;
+      }
+
+      /* Action button strip */
+      .ls-action-bar {
+        margin: 18px 0 8px; padding: 14px 16px;
+        background: #fafafa; border: 1px solid #e4e4e4; border-radius: 4px;
+        display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      }
+      .ls-action-bar .btn { margin: 0; }
+
+      /* Neutralize every gradient-filled button into a flat Bootstrap-ish button.
+         The existing buttons all use linear-gradient inline; wipe them cleanly. */
+      button.btn.btn-danger[style*="linear-gradient"],
+      a.btn.btn-danger[style*="linear-gradient"] {
+        background-image: none !important;
+      }
+
+      /* Transactions DataTable — tighten, square off */
+      #example { margin-top: 12px; font-size: 13px; }
+      #example thead tr { background: #f5f5f5; }
+      #example thead th { color: #333 !important; font-weight: 600; border-bottom: 2px solid #ddd !important; padding: 8px !important; }
+      #example tbody td { padding: 8px !important; vertical-align: middle; }
+
+      /* Neutralize the global dark .row:hover from css/style1.css */
+      .row, .row:hover {
+        background-color: transparent !important;
+        height: auto !important; border-top: 0 !important; transition: none !important;
+      }
+      /* ...except our summary card which needs its border preserved */
+      .row.container-fluid[style*="F5E09E"] { border-left: 4px solid #1E90FF !important; }
     </style>
 
   </head>
@@ -231,7 +320,23 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
         </nav>
-        <br>
+
+        <!-- Page toolbar — title + Back to commercial loans list -->
+        <div class="ls-toolbar">
+          <h4 class="ls-page-title">
+            <span class="glyphicon glyphicon-file"></span>
+            Commercial Loan Summary
+            <small>&nbsp;·&nbsp;<?php echo htmlspecialchars((string)$loan_create_id); ?> · <?php echo htmlspecialchars((string)trim($first_name . ' ' . $last_name)); ?></small>
+          </h4>
+          <div>
+            <a href="home.php" class="btn btn-default">
+              <span class="glyphicon glyphicon-arrow-left"></span> Back to loans
+            </a>
+            <a href="../edit_customer.php?id=<?php echo urlencode((string)$user_fnd_id); ?>" class="btn btn-default">
+              <span class="glyphicon glyphicon-user"></span> Customer
+            </a>
+          </div>
+        </div>
 
         <div class="row container-fluid" style="background-color: #F5E09E;color:black;padding:20px;">
 
@@ -412,23 +517,33 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 <br>
 
 
-                <button name="btn-submit" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: white;background-color: #1E90FF;border-radius: 0px;border-color: #1E90FF;">Update</button>
-                <button name="btn" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;" <?php echo $disableButton; ?>><a href="add_new_transaction.php?id=<?php echo $id; ?>" style="color:white">Make a
-                    Payment</a></button>
-                <button name="btn" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,red 0,red 100%);color: #fff;background-color:red;border-color: red;" <?php echo $disableButton; ?>><a href="schedule_payment.php?id=<?php echo $id; ?>" style="color:white">Schedule
-                    Payment</a></button>
-
-                <?php
-                if ($payment > 0) {
-                  $loan_type = "Commercial Loan";
-                  $name_button = $loan_status == 'Paid' ? "Renew" : "Refinance";
-                  $current_loan_id = $loan_status == 'Paid' ? "" : "&loan_create_id=$loan_create_id";
-                  echo "<a href='../add_commercial_loan.php?id=$user_fnd_id&loan=$loan_type$current_loan_id' target=_blank <button name='btn' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%);
-    color: #fff;
-    background-color: #2a8206;
-    border-color: #112f01;'>" . $name_button . " Loan</button></a>";
-                }
-                ?>
+                <!-- Action bar. Malformed original wrapped buttons inside <a> tags
+                     with missing `>` on the anchor; browsers recovered but semantics were
+                     broken. Replaced with proper anchor-buttons. -->
+                <div class="ls-action-bar">
+                  <button name="btn-submit" type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span> Update
+                  </button>
+                  <a href="add_new_transaction.php?id=<?php echo urlencode((string)$id); ?>"
+                     class="btn btn-danger <?php echo $disableButton ? 'disabled' : ''; ?>">
+                    <span class="glyphicon glyphicon-usd"></span> Make a Payment
+                  </a>
+                  <a href="schedule_payment.php?id=<?php echo urlencode((string)$id); ?>"
+                     class="btn btn-warning <?php echo $disableButton ? 'disabled' : ''; ?>">
+                    <span class="glyphicon glyphicon-calendar"></span> Schedule Payment
+                  </a>
+                  <?php
+                  if ($payment > 0) {
+                      $loan_type       = "Commercial Loan";
+                      $name_button     = $loan_status == 'Paid' ? 'Renew' : 'Refinance';
+                      $current_loan_id = $loan_status == 'Paid' ? '' : '&loan_create_id=' . urlencode((string)$loan_create_id);
+                      $icon            = $loan_status == 'Paid' ? 'glyphicon-refresh' : 'glyphicon-transfer';
+                      echo '<a href="../add_commercial_loan.php?id=' . urlencode((string)$user_fnd_id) . '&loan=' . urlencode($loan_type) . $current_loan_id . '" target="_blank" class="btn btn-success">'
+                          . '<span class="glyphicon ' . $icon . '"></span> ' . htmlspecialchars($name_button) . ' Loan'
+                          . '</a>';
+                  }
+                  ?>
+                </div>
             </form>
 
 

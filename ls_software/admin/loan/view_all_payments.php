@@ -284,10 +284,10 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 		$string_red_rejectedd = 'style="color:#FF0000"';
 	}
 	
-	if($payment_method=='Repay')
-	{
-	   $transaction_id= $repay_transaction_id;
-	}
+// 	if($payment_method=='Repay')
+// 	{
+// 	   $transaction_id= $repay_transaction_id;
+// 	}
 	
 	     
 	      	

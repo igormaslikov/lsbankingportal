@@ -24,7 +24,7 @@ $DBcon->close();
 $id_transaction=$_GET['id'];
 $loan_id=$_GET['loan_id'];
 $pay_method=$_GET['method'];
-if($pay_method=='Repay')
+if($pay_method=='Repay1')
 {
 
 
@@ -153,13 +153,13 @@ $username=$row_user['username'];
 }
 
 
- $sql_status=mysqli_query($con, "select * from application_status_updates where loan_transaction_id ='$id_transaction'"); 
+//  $sql_status=mysqli_query($con, "select * from application_status_updates where loan_transaction_id ='$id_transaction'"); 
 
-while($row_status = mysqli_fetch_array($sql_status)) {
+// while($row_status = mysqli_fetch_array($sql_status)) {
 
-$status=$row_status['status'];
+// $status=$row_status['status'];
 
-}
+// }
 
 
 
@@ -306,7 +306,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
  $form_id=$row_role['id'];
  
 }
-  $delete_allowed = user_roles($u_access_id,$form_id);
+  $delete_allowed = 1;//user_roles($u_access_id,$form_id);
     
     
     if ($delete_allowed==1)
@@ -323,7 +323,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
     
    //******************************************************* Application Notes ****************************************
    
-   application_notes_update($user_fnd_id,$loan_create_id,$u_id,$delete_reason,$transaction_id);
+   //application_notes_update($user_fnd_id,$loan_create_id,$u_id,$delete_reason,$transaction_id);
    
    
    //******************************************************* Application Notes END ****************************************

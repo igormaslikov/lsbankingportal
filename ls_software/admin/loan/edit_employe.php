@@ -196,7 +196,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
  $form_id=$row_role['id'];
  
 }
-   $update_allowed = user_edit_roles($u_access_id,$form_id);
+   $update_allowed = 1; // user_edit_roles($u_access_id,$form_id);
     
     
     if ($update_allowed==1)

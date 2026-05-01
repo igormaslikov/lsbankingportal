@@ -123,11 +123,14 @@ $vehicle_ltv=$row_vehicle_source['vehicle_ltv'];
 
 
   <!-- Bootstrap core CSS -->
- 
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
+
+  <!-- Shared scoped styles for loan-commercial detail tabs -->
+  <link href="css/ui-tabs.css" rel="stylesheet">
 
 </head>
 
@@ -158,78 +161,83 @@ $vehicle_ltv=$row_vehicle_source['vehicle_ltv'];
 
        
       </nav>
-  <br>
 
-<div class="row container-fluid" style="background-color: #F5E09E;color:black;padding:20px;">
+      <!-- Page toolbar -->
+      <div class="ui-toolbar">
+        <h3 class="ui-page-title">
+          <span class="glyphicon glyphicon-road"></span>
+          Vehicle Information
+          <small>&nbsp;·&nbsp;<?php echo htmlspecialchars((string)$loan_create_id); ?> · <?php echo htmlspecialchars(trim((string)$first_name . ' ' . (string)$last_name)); ?></small>
+        </h3>
+        <a href="loan_summary.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-default">
+          <span class="glyphicon glyphicon-arrow-left"></span> Back to loan
+        </a>
+      </div>
 
-<div class="col-lg-4"><p>Customer First Name:<b style="color:red"> <?php echo $first_name;?></b></p></div>
-<div class="col-lg-4"><p>Customer Last Name: <b style="color:red"><?php echo $last_name;?> </b></p></div>
-<div class="col-lg-4"><p>Customer Phone:<b style="color:red"> <?php echo $customer_numbr;?> </b> </p></div>
-<div class="col-lg-4"><p>Loan Date:<b style="color:red"> <?php echo $new_creation_date;?> </b></p></div>
-<div class="col-lg-4"><p>Loan Amount: <b style="color:red">$<?php echo $amount_loan;?></b></p></div>
-<div class="col-lg-4"><p>Loan ID:<b style="color:red"> <?php echo $loan_create_id;?> </b> </p></div>
+      <!-- Customer summary -->
+      <div class="ui-summary">
+        <div class="row">
+          <div class="col-md-3"><p><strong>Name</strong><b><?php echo htmlspecialchars(trim((string)$first_name . ' ' . (string)$last_name)); ?></b></p></div>
+          <div class="col-md-3"><p><strong>Phone</strong><b><?php echo htmlspecialchars((string)$customer_numbr); ?></b></p></div>
+          <div class="col-md-2"><p><strong>Loan Date</strong><b><?php echo htmlspecialchars((string)$new_creation_date); ?></b></p></div>
+          <div class="col-md-2"><p><strong>Loan Amount</strong><b>$<?php echo htmlspecialchars((string)$amount_loan); ?></b></p></div>
+          <div class="col-md-2"><p><strong>Loan ID</strong><b><?php echo htmlspecialchars((string)$loan_create_id); ?></b></p></div>
+        </div>
+      </div>
 
+      <form action="" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="emaill" value="<?php echo htmlspecialchars((string)($email ?? '')); ?>">
+        <input type="hidden" name="link"   value="<?php echo htmlspecialchars((string)($message ?? '')); ?>">
 
-</div>
-      <br><br>
-      
-    
-         <div class="container-fluid" style="width:100%; margin:0 auto;">
-        
+        <div class="ui-panel">
+          <div class="ui-panel-head">
+            Vehicle Info
+            <span class="ui-panel-hint">Collateral vehicle details on file</span>
+          </div>
+          <div class="ui-panel-body">
+            <div class="row">
+              <div class="col-md-4 ui-field">
+                <label>Vehicle Year</label>
+                <input type="text" name="vehicle_year" class="form-control" placeholder="e.g. 2020"
+                       value="<?php echo htmlspecialchars((string)($vehicle_year ?? '')); ?>">
+              </div>
+              <div class="col-md-4 ui-field">
+                <label>Vehicle Make</label>
+                <input type="text" name="vehicle_make" class="form-control" placeholder="e.g. Toyota"
+                       value="<?php echo htmlspecialchars((string)($vehicle_make ?? '')); ?>">
+              </div>
+              <div class="col-md-4 ui-field">
+                <label>Vehicle Model</label>
+                <input type="text" name="vehicle_model" class="form-control" placeholder="e.g. Camry"
+                       value="<?php echo htmlspecialchars((string)($vehicle_model ?? '')); ?>">
+              </div>
+              <div class="col-md-4 ui-field">
+                <label>Vehicle Miles</label>
+                <input type="text" name="vehicle_miles" class="form-control" placeholder="e.g. 45000"
+                       value="<?php echo htmlspecialchars((string)($vehicle_miles ?? '')); ?>">
+              </div>
+              <div class="col-md-4 ui-field">
+                <label>Vehicle KBB</label>
+                <input type="text" name="vehicle_kbb" class="form-control" placeholder="e.g. 15000"
+                       value="<?php echo htmlspecialchars((string)($vehicle_kbb ?? '')); ?>">
+              </div>
+              <div class="col-md-4 ui-field">
+                <label>Vehicle LTV</label>
+                <input type="text" name="vehicle_ltv" class="form-control" placeholder="e.g. 80"
+                       value="<?php echo htmlspecialchars((string)($vehicle_ltv ?? '')); ?>">
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <form action ="" method="POST" enctype="multipart/form-data">
- <input type="text" name="emaill" value="<?php echo $email;?>" style="display:none;">
-<input type="text" name="link" value="<?php echo $message;?>" style="display:none;">
+        <div class="ui-action-bar">
+          <a href="loan_summary.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-default">Cancel</a>
+          <button name="btn-submit" type="submit" class="btn btn-save">
+            <span class="glyphicon glyphicon-save"></span> Update
+          </button>
+        </div>
+      </form>
 
-
- 
- 
-     <h3>Vehicle Info</h3>
-     <br>
-    <div class="row">
- 
-    <div class="col-lg-4">
-      <label for="usr">Vehicle Year</label>
- <input type="text" name="vehicle_year"  class="form-control" id="usr" value="<?php echo $vehicle_year; ?>">
-    </div>
-    
-    <div class="col-lg-4">
-      <label for="usr">Vehicle Make</label>
- <input type="text" name="vehicle_make"  class="form-control" id="usr" placeholder="" value="<?php echo $vehicle_make; ?>">
-    </div>
-    
-    <div class="col-lg-4">
-      <label for="usr">Vehicle Model</label>
- <input type="text" name="vehicle_model"  class="form-control" id="usr" placeholder="" value="<?php echo $vehicle_model; ?>">
-    </div>
-    
-    <div class="col-lg-4">
-      <label for="usr">Vehicle Miles</label>
- <input type="text" name="vehicle_miles"  class="form-control" id="usr" placeholder="" value="<?php echo $vehicle_miles; ?>">
-    </div>
-    
-    <div class="col-lg-4">
-      <label for="usr">Vehicle KBB</label>
- <input type="text" name="vehicle_kbb"  class="form-control" id="usr" placeholder="" value="<?php echo $vehicle_kbb; ?>">
-    </div>
-    
-     <div class="col-lg-4">
-      <label for="usr">Vehicle LTV</label>
- <input type="text" name="vehicle_ltv"  class="form-control" id="usr" placeholder="" value="<?php echo $vehicle_ltv; ?>">
-    </div>
-    
-
-    </div>
-       <br> 
-       
-      
-      <button name="btn-submit" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: white;background-color: #1E90FF;border-radius: 0px;border-color: #1E90FF;">Update</button>
-    </form>
-
-</div>
-</div>
-</div>
-        
     </div>
     <!-- /#page-content-wrapper -->
 

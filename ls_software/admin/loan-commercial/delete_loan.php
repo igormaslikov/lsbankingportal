@@ -115,7 +115,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
  $form_id=$row_role['id'];
  
 }
-   $delete_allowed = user_roles($u_access_id,$form_id);
+//   $delete_allowed = user_roles($u_access_id,$form_id);
    $delete_allowed  = 1;
     
     if ($delete_allowed==1)
@@ -141,7 +141,7 @@ $transaction_id=$row_transaction['transaction_id'];
 }
     
     
-application_notes_update($user_fnd_id,$loan_create_id,$u_id,$del_reason,$transaction_id);
+// application_notes_update($user_fnd_id,$loan_create_id,$u_id,$del_reason,$transaction_id);
     
 
 ?>

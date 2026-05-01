@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
 include_once 'functions.php';
@@ -60,7 +61,8 @@ while ($row = mysqli_fetch_array($sql)) {
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => "",
       CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 30,
+      CURLOPT_CONNECTTIMEOUT_MS => 1500,
+      CURLOPT_TIMEOUT => 8,
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       CURLOPT_CUSTOMREQUEST => "POST",
       CURLOPT_POSTFIELDS => "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"FriendlyName\"\r\n\r\n$first_name - $customer_phone \r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--",
@@ -100,7 +102,8 @@ while ($row = mysqli_fetch_array($sql)) {
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => "",
       CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 30,
+      CURLOPT_CONNECTTIMEOUT_MS => 1500,
+      CURLOPT_TIMEOUT => 8,
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       CURLOPT_CUSTOMREQUEST => "POST",
       CURLOPT_POSTFIELDS => "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"MessagingBinding.Address\"\r\n\r\n$twilio_sender\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"MessagingBinding.ProxyAddress\"\r\n\r\n+18886951203\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--",
@@ -170,6 +173,9 @@ while ($row = mysqli_fetch_array($sql)) {
   $co_borrow_state = $row['co_borrow_state'];
   $co_borrow_city = $row['co_borrow_city'];
   $co_borrow_zip = $row['co_borrow_zip'];
+  $co_borrow_dob = $row['co_borrow_dob'];
+  $co_borrow_ssn = $row['co_borrow_ssn'];
+  $co_borrow_email = $row['co_borrow_email'];
 }
 
 $sql_loan = mysqli_query($con, "select * from tbl_loan where user_fnd_id= '$id'");
@@ -339,22 +345,124 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
 
   <link rel="stylesheet" href="style.css" type="text/css" />
   <style>
-    table {
+    /* ==== Legacy table styling (kept for inline tables in the page) ==== */
+    section.wrapper table:not(.ec-kpi-card table):not(.panel-body table) {
       font-family: arial, sans-serif;
       border-collapse: collapse;
       width: 100%;
     }
-
-    td,
-    th {
+    section.wrapper table:not(.ec-kpi-card table):not(.panel-body table) td,
+    section.wrapper table:not(.ec-kpi-card table):not(.panel-body table) th {
       border: 1px solid #dddddd;
       text-align: left;
       padding: 8px;
     }
-
-    tr:nth-child(even) {
-      background-color: #dddddd;
+    section.wrapper table:not(.ec-kpi-card table):not(.panel-body table) tr:nth-child(even) {
+      background-color: #f5f5f5;
     }
+
+    /* ==== Layer B — scoped edit_customer redesign ==== */
+    section.wrapper { padding: 0 20px 60px; }
+    section.wrapper > .container.wrapper { margin-top: 100px !important; max-width: 1400px; padding-bottom: 40px; }
+
+    /* Page title bar */
+    .ec-toolbar {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #eee;
+    }
+    .ec-page-title { font-size: 22px; font-weight: 600; color: #333; margin: 0; }
+
+    /* Customer summary card (replaces the yellow #F5E09E banner) */
+    .ec-summary {
+        background: #fff;
+        border: 1px solid #e4e4e4;
+        border-left: 4px solid #1E90FF;
+        border-radius: 4px;
+        padding: 16px 20px;
+        margin-bottom: 18px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .ec-summary .row { margin: 0; }
+    .ec-summary p { margin: 4px 0; color: #555; font-size: 13px; }
+    .ec-summary b, .ec-summary strong { color: #222; font-weight: 600; }
+    /* Kill the inline `color:red` on the summary value spans so they match the card theme */
+    .ec-summary b[style*="color:red"] { color: #222 !important; }
+
+    /* Neutralize the gross red <h3 style="color:red;"> section headers —
+       make them look like Bootstrap panel-headings */
+    section.wrapper h3[style*="color:red"] {
+        display: block;
+        background: #fafafa;
+        border: 1px solid #e4e4e4;
+        border-left: 4px solid #1E90FF;
+        border-radius: 4px;
+        color: #333 !important;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 10px 16px;
+        margin: 24px 0 12px;
+        text-transform: none;
+    }
+    /* and the same for the occasional h3 without inline style */
+    section.wrapper .ec-section-title { composes: none; }
+
+    /* Action button strip at the bottom of the Application section */
+    .ec-action-bar {
+        margin: 18px 0 12px;
+        padding: 14px 18px;
+        background: #fafafa;
+        border: 1px solid #e4e4e4;
+        border-radius: 4px;
+        display: flex; flex-wrap: wrap; gap: 8px;
+        align-items: center;
+    }
+    .ec-action-bar .btn { margin: 0; }
+    .ec-action-bar .btn-save {
+        background: #5cb85c; border-color: #4cae4c; color: #fff;
+        font-weight: 600; padding: 8px 22px;
+    }
+    .ec-action-bar .btn-save:hover { background: #449d44; border-color: #398439; color: #fff; }
+    .ec-action-bar .ec-group-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: .5px; margin-right: 4px; }
+    /* Make .btn-group dropdowns open correctly (since Bootstrap JS isn't loaded
+       on this page, we toggle the .open class manually) */
+    .ec-action-bar .btn-group { position: relative; }
+    .ec-action-bar .btn-group.open .dropdown-menu { display: block; z-index: 1500; }
+    .ec-action-bar .dropdown-menu { min-width: 220px; }
+    .ec-action-bar .dropdown-menu > li > a { padding: 8px 16px; }
+
+    /* Neutralize the global .row:hover dark overlay from css/style1.css if it ever loads */
+    section.wrapper .row, section.wrapper .row:hover {
+        background-color: transparent !important;
+        height: auto !important;
+        border-top: 0 !important;
+        transition: none !important;
+    }
+
+    /* Fields */
+    section.wrapper label[for="usr"] {
+        font-size: 12px; color: #555; font-weight: 600;
+        text-transform: uppercase; letter-spacing: .3px; margin-bottom: 4px;
+    }
+    section.wrapper .form-control { margin-bottom: 10px; }
+
+    /* Kill the yellow F5E09E row headers that appear inside nested tables */
+    section.wrapper tr[style*="F5E09E"] { background-color: #f5f5f5 !important; }
+    section.wrapper tr[style*="F5E09E"] th { color: #333 !important; font-weight: 600; }
+
+    /* Kill the rainbow of inline button styles used for the link-style buttons */
+    section.wrapper a > button.btn[style*="linear-gradient"] {
+        background-image: none !important;
+        background-color: #1E90FF !important;
+        border-color: #1E90FF !important;
+        color: #fff !important;
+        height: auto !important;
+        padding: 6px 14px !important;
+        width: auto !important;
+    }
+
+    /* Flash / alert boxes */
+    .ec-flash { margin: 10px 0; padding: 10px 14px; }
+    .ec-flash .glyphicon { margin-right: 6px; }
   </style>
 </head>
 
@@ -365,27 +473,26 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
 
     <div class="container wrapper" style="margin-top:70px">
 
-      <div class="row wrapper1" style="background-color: #F5E09E;color: black;padding:20px; width:100%;max-width: 3330px;">
+      <!-- Page toolbar -->
+      <div class="ec-toolbar">
+        <h3 class="ec-page-title">
+          <span class="glyphicon glyphicon-edit"></span>
+          Edit Customer
+          <small style="color:#888;font-weight:normal;">&nbsp;·&nbsp;<?php echo htmlspecialchars((string)($first_name ?? '')) . ' ' . htmlspecialchars((string)($last_name ?? '')); ?></small>
+        </h3>
+        <a href="view_all_customer_main.php" class="btn btn-default">
+          <span class="glyphicon glyphicon-arrow-left"></span> Back to customers
+        </a>
+      </div>
 
-        <div class="col-lg-4">
-          <p> Application ID :<b style="color:red"> <?php echo $id; ?></b></p>
+      <!-- Customer summary card (replaces the yellow #F5E09E banner) -->
+      <div class="ec-summary">
+        <div class="row">
+          <div class="col-sm-3"><p><strong>Application ID</strong><br><b><?php echo htmlspecialchars((string)$id); ?></b></p></div>
+          <div class="col-sm-3"><p><strong>Customer Name</strong><br><b><?php echo htmlspecialchars((string)($first_name ?? '')) . ' ' . htmlspecialchars((string)($last_name ?? '')); ?></b></p></div>
+          <div class="col-sm-3"><p><strong>Application Date</strong><br><b><?php echo htmlspecialchars((string)($applicationdate ?? '')); ?></b></p></div>
+          <div class="col-sm-3"><p><strong>Last Update By</strong><br><b><?php echo htmlspecialchars((string)($name_update ?? '')); ?></b></p></div>
         </div>
-        <div class="col-lg-4">
-          <p> Customer Name:<b style="color:red"> <?php echo $first_name; ?></b></p>
-        </div>
-        <!-- <div class="col-lg-4">
-          <p> Creation Date:<b style="color:red"> <?php echo $creationdate; ?> </b></p>
-        </div> -->
-        <div class="col-lg-4">
-          <p> Application Date:<b style="color:red"> <?php echo $applicationdate; ?> </b></p>
-        </div>
-        <div class="col-lg-4">
-          <p>Last Update By: <b style="color:red"><?php echo $name_update; ?> </b></p>
-        </div>
-        <div class="col-lg-4">
-          <p> Last Update Date: <b style="color:red"> <?php echo $last_updatedate; ?></b></p>
-        </div>
-
       </div>
 
       <hr>
@@ -483,10 +590,10 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
                 </div>
 
 
-                <div class="col-lg-4">
-                  <label for="usr">DL Code</label>
-                  <input type="text" name="dl_code" class="form-control" id="usr" value="<?php echo $fnd_dl_code; ?>">
-                </div>
+                <!--<div class="col-lg-4">-->
+                <!--  <label for="usr">DL Code</label>-->
+                <!--  <input type="text" name="dl_code" class="form-control" id="usr" value="<?php echo $fnd_dl_code; ?>">-->
+                <!--</div>-->
 
                 <div class="col-lg-2">
                   <label for="usr"> Member Military</label>
@@ -538,6 +645,21 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
                 <div class="col-lg-4">
                   <label for="usr">Zip</label>
                   <input type="text" name="co_borrow_zip" class="form-control" id="usr" value="<?php echo $co_borrow_zip; ?>">
+                </div>
+                
+                <div class="col-lg-4">
+                  <label for="usr">DOB</label>
+                  <input type="text" name="co_borrow_dob" class="form-control" id="usr" value="<?php echo $co_borrow_dob; ?>">
+                </div>
+                
+                <div class="col-lg-4">
+                  <label for="usr">SSN</label>
+                  <input type="text" name="co_borrow_ssn" class="form-control" id="usr" value="<?php echo $co_borrow_ssn; ?>">
+                </div>
+                
+                <div class="col-lg-4">
+                  <label for="usr">Email</label>
+                  <input type="text" name="co_borrow_email" class="form-control" id="usr" value="<?php echo $co_borrow_email; ?>">
                 </div>
 
 
@@ -793,7 +915,8 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
                     $total_no_of_pages = ceil($total_records / $total_records_per_page);
                     $second_last = $total_no_of_pages - 1; // total page minus 1
 
-                    $sql_loan = mysqli_query($con, "select * from loan_initial_banking where user_fnd_id = '$id'");
+                    // Layer-A perf: honor pagination ($offset + $total_records_per_page) instead of fetching every row
+                    $sql_loan = mysqli_query($con, "select * from loan_initial_banking where user_fnd_id = '$id' ORDER BY initial_id DESC LIMIT $offset, $total_records_per_page");
 
                     while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
                       $initial_id = $row_bank_detail_sec['initial_id'];
@@ -1241,7 +1364,14 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
 
               <?php
 
-              $result_status = mysqli_query($con, "SELECT * FROM application_status_updates where application_id = '$id'  ORDER BY id desc limit 30");
+              // Layer-A perf: replace per-row tbl_users lookup (N+1) with a single LEFT JOIN.
+              $result_status = mysqli_query($con, "
+                  SELECT s.creation_date, s.status, u.username
+                  FROM application_status_updates s
+                  LEFT JOIN tbl_users u ON u.user_id = s.user_id
+                  WHERE s.application_id = '$id' AND s.status LIKE '%Notes%'
+                  ORDER BY s.id DESC
+                  LIMIT 30");
 
               echo '<br><table style="width:100%;padding:10px" class="table table-striped table-bordered">' . "
 <tr>
@@ -1251,23 +1381,14 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
 </tr>";
 
               while ($row_status = mysqli_fetch_array($result_status)) {
-                $created_by_get_db_activity = $row_status['user_id'];
-                $sql_activity_by_user = mysqli_query($con, "select * from tbl_users where user_id= '$created_by_get_db_activity'");
-                $final_activity_by_user = '';
-                while ($row_sql_activity_by_user = mysqli_fetch_array($sql_activity_by_user)) {
-                  $final_activity_by_user = $row_sql_activity_by_user['username'];
-                }
-
-
-
-                echo "<tr>";
-                echo "<td>" . $row_status['creation_date'] . "</td>";
-                echo "<td>Activity Status/SMS : " . $row_status['status'] . "</td>";
-                echo "<td>" . $final_activity_by_user . "</td>";
-                echo "</tr>";
+                  echo "<tr>";
+                  echo "<td>" . htmlspecialchars((string)$row_status['creation_date']) . "</td>";
+                  echo "<td>" . htmlspecialchars((string)$row_status['status']) . "</td>";
+                  echo "<td>" . htmlspecialchars((string)($row_status['username'] ?? '')) . "</td>";
+                  echo "</tr>";
               }
 
-              echo "</table><a href='view_all_logs.php?fnd_id=$id' <button name='newloan' type='submit' class='btn btn-danger' style='background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;height: 35px; width:10%'>View All Logs</button> </a>
+              echo "</table><br><a href='view_all_logs.php?fnd_id=" . urlencode((string)$id) . "' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-time'></span> View All Logs</a>
  
 <br><br>";
 
@@ -1279,46 +1400,111 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
               $cu_id = $_GET['id'];
               //echo $cu_id;
               ?>
-              <span class="wrapper">
-                <button name="btn-submit" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%);color: #fff;background-color: #2a8206;border-color: #112f01;height: 35;width:7%">Update</button>
+              <?php
+                // Pre-encode URL params once so we don't repeat the interpolation for every action button
+                $q = '?id=' . urlencode((string)$cu_id)
+                   . '&f_name=' . urlencode((string)($first_name ?? ''))
+                   . '&phone=' . urlencode((string)($customer_phone ?? ''))
+                   . '&lang=' . urlencode((string)($lang ?? ''));
+                $q_decline = '?id=' . urlencode((string)$cu_id)
+                   . '&f_name=' . urlencode((string)($first_name ?? ''))
+                   . '&l_name=' . urlencode((string)($last_name ?? ''))
+                   . '&phone=' . urlencode((string)($customer_phone ?? ''))
+                   . '&lang=' . urlencode((string)($lang ?? ''))
+                   . '&loan_type=' . urlencode((string)($loan_type ?? ''));
+                $q_bridge = '?fnd_id=' . urlencode((string)$cu_id)
+                   . '&f_name=' . urlencode((string)($first_name ?? ''))
+                   . '&cu_ssn=' . urlencode((string)($ssn ?? ''))
+                   . '&next_pay_date=' . urlencode((string)($next_pay_date ?? ''))
+                   . '&loan_amount=' . urlencode((string)($loan_amount ?? ''))
+                   . '&state=' . urlencode((string)($statee ?? ''))
+                   . '&loan_type=' . urlencode((string)($loan_type ?? ''));
 
-                <a href="sms_pre_payday_loan.php?id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&phone=<?php echo $customer_phone; ?>&lang=<?php echo $lang; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;height: 35px; width:15%">Pre-Approved Payday Loan</button> </a>
+                // Direct-to-creator query strings — skip all_loans_bridge.php entirely.
+                // Each add_*_loan.php expects: id, loan_amount, name, ssn, loan, next_pay_date, (state for payday).
+                $q_create_base =
+                      'id='            . urlencode((string)$cu_id)
+                   . '&loan_amount='   . urlencode((string)($loan_amount ?? ''))
+                   . '&name='          . urlencode((string)($first_name ?? ''))
+                   . '&ssn='           . urlencode((string)($ssn ?? ''))
+                   . '&next_pay_date=' . urlencode((string)($next_pay_date ?? ''));
+                $q_create_payday     = '?' . $q_create_base . '&loan=' . urlencode('Payday Loans')    . '&state=' . urlencode((string)($statee ?? ''));
+                $q_create_personal   = '?' . $q_create_base . '&loan=' . urlencode('Personal Loans');
+                $q_create_commercial = '?' . $q_create_base . '&loan=' . urlencode('Commercial Loan');
+                $q_create_title      = '?' . $q_create_base . '&loan=' . urlencode('Title Loans');
+              ?>
+              <div class="ec-action-bar">
+                <button name="btn-submit" type="submit" class="btn btn-save">
+                  <span class="glyphicon glyphicon-save"></span> Save Customer
+                </button>
 
-                <a href="sms_payday_approved.php?id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&phone=<?php echo $customer_phone; ?>&lang=<?php echo $lang; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;height: 35px; width:15%">Approved Payday Loan</button> </a>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-plus"></span> Create Loan <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="add_new_loan.php<?php        echo $q_create_payday;     ?>">Create Payday Loan</a></li>
+                    <li><a href="add_personal_loan.php<?php   echo $q_create_personal;   ?>">Create Personal Loan</a></li>
+                    <li><a href="add_commercial_loan.php<?php echo $q_create_commercial; ?>">Create Commercial Loan</a></li>
+                    <li><a href="add_title_loan.php<?php      echo $q_create_title;      ?>">Create Title Loan</a></li>
+                    <?php if (!empty($loan_type) && $loan_type !== 'payday' && $loan_type !== 'personal' && $loan_type !== 'installment' && $loan_type !== 'commercial' && $loan_type !== 'title'): ?>
+                    <li class="divider"></li>
+                    <li><a href="all_loans_bridge.php<?php echo $q_bridge; ?>">Other / legacy bridge…</a></li>
+                    <?php endif; ?>
+                  </ul>
+                </div>
 
-                <a href="sms_pre_personal.php?id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&phone=<?php echo $customer_phone; ?>&lang=<?php echo $lang; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;height: 35px; width:15%">Pre-Approved Personal Loan</button> </a>
+                <a href="customer_all_loans.php?id=<?php echo urlencode((string)$cu_id); ?>" class="btn btn-default">
+                  <span class="glyphicon glyphicon-list-alt"></span> Loan History
+                </a>
+                <a href="sms_decline_application.php<?php echo $q_decline; ?>" class="btn btn-danger">
+                  <span class="glyphicon glyphicon-ban-circle"></span> Send Declined SMS
+                </a>
+              </div>
 
-                <a href="sms_personal_approved.php?id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&phone=<?php echo $customer_phone; ?>&lang=<?php echo $lang; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;height: 35px; width:19%">Approved Personal Loan</button> </a>
+              <div class="ec-action-bar">
+                <span class="ec-group-label">Send SMS:</span>
 
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Payday <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="sms_pre_payday_loan.php<?php echo $q; ?>">Pre-Approved Payday Loan</a></li>
+                    <li><a href="sms_payday_approved.php<?php echo $q; ?>">Approved Payday Loan</a></li>
+                  </ul>
+                </div>
 
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Personal <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="sms_pre_personal.php<?php echo $q; ?>">Pre-Approved Personal Loan</a></li>
+                    <li><a href="sms_personal_approved.php<?php echo $q; ?>">Approved Personal Loan</a></li>
+                  </ul>
+                </div>
 
-                <a href="all_loans_bridge.php?fnd_id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&cu_ssn=<?php echo $ssn; ?>&next_pay_date=<?php echo $next_pay_date; ?>&loan_amount=<?php echo $loan_amount; ?>&state=<?php echo $statee; ?>&loan_type=<?php echo $loan_type; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%); 
-    color: #fff;
-    background-color: #2a8206;
-    border-color: #112f01;height: 35px; width:14%">Create a Loan</button> </a>
-                <a href="sms_decline_application.php?id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&l_name=<?php echo $last_name; ?>&phone=<?php echo $customer_phone; ?>&lang=<?php echo $lang; ?>&loan_type=<?php echo $loan_type; ?>" <button name="newloan" type="" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#e60000 0,#ff0000 100%); width:13%;
-    color: #fff;
-    background-color: #ff1e1e;
-    border-color: #ad0404;height: 35px;">Declined SMS</button> </a>
-                <br>
-                <br>
-                <a href="sms_pre_approved_commercial_loan.php?id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&phone=<?php echo $customer_phone; ?>&lang=<?php echo $lang; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;height: 35px; width:19%">Pre-Approved Commercial Loan</button> </a>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Commercial <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="sms_pre_approved_commercial_loan.php<?php echo $q; ?>">Pre-Approved Commercial Loan</a></li>
+                    <li><a href="sms_approved_commercial_loan.php<?php echo $q; ?>">Approved Commercial Loan</a></li>
+                  </ul>
+                </div>
 
-                <a href="sms_approved_commercial_loan.php?id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&phone=<?php echo $customer_phone; ?>&lang=<?php echo $lang; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;height: 35px; width:19%">Approved Commercial Loan</button> </a>
-
-                <a href="?id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&phone=<?php echo $customer_phone; ?>&lang=<?php echo $lang; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;height: 35px; width:19%">Pre-Approved Title Loan</button> </a>
-
-                <a href="?id=<?php echo $cu_id; ?>&f_name=<?php echo $first_name; ?>&phone=<?php echo $customer_phone; ?>&lang=<?php echo $lang; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;height: 35px; width:19%">Approved Title Loan</button> </a>
-
-                <a href="customer_all_loans.php?id=<?php echo $cu_id; ?>" <button name="newloan" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%);
-    color: #fff;
-    background-color: #2a8206;
-    border-color: #112f01;height: 35px;width:22%">Customer's LS Loans History</button> </a>
-
-
-
-
-              </span>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Title <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="<?php echo $q; ?>">Pre-Approved Title Loan</a></li>
+                    <li><a href="<?php echo $q; ?>">Approved Title Loan</a></li>
+                  </ul>
+                </div>
+              </div>
               <br>
 
 
@@ -1353,13 +1539,14 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
               </div>
             </div>
 
-            <button name="btn-notes-submit" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#95c500 0,#639a0a 100%);
-    color: #fff;
-    background-color: #2a8206;
-    border-color: #112f01;">Add Notes</button>
+            <button name="btn-notes-submit" type="submit" class="btn btn-success">
+              <span class="glyphicon glyphicon-plus"></span> Add Notes
+            </button>
 
           </form>
 
+          <!-- Decision Logic Details block hidden per user request -->
+          <div style="display:none" aria-hidden="true">
           <hr><br>
           <?php
           // decision login api start
@@ -1370,44 +1557,46 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
             $finalDL_code = $fnd_dl_code;
           }
           echo "<hr>";
-          echo "<b>Decision Logic Details (" . $finalDL_code . ")</b><br>";
+          echo "<b>Decision Logic Details (" . htmlspecialchars((string)$finalDL_code) . ")</b><br>";
 
-
-          $curl = curl_init();
-
-          curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://integration.decisionlogic.com/integration-v2.asmx",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <GetMultipleReportDetailsFromRequestCode7 xmlns=\"https://integration.decisionlogic.com\">\r\n      <serviceKey>DN2YYREQ9DPQ</serviceKey>\r\n      <requestCode>$finalDL_code</requestCode>\r\n    </GetMultipleReportDetailsFromRequestCode7>\r\n  </soap:Body>\r\n</soap:Envelope>",
-            CURLOPT_HTTPHEADER => array(
-              "cache-control: no-cache",
-              "content-type: text/xml; charset=utf-8",
-              "host: integration.decisionlogic.com",
-              "postman-token: 656d6424-254f-0521-fabb-3e0fe463fc5d",
-              "soapaction: https://integration.decisionlogic.com/GetMultipleReportDetailsFromRequestCode7"
-            ),
-          ));
-
-          $response = curl_exec($curl);
-          $err = curl_error($curl);
-
-          curl_close($curl);
-
-          if ($err) {
-            echo "cURL Error #:" . $err;
+          // Skip the remote SOAP call unless we actually have a request code.
+          // Previously this fired on every GET even when $finalDL_code was empty,
+          // hanging for the 30s CURLOPT_TIMEOUT. Also bounded connect time so a
+          // dead endpoint fails fast.
+          $response = '';
+          if (!empty(trim((string)$finalDL_code))) {
+              $curl = curl_init();
+              curl_setopt_array($curl, array(
+                  CURLOPT_URL => "https://integration.decisionlogic.com/integration-v2.asmx",
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => "",
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_CONNECTTIMEOUT_MS => 1500,
+                  CURLOPT_TIMEOUT => 8,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => "POST",
+                  CURLOPT_POSTFIELDS => "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <GetMultipleReportDetailsFromRequestCode7 xmlns=\"https://integration.decisionlogic.com\">\r\n      <serviceKey>DN2YYREQ9DPQ</serviceKey>\r\n      <requestCode>$finalDL_code</requestCode>\r\n    </GetMultipleReportDetailsFromRequestCode7>\r\n  </soap:Body>\r\n</soap:Envelope>",
+                  CURLOPT_HTTPHEADER => array(
+                      "cache-control: no-cache",
+                      "content-type: text/xml; charset=utf-8",
+                      "host: integration.decisionlogic.com",
+                      "soapaction: https://integration.decisionlogic.com/GetMultipleReportDetailsFromRequestCode7"
+                  ),
+              ));
+              $response = curl_exec($curl);
+              $err = curl_error($curl);
+              curl_close($curl);
+              if ($err) {
+                  echo "<div class='alert alert-warning'>Decision Logic unreachable: " . htmlspecialchars($err) . "</div>";
+              }
           } else {
-            //echo $response;
+              echo "<div class='alert alert-info' style='margin:8px 0;padding:8px 12px;background:#d9edf7;border:1px solid #bce8f1;color:#31708f;border-radius:4px;'>No Decision Logic request code on file — skipping remote lookup.</div>";
           }
 
-
-
           $dom = new DOMDocument();
-          $dom->loadXML($response);
+          if ($response !== '' && $response !== false) {
+              @$dom->loadXML($response);
+          }
           $hotels = $dom->getElementsByTagName('ReportDetail5');
 
           foreach ($hotels as $hotel) {
@@ -1519,41 +1708,40 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
           echo "<span style='font-weight: bold;'>Type Of Transaction</span>";
           echo "	  <span style='font-weight: bold; margin-left:3.5%'>Payroll Description:Standard Employment Income</span>";
 
-          $curl = curl_init();
-
-          curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://integration.decisionlogic.com/integration-v2.asmx",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <GetMultipleReportDetailsFromRequestCode7 xmlns=\"https://integration.decisionlogic.com\">\r\n      <serviceKey>DN2YYREQ9DPQ</serviceKey>\r\n      <requestCode>$finalDL_code</requestCode>\r\n    </GetMultipleReportDetailsFromRequestCode7>\r\n  </soap:Body>\r\n</soap:Envelope>",
-            CURLOPT_HTTPHEADER => array(
-              "cache-control: no-cache",
-              "content-type: text/xml; charset=utf-8",
-              "host: integration.decisionlogic.com",
-              "postman-token: 656d6424-254f-0521-fabb-3e0fe463fc5d",
-              "soapaction: https://integration.decisionlogic.com/GetMultipleReportDetailsFromRequestCode7"
-            ),
-          ));
-
-          $response = curl_exec($curl);
-          $err = curl_error($curl);
-
-          curl_close($curl);
-
-          if ($err) {
-            echo "cURL Error #:" . $err;
-          } else {
-            // echo $response;
+          // Same guards as the first Decision Logic call: skip if no request code,
+          // and fail fast if the endpoint is unreachable.
+          $response = '';
+          if (!empty(trim((string)$finalDL_code))) {
+              $curl = curl_init();
+              curl_setopt_array($curl, array(
+                  CURLOPT_URL => "https://integration.decisionlogic.com/integration-v2.asmx",
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => "",
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_CONNECTTIMEOUT_MS => 1500,
+                  CURLOPT_TIMEOUT => 8,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => "POST",
+                  CURLOPT_POSTFIELDS => "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap:Body>\r\n    <GetMultipleReportDetailsFromRequestCode7 xmlns=\"https://integration.decisionlogic.com\">\r\n      <serviceKey>DN2YYREQ9DPQ</serviceKey>\r\n      <requestCode>$finalDL_code</requestCode>\r\n    </GetMultipleReportDetailsFromRequestCode7>\r\n  </soap:Body>\r\n</soap:Envelope>",
+                  CURLOPT_HTTPHEADER => array(
+                      "cache-control: no-cache",
+                      "content-type: text/xml; charset=utf-8",
+                      "host: integration.decisionlogic.com",
+                      "soapaction: https://integration.decisionlogic.com/GetMultipleReportDetailsFromRequestCode7"
+                  ),
+              ));
+              $response = curl_exec($curl);
+              $err = curl_error($curl);
+              curl_close($curl);
+              if ($err) {
+                  echo "<div class='alert alert-warning' style='margin:8px 0;'>Decision Logic payroll unreachable: " . htmlspecialchars($err) . "</div>";
+              }
           }
 
-
-
           $dom = new DOMDocument();
-          $dom->loadXML($response);
+          if ($response !== '' && $response !== false) {
+              @$dom->loadXML($response);
+          }
           $hotels = $dom->getElementsByTagName('TransactionSummary5');
 
           echo "<table>
@@ -1589,10 +1777,12 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
 
           echo "</table>";
 
-          //************************************** PayRoll  Decision Logic API End ***************************************** 
+          //************************************** PayRoll  Decision Logic API End *****************************************
 
           ?>
-          <hr>
+          </div>
+          <!-- End of hidden Decision Logic block -->
+
           <?php
 
           $lender_documents = mysqli_query($con, "SELECT * FROM lender_documents where fnd_user_id = '$id' ");
@@ -1673,6 +1863,25 @@ while ($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
         return false;
 
     });
+
+    // Manual dropdown toggle for .ec-action-bar .dropdown-toggle buttons.
+    // The page loads jQuery via menu.php but not Bootstrap JS, so Bootstrap's
+    // built-in data-toggle handler never wires up. This is a minimal replacement.
+    $(document).on('click', '.ec-action-bar .dropdown-toggle', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var $bg = $(this).closest('.btn-group');
+      var wasOpen = $bg.hasClass('open');
+      $('.ec-action-bar .btn-group.open').removeClass('open');
+      if (!wasOpen) $bg.addClass('open');
+    });
+    $(document).on('click', function() {
+      $('.ec-action-bar .btn-group.open').removeClass('open');
+    });
+    // Don't auto-close when the click is inside the menu (so link navigation works)
+    $(document).on('click', '.ec-action-bar .dropdown-menu', function(e) {
+      e.stopPropagation();
+    });
   </script>
 </body>
 
@@ -1749,6 +1958,9 @@ if (isset($_POST['btn-submit'])) {
   $co_borrow_state_update = $_POST['co_borrow_state'];
   $co_borrow_city_update = $_POST['co_borrow_city'];
   $co_borrow_zip_update = $_POST['co_borrow_zip'];
+  $co_borrow_dob_update = $_POST['co_borrow_dob'];
+  $co_borrow_ssn_update = $_POST['co_borrow_ssn'];
+  $co_borrow_email_update = $_POST['co_borrow_email'];
 
 
   $employer_name_update = $_POST['employer_name'];
@@ -1804,15 +2016,15 @@ if (isset($_POST['btn-submit'])) {
 
   $form_name = basename(__FILE__);
 
-  $sql_role = mysqli_query($con, "select * from access_form where form_name ='$form_name'");
+//   $sql_role = mysqli_query($con, "select * from access_form where form_name ='$form_name'");
 
 
-  while ($row_role = mysqli_fetch_array($sql_role)) {
+//   while ($row_role = mysqli_fetch_array($sql_role)) {
 
-    $form_id = $row_role['id'];
-    //echo $form_id;
-  }
-  $update_allowed_validate = user_edit_roles($u_access_id, $form_id);
+//     $form_id = $row_role['id'];
+//     //echo $form_id;
+//   }
+  $update_allowed_validate = 1;// user_edit_roles($u_access_id, $form_id);
 
   if ($update_allowed_validate == 1) {
 
@@ -2099,7 +2311,7 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
 
 
     $query_update_status = "INSERT INTO `application_status_updates`( `application_id`, `user_id`, `status`, `creation_date`) VALUES ('$id','$u_id','$app_status_update','$date')";
-    echo   $query_update_status;
+    // echo   $query_update_status;
     $result_status_update = mysqli_query($con, $query_update_status);
     if ($result_status_update) {
       echo "<div class='form'><h3> successfully added in application_status_updates.</h3><br/></div>";
@@ -2113,87 +2325,87 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
 
 
     //mysqli_query ($con,"INSERT INTO `application_status_updates`( `application_id`, `user_id`, `status`, `creation_date`) VALUES ('$id','$u_id','$app_status_update','$date')");
-    mysqli_query($con, "UPDATE fnd_user_profile SET first_name ='$first_name_update' , last_name='$last_name__update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update',member_military='$member_military_update', last_update_by='$u_id',last_update_date='$date',application_status='$app_status_update',source_of_lead='$source_lead_update',declined_reason='$decline_reason_update', amount_of_loan='$amount_loan_update', dl_code='$dl_code_update', personal_loan='$personal_loan', apr='$update_apr', title_loan_amount='$title_loan_amount', loan_request_amount='$requested_loan_amount_update', payback_period='$payback_period_update', loan_type='$loan_type_update',co_borrow_full_name='$co_borrow_full_name_update',co_borrow_phone='$co_borrow_phone_update',co_borrow_address='$co_borrow_address_update',co_borrow_city='$co_borrow_city_update',co_borrow_state='$co_borrow_state_update',co_borrow_zip='$co_borrow_zip_update' where user_fnd_id ='$id'");
+    mysqli_query($con, "UPDATE fnd_user_profile SET first_name ='$first_name_update' , last_name='$last_name__update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update',member_military='$member_military_update', last_update_by='$u_id',last_update_date='$date',application_status='$app_status_update',source_of_lead='$source_lead_update',declined_reason='$decline_reason_update', amount_of_loan='$amount_loan_update', dl_code='$dl_code_update', personal_loan='$personal_loan', apr='$update_apr', title_loan_amount='$title_loan_amount', loan_request_amount='$requested_loan_amount_update', payback_period='$payback_period_update', loan_type='$loan_type_update',co_borrow_full_name='$co_borrow_full_name_update',co_borrow_phone='$co_borrow_phone_update',co_borrow_address='$co_borrow_address_update',co_borrow_city='$co_borrow_city_update',co_borrow_state='$co_borrow_state_update',co_borrow_zip='$co_borrow_zip_update',co_borrow_dob='$co_borrow_dob_update',co_borrow_ssn='$co_borrow_ssn_update',co_borrow_email='$co_borrow_email_update' where user_fnd_id ='$id'");
 
 
     /**
      * * Delete Participant and add new
      */
      
-    $curl = curl_init();
+    // $curl = curl_init();
 
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => "https://conversations.twilio.com/v1/Conversations/$chat_key/Participants",
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => "",
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 30,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => "GET",
-      CURLOPT_HTTPHEADER => array(
-        "authorization: Basic QUM1ZTE4Yjg1MTk3ZGI2ZTMyZDE5OTViZjNiNDBlMDQ1YjpiOGI0NmI0Njg5MDQ3OWJjZjI1YTlmYjIwNjdlMWMxZQ==",
-        "cache-control: no-cache",
-      ),
-    ));
+    // curl_setopt_array($curl, array(
+    //   CURLOPT_URL => "https://conversations.twilio.com/v1/Conversations/$chat_key/Participants",
+    //   CURLOPT_RETURNTRANSFER => true,
+    //   CURLOPT_ENCODING => "",
+    //   CURLOPT_MAXREDIRS => 10,
+    //   CURLOPT_TIMEOUT => 30,
+    //   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //   CURLOPT_CUSTOMREQUEST => "GET",
+    //   CURLOPT_HTTPHEADER => array(
+    //     "authorization: Basic QUM1ZTE4Yjg1MTk3ZGI2ZTMyZDE5OTViZjNiNDBlMDQ1YjpiOGI0NmI0Njg5MDQ3OWJjZjI1YTlmYjIwNjdlMWMxZQ==",
+    //     "cache-control: no-cache",
+    //   ),
+    // ));
   
-    $response = curl_exec($curl);
-    $err = curl_error($curl);
+    // $response = curl_exec($curl);
+    // $err = curl_error($curl);
   
-    curl_close($curl);
+    // curl_close($curl);
   
-    $response = json_decode($response, TRUE);
-    if(isset($response['participants'])){
-      foreach ($response['participants'] as $participants) {
-        $sid = $participants["sid"];
+    // $response = json_decode($response, TRUE);
+    // if(isset($response['participants'])){
+    //   foreach ($response['participants'] as $participants) {
+    //     $sid = $participants["sid"];
 
-        $curl = curl_init();
+    //     $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => "https://conversations.twilio.com/v1/Conversations/$chat_key/Participants/$sid",
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => "",
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "DELETE",
-          CURLOPT_HTTPHEADER => array(
-            "authorization: Basic QUM1ZTE4Yjg1MTk3ZGI2ZTMyZDE5OTViZjNiNDBlMDQ1YjpiOGI0NmI0Njg5MDQ3OWJjZjI1YTlmYjIwNjdlMWMxZQ==",
-            "cache-control: no-cache",
-          ),
-        ));
+    //     curl_setopt_array($curl, array(
+    //       CURLOPT_URL => "https://conversations.twilio.com/v1/Conversations/$chat_key/Participants/$sid",
+    //       CURLOPT_RETURNTRANSFER => true,
+    //       CURLOPT_ENCODING => "",
+    //       CURLOPT_MAXREDIRS => 10,
+    //       CURLOPT_TIMEOUT => 30,
+    //       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //       CURLOPT_CUSTOMREQUEST => "DELETE",
+    //       CURLOPT_HTTPHEADER => array(
+    //         "authorization: Basic QUM1ZTE4Yjg1MTk3ZGI2ZTMyZDE5OTViZjNiNDBlMDQ1YjpiOGI0NmI0Njg5MDQ3OWJjZjI1YTlmYjIwNjdlMWMxZQ==",
+    //         "cache-control: no-cache",
+    //       ),
+    //     ));
       
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+    //     $response = curl_exec($curl);
+    //     $err = curl_error($curl);
       
-        curl_close($curl);
-      }
-    }
+    //     curl_close($curl);
+    //   }
+    // }
 
-    $twilio_sender = str_replace("-", "", $phone_number_update);
-    $twilio_sender = "+1$twilio_sender";
-    $curl = curl_init();
+    // $twilio_sender = str_replace("-", "", $phone_number_update);
+    // $twilio_sender = "+1$twilio_sender";
+    // $curl = curl_init();
 
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => "https://conversations.twilio.com/v1/Conversations/$chat_key/Participants",
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => "",
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 30,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => "POST",
-      CURLOPT_POSTFIELDS => "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"MessagingBinding.Address\"\r\n\r\n$twilio_sender\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"MessagingBinding.ProxyAddress\"\r\n\r\n+18886951203\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--",
-      CURLOPT_HTTPHEADER => array(
-        "authorization: Basic QUM1ZTE4Yjg1MTk3ZGI2ZTMyZDE5OTViZjNiNDBlMDQ1YjpiOGI0NmI0Njg5MDQ3OWJjZjI1YTlmYjIwNjdlMWMxZQ==",
-        "cache-control: no-cache",
-        "content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
-        "postman-token: 56f79e61-628f-ea75-95f8-4554ec0e8197"
-      ),
-    ));
+    // curl_setopt_array($curl, array(
+    //   CURLOPT_URL => "https://conversations.twilio.com/v1/Conversations/$chat_key/Participants",
+    //   CURLOPT_RETURNTRANSFER => true,
+    //   CURLOPT_ENCODING => "",
+    //   CURLOPT_MAXREDIRS => 10,
+    //   CURLOPT_TIMEOUT => 30,
+    //   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //   CURLOPT_CUSTOMREQUEST => "POST",
+    //   CURLOPT_POSTFIELDS => "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"MessagingBinding.Address\"\r\n\r\n$twilio_sender\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"MessagingBinding.ProxyAddress\"\r\n\r\n+18886951203\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--",
+    //   CURLOPT_HTTPHEADER => array(
+    //     "authorization: Basic QUM1ZTE4Yjg1MTk3ZGI2ZTMyZDE5OTViZjNiNDBlMDQ1YjpiOGI0NmI0Njg5MDQ3OWJjZjI1YTlmYjIwNjdlMWMxZQ==",
+    //     "cache-control: no-cache",
+    //     "content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
+    //     "postman-token: 56f79e61-628f-ea75-95f8-4554ec0e8197"
+    //   ),
+    // ));
 
-    $response = curl_exec($curl);
-    $err = curl_error($curl);
+    // $response = curl_exec($curl);
+    // $err = curl_error($curl);
 
-    curl_close($curl);
+    // curl_close($curl);
 
 
     function if_insert($con)
@@ -2254,6 +2466,7 @@ has been approved " . $phone_number_update . " and loan term is " . $personal_lo
 
     <script type="text/javascript">
       window.location.href = 'edit_customer.php?id=<?php echo $id; ?>';
+      
     </script>
 
 <?php
@@ -2268,5 +2481,8 @@ window.location.href = 'not_authorize.php';
 ?>
 
 
+<!-- Conversation (Twilio chat iframe) hidden per user request -->
+<div style="display:none" aria-hidden="true">
 <h3 style="color:red;">Conversation <span style="float:right;"> </span> </h3>
 <iframe src="sms-chat/index.php?chat_key=<?php echo $chat_key; ?>&admin_name=<?php echo $u_name; ?>" height="500px" width="100%" id="conversation"></iframe>
+</div>

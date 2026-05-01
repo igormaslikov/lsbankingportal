@@ -1,0 +1,157 @@
+/* ============================================================
+   Shared styles for every commercial-loan detail tab:
+     - Bank Info, Job Info, Business Info, Vehicle Info,
+       Customer Info, Notes, PTP, etc.
+   Included by each page via <link rel="stylesheet"> after
+   the page's own CSS, so ui-* classes override any stragglers.
+   Prefix: .ui-*
+   ============================================================ */
+
+#page-content-wrapper { padding: 0 20px 40px; }
+
+/* Toolbar */
+.ui-toolbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 4px 10px; margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+.ui-page-title { font-size: 20px; font-weight: 600; color: #333; margin: 0; }
+.ui-page-title small { color: #888; font-weight: normal; font-size: 13px; }
+
+/* Summary card (replaces yellow #F5E09E banners) */
+.ui-summary {
+    background: #fff; border: 1px solid #e4e4e4; border-left: 4px solid #1E90FF;
+    border-radius: 4px; padding: 14px 20px; margin: 0 0 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.ui-summary p { margin: 4px 0; color: #555; font-size: 13px; }
+.ui-summary strong {
+    display: block; color: #888; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .4px; margin-bottom: 2px; font-weight: 600;
+}
+.ui-summary b { color: #222; font-weight: 600; }
+
+/* Flash alerts */
+.ui-flash {
+    padding: 12px 18px; border-radius: 4px; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px; font-size: 13px;
+}
+.ui-flash-success { background: #dff0d8; border: 1px solid #b2dba1; border-left: 4px solid #5cb85c; color: #3c763d; }
+.ui-flash-error   { background: #fcebea; border: 1px solid #f5c6cb; border-left: 4px solid #d9534f; color: #721c24; }
+.ui-flash .glyphicon { font-size: 18px; }
+
+/* Panels */
+.ui-panel { margin-bottom: 14px; background: #fff; border: 1px solid #e4e4e4; border-radius: 4px; }
+.ui-panel-head {
+    padding: 10px 16px; background: #fafafa; border-bottom: 1px solid #e4e4e4;
+    font-weight: 600; color: #333; font-size: 14px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.ui-panel-head .ui-panel-hint { font-size: 11px; color: #888; font-weight: normal; }
+.ui-panel-body { padding: 16px; }
+
+/* Fields */
+.ui-field { margin-bottom: 12px; min-height: 66px; }
+.ui-field label {
+    font-size: 11px; color: #888; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .3px;
+    margin-bottom: 4px; display: block;
+}
+.ui-field .form-control {
+    padding: 8px 12px; border-radius: 4px; border: 1px solid #d0d7de;
+    width: 100%;
+}
+.ui-field .form-control:focus {
+    border-color: #1E90FF; box-shadow: 0 0 0 2px rgba(30,144,255,0.15); outline: none;
+}
+.ui-field .ui-help { font-size: 11px; color: #888; margin-top: 4px; display: block; }
+.ui-req { color: #d9534f; margin-left: 2px; }
+
+/* Readonly/display value (when a field is informational, not editable) */
+.ui-value {
+    padding: 8px 0; font-size: 14px; color: #333; font-weight: 500;
+    border-bottom: 1px dashed #eee;
+}
+
+/* Table */
+.ui-table { width: 100%; border-collapse: collapse; }
+.ui-table thead th {
+    background: #f5f5f5; color: #333; font-weight: 600;
+    border-bottom: 2px solid #ddd; padding: 10px 12px;
+    font-size: 12px; text-transform: uppercase; letter-spacing: .3px;
+    text-align: left;
+}
+.ui-table tbody td {
+    padding: 10px 12px; border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle; font-size: 13px;
+}
+.ui-table tbody tr:hover td { background: #fafbfc; }
+.ui-empty-row {
+    text-align: center; padding: 30px !important; color: #999; font-style: italic;
+}
+
+/* Action bar */
+.ui-action-bar {
+    margin-top: 18px; padding: 14px 18px;
+    background: #fafafa; border: 1px solid #e4e4e4; border-radius: 4px;
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; align-items: center;
+}
+.ui-action-bar .btn-save {
+    background: #1E90FF; border-color: #1E90FF; color: #fff;
+    font-weight: 600; padding: 10px 22px;
+}
+.ui-action-bar .btn-save:hover { background: #1976c2; border-color: #1976c2; color: #fff; }
+.ui-action-bar .ui-action-left { margin-right: auto; }
+
+/* Neutralize any gradient buttons left in the markup */
+#page-content-wrapper button.btn-danger[style*="linear-gradient"],
+#page-content-wrapper a.btn-danger[style*="linear-gradient"],
+#page-content-wrapper button.btn[style*="linear-gradient"] {
+    background-image: none !important;
+}
+
+/* Neutralize global dark .row:hover from css/style1.css if it's ever loaded here */
+#page-content-wrapper .row, #page-content-wrapper .row:hover {
+    background-color: transparent !important; height: auto !important;
+    border-top: 0 !important; transition: none !important;
+}
+
+/* Blacklist banner (user_information) */
+.ui-blacklist {
+    background: #fcebea; color: #721c24; border: 1px solid #f5c6cb;
+    border-left: 4px solid #d9534f; border-radius: 4px;
+    padding: 12px 18px; margin: 0 0 14px; font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+}
+.ui-blacklist .glyphicon { font-size: 20px; }
+
+/* Photo panel (user_information) */
+.ui-photo-panel {
+    background: #fff; border: 1px solid #e4e4e4; border-radius: 4px;
+    padding: 16px; margin-bottom: 14px;
+    display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+}
+.ui-photo-img {
+    width: 150px; height: 150px; border-radius: 8px; object-fit: cover;
+    background: #f5f5f5; border: 1px solid #e4e4e4;
+}
+.ui-photo-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Inline email link (user_information) */
+.ui-email-link { display: inline-block; margin-top: 4px; font-size: 12px; color: #1976d2; }
+
+/* Collapsible references (user_information) */
+.ui-ref-row { padding: 10px 0; border-top: 1px dashed #e4e4e4; }
+.ui-ref-row:first-child { border-top: 0; }
+.ui-ref-label { font-size: 11px; color: #1976d2; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+.ui-panel.ui-collapsible .ui-panel-head { cursor: pointer; user-select: none; }
+.ui-panel.ui-collapsible.collapsed .ui-panel-body { display: none; }
+.ui-panel.ui-collapsible .ui-panel-head .caret { transition: transform .15s; }
+.ui-panel.ui-collapsible.collapsed .ui-panel-head .caret { transform: rotate(-90deg); }
+
+/* Responsive touches */
+@media (max-width: 640px) {
+    #page-content-wrapper { padding: 0 12px 30px; }
+    .ui-toolbar { flex-wrap: wrap; gap: 8px; }
+    .ui-panel-body { padding: 12px; }
+}

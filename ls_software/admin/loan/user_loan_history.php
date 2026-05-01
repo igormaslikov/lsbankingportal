@@ -1,5 +1,8 @@
 <?php
 error_reporting(0);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 session_start();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
@@ -140,8 +143,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
 
-  $sql_t = "SELECT loan_id FROM tbl_loan  where sign_status='1' AND user_fnd_id= '$user_fnd_id' where $if_optima_loan_id ORDER BY loan_id";
-
+  $sql_t = "SELECT loan_id FROM tbl_loan  where sign_status='1' AND user_fnd_id= '$user_fnd_id' ORDER BY loan_id";
+echo $sql_t;
   if ($result_t = mysqli_query($con, $sql_t)) {
     // Return the number of rows in result set
     $rowcount = mysqli_num_rows($result_t);

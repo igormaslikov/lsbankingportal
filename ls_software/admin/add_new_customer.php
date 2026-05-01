@@ -2,6 +2,9 @@
 date_default_timezone_set('America/Los_Angeles');
 session_start();
 error_reporting(0);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
 if (!isset($_SESSION['userSession'])) {
@@ -80,11 +83,11 @@ $last_check = $_POST['last_check'];
 $next_check = $_POST['next_check'];
 //$pdf_file = $_POST['pdf_file'];
 $card_number = $_POST['card_number'];
-$exp_date = $_POST['exp_date'];
-$name_on_Card = $_POST['name_on_Card'];
+// $exp_date = $_POST['exp_date'];
+// $name_on_Card = $_POST['name_on_Card'];
 //$zip_code = $_POST['zip_code'];
-$cvv_number = $_POST['cvv_number'];
-$acc_number = $_POST['acc_number'];
+// $cvv_number = $_POST['cvv_number'];
+// $acc_number = $_POST['acc_number'];
 
 $application_status=$_POST['app_status'];
 $source_of_lead=$_POST['source_of_lead'];
@@ -310,8 +313,12 @@ admin_leads_email_notification($subject_data,$message_data);
           
            
 $query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_number,address,city,state,zip_code,date_of_birth,ssn,created_by,creation_date,user_key,application_status,website,created_time_,source_of_lead,declined_reason,loan_type, application_date)  VALUES ('$first_name','$last_name','$email','$phone_number','$address','$city','$state','$zip','$dob','$ssn','$u_id','$date','$user_key','New Application','By Office','$time_created','$source_of_lead','$decline_reason','$loan_type','$application_date')";
+        // echo $query;
         $result = mysqli_query($con, $query);
+        // echo $result;
+        // exit();
         if ($result) {
+            
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
         echo "<h3> Error Inserting Data FND </h3>";
@@ -393,430 +400,430 @@ window.location.href = 'view_all_customer_main.php';
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Welcome - <?php echo $userRow['email']; ?></title>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"> 
-<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen"> 
-<link rel="stylesheet" href="style.css" type="text/css" />
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Add New Customer</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <style>
+        /* Clear the fixed/sticky menu.php navbar — matches the old inline margin-top:100px */
+        section.wrapper.anc-wrapper { padding: 20px 20px 40px; max-width: 1330px; margin: 100px auto 80px auto; }
 
-<style>
-.wrapper {
-    width: 100%;
-    max-width: 1330px;
-    margin: 20px auto 100px auto;
-    padding: 0;
-    position: relative;
-}
-</style>
+        .anc-toolbar {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #eee;
+        }
+        .anc-page-title { font-size: 22px; font-weight: 600; color: #333; margin: 0; }
+
+        .anc-panel { margin-bottom: 14px; }
+        .anc-panel .panel-heading { padding: 10px 15px; background-color: #fafafa; font-weight: 600; }
+        .anc-panel .panel-heading .anc-section-hint { font-size: 12px; color: #888; font-weight: normal; text-transform: uppercase; letter-spacing: .5px; }
+        .anc-required-hint { font-size: 11px; color: #888; font-weight: normal; }
+        .anc-panel .panel-body { padding: 16px; }
+
+        .anc-field { margin-bottom: 14px; }
+        .anc-field label {
+            font-size: 12px; color: #555; font-weight: 600;
+            text-transform: uppercase; letter-spacing: .3px; margin-bottom: 4px;
+        }
+        .anc-req { color: #d9534f; margin-left: 2px; }
+        .anc-help { font-size: 11px; color: #888; margin-top: 4px; display: block; }
+
+        .anc-action-bar {
+            margin-top: 18px; padding: 15px 20px; background-color: #fafafa;
+            border: 1px solid #eee; border-radius: 4px; text-align: right;
+        }
+        .anc-action-bar .btn { margin-left: 6px; }
+
+        .anc-hidden { display: none; }
+
+        section.wrapper.anc-wrapper .row,
+        section.wrapper.anc-wrapper .row:hover {
+            background-color: transparent !important;
+            height: auto !important;
+            border-top: 0 !important;
+            transition: none !important;
+        }
+    </style>
 </head>
 
 <body>
 
-<?php include('menu.php') ;?>
+<?php include('menu.php'); ?>
 
-  <div class ="container wrapper" style="margin-top:100px">
+<section class="wrapper anc-wrapper">
 
-  <div class="row wrapper">
-
-  <form action ="" method="POST" enctype="multipart/form-data">
-  
-  <h3 style="color:red;">Personal  Information</h3>
-  <div class="row">
-      
-  <div class="col-lg-6" >
-      <label for="usr">First Name</label>
-      <input name="first_name" type="text" class="form-control" id="usr" placeholder="" value="">
+    <div class="anc-toolbar">
+        <h3 class="anc-page-title">
+            <span class="glyphicon glyphicon-user"></span> Add New Customer
+        </h3>
+        <a href="view_all_customer_main.php" class="btn btn-default">
+            <span class="glyphicon glyphicon-arrow-left"></span> Back to customers
+        </a>
     </div>
 
-    <div class="col-lg-6">
-      <label for="usr">Last Name</label>
-      <input name="last_name" type="text" class="form-control"  id="usr" placeholder="" value="">
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Phone Number</label>
-      <input name="phone_number" type="tel" class="form-control"  id="usr" placeholder="Format:123-456-7890" value="" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Email</label>
-      <input name="email" type="text" class="form-control"  id="usr" placeholder="" value="">
-    </div>
-    
-   
-    
-    <div class="col-lg-6">
-      <label for="usr">SSN/ITIN</label>
-      <input type="text" name="ssn"  class="form-control" id="usr">
-    </div>
+    <form action="" method="POST" enctype="multipart/form-data" id="anc-form">
 
- <div class="col-lg-6">
-      <label for="usr">DOB</label>
-      <input type="date" name="dob"  class="form-control" id="usr">
-    </div>
-   
-    <div class="col-lg-6">
-      <label for="usr">Street Number</label>
-      <input type="text" name="street_number"  class="form-control" id="usr">
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Cardinal / Pre Point</label>
-     <select name="cardinal_point" id="payment" class="form-control"  value="">
-<option value=""></option>
-<option value="N">N</option>
-<option value="S">S</option>
-<option value="AND">AND</option>
-<option value="W">W</option>
-<option value="NE">NE</option>
-<option value="NW">NW</option>
-<option value="I KNOW">I KNOW</option>
-<option value="SW">SW</option>
+        <div class="panel panel-default anc-panel">
+            <div class="panel-heading">
+                Personal Information
+                <span class="anc-required-hint pull-right"><span class="anc-req">*</span> required</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4 anc-field">
+                        <label>First Name <span class="anc-req">*</span></label>
+                        <input name="first_name" type="text" class="form-control" required>
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Last Name <span class="anc-req">*</span></label>
+                        <input name="last_name" type="text" class="form-control" required>
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Phone Number <span class="anc-req">*</span></label>
+                        <input name="phone_number" type="tel" class="form-control" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                    </div>
 
-</select>
-    </div>
-    
-    
-    <div class="col-lg-6">
-      <label for="usr">Street Name</label>
-       <input type="text" name="street_name"  class="form-control" id="usr">
-    </div>
-     
-    <div class="col-lg-6">
-      <label for="usr">Street Type</label>
-     <select name="street_type" id="payment" class="form-control"  value="">
-<option value=""></option>
-<option value="Ave">Ave</option>
-<option value="Bird">Bird</option>
-<option value="Blv">Blv</option>
-<option value="Cir">Cir</option>
-<option value="Ct">Ct</option>
-<option value="Dr">Dr</option>
-<option value="Frwy">Frwy</option>
-<option value="Hwy">Hwy</option>
-<option value="Ln">Ln</option>
-<option value="Parkway">Parkway</option>
-<option value="Pike">Pike</option>
-<option value="Place">Place</option>
-<option value="Rd">Rd</option>
-<option value="Ridge">Ridge</option>
-<option value="St">St</option>
-<option value="Tarrace">Tarrace</option>
-<option value="Trail">Trail</option>
-<option value="Turnpike">Turnpike</option>
-<option value="Way">Way</option>
-
-</select>
-    </div>
-    
-    
-      <div class="col-lg-6">
-      <label for="usr">Apartment / Unit</label>
-      <input type="text" name="apartment"  class="form-control" id="usr">
-    </div>
-     
-    
-     <div class="col-lg-3">
-      <label for="usr">City</label>
-      <input type="text" name="city"  class="form-control" id="usr">
-    </div>
-    
-    <div class="col-lg-1">
-      <label for="usr">State</label>
-      <select name="state" id="state" class="form-control"  value="">
-<option value=""></option>
-<option value="CA">CA</option>
-
-
-</select>
-    </div>
-    
-    <div class="col-lg-2">
-      <label for="usr">Zip Code</label>
-      <input type="text" name="zip"  class="form-control" id="usr">
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Loan Type / Type of Loan</label>
-<select name="loan_type" id="loan_type" class="form-control"  value="">
-<option value=""></option>
-<option value="payday">Payday Laon</option>
-<option value="installment">Personal Laon</option>
-<option value="commercial">Commercial Laon</option>
-<option value="Loan Staff">Loan Staff</option>
-
-</select>
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr">Direct Deposit</label>
-<select name="direct_deposit" id="direct_deposit" class="form-control"  value="">
-<option value=""></option>
-<option value="Yes">Yes</option>
-<option value="No">No</option>
-
-</select>
-    </div>
-    
-    </div>
-    
-    <h3 style="color:red;">Employment Info</h3>
-    <div class="row">
- 
-    <div class="col-lg-4">
-      <label for="usr">Employer Name*</label>
- <input type="text" name="employer_name"  class="form-control" id="usr" >
-    </div>
-    
-    <div class="col-lg-4">
-      <label for="usr">Work Phone Number*</label>
- <input type="tel" name="work_phone"  class="form-control" id="usr" placeholder="Format:123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" >
-    </div>
-    
-     <div class="col-lg-4">
-      <label for="usr">Net Check Amount*</label>
- <input type="text" name="net_amount"  class="form-control" id="usr" placeholder="" >
-    </div>
-
- <div class="col-lg-4">
-      <label for="usr">Direct Deposit*</label>
-<select name="direct_deposit_source" id="payment" class="form-control"  value="" >
-<option value=""></option>
-<option value="Yes">Yes</option>
-<option value="No">No</option>
-
-</select>
-    </div>
-    
-<div class="col-lg-4">
-      <label for="usr">How often do you get paid?*</label>
- <select name="get_paid" id="get_paid" class="form-control"  value="" >
-<option value=""></option>
-<option value="Weekly">Weekly</option>
-<option value="Bi-Weekly">Bi-Weekly</option>
-<option value="Semi Monthly">Semi Monthly</option>
-<option value="Monthly">Monthly</option>
-
-</select>
-
-    </div>
-
-<div class="col-lg-4">
-      <label for="usr">Last Paycheck Date*</label>
- <input type="date" name="last_check"  class="form-control" id="usr" >
-    </div>
-    
-    <div class="col-lg-4">
-      <label for="usr">Next Paycheck Date*</label>
- <input type="date" name="next_check"  class="form-control" id="usr" >
-    </div>
-
-    </div>
-    <hr>
-              <h3 style="color:red;">Business Info</h3>
-              <div class="row">
-
-                <div class="col-lg-4">
-                  <label for="usr">Business Name</label>
-                  <input type="text" name="business_name" class="form-control" id="usr" value="<?php echo $business_name; ?>">
+                    <div class="col-md-4 anc-field">
+                        <label>Email <span class="anc-req">*</span></label>
+                        <input name="email" type="email" class="form-control" placeholder="customer@example.com" required>
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>SSN / ITIN</label>
+                        <input type="text" name="ssn" class="form-control" placeholder="123-45-6789 or 9 digits">
+                        <span class="anc-help">Stored as entered. 9 digits or XXX-XX-XXXX.</span>
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Date of Birth</label>
+                        <input type="date" name="dob" class="form-control">
+                    </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="col-lg-4">
-                  <label for="usr">Business Phone Number</label>
-                  <input type="tel" name="business_phone" class="form-control" id="usr" placeholder="Format:123-456-7890" value="<?php echo $business_phone; ?>" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+        <div class="panel panel-default anc-panel">
+            <div class="panel-heading">Address</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-2 anc-field">
+                        <label>Street Number</label>
+                        <input type="text" name="street_number" class="form-control">
+                    </div>
+                    <div class="col-md-2 anc-field">
+                        <label>Cardinal</label>
+                        <select name="cardinal_point" class="form-control">
+                            <option value=""></option>
+                            <option value="N">N</option>
+                            <option value="S">S</option>
+                            <option value="E">E</option>
+                            <option value="W">W</option>
+                            <option value="NE">NE</option>
+                            <option value="NW">NW</option>
+                            <option value="SE">SE</option>
+                            <option value="SW">SW</option>
+                        </select>
+                        <span class="anc-help">Pre-directional (if any).</span>
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Street Name</label>
+                        <input type="text" name="street_name" class="form-control">
+                    </div>
+                    <div class="col-md-2 anc-field">
+                        <label>Street Type</label>
+                        <select name="street_type" class="form-control">
+                            <option value=""></option>
+                            <option value="Ave">Ave</option>
+                            <option value="Blvd">Blvd</option>
+                            <option value="Cir">Cir</option>
+                            <option value="Ct">Ct</option>
+                            <option value="Dr">Dr</option>
+                            <option value="Frwy">Frwy</option>
+                            <option value="Hwy">Hwy</option>
+                            <option value="Ln">Ln</option>
+                            <option value="Parkway">Parkway</option>
+                            <option value="Pike">Pike</option>
+                            <option value="Place">Place</option>
+                            <option value="Rd">Rd</option>
+                            <option value="Ridge">Ridge</option>
+                            <option value="St">St</option>
+                            <option value="Terrace">Terrace</option>
+                            <option value="Trail">Trail</option>
+                            <option value="Turnpike">Turnpike</option>
+                            <option value="Way">Way</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 anc-field">
+                        <label>Apt / Unit</label>
+                        <input type="text" name="apartment" class="form-control">
+                    </div>
+
+                    <div class="col-md-5 anc-field">
+                        <label>City</label>
+                        <input type="text" name="city" class="form-control">
+                    </div>
+                    <div class="col-md-3 anc-field">
+                        <label>State</label>
+                        <select name="state" class="form-control">
+                            <option value=""></option>
+                            <option value="CA">California</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Zip Code</label>
+                        <input type="text" name="zip" class="form-control" pattern="[0-9]{5}(-[0-9]{4})?" placeholder="12345 or 12345-6789">
+                    </div>
                 </div>
+            </div>
+        </div>
 
-                
-                <div class="col-lg-4">
-                  <label for="usr">Business Address</label>
-                  <input type="text" name="business_address" class="form-control" id="usr" value="<?php echo $business_address; ?>">
+        <div class="panel panel-default anc-panel">
+            <div class="panel-heading">Loan Type</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 anc-field">
+                        <label>Loan Type <span class="anc-req">*</span></label>
+                        <select name="loan_type" id="anc-loan-type" class="form-control" required>
+                            <option value=""></option>
+                            <option value="payday">Payday Loan</option>
+                            <option value="installment">Personal Loan</option>
+                            <option value="commercial">Commercial Loan</option>
+                            <option value="Loan Staff">Loan Staff</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 anc-field">
+                        <label>Primary Direct Deposit</label>
+                        <select name="direct_deposit" class="form-control">
+                            <option value=""></option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                        <span class="anc-help">Used for the initial application flag.</span>
+                    </div>
                 </div>
+            </div>
+        </div>
 
-                
-                <div class="col-lg-4">
-                  <label for="usr">Business State</label>
-                  <input type="text" name="business_state" class="form-control" id="usr" value="<?php echo $business_state; ?>">
+        <div class="panel panel-default anc-panel">
+            <div class="panel-heading">Employment Information</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4 anc-field">
+                        <label>Employer Name</label>
+                        <input type="text" name="employer_name" class="form-control">
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Work Phone</label>
+                        <input type="tel" name="work_phone" class="form-control" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Net Check Amount</label>
+                        <input type="text" name="net_amount" class="form-control" placeholder="e.g. 1250.00">
+                    </div>
+
+                    <div class="col-md-4 anc-field">
+                        <label>Direct Deposit (Employment)</label>
+                        <select name="direct_deposit_source" class="form-control">
+                            <option value=""></option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Pay Frequency</label>
+                        <select name="get_paid" class="form-control">
+                            <option value=""></option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Bi-Weekly">Bi-Weekly</option>
+                            <option value="Semi Monthly">Semi Monthly</option>
+                            <option value="Monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 anc-field">
+                        <label>Last Paycheck</label>
+                        <input type="date" name="last_check" class="form-control">
+                    </div>
+                    <div class="col-md-2 anc-field">
+                        <label>Next Paycheck</label>
+                        <input type="date" name="next_check" class="form-control">
+                    </div>
                 </div>
+            </div>
+        </div>
 
-                                
-                <div class="col-lg-4">
-                  <label for="usr">Business City</label>
-                  <input type="text" name="business_city" class="form-control" id="usr" value="<?php echo $business_city; ?>">
+        <div class="panel panel-default anc-panel anc-hidden" id="anc-business-panel">
+            <div class="panel-heading">
+                Business Information
+                <span class="anc-section-hint pull-right">Shown for Commercial loans</span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4 anc-field">
+                        <label>Business Name</label>
+                        <input type="text" name="business_name" class="form-control">
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Business Phone</label>
+                        <input type="tel" name="business_phone" class="form-control" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Business Address</label>
+                        <input type="text" name="business_address" class="form-control">
+                    </div>
+
+                    <div class="col-md-3 anc-field">
+                        <label>Business City</label>
+                        <input type="text" name="business_city" class="form-control">
+                    </div>
+                    <div class="col-md-3 anc-field">
+                        <label>Business State</label>
+                        <input type="text" name="business_state" class="form-control">
+                    </div>
+                    <div class="col-md-3 anc-field">
+                        <label>Business Zip</label>
+                        <input type="text" name="business_zip" class="form-control">
+                    </div>
+                    <div class="col-md-3 anc-field">
+                        <label>Business Type</label>
+                        <input type="text" name="business_type" class="form-control">
+                    </div>
+
+                    <div class="col-md-4 anc-field">
+                        <label>Business Started</label>
+                        <input type="text" name="business_create" class="form-control" placeholder="e.g. 2018-04">
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Monthly Gross Amount</label>
+                        <input type="text" name="gross_amount" class="form-control" placeholder="e.g. 15000">
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Direct Deposit (Business)</label>
+                        <select name="business_direct_deposit" class="form-control">
+                            <option value=""></option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 anc-field">
+                        <label>Pay Frequency</label>
+                        <select name="business_get_paid" class="form-control">
+                            <option value=""></option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Bi-Weekly">Bi-Weekly</option>
+                            <option value="Semi Monthly">Semi Monthly</option>
+                            <option value="Monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 anc-field">
+                        <label>Business Documentation</label>
+                        <select name="business_docs" class="form-control">
+                            <option value=""></option>
+                            <option value="Business License">Business License</option>
+                            <option value="Sellers Permit">Sellers Permit</option>
+                            <option value="DBA">DBA</option>
+                        </select>
+                    </div>
                 </div>
-                                                
-                <div class="col-lg-4">
-                  <label for="usr">Business Zip</label>
-                  <input type="text" name="business_zip" class="form-control" id="usr" value="<?php echo $business_zip; ?>">
+            </div>
+        </div>
+
+        <div class="panel panel-default anc-panel">
+            <div class="panel-heading">Application</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3 anc-field">
+                        <label>Application Status</label>
+                        <select name="app_status" id="anc-app-status" class="form-control">
+                            <option value=""></option>
+                            <option value="New Application">New Application</option>
+                            <option value="In Review">In Review</option>
+                            <option value="Info Needed">Info Needed</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Funded">Funded</option>
+                            <option value="Declined">Declined</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 anc-field">
+                        <label>Source of Lead</label>
+                        <select name="source_of_lead" class="form-control">
+                            <option value=""></option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Google">Google</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Banner">Banner</option>
+                            <option value="Radio">Radio</option>
+                            <option value="Referred by Customer">Referred by Customer</option>
+                            <option value="Repeat Customer">Repeat Customer</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 anc-field">
+                        <label>Application Date <span class="anc-req">*</span></label>
+                        <input type="date" name="application_date" class="form-control" required>
+                    </div>
+                    <div class="col-md-3 anc-field anc-hidden" id="anc-decline-field">
+                        <label>Declined Reason</label>
+                        <select name="decline_reason" class="form-control">
+                            <option value=""></option>
+                            <option value="No Credit">No Credit</option>
+                            <option value="Bad Credit">Bad Credit</option>
+                            <option value="Too Many Loans">Too Many Loans</option>
+                            <option value="Too Many NSF Fees">Too Many NSF Fees</option>
+                            <option value="Repeat Application">Repeat Application</option>
+                            <option value="Declined by Customer">Declined by Customer</option>
+                            <option value="Incomplete Paperwork">Incomplete Paperwork</option>
+                            <option value="No Answer">No Answer</option>
+                        </select>
+                        <span class="anc-help">Shown when status = Declined.</span>
+                    </div>
+
+                    <div class="col-md-12 anc-field">
+                        <label>Notes</label>
+                        <textarea name="notes" class="form-control" rows="4" placeholder="Anything worth recording about this applicant..."></textarea>
+                    </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="col-lg-4">
+        <div class="anc-action-bar">
+            <a href="view_all_customer_main.php" class="btn btn-default">Cancel</a>
+            <button name="btn-submit" type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span> Save Customer
+            </button>
+        </div>
+    </form>
+</section>
 
-                  <label for="usr">Business Type</label>
-                  <input type="text" name="business_type" class="form-control" id="usr" value="<?php echo $business_type; ?>">
-                </div>
+<script type="text/javascript">
+    $(function() {
+        function syncBusinessPanel() {
+            var v = $('#anc-loan-type').val();
+            $('#anc-business-panel').toggleClass('anc-hidden', v !== 'commercial');
+        }
+        $('#anc-loan-type').on('change', syncBusinessPanel);
+        syncBusinessPanel();
 
+        function syncDeclineField() {
+            var v = $('#anc-app-status').val();
+            $('#anc-decline-field').toggleClass('anc-hidden', v !== 'Declined');
+        }
+        $('#anc-app-status').on('change', syncDeclineField);
+        syncDeclineField();
 
-                <div class="col-lg-4">
-
-                  <label for="usr">Business Create</label>
-                  <input type="text" name="business_create" class="form-control" id="usr" value="<?php echo $business_create_date; ?>">
-                </div>
-                <div class="col-lg-4">
-                  <label for="usr">Monthly Gross Amount</label>
-                  <input type="text" name="gross_amount" class="form-control" id="usr" placeholder="" value="<?php echo $gross_amount; ?>">
-                </div>
-
-                <div class="col-lg-4">
-                  <label for="usr"> Direct Deposit</label>
-                  <select name="business_direct_deposit" id="payment" class="form-control">
-                    <option></option>
-                    <option value="Yes" <?php if ($business_direct_deposit == 'Yes') {
-                                          echo 'selected';
-                                        } ?>>Yes</option>
-                    <option value="No" <?php if ($business_direct_deposit == 'No') {
-                                          echo 'selected';
-                                        } ?>>No</option>
-
-                  </select>
-                </div>
-
-
-
-                <div class="col-lg-4">
-                  <label for="usr">Payment Frequency</label>
-                  <select name="business_get_paid" id="get_paid" class="form-control">
-                    <option></option>
-                    <option value="Weekly" <?php if ($how_paid_business == 'Weekly') {
-                                              echo 'selected';
-                                            } ?>>Weekly</option>
-                    <option value="Bi-Weekly" <?php if ($how_paid_business == 'Bi-Weekly') {
-                                                echo 'selected';
-                                              } ?>>Bi-Weekly</option>
-                    <option value="Semi Monthly" <?php if ($how_paid_business == 'Semi Monthly') {
-                                                    echo 'selected';
-                                                  } ?>>Semi Monthly</option>
-                    <option value="Monthly" <?php if ($how_paid_business == 'Monthly') {
-                                              echo 'selected';
-                                            } ?>>Monthly</option>
-
-                  </select>
-
-                </div>
-
-                <div class="col-lg-4">
-                  <label for="usr">Business Documentation</label>
-                  <select name="business_docs" id="payment" class="form-control">
-                    <option></option>
-                    <option value="Business License" <?php if ($business_docs == 'Business License') {
-                                                        echo 'selected';
-                                                      } ?>>Business License</option>
-                    <option value="Sellers Permit" <?php if ($business_docs == 'Sellers Permit') {
-                                                      echo 'selected';
-                                                    } ?>>Sellers Permit</option>
-                    <option value="DBA" <?php if ($business_docs == 'DBA') {
-                                          echo 'selected';
-                                        } ?>>DBA</option>
-
-                  </select>
-                </div>
-
-
-              </div>
-    <h3 style="color:red">Application Status</h3>
-    <div class="row">
-    <div class="col-lg-6">
-<label for="usr"> Any Application Status</label>
-<select name="app_status" id="app_status" class="form-control"  value="">
-<option ></option>
-<option value="All Application">All Application</option>
-<option value="New Application">New Application</option>
-<option value="In Review">In Review</option>
-<option value="Info Needed">Info Needed</option>
-<option value="Approved">Approved</option>
-<option value="Funded">Funded</option>
-<option value="Declined">Declined</option>
-
-</select>
-    </div>
-    
-      <div class="col-lg-6">
-      <label for="usr"> Source of Lead</label>
-<select name="source_of_lead" id="source_of_lead" class="form-control"  value="">
-    <option value=""></option>
-<option value="Facebook">Facebook</option>
-<option value="Google">Google</option>
-<option value="Instagram">Instagram</option>
-<option value="Banner">Banner</option>
-<option value="Radio">Radio</option>
-<option value="Referred by Customer">Referred by Customer</option>
-<option value="Repeat Customer">Repeat Customer</option>
-
-</select>
-    </div>
-    
-    <div class="col-lg-6">
-      <label for="usr"> Declined Reason</label>
-<select name="decline_reason" id="decline_reason" class="form-control"  value="">
-    <option value=""></option>
-<option value="No Credit">No Credit</option>
-<option value="Bad Credit">Bad Credit</option>
-<option value="Too Many Loans">Too Many Loans</option>
-<option value="Too Many NSF Fees">Too Many NSF Fees</option>
-<option value="Repeat Application">Repeat Application</option>
-<option value="Declined by Customer">Declined by Customer</option>
-<option value="Incomplete Paperwork">Incomplete Paperwork</option>
-<option value="No Answer">No Answer</option>
-
-</select>
-    </div>
-
-    <div class="col-lg-6">
-      <label for="usr">Application Date*</label>
- <input type="date" name="application_date" class="form-control" id="usr" required>
-    </div>
-    </div>
-
-<div class="row">
- <div class="col-lg-12">
-      <label for="usr">Notes</label>
-      <textarea type="text" name="notes"  class="form-control" id="usr" style="margin: 0px -17px 0px 0px; height: 126px; width: 100%;"></textarea>
-    </div>
-</div>
-
-    <br>
-    
-      <button name="btn-submit" type="submit" class="btn btn-danger" style="color: #fff;background-color: #1E90FF;border-color: #1E90FF;">Add this Customer</button>
-
- 
-  </form>
-  
-  <div class="row">
-  
-  <div class="col-lg-4">
-</div>
- <div class="col-lg-4">
-<button name="sas" type="submit" class="btn btn-danger" style="color: #fff;background-color: #1E90FF;border-color: #1E90FF;"><a href="view_all_customer.php?status=All&keyword=&from_date=&to_date=&search=&website=All"  style="color:white; font-size:20px">Go Back</a></button>
-</div>
- <div class="col-lg-4">
-</div>
- </div> 
-  
-</div>
-</div>
-
-    
-
-
-<hr>
+        var $appDate = $('input[name="application_date"]');
+        if (!$appDate.val()) {
+            var d = new Date();
+            var s = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+            $appDate.val(s);
+        }
+    });
+</script>
 
 </body>
-</html>     
+</html>
+
 <?php
 }
 ?>

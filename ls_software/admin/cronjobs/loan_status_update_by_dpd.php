@@ -1,5 +1,5 @@
 <?php
-
+$_SESSION["Optima"] = "true";
 
 include '../dbconnect.php';
 include '../dbconfig.php';
@@ -33,7 +33,7 @@ while($rows = mysqli_fetch_array($sql_loan_ids)){
 
 $query = "SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id ";
 
-$status_array = array("Chargeoff","Collections","Past Due", "Active");
+$status_array = array("Paid","Chargeoff","Collections","Past Due", "Active");
 
 for ($i = 0; $i < count($status_array); $i++)
 {
@@ -42,27 +42,36 @@ for ($i = 0; $i < count($status_array); $i++)
   $where = " where tl.loan_status = '".$status."'";
 
   $sql_loan_ids = mysqli_query($con, "SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id".$where);
-
+// echo "SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id".$where;
   while($rows = mysqli_fetch_array($sql_loan_ids)){
     $loan_id = $rows['loan_id'];
     $user_fnd_id = $rows['user_fnd_id'];
     $loan_create_id = $rows['loan_create_id'];
-  
+
     $user_fnd_id=$rows['user_fnd_id'];
     $loan_create_id=$rows['loan_create_id'];
     $loan_id=$rows['loan_id'];
     $payment_date=$rows['payment_date'];
+    $last_payment_date=$rows['last_payment_date'];
     $current_loan_status = $rows['loan_status'];
-  
+    $total_payment = $rows['value_sum'] == NULL ? 0 :$rows['value_sum']  ;
+    $payoff = $rows['loan_total_payable'];
+    // var_dump($rows);
     $date=date('Y-m-d');
   
     $datetime1 = date_create($payment_date);
     $datetime2 = date_create($date);
+    if ($last_payment_date != ""){
+        $datetime2 = date_create($last_payment_date);
+    }
     $interval = date_diff($datetime1, $datetime2);
     $days = $interval->invert == 1 ? -$interval->days : $interval->days;
-  
-    $loan_status = "";
-    if($days >= 1 && $days <=30)
+
+    $loan_status = "Active";
+    if($payoff == $total_payment){
+        $loan_status = "Paid";
+    }
+    elseif($days >= 1 && $days <=30)
     {
       $loan_status = "Past Due";
     }
@@ -73,9 +82,7 @@ for ($i = 0; $i < count($status_array); $i++)
       $loan_status = "Chargeoff";
     }
   
-
-
-    if($loan_status != "")
+    if($loan_status != ""){
 
       mysqli_query($con,"UPDATE tbl_loan SET loan_status = '$loan_status', days_past_due=$days where loan_id= '$loan_id'");
           
@@ -84,6 +91,7 @@ for ($i = 0; $i < count($status_array); $i++)
         $query_insert_activity = "Insert into application_status_updates (application_id,loan_create_id,user_id,status,creation_date) Values ('$user_fnd_id','$loan_create_id','N/a','Account Status Auto-Updated to '.$loan_status.' due to over due date','$date_update')";
         mysqli_query ($con , $query_insert_activity);
       } 
+    }
   }
 }
 

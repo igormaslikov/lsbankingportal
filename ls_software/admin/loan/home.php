@@ -1,8 +1,12 @@
 <?php
 error_reporting(0);
 
-$id = $_GET['id'];
+
 session_start();
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+$id = $_GET['id'];
 include_once '../dbconnect.php';
 include '../dbconfig.php';
 if (!isset($_SESSION['userSession'])) {
@@ -48,7 +52,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
             <br><br>
             <?php
-
+            
             include '../functions.php';
 
             // Status Fund Start 
@@ -87,11 +91,17 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 $and_check = 1;
             }
             if (isset($_GET['keyword']) &&  $_GET['keyword'] != "") {
+                
                 if ($and_check > 0) {
                     $query_search .= " AND ";
                     $and_check = 2;
                 }
+                else{
+                    $and_check = 1;
+                }
+                
                 $query_search .= "  loan_create_id = '$keyword'";
+                
             }
 
             if ($state_search != "") {
@@ -104,6 +114,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             }
 
             if ($payment_method != "") {
+                
                 if ($and_check > 1 || $and_check > 0) {
                     $query_search .= " AND ";
                 }
@@ -169,7 +180,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             }
 
             //$query_search .= "order by loan_create_id asc Limit ". $offset. ", ". $total_records_per_page;
-
+            
             if ($result_t = mysqli_query($con, $query_search)) {
                 // Return the number of rows in result set
                 $rowcount = mysqli_num_rows($result_t);
@@ -181,8 +192,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 $ye = mysqli_free_result($result_t);
                 echo $ye;
             }
-
+            
             $query_search_1 = str_replace("SELECT *", "SELECT SUM(amount_of_loan) AS value_sum, SUM(loan_total_payable) AS sum_loan_total_payable", $query_search);
+            // SELECT SUM(amount_of_loan) AS value_sum, SUM(loan_total_payable) AS sum_loan_total_payable FROM `tbl_loan` where sign_status= '1' AND loan_create_id = ' ' loan_id in (SELECT loan_id from loan_transaction where payment_method = 'Debit') AND ( (user_fnd_id = '' ))
             while ($row_us = mysqli_fetch_array(mysqli_query($con, $query_search_1))) {
                 $us = $row_us['value_sum'];
                 $pay_off = $row_us['sum_loan_total_payable'];
@@ -191,7 +203,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 $pay_off = number_format((float)$pay_off, 2, '.', '');
                 break;
             }
-
+            
+            
             ?>
 
             <?php
@@ -218,13 +231,19 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 break;
             }
             $totall_trans = number_format((float)$totall_trans, 2, '.', '');
-
+            
             //$pay_off = number_format((float)$pay_off, 2, '.', '');
-            $avg_pay_off = $pay_off / $rowcount;
+            $avg_pay_off = 0;
+            $avg_amount = 0;
+            if ($rowcount != 0){
+                $avg_pay_off = $pay_off / $rowcount;
+                $avg_amount = $us / $rowcount;
+
+
+            }
 
             $avg_pay = round($avg_pay_off, 2);
 
-            $avg_amount = $us / $rowcount;
 
             $avg = number_format((float)$avg_amount, 2, '.', '');
 
@@ -239,34 +258,77 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 $ye = mysqli_free_result($result_fees);
                 // echo"". $rowcount_fees;
             }
+            
+            
+            $total_loan_fee = 0;
 
+            // $sql = mysqli_query($con, "SELECT l.*, SUM(lt.payoff_amount) AS total_payment_fee
+            //                             FROM tbl_loan l
+            //                             LEFT JOIN loan_transaction lt ON l.loan_id = lt.loan_id
+            //                             WHERE l.sign_status = '1'
+            //                             GROUP BY l.loan_id");
+            
+            // while ($row = mysqli_fetch_array($sql)) {
+            //     $userfnd_id = $row['user_fnd_id'];
+            //     $loan_status = $row['loan_status'];
+            //     $loan_id_fee = $row['loan_id'];
+            //     $amount_of_loan_fee = $row['amount_of_loan'];
+            
+            //     $payment_fee = number_format((float)$row['total_payment_fee'], 2, '.', '');
+            
+            //     $loan_payment_fee = floatval($payment_fee) - floatval($amount_of_loan_fee);
+            
+            //     if ($loan_payment_fee > 0) {
+            //         $total_loan_fee += $loan_payment_fee;
+            //     }
+            // }
+
+            
+            
+            $sql = "SELECT 
+                        COALESCE(SUM(CASE WHEN lt.payoff_amount IS NOT NULL THEN lt.payoff_amount ELSE 0 END) - l.amount_of_loan, 0) AS total_loan_fee
+                    FROM tbl_loan l
+                    LEFT JOIN loan_transaction lt ON l.loan_id = lt.loan_id
+                    WHERE l.sign_status = '1'
+                    HAVING total_loan_fee > 0";
+            
+            $result = mysqli_query($con, $sql);
+            
+            // if (!$result) {
+            //     die("Query failed: " . mysqli_error($con));
+            // }
+            
+            $row = mysqli_fetch_assoc($result);
+            $total_loan_fee = floatval($row['total_loan_fee']);
+            
+            
             // $sql = mysqli_query($con, "select * from tbl_loan where sign_status= '1'");
-            $sql = mysqli_query($con, $query_search);
-            $total_loan_fee = "0";
-            while ($row = mysqli_fetch_array($sql)) {
+            // $sql = mysqli_query($con, $query_search);
+            // $total_loan_fee = "0";
+            // while ($row = mysqli_fetch_array($sql)) {
 
-                $userfnd_id = $row['user_fnd_id'];
-                $loan_status = $row['loan_status'];
-                $loan_id_fee = $row['loan_id'];
-                $amount_of_loan_fee = $row['amount_of_loan'];
+            //     $userfnd_id = $row['user_fnd_id'];
+            //     $loan_status = $row['loan_status'];
+            //     $loan_id_fee = $row['loan_id'];
+            //     $amount_of_loan_fee = $row['amount_of_loan'];
 
-                $query_payment_fee = mysqli_query($con, "SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
-                while ($row_payment_fee = mysqli_fetch_array($query_payment_fee)) {
-                    $payment_fee = $row_payment_fee['value_summ'];
+            //     $query_payment_fee = mysqli_query($con, "SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+            //     while ($row_payment_fee = mysqli_fetch_array($query_payment_fee)) {
+            //         $payment_fee = $row_payment_fee['value_summ'];
 
-                    $payment_fee = number_format((float)$payment_fee, 2, '.', '');
-                    break;
-                    //echo"<br>FEE:" .$payment_fee;
+            //         $payment_fee = number_format((float)$payment_fee, 2, '.', '');
+            //         break;
+            //         //echo"<br>FEE:" .$payment_fee;
 
-                }
+            //     }
 
-                $loan_payment_fee = $payment_fee - $amount_of_loan_fee;
-                if ($loan_payment_fee > 0) {
-                    $total_loan_fee += $loan_payment_fee;
-                }
-            }
+            //     $loan_payment_fee = floatval($payment_fee) - floatval($amount_of_loan_fee);
+            //     if ($loan_payment_fee > 0) {
+            //         $total_loan_fee += $loan_payment_fee;
+            //     }
+            // }
 
-
+            
             ?>
             <?php
             // $result = mysqli_query($con, $query_search);
@@ -300,7 +362,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             //     }
             //     exit();
             // }
-
+            
             ?>
             <div align="right" style="padding:30px;background-color: #F5E09E;color: white">
                 <!-- <form action="#" method="post">
@@ -497,7 +559,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                 <div style="width:100%; margin:0 auto;">
 
-                    <?php // echo $query_search;
+                    <?php // echo $query_search
+                    
                     ?>
 
                     <table class="table table-striped table-bordered">
@@ -692,6 +755,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             //echo $query_search;
 
                             $result = mysqli_query($con, "$query_search");
+                            
                             while ($row = mysqli_fetch_array($result)) {
                                 $loan_id_calculation = $row['loan_id'];
                                 $user_fnd_id = $row['user_fnd_id'];
@@ -744,7 +808,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 $amount_of_loan = $row['amount_of_loan'];
                                 $payment_date = $row['payment_date'];
                                 $fee = $row['loan_fee'];
-                                $payoff = $amount_of_loan + $fee;
+                                $payoff = floatval($amount_of_loan) + floatval($fee);
                                 $last_payment_date = $row['last_payment_date'];
                                 $fund_status =  $row['fund_status'];
 
@@ -994,6 +1058,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 echo  $a . ' ' . $make_payment . ' ' . $envalope . "</td>
 
 		   	</tr>";
+		   	
                             }
                             mysqli_close($con);
                             ?>
@@ -1033,9 +1098,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                         if ($to_date != null && $to_date != "") {
                             $filters .= "&to_date=$to_date";
                         }
-                        if ($fund_status != null && $fund_status != "") {
-                            $filters .= "&fund_status=$fund_status";
-                        }
+                        // if ($fund_status != null && $fund_status != "") {
+                        //     $filters .= "&fund_status=$fund_status";
+                        // }
                         ?>
 
                         <li <?php if ($page_no <= 1) {

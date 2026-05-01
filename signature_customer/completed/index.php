@@ -101,24 +101,24 @@ $address=$row2['address'];
 
 
 <?php
-	$date1="$creation_date";
-	$date2="$payment_date";
-	function dateDiff($date1, $date2) 
-	{
-	  $date1_ts = strtotime($date1);
-	  $date2_ts = strtotime($date2);
-	  $diff = $date2_ts - $date1_ts;
-	  return round($diff / 86400);
-	}
-	$dateDiff= dateDiff($date1, $date2);
+// 	$date1="$creation_date";
+// 	$date2="$payment_date";
+// 	function dateDiff($date1, $date2) 
+// 	{
+// 	  $date1_ts = strtotime($date1);
+// 	  $date2_ts = strtotime($date2);
+// 	  $diff = $date2_ts - $date1_ts;
+// 	  return round($diff / 86400);
+// 	}
+// 	$dateDiff= dateDiff($date1, $date2);
 // echo "Days".$dateDiff."<br>";
 
 
-$payoff=str_replace('$', '', $payoff);
-$amount_of_loan=str_replace('$', '', $amount_of_loan);
-$apr=$payoff/$amount_of_loan;
-$apr_total=$apr*365;
-$anual_pr=($apr_total/$dateDiff)*100;
+// $payoff=str_replace('$', '', $payoff);
+// $amount_of_loan=str_replace('$', '', $amount_of_loan);
+// $apr=$payoff/$amount_of_loan;
+// $apr_total=$apr*365;
+// $anual_pr=($apr_total/$dateDiff)*100;
 	//echo $anual_pr;
 ?>
 

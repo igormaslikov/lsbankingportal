@@ -120,9 +120,13 @@ $loan_notes=$row_user['notes'];
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
+
+  <!-- Shared scoped styles for loan-commercial detail tabs -->
+  <link href="css/ui-tabs.css" rel="stylesheet">
 
 </head>
 
@@ -151,170 +155,148 @@ $loan_notes=$row_user['notes'];
 
        
       </nav>
-      <br>
-      <div class="row container-fluid" style="background-color: #F5E09E;color:black;padding:20px;">
 
-<div class="col-lg-4"><p>Customer First Name:<b style="color:red"> <?php echo $first_name;?></b></p></div>
-<div class="col-lg-4"><p>Customer Last Name: <b style="color:red"><?php echo $last_name;?> </b></p></div>
-<div class="col-lg-4"><p>Customer Phone:<b style="color:red"> <?php echo $customer_numbr;?> </b> </p></div>
-<div class="col-lg-4"><p>Loan Date:<b style="color:red"> <?php echo $new_creation_date;?> </b></p></div>
-<div class="col-lg-4"><p>Loan Amount: <b style="color:red"> <?php echo $val.$amount_loan.$variable;?></b></p></div>
-<div class="col-lg-4"><p>Loan ID:<b style="color:red"> <?php echo $loan_create_id;?> </b> </p></div>
+      <!-- Page toolbar -->
+      <div class="ui-toolbar">
+        <h3 class="ui-page-title">
+          <span class="glyphicon glyphicon-briefcase"></span>
+          Job Information
+          <small>&nbsp;·&nbsp;<?php echo htmlspecialchars((string)$loan_create_id); ?> · <?php echo htmlspecialchars(trim((string)$first_name . ' ' . (string)$last_name)); ?></small>
+        </h3>
+        <a href="loan_summary.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-default">
+          <span class="glyphicon glyphicon-arrow-left"></span> Back to loan
+        </a>
+      </div>
 
+      <!-- Customer summary -->
+      <div class="ui-summary">
+        <div class="row">
+          <div class="col-md-3"><p><strong>Name</strong><b><?php echo htmlspecialchars(trim((string)$first_name . ' ' . (string)$last_name)); ?></b></p></div>
+          <div class="col-md-3"><p><strong>Phone</strong><b><?php echo htmlspecialchars((string)$customer_numbr); ?></b></p></div>
+          <div class="col-md-2"><p><strong>Loan Date</strong><b><?php echo htmlspecialchars((string)$new_creation_date); ?></b></p></div>
+          <div class="col-md-2"><p><strong>Loan Amount</strong><b><?php echo htmlspecialchars((string)($val . $amount_loan)); ?></b></p></div>
+          <div class="col-md-2"><p><strong>Loan ID</strong><b><?php echo htmlspecialchars((string)$loan_create_id); ?></b></p></div>
+        </div>
+      </div>
 
-</div>
-<br><br>
-      
-         
-         <div class="container-fluid" style="width:100%; margin:0 auto;">
-              <div class="row">
-                 
-      <div class="col-lg-6" align="left">
-          <h3>Job Information: </h3>
-   </div>
-    <div class="col-lg-6" align="right">
-    </div>
-     </div>   
-        <br>
-        <table class="table table-striped table-bordered">
-<thead>
-<tr style="background-color: #F5E09E;color: black;">
-<th style='width:30px;'>Employer Name</th>
-<th style='width:25px;'>Phone</th>
-<th style='width:25px;'>Income</th>
-<th style='width:30px;'>Direct Deposit</th>
-<th style='width:40px;'>How do you get paid?</th>
-<th style='width:25px;'>Last Pay Date</th>
-<th style='width:25px;'>Next Pay Date</th>
-<th style='width:25px;'>Action</th>
-</tr>
-</thead>
-<tbody>
-    
-    
-<?php
+      <!-- Jobs panel -->
+      <div class="ui-panel">
+        <div class="ui-panel-head">
+          Employer Records
+          <a href="add_employe.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-plus"></span> Add New Job
+          </a>
+        </div>
+        <div class="ui-panel-body" style="padding:0;">
+          <table class="ui-table">
+            <thead>
+              <tr>
+                <th>Employer</th>
+                <th>Phone</th>
+                <th>Net Income</th>
+                <th>Direct Deposit</th>
+                <th>Pay Period</th>
+                <th>Last Pay</th>
+                <th>Next Pay</th>
+                <th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $__job_rows = 0;
+              $sql_doc = mysqli_query($con, "select * from source_income_commercial where user_fnd_id = '$user_fnd_id'");
+              while ($row_doc = mysqli_fetch_array($sql_doc)) {
+                  $__job_rows++;
+                  $scr_inc_id       = $row_doc['scr_inc_id'];
+                  $employer_name    = $row_doc['employer_name'];
+                  $work_phone_no    = $row_doc['work_phone_no'];
+                  $direct_deposit   = $row_doc['direct_deposit'];
+                  $pay_period       = $row_doc['pay_period'];
+                  $net_check_amount = $row_doc['net_check_amount'];
+                  $last_pay_date    = $row_doc['last_pay_date'];
+                  $next_pay_date    = $row_doc['next_pay_date'];
+                  $new_last_pay_date = $last_pay_date ? date("m-d-Y", strtotime((string)$last_pay_date)) : '';
+                  $new_next_pay_date = $next_pay_date ? date("m-d-Y", strtotime((string)$next_pay_date)) : '';
+                  ?>
+                  <tr>
+                    <td><?php echo htmlspecialchars((string)$employer_name); ?></td>
+                    <td><?php echo htmlspecialchars((string)$work_phone_no); ?></td>
+                    <td>$<?php echo htmlspecialchars((string)$net_check_amount); ?></td>
+                    <td><?php echo htmlspecialchars((string)$direct_deposit); ?></td>
+                    <td><?php echo htmlspecialchars((string)$pay_period); ?></td>
+                    <td><?php echo htmlspecialchars((string)$new_last_pay_date); ?></td>
+                    <td><?php echo htmlspecialchars((string)$new_next_pay_date); ?></td>
+                    <td style="text-align:right; white-space:nowrap;">
+                      <a href="edit_employe.php?id_src=<?php echo urlencode((string)$scr_inc_id); ?>" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-edit"></span> Edit
+                      </a>
+                      <a href="delete_employe.php?id_src=<?php echo urlencode((string)$scr_inc_id); ?>&id=<?php echo urlencode((string)$id); ?>"
+                         class="btn btn-danger btn-sm"
+                         onclick="return confirm('Delete this employer record?');">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </a>
+                    </td>
+                  </tr>
+                  <?php
+              }
+              if ($__job_rows === 0) {
+                  echo '<tr><td colspan="8" class="ui-empty-row">No employer records on file. Click <b>Add New Job</b> to add one.</td></tr>';
+              }
+              ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-
-$sql_source=mysqli_query($con, "select * from source_income_commercial where user_fnd_id = '$user_fnd_id'"); 
-
-while($row_source = mysqli_fetch_array($sql_source)) {
-    
-$user_fnd_id_source=$row_source['user_fnd_id'];
-
-
-}
-$sql_doc=mysqli_query($con, "select * from source_income_commercial where user_fnd_id = '$user_fnd_id'"); 
-
-while($row_doc = mysqli_fetch_array($sql_doc)) {
-$scr_inc_id=$row_doc['scr_inc_id'];
-$employer_name=$row_doc['employer_name'];
-$work_phone_no=$row_doc['work_phone_no'];
-$direct_deposit=$row_doc['direct_deposit'];
-
-$pay_period=$row_doc['pay_period'];
-$net_check_amount=$row_doc['net_check_amount'];
-$last_pay_date=$row_doc['last_pay_date'];
-$next_pay_date=$row_doc['next_pay_date'];
-
-$timestamp = strtotime($last_pay_date);
-$new_last_pay_date= date("m-d-Y", $timestamp);
-
-$timestamp = strtotime($next_pay_date);
-$new_next_pay_date= date("m-d-Y", $timestamp);
-
-
-        
-        echo"<tr>
-        
-        <td>$employer_name</td>
-        <td>$work_phone_no</td>
-        <td>$$net_check_amount</td>
-        <td>$direct_deposit</td>
-        <td>$pay_period</td>
-        <td>$new_last_pay_date</td>
-        <td>$new_next_pay_date</td>
-        <td><a href='edit_employe.php?id_src=$scr_inc_id'> Edit</a> - 
-        <a href='delete_employe.php?id_src=$scr_inc_id&id=$id'> Delete</a></td>
-        </tr>";
-
-
-}
-	
-    ?>
-   
-</tbody>
-</table>
-<br>
-
-   <a href="add_employe.php?id=<?php echo $id; ?>"> <button name="btn" type="submit" class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Add New Job</button></a>
-
-<br/><br/><br>
- <div class="row">
-                 
-      <div class="col-lg-6" align="left">
-          <h3>Job Notes:</h3>
-   </div>
-    <div class="col-lg-6" align="right">
-   <a href="add_job_notes.php?id=<?php echo $id;?>" <button name="btttn-submit" type="submit"  class="btn btn-danger" style="background-color: #1E90FF;color: white;border-color: #1E90FF;">Add Job Notes</button></a>
-    </div>
-     </div>   
-<br>
- <table class="table table-striped table-bordered">
-<thead>
-<tr style="background-color: #F5E09E;color: black;">
-<th style='width:30px;'>Notes Detail</th>
-<th style='width:25px;'>Created By</th>
-<th style='width:25px;'>Date</th>
-
-</tr>
-</thead>
-<tbody>
-    
-    
-<?php
-
-$sql_source=mysqli_query($con, "select * from tbl_job_notes where user_fnd_id = '$user_fnd_id'"); 
-
-while($row_source = mysqli_fetch_array($sql_source)) {
-    
-$user_fnd_id_source=$row_source['user_fnd_id'];
-
-
-}
-$sql_doc=mysqli_query($con, "select * from tbl_job_notes where user_fnd_id = '$user_fnd_id'"); 
-
-while($row_doc = mysqli_fetch_array($sql_doc)) {
-$notes=$row_doc['notes'];
-$created_by=$row_doc['created_by'];
-$creation_date=$row_doc['creation_date'];
-
-
-$timestamp = strtotime($creation_date);
-$creation_date= date("m-d-Y", $timestamp);
-
-
-$sql_activity_by_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
-$final_activity_by_user = '';
-while($row_sql_activity_by_user = mysqli_fetch_array($sql_activity_by_user)) {
-	$final_activity_by_user = $row_sql_activity_by_user['username'];
-}
-
-        
-        echo"<tr>
-        
-        <td>$notes</td>
-        <td>$final_activity_by_user</td>
-        <td>$creation_date</td>
-        </tr>";
-
-
-}
-	
-    ?>
-   
-</tbody>
-</table>
-</div>
+      <!-- Job notes panel -->
+      <div class="ui-panel">
+        <div class="ui-panel-head">
+          Job Notes
+          <a href="add_job_notes.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-plus"></span> Add Job Notes
+          </a>
+        </div>
+        <div class="ui-panel-body" style="padding:0;">
+          <table class="ui-table">
+            <thead>
+              <tr>
+                <th>Note</th>
+                <th style="width:160px;">Created By</th>
+                <th style="width:120px;">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $__note_rows = 0;
+              $sql_doc = mysqli_query($con, "select * from tbl_job_notes where user_fnd_id = '$user_fnd_id' order by creation_date desc");
+              while ($row_doc = mysqli_fetch_array($sql_doc)) {
+                  $__note_rows++;
+                  $notes          = $row_doc['notes'];
+                  $note_created_by = $row_doc['created_by'];
+                  $note_creation_date = $row_doc['creation_date']
+                      ? date("m-d-Y", strtotime((string)$row_doc['creation_date']))
+                      : '';
+                  $final_activity_by_user = '';
+                  $sql_u = mysqli_query($con, "select username from tbl_users where user_id = '$note_created_by' limit 1");
+                  if ($sql_u && ($r = mysqli_fetch_assoc($sql_u))) {
+                      $final_activity_by_user = $r['username'];
+                  }
+                  ?>
+                  <tr>
+                    <td style="white-space:pre-wrap;"><?php echo htmlspecialchars((string)$notes); ?></td>
+                    <td><?php echo htmlspecialchars((string)$final_activity_by_user); ?></td>
+                    <td><?php echo htmlspecialchars((string)$note_creation_date); ?></td>
+                  </tr>
+                  <?php
+              }
+              if ($__note_rows === 0) {
+                  echo '<tr><td colspan="3" class="ui-empty-row">No job notes yet.</td></tr>';
+              }
+              ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
         
     </div>
     <!-- /#page-content-wrapper -->

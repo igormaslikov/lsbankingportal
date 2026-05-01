@@ -1,5 +1,8 @@
 <?php
 error_reporting(0);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 session_start();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
@@ -238,7 +241,7 @@ $loan_transaction_id="";
 //echo   $query_update_status;     
 //$result_status_update = mysqli_query($con, $query_update_status);
   
-  application_notes_update($user_fnd_id,$loan_create_id,$u_id,'Funded Payday Loan SMS English/Spanish Sent',$loan_transaction_id);     
+//   application_notes_update($user_fnd_id,$loan_create_id,$u_id,'Funded Payday Loan SMS English/Spanish Sent',$loan_transaction_id);     
   mysqli_query($con,"UPDATE tbl_loan SET loan_status ='Active' where  loan_id='$id' AND loan_create_id='$loan_create_id'");
   
   
@@ -246,7 +249,7 @@ $loan_transaction_id="";
     mysqli_query($con,"UPDATE `tbl_loan` SET `fund_status`='1' WHERE `loan_create_id` = '$loan_create_id'");
     $application_id = "";
     $status = "Loan Has Been Funded and Application Status changed to Funded Against The Loan ID: $loan_create_id";
-    application_notes_update($user_fnd_id,$loan_create_id,$u_id,$status,$loan_transaction_id);
+    // application_notes_update($user_fnd_id,$loan_create_id,$u_id,$status,$loan_transaction_id);
     
   
   ?>

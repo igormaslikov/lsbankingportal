@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
 
@@ -17,7 +18,7 @@ if ($u_access_id == '0') {
 }
 
 
-$fnd_idd = $_GET['id'];
+$fnd_idd = $_GET['id'] ?? '';
 //$name_id = $_POST['keyword'];
 //echo "<br><br><br><br><br><br><br><br><br><br>Name Is: $name_id";
 ?>
@@ -45,13 +46,77 @@ $fnd_idd = $_GET['id'];
   <script src="../website/js/slick-loader.min.js"></script>
   <link rel="stylesheet" href="../website/css/slick-loader.min.css" />
   <style>
-    .wrapper {
-      width: 100%;
-      max-width: 1330px;
-      margin: 20px auto 100px auto;
-      padding: 0;
-      position: relative;
+    /* ==== Layer-B scoped styles for add_commercial_loan ==== */
+    section.wrapper, .container.wrapper { padding: 0 20px 40px; max-width: 1400px; margin: 0 auto; }
+    .container.wrapper { margin-top: 100px !important; }
+
+    /* Page toolbar */
+    .acl-toolbar {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #eee;
     }
+    .acl-page-title { font-size: 22px; font-weight: 600; color: #333; margin: 0; }
+    .acl-page-title small { color: #888; font-weight: normal; }
+
+    /* Customer summary card (replaces the yellow #F5E09E banner) */
+    .acl-summary {
+        background: #fff;
+        border: 1px solid #e4e4e4;
+        border-left: 4px solid #1E90FF;
+        border-radius: 4px;
+        padding: 14px 20px;
+        margin-bottom: 18px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .acl-summary p { margin: 4px 0; color: #555; font-size: 13px; }
+    .acl-summary strong { display: block; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 2px; font-weight: 600; }
+    .acl-summary b { color: #222; font-weight: 600; }
+
+    /* Panels */
+    .acl-panel { margin-bottom: 14px; }
+    .acl-panel .panel-heading { padding: 10px 15px; background-color: #fafafa; font-weight: 600; }
+    .acl-required-hint { font-size: 11px; color: #888; font-weight: normal; }
+    .acl-panel .panel-body { padding: 16px; }
+
+    /* Form fields — min-height ensures uneven help-text heights don't break grid wrap */
+    .acl-field { margin-bottom: 14px; min-height: 76px; }
+    .acl-field label {
+        font-size: 12px; color: #555; font-weight: 600;
+        text-transform: uppercase; letter-spacing: .3px; margin-bottom: 4px;
+        display: block;
+    }
+    .acl-req { color: #d9534f; margin-left: 2px; }
+    .acl-help { font-size: 11px; color: #888; margin-top: 4px; display: block; }
+
+    /* Action bar */
+    .acl-action-bar {
+        margin-top: 18px; padding: 14px 18px;
+        background: #fafafa;
+        border: 1px solid #e4e4e4;
+        border-radius: 4px;
+        text-align: right;
+    }
+    .acl-action-bar .btn { margin-left: 6px; }
+    .acl-action-bar .btn-calc {
+        background: #1E90FF; border-color: #1E90FF; color: #fff;
+        font-weight: 600; padding: 8px 22px;
+    }
+    .acl-action-bar .btn-calc:hover { background: #1976c2; border-color: #1976c2; color: #fff; }
+
+    /* Neutralize global dark .row:hover from css/style1.css */
+    section.wrapper .row, section.wrapper .row:hover,
+    .container.wrapper .row, .container.wrapper .row:hover {
+        background-color: transparent !important;
+        height: auto !important;
+        border-top: 0 !important;
+        transition: none !important;
+    }
+
+    /* Payment schedule container */
+    #tablePayments { margin-top: 20px; }
+
+    /* Error message next to the loan ID field */
+    #error_message_id { font-size: 12px; font-style: normal; margin-left: 6px; }
   </style>
 </head>
 
@@ -59,32 +124,40 @@ $fnd_idd = $_GET['id'];
 
   <?php include('menu.php'); ?>
 
-  <div class="container wrapper" style="margin-top:50px">
+  <div class="container wrapper">
 
-    <div class="row wrapper">
-      <?php
+    <!-- PHP data block: unchanged from original -->
+    <?php
+    $id = $_GET['id'] ?? '';
+    $loan_name = $_GET['loan'] ?? '';
+    $previous_loan_create_id = $_GET['loan_create_id'] ?? '';
 
-      $id = $_GET['id'];
-      $loan_name = $_GET['loan'];
-      $previous_loan_create_id = $_GET['loan_create_id'];
+    include 'dbconnect.php';
+    include 'dbconfig.php';
+    $portfolio_type = "OF1";
 
-      include 'dbconnect.php';
-      include 'dbconfig.php';
-
-      
-
-      // $sql_apr = mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_commercial_loan");
-      $sql_apr = mysqli_query($con, "SELECT CONCAT(SUBSTRING(loan_create_id,1,2), (MAX(CAST(SUBSTRING(loan_create_id FROM 3) AS UNSIGNED))+1)) as next_id from tbl_commercial_loan");
-      while ($row_apr = mysqli_fetch_array($sql_apr)) {
+    $query_string = "SELECT CONCAT('$portfolio_type','-',(MAX(CAST(SUBSTRING(loan_create_id FROM 5) AS UNSIGNED))+1)) as next_id from tbl_commercial_loan where portfolio_type = '$portfolio_type'";
+    $default_loan_id = $portfolio_type . "-10001";
+    if ($portfolio_type == "OF1") {
+        $count_non_portfolio = 0;
+        $sql_count_non_portfolio = mysqli_query($con, "SELECT COUNT(loan_id) as cnt from tbl_commercial_loan WHERE portfolio_type = '$portfolio_type'");
+        while ($row_apr = mysqli_fetch_array($sql_count_non_portfolio)) {
+            $count_non_portfolio = $row_apr['cnt'];
+        }
+        if ($count_non_portfolio == 0) {
+            $query_string = "SELECT CONCAT('$portfolio_type','-',(MAX(CAST(SUBSTRING(loan_create_id FROM 3) AS UNSIGNED))+1)) as next_id from tbl_commercial_loan where portfolio_type = ''";
+        }
+    }
+    $next_loan_id = NULL;
+    $sql_apr = mysqli_query($con, $query_string);
+    while ($row_apr = mysqli_fetch_array($sql_apr)) {
         $next_loan_id = $row_apr['next_id'];
-      }
-      //echo '<script type="text/javascript">alert("Loan ID ' . $loan_create_id . ' is exists. LoanID well be regerated to '.$next_loan_id.')</script>';
-      $loan_create_id = $next_loan_id == NULL ? "OF10005" : $next_loan_id;
-      $sql_apr = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'");
+    }
+    $loan_create_id = $next_loan_id == NULL ? $default_loan_id : $next_loan_id;
 
-      while ($row_apr = mysqli_fetch_array($sql_apr)) {
+    $sql_apr = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'");
+    while ($row_apr = mysqli_fetch_array($sql_apr)) {
         $apr_date = $row_apr['apr'];
-
         $first_name = $row_apr['first_name'];
         $last_name = $row_apr['last_name'];
         $customer_name = $first_name . ' ' . $last_name;
@@ -97,195 +170,188 @@ $fnd_idd = $_GET['id'];
         $date_of_birth = $row_apr['date_of_birth'];
         $date_ofbirth = date("m-d-y", strtotime($date_of_birth));
         $ssn = $row_apr['ssn'];
+    }
+    ?>
 
+    <!-- Page toolbar -->
+    <div class="acl-toolbar">
+      <h3 class="acl-page-title">
+        <span class="glyphicon glyphicon-plus-sign"></span>
+        Create Commercial Loan
+        <small>&nbsp;·&nbsp;<?php echo htmlspecialchars((string)$customer_name); ?> (#<?php echo htmlspecialchars((string)$id); ?>)</small>
+      </h3>
+      <a href="edit_customer.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-default">
+        <span class="glyphicon glyphicon-arrow-left"></span> Back to customer
+      </a>
+    </div>
 
+    <!-- Customer summary card (replaces the yellow #F5E09E banner) -->
+    <div class="acl-summary">
+      <div class="row">
+        <div class="col-md-3"><p><strong>Name</strong><b><?php echo htmlspecialchars((string)$customer_name); ?></b></p></div>
+        <div class="col-md-3"><p><strong>Phone</strong><b><?php echo htmlspecialchars((string)$mobile_number); ?></b></p></div>
+        <div class="col-md-3"><p><strong>Email</strong><b><?php echo htmlspecialchars((string)$email); ?></b></p></div>
+        <div class="col-md-3"><p><strong>DOB</strong><b><?php echo htmlspecialchars((string)$date_ofbirth); ?></b></p></div>
+        <div class="col-md-6"><p><strong>Address</strong><b><?php echo htmlspecialchars((string)($address . ', ' . $city . ' ' . $state . ' ' . $zip_code)); ?></b></p></div>
+        <div class="col-md-3"><p><strong>State</strong><b><?php echo htmlspecialchars((string)$state); ?></b></p></div>
+        <div class="col-md-3"><p><strong>SSN</strong><b><?php echo htmlspecialchars((string)$ssn); ?></b></p></div>
+      </div>
+    </div>
 
-        //echo $apr_date;
+    <form method="POST" enctype="multipart/form-data" onsubmit="return calculate(event)">
 
-      }
-
-      // $sql1 = mysqli_query($con, "SELECT  From business_group WHERE bg_name= '$loan_name'");
-      // $row1 = mysqli_num_rows($sql1);
-
-      // while ($row1 = mysqli_fetch_array($sql1)){
-
-      // $portfolio = $row1['bg_name'];
-      // }
-
-
-
-      ?>
-      <h4 style="text-align:center">Creation Of New Installment Loan for Customer : <span style="color:red;font-weight:bold;"><?php echo $customer_name; ?></span> </h4>
-      <h4 style="text-align:center">Customer ID : <span style="color:red;font-weight:bold;"><?php echo $id; ?></span> </h4>
-
-      <div class="row wrapper" style="background-color: #F5E09E;color: white;padding:40px;">
-        <div class="col-lg-3">
-          <p style="color:black;">Customer Name:<b style="color:red"> <?php echo $customer_name; ?></b></p>
+      <!-- Loan Setup -->
+      <div class="panel panel-default acl-panel">
+        <div class="panel-heading">
+          Loan Setup
+          <span class="acl-required-hint pull-right"><span class="acl-req">*</span> required</span>
         </div>
-        <div class="col-lg-3">
-          <p style="color:black;">Customer Phone:<b style="color:red"> <?php echo $mobile_number; ?></b></p>
-        </div>
-        <div class="col-lg-3">
-          <p style="color:black;">Customer Email:<b style="color:red"> <?php echo $email; ?></b></p>
-        </div>
-        <div class="col-lg-3">
-          <p style="color:black;">Customer Address: <b style="color:red"> <?php echo $address; ?> </b> </p>
-        </div>
-        <div class="col-lg-3">
-          <p style="color:black;">Customer City:<b style="color:red"> <?php echo $city; ?></b></p>
-        </div>
-        <div class="col-lg-3">
-          <p style="color:black;">Customer State:<b style="color:red"> <?php echo $state; ?></b></p>
-        </div>
-        <div class="col-lg-3">
-          <p style="color:black;">Customer SSN:<b style="color:red"> <?php echo $ssn; ?></b></p>
-        </div>
-        <div class="col-lg-3">
-          <p style="color:black;">Customer DOB:<b style="color:red"> <?php echo $date_ofbirth; ?></b></p>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-3 acl-field">
+              <label>Portfolio <span class="acl-req">*</span></label>
+              <select name="source" id="source" class="form-control" onchange="yesnoCheck(this);" required>
+                <option value="Payday Loans"    <?php if ($loan_name == 'Payday Loans')    echo 'selected'; ?>>Payday Loans</option>
+                <option value="Title Loans"     <?php if ($loan_name == 'Title Loans')     echo 'selected'; ?>>Title Loans</option>
+                <option value="Personal Loans"  <?php if ($loan_name == 'Personal Loans')  echo 'selected'; ?>>Personal Loans</option>
+                <option value="Commercial Loan" <?php if ($loan_name == 'Commercial Loan') echo 'selected'; ?>>Commercial Loan</option>
+              </select>
+            </div>
+            <div class="col-md-2 acl-field">
+              <label>Portfolio Type <span class="acl-req">*</span></label>
+              <select name="portfolio_type" id="portfolio_type" class="form-control" onchange="get_loan_create_id(event,this)" required>
+                <option value="OF1" <?php if ($portfolio_type == 'OF1') echo 'selected'; ?>>OF1</option>
+                <option value="OF2" <?php if ($portfolio_type == 'OF2') echo 'selected'; ?>>OF2</option>
+                <option value="OF3" <?php if ($portfolio_type == 'OF3') echo 'selected'; ?>>OF3</option>
+                <option value="OF4" <?php if ($portfolio_type == 'OF4') echo 'selected'; ?>>OF4</option>
+              </select>
+            </div>
+            <div class="col-md-3 acl-field">
+              <label>Secondary Portfolio</label>
+              <select name="p_portfolio" id="p_portfolio" class="form-control">
+                <option value="None">None</option>
+                <option value="Optima Financial Solutions Inc">Optima Financial Solutions Inc</option>
+              </select>
+            </div>
+            <div class="col-md-3 acl-field">
+              <label>Contract Template <span class="acl-req">*</span></label>
+              <select name="contract_template" id="contract_template" class="form-control" required>
+                <option value="unsecured_2024_09_01" selected>Unsecured (9.1.2024)</option>
+                <option value="secured">Secured</option>
+              </select>
+              <span class="acl-help">Drives which contract PDF is generated.</span>
+            </div>
+            <div class="col-md-4 acl-field">
+              <label>Loan ID <span class="acl-req">*</span> <i id="error_message_id"></i></label>
+              <input type="text" name="loan_id" id="loan_id" value="<?php echo htmlspecialchars((string)$loan_create_id); ?>" onchange="validate_loan_id(event,this)" class="form-control" required/>
+              <input type="hidden" name="previous_loan_id" value="<?php echo htmlspecialchars((string)$previous_loan_create_id); ?>">
+              <span class="acl-help">Auto-generated from the portfolio type. Edit carefully.</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <table>
-        <thead>
-
-        </thead>
-      </table>
-
-      <form method="POST" enctype="multipart/form-data" onsubmit="return calculate(event)">
-
-        <div class="row">
-          <div class="col-lg-3">
-            <label for="usr">Portfolio</label>
-            <select name="source" id="source" class="form-control" value="" onchange="yesnoCheck(this);">
-              <option value="Payday Loans" <?php if ($loan_name == 'Payday Loans') {
-                                              echo 'selected';
-                                            } ?>>Payday Loans</option>
-              <option value="Title Loans" <?php if ($loan_name == 'Title Loans') {
-                                            echo 'selected';
-                                          } ?>>Title Loans</option>
-              <option value="Personal Loans" <?php if ($loan_name == 'Personal Loans') {
-                                                echo 'selected';
-                                              } ?>>Personal Loans</option>
-              <option value="Commercial Loan" <?php if ($loan_name == 'Commercial Loan') {
-                                                echo 'selected';
-                                              } ?>>Commercial Loan</option>
-
-            </select>
-          </div>
-          <div class="col-lg-3">
-            <label for="usr">Secondary Portfolio</label>
-            <select name="p_portfolio" id="p_portfolio" class="form-control" value="">
-              <option value="None">None</option>
-              <option value="Optima Financial Solutions Inc" >Optima Financial Solutions Inc</option>
-            </select>
-          </div>
-          <div class="col-lg-6">
-            <label for="usr"> Loan ID <i id="error_message_id"></i></label>
-            <input type="text" name="loan_id" value="<?php echo  $loan_create_id; ?>" onchange="validate_loan_id(event,this)" class="form-control" required/>
-            <input type="text" name="previous_loan_id" value="<?php echo  $previous_loan_create_id; ?>" style="display:none" />
-          </div>
-
-
-          <div class="col-lg-6" id="ifNo">
-            <label for="usr">Loan Amount</label>
-            <input type="number" name="principal" onchange="calculate_minimal_payment(event)" class="form-control" id="usr" placeholder="" value="" Required>
-          </div>
-
-          <div class="col-lg-3">
-            <label for="usr">Late Fee</label>
-            <input type="number" name="late_fee" class="form-control" id="usr" placeholder="" value="">
-          </div>
-
-          <div class="col-lg-3">
-            <label for="usr">Origination/Contract Fee</label>
-            <input type="number" name="origination" class="form-control" id="usr" placeholder="" value="">
-          </div>
-
-
-          <!-- <div class="col-lg-3">
-            <label for="usr">Years</label>
-            <input type="number" name="years" class="form-control" id="usr" step="any" placeholder="" value="" Required>
-          </div> -->
-
-
-
-
-
-          <div class="col-lg-6">
-            <label for="usr">Installment Plan</label>
-            <select name="installment_plan" id="installment_plan" onchange="calculate_payment_start_date(event, this)" class="form-control" value="" Required>
-              <option value=""></option>
-              <option value="Weekly">Weekly</option>
-              <option value="Bi-Weekly">Bi-Weekly</option>
-              <option value="Monthly">Monthly</option>
-
-            </select>
-          </div>
-
-          <div class="col-lg-6">
-            <label for="usr">Select State</label>
-            <select name="state" id="state" class="form-control" value="">
-              <option value=""></option>
-              <option value="CA">California</option>
-            </select>
-          </div>
-
-          <div class="col-lg-6">
-            <label for="usr">Total Number of Payments</label>
-            <input type="number" name="total_payments" onchange="calculate_minimal_payment(event)" class="form-control" id="usr" placeholder="" value="" Required>
-          </div>
-          <div class="col-lg-6">
-            <label for="usr">Payment</label>
-            <input type="number" step="0.01" name="payment" class="form-control" id="usr" placeholder="" value="" Required>
-          </div>
-
-          <div class="col-lg-6">
-            <label for="usr">Contract Start Date</label>
-            <input type="date" name="contract_date" class="form-control" id="usr" placeholder="YYYY/MM/DD" value="<?php $date = date('Y-m-d');
-                                                                                                                  echo $date; ?>">
-          </div>
-
-          <div class="col-lg-6">
-            <label for="payment_start_date">Payment Start Date</label>
-            <input type="date" name="payment_start_date" class="form-control" id="payment_start_date" placeholder="YYYY/MM/DD" value="<?php $date = date('Y-m-d');
-                                                                                                                                      echo $date; ?>">
-          </div>
-
-          <div class="col-lg-6">
-            <label for="usr">APR %</label>
-            <input type="text" name="apr" class="form-control" id="apr" placeholder="" value="" >
-          </div>
-
-          <div class="col-lg-6">
-            <label for="usr">Muturity Date</label>
-            <input type="input" name="payment_date" class="form-control" id="usr" placeholder="DD/MM/YYYY" readonly>
-          </div>
-
-          <div class="col-lg-6">
-            <label for="usr">First Payment</label>
-            <input type="text" name="first_payment" class="form-control" id="first_payment" placeholder="" value="" required>
-          </div>
-
-
-          <div class="col-lg-6">
-            <label for="usr">Last payment</label>
-            <input type="text" name="last_payment" class="form-control" id="last_payment" placeholder="" value="" required>
+      <!-- Amounts & Fees -->
+      <div class="panel panel-default acl-panel">
+        <div class="panel-heading">Amounts &amp; Fees</div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-4 acl-field" id="ifNo">
+              <label>Loan Amount <span class="acl-req">*</span></label>
+              <input type="number" step="0.01" name="principal" onchange="calculate_minimal_payment(event)" class="form-control" placeholder="e.g. 10000.00" required>
+            </div>
+            <div class="col-md-4 acl-field">
+              <label>Late Fee</label>
+              <input type="number" step="0.01" name="late_fee" class="form-control" placeholder="e.g. 25.00">
+            </div>
+            <div class="col-md-4 acl-field">
+              <label>Origination / Contract Fee</label>
+              <input type="number" step="0.01" name="origination" class="form-control" placeholder="e.g. 250.00">
+            </div>
           </div>
         </div>
+      </div>
 
-        <br>
+      <!-- Payment Schedule -->
+      <div class="panel panel-default acl-panel">
+        <div class="panel-heading">Payment Schedule</div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-3 acl-field">
+              <label>Installment Plan <span class="acl-req">*</span></label>
+              <select name="installment_plan" id="installment_plan" onchange="calculate_payment_start_date(event, this)" class="form-control" required>
+                <option value=""></option>
+                <option value="Weekly">Weekly</option>
+                <option value="Bi-Weekly">Bi-Weekly</option>
+                <option value="Monthly">Monthly</option>
+              </select>
+            </div>
+            <div class="col-md-3 acl-field">
+              <label>State</label>
+              <select name="state" id="state" class="form-control">
+                <option value=""></option>
+                <option value="CA">California</option>
+              </select>
+            </div>
+            <div class="col-md-3 acl-field">
+              <label>Total # of Payments <span class="acl-req">*</span></label>
+              <input type="number" name="total_payments" onchange="calculate_minimal_payment(event)" class="form-control" placeholder="e.g. 26" required>
+            </div>
+            <div class="col-md-3 acl-field">
+              <label>Payment Amount <span class="acl-req">*</span></label>
+              <input type="number" step="0.01" name="payment" class="form-control" placeholder="Minimal payment shown after amount is set" required>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <!-- Dates & Calculated Results -->
+      <div class="panel panel-default acl-panel">
+        <div class="panel-heading">Dates &amp; Calculated Results</div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-3 acl-field">
+              <label>Contract Start Date</label>
+              <input type="date" name="contract_date" class="form-control" value="<?php echo date('Y-m-d'); ?>">
+            </div>
+            <div class="col-md-3 acl-field">
+              <label>Payment Start Date</label>
+              <input type="date" name="payment_start_date" id="payment_start_date" class="form-control" value="<?php echo date('Y-m-d'); ?>">
+              <span class="acl-help">Auto-calculated from Contract Start + plan.</span>
+            </div>
+            <div class="col-md-3 acl-field">
+              <label>APR %</label>
+              <input type="text" name="apr" class="form-control" id="apr" readonly placeholder="filled by Calculate">
+            </div>
+            <div class="col-md-3 acl-field">
+              <label>Maturity Date</label>
+              <input type="text" name="payment_date" class="form-control" readonly placeholder="filled by Calculate">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 acl-field">
+              <label>First Payment <span class="acl-req">*</span></label>
+              <input type="text" name="first_payment" class="form-control" id="first_payment" required>
+            </div>
+            <div class="col-md-6 acl-field">
+              <label>Last Payment <span class="acl-req">*</span></label>
+              <input type="text" name="last_payment" class="form-control" id="last_payment" required>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="acl-action-bar">
+        <a href="edit_customer.php?id=<?php echo urlencode((string)$id); ?>" class="btn btn-default">Cancel</a>
+        <button name="btn-submit" type="submit" class="btn btn-calc">
+          <span class="glyphicon glyphicon-calculator"></span> Calculate Schedule
+        </button>
+      </div>
+    </form>
+  </div>
 
-
-        <button name="btn-submit" type="submit" class="btn btn-danger" style="background-image: linear-gradient(to bottom,#1E90FF 0,#1E90FF 100%);color: #fff;background-color: #1E90FF;border-color: #1E90FF;">Calculate/Save</button>
-      </form>
-
-    </div>
-    <div id="tablePayments" class="row wrapper">
-
-    </div>
-
+  <div class="container wrapper">
+    <div id="tablePayments"></div>
   </div>
   <hr>
 
@@ -351,6 +417,39 @@ $fnd_idd = $_GET['id'];
     document.getElementById("comInitSetupHref").href = document.getElementById("comInitSetupHref").href.replace("in_hand=" + elem.oldvalue, "in_hand=" + elem.value);
     e.preventDefault();
   }
+
+  function get_loan_create_id(e, elem){
+    let portfolio_type_value = elem.value;
+    var url = 'loan-commercial/functions_commercial_loan.php';
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'func': "GetLoanCreateId",
+            'portfolio_type': portfolio_type_value
+        },
+        async: true,
+        success: function(data) {
+            var loan_create_id = data[0].loan_create_id
+            document.getElementById("loan_id").value = loan_create_id;
+            document.getElementById("loan_id").innerHTML = loan_create_id;
+            document.getElementById("loan_id").innerText = loan_create_id;
+            event.preventDefault();
+
+        },
+        error: function(err) {
+            if (err.responseText == "") {
+                alert(err.responseText);
+            } else {
+                alert(err.responseText);
+            }
+            window.location.reload();
+        }
+    });
+  }
+
 
   function validate_loan_id(e,elem){
     let id = elem.value;

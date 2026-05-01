@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+ini_set('display_errors', 0);
 session_start();
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
@@ -39,6 +41,8 @@ if ($u_access_id == '0') {
 
    $sql_fetch_fnd = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id_fnd'");
 
+   $first_name = '';
+   $last_name = '';
    while ($row_fetch_fnd = mysqli_fetch_array($sql_fetch_fnd)) {
 
       $email = $row_fetch_fnd['email'];
@@ -49,6 +53,8 @@ if ($u_access_id == '0') {
       $bank_back = $row_fetch_fnd['bank_back'];
       $void_img = $row_fetch_fnd['void_img'];
       $mobile_number = $row_fetch_fnd['mobile_number'];
+      $first_name = $row_fetch_fnd['first_name'];
+      $last_name = $row_fetch_fnd['last_name'];
 
    }
 
@@ -68,8 +74,25 @@ if ($u_access_id == '0') {
 
 
 
+   /**
+    * Build URLs that work on both production (ofsca.com) and local dev (localhost:8080).
+    * SCRIPT_NAME on prod:    /loanportal/ls_software/admin/commercial_initial_setup.php
+    * SCRIPT_NAME on local:   /ls_software/admin/commercial_initial_setup.php
+    * So chopping at "/ls_software/" gives us the correct base path either way.
+    */
+   if (!function_exists('app_base_url')) {
+       function app_base_url() {
+           $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+           $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
+           $script = $_SERVER['SCRIPT_NAME'] ?? '';
+           $idx = strpos($script, '/ls_software/');
+           $path = ($idx !== false) ? substr($script, 0, $idx) : '';
+           return $scheme . '://' . $host . $path . '/';
+       }
+   }
+
    $azrizona_message = '../../signature_commercial_loan/files/contract_pdf.php?id=' . $email_key;
-   $azrizona_email = 'https://ofsca.com/loanportal/signature_commercial_loan/completed/index.php?id=' . $email_key;
+   $azrizona_email   = app_base_url() . 'signature_commercial_loan/completed/index.php?id=' . $email_key;
 
 
 
@@ -90,25 +113,24 @@ if ($u_access_id == '0') {
    //echo "loan id:".$loan_id;
 
 
-   $sql_fetch_user = mysqli_query($con, "select * from tbl_users");
-
-   while ($row_fetch_user = mysqli_fetch_array($sql_fetch_user)) {
-
+   // Fetch an admin email for the contract notification. Grab only what we need
+   // instead of SELECT * FROM tbl_users.
+   $email_admin = '';
+   $sql_fetch_user = mysqli_query($con, "SELECT email FROM tbl_users WHERE access_id <> '0' ORDER BY user_id ASC LIMIT 1");
+   if ($sql_fetch_user && ($row_fetch_user = mysqli_fetch_array($sql_fetch_user))) {
       $email_admin = $row_fetch_user['email'];
-      //echo "<br><br><br><br><br>admin email:".$email_admin;
    }
 
-   //ADMIN EMAIL STARTS
-
+   // ADMIN EMAIL
+   // NOTE: The mail() call previously ran *unconditionally on every GET*, even
+   // though the subject is "A New Customer Has Signed The Contract". On this
+   // host mail() resolves to localhost:25 (no SMTP listener) and blocks for the
+   // full TCP connect timeout — about 1.5s per page load. It now only fires on
+   // a real POST submit below, after the loan has been saved.
    $to_email_admin = $email_admin;
-   $subject_admin = 'A New Customer Has Signed The Contract';
-   $message_admin = $azrizona_email;
-   $headers_admin = 'From: support@ofsca.com';
-   mail($to_email_admin, $subject_admin, $message_admin, $headers_admin);
-
-   //ADMIN EMAIL ENDS
-
-
+   $subject_admin  = 'A New Customer Has Signed The Contract';
+   $message_admin  = $azrizona_email;
+   $headers_admin  = 'From: support@ofsca.com';
    ?>
 
    <?php
@@ -133,7 +155,9 @@ if ($u_access_id == '0') {
       $cvv_number = $_POST['cvv_number'];
 
       $sourcee = $_POST['bg_idd'];
+      $portfolio_type = $_POST['portfolio_type'];
       $secondary_portfolio = $_POST['secondary_portfolio'];
+      $contract_template = $_POST['contract_template'] ?? 'unsecured_2024_09_01';
       $loan_create_idd = $_POST['loan_create_idd'];
       $principal_amountt = $_POST['principal_amountt'];
       $interestt = $_POST['loan_interest'];
@@ -363,14 +387,15 @@ if ($u_access_id == '0') {
             break;
       }
 
-      $anual_pr = $daily_interest * $number_n;
+      //$anual_pr = $daily_interest * $number_n;
       // $anual_pr = number_format($apr, 2);
       $anual_pr = $apr;
       $in_hand = $_GET['in_hand'];
       
    
+      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`portfolio_type`,`secondary_portfolio`,`contract_template`,`previous_amount_loan`, `amount_of_loan`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`,`first_payment`,`last_payment`)  VALUES ('$fndd_id','$sourcee','$portfolio_type','$secondary_portfolio','$contract_template','$in_hand','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state','$first_payment','$last_payment')";
 
-      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`secondary_portfolio`,`previous_amount_loan`, `amount_of_loan`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`,`first_payment`,`last_payment`)  VALUES ('$fndd_id','$sourcee','$secondary_portfolio','$in_hand','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state','$first_payment','$last_payment')";
+    //   $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`secondary_portfolio`,`previous_amount_loan`, `amount_of_loan`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`,`first_payment`,`last_payment`)  VALUES ('$fndd_id','$sourcee','$secondary_portfolio','$in_hand','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state','$first_payment','$last_payment')";
       $result = mysqli_query($con, $query);
       if ($result) {
          //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
@@ -381,7 +406,7 @@ if ($u_access_id == '0') {
       }
 
       //Add to other fees//
-      mysqli_query($con, "INSERT INTO tbl_lists (kind, item) select 'Other Fee', 'Origination Fee' where not exists( select * from tbl_lists where kind='Other Fee' and item='Origination Fee')");
+      mysqli_query($con, "INSERT INTO tbl_lists (kind, item) select 'Other Fee', 'Origination Fee' from tbl_lists where not exists( select * from tbl_lists where kind='Other Fee' and item='Origination Fee')");
 
       $sql = mysqli_query($con, "select tbl_lists_id from tbl_lists where kind='Other Fee' and item='Origination Fee'");
   
@@ -523,6 +548,14 @@ if ($u_access_id == '0') {
 
 
 
+      <?php
+      // Notify admin that the loan setup was completed. Fires only on real POST
+      // submit — not on every GET, which was the cause of the 1.5s page-load stall.
+      // Suppress the @ warning so a failed SMTP doesn't crash the redirect below.
+      if (!empty($to_email_admin)) {
+         @mail($to_email_admin, $subject_admin, $message_admin, $headers_admin);
+      }
+      ?>
       <script type="text/javascript">
          window.location.href =
             'customer_email_message_personal_loan.php?emaill=<?php echo $email; ?>&mobile_number=<?php echo $mobile_number; ?>&link=<?php echo $message; ?>&email_link=<?php echo $message_email; ?>&user_fnd_id=<?php echo $id_fnd;  ?>';
@@ -548,17 +581,71 @@ if ($u_access_id == '0') {
       <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
       <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
       <style>
+         /* Selected-row highlight used by the AJAX tables */
          .table-success tbody+tbody,
          .table-success td,
          .table-success th,
-         .table-success thead th {
-            border-color: #8fd19e;
-         }
+         .table-success thead th { border-color: #8fd19e; }
+         .table-success, .table-success>td, .table-success>th { background-color: #c3e6cb; }
 
-         .table-success,
-         .table-success>td,
-         .table-success>th {
-            background-color: #c3e6cb;
+         /* ==== Scoped redesign styles ==== */
+         section.wrapper, .cis-wrapper { padding: 0 20px 40px; max-width: 1400px; margin: 100px auto 40px; }
+
+         .cis-toolbar {
+             display: flex; justify-content: space-between; align-items: center;
+             margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #eee;
+         }
+         .cis-page-title { font-size: 22px; font-weight: 600; color: #333; margin: 0; }
+         .cis-page-title small { color: #888; font-weight: normal; }
+
+         .cis-summary {
+             background: #fff; border: 1px solid #e4e4e4; border-left: 4px solid #1E90FF;
+             border-radius: 4px; padding: 14px 20px; margin-bottom: 18px;
+             box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+         }
+         .cis-summary p { margin: 4px 0; color: #555; font-size: 13px; }
+         .cis-summary strong { display: block; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 2px; font-weight: 600; }
+         .cis-summary b { color: #222; font-weight: 600; }
+
+         .cis-panel { margin-bottom: 14px; }
+         .cis-panel .panel-heading { padding: 10px 15px; background-color: #fafafa; font-weight: 600; }
+         .cis-panel .panel-body { padding: 16px; }
+
+         .cis-field { margin-bottom: 14px; min-height: 72px; }
+         .cis-field label {
+             font-size: 12px; color: #555; font-weight: 600;
+             text-transform: uppercase; letter-spacing: .3px; margin-bottom: 4px; display: block;
+         }
+         .cis-req { color: #d9534f; margin-left: 2px; }
+         .cis-help { font-size: 11px; color: #888; margin-top: 4px; display: block; }
+         .cis-uploaded { font-size: 12px; color: #5cb85c; font-weight: 600; margin-top: 4px; }
+         .cis-uploaded a { color: #1976d2; margin-left: 8px; }
+
+         .cis-exp-group { display: flex; gap: 10px; }
+         .cis-exp-group select { flex: 1 1 auto; }
+
+         .cis-action-bar {
+             margin-top: 18px; padding: 14px 18px;
+             background: #fafafa; border: 1px solid #e4e4e4; border-radius: 4px;
+             text-align: right;
+         }
+         .cis-action-bar .btn { margin-left: 6px; }
+         .cis-action-bar .btn-save {
+             background: #1E90FF; border-color: #1E90FF; color: #fff;
+             font-weight: 600; padding: 10px 26px;
+         }
+         .cis-action-bar .btn-save:hover { background: #1976c2; border-color: #1976c2; color: #fff; }
+
+         /* Previously-saved bank/card section */
+         .cis-prev { margin-top: 26px; }
+         .cis-prev .panel-heading { display: flex; justify-content: space-between; align-items: center; }
+         .cis-prev-hint { font-size: 11px; color: #888; font-weight: normal; }
+
+         /* Neutralize global dark .row:hover from css/style1.css */
+         section.wrapper .row, section.wrapper .row:hover,
+         .cis-wrapper .row, .cis-wrapper .row:hover {
+             background-color: transparent !important;
+             height: auto !important; border-top: 0 !important; transition: none !important;
          }
       </style>
    </head>
@@ -567,262 +654,269 @@ if ($u_access_id == '0') {
 
       <?php include('menu.php'); ?>
 
-      <div class="container" style="margin-top:100px">
+      <section class="wrapper cis-wrapper">
 
-         <div class="row">
-
-            <form action="" method="POST" enctype="multipart/form-data">
-               <input type="text" name="emaill" value="<?php echo $email; ?>" style="display:none;">
-               <input type="text" name="link" value="<?php echo $message; ?>" style="display:none;">
-               <input type="text" name="name_id" value="<?php echo $user_fnd_id; ?>" style="display:none;">
-               <input type="text" name="fnd_idd" id="idUserId" value="<?php echo $_GET['fnd_id']; ?>" style="display:none;">
-               <input type="text" name="renew_loan" id="renewLoanId" value="<?php echo $loan_id; ?>" style="display:none;">
-               <input type="text" name="bg_idd" value="<?php echo $_GET['bg_id']; ?>" style="display:none;">
-               <input type="text" name="secondary_portfolio" value="<?php echo $_GET['secondary_portfolio']; ?>" style="display:none;">
-               <input type="text" name="loan_create_idd" id="loanId" value="<?php echo $_GET['loan_create_id']; ?>" style="display:none;">
-               <input type="text" name="principal_amountt" value="<?php echo $_GET['principal_amount'];; ?>" style="display:none;">
-               <input type="text" name="loan_interest" value="<?php echo $_GET['loan_interest'];; ?>" style="display:none;">
-               <input type="text" name="yearss" value="<?php echo $_GET['years'];; ?>" style="display:none;">
-               <input type="text" name="late_feee" value="<?php echo $_GET['late_fee'];; ?>" style="display:none;">
-               <input type="text" name="contract_feee" value="<?php echo $_GET['contract_fee'];; ?>" style="display:none;">
-               <input type="text" name="installment_plann" value="<?php echo $_GET['installment_plan'];; ?>" style="display:none;">
-               <input type="text" name="total_paymentss" value="<?php echo $_GET['total_payments'];; ?>" style="display:none;">
-               <input type="text" name="contract_datee" value="<?php echo $_GET['contract_date'];; ?>" style="display:none;">
-               <input type="text" name="payment_datee" value="<?php echo $_GET['payment_date'];; ?>" style="display:none;">
-               <input type="text" name="first_payment" value="<?php echo $_GET['first_payment'];; ?>" style="display:none;">
-               <input type="text" name="last_payment" value="<?php echo $_GET['last_payment'];; ?>" style="display:none;">
-
-
-               <h3>User Information</h3>
-               <br>
-               <div class="row">
-
-                  <div class="col-lg-6">
-                     <label for="type_id">Type of ID</label>
-                     <select name="type_id" id="type_id" class="form-control" value="" >
-                        <option></option>
-                        <option value="Drivers License">Drivers License</option>
-                        <option value="State Personal ID">State Personal ID</option>
-                        <option value="Matricula Consular ID">Matricula Consular ID</option>
-                        <option value="Tribal ID">Tribal ID</option>
-                        <option value="Passport">Passport</option>
-                        <option value="Military ID">Military ID</option>
-                        <option value="Other">Other</option>
-                     </select>
-                  </div>
-
-
-
-
-                  <?php
-                  if (empty($id_photo)) {
-                     echo '<div class="col-lg-6">
-      <label for="usr">Upload Picture of ID</label>
-      <input type="file" name="file_image"  class="form-control" accept="image/*" ><br>
-    </div>';
-                  } else {
-
-                     echo '<div class="col-lg-6">
-      <label for="usr">Upload Picture of ID</label>
-      <input type="text" name="txt_image" style="display:none"  class="form-control" value="'; ?><?php echo $id_photo; ?><?php echo '"> <br> Image Already Uploaded - 
-      <a href ="/ls_software/dl_client_files/photo_id/' . $id_photo . '" target="_blank" > View Image </a><br>
-      <br>
-    </div>';
-                                                                                                                        }
-                                                                                                                           ?>
-
-
-
-
-                  <div class="col-lg-6">
-                     <label for="type_card">Type of Card</label>
-                     <select name="type_card" id="type_card" class="form-control" value="">
-                        <option></option>
-                        <option value="Visa">Visa</option>
-                        <option value="Master Card">Master Card</option>
-                     </select>
-                  </div>
-
-                  <div class="col-lg-6">
-                     <label for="card_number">Card Number</label>
-                     <input type="text" name="card_number" class="form-control" id="card_number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="16" ><br>
-                  </div>
-
-                  <div class="col-lg-6">
-                     <label for="usr">Card Expiration Date</label>
-                     <br>
-                     Month
-                     <select style="width:20%" name="expiry_month_card" id="expiry_month_card" class="form-control" value="">
-                        <option></option>
-                        <option value="01">01</option>
-                        <option value="02">02</option>
-                        <option value="03">03</option>
-                        <option value="04">04</option>
-                        <option value="05">05</option>
-                        <option value="06">06</option>
-                        <option value="07">07</option>
-                        <option value="08">08</option>
-                        <option value="09">09</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                     </select>
-
-                     Year
-                     <select style="width:20%" name="expiry_year_card" id="expiry_year_card" class="form-control" value="" >
-                        <option></option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                     </select>
-
-
-
-                  </div>
-
-
-                  <?php
-                  if (empty($bank_front)) {
-                     echo '<div class="col-lg-6">
-      <label for="usr">Upload Bank Card Front</label>
-      <input type="file" name="imageee"  class="form-control" accept="image/*" ><br>
-    </div>';
-                  } else {
-
-                     echo '<div class="col-lg-6">
-      <label for="usr">Upload Bank Card Front</label>
-      <input type="text" name="txt_file_bf" style="display:none"  class="form-control" value="'; ?><?php $bank_front = str_replace(" ", "", "$bank_front");
-                                                                                                   echo $bank_front; ?><?php echo '">
-       <br> Image Already Uploaded - 
-      <a href ="/ls_software/dl_client_files/bank_front_image/' . $bank_front . '" target="_blank" > View Image </a><br>
-      <br>
-    </div>';
-                                                                                                                     }
-
-                                                                                                                        ?>
-
-
-
-                  <?php
-                  if (empty($bank_back)) {
-                     echo '
-    
-    <div class="col-lg-6">
-      <label for="usr">Upload Bank Card Back</label>
-      <input type="file" name="imageeee"  class="form-control" accept="image/*" >
-    </div>';
-                  } else {
-
-                     echo '
-
-    <div class="col-lg-6">
-      <label for="usr">Upload Bank Card Back</label>
-      <input type="text" name="txt_file_bb" style="display:none"  class="form-control" value="'; ?><?php $bank_back = str_replace(" ", "", "$bank_back");
-                                                                                                   echo $bank_back; ?><?php echo '">
-       <br> Image Already Uploaded - 
-      <a href ="/ls_software/dl_client_files/bank_back_image/' . $bank_back . '" target="_blank" > View Image </a><br>
-      <br>
-    </div>';
-                                                                                                                     }
-                                                                                                                        ?>
-
-                  <div class="col-lg-6">
-                     <label for="bank_name">Bank Name</label>
-                     <input list="banks" name="bank_name" id="bank_name" class="form-control" value="" >
-                     <datalist id="banks">
-                        <option value="Bank Of America">Bank Of America</option>
-                        <option value="Chase">Chase</option>
-                        <option value="Wells Fargo">Wells Fargo</option>
-                        <option value="Citi Bank ">Citi Bank </option>
-                        <option value="US Bank">US Bank</option>
-                        <option value="HSBC">HSBC</option>
-                     </datalist>
-                     <!-- <select name="bank_name" id="bank_name" class="form-control" value="">
-                        <option></option>
-                        <option value="Bank Of America">Bank Of America</option>
-                        <option value="Chase">Chase</option>
-                        <option value="Wells Fargo">Wells Fargo</option>
-                        <option value="Citi Bank ">Citi Bank </option>
-                        <option value="US Bank">US Bank</option>
-                        <option value="HSBC">HSBC</option>
-                     </select> --><br>
-                  </div>
-
-                  <div class="col-lg-6">
-                     <label for="routing_number">Routing Number</label>
-                     <input type="text" name="routing_number" id="routing_number" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
-                  </div>
-
-                  <div class="col-lg-6">
-                     <label for="account_number">Account Number</label>
-                     <input type="text" name="account_number" id="account_number" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ><br>
-                  </div>
-
-                  <?php
-                  if (empty($void_img)) {
-                     echo '
-    <div class="col-lg-6">
-      <label for="usr">Upload Void Check</label>
-      <input type="file" name="imageeeee"  class="form-control" accept="image/*" >
-    </div>';
-                  } else {
-
-                     echo '
-
-    <div class="col-lg-6">
-      <label for="usr">Upload Void Check</label>
-      <input type="text" name="txt_file_vi"  style="display:none" class="form-control" value="'; ?><?php $void_img = str_replace(" ", "", "$void_img");
-                                                                                                   echo $void_img; ?><?php echo '">
-       <br> Image Already Uploaded - 
-      <a href ="/ls_software/dl_client_files/void_img/' . $void_img . '" target="_blank" > View Image </a><br>
-      <br>
-    </div>';
-                                                                                                                  }
-                                                                                                                     ?>
-
-
-                  <div class="col-lg-6">
-                     <label for="cvv_number">CVV Number</label>
-                     <input type="text" name="cvv_number" id='cvv_number' class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" >
-                  </div>
-
-               </div>
-               <div id="paymentOptionId" hidden>
-                  <div id="bankOptionId"></div>
-                  <div id="cardOptionId"></div>
-               </div>
-               <br>
-
-               <button name="btttn-submit" type="submit" class="btn btn-danger" style="color: #fff;background-color: blue;border-color: blue;">Add this Setup</button>
-            </form>
-
+         <!-- Page toolbar -->
+         <div class="cis-toolbar">
+            <h3 class="cis-page-title">
+               <span class="glyphicon glyphicon-pencil"></span>
+               Initial Loan Setup
+               <small>&nbsp;·&nbsp;<?php echo htmlspecialchars((string)trim($first_name . ' ' . $last_name)); ?> (#<?php echo htmlspecialchars((string)$id_fnd); ?>)</small>
+            </h3>
+            <a href="edit_customer.php?id=<?php echo urlencode((string)$id_fnd); ?>" class="btn btn-default">
+               <span class="glyphicon glyphicon-arrow-left"></span> Back to customer
+            </a>
          </div>
 
-         <div class="row" style="padding-top: 20px;">
-            <div class="col-lg-12" style="padding-bottom: 20px">
-               <span style="font-weight:bold; font-size:15px;">Banking Information: </span><br>
+         <!-- Customer summary -->
+         <div class="cis-summary">
+            <div class="row">
+               <div class="col-md-3"><p><strong>Name</strong><b><?php echo htmlspecialchars((string)trim($first_name . ' ' . $last_name)); ?></b></p></div>
+               <div class="col-md-3"><p><strong>Phone</strong><b><?php echo htmlspecialchars((string)$mobile_number); ?></b></p></div>
+               <div class="col-md-3"><p><strong>Email</strong><b><?php echo htmlspecialchars((string)$email); ?></b></p></div>
+               <div class="col-md-3"><p><strong>Loan ID</strong><b><?php echo htmlspecialchars((string)$_GET['loan_create_id']); ?></b></p></div>
+            </div>
+         </div>
+
+         <form action="" method="POST" enctype="multipart/form-data">
+
+            <!-- Carry-through params from previous step -->
+            <input type="hidden" name="emaill" value="<?php echo htmlspecialchars((string)$email); ?>">
+            <input type="hidden" name="link" value="<?php echo htmlspecialchars((string)$message); ?>">
+            <input type="hidden" name="name_id" value="<?php echo htmlspecialchars((string)$user_fnd_id); ?>">
+            <input type="hidden" name="fnd_idd" id="idUserId" value="<?php echo htmlspecialchars((string)$_GET['fnd_id']); ?>">
+            <input type="hidden" name="renew_loan" id="renewLoanId" value="<?php echo htmlspecialchars((string)$loan_id); ?>">
+            <input type="hidden" name="bg_idd" value="<?php echo htmlspecialchars((string)$_GET['bg_id']); ?>">
+            <input type="hidden" name="portfolio_type" value="<?php echo htmlspecialchars((string)$_GET['portfolio_type']); ?>">
+            <input type="hidden" name="secondary_portfolio" value="<?php echo htmlspecialchars((string)$_GET['secondary_portfolio']); ?>">
+            <input type="hidden" name="contract_template" value="<?php echo htmlspecialchars((string)($_GET['contract_template'] ?? 'unsecured_2024_09_01')); ?>">
+            <input type="hidden" name="loan_create_idd" id="loanId" value="<?php echo htmlspecialchars((string)$_GET['loan_create_id']); ?>">
+            <input type="hidden" name="principal_amountt" value="<?php echo htmlspecialchars((string)$_GET['principal_amount']); ?>">
+            <input type="hidden" name="loan_interest" value="<?php echo htmlspecialchars((string)$_GET['loan_interest']); ?>">
+            <input type="hidden" name="yearss" value="<?php echo htmlspecialchars((string)$_GET['years']); ?>">
+            <input type="hidden" name="late_feee" value="<?php echo htmlspecialchars((string)$_GET['late_fee']); ?>">
+            <input type="hidden" name="contract_feee" value="<?php echo htmlspecialchars((string)$_GET['contract_fee']); ?>">
+            <input type="hidden" name="installment_plann" value="<?php echo htmlspecialchars((string)$_GET['installment_plan']); ?>">
+            <input type="hidden" name="total_paymentss" value="<?php echo htmlspecialchars((string)$_GET['total_payments']); ?>">
+            <input type="hidden" name="contract_datee" value="<?php echo htmlspecialchars((string)$_GET['contract_date']); ?>">
+            <input type="hidden" name="payment_datee" value="<?php echo htmlspecialchars((string)$_GET['payment_date']); ?>">
+            <input type="hidden" name="first_payment" value="<?php echo htmlspecialchars((string)$_GET['first_payment']); ?>">
+            <input type="hidden" name="last_payment" value="<?php echo htmlspecialchars((string)$_GET['last_payment']); ?>">
+
+            <!-- Panel 1: ID Documents -->
+            <div class="panel panel-default cis-panel">
+               <div class="panel-heading">
+                  ID Document
+                  <span class="cis-prev-hint pull-right">Customer identification</span>
+               </div>
+               <div class="panel-body">
+                  <div class="row">
+                     <div class="col-md-6 cis-field">
+                        <label for="type_id">Type of ID</label>
+                        <select name="type_id" id="type_id" class="form-control">
+                           <option value=""></option>
+                           <option value="Drivers License">Driver's License</option>
+                           <option value="State Personal ID">State Personal ID</option>
+                           <option value="Matricula Consular ID">Matricula Consular ID</option>
+                           <option value="Tribal ID">Tribal ID</option>
+                           <option value="Passport">Passport</option>
+                           <option value="Military ID">Military ID</option>
+                           <option value="Other">Other</option>
+                        </select>
+                     </div>
+                     <?php if (empty($id_photo)): ?>
+                        <div class="col-md-6 cis-field">
+                           <label>Upload Picture of ID</label>
+                           <input type="file" name="file_image" class="form-control" accept="image/*">
+                        </div>
+                     <?php else: ?>
+                        <div class="col-md-6 cis-field">
+                           <label>Picture of ID</label>
+                           <input type="hidden" name="txt_image" value="<?php echo htmlspecialchars((string)$id_photo); ?>">
+                           <div class="cis-uploaded">
+                              <span class="glyphicon glyphicon-ok-sign"></span> Already uploaded
+                              <a href="/ls_software/dl_client_files/photo_id/<?php echo htmlspecialchars((string)$id_photo); ?>" target="_blank">View image</a>
+                           </div>
+                        </div>
+                     <?php endif; ?>
+                  </div>
+               </div>
             </div>
 
-            <div class="col-lg-12">
+            <!-- Panel 2: Card Information -->
+            <div class="panel panel-default cis-panel">
+               <div class="panel-heading">
+                  Card Information
+                  <span class="cis-prev-hint pull-right">Debit/credit card on file</span>
+               </div>
+               <div class="panel-body">
+                  <div class="row">
+                     <div class="col-md-3 cis-field">
+                        <label for="type_card">Type of Card</label>
+                        <select name="type_card" id="type_card" class="form-control">
+                           <option value=""></option>
+                           <option value="Visa">Visa</option>
+                           <option value="Master Card">Master Card</option>
+                        </select>
+                     </div>
+                     <div class="col-md-4 cis-field">
+                        <label for="card_number">Card Number</label>
+                        <input type="text" name="card_number" id="card_number" class="form-control" maxlength="16"
+                               placeholder="16 digits"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                     </div>
+                     <div class="col-md-3 cis-field">
+                        <label>Card Expiration</label>
+                        <div class="cis-exp-group">
+                           <select name="expiry_month_card" id="expiry_month_card" class="form-control">
+                              <option value="">MM</option>
+                              <?php
+                              $months = ['01'=>'Jan','02'=>'Feb','03'=>'Mar','04'=>'Apr','05'=>'May','06'=>'Jun','07'=>'Jul','08'=>'Aug','09'=>'Sep','10'=>'Oct','11'=>'Nov','12'=>'Dec'];
+                              foreach ($months as $k => $v) {
+                                  echo '<option value="' . $k . '">' . $k . ' - ' . $v . '</option>';
+                              }
+                              ?>
+                           </select>
+                           <select name="expiry_year_card" id="expiry_year_card" class="form-control">
+                              <option value="">YY</option>
+                              <?php
+                              $yy = (int)date('y');
+                              for ($i = 0; $i <= 12; $i++) {
+                                  $y = str_pad((string)($yy + $i), 2, '0', STR_PAD_LEFT);
+                                  echo '<option value="' . $y . '">' . $y . '</option>';
+                              }
+                              ?>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-2 cis-field">
+                        <label for="cvv_number">CVV</label>
+                        <input type="text" name="cvv_number" id="cvv_number" class="form-control" maxlength="4"
+                               placeholder="3-4 digits"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                     </div>
+                  </div>
+                  <div class="row">
+                     <?php if (empty($bank_front)): ?>
+                        <div class="col-md-6 cis-field">
+                           <label>Upload Bank Card Front</label>
+                           <input type="file" name="imageee" class="form-control" accept="image/*">
+                        </div>
+                     <?php else: ?>
+                        <?php $bank_front = str_replace(" ", "", (string)$bank_front); ?>
+                        <div class="col-md-6 cis-field">
+                           <label>Bank Card Front</label>
+                           <input type="hidden" name="txt_file_bf" value="<?php echo htmlspecialchars($bank_front); ?>">
+                           <div class="cis-uploaded">
+                              <span class="glyphicon glyphicon-ok-sign"></span> Already uploaded
+                              <a href="/ls_software/dl_client_files/bank_front_image/<?php echo htmlspecialchars($bank_front); ?>" target="_blank">View image</a>
+                           </div>
+                        </div>
+                     <?php endif; ?>
+                     <?php if (empty($bank_back)): ?>
+                        <div class="col-md-6 cis-field">
+                           <label>Upload Bank Card Back</label>
+                           <input type="file" name="imageeee" class="form-control" accept="image/*">
+                        </div>
+                     <?php else: ?>
+                        <?php $bank_back = str_replace(" ", "", (string)$bank_back); ?>
+                        <div class="col-md-6 cis-field">
+                           <label>Bank Card Back</label>
+                           <input type="hidden" name="txt_file_bb" value="<?php echo htmlspecialchars($bank_back); ?>">
+                           <div class="cis-uploaded">
+                              <span class="glyphicon glyphicon-ok-sign"></span> Already uploaded
+                              <a href="/ls_software/dl_client_files/bank_back_image/<?php echo htmlspecialchars($bank_back); ?>" target="_blank">View image</a>
+                           </div>
+                        </div>
+                     <?php endif; ?>
+                  </div>
+               </div>
+            </div>
+
+            <!-- Panel 3: Bank Account -->
+            <div class="panel panel-default cis-panel">
+               <div class="panel-heading">
+                  Bank Account
+                  <span class="cis-prev-hint pull-right">Direct-deposit / ACH source</span>
+               </div>
+               <div class="panel-body">
+                  <div class="row">
+                     <div class="col-md-4 cis-field">
+                        <label for="bank_name">Bank Name</label>
+                        <input list="banks" name="bank_name" id="bank_name" class="form-control" value="" placeholder="Start typing…">
+                        <datalist id="banks">
+                           <option value="Bank Of America">
+                           <option value="Chase">
+                           <option value="Wells Fargo">
+                           <option value="Citi Bank">
+                           <option value="US Bank">
+                           <option value="HSBC">
+                        </datalist>
+                     </div>
+                     <div class="col-md-4 cis-field">
+                        <label for="routing_number">Routing Number</label>
+                        <input type="text" name="routing_number" id="routing_number" class="form-control"
+                               placeholder="9 digits"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                     </div>
+                     <div class="col-md-4 cis-field">
+                        <label for="account_number">Account Number</label>
+                        <input type="text" name="account_number" id="account_number" class="form-control"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                     </div>
+                     <?php if (empty($void_img)): ?>
+                        <div class="col-md-6 cis-field">
+                           <label>Upload Voided Check</label>
+                           <input type="file" name="imageeeee" class="form-control" accept="image/*">
+                           <span class="cis-help">Used for ACH verification.</span>
+                        </div>
+                     <?php else: ?>
+                        <?php $void_img = str_replace(" ", "", (string)$void_img); ?>
+                        <div class="col-md-6 cis-field">
+                           <label>Voided Check</label>
+                           <input type="hidden" name="txt_file_vi" value="<?php echo htmlspecialchars($void_img); ?>">
+                           <div class="cis-uploaded">
+                              <span class="glyphicon glyphicon-ok-sign"></span> Already uploaded
+                              <a href="/ls_software/dl_client_files/void_img/<?php echo htmlspecialchars($void_img); ?>" target="_blank">View image</a>
+                           </div>
+                        </div>
+                     <?php endif; ?>
+                  </div>
+               </div>
+            </div>
+
+            <!-- Hidden containers the existing JS relies on -->
+            <div id="paymentOptionId" hidden>
+               <div id="bankOptionId"></div>
+               <div id="cardOptionId"></div>
+            </div>
+
+            <div class="cis-action-bar">
+               <a href="edit_customer.php?id=<?php echo urlencode((string)$id_fnd); ?>" class="btn btn-default">Cancel</a>
+               <button name="btttn-submit" type="submit" class="btn btn-save">
+                  <span class="glyphicon glyphicon-ok"></span> Save &amp; Send Contract
+               </button>
+            </div>
+         </form>
+
+         <!-- Previously saved bank / card (AJAX-populated) -->
+         <div class="panel panel-default cis-panel cis-prev">
+            <div class="panel-heading">
+               <span>Previously Saved Bank &amp; Cards for this Customer</span>
+               <span class="cis-prev-hint">Click a row to auto-fill the form above.</span>
+            </div>
+            <div class="panel-body">
                <div class="row">
-                  <div class="col-lg-6">
+                  <div class="col-md-6">
                      <div id="bankTableId"></div>
                   </div>
-                  <div class="col-lg-6">
+                  <div class="col-md-6">
                      <div id="cardTableId"></div>
                   </div>
                </div>
             </div>
          </div>
-      </div>
+      </section>
 
       <hr>
 

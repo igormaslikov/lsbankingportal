@@ -3,6 +3,9 @@ error_reporting(0);
 
 $id=$_GET['id'];
 session_start();
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 include_once '../dbconnect.php';
 
 if (!isset($_SESSION['userSession'])) {
@@ -59,7 +62,7 @@ if(isset($_GET['delete_loan'])) {
     $signed_loan_id = $_GET['delete_loan'];
     mysqli_query($con,"DELETE FROM `tbl_loan` WHERE `loan_id` = '$signed_loan_id'");
 }  
-$query_search = "SELECT * FROM `tbl_loan` where  where sign_status= '0'";
+$query_search = "SELECT * FROM `tbl_loan` where sign_status= '0'";
  
     $status  = $_GET['status'];
     $keyword = $_GET['keyword'];
@@ -130,7 +133,6 @@ if ($result_t=mysqli_query($con,$query_search))
 ?>
     <?php
 
-
 $query_us = mysqli_query($con,"SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '0'");
 while ($row_us=mysqli_fetch_array($query_us)){
     $us = $row_us['value_sum'];
@@ -155,11 +157,18 @@ break;
 $totall_trans = number_format((float)$totall_trans, 2, '.', '');
 
  $pay_off = number_format((float)$pay_off, 2, '.', '');
-$avg_pay_off= $pay_off/$rowcount;
 
-$avg_pay=round($avg_pay_off, 2);
+$avg_pay = 0;
+$avg_amount = 0;
 
-$avg_amount=$us/$rowcount;
+if($rowcount > 0){
+    $avg_pay_off= $pay_off/$rowcount;
+
+    $avg_pay=round($avg_pay_off, 2);
+
+    $avg_amount=$us/$rowcount;
+}
+
 
 $avg = number_format((float)$avg_amount, 2, '.', '');
 
@@ -195,7 +204,7 @@ break;
 
 }
 
-$loan_payment_fee=$payment_fee-$amount_of_loan_fee;
+$loan_payment_fee=floatval($payment_fee)-floatval($amount_of_loan_fee);
 if($loan_payment_fee>0)
 {
 $total_loan_fee+=$loan_payment_fee;
@@ -677,7 +686,7 @@ if ($last_payment_date=='01-01-1970')
 
 
 
-   $balns_due =$payoff-$payment;
+   $balns_due =floatval($payoff)-floatval($payment);
   $balns_due= number_format("$balns_due",2);
     	
 		// $envalope= "<a href='view_all_loan_notification.php?id=$id'  title='View Notifications'><span class='glyphicon glyphicon-envelope' aria-hidden='true' alt='View Notifications'></span></a>";

@@ -250,22 +250,8 @@ $loan_notes=$row_user['notes'];
     </div>
     
    <div class="col-lg-6" style="margin-left: 270px;margin-top: -41px;">
-      <select name="exp_year" class="form-control">
-          <option value="2019">2019</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
-          <option value="2026">2026</option>
-          <option value="2027">2027</option>
-          <option value="2028">2028</option>
-          <option value="2029">2029</option>
-          
-         
-          
-          </select>
+      <input name="exp_year" type="text" class="form-control" placeholder="YYYY"
+             inputmode="numeric" pattern="\d{4}" maxlength="4" required>
     </div>
     </div>
     

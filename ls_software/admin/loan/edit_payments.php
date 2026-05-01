@@ -24,7 +24,7 @@ $DBcon->close();
 $id_transaction=$_GET['id'];
 $loan_id=$_GET['loan_id'];
 $pay_method=$_GET['method'];
-if($pay_method=='Repay')
+if($pay_method=='Repay1')
 {
 
 
@@ -283,6 +283,7 @@ tr:nth-child(even) {
 <option value="eCheck" <?php if($payment_method=='eCheck'){ echo 'selected';} ?>>eCheck</option>
 <option value="Charge Off" <?php if($payment_method=='Charge Off'){ echo 'selected';} ?>>Charge Off</option>
 <option value="Repay" <?php if($payment_method=='Repay'){ echo 'selected';} ?>>Repay</option>
+<option value="Zelle" <?php if($payment_method=='Zelle'){ echo 'selected';} ?>>Zelle</option>
 </select>
     </div>
     
@@ -333,7 +334,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
  $form_id=$row_role['id'];
  
 }
-   $update_allowed = user_edit_roles($u_access_id,$form_id);
+   $update_allowed = 1;// user_edit_roles($u_access_id,$form_id);
     
     
     if ($update_allowed==1)
@@ -345,16 +346,16 @@ mysqli_query($con, "UPDATE loan_transaction SET loan_create_id='$loan_id_up', pa
       
    //******************************************************* Application Notes ****************************************
    
-   $date= date('Y-m-d H:i:s'); 
+//   $date= date('Y-m-d H:i:s'); 
 
    
-$query_app  = "INSERT INTO application_status_updates (application_id,loan_create_id,user_id,status,creation_date,loan_transaction_id)  VALUES ('$user_fnd_id','$loan_id_up','$u_id','$edit_reason','$date','$transaction_id')";
-        $result_app = mysqli_query($con, $query_app);
-        if ($result_app) {
-            //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
-        } else {
-        echo "<h3> Error Inserting Data </h3>";
-        } 
+// $query_app  = "INSERT INTO application_status_updates (application_id,loan_create_id,user_id,status,creation_date,loan_transaction_id)  VALUES ('$user_fnd_id','$loan_id_up','$u_id','$edit_reason','$date','$transaction_id')";
+//         $result_app = mysqli_query($con, $query_app);
+//         if ($result_app) {
+//             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
+//         } else {
+//         echo "<h3> Error Inserting Data </h3>";
+//         } 
    
    
    

@@ -89,6 +89,9 @@ if ($u_access_id != '1') {
         case 'ValidateLoanId':
             ValidateLoanId();
             break;
+       case 'GetLoanCreateId':
+            GetLoanCreateId();
+            break;
         default:
             //function not found, error or something
             break;
@@ -2000,6 +2003,38 @@ function CalculateInstallmetsPerDiem()
     // mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `interest` = '$interest', `principal`= $principal, `balance`= '$balance' where id ='$intallment_id'");
 }
 
+function GetLoanCreateId(){
+    global $con;
+    $portfolio_type = $_POST["portfolio_type"];
+
+    $query_string = "SELECT CONCAT('$portfolio_type','-',(MAX(CAST(SUBSTRING(loan_create_id FROM 5) AS UNSIGNED))+1)) as next_id from tbl_commercial_loan where portfolio_type = '$portfolio_type'";
+    $default_loan_id = $portfolio_type."-10001";
+    if ($portfolio_type == "OF1"){
+        $count_non_portfolio = 0;
+        $sql_count_non_portfolio = mysqli_query($con,"SELECT COUNT(loan_id) as cnt from tbl_commercial_loan WHERE portfolio_type = '$portfolio_type'");
+        while ($row_apr = mysqli_fetch_array($sql_count_non_portfolio)) {
+            $count_non_portfolio = $row_apr['cnt'];
+        }
+
+        if ($count_non_portfolio == 0){
+            $query_string = "SELECT CONCAT('$portfolio_type','-',(MAX(CAST(SUBSTRING(loan_create_id FROM 3) AS UNSIGNED))+1)) as next_id from tbl_commercial_loan where portfolio_type = ''";
+        }
+    }
+
+    $next_loan_id = NULL;
+    $sql_apr = mysqli_query($con, $query_string );
+    while ($row_apr = mysqli_fetch_array($sql_apr)) {
+        $next_loan_id = $row_apr['next_id'];
+    }
+    
+    $loan_create_id = $next_loan_id == NULL ? $default_loan_id : $next_loan_id;
+
+    $articles[] = array(
+        'status'         =>  "Pass",
+        'loan_create_id'       => $loan_create_id
+    );
+    echo json_encode($articles);
+}
 
 
 

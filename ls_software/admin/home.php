@@ -1,8 +1,14 @@
 <?php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 error_reporting(0);
 session_start();
 include_once 'dbconnect.php';
 include 'dbconfig.php';
+require_once ('jpgraph/jpgraph.php');
+require_once ('jpgraph/jpgraph_pie.php');
+require_once ('jpgraph/jpgraph_pie3d.php');
 
 if (!isset($_SESSION['userSession'])) {
   header("Location: index.php");
@@ -71,17 +77,17 @@ $DBcon->close();
 
   }
 
-  $query_le = mysqli_query($con, "SELECT SUM(amount_left) AS value_sum FROM tbl_loan");
-  while ($row_le = mysqli_fetch_array($query_le)) {
-    $am_le = $row_le['value_sum'];
-    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$am_le;
+//   $query_le = mysqli_query($con, "SELECT SUM(amount_left) AS value_sum FROM tbl_loan");
+//   while ($row_le = mysqli_fetch_array($query_le)) {
+//     $am_le = $row_le['value_sum'];
+//     // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$am_le;
 
-  }
+//   }
 
-  $pay_off = $us - $am_le;
-  $avg_pay_off = $am_le / $rowcount;
+//   $pay_off = $us - $am_le;
+//   $avg_pay_off = $am_le / $rowcount;
 
-  $avg_pay = round($avg_pay_off, 2);
+//   $avg_pay = round($avg_pay_off, 2);
 
   $avg_amount = $us / $rowcount;
 
@@ -193,46 +199,46 @@ $DBcon->close();
 
     // final review personal start
 
-    $sql_frpl = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Final Review for Personal Loan'";
+    // $sql_frpl = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Final Review for Personal Loan'";
 
-    if ($result_frpl = mysqli_query($con, $sql_frpl)) {
-      // Return the number of rows in result set
-      $rowcount_frpl = mysqli_num_rows($result_frpl);
-      // printf($rowcount_customer);
-      // Free result set
-      $ye = mysqli_free_result($result_t);
-      echo $ye;
-    }
+    // if ($result_frpl = mysqli_query($con, $sql_frpl)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_frpl = mysqli_num_rows($result_frpl);
+    //   // printf($rowcount_customer);
+    //   // Free result set
+    //   $ye = mysqli_free_result($result_t);
+    //   echo $ye;
+    // }
 
     // final review personal end 
 
     // approve personal start
 
-    $sql_apersonall = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Personal Loan'";
+    // $sql_apersonall = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Personal Loan'";
 
-    if ($result_apersonall = mysqli_query($con, $sql_apersonall)) {
-      // Return the number of rows in result set
-      $rowcount_apersonall = mysqli_num_rows($result_apersonall);
-      // printf($rowcount_customer);
-      // Free result set
-      $ye = mysqli_free_result($result_t);
-      echo $ye;
-    }
+    // if ($result_apersonall = mysqli_query($con, $sql_apersonall)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_apersonall = mysqli_num_rows($result_apersonall);
+    //   // printf($rowcount_customer);
+    //   // Free result set
+    //   $ye = mysqli_free_result($result_t);
+    //   echo $ye;
+    // }
 
     // approve personal end 
 
     // approved payday  start
 
-    $sql_apaydayd = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday Loan' ";
+    // $sql_apaydayd = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday Loan' ";
 
-    if ($result_apaydayd = mysqli_query($con, $sql_apaydayd)) {
-      // Return the number of rows in result set
-      $rowcount_apaydayd = mysqli_num_rows($result_apaydayd);
-      // printf($rowcount_customer);
-      // Free result set
-      $ye = mysqli_free_result($result_apaydayd);
-      echo $ye;
-    }
+    // if ($result_apaydayd = mysqli_query($con, $sql_apaydayd)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_apaydayd = mysqli_num_rows($result_apaydayd);
+    //   // printf($rowcount_customer);
+    //   // Free result set
+    //   $ye = mysqli_free_result($result_apaydayd);
+    //   echo $ye;
+    // }
 
     // approved payday  end 
 
@@ -241,32 +247,32 @@ $DBcon->close();
 
     // Review For Payday  start
 
-    $sql_review_payday = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review For Payday' ";
+    // $sql_review_payday = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review For Payday' ";
 
-    if ($result_review_payday = mysqli_query($con, $sql_review_payday)) {
-      // Return the number of rows in result set
-      $rowcount_review_payday = mysqli_num_rows($result_review_payday);
-      // printf($rowcount_customer);
-      // Free result set
-      $ye_review_payday = mysqli_free_result($result_review_payday);
-      echo $ye_review_payday;
-    }
+    // if ($result_review_payday = mysqli_query($con, $sql_review_payday)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_review_payday = mysqli_num_rows($result_review_payday);
+    //   // printf($rowcount_customer);
+    //   // Free result set
+    //   $ye_review_payday = mysqli_free_result($result_review_payday);
+    //   echo $ye_review_payday;
+    // }
 
     // Review For Payday  end
 
 
     // Pending Documents Start
 
-    $sql_pending_docs = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Pending Documents' ";
+    // $sql_pending_docs = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Pending Documents' ";
 
-    if ($result_pending_docs = mysqli_query($con, $sql_pending_docs)) {
-      // Return the number of rows in result set
-      $rowcount_pending_docs = mysqli_num_rows($result_pending_docs);
-      // printf($rowcount_customer);
-      // Free result set
-      $ye_pending_docs = mysqli_free_result($result_pending_docs);
-      echo $ye_pending_docs;
-    }
+    // if ($result_pending_docs = mysqli_query($con, $sql_pending_docs)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_pending_docs = mysqli_num_rows($result_pending_docs);
+    //   // printf($rowcount_customer);
+    //   // Free result set
+    //   $ye_pending_docs = mysqli_free_result($result_pending_docs);
+    //   echo $ye_pending_docs;
+    // }
 
     // Pending Documents   end
 
@@ -275,48 +281,48 @@ $DBcon->close();
 
     // Decision Logic Completed Start
 
-    $sql_dl_completed = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Decision Logic Completed' ";
+    // $sql_dl_completed = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Decision Logic Completed' ";
 
-    if ($result_dl_completed = mysqli_query($con, $sql_dl_completed)) {
-      // Return the number of rows in result set
-      $rowcount_dl_completed = mysqli_num_rows($result_dl_completed);
-      // printf($rowcount_customer);
-      // Free result set
-      $ye_dl_completed = mysqli_free_result($result_dl_completed);
-      echo $ye_dl_completed;
-    }
+    // if ($result_dl_completed = mysqli_query($con, $sql_dl_completed)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_dl_completed = mysqli_num_rows($result_dl_completed);
+    //   // printf($rowcount_customer);
+    //   // Free result set
+    //   $ye_dl_completed = mysqli_free_result($result_dl_completed);
+    //   echo $ye_dl_completed;
+    // }
 
     // Decision Logic Completed   end
 
 
     //Credit Report Completed Start
 
-    $sql_cr_completed = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Credit Report Completed' ";
+    // $sql_cr_completed = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Credit Report Completed' ";
 
-    if ($result_cr_completed = mysqli_query($con, $sql_cr_completed)) {
-      // Return the number of rows in result set
-      $rowcount_cr_completed = mysqli_num_rows($result_cr_completed);
-      // printf($rowcount_customer);
-      // Free result set
-      $ye_cr_completed = mysqli_free_result($result_cr_completed);
-      echo $ye_cr_completed;
-    }
+    // if ($result_cr_completed = mysqli_query($con, $sql_cr_completed)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_cr_completed = mysqli_num_rows($result_cr_completed);
+    //   // printf($rowcount_customer);
+    //   // Free result set
+    //   $ye_cr_completed = mysqli_free_result($result_cr_completed);
+    //   echo $ye_cr_completed;
+    // }
 
     // Credit Report Completed   end
 
 
     //Interview Completed Start
 
-    $sql_intrvw_completed = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Interview Completed' ";
+    // $sql_intrvw_completed = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Interview Completed' ";
 
-    if ($result_intrvw_completed = mysqli_query($con, $sql_intrvw_completed)) {
-      // Return the number of rows in result set
-      $rowcount_intrvw_completed = mysqli_num_rows($result_intrvw_completed);
-      // printf($rowcount_customer);
-      // Free result set
-      $ye_intrvw_completed = mysqli_free_result($result_intrvw_completed);
-      echo $ye_intrvw_completed;
-    }
+    // if ($result_intrvw_completed = mysqli_query($con, $sql_intrvw_completed)) {
+    //   // Return the number of rows in result set
+    //   $rowcount_intrvw_completed = mysqli_num_rows($result_intrvw_completed);
+    //   // printf($rowcount_customer);
+    //   // Free result set
+    //   $ye_intrvw_completed = mysqli_free_result($result_intrvw_completed);
+    //   echo $ye_intrvw_completed;
+    // }
 
     // Interview Completed   end
 
@@ -964,7 +970,36 @@ $DBcon->close();
 
     <a href="" style="font-weight: bold; font-weight:900;font-size:22px">PAYDAY LOAN SUMMARY</a><br>
 
-
+    <div class="row wrapper">
+        <div class="col-lg-12">
+        <?php // content="text/plain; charset=utf-8"
+    // Some data
+          $data = array($rowcount_pending,$rowcount_loan_active,$rowcount_loan_past,$rowcount_loan_plan,$rowcount_loan_charge,
+                        $rowcount_chargeback,$rowcount_disbursement,$rowcount_loan_paid,$rowcount_promise,$rowcount_collections,$rowcount_closed,$rowcount_bankruptcy);
+    
+          // Create the Pie Graph. 
+          $graph = new PieGraph(450,450);
+    
+          $theme_class= new VividTheme;
+          $graph->SetTheme($theme_class);
+          $graph->legend->Pos(0.5, 0.85, 'center', 'top');
+          $graph->img->SetTransparent("white"); 
+          // Set A title for the plot
+          // Create
+          $p1 = new PiePlot3D($data);
+          $p1->SetLegends(array("Pending","Active","Past Due","Payment Plan","Chargeoff","Chargeback","Disbursement","Paid","Promise to Pay","Collections","Closed Account","Bankruptcy"));
+          $graph->Add($p1);
+    
+          $p1->ShowBorder();
+          $p1->SetColor('black');
+          $p1->ExplodeSlice(1);
+          unlink("test.jpg");
+          $graph->Stroke("test.jpg");
+    
+          ?>
+          <img  src="test.jpg">
+        </div>
+      </div>
 
     <div class="row wrapper" style="background-color: #F5E09E;color: white;padding:20px;">
 

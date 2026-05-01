@@ -10,3 +10,7 @@ error_log
 /nbproject/private/
 nbproject/
 doc_signs/
+doc_initials/
+doc_signs_coborrow/
+.claude
+*.tar.gz
