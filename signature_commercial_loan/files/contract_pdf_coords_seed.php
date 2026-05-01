@@ -170,6 +170,13 @@ foreach ([4, 6] as $pg) {
 // Unsec continuation header trio (pages 7-13)
 for ($pg = 7; $pg <= 13; $pg++) emit_header_trio($rows, $TPL, $pg, 20, 26, 32);
 
+// Unsec p7: bilingual "Loan Agreement" — Promise-to-Pay $ and Interest %
+// blanks (4 fields total, EN left column / ES right column).
+$rows[] = row($TPL, 7, 'loan.promise_amount_en', 29, 81,  21, 4, 8);
+$rows[] = row($TPL, 7, 'loan.promise_amount_es',131, 82,  21, 4, 8);
+$rows[] = row($TPL, 7, 'loan.interest_rate_en',  66, 164, 27, 4, 8);
+$rows[] = row($TPL, 7, 'loan.interest_rate_es', 127, 159, 25, 4, 8);
+
 // Unsec ACH (pages 14, 15)
 foreach ([14, 15] as $pg) {
     emit_header_trio($rows, $TPL, $pg, 20, 26, 32);

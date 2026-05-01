@@ -97,6 +97,10 @@ $CONTRACT_FIELD_CATALOG = [
     'loan.pay_sched_last_date'    => ['label' => 'Loan: Last Payment Date',       'type' => 'text'],
     'loan.pay_sched_last_amount'  => ['label' => 'Loan: Last Payment Amount $',   'type' => 'text'],
     'loan.contract_fee'         => ['label' => 'Loan: Origination / Contract Fee', 'type' => 'text'],
+    'loan.promise_amount_en'    => ['label' => 'Loan: "promise to pay $___" (EN)',   'type' => 'text'],
+    'loan.promise_amount_es'    => ['label' => 'Loan: "promete pagar $___" (ES)',    'type' => 'text'],
+    'loan.interest_rate_en'     => ['label' => 'Loan: "at the rate of ___%" (EN)',   'type' => 'text'],
+    'loan.interest_rate_es'     => ['label' => 'Loan: "del ___% anual" (ES)',        'type' => 'text'],
     'loan.itemization_given'    => ['label' => 'Loan: Itemization Amount Given',     'type' => 'text'],
     'loan.itemization_paid'     => ['label' => 'Loan: Itemization Amount Paid',      'type' => 'text'],
     'loan.itemization_financed' => ['label' => 'Loan: Itemization Amount Financed',  'type' => 'text'],
@@ -324,6 +328,10 @@ function resolve_field_value($key, array $ctx) {
         case 'loan.pay_sched_last_date':       return (string)$get('last_payment_date');
         case 'loan.pay_sched_last_amount':     return number_format((float)$get('last_payment', 0), 2);
         case 'loan.contract_fee':              return number_format((float)$get('contract_fee', 0), 2);
+        case 'loan.promise_amount_en':
+        case 'loan.promise_amount_es':         return number_format((float)$get('principal_f', 0), 2);
+        case 'loan.interest_rate_en':
+        case 'loan.interest_rate_es':          return (string)$get('anual_pr');
         case 'loan.itemization_given':     return number_format((float)$get('principal_f',0) - (float)$get('in_hand',0), 2);
         case 'loan.itemization_paid':      return number_format((float)$get('in_hand',0), 2);
         case 'loan.itemization_financed':  return number_format((float)$get('principal_f',0), 2);
