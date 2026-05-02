@@ -6,6 +6,7 @@ PT2MM = 25.4 / 72
 PDF = r'c:/temp/ofsca/loanportal/signature_commercial_loan/Loan-Agreement-Unsecured-2024-09-01.pdf'
 
 LAYOUT = {
+    1: 'application', 2: 'application',
     3: 'promissory', 5: 'promissory',
     4: 'signature_page', 6: 'signature_page',
     8: 'header_only', 9: 'header_only', 10: 'header_only',
@@ -126,6 +127,137 @@ def emit_header_only(blanks):
     return out
 
 
+def find_label_x_range(page, y_pt, phrase_words, dy=4):
+    """Locate a label phrase on a row. Returns (left_x_pt, right_x_pt) or None."""
+    words = page.extract_words(x_tolerance=2, y_tolerance=2)
+    row = sorted([w for w in words if abs(w['top'] - y_pt) < dy], key=lambda w: w['x0'])
+    # Find consecutive words that match the phrase tokens
+    needle = [t.lower() for t in phrase_words]
+    for i in range(len(row) - len(needle) + 1):
+        if all(row[i + j]['text'].lower().rstrip(':') == needle[j].rstrip(':') for j in range(len(needle))):
+            return row[i]['x0'], row[i + len(needle) - 1]['x1']
+    return None
+
+
+def emit_application(page, page_num):
+    """Map data fields to the empty space immediately after each label.
+    Layout is identical for English (p1) and Spanish (p2) row Y positions
+    in the Unsecured template."""
+    # Each entry: (field_key, label_words, row_y_pt, next_label_x_pt)
+    #   next_label_x_pt = None means "extend to end of page" (about 575pt = 203mm)
+    PAGE_RIGHT = 575
+
+    # Y rows are identical between unsec p1 and p2 — verified from earlier extracts
+    rows = []
+    if page_num == 1:
+        rows = [
+            # Applicant row 1 — English labels
+            ('app.first_name', ['First','Name:'],            127, 246),
+            ('app.last_name',  ['Last','Name:'],             127, 441),
+            ('app.ssn',        ['SSN/ITIN:'],                127, PAGE_RIGHT),
+            ('app.address',    ['Address:'],                 158, 441),
+            ('app.id_number',  ['Identification','Number:'], 158, PAGE_RIGHT),
+            ('app.city',       ['City:'],                    190, 192),
+            ('app.state',      ['State:'],                   190, 294),
+            ('app.zip',        ['Zip','Code:'],              190, 441),
+            ('app.dob',        ['DOB:'],                     190, PAGE_RIGHT),
+            ('app.cellphone',  ['Cellphone:'],               222, 184),
+            ('app.alt_number', ['Alternative','Number:'],    222, 314),
+            ('app.email',      ['e-Mail:'],                  222, PAGE_RIGHT),
+            ('app.source_lead',['us?'],                      253, 185),
+            ('app.loan_amount',['Loan','Amount:'],           253, PAGE_RIGHT),
+            # Co-applicant
+            ('app.coapp_last_name',  ['Last','Name:'],        309, 227),
+            ('app.coapp_first_name', ['First','Name:'],       309, 441),
+            ('app.coapp_ssn',        ['SSN/ITIN:'],           309, PAGE_RIGHT),
+            ('app.coapp_address',    ['Address:'],            341, 441),
+            ('app.coapp_id_number',  ['Identification','Number:'], 341, PAGE_RIGHT),
+            ('app.coapp_city',       ['City:'],               373, 192),
+            ('app.coapp_state',      ['State:'],              373, 294),
+            ('app.coapp_zip',        ['Zip','Code:'],         373, 441),
+            ('app.coapp_dob',        ['DOB:'],                373, PAGE_RIGHT),
+            ('app.coapp_cellphone',  ['Cellphone:'],          404, 184),
+            ('app.coapp_alt_number', ['Alternative','Number:'], 404, 314),
+            ('app.coapp_email',      ['e-Mail:'],             404, PAGE_RIGHT),
+            # Business
+            ('app.biz_name',           ['Business','Name:'],   464, 448),
+            ('app.biz_type',           ['Type','of','Business:'], 464, PAGE_RIGHT),
+            ('app.biz_address',        ['Business','Address:'], 494, 448),
+            ('app.biz_monthly_income', ['Monthly','Income:'],   494, PAGE_RIGHT),
+            ('app.biz_city',           ['City:'],               524, 168),
+            ('app.biz_state',          ['State:'],              524, 275),
+            ('app.biz_zip',            ['Zip','code:'],         524, 408),
+            ('app.biz_phone',          ['Phone:'],              524, PAGE_RIGHT),
+            # Signatures (these DO have underscore blanks — handle separately below)
+        ]
+    else:  # page 2 (Spanish)
+        rows = [
+            ('app.first_name', ['Primer','Nombre:'],          127, 227),
+            ('app.last_name',  ['Apellido:'],                 127, 441),
+            ('app.ssn',        ['SSN/ITIN:'],                 127, PAGE_RIGHT),
+            ('app.address',    ['Dirección'],            158, 441),
+            ('app.id_number',  ['Identificación:'],      158, PAGE_RIGHT),
+            ('app.city',       ['Ciudad:'],                   190, 192),
+            ('app.state',      ['Estado:'],                   190, 294),
+            ('app.zip',        ['Codigo','Postal:'],          190, 441),
+            ('app.dob',        ['Nacimiento:'],               190, PAGE_RIGHT),
+            ('app.cellphone',  ['Celular:'],                  222, 184),
+            ('app.alt_number', ['Numero','Alterno:'],         222, 314),
+            ('app.email',      ['Electronico:'],              222, PAGE_RIGHT),
+            ('app.source_lead',['nosotros?'],                 253, 185),
+            ('app.loan_amount',['Monto','de','Prestamo:'],    253, PAGE_RIGHT),
+            ('app.coapp_last_name',  ['Apellido'],            309, 441),
+            ('app.coapp_first_name', ['Primer','Nombre'],     309, 227),
+            ('app.coapp_ssn',        ['SSN/ITIN:'],           309, PAGE_RIGHT),
+            ('app.coapp_address',    ['Dirección'],      341, 441),
+            ('app.coapp_id_number',  ['Identificación'], 341, PAGE_RIGHT),
+            ('app.coapp_city',       ['Ciudad:'],             373, 192),
+            ('app.coapp_state',      ['Estado:'],             373, 294),
+            ('app.coapp_zip',        ['Codigo','Postal:'],    373, 441),
+            ('app.coapp_dob',        ['Nacimiento:'],         373, PAGE_RIGHT),
+            ('app.coapp_cellphone',  ['Celular:'],            404, 184),
+            ('app.coapp_alt_number', ['Numero','Alterno:'],   404, 314),
+            ('app.coapp_email',      ['Electronico:'],        404, PAGE_RIGHT),
+            ('app.biz_name',         ['Nombre','del','Negocio'], 464, 448),
+            ('app.biz_type',         ['Tipo','de','Negocio:'],   464, PAGE_RIGHT),
+            ('app.biz_address',      ['Direccion','del','Negocio:'], 494, 448),
+            ('app.biz_monthly_income', ['Ingresos','Mensuales:'], 494, PAGE_RIGHT),
+            ('app.biz_city',         ['Ciudad:'],                524, 162),
+            ('app.biz_state',        ['Estado:'],               524, 264),
+            ('app.biz_zip',          ['Codigo','Postal:'],      524, 409),
+            ('app.biz_phone',        ['Negocio:'],              524, PAGE_RIGHT),
+        ]
+
+    out = []
+    for fk, phrase, row_y_pt, next_x_pt in rows:
+        rng = find_label_x_range(page, row_y_pt, phrase)
+        if not rng:
+            continue
+        label_left, label_right = rng
+        # Place data 4pt past the right edge of the label, extend to next label
+        # (with a small 4pt gutter on the right too)
+        x_pt = label_right + 4
+        w_pt = max(20, (next_x_pt - 4) - x_pt)
+        # Y: label is the top of its char; cell top should be ~1mm above for the
+        # baseline to sit on the same line.
+        x_mm = x_pt * PT2MM
+        y_mm = (row_y_pt - 4) * PT2MM
+        w_mm = w_pt * PT2MM
+        out.append((fk, x_mm, y_mm, w_mm))
+
+    # Signatures: detect underscore blanks at bottom of page
+    blanks = extract_blanks(page)
+    sigs = sorted([b for b in blanks if b[0] > 200], key=lambda b: b[0])
+    if len(sigs) >= 2:
+        b = sigs[0]
+        out.append(('app.signature_img',       b[1] + 5, b[0] - 15, 60))
+        out.append(('app.signature_date',      b[1] + (b[2] - b[1]) + 4, b[0] - 1, max(20, 575 * PT2MM - (b[1] + (b[2] - b[1]) + 4))))
+        b = sigs[1]
+        out.append(('app.coapp_signature_img', b[1] + 5, b[0] - 15, 60))
+        out.append(('app.coapp_signature_date', b[1] + (b[2] - b[1]) + 4, b[0] - 1, max(20, 575 * PT2MM - (b[1] + (b[2] - b[1]) + 4))))
+    return out
+
+
 sql = []
 sql.append('-- Auto-derived UPDATE for Unsecured pages 3-15')
 sql.append('-- Extracts precise blank coordinates from the source PDF')
@@ -143,6 +275,8 @@ with pdfplumber.open(PDF) as pdf:
             rows = emit_signature_page(blanks)
         elif kind == 'header_only':
             rows = emit_header_only(blanks)
+        elif kind == 'application':
+            rows = emit_application(page, pg)
         else:
             rows = []
         for fk, x, y, w in rows:

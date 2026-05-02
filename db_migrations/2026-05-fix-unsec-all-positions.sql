@@ -2,6 +2,86 @@
 -- Extracts precise blank coordinates from the source PDF
 -- and updates contract_field_coords accordingly.
 
+-- Page 1 (application) - 4 blanks detected
+UPDATE contract_field_coords SET x_mm=33.43, y_mm=43.39, w_mm=51.95 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.first_name';
+UPDATE contract_field_coords SET x_mm=97.33, y_mm=43.39, w_mm=56.84 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.last_name';
+UPDATE contract_field_coords SET x_mm=170.31, y_mm=43.39, w_mm=31.12 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.ssn';
+UPDATE contract_field_coords SET x_mm=29.36, y_mm=54.33, w_mm=124.80 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.address';
+UPDATE contract_field_coords SET x_mm=189.16, y_mm=54.33, w_mm=12.28 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.id_number';
+UPDATE contract_field_coords SET x_mm=23.43, y_mm=65.62, w_mm=42.89 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.city';
+UPDATE contract_field_coords SET x_mm=77.20, y_mm=65.62, w_mm=25.10 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.state';
+UPDATE contract_field_coords SET x_mm=118.40, y_mm=65.62, w_mm=35.76 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.zip';
+UPDATE contract_field_coords SET x_mm=164.18, y_mm=65.62, w_mm=37.26 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.dob';
+UPDATE contract_field_coords SET x_mm=32.24, y_mm=76.91, w_mm=31.26 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.cellphone';
+UPDATE contract_field_coords SET x_mm=95.33, y_mm=76.91, w_mm=14.03 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.alt_number';
+UPDATE contract_field_coords SET x_mm=122.00, y_mm=76.91, w_mm=79.43 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.email';
+UPDATE contract_field_coords SET x_mm=60.07, y_mm=87.84, w_mm=7.06 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.source_lead';
+UPDATE contract_field_coords SET x_mm=156.13, y_mm=87.84, w_mm=45.31 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.loan_amount';
+UPDATE contract_field_coords SET x_mm=32.96, y_mm=107.60, w_mm=45.71 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_last_name';
+UPDATE contract_field_coords SET x_mm=97.83, y_mm=107.60, w_mm=56.33 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_first_name';
+UPDATE contract_field_coords SET x_mm=170.31, y_mm=107.60, w_mm=31.12 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_ssn';
+UPDATE contract_field_coords SET x_mm=29.36, y_mm=118.89, w_mm=124.80 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_address';
+UPDATE contract_field_coords SET x_mm=189.16, y_mm=118.89, w_mm=12.28 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_id_number';
+UPDATE contract_field_coords SET x_mm=23.43, y_mm=130.17, w_mm=42.89 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_city';
+UPDATE contract_field_coords SET x_mm=77.20, y_mm=130.17, w_mm=25.10 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_state';
+UPDATE contract_field_coords SET x_mm=118.40, y_mm=130.17, w_mm=35.76 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_zip';
+UPDATE contract_field_coords SET x_mm=164.18, y_mm=130.17, w_mm=37.26 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_dob';
+UPDATE contract_field_coords SET x_mm=32.24, y_mm=141.11, w_mm=31.26 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_cellphone';
+UPDATE contract_field_coords SET x_mm=95.33, y_mm=141.11, w_mm=14.03 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_alt_number';
+UPDATE contract_field_coords SET x_mm=122.00, y_mm=141.11, w_mm=79.43 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_email';
+UPDATE contract_field_coords SET x_mm=39.07, y_mm=162.28, w_mm=117.57 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.biz_name';
+UPDATE contract_field_coords SET x_mm=183.57, y_mm=162.28, w_mm=17.87 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.biz_type';
+UPDATE contract_field_coords SET x_mm=41.94, y_mm=172.86, w_mm=114.69 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.biz_address';
+UPDATE contract_field_coords SET x_mm=183.53, y_mm=172.86, w_mm=17.90 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.biz_monthly_income';
+UPDATE contract_field_coords SET x_mm=22.97, y_mm=183.44, w_mm=34.89 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.biz_city';
+UPDATE contract_field_coords SET x_mm=68.91, y_mm=183.44, w_mm=26.70 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.biz_state';
+UPDATE contract_field_coords SET x_mm=111.29, y_mm=183.44, w_mm=31.23 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.biz_zip';
+UPDATE contract_field_coords SET x_mm=155.54, y_mm=183.44, w_mm=45.90 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.biz_phone';
+UPDATE contract_field_coords SET x_mm=32.94, y_mm=199.17, w_mm=60.00 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.signature_img';
+UPDATE contract_field_coords SET x_mm=119.57, y_mm=213.17, w_mm=83.27 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.signature_date';
+UPDATE contract_field_coords SET x_mm=158.38, y_mm=199.17, w_mm=60.00 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_signature_img';
+UPDATE contract_field_coords SET x_mm=192.42, y_mm=213.17, w_mm=20.00 WHERE template='unsecured_2024_09_01' AND page_num=1 AND field_key='app.coapp_signature_date';
+
+-- Page 2 (application) - 4 blanks detected
+UPDATE contract_field_coords SET x_mm=40.38, y_mm=43.39, w_mm=38.29 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.first_name';
+UPDATE contract_field_coords SET x_mm=94.31, y_mm=43.39, w_mm=59.86 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.last_name';
+UPDATE contract_field_coords SET x_mm=170.31, y_mm=43.39, w_mm=31.12 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.ssn';
+UPDATE contract_field_coords SET x_mm=30.35, y_mm=54.33, w_mm=123.81 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.address';
+UPDATE contract_field_coords SET x_mm=193.55, y_mm=54.33, w_mm=7.89 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.id_number';
+UPDATE contract_field_coords SET x_mm=27.84, y_mm=65.62, w_mm=38.49 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.city';
+UPDATE contract_field_coords SET x_mm=79.46, y_mm=65.62, w_mm=22.85 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.state';
+UPDATE contract_field_coords SET x_mm=125.69, y_mm=65.62, w_mm=28.47 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.zip';
+UPDATE contract_field_coords SET x_mm=186.83, y_mm=65.62, w_mm=14.60 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.dob';
+UPDATE contract_field_coords SET x_mm=27.93, y_mm=76.91, w_mm=35.57 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.cellphone';
+UPDATE contract_field_coords SET x_mm=90.55, y_mm=76.91, w_mm=18.81 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.alt_number';
+UPDATE contract_field_coords SET x_mm=138.56, y_mm=76.91, w_mm=62.87 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.email';
+UPDATE contract_field_coords SET x_mm=58.67, y_mm=87.84, w_mm=7.06 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.source_lead';
+UPDATE contract_field_coords SET x_mm=165.83, y_mm=87.84, w_mm=35.61 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.loan_amount';
+UPDATE contract_field_coords SET x_mm=93.36, y_mm=107.60, w_mm=60.81 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_last_name';
+UPDATE contract_field_coords SET x_mm=39.42, y_mm=107.60, w_mm=39.25 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_first_name';
+UPDATE contract_field_coords SET x_mm=170.31, y_mm=107.60, w_mm=31.12 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_ssn';
+UPDATE contract_field_coords SET x_mm=30.35, y_mm=118.89, w_mm=123.81 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_address';
+UPDATE contract_field_coords SET x_mm=192.59, y_mm=118.89, w_mm=8.84 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_id_number';
+UPDATE contract_field_coords SET x_mm=27.85, y_mm=130.17, w_mm=38.48 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_city';
+UPDATE contract_field_coords SET x_mm=79.46, y_mm=130.17, w_mm=22.85 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_state';
+UPDATE contract_field_coords SET x_mm=125.69, y_mm=130.17, w_mm=28.47 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_zip';
+UPDATE contract_field_coords SET x_mm=186.83, y_mm=130.17, w_mm=14.60 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_dob';
+UPDATE contract_field_coords SET x_mm=27.93, y_mm=141.11, w_mm=35.57 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_cellphone';
+UPDATE contract_field_coords SET x_mm=90.55, y_mm=141.11, w_mm=18.81 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_alt_number';
+UPDATE contract_field_coords SET x_mm=138.56, y_mm=141.11, w_mm=62.88 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_email';
+UPDATE contract_field_coords SET x_mm=46.17, y_mm=162.28, w_mm=110.46 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.biz_name';
+UPDATE contract_field_coords SET x_mm=183.41, y_mm=162.28, w_mm=18.03 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.biz_type';
+UPDATE contract_field_coords SET x_mm=48.88, y_mm=172.86, w_mm=107.75 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.biz_address';
+UPDATE contract_field_coords SET x_mm=187.89, y_mm=172.86, w_mm=13.54 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.biz_monthly_income';
+UPDATE contract_field_coords SET x_mm=27.38, y_mm=183.44, w_mm=28.36 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.biz_city';
+UPDATE contract_field_coords SET x_mm=68.95, y_mm=183.44, w_mm=22.77 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.biz_state';
+UPDATE contract_field_coords SET x_mm=115.09, y_mm=183.44, w_mm=27.79 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.biz_zip';
+UPDATE contract_field_coords SET x_mm=176.29, y_mm=183.44, w_mm=25.14 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.biz_phone';
+UPDATE contract_field_coords SET x_mm=32.94, y_mm=198.95, w_mm=60.00 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.signature_img';
+UPDATE contract_field_coords SET x_mm=119.57, y_mm=212.95, w_mm=83.27 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.signature_date';
+UPDATE contract_field_coords SET x_mm=158.38, y_mm=198.95, w_mm=60.00 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_signature_img';
+UPDATE contract_field_coords SET x_mm=192.42, y_mm=212.95, w_mm=20.00 WHERE template='unsecured_2024_09_01' AND page_num=2 AND field_key='app.coapp_signature_date';
+
 -- Page 3 (promissory) - 21 blanks detected
 UPDATE contract_field_coords SET x_mm=36.71, y_mm=13.34, w_mm=34.82 WHERE template='unsecured_2024_09_01' AND page_num=3 AND field_key='loan.contract_no';
 UPDATE contract_field_coords SET x_mm=161.72, y_mm=15.34, w_mm=27.03 WHERE template='unsecured_2024_09_01' AND page_num=3 AND field_key='loan.date';
