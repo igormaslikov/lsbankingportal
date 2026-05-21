@@ -1,16 +1,20 @@
 <?php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-error_reporting(0);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 require_once __DIR__ . '/security.php';
 require_login();
 include_once 'dbconnect.php';
 include 'dbconfig.php';
-require_once ('jpgraph/jpgraph.php');
-require_once ('jpgraph/jpgraph_pie.php');
-require_once ('jpgraph/jpgraph_pie3d.php');
+
+$jpgraph_loaded = false;
+if (is_file(__DIR__ . '/jpgraph/jpgraph.php')) {
+    require_once __DIR__ . '/jpgraph/jpgraph.php';
+    require_once __DIR__ . '/jpgraph/jpgraph_pie.php';
+    require_once __DIR__ . '/jpgraph/jpgraph_pie3d.php';
+    $jpgraph_loaded = true;
+}
 
 $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . intval($_SESSION['userSession']));
 if (!$query || !($userRow = $query->fetch_array())) {
@@ -903,32 +907,28 @@ $DBcon->close();
 
     <div class="row wrapper">
         <div class="col-lg-12">
-        <?php // content="text/plain; charset=utf-8"
-    // Some data
+        <?php if ($jpgraph_loaded) {
           $data = array($rowcount_pending,$rowcount_loan_active,$rowcount_loan_past,$rowcount_loan_plan,$rowcount_loan_charge,
                         $rowcount_chargeback,$rowcount_disbursement,$rowcount_loan_paid,$rowcount_promise,$rowcount_collections,$rowcount_closed,$rowcount_bankruptcy);
-    
-          // Create the Pie Graph. 
+
           $graph = new PieGraph(450,450);
-    
+
           $theme_class= new VividTheme;
           $graph->SetTheme($theme_class);
           $graph->legend->Pos(0.5, 0.85, 'center', 'top');
-          $graph->img->SetTransparent("white"); 
-          // Set A title for the plot
-          // Create
+          $graph->img->SetTransparent("white");
           $p1 = new PiePlot3D($data);
           $p1->SetLegends(array("Pending","Active","Past Due","Payment Plan","Chargeoff","Chargeback","Disbursement","Paid","Promise to Pay","Collections","Closed Account","Bankruptcy"));
           $graph->Add($p1);
-    
+
           $p1->ShowBorder();
           $p1->SetColor('black');
           $p1->ExplodeSlice(1);
-          unlink("test.jpg");
+          @unlink("test.jpg");
           $graph->Stroke("test.jpg");
-    
           ?>
-          <img  src="test.jpg">
+          <img src="test.jpg">
+        <?php } ?>
         </div>
       </div>
 
