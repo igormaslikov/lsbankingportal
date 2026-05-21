@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 
 $id=$_GET['id'];
@@ -51,7 +51,7 @@ include '../functions.php';
 // Status Fund Start 
 if (isset($_GET["fund_status"])) {
     $loan_id_fund_status=$_GET['loan_id'];
-    mysqli_query($con,"UPDATE `tbl_loan` SET `fund_status`='1' WHERE `loan_create_id` = '$loan_id_fund_status'");
+    $con->query("UPDATE tbl_loan SET fund_status='1' WHERE loan_create_id = '$loan_id_fund_status'");
     $application_id = "";
     $status = "Loan Has Been Funded";
     $loan_transaction_id = "";
@@ -66,7 +66,7 @@ if (isset($_GET["fund_status"])) {
 // Check connection
 
 
-$query_search = "SELECT * FROM `tbl_loan` where sign_status= '1' ";
+$query_search = "SELECT * FROM tbl_loan where sign_status= '1' ";
  
     $status  = $_GET['status'];
     $keyword = $_GET['keyword'];
@@ -122,24 +122,22 @@ if ($_GET['due_date']!="") {
     //$query_search .= " WHERE ";
 }
 
-//$query_search .= "order by loan_create_id asc Limit ". $offset. ", ". $total_records_per_page;
+//$query_search .= " order by loan_create_id asc Limit ". $offset. ", ". $total_records_per_page;
 
-if ($result_t=mysqli_query($con,$query_search))
+if ($result_t=$con->query($query_search))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
-  echo $ye;
-  }
+}
 
 ?>
     <?php
 
 
-$query_us = mysqli_query($con,"SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '1'");
-while ($row_us=mysqli_fetch_array($query_us)){
+$query_us = $con->query("SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '1'");
+while ($row_us=$query_us->fetch_array()){
     $us = $row_us['value_sum'];
     
     $us = number_format((float)$us, 2, '.', '');
@@ -148,14 +146,14 @@ break;
 }
 
 
-$query_le = mysqli_query($con,"SELECT SUM(loan_total_payable) AS value_sum FROM tbl_loan where sign_status= '1'");
-while ($row_le=mysqli_fetch_array($query_le)){
+$query_le = $con->query("SELECT SUM(loan_total_payable) AS value_sum FROM tbl_loan where sign_status= '1'");
+while ($row_le=$query_le->fetch_array()){
     $pay_off = $row_le['value_sum'];
 break;
 }
 
-$query_trns = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction ");
-while ($row_trns=mysqli_fetch_array($query_trns)){
+$query_trns = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction ");
+while ($row_trns=$query_trns->fetch_array()){
     $totall_trans = $row_trns['value_sum'];
 break;
 }
@@ -173,27 +171,26 @@ $avg = number_format((float)$avg_amount, 2, '.', '');
 
  $sql_fees="SELECT loan_create_id, COUNT(*) FROM loan_transaction GROUP BY loan_create_id;";
 
-if ($result_fees=mysqli_query($con,$sql_fees))
+if ($result_fees=$con->query($sql_fees))
   {
   // Return the number of rows in result set
-  $rowcount_fees=mysqli_num_rows($result_fees);
+  $rowcount_fees=$result_fees->num_rows;
  // printf($rowcount_fees);
   // Free result set
-  $ye=mysqli_free_result($result_fees);
  // echo"". $rowcount_fees;
   }
 
-$sql=mysqli_query($con, "select * from tbl_loan where sign_status= '1' AND payment_date < CURDATE() AND loan_status!='Paid'  Order by `payment_date` DESC"); 
+$sql=$con->query("select * from tbl_loan where sign_status= '1' AND payment_date < CAST(GETDATE() AS DATE) AND loan_status!='Paid'  Order by payment_date DESC"); 
 $total_loan_fee="0";
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $userfnd_id=$row['user_fnd_id'];
 $loan_status=$row['loan_status'];
 $loan_id_fee=$row['loan_id'];
  $amount_of_loan_fee=$row['amount_of_loan'];
  
-$query_payment_fee = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
-while ($row_payment_fee=mysqli_fetch_array($query_payment_fee)){
+$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
     $payment_fee = number_format((float)$payment_fee, 2, '.', '');
@@ -370,15 +367,15 @@ $total_records_per_page = 200;
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `tbl_loan` where sign_status= '1'");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM tbl_loan where sign_status= '1'");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
 	$total_records = $rowcount;
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 	
 
-$query_search = "select * from tbl_loan where sign_status= '1' AND payment_date < CURDATE() AND loan_status!='Paid' Order by `payment_date` DESC ";
+$query_search = "select * from tbl_loan where sign_status= '1' AND payment_date < CAST(GETDATE() AS DATE) AND loan_status!='Paid' Order by payment_date DESC ";
  
 
    // $keyword_phone  = $_GET['keyword_phone'];
@@ -454,10 +451,10 @@ if ($_GET['keyword_name']!="" ) {
     }
   
    
-    $query_keyword = mysqli_query($con,"SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` LIKE '%$keyword_name%' OR `first_name`LIKE '%$keyword_name%' OR `last_name` LIKE '%$keyword_name%' OR `email` LIKE '%$keyword_name%' OR `mobile_number` LIKE '%$keyword_name%' AND (`state` LIKE '%$state_search%')");
+    $query_keyword = $con->query("SELECT * FROM fnd_user_profile WHERE user_fnd_id LIKE '%$keyword_name%' OR first_nameLIKE '%$keyword_name%' OR last_name LIKE '%$keyword_name%' OR email LIKE '%$keyword_name%' OR mobile_number LIKE '%$keyword_name%' AND (state LIKE '%$state_search%')");
     $query_search .= "(";
-  //  echo "SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` LIKE '%$keyword_name%' OR `first_name`LIKE '%$keyword_name%' OR `last_name` LIKE '%$keyword_name%' OR `email` LIKE '%$keyword_name%' OR `mobile_number` LIKE '%$keyword_name%' AND `state` LIKE '%$state_search%'";
-while ($row_keyword=mysqli_fetch_array($query_keyword)){
+  //  echo "SELECT * FROM fnd_user_profile WHERE user_fnd_id LIKE '%$keyword_name%' OR first_nameLIKE '%$keyword_name%' OR last_name LIKE '%$keyword_name%' OR email LIKE '%$keyword_name%' OR mobile_number LIKE '%$keyword_name%' AND state LIKE '%$state_search%'";
+while ($row_keyword=$query_keyword->fetch_array()){
     $payment = $row_keyword['user_fnd_id'];
     
     $query_search .= " (user_fnd_id = '$payment' )";
@@ -479,10 +476,10 @@ if ($state_search!="") {
     }
   
    
-    $query_keyword = mysqli_query($con,"SELECT * FROM `fnd_user_profile` WHERE  (`state` LIKE '%$state_search%')");
+    $query_keyword = $con->query("SELECT * FROM fnd_user_profile WHERE  (state LIKE '%$state_search%')");
     $query_search .= "(";
-   // echo "SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` LIKE '%$keyword_name%' OR `first_name`LIKE '%$keyword_name%' OR `last_name` LIKE '%$keyword_name%' OR `email` LIKE '%$keyword_name%' OR `mobile_number` LIKE '%$keyword_name%' AND `state` LIKE '%$state_search%'";
-while ($row_keyword=mysqli_fetch_array($query_keyword)){
+   // echo "SELECT * FROM fnd_user_profile WHERE user_fnd_id LIKE '%$keyword_name%' OR first_nameLIKE '%$keyword_name%' OR last_name LIKE '%$keyword_name%' OR email LIKE '%$keyword_name%' OR mobile_number LIKE '%$keyword_name%' AND state LIKE '%$state_search%'";
+while ($row_keyword=$query_keyword->fetch_array()){
     $payment = $row_keyword['user_fnd_id'];
     
     $query_search .= " (user_fnd_id = '$payment' )";
@@ -505,17 +502,17 @@ if (isset($_GET['to_date'])) {
     //$query_search .= " WHERE ";
 }
 
-//$query_search .= "order by loan_create_id desc Limit ". $offset. ", ". $total_records_per_page;
+//$query_search .= " order by loan_create_id desc Limit ". $offset. ", ". $total_records_per_page;
  
 
 	//echo $query_search;
 
-    $result = mysqli_query($con,"$query_search");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("$query_search");
+    while($row = $result->fetch_array()){
         $loan_id_calculation= $row['loan_id'];
         $user_fnd_id = $row['user_fnd_id'];
-        $result_user_fdn = mysqli_query($con,"Select * from `fnd_user_profile` where user_fnd_id = '$user_fnd_id' ");
-        while($row_user_fdn = mysqli_fetch_array($result_user_fdn)){
+        $result_user_fdn = $con->query("Select * from fnd_user_profile where user_fnd_id = '$user_fnd_id' ");
+        while($row_user_fdn = $result_user_fdn->fetch_array()){
             $user_name = $row_user_fdn['first_name'];
             $last_name = $row_user_fdn['last_name'];
             $user_mobile = $row_user_fdn['mobile_number'];
@@ -529,8 +526,8 @@ if (isset($_GET['to_date'])) {
         
         
     
-$query_payment = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$loan_id_calculation'");
-while ($row_payment=mysqli_fetch_array($query_payment)){
+$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$loan_id_calculation'");
+while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
     $payment = number_format((float)$payment, 2, '.', '');
@@ -542,9 +539,9 @@ break;
       
         
 
-        $result_user_totalloan = mysqli_query($con,"Select * from `tbl_loan` where user_fnd_id = '$user_fnd_id' AND sign_status = '1' ");
+        $result_user_totalloan = $con->query("Select * from tbl_loan where user_fnd_id = '$user_fnd_id' AND sign_status = '1' ");
         $total_loans_lh = 0;
-        while($row_user_totalloan = mysqli_fetch_array($result_user_totalloan)){
+        while($row_user_totalloan = $result_user_totalloan->fetch_array()){
             $total_loans_lh = $total_loans_lh+1;
             
             
@@ -621,10 +618,10 @@ else if ($row['loan_status'] == 'Chargeoff' || $row['loan_status']=='Closed Acco
          
         $sql_t="SELECT * FROM tbl_loan where loan_status!='Paid' AND user_fnd_id='$user_fnd_id' AND sign_status='1'";
 
-if ($result_count=mysqli_query($con,$sql_t))
+if ($result_count=$con->query($sql_t))
   {
   // Return the number of rows in result set
-  $rowcount_user=mysqli_num_rows($result_count);
+  $rowcount_user=$result_count->num_rows;
  // printf($rowcount);
   } 
          
@@ -814,7 +811,7 @@ echo  $a.' '.$make_payment.' '.$envalope."</td>
 
 		   	</tr>";
     }
-	mysqli_close($con);
+	$con->close();
     ?>
    
 </tbody>

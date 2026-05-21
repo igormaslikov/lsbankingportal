@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 
@@ -48,9 +48,9 @@ $id_credit= "2";
    include 'dbconfig.php';
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 $mobile_verification = $row['mobile_verification_status'];
 $first_name=$row['first_name'];
 
@@ -95,8 +95,8 @@ $id=$_GET['id'];
 //echo "Name is: $id_fname";
 include 'dbconnect.php';
 include 'dbconfig.php';
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
-while($row = mysqli_fetch_array($sql)) {
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
+while($row = $sql->fetch_array()) {
     
     $user_fnd_id=$row['user_fnd_id'];
     
@@ -153,8 +153,8 @@ $id_credit= "2";
    include 'dbconnect.php';
    include 'dbconfig.php';
    
-   $sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
-while($row = mysqli_fetch_array($sql)) {
+   $sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
+while($row = $sql->fetch_array()) {
     
     $user_fnd_id=$row['user_fnd_id'];
     
@@ -167,8 +167,8 @@ while($row = mysqli_fetch_array($sql)) {
  echo  "<br><br>";
  
 
- $sql_key=mysqli_query($con, "select * from tbl_credit_report where credit_report_key= '$key'"); 
-while($row_key = mysqli_fetch_array($sql_key)) {
+ $sql_key=$con->query("select * from tbl_credit_report where credit_report_key= '$key'"); 
+while($row_key = $sql_key->fetch_array()) {
     
    
 
@@ -192,8 +192,8 @@ echo '<table  style="width: 100%; text-align:center" >
    
 			echo '<td> SCORE FACTORS : ';
 			
- $sql_fact=mysqli_query($con, "select * from tbl_credit_report_scorefactor where credit_report_key= '$key'"); 
-while($row_fact = mysqli_fetch_array($sql_fact)) {
+ $sql_fact=$con->query("select * from tbl_credit_report_scorefactor where credit_report_key= '$key'"); 
+while($row_fact = $sql_fact->fetch_array()) {
     
 
         $score_code= $row_fact['score_code'];
@@ -260,8 +260,8 @@ echo ' </td>
    
    
      
-    $sql_trade=mysqli_query($con, "select * from tbl_credit_report_tradeline where credit_report_key= '$key'"); 
-while($row_trade = mysqli_fetch_array($sql_trade)) {
+    $sql_trade=$con->query("select * from tbl_credit_report_tradeline where credit_report_key= '$key'"); 
+while($row_trade = $sql_trade->fetch_array()) {
     
         $subscriber_name = $row_trade['subscriber_name'];
         $subscriberCode = $row_trade['subscriberCode'];
@@ -369,8 +369,8 @@ echo '<table style="width:100%" >
         $terms1= '';
         $type1= '';
         $amount_inq = '';
-     $sql_inquery=mysqli_query($con, "select * from tbl_credit_report_inqueries where credit_report_key= '$key'"); 
-while($row_inquery = mysqli_fetch_array($sql_inquery)) {
+     $sql_inquery=$con->query("select * from tbl_credit_report_inqueries where credit_report_key= '$key'"); 
+while($row_inquery = $sql_inquery->fetch_array()) {
     
         $subscriberName= $row_inquery['subscriberName'];
         $subscriber_code= $row_inquery['subscriber_code'];
@@ -403,8 +403,8 @@ while($row_inquery = mysqli_fetch_array($sql_inquery)) {
 ';
     
     echo '<br><br><b style="text-align:center">----------------MESSAGES----------------</b><br><br>';
-    $sql_msg=mysqli_query($con, "select * from tbl_credit_report_msgs where credit_report_key= '$key'"); 
-while($row_msg = mysqli_fetch_array($sql_msg)) {
+    $sql_msg=$con->query("select * from tbl_credit_report_msgs where credit_report_key= '$key'"); 
+while($row_msg = $sql_msg->fetch_array()) {
     
        $messageNumber= $row_msg['messageNumber'];
         $messageText= $row_msg['messageText'];

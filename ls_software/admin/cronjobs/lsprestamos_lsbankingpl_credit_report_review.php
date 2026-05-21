@@ -1,18 +1,18 @@
-<?php
+﻿<?php
 include('../dbconnect.php');
 include('../dbconfig.php');
 date_default_timezone_set('America/Los_Angeles');
 
-$query = "SELECT * FROM fnd_user_profile WHERE `date_time_current` < (NOW() - INTERVAL 15 MINUTE) AND `application_status` = 'Decision Logic Completed'  AND decision_logic_status = '1' AND (website = 'lsprestamos' OR website = 'lsbanking_pl') AND experian_api_limit < 1 ORDER By user_fnd_id DESC LIMIT 1";
+$query = "SELECT * FROM fnd_user_profile WHERE date_time_current < (NOW() - INTERVAL 15 MINUTE) AND application_status = 'Decision Logic Completed'  AND decision_logic_status = '1' AND (website = 'lsprestamos' OR website = 'lsbanking_pl') AND experian_api_limit < 1 ORDER By user_fnd_id DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY";
 
 //echo $query . "<br>";
-$sql=mysqli_query($con, "$query"); 
+$sql=$con->query("$query"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql);
+  $rowcount=$sql->num_rows;
   echo "Row Count is : " . $rowcount. "<br>";
   
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 $application_id = $row['user_fnd_id'];
 //echo $application_id;
 $first_name=$row['first_name'];
@@ -57,7 +57,7 @@ $cityy =str_replace(" ", "",$cityy) ;
 $zipp = str_replace(" ", "",$zipp) ;
 
 
-mysqli_query ($con , "UPDATE `fnd_user_profile` SET  `experian_api_limit`='1'  where `user_fnd_id` = '$application_id'");
+mysqli_query ($con , "UPDATE fnd_user_profile SET  experian_api_limit='1'  where user_fnd_id = '$application_id'");
 
      $code= substr($ssn, 0, 1);
    
@@ -142,9 +142,9 @@ $score= $quoteJson->creditProfile[0]->riskModel[0]->score;
     echo  $score. "<hr>"; 
     if($score<500)
     {
-          mysqli_query ($con , "UPDATE `fnd_user_profile` SET `application_status`='Review For Payday' where `user_fnd_id` = '$application_id'");
-          mysqli_query ($con , "UPDATE `fnd_user_profile` SET `experian_credit_score`='$score' where `user_fnd_id` = '$application_id'");
-          mysqli_query ($con , "UPDATE `fnd_user_profile` SET  `experian_api_limit`='1'  where `user_fnd_id` = '$application_id'");
+          mysqli_query ($con , "UPDATE fnd_user_profile SET application_status='Review For Payday' where user_fnd_id = '$application_id'");
+          mysqli_query ($con , "UPDATE fnd_user_profile SET experian_credit_score='$score' where user_fnd_id = '$application_id'");
+          mysqli_query ($con , "UPDATE fnd_user_profile SET  experian_api_limit='1'  where user_fnd_id = '$application_id'");
     echo "<br>hello1<br>";
     
     $date_update= date('Y-m-d H:i:s');
@@ -155,9 +155,9 @@ $score= $quoteJson->creditProfile[0]->riskModel[0]->score;
     
     if($score>500)
     {
-          mysqli_query ($con , "UPDATE `fnd_user_profile` SET `application_status`='Final Review For Personal Loan' where `user_fnd_id` = '$application_id'");
-          mysqli_query ($con , "UPDATE `fnd_user_profile` SET `experian_credit_score`='$score' where `user_fnd_id` = '$application_id'");
-          mysqli_query ($con , "UPDATE `fnd_user_profile` SET  `experian_api_limit`='1'  where `user_fnd_id` = '$application_id'");
+          mysqli_query ($con , "UPDATE fnd_user_profile SET application_status='Final Review For Personal Loan' where user_fnd_id = '$application_id'");
+          mysqli_query ($con , "UPDATE fnd_user_profile SET experian_credit_score='$score' where user_fnd_id = '$application_id'");
+          mysqli_query ($con , "UPDATE fnd_user_profile SET  experian_api_limit='1'  where user_fnd_id = '$application_id'");
     
     echo "<br>hello132<br>";
     $date_update= date('Y-m-d H:i:s');
@@ -205,7 +205,7 @@ $vantage_factor =  $quoteJson->creditProfile[0]->riskModel[0]->modelIndicator;
 
 
  $query_credit  = "INSERT INTO tbl_credit_report (credit_report_key,user_fnd_id,score,vantage_factor)  VALUES ('$credit_key','$application_id','$score','$vantage_factor')";
-        $result_credit = mysqli_query($con, $query_credit);
+        $result_credit = $con->query($query_credit);
       if ($result_credit) {
          //echo "<div class='form'><h3> successfully added in tbl_credit_report.</h3><br/></div>";
         } else {
@@ -232,7 +232,7 @@ $credit_report_key = $credit_key;
 
 
 $query_credit  = "INSERT INTO tbl_credit_report_scorefactor (credit_report_key,score_code)  VALUES ('$credit_report_key','$score_code')";
-        $result_credit = mysqli_query($con, $query_credit);
+        $result_credit = $con->query($query_credit);
         if ($result_credit) {
             //echo "<div class='form'><h3> successfully added in tbl_credit_report.</h3><br/></div>";
         } else {
@@ -345,7 +345,7 @@ $query_credit  = "INSERT INTO tbl_credit_report_scorefactor (credit_report_key,s
  
     
   $query_tradeline  = "INSERT INTO tbl_credit_report_tradeline (credit_report_key,subscriber_name,subscriberCode,kob,accout_type,enhancedTerms,accountNumber,openDate,ecoa,balance_date,lastPaymentDate,amount1,balanceamount,amount2,paymentleveldate,amountPastDue,account_condition,monthsHistory,max,history)  VALUES ('$credit_report_key','$subscriber_name','$subscriberCode','$kob','$accout_type','$enhancedTerms','$accountNumber','$openDate','$ecoa','$balance_date','$lastPaymentDate','$amount1','$balanceamount','$amount2','$paymentleveldate','$amountPastDue','$account_condition','$monthsHistory','$max','$history')";
-        $result_tradeline = mysqli_query($con, $query_tradeline);
+        $result_tradeline = $con->query($query_tradeline);
         if ($result_tradeline) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -387,7 +387,7 @@ $query_credit  = "INSERT INTO tbl_credit_report_scorefactor (credit_report_key,s
  
   
         $query_inq  = "INSERT INTO  tbl_credit_report_inqueries (credit_report_key,subscriberName,subscriber_code,terms1,type1,kob1,date_inq,amount_inq)  VALUES ('$credit_report_key','$subscriberName','$subscriber_code','$terms1','$type1','$kob1','$date_inq','$amount_inq')";
-        $result_inq = mysqli_query($con, $query_inq);
+        $result_inq = $con->query($query_inq);
         if ($result_inq) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -419,7 +419,7 @@ $query_credit  = "INSERT INTO tbl_credit_report_scorefactor (credit_report_key,s
      
      
   $query_msg  = "INSERT INTO tbl_credit_report_msgs (credit_report_key,messageNumber,messageText)  VALUES ('$credit_report_key','$messageNumber','$messageText')";
-        $result_msg = mysqli_query($con, $query_msg);
+        $result_msg = $con->query($query_msg);
         if ($result_msg) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -444,7 +444,7 @@ $query_credit  = "INSERT INTO tbl_credit_report_scorefactor (credit_report_key,s
    
    else{
        
-       mysqli_query ($con , "UPDATE `fnd_user_profile` SET `application_status`='Credit Report Needed'  where `user_fnd_id` = '$application_id'");
+       mysqli_query ($con , "UPDATE fnd_user_profile SET application_status='Credit Report Needed'  where user_fnd_id = '$application_id'");
          $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Automatic App :  Status Changed (Credit Report Needed) On The Bases Of SSN ', '$date_update')";
     mysqli_query ($con , $query_insert_activity);

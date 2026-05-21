@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 $ip = getenv('REMOTE_ADDR');
 
@@ -58,7 +58,7 @@ EOD;
 
 EOD;
 	$sql = <<<EOD
-	SELECT `start_time`,`end_time`, `description`, `days_of_week` FROM `chat_pages` WHERE `page` = '{$this->page}';
+	SELECT start_time,end_time, description, days_of_week FROM chat_pages WHERE page = '{$this->page}';
 EOD;
 	$query = mysql_query($sql) or die(mysql_error());
 	$results = mysql_fetch_assoc($query);

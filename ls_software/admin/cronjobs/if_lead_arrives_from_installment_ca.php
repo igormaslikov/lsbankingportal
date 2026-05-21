@@ -1,25 +1,25 @@
-<?php
+﻿<?php
 include('../dbconnect.php');
 include('../dbconfig.php');
 date_default_timezone_set('America/Los_Angeles');
 
-$query = "SELECT * FROM fnd_user_profile WHERE `date_time_current` < (NOW() - INTERVAL 12 MINUTE) AND application_status = 'New Application' AND website='Installment CA'";
+$query = "SELECT * FROM fnd_user_profile WHERE date_time_current < (NOW() - INTERVAL 12 MINUTE) AND application_status = 'New Application' AND website='Installment CA'";
 
 //echo $query . "<br>";
-$sql=mysqli_query($con, "$query"); 
+$sql=$con->query("$query"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql);
+  $rowcount=$sql->num_rows;
   echo "Row Count is : " . $rowcount. "<br>";
   
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 $application_id = $row['user_fnd_id'];
 $decision_logic_status = $row['decision_logic_status'];
 
 if ($decision_logic_status=='1')
 {
        
-         mysqli_query ($con , "UPDATE `fnd_user_profile` SET `application_status`='Review Installment CA'  where `user_fnd_id` = '$application_id'");
+         mysqli_query ($con , "UPDATE fnd_user_profile SET application_status='Review Installment CA'  where user_fnd_id = '$application_id'");
          $date_update= date('Y-m-d H:i:s');
          $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Automatic App :  Status Changed (Review Installment CA) On The Bases Of Decision Logic ', '$date_update')";
          mysqli_query ($con , $query_insert_activity);
@@ -30,7 +30,7 @@ if ($decision_logic_status=='1')
 else{
     
     
-         mysqli_query ($con , "UPDATE `fnd_user_profile` SET `application_status`='DL/Bank Installment CA'  where `user_fnd_id` = '$application_id'");
+         mysqli_query ($con , "UPDATE fnd_user_profile SET application_status='DL/Bank Installment CA'  where user_fnd_id = '$application_id'");
          $date_update= date('Y-m-d H:i:s');
          $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Automatic App :  Status Changed (DL/Bank Installment CA) On The Bases Of Decision Logic ', '$date_update')";
          mysqli_query ($con , $query_insert_activity);

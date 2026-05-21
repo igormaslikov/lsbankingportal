@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -27,9 +27,9 @@ include_once '../dbconfig.php';
 
  $id=$_GET['id'];
  
-$sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_commercial_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_total_payable=$row_fnd['loan_total_payable'];
@@ -49,9 +49,9 @@ $tbl_loan_fee=$row_fnd['loan_fee'];
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -68,9 +68,9 @@ $customer_numbr=$row['mobile_number'];
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql=mysqli_query($con, "select * from tbl_commercial_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_commercial_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 	$loan_create_id=$row['loan_create_id'];
@@ -106,9 +106,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -123,9 +123,9 @@ $username=$row_user['username'];
 
 
 
-$sql_transaction=mysqli_query($con, "select * from commercial_loan_transaction where loan_id= '$id'"); 
+$sql_transaction=$con->query("select * from commercial_loan_transaction where loan_id= '$id'"); 
 
-while($row_transaction = mysqli_fetch_array($sql_transaction)) {
+while($row_transaction = $sql_transaction->fetch_array()) {
 
 $payment_method=$row_transaction['payment_method'];
 
@@ -255,7 +255,7 @@ $loan_fee = number_format((float)$loan_fee, 2, '.', '');
 $loan_feee=$tbl_loan_fee+$loan_fee;
 
 $loan_payable=$loan_total_payable+$loan_fee; 
- mysqli_query($con, "UPDATE tbl_commercial_loan SET  loan_fee='$loan_feee', loan_total_payable='$loan_payable'   where user_fnd_id ='$user_fnd_id' AND loan_id='$id'");
+ $con->query("UPDATE tbl_commercial_loan SET  loan_fee='$loan_feee', loan_total_payable='$loan_payable'   where user_fnd_id ='$user_fnd_id' AND loan_id='$id'");
 
 
 ?>

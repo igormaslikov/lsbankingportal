@@ -1,4 +1,4 @@
-<?php
+﻿<?php
  session_start();
  error_reporting(0);
  include_once 'dbconnect.php';
@@ -71,17 +71,15 @@ include 'dbconfig.php';
 
 $sql_t="SELECT * FROM fnd_user_profile_submission ORDER BY id DESC";
 
-if ($result_t=mysqli_query($con,$sql_t))
+if ($result_t=$con->query($sql_t))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
-  echo $ye;
-  }
+}
 
-mysqli_close($con);
+$con->close();
 ?>
   
 <div align="right">
@@ -320,9 +318,9 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 	
-	$sql_fnd_idd=mysqli_query($con, "select * from fnd_user_profile_submission"); 
+	$sql_fnd_idd=$con->query("select * from fnd_user_profile_submission"); 
 
-while($row_fnd_idd = mysqli_fetch_array($sql_fnd_idd)) {
+while($row_fnd_idd = $sql_fnd_idd->fetch_array()) {
 
 $user_fnd_idd=$row_fnd_idd['user_fnd_id'];
 
@@ -331,15 +329,15 @@ $user_fnd_idd=$row_fnd_idd['user_fnd_id'];
 
 
 
-    $result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `fnd_user_profile` ORDER BY user_fnd_id DESC");
-	$total_records = mysqli_fetch_array($result_count);
+    $result_count = $con->query("SELECT COUNT(*) As total_records FROM fnd_user_profile ORDER BY user_fnd_id DESC");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-    $result = mysqli_query($con,"SELECT * FROM `fnd_user_profile`   ORDER BY user_fnd_id DESC LIMIT $offset, $total_records_per_page");
-    $result = mysqli_query($con,"$query_search");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("SELECT * FROM fnd_user_profile   ORDER BY user_fnd_id DESC OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY");
+    $result = $con->query("$query_search");
+    while($row = $result->fetch_array()){
         
 		 $id=$row['user_fnd_id'];
 		 $cr_date= $row['creation_date'];
@@ -402,7 +400,7 @@ $gravatar =  "http://profiles.google.com/s2/photos/profile/". $row['email']."?sz
 	   	  $experian_credit_score = "";
         }
 }
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>

@@ -1,10 +1,10 @@
-<?php
+﻿<?php
    include('../dbconnect.php');
    include('../dbconfig.php');
    include('../functions.php');
-   $query = "select * from fnd_user_profile WHERE `date_time_current` < (NOW() - INTERVAL 5 MINUTE) AND application_status='New Application'";
-   $sql=mysqli_query($con, "$query");
-   while($row = mysqli_fetch_array($sql)) {
+   $query = "select * from fnd_user_profile WHERE date_time_current < (NOW() - INTERVAL 5 MINUTE) AND application_status='New Application'";
+   $sql=$con->query("$query");
+   while($row = $sql->fetch_array()) {
      $first_name = $row['first_name'];
       $last_name = $row['last_name'];
       $email = $row['email'];
@@ -17,11 +17,11 @@
    echo "Code: ".$code."<br>";
    if ($code != '9' AND $code != '8' AND $code != '6')
    {
-      mysqli_query($con,"UPDATE fnd_user_profile SET application_status ='Declined' where user_fnd_id='$user_fnd_id' ");
+      $con->query("UPDATE fnd_user_profile SET application_status ='Declined' where user_fnd_id='$user_fnd_id' ");
       $date= date('Y-m-d H:i:s');
    //echo "<hr> FND ID : ".$user_fnd_id. " ------ ". $date ; 
-   $query_update_status= "INSERT INTO `application_status_updates`( `application_id`,  `status`, `creation_date`) VALUES ('$user_fnd_id','AUTOMATIC DECLINED - On the basis of Zip Code.','$date')";
-   mysqli_query($con, $query_update_status); 
+   $query_update_status= "INSERT INTO application_status_updates( application_id,  status, creation_date) VALUES ('$user_fnd_id','AUTOMATIC DECLINED - On the basis of Zip Code.','$date')";
+   $con->query($query_update_status); 
       $message = "Hola ".$first_name.",Your Application is Declined on the basis of this $zip_code Zip Code .";
    send_sms($mobile_number,$message);
       // MAIL TO FUNCTION FOR Declined APPLICATIONS START

@@ -60,34 +60,28 @@ $DBcon->close();
  
     <?php
 
+if (!isset($_GET['id'])) {
+    echo "<p>No loan ID specified.</p>";
+    exit;
+}
 $id_loan=$_GET['id'];
 
-$query_us = mysqli_query($con,"SELECT amount_of_loan FROM tbl_loan WHERE loan_id='$id_loan'");
-while ($row_us=mysqli_fetch_array($query_us)){
+$query_us = $con->query("SELECT amount_of_loan FROM tbl_loan WHERE loan_id='$id_loan'");
+while ($row_us=$query_us->fetch_array()){
     $us = $row_us['amount_of_loan'];
-   // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
-
 }
 
-
-$query_le = mysqli_query($con,"SELECT amount_left FROM tbl_loan WHERE loan_id='$id_loan'");
-while ($row_le=mysqli_fetch_array($query_le)){
-    $am_le = $row_le['amount_left'];
-   // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$am_le;
-
+$query_le = $con->query("SELECT loan_total_payable FROM tbl_loan WHERE loan_id='$id_loan'");
+while ($row_le=$query_le->fetch_array()){
+    $am_le = $row_le['loan_total_payable'];
 }
 
+$us = $us ?? 0;
+$am_le = $am_le ?? 0;
 $pay_off= $us-$am_le;
-$avg_pay_off= $am_le/$rowcount;
-
-$avg_pay=round($avg_pay_off, 2);
-
-$avg_amount=$us/$rowcount;
-
-$avg=round($avg_amount, 2);
 
 
-mysqli_close($con);
+
 ?>
 <div align="right">
 <a href="add_new_transaction.php?loan_id=<?php echo $_GET['id']; ?>"> <button name="btn-submit" type="submit" class="btn btn-danger" style="color: #fff;background-color: blue;border-color: blue;">Add New Transcation</button></a>
@@ -139,20 +133,20 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `tbl_loan`");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM tbl_loan");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-    $result = mysqli_query($con,"SELECT * FROM `tbl_loan` where loan_id='$id_loan' ORDER BY loan_id DESC LIMIT $offset, $total_records_per_page");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("SELECT * FROM tbl_loan where loan_id='$id_loan' ORDER BY loan_id DESC OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY");
+    while($row = $result->fetch_array()){
 		 $id=$row['loan_id'];
 		echo "<tr>
 	 	      
 			  <td>".$count++."</td>
 			  <td>".$row['amount_of_loan']."</td>
-	 		  <td>".$row['amount_left']."</td>
+	 		  <td>".$row['loan_total_payable']."</td>
 	 		  <td>".$row['next_payment_date']."</td>
 		   	  <td>".$row['payment_tenure']."</td>
 		   	  
@@ -162,7 +156,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 
 		   	  </tr>";
         }
-	mysqli_close($con);
+	
     ?>
     
 </tbody>

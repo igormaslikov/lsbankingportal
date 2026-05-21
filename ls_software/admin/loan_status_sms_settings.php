@@ -18,9 +18,9 @@ if($u_access_id=='0'){
 
 
 $query = "select * from msg_template where msg_name='past_due' ";
-$sql=mysqli_query($con, "$query"); 
-  $rowcount=mysqli_num_rows($sql);
-while($row = mysqli_fetch_array($sql)) {
+$sql=$con->query("$query"); 
+  $rowcount=$sql->num_rows;
+while($row = $sql->fetch_array()) {
     $msg_name = $row['msg_name'];
     $msg_content= $row['msg_content'];
  //echo "<br><br><br>";
@@ -37,9 +37,9 @@ while($row = mysqli_fetch_array($sql)) {
 <?php
 
 $query2 = "select * from msg_template where msg_name='collections' ";
-$sql2=mysqli_query($con, "$query2"); 
-  $rowcount2=mysqli_num_rows($sql2);
-while($row2 = mysqli_fetch_array($sql2)) {
+$sql2=$con->query("$query2"); 
+  $rowcount2=$sql2->num_rows;
+while($row2 = $sql2->fetch_array()) {
     $msg_name2 = $row2['msg_name'];
     $msg_content2= $row2['msg_content'];
  //echo "<br><br><br>";
@@ -57,9 +57,9 @@ while($row2 = mysqli_fetch_array($sql2)) {
 <?php
 
 $query3 = "select * from msg_template where msg_name='chargeoff' ";
-$sql3=mysqli_query($con, "$query3"); 
-  $rowcount3=mysqli_num_rows($sql3);
-while($row3 = mysqli_fetch_array($sql3)) {
+$sql3=$con->query("$query3"); 
+  $rowcount3=$sql3->num_rows;
+while($row3 = $sql3->fetch_array()) {
     $msg_name3 = $row3['msg_name'];
     $msg_content3= $row3['msg_content'];
  echo "<br><br><br>";
@@ -77,9 +77,9 @@ while($row3 = mysqli_fetch_array($sql3)) {
 <?php
 
 $query4 = "select * from msg_template where msg_name='closed_account' ";
-$sql4=mysqli_query($con, "$query4"); 
-  $rowcount4=mysqli_num_rows($sql4);
-while($row4 = mysqli_fetch_array($sql4)) {
+$sql4=$con->query("$query4"); 
+  $rowcount4=$sql4->num_rows;
+while($row4 = $sql4->fetch_array()) {
     $msg_name4 = $row4['msg_name'];
     $msg_content4= $row4['msg_content'];
  //echo "<br><br><br>";
@@ -95,9 +95,9 @@ while($row4 = mysqli_fetch_array($sql4)) {
 <?php
 
 $query5 = "select * from msg_template where msg_name='chargeback' ";
-$sql5=mysqli_query($con, "$query5"); 
-  $rowcount5=mysqli_num_rows($sql5);
-while($row5 = mysqli_fetch_array($sql5)) {
+$sql5=$con->query("$query5"); 
+  $rowcount5=$sql5->num_rows;
+while($row5 = $sql5->fetch_array()) {
     $msg_name5 = $row5['msg_name'];
     $msg_content5= $row5['msg_content'];
  //echo "<br><br><br>";
@@ -125,18 +125,18 @@ $chargeback= $_POST['chargeback'];
 
 
 
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$past_due' where msg_name = '$msg_name'");
+$con->query("UPDATE msg_template SET msg_content ='$past_due' where msg_name = '$msg_name'");
 
 
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$collections' where msg_name = '$msg_name2'");
+$con->query("UPDATE msg_template SET msg_content ='$collections' where msg_name = '$msg_name2'");
 
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$chargeoff' where msg_name = '$msg_name3'");
-
-
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$closed_account' where msg_name = '$msg_name4'");
+$con->query("UPDATE msg_template SET msg_content ='$chargeoff' where msg_name = '$msg_name3'");
 
 
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$chargeback' where msg_name = '$msg_name5'");
+$con->query("UPDATE msg_template SET msg_content ='$closed_account' where msg_name = '$msg_name4'");
+
+
+$con->query("UPDATE msg_template SET msg_content ='$chargeback' where msg_name = '$msg_name5'");
 
 
 

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 error_reporting(0);
 include_once 'dbconnect.php';
@@ -62,10 +62,10 @@ $name_id= $_POST['keyword'];
 <?php
 
 $sql_count_loans = "SELECT * FROM tbl_title_loans";
-if ($result_count_loans=mysqli_query($con,$sql_count_loans))
+if ($result_count_loans=$con->query($sql_count_loans))
   {
   // Return the number of rows in result set
-  $rowcount_count_loans=mysqli_num_rows($result_count_loans)+3001;
+  $rowcount_count_loans=$result_count_loans->num_rows+3001;
   
   //$rowcount_count_loans= $rowcount_count_loans-100;
   //echo "<br><br><br><br><br>".$rowcount_count_loans;
@@ -81,18 +81,18 @@ $due_date=$_GET['next_pay_date'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_apr=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
+$sql_apr=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
-while($row_apr = mysqli_fetch_array($sql_apr)) {
+while($row_apr = $sql_apr->fetch_array()) {
 $apr_date = $row_apr['apr'];
 
 //echo $apr_date;
 
 }
-$sql1 = mysqli_query($con, "SELECT  From business_group WHERE bg_name= '$loan_name'");
-$row1 = mysqli_num_rows($sql1);
+$sql1 = $con->query("SELECT  From business_group WHERE bg_name= '$loan_name'");
+$row1 = $sql1->num_rows;
 
-while ($row1 = mysqli_fetch_array($sql1)){
+while ($row1 = $sql1->fetch_array()){
 
 $portfolio = $row1['bg_name'];
 }
@@ -145,10 +145,10 @@ $portfolio = $row1['bg_name'];
      <?php
 
 
-$sql2 = mysqli_query($con, "SELECT loan_amount From tbl_loan_setting");
-$row2 = mysqli_num_rows($sql2);
+$sql2 = $con->query("SELECT loan_amount From tbl_loan_setting");
+$row2 = $sql2->num_rows;
 
-while ($row2 = mysqli_fetch_array($sql2)){
+while ($row2 = $sql2->fetch_array()){
 
 echo "<option value='". $row2['loan_amount'] ."'>" .$row2['loan_amount'] ."</option>" ;
 }
@@ -310,8 +310,8 @@ $vehicle_ltv_update=$_POST['vehicle_ltv'];
    $date = date('Y-m-d H:i:s');
 
  
- $query_userid3 = mysqli_query($con,"Select user_fnd_id from fnd_user_profile where first_name ='$fnd_name_id'");
-while ($row_user_id3=mysqli_fetch_array($query_userid3)){
+ $query_userid3 = $con->query("Select user_fnd_id from fnd_user_profile where first_name ='$fnd_name_id'");
+while ($row_user_id3=$query_userid3->fetch_array()){
     $fnd_id = $row_user_id3[0];
     
     $apr = $row_user_id3['apr'];
@@ -321,8 +321,8 @@ while ($row_user_id3=mysqli_fetch_array($query_userid3)){
 }
 
 
- $query3 = mysqli_query($con,"Select loan_fee,payoff_amount from tbl_loan_setting where loan_amount ='$amount_loan'");
-while ($row3=mysqli_fetch_array($query3)){
+ $query3 = $con->query("Select loan_fee,payoff_amount from tbl_loan_setting where loan_amount ='$amount_loan'");
+while ($row3=$query3->fetch_array()){
     
                  $loan_fee = $row3['loan_fee'];
                  $payoff_amount = $row3['payoff_amount'];
@@ -333,8 +333,8 @@ while ($row3=mysqli_fetch_array($query3)){
 
 
 
-$query4 = mysqli_query($con,"Select * from business_group where bg_id ='$source'");
-while ($row4=mysqli_fetch_array($query4)){
+$query4 = $con->query("Select * from business_group where bg_id ='$source'");
+while ($row4=$query4->fetch_array()){
     
                  $bg_name = $row4['bg_name'];
     }
@@ -344,7 +344,7 @@ while ($row4=mysqli_fetch_array($query4)){
 
      
      $query  = "INSERT INTO tbl_title_loans (user_fnd_id,bg_id,amount_of_loan,daily_interest,late_fees,type_interest,principal_amount,scheduling,secured_loan,contract_date,payment_date,creation_date,created_by,loan_create_id,loan_fee,loan_total_payable,loan_status,secondary_portfolio)  VALUES ('$fnd_idd','$bg_name','$amount_loan','$daily_interest','$late_fees','$type_interest','$principal_amount','$scheduling','$secure_loan','$contract_date','$payment_date','$date','$u_id','$loan_create_id','$loan_fee','$payoff_amount','Active','None')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -356,7 +356,7 @@ while ($row4=mysqli_fetch_array($query4)){
   // *********************************** Vehicle Info Insertion **********************************************
         
         $query_vehicle  = "INSERT INTO tbl_vehicle_info (user_fnd_id,vehicle_year,vehicle_made,vehicle_model,vehicle_miles,vehicle_kbb,vehicle_ltv,created_by,created_at)  VALUES ('$id','$vehicle_year_update','$vehicle_make_update','$vehicle_model_update','$vehicle_miles_update','$vehicle_kbb_update','$vehicle_ltv_update','$u_id','$date')";
-        $result_vehicle = mysqli_query($con, $query_vehicle);
+        $result_vehicle = $con->query($query_vehicle);
         if ($result_vehicle) {
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
         } else {

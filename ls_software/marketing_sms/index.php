@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <script src="jquery-3.2.1.min.js"></script>
@@ -120,8 +120,8 @@ if (isset($_POST["import"])) {
         while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
             $sqlInsert = "INSERT into marketing_sms (phone_number,message,status)
                    values ('" . $column[0] . "','$msg','0')";
-            $result = mysqli_query($con, $sqlInsert);
-            
+            $result = $con ? $con->query($sqlInsert) : false;
+
             if (! empty($result)) {
                 $type = "success";
                 $message = "CSV Data Imported into the Database";
@@ -159,10 +159,12 @@ if (isset($_POST["import"])) {
         </div>
                <?php
                $count=1;
-            $sqlSelect = "SELECT * FROM marketing_sms where status='1' ORDER BY sms_id DESC LIMIT 5";
-            $result = mysqli_query($con, $sqlSelect);
-            
-            if (mysqli_num_rows($result) > 0) {
+            $result = null;
+            if ($con) {
+                $sqlSelect = "SELECT * FROM marketing_sms where status='1' ORDER BY sms_id DESC LIMIT 5";
+                $result = $con->query($sqlSelect);
+            }
+            if ($result && $result->num_rows > 0) {
                 ?>
             <table id='userTable'>
             <thead>
@@ -176,7 +178,7 @@ if (isset($_POST["import"])) {
             </thead>
 <?php
                 
-                while ($row = mysqli_fetch_array($result)) {
+                while ($result && ($row = $result->fetch_array())) {
                     ?>
   
                 <tbody>
@@ -195,28 +197,13 @@ if (isset($_POST["import"])) {
 <!-- TOTAL SMS SENT STARTS -->
         
  <?php
-      $rowcount = 0;
-$con=mysqli_connect("50.62.151.36","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
-// Check connection
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
-
-$sql="SELECT * FROM marketing_sms WHERE status='1'";
-
-if ($result=mysqli_query($con,$sql))
-  {
-  // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result);
-  //printf("Result set has %d rows.\n",$rowcount);
-  // Free result set
-  mysqli_free_result($result);
-  }
-
-echo"<br><b>TOTAL SMS SENT :</b><span style='color:red;font-size:20px;'>" .$rowcount."</span>";
-mysqli_close($con);
-?>          
+$rowcount = 0;
+$sql = "SELECT * FROM marketing_sms WHERE status='1'";
+if ($con && ($result = $con->query($sql))) {
+    $rowcount = $result->num_rows;
+}
+echo "<br><b>TOTAL SMS SENT :</b><span style='color:red;font-size:20px;'>" . $rowcount . "</span>";
+?>
 
 
 
@@ -226,27 +213,13 @@ mysqli_close($con);
 <!-- QUEUED SMS STARTS -->
 
 <?php
-$con=mysqli_connect("50.62.151.36","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
-// Check connection
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
-
-$sql="SELECT * FROM marketing_sms WHERE status='0'";
-
-
-if ($result=mysqli_query($con,$sql))
-  {
-  // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result);
-  //printf("Result set has %d rows.\n",$rowcount);
-  // Free result set
-  mysqli_free_result($result);
-  }
-
-echo"<br><b>TOTAL QUEUED SMS :</b><span style='color:red;font-size:20px;'>" .$rowcount."  </span>";
-mysqli_close($con);
+$rowcount = 0;
+$sql = "SELECT * FROM marketing_sms WHERE status='0'";
+if ($con && ($result = $con->query($sql))) {
+    $rowcount = $result->num_rows;
+}
+echo "<br><b>TOTAL QUEUED SMS :</b><span style='color:red;font-size:20px;'>" . $rowcount . "  </span>";
+if ($con) { $con->close(); }
 ?>    
         
         <!-- QUEUED SMS ENDS -->
@@ -257,3 +230,4 @@ mysqli_close($con);
 </body>
 
 </html>
+

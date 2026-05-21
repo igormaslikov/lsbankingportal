@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -24,9 +24,9 @@ $DBcon->close();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_commercial_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_create_id=$row_fnd['loan_create_id'];
@@ -34,9 +34,9 @@ $loan_create_id=$row_fnd['loan_create_id'];
 }
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -47,9 +47,9 @@ $customer_numbr=$row['mobile_number'];
 
 //echo "fname is:".$first_name;
 
-$sql=mysqli_query($con, "select * from tbl_commercial_loan where loan_create_id= '$loan_create_id'"); 
+$sql=$con->query("select * from tbl_commercial_loan where loan_create_id= '$loan_create_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -80,9 +80,9 @@ $last_update_date=$row['last_update_date'];
 $new_creation_date= date("m-d-Y", $timestamp);
 }
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -90,9 +90,9 @@ $username=$row_user['username'];
 
 //echo "fname is:".$username;
 
-$sql_user=mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'"); 
+$sql_user=$con->query("select * from tbl_loan_notes where loan_id= '$id'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $loan_notes=$row_user['notes'];
 
@@ -198,7 +198,7 @@ if ($uploadOk == 0) {
 } else {
     if (move_uploaded_file($_FILES["lender_documents"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["lender_documents"]["name"]). " has been uploaded.";
-         mysqli_query($con,"UPDATE tbl_commercial_loan SET contract ='$target_file_db', contract_status='1' where loan_create_id ='$loan_create_id'");
+         $con->query("UPDATE tbl_commercial_loan SET contract ='$target_file_db', contract_status='1' where loan_create_id ='$loan_create_id'");
 		echo '<meta http-equiv="refresh" content="0">';
     } else {
         echo "Sorry, there was an error uploading your file.";

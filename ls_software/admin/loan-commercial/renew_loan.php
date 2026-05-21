@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -24,18 +24,18 @@ $DBcon->close();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_commercial_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 //echo "FND_ID" .$user_fnd_id;
 }
 
 
-$sql=mysqli_query($con, "select * from tbl_commercial_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_commercial_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 $loan_create_id=$row['loan_create_id'];
@@ -66,9 +66,9 @@ $last_update_date=$row['last_update_date'];
 $new_creation_date= date("m-d-Y", $timestamp);
 }
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -76,9 +76,9 @@ $username=$row_user['username'];
 
 //echo "fname is:".$username;
 
-$sql_user=mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'"); 
+$sql_user=$con->query("select * from tbl_loan_notes where loan_id= '$id'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $loan_notes=$row_user['notes'];
 
@@ -86,9 +86,9 @@ $loan_notes=$row_user['notes'];
 
 //echo "fname is:".$loan_notes;
 
-$sql_fnd=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql_fnd=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
     
 $first_name=$row_fnd['first_name'];
 $last_name=$row_fnd['last_name'];
@@ -114,9 +114,9 @@ $decision_logic_status=$row_fnd['decision_logic_status'];
 
 }
 
-$sql_bank_detail=mysqli_query($con, "select * from commercial_loan_initial_banking where user_fnd_id = '$user_fnd_id' AND loan_id= '$loan_create_id'"); 
+$sql_bank_detail=$con->query("select * from commercial_loan_initial_banking where user_fnd_id = '$user_fnd_id' AND loan_id= '$loan_create_id'"); 
 
-while($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
+while($row_bank_detail = $sql_bank_detail->fetch_array()) {
     
     	$type_of_id=$row_bank_detail['type_of_id'];
 $id_photo=$row_bank_detail['pic_of_id'];
@@ -591,10 +591,10 @@ $date= date('Y-m-d H:i:s');
   
   
   
-  mysqli_query($con, "UPDATE fnd_user_profile SET first_name ='$first_name_update' , last_name='$last_name_update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update' where user_fnd_id ='$user_fnd_id'"); 
+  $con->query("UPDATE fnd_user_profile SET first_name ='$first_name_update' , last_name='$last_name_update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update' where user_fnd_id ='$user_fnd_id'"); 
 
 
- mysqli_query($con, "UPDATE commercial_loan_initial_banking SET type_of_id='$type_id_up', type_of_card='$type_card_up', card_number='$card_number_up', card_exp_date='$card_exp_date_up', bank_name='$bank_name_up', routing_number='$routing_number_up', account_number='$account_number_up', cvv_number='$cvv_number_up' where user_fnd_id ='$user_fnd_id'  AND loan_id= '$loan_create_id'");
+ $con->query("UPDATE commercial_loan_initial_banking SET type_of_id='$type_id_up', type_of_card='$type_card_up', card_number='$card_number_up', card_exp_date='$card_exp_date_up', bank_name='$bank_name_up', routing_number='$routing_number_up', account_number='$account_number_up', cvv_number='$cvv_number_up' where user_fnd_id ='$user_fnd_id'  AND loan_id= '$loan_create_id'");
        
 
   

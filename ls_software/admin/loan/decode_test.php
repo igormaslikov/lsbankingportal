@@ -1,4 +1,4 @@
-<!Doctype html>
+﻿<!Doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -23,9 +23,9 @@
                 include_once '../dbconnect.php';
                 include_once '../dbconfig.php';  
 
-                    $sql_loan = mysqli_query($con,"SELECT DISTINCT `card_number` from loan_initial_banking where user_fnd_id = '9672'");
+                    $sql_loan = $con->query("SELECT DISTINCT card_number from loan_initial_banking where user_fnd_id = '9672'");
                     
-                      while($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
+                      while($row_bank_detail_sec = $sql_loan->fetch_array()) {
                           $cityName = $row_bank_detail_sec['card_number'];
                           echo "<option value='$cityName'>$cityName</option>";
                       }

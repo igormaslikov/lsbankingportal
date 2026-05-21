@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include('../dbconnect.php');
 include('../dbconfig.php');
 include('../functions.php');
@@ -23,13 +23,13 @@ $date =  date('Y-m-d');
 $query = "select * from fnd_user_profile where application_status = 'No Decision Logic For Payday' AND (creation_date BETWEEN '$last_date2' AND '$date') ";
 
 //echo $query . "<br>";
-$sql=mysqli_query($con, "$query"); 
+$sql=$con->query("$query"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql);
+  $rowcount=$sql->num_rows;
   echo "Row Count is : " . $rowcount. "<br>";
   
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     $application_id = $row['user_fnd_id'];
     $phone = $row['mobile_number'];
     //$phone = "+923224951307";
@@ -41,9 +41,9 @@ while($row = mysqli_fetch_array($sql)) {
     
     $query_sms_content = "select * from msg_template where msg_name='preapprovedpaydayloan' ";
 $msg_content = '';
-$sql_sms_content=mysqli_query($con, "$query_sms_content"); 
-  $rowcount_sms_content=mysqli_num_rows($sql_sms_content);
-while($row_sms_content = mysqli_fetch_array($sql_sms_content)) {
+$sql_sms_content=$con->query("$query_sms_content"); 
+  $rowcount_sms_content=$sql_sms_content->num_rows;
+while($row_sms_content = $sql_sms_content->fetch_array()) {
     $msg_name2 = $row_sms_content['msg_name'];
     $msg_content= $row_sms_content['msg_content'];
  //echo "<br><br><br>";
@@ -83,17 +83,17 @@ $date_na =   date('Y-m-d', strtotime('-4 days'));
 $query_na = "select * from fnd_user_profile where application_status = 'No Decision Logic For Payday' AND (creation_date BETWEEN '$last_date2_na' AND '$date_na') ";
 
 //echo $query . "<br>";
-$sql=mysqli_query($con, "$query_na"); 
+$sql=$con->query("$query_na"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql);
+  $rowcount=$sql->num_rows;
   echo "Row Count is : " . $rowcount. "<br>";
   
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     $application_id = $row['user_fnd_id'];
     $time_na = "20:00"; 
   if($now>$time_na){
-    mysqli_query($con, "UPDATE `fnd_user_profile` SET `application_status`='No Answer' WHERE `user_fnd_id` = '$application_id'");
+    $con->query("UPDATE fnd_user_profile SET application_status='No Answer' WHERE user_fnd_id = '$application_id'");
     
     
     $date_update= date('Y-m-d H:i:s');

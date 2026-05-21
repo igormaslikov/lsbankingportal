@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once 'dbconnect.php';
@@ -84,8 +84,8 @@ if($status=='error')
   }
   else{
 
-        $query_in  = "INSERT INTO `tbl_fund_card`(`customer_id`, `amount`, `url`)  VALUES ('$customer_id','$amount','$url')";
-        $result_in = mysqli_query($con, $query_in);
+        $query_in  = "INSERT INTO tbl_fund_card(customer_id, amount, url)  VALUES ('$customer_id','$amount','$url')";
+        $result_in = $con->query($query_in);
         if ($result_in) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -22,9 +22,9 @@ $DBcon->close();
 
 
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_commercial_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_create_id=$row_fnd['loan_create_id'];
@@ -34,8 +34,8 @@ $loan_status=$row_fnd['loan_status'];
 
 
 
-$query_payment = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
-while ($row_payment=mysqli_fetch_array($query_payment)){
+$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
+while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
     $payment = number_format((float)$payment, 2, '.', '');
@@ -44,9 +44,9 @@ while ($row_payment=mysqli_fetch_array($query_payment)){
 
 }
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -58,9 +58,9 @@ $decision_logic_status=$row['decision_logic_status'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_commercial_loan where user_fnd_id= '$user_fnd_id' AND loan_id = '$id'"); 
+$sql=$con->query("select * from tbl_commercial_loan where user_fnd_id= '$user_fnd_id' AND loan_id = '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -94,9 +94,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -106,9 +106,9 @@ $username=$row_user['username'];
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'"); 
+$sql_user=$con->query("select * from tbl_loan_notes where loan_id= '$id'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $loan_notes=$row_user['notes'];
 
@@ -120,15 +120,13 @@ $loan_notes=$row_user['notes'];
 
 $sql_t="SELECT p_loan_id FROM tbl_commercial_loan  where sign_status='1' ORDER BY loan_id";
 
-if ($result_t=mysqli_query($con,$sql_t))
+if ($result_t=$con->query($sql_t))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
-  echo $ye;
-  }
+}
 
 ?>
 
@@ -283,7 +281,7 @@ else{
 <?php
 if(isset($_POST['btn-approve'])) {
 
-mysqli_query($con,"UPDATE fnd_user_profile SET decision_logic_status ='1' where user_fnd_id= '$user_fnd_id' ");
+$con->query("UPDATE fnd_user_profile SET decision_logic_status ='1' where user_fnd_id= '$user_fnd_id' ");
 
 }
 
@@ -291,7 +289,7 @@ mysqli_query($con,"UPDATE fnd_user_profile SET decision_logic_status ='1' where 
 <?php
 if(isset($_POST['btn-disaprove'])) {
 
-mysqli_query($con,"UPDATE fnd_user_profile SET decision_logic_status ='0' where user_fnd_id= '$user_fnd_id' ");
+$con->query("UPDATE fnd_user_profile SET decision_logic_status ='0' where user_fnd_id= '$user_fnd_id' ");
 
 }
 
@@ -322,8 +320,8 @@ mysqli_query($con,"UPDATE fnd_user_profile SET decision_logic_status ='0' where 
 
  $id=$_GET['id'];
  
-$sql_dl_code=mysqli_query($con, "select * from tbl_decision_logic_codes where user_fnd_id= '$user_fnd_id'"); 
-while($row_dl_code = mysqli_fetch_array($sql_dl_code)) {
+$sql_dl_code=$con->query("select * from tbl_decision_logic_codes where user_fnd_id= '$user_fnd_id'"); 
+while($row_dl_code = $sql_dl_code->fetch_array()) {
 	$dl_code = $row_dl_code['dl_code'];
 	
 // ************************API CODE ***************************

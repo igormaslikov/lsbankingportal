@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -28,9 +28,9 @@ $DBcon->close();
  $id=$_GET['id'];
  $to_be_paid_amount = $_GET['to_be_paid_amount'];
 $late_fee = $_GET['late_fee'];
-$sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_commercial_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 
@@ -45,9 +45,9 @@ $loan_create_id=$row_fnd['loan_create_id'];
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -60,9 +60,9 @@ $zipcode=$row['zip_code'];
 //echo "fname is:".$first_name;
 
 
-$sql=mysqli_query($con, "select * from tbl_commercial_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_commercial_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 	$loan_create_id=$row['loan_create_id'];
@@ -94,9 +94,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -105,9 +105,9 @@ $username=$row_user['username'];
 //echo "fname is:".$username;
 
 
-$sql_transaction=mysqli_query($con, "select * from commercial_loan_transaction where loan_id= '$id'"); 
+$sql_transaction=$con->query("select * from commercial_loan_transaction where loan_id= '$id'"); 
 
-while($row_transaction = mysqli_fetch_array($sql_transaction)) {
+while($row_transaction = $sql_transaction->fetch_array()) {
 
 $payment_method=$row_transaction['payment_method'];
 
@@ -120,8 +120,8 @@ $type_of_payment=$row_transaction['type_of_payment'];
 
 }
 
-$query_payment = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
-while ($row_payment=mysqli_fetch_array($query_payment)){
+$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
+while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
     $payment = number_format((float)$payment, 2, '.', '');
@@ -245,9 +245,9 @@ table,th, td {
     <select  class="form-control city" name="city">
     <option value=''>Select Card</option>
   <?php 
-      $sql_loan=mysqli_query($con, "select DISTINCT `card_number`,`card_exp_date` from commercial_loan_initial_banking where user_fnd_id = '$user_fnd_id' ORDER BY initial_id DESC"); 
+      $sql_loan=$con->query("select DISTINCT card_number,card_exp_date from commercial_loan_initial_banking where user_fnd_id = '$user_fnd_id' ORDER BY initial_id DESC"); 
 
-while($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
+while($row_bank_detail_sec = $sql_loan->fetch_array()) {
      $card=$row_bank_detail_sec['card_number'];
      $card_exp=$row_bank_detail_sec['card_exp_date'];
     

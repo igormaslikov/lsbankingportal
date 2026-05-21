@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -24,9 +24,9 @@ $DBcon->close();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_commercial_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_create_id=$row_fnd['loan_create_id'];
@@ -36,9 +36,9 @@ $contract_db=$row_fnd['contract'];
 }
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -48,9 +48,9 @@ $customer_numbr=$row['mobile_number'];
 }
 
 
-$sql=mysqli_query($con, "select * from tbl_commercial_loan where user_fnd_id= '$user_fnd_id' AND loan_id = '$id'"); 
+$sql=$con->query("select * from tbl_commercial_loan where user_fnd_id= '$user_fnd_id' AND loan_id = '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['p_loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -82,9 +82,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 }
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -92,9 +92,9 @@ $username=$row_user['username'];
 
 //echo "fname is:".$username;
 
-$sql_user=mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'"); 
+$sql_user=$con->query("select * from tbl_loan_notes where loan_id= '$id'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $loan_notes=$row_user['notes'];
 
@@ -386,9 +386,9 @@ img.hover-shadow {
 
  $id=$_GET['id'];
  
-$sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_commercial_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $state=$row_fnd['state'];
@@ -401,13 +401,13 @@ $address_contarct="https://mymoneyline.com/lsbankingportal/signature_commercial_
 
 
 
-$sql_bank_detail=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'"); 
+$sql_bank_detail=$con->query("select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'"); 
 
-while($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
+while($row_bank_detail = $sql_bank_detail->fetch_array()) {
 
-$sql_mail_key=mysqli_query($con, "select * from commercial_loan_initial_banking where user_fnd_id = '$user_fnd_id'"); 
+$sql_mail_key=$con->query("select * from commercial_loan_initial_banking where user_fnd_id = '$user_fnd_id'"); 
 
-while($row_mail_key = mysqli_fetch_array($sql_mail_key)) {
+while($row_mail_key = $sql_mail_key->fetch_array()) {
 
 $mail_key=$row_mail_key['email_key'];
 
@@ -512,18 +512,18 @@ if($void_img == ''){
 
  $id=$_GET['id'];
  
-$sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_commercial_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 
 //echo "FND_ID" .$user_fnd_id;
 }
 
-$sql_bank_detail=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'"); 
+$sql_bank_detail=$con->query("select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'"); 
 
-while($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
+while($row_bank_detail = $sql_bank_detail->fetch_array()) {
 
 $mail_key=$row_bank_detail['email_key'];
 
@@ -536,9 +536,9 @@ $void_img=$row_bank_detail['void_check_pic'];
 
 
 
-$sql_doc=mysqli_query($con, "select * from lender_documents where fnd_user_id = '$user_fnd_id' ORDER BY id desc"); 
+$sql_doc=$con->query("select * from lender_documents where fnd_user_id = '$user_fnd_id' ORDER BY id desc"); 
 //echo $sql_doc;
-while($row_doc = mysqli_fetch_array($sql_doc)) {
+while($row_doc = $sql_doc->fetch_array()) {
     
 $doc_id = $row_doc['id'];
 $date_created=$row_doc['date_created'];
@@ -547,9 +547,9 @@ $created_by=$row_doc['created_by'];
 $description_name=$row_doc['description'];
 
 
-$sql_lender_by_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_lender_by_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 $final_lender_by_user = '';
-while($row_sql_lender_by_user = mysqli_fetch_array($sql_lender_by_user)) {
+while($row_sql_lender_by_user = $sql_lender_by_user->fetch_array()) {
 	$final_lender_by_user = $row_sql_lender_by_user['username'];
 }
         

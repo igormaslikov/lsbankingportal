@@ -38,7 +38,7 @@ include_once '../dbconfig.php';
 	// load records using select box jquery ajax in PHP
 	$city_name = $_POST['cityname'];
 
-	$query = "SELECT * FROM loan_initial_banking WHERE card_number = '$city_name' limit 1";
+	$query = "SELECT TOP 1 * FROM loan_initial_banking WHERE card_number = '$city_name'";
 
 	$result = $con->query($query);
 	$output = "";

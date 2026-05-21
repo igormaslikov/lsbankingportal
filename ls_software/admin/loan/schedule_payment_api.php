@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -29,9 +29,9 @@ $DBcon->close();
 
  $id=$_GET['id'];
  
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 
@@ -50,9 +50,9 @@ $loan_create_id=$row_fnd['loan_create_id'];
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -68,9 +68,9 @@ $customer_zip_code=$row['zip_code'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 	$loan_create_id=$row['loan_create_id'];
@@ -105,9 +105,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -122,9 +122,9 @@ $username=$row_user['username'];
 
 
 
-$sql_transaction=mysqli_query($con, "select * from loan_transaction where loan_id= '$id'"); 
+$sql_transaction=$con->query("select * from loan_transaction where loan_id= '$id'"); 
 
-while($row_transaction = mysqli_fetch_array($sql_transaction)) {
+while($row_transaction = $sql_transaction->fetch_array()) {
 
 $payment_method=$row_transaction['payment_method'];
 
@@ -216,9 +216,9 @@ table,th, td {
       <?php
       
       
-        $sql_loan=mysqli_query($con, "select * from loan_initial_banking where user_fnd_id = '$user_fnd_id' AND loan_id='$loan_create_id'"); 
+        $sql_loan=$con->query("select * from loan_initial_banking where user_fnd_id = '$user_fnd_id' AND loan_id='$loan_create_id'"); 
 
-while($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
+while($row_bank_detail_sec = $sql_loan->fetch_array()) {
      $card=$row_bank_detail_sec['card_number'];
      $cvv=$row_bank_detail_sec['cvv_number'];
      $expiry_card=$row_bank_detail_sec['card_exp_date'];
@@ -226,9 +226,9 @@ while($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
      $expire_date=str_replace("/","","$expiry_card");
 }
 
- $sql_fre=mysqli_query($con, "select * from source_income where user_fnd_id = '$user_fnd_id'"); 
+ $sql_fre=$con->query("select * from source_income where user_fnd_id = '$user_fnd_id'"); 
 
-while($row_fre = mysqli_fetch_array($sql_fre)) {
+while($row_fre = $sql_fre->fetch_array()) {
      $frequency=$row_fre['pay_period'];
      
      if($frequency=='Bi-Weekly')
@@ -441,8 +441,8 @@ if($status=='error')
   {
   }
   else{
-$query_in  = "INSERT INTO `tbl_schedule_payment`(`message`, `scheduled_payment_id`, `schedule_max_runs`, `schedule_ends`, `schedule_starts`, `schedule_summary`, `payment_channel`, `multi_pay`, `amount`, `customer_id`, `address_zip`, `transaction_type`, `source`, `payment_method`, `card_bin`, `card_token`, `card_last_four`, `paytoken`, `created_at`)  VALUES ('$message','$scheduled_payment_id','$schedule_max_runs','$schedule_ends','$schedule_starts','$schedule_summary','$payment_channel','$MultiPay','$amount','$customer_id','$address_zip','$transaction_type','$Source','$payment_method','$card_bin','$card_token','$card_last_four','$paytoken','$new_creationDate')";
-        $result_in = mysqli_query($con, $query_in);
+$query_in  = "INSERT INTO tbl_schedule_payment(message, scheduled_payment_id, schedule_max_runs, schedule_ends, schedule_starts, schedule_summary, payment_channel, multi_pay, amount, customer_id, address_zip, transaction_type, source, payment_method, card_bin, card_token, card_last_four, paytoken, created_at)  VALUES ('$message','$scheduled_payment_id','$schedule_max_runs','$schedule_ends','$schedule_starts','$schedule_summary','$payment_channel','$MultiPay','$amount','$customer_id','$address_zip','$transaction_type','$Source','$payment_method','$card_bin','$card_token','$card_last_four','$paytoken','$new_creationDate')";
+        $result_in = $con->query($query_in);
         if ($result_in) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

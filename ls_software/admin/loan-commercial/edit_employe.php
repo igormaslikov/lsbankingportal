@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 
@@ -24,9 +24,9 @@ $DBcon->close();
 $id=$_GET['id'];
 
 
-$sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_commercial_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 //echo "FND_ID" .$user_fnd_id;
@@ -34,9 +34,9 @@ $user_fnd_id=$row_fnd['user_fnd_id'];
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -46,9 +46,9 @@ $customer_numbr=$row['mobile_number'];
 }
 
 
-$sql=mysqli_query($con, "select * from tbl_commercial_loan where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from tbl_commercial_loan where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -75,9 +75,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -87,9 +87,9 @@ $username=$row_user['username'];
 
 $id_src=$_GET['id_src'];
 
-$sql_user=mysqli_query($con, "select * from source_income_commercial where scr_inc_id= '$id_src'"); 
+$sql_user=$con->query("select * from source_income_commercial where scr_inc_id= '$id_src'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 $user_fnd_id=$row_user['user_fnd_id'];
 $emp_name=$row_user['employer_name'];
 $emp_phone=$row_user['work_phone_no'];
@@ -164,7 +164,7 @@ $date= date('Y-m-d H:i:s');
 
 
      
-       mysqli_query($con,"UPDATE source_income_commercial SET employer_name ='$employer_name_update', work_phone_no ='$work_phone_update', net_check_amount ='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id', last_update_date='$date'  where scr_inc_id ='$id_src' ");
+       $con->query("UPDATE source_income_commercial SET employer_name ='$employer_name_update', work_phone_no ='$work_phone_update', net_check_amount ='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id', last_update_date='$date'  where scr_inc_id ='$id_src' ");
 
       ?>
    <script type="text/javascript">

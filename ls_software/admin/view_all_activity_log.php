@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 
@@ -62,17 +62,15 @@ $DBcon->close();
 
 $sql_t="SELECT*FROM application_status_updates ORDER BY id";
 
-if ($result_t=mysqli_query($con,$sql_t))
+if ($result_t=$con->query($sql_t))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
-  echo $ye;
-  }
+}
 
-mysqli_close($con);
+$con->close();
 ?>
 
 
@@ -109,23 +107,23 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `application_status_updates` ORDER BY id DESC");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM application_status_updates ORDER BY id DESC");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-    $result = mysqli_query($con,"SELECT * FROM `application_status_updates` ORDER BY id DESC LIMIT $offset, $total_records_per_page");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("SELECT * FROM application_status_updates ORDER BY id DESC OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY");
+    while($row = $result->fetch_array()){
 		 $user_id=$row['user_id'];
 		$creation_date= $row['creation_date'];
 		$timestamp = strtotime($creation_date);
        $new_creationDate= date("m-d-Y H:i:s", $timestamp);
 		 //echo "<br><br><br><br><br><br>". $access_id;
 		 $access_level_name = "";
-		 $sql_access=mysqli_query($con, "select * from tbl_users where user_id= '$user_id'"); 
+		 $sql_access=$con->query("select * from tbl_users where user_id= '$user_id'"); 
 
-while($row_access = mysqli_fetch_array($sql_access)) {
+while($row_access = $sql_access->fetch_array()) {
 
 $username=$row_access['username'];
 
@@ -143,7 +141,7 @@ $username=$row_access['username'];
 
 		   	  </tr>";
         }
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>

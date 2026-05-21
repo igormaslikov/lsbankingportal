@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -35,10 +35,10 @@ $DBcon->close();
     $form_name="payday-".basename(__FILE__);
     
     
-    $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+    $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  
@@ -56,7 +56,7 @@ $loan_create_id="";
 $transaction_id="";
 
     $query = "DELETE FROM tbl_loan_setting WHERE id = '$setting_id'";
-    $result = mysqli_query($con, $query);
+    $result = $con->query($query);
     
     
     

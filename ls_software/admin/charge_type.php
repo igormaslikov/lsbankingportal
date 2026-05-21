@@ -30,14 +30,14 @@ $id=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $fnd_id=$row['user_fnd_id'];
 //echo "fndis is:".$fnd_id;
 $amount_loan=$row['amount_of_loan'];
-$amount_left =$row['amount_left'];
+$amount_left =$row['loan_total_payable'];
 $bg_id=$row['bg_id'];
 $next_payment =$row['next_payment_date'];
 $payment_tenure =$row['payment_tenure'];
@@ -57,9 +57,9 @@ $last_update_date=$row['last_update_date'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -76,9 +76,9 @@ $last_name=$row['last_name'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $username=$row['username'];
 
@@ -94,9 +94,9 @@ $username=$row['username'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql=mysqli_query($con, "select * from tbl_users where user_id= '$last_update'"); 
+$sql=$con->query("select * from tbl_users where user_id= '$last_update'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $username_update=$row['username'];
 
@@ -113,9 +113,9 @@ $id_type=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_loan_type=mysqli_query($con, "select * from tbl_loan_type where loan_type_id='$id_type'"); 
+$sql_loan_type=$con->query("select * from tbl_loan_type where loan_type_id='$id_type'"); 
 
-while($row_loan_type = mysqli_fetch_array($sql_loan_type)) {
+while($row_loan_type = $sql_loan_type->fetch_array()) {
 
 //$loan_type_id=$row['loan_type_id'];
 $loan_type=$row_loan_type['loan_type'];
@@ -132,9 +132,9 @@ $id_calcul=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_calcul=mysqli_query($con, "select * from tbl_loan_calculation where loan_cal_id='$id_calcul'"); 
+$sql_calcul=$con->query("select * from tbl_loan_calculation where loan_cal_id='$id_calcul'"); 
 
-while($row_calcul = mysqli_fetch_array($sql_calcul)) {
+while($row_calcul = $sql_calcul->fetch_array()) {
 
 //$loan_cal_id=$row_calcul['loan_cal_id'];
 $loan_calcu=$row_calcul['loan_calculation'];
@@ -150,9 +150,9 @@ $id_clasi=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_clasi=mysqli_query($con, "select * from tbl_loan_classification where loan_clasi_id='$id_clasi'"); 
+$sql_clasi=$con->query("select * from tbl_loan_classification where loan_clasi_id='$id_clasi'"); 
 
-while($row_clasi = mysqli_fetch_array($sql_clasi)) {
+while($row_clasi = $sql_clasi->fetch_array()) {
 
 //$loan_clasi_id=$row_clasi['loan_clasi_id'];
 $loan_calssifi=$row_clasi['loan_classification'];
@@ -167,9 +167,9 @@ $loan_calssifi=$row_clasi['loan_classification'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_notes=mysqli_query($con, "select * from tbl_loan_notes where loan_id='$iddd'"); 
+$sql_notes=$con->query("select * from tbl_loan_notes where loan_id='$iddd'"); 
 
-while($row_notes = mysqli_fetch_array($sql_notes)) {
+while($row_notes = $sql_notes->fetch_array()) {
 
 
 $loan_notes=$row_notes['notes'];
@@ -316,14 +316,14 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `tbl_loan`");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM tbl_loan");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-    $result = mysqli_query($con,"SELECT * FROM `tbl_charge_type` where loan_id='$id'");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("SELECT * FROM tbl_charge_type where loan_id='$id'");
+    while($row = $result->fetch_array()){
 		 $id=$row['loan_id'];
 		echo "<tr>
 	 	      
@@ -335,7 +335,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	 		  
 		   	  </tr>";
         }
-	mysqli_close($con);
+	
     ?>
    
 </tbody>
@@ -446,13 +446,13 @@ $loan_calssifi_update=$_POST['loan_classi'];
 
 $date = date('Y-m-d H:i:s');
 
-mysqli_query($con, "UPDATE tbl_loan SET  primary_portfolio='$p_portfolio_update' , amount_of_loan='$amount_loan_update' , amount_left='$amount_left_update' , next_payment_date='$next_payment_date_update', payment_tenure='$p_tenure_update', last_update_by='$uu_id',last_update_date='$date' where loan_id ='$id'"); 
+$con->query("UPDATE tbl_loan SET  primary_portfolio='$p_portfolio_update' , amount_of_loan='$amount_loan_update' , loan_total_payable='$amount_left_update' , next_payment_date='$next_payment_date_update', payment_tenure='$p_tenure_update', last_update_by='$uu_id',last_update_date='$date' where loan_id ='$id'"); 
 
-mysqli_query($con, "UPDATE tbl_loan_type SET loan_type ='$loan_type_update' ,  last_update_by='$uu_id',last_update_date='$date' where loan_type_id ='$id_type'"); 
+$con->query("UPDATE tbl_loan_type SET loan_type ='$loan_type_update' ,  last_update_by='$uu_id',last_update_date='$date' where loan_type_id ='$id_type'"); 
 
-mysqli_query($con, "UPDATE tbl_loan_calculation SET loan_calculation ='$calculation_type_update' ,  last_update_by='$uu_id',last_update_date='$date' where loan_cal_id ='$id_calcul'"); 
+$con->query("UPDATE tbl_loan_calculation SET loan_calculation ='$calculation_type_update' ,  last_update_by='$uu_id',last_update_date='$date' where loan_cal_id ='$id_calcul'"); 
 
-mysqli_query($con, "UPDATE tbl_loan_classification SET loan_classification ='$loan_calssifi_update' ,  last_update_by='$uu_id',last_update_date='$date' where loan_clasi_id ='$id_clasi'"); 
+$con->query("UPDATE tbl_loan_classification SET loan_classification ='$loan_calssifi_update' ,  last_update_by='$uu_id',last_update_date='$date' where loan_clasi_id ='$id_clasi'"); 
 
     ?>
     

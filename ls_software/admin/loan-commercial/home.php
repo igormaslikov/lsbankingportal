@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 
 $id = $_GET['id'];
@@ -54,11 +54,11 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             // Check connection
             if (isset($_GET['signed_loan'])) {
                 $signed_loan_id = $_GET['signed_loan'];
-                mysqli_query($con, "UPDATE `tbl_commercial_loan` SET `sign_status`='1' WHERE `loan_id` = '$signed_loan_id'");
+                $con->query("UPDATE tbl_commercial_loan SET sign_status='1' WHERE loan_id = '$signed_loan_id'");
             }
             if (isset($_GET['delete_loan'])) {
                 $signed_loan_id = $_GET['delete_loan'];
-                mysqli_query($con, "DELETE FROM `tbl_commercial_loan` WHERE `loan_id` = '$signed_loan_id'");
+                $con->query("DELETE FROM tbl_commercial_loan WHERE loan_id = '$signed_loan_id'");
             }
             $sign_status  = $_GET['sign_status'];
             switch ($sign_status) {
@@ -72,7 +72,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     $sign_status = 1;
                     break;
             }
-            $query_search = "SELECT * FROM `tbl_commercial_loan` where `sign_status` = '$sign_status' or `sign_status` = $sign_status";
+            $query_search = "SELECT * FROM tbl_commercial_loan where sign_status = '$sign_status' or sign_status = $sign_status";
             $status  = $_GET['status'];
             $keyword = $_GET['keyword'];
             $from_date = $_GET['from_date'];
@@ -81,7 +81,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             $to_date = $_GET['to_date'];
 
             // if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || isset($_GET['from_date'])  || isset($_GET['loan_date']) || isset($_GET['due_date']) || isset($_GET['to_date'])) {
-            //     $query_search .= "WHERE";
+            //     $query_search .= " WHERE ";
             // }
             $and_check = 0;
             if (isset($_GET['status']) && $_GET['status'] != "" && $_GET['status'] != "All") {
@@ -113,23 +113,22 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 //$query_search .= " WHERE ";
             }
 
-            // $query_search .= "WHERE `sign_status`='1'";
+            // $query_search .= "WHERE sign_status='1'";
 
-            if ($result_t = mysqli_query($con, $query_search)) {
+            if ($result_t = $con->query($query_search)) {
                 // Return the number of rows in result set
-                $rowcount = mysqli_num_rows($result_t);
+                $rowcount = $result_t->num_rows;
                 // printf($rowcount);
                 // Free result set
-                $ye = mysqli_free_result($result_t);
-                echo $ye;
-            }
+}
 
             ?>
             <?php
 
 
-            $query_us = mysqli_query($con, "SELECT SUM(principal_amount) AS value_sum FROM tbl_commercial_loan where sign_status= $sign_status or sign_status= '$sign_status'");
-            while ($row_us = mysqli_fetch_array($query_us)) {
+            $us = 0; $pay_off = 0; $totall_trans = 0; $avg = 0; $avg_pay = 0; $total_loan_fee = 0;
+$query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2))) AS value_sum FROM tbl_commercial_loan where sign_status= $sign_status or sign_status= '$sign_status'");
+            while ($query_us && ($row_us = $query_us->fetch_array())) {
                 $us = $row_us['value_sum'];
 
                 $us = number_format((float)$us, 2, '.', '');
@@ -137,37 +136,37 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             }
 
 
-            $query_le = mysqli_query($con, "SELECT SUM(payment) AS value_sum FROM tbl_commercial_loan_installments where status= '0'");
-            while ($row_le = mysqli_fetch_array($query_le)) {
+            $query_le = $con->query("SELECT SUM(TRY_CAST(payment AS DECIMAL(18,2))) AS value_sum FROM tbl_commercial_loan_installments where status= '0'");
+            while ($query_le && ($row_le = $query_le->fetch_array())) {
                 $pay_off = $row_le['value_sum'];
                 break;
             }
 
-            $query_trns = mysqli_query($con, "SELECT SUM(principal_amount) AS value_sum FROM commercial_loan_transaction ");
-            while ($row_trns = mysqli_fetch_array($query_trns)) {
+            $query_trns = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2))) AS value_sum FROM commercial_loan_transaction ");
+            while ($query_trns && ($row_trns = $query_trns->fetch_array())) {
                 $totall_trans = $row_trns['value_sum'];
                 break;
             }
             $totall_trans = number_format((float)$totall_trans, 2, '.', '');
 
             $pay_off = number_format((float)$pay_off, 2, '.', '');
-            $avg_pay_off = $pay_off / $rowcount;
+            $avg_pay_off = ($rowcount > 0) ? ($pay_off / $rowcount) : 0;
 
             $avg_pay = round($avg_pay_off, 2);
 
-            $avg_amount = $us / $rowcount;
+            $avg_amount = ($rowcount > 0) ? ($us / $rowcount) : 0;
 
             $avg = number_format((float)$avg_amount, 2, '.', '');
 
 
-            $query_interest = mysqli_query($con, "SELECT SUM(interest) AS value_sum FROM commercial_loan_transaction ");
-            while ($row_interest = mysqli_fetch_array($query_interest)) {
+            $query_interest = $con->query("SELECT SUM(TRY_CAST(interest AS DECIMAL(18,2))) AS value_sum FROM commercial_loan_transaction ");
+            while ($query_interest && ($row_interest = $query_interest->fetch_array())) {
                 $total_loan_fee = $row_interest['value_sum'];
                 break;
             }
 
-            $query_pament_amount = mysqli_query($con, "SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction ");
-            while ($row_pament_amount = mysqli_fetch_array($query_pament_amount)) {
+            $query_pament_amount = $con->query("SELECT SUM(TRY_CAST(payment_amount AS DECIMAL(18,2))) AS value_sum FROM commercial_loan_transaction ");
+            while ($query_pament_amount && ($row_pament_amount = $query_pament_amount->fetch_array())) {
                 $totall_pament_amount = $row_pament_amount['value_sum'];
                 break;
             }
@@ -185,18 +184,18 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                 <br><br><br>
                 <div style="float:left;color:black;font-size:18px"> Total Loan Accounts: <span style="color:red;"><?php echo $rowcount; ?> </span> </div>
-                <div style="float:right;color:black;font-size:18px"> Total Loan Amounts: <span style="color:red;"><?php echo $varibl . number_format("$us", 2); ?> </span> </div>
+                <div style="float:right;color:black;font-size:18px"> Total Loan Amounts: <span style="color:red;"><?php echo $varibl . number_format((float)$us, 2); ?> </span> </div>
                 <br><br>
-                <div style="float:right;color:black;font-size:18px"> Total Payoff Amounts: <span style="color:red;"><?php echo $varibl . number_format("$pay_off", 2); ?></span> </div>
-                <div style="float:left;color:black;font-size:18px"> Avg. Loan Amount: <span style="color:red;"><?php echo $varibl . number_format("$avg", 2); ?> </span> </div>
+                <div style="float:right;color:black;font-size:18px"> Total Payoff Amounts: <span style="color:red;"><?php echo $varibl . number_format((float)$pay_off, 2); ?></span> </div>
+                <div style="float:left;color:black;font-size:18px"> Avg. Loan Amount: <span style="color:red;"><?php echo $varibl . number_format((float)$avg, 2); ?> </span> </div>
                 <br><br>
-                <div style="float:left;color:black;font-size:18px"> Avg. Payoff Amount: <span style="color:red;"><?php echo $varibl . number_format("$avg_pay", 2); ?> </span> </div>
-                <div style="float:right;color:black;font-size:18px"> Total Payment Received: <span style="color:red;"><?php echo $varibl . number_format("$totall_trans", 2); ?> </span> </div>
+                <div style="float:left;color:black;font-size:18px"> Avg. Payoff Amount: <span style="color:red;"><?php echo $varibl . number_format((float)$avg_pay, 2); ?> </span> </div>
+                <div style="float:right;color:black;font-size:18px"> Total Payment Received: <span style="color:red;"><?php echo $varibl . number_format((float)$totall_trans, 2); ?> </span> </div>
                 <br><br>
-                <div style="float:left;color:black;font-size:18px">Total Interest Collected: <span style="color:red;"><?php echo $varibl . number_format("$total_loan_fee", 2); ?> </span> </div>
+                <div style="float:left;color:black;font-size:18px">Total Interest Collected: <span style="color:red;"><?php echo $varibl . number_format((float)$total_loan_fee, 2); ?> </span> </div>
                 <div style="float:right;color:black;font-size:18px">Uncollected Payments: <span style="color:red;"><?php $uncollect = $pay_off - $totall_pament_amount;
                                                                                                                     if ($uncollect > 0) {
-                                                                                                                        echo $varibl . number_format("$uncollect", 2);
+                                                                                                                        echo $varibl . number_format((float)$uncollect, 2);
                                                                                                                     } ?> </span> </div>
 
                 <br>
@@ -342,9 +341,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $next_page = $page_no + 1;
                             $adjacents = "2";
 
-                            $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `tbl_commercial_loan` where sign_status= $sign_status or sign_status= '$sign_status'");
-                            $total_records = mysqli_fetch_array($result_count);
-                            $total_records = $total_records['total_records'];
+                            $result_count = $con->query("SELECT COUNT(*) As total_records FROM tbl_commercial_loan where sign_status= $sign_status or sign_status= '$sign_status'");
+                            $total_records = $result_count ? $result_count->fetch_array() : null;
+                            $total_records = $total_records['total_records'] ?? 0;
                             $total_records = $rowcount;
                             $total_no_of_pages = ceil($total_records / $total_records_per_page);
                             $second_last = $total_no_of_pages - 1; // total page minus 1
@@ -362,7 +361,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                     $sign_status = 1;
                                     break;
                             }
-                            $query_search = "SELECT * FROM `tbl_commercial_loan` where (`sign_status` = '$sign_status' or `sign_status` = $sign_status)";
+                            $query_search = "SELECT * FROM tbl_commercial_loan where (sign_status = '$sign_status' or sign_status = $sign_status)";
 
                             $status  = $_GET['status'];
                             $keyword = $_GET['keyword'];
@@ -372,7 +371,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             $to_date = $_GET['to_date'];
 
                             // if ((isset($_GET['status']) && $_GET['status'] != 'All') || (isset($_GET['keyword']) && $_GET['keyword'] != '') || isset($_GET['from_date'])  || isset($_GET['loan_date']) || isset($_GET['due_date']) || isset($_GET['to_date'])) {
-                            //     $query_search .= "WHERE";
+                            //     $query_search .= " WHERE ";
                             // }
                             $and_check = 0;
                             if (isset($_GET['status']) && $_GET['status'] != "" && $_GET['status'] != "All") {
@@ -405,25 +404,25 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 //$query_search .= " WHERE ";
                             }
 
-                            $query_search .= " order by loan_create_id desc Limit " . $offset . ", " . $total_records_per_page;
+                            $query_search .= " order by loan_create_id desc OFFSET " . $offset . " ROWS FETCH NEXT " . $total_records_per_page . " ROWS ONLY";
 
 
 
 
-                            $result = mysqli_query($con, "$query_search");
-                            while ($row = mysqli_fetch_array($result)) {
+                            $result = $con->query("$query_search");
+                            while ($result && ($row = $result->fetch_array())) {
                                 $user_fnd_id = $row['user_fnd_id'];
-                                $result_user_fdn = mysqli_query($con, "Select * from `fnd_user_profile` where user_fnd_id = '$user_fnd_id' ");
-                                while ($row_user_fdn = mysqli_fetch_array($result_user_fdn)) {
+                                $result_user_fdn = $con->query("Select * from fnd_user_profile where user_fnd_id = '$user_fnd_id' ");
+                                while ($result_user_fdn && ($row_user_fdn = $result_user_fdn->fetch_array())) {
                                     $user_name = $row_user_fdn['first_name'];
                                     $last_name = $row_user_fdn['last_name'];
                                     $user_mobile = $row_user_fdn['mobile_number'];
                                     $decision_logic_status = $row_user_fdn['decision_logic_status'];
                                 }
 
-                                // $result_user_totalloan = mysqli_query($con, "Select * from `tbl_commercial_loan` where user_fnd_id = '$user_fnd_id' AND sign_status = '1' ");
+                                // $result_user_totalloan = $con->query("Select * from tbl_commercial_loan where user_fnd_id = '$user_fnd_id' AND sign_status = '1' ");
                                 // $total_loans_lh = 0;
-                                // while ($row_user_totalloan = mysqli_fetch_array($result_user_totalloan)) {
+                                // while ($result_user_totalloan && ($row_user_totalloan = $result_user_totalloan->fetch_array())) {
                                 //     $total_loans_lh = $total_loans_lh + 1;
                                 // }
 
@@ -457,18 +456,18 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
                                 //********************************************************* Color Status End ********************************************
 
-                                $query_payment = mysqli_query($con, "Select payment_date from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0 order by id asc limit 1 ");
-                                while ($row_payment = mysqli_fetch_array($query_payment)) {
+                                $query_payment = $con->query("Select payment_date from tbl_commercial_loan_installments where loan_create_id = '$loan_create_id' and status = 0 order by id asc OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ");
+                                while ($query_payment && ($row_payment = $query_payment->fetch_array())) {
                                     $due_date = $row_payment['payment_date'];
                                 }
 
                                 $created_at = "";
-                                $query_payment = mysqli_query($con, "Select created_at from `commercial_loan_transaction` where loan_create_id = '$loan_create_id' order by transaction_id desc limit 1 ");
-                                while ($row_payment = mysqli_fetch_array($query_payment)) {
+                                $query_payment = $con->query("Select created_at from commercial_loan_transaction where loan_create_id = '$loan_create_id' order by transaction_id desc OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ");
+                                while ($query_payment && ($row_payment = $query_payment->fetch_array())) {
                                     $created_at = $row_payment['created_at'];
                                 }
-                                // $query_payment = mysqli_query($con, "SELECT SUM(interest) AS value_sum FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id'");
-                                // while ($row_payment = mysqli_fetch_array($query_payment)) {
+                                // $query_payment = $con->query("SELECT SUM(TRY_CAST(interest AS DECIMAL(18,2))) AS value_sum FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id'");
+                                // while ($query_payment && ($row_payment = $query_payment->fetch_array())) {
                                 //     $payment = $row_payment['value_sum'];
 
                                 //     $interest_amount = number_format((float)$interest_amount, 2, '.', '');
@@ -513,9 +512,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
 
-                                $balns_due = number_format("$balance_due", 2);
-                                $daily_interest = number_format("$daily_interest", 2);
-                                $amount_of_loan = number_format("$amount_of_loan", 2);
+                                $balns_due = number_format((float)$balance_due, 2);
+                                $daily_interest = number_format((float)$daily_interest, 2);
+                                $amount_of_loan = number_format((float)$amount_of_loan, 2);
                                 // $envalope= "<a href='view_all_loan_notification.php?id=$id'  title='View Notifications'><span class='glyphicon glyphicon-envelope' aria-hidden='true' alt='View Notifications'></span></a>";
 
                                 $make_payment = "<a href='add_new_transaction.php?id=$id'  title='Make Payment' style='color:red;'><span class='glyphicon glyphicon-usd' aria-hidden='true' alt='Make Payment'></span></a>";
@@ -552,7 +551,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 		   	                    </tr>";
                             }
-                            mysqli_close($con);
+                            $con->close();
                             ?>
 
                         </tbody>
@@ -688,3 +687,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 <?php
 }
 ?>
+
+
+
+

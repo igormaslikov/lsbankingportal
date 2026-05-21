@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $date=date_create("2013-03-15");
 echo date_format($date,"Y/m/d H:i:s");
 ?><?php
@@ -20,18 +20,18 @@ include_once '../dbconfig.php';
  $tage_58=0;
  $tage_68=0;
  
- $sql_fnd=mysqli_query($con, "select DISTINCT user_fnd_id as visitorss
-from tbl_loan WHERE `contract_date` BETWEEN '2019-01-01' AND '2019-12-31' AND `sign_status` = 1"); 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+ $sql_fnd=$con->query("select DISTINCT user_fnd_id as visitorss
+from tbl_loan WHERE contract_date BETWEEN '2019-01-01' AND '2019-12-31' AND sign_status = 1"); 
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['visitorss'];
 //echo "visitorss" .$user_fnd_id."<br>";
- $sql_age=mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` = '$user_fnd_id'"); 
-while($row_age = mysqli_fetch_array($sql_age)) {
+ $sql_age=$con->query("SELECT * FROM fnd_user_profile WHERE user_fnd_id = '$user_fnd_id'"); 
+while($row_age = $sql_age->fetch_array()) {
     
     
-     $sql_transactions=mysqli_query($con, "SELECT COUNT(`user_fnd_id`) AS NumberOftrans FROM `loan_transaction` WHERE `user_fnd_id` = '$user_fnd_id'"); 
-while($row_transactions = mysqli_fetch_array($sql_transactions)) {
+     $sql_transactions=$con->query("SELECT COUNT(user_fnd_id) AS NumberOftrans FROM loan_transaction WHERE user_fnd_id = '$user_fnd_id'"); 
+while($row_transactions = $sql_transactions->fetch_array()) {
 
 $transactions=$row_transactions['NumberOftrans'];
 //echo "Transactions are :  " . $transactions;
@@ -100,8 +100,8 @@ $transactions=$row_transactions['NumberOftrans'];
 //echo "Transactions : " . $tage_68. "<br>";
 
 
-$sql_fndddddddddd=mysqli_query($con, "SELECT user_fnd_id, COUNT(user_fnd_id) FROM source_income GROUP BY user_fnd_id HAVING COUNT(user_fnd_id)> 1;"); 
-while($row_fnddddddddddddddd = mysqli_fetch_array($sql_fndddddddddd)) {
+$sql_fndddddddddd=$con->query("SELECT user_fnd_id, COUNT(user_fnd_id) FROM source_income GROUP BY user_fnd_id HAVING COUNT(user_fnd_id)> 1;"); 
+while($row_fnddddddddddddddd = $sql_fndddddddddd->fetch_array()) {
 
 $user_fnnnnnnnnnnnnnnd_id=$row_fnddddddddddddddd['user_fnd_id'];
 echo "user_fnnnnnnnnnnnnnnd_id : " . $user_fnnnnnnnnnnnnnnd_id. "<br>";

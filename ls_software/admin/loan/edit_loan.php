@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -24,9 +24,9 @@ $DBcon->close();
 
 $setting_id=$_GET['setting_id'];
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_loan_setting where id = '$setting_id'"); 
+$sql_fnd=$con->query("select * from tbl_loan_setting where id = '$setting_id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $loan_amount=$row_fnd['loan_amount'];
 $loan_fee=$row_fnd['loan_fee'];
@@ -98,8 +98,8 @@ $payoff_amount=$row_fnd['payoff_amount'];
     
     $payoff_amount=$loan_amount_f+$loan_fee;
     
-    $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
-    while($row_role = mysqli_fetch_array($sql_role)) {
+    $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
+    while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  
@@ -111,7 +111,7 @@ $payoff_amount=$row_fnd['payoff_amount'];
 {
    
    
-    mysqli_query($con,"UPDATE tbl_loan_setting SET loan_amount ='$loan_amount_f', loan_fee ='$loan_fee', payoff_amount ='$payoff_amount'where id ='$setting_id' ");
+    $con->query("UPDATE tbl_loan_setting SET loan_amount ='$loan_amount_f', loan_fee ='$loan_fee', payoff_amount ='$payoff_amount'where id ='$setting_id' ");
      
 
  ?>

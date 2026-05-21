@@ -36,12 +36,12 @@ $query = "select * from url_counter where url='dinero' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql=mysqli_query($con, "$query"); 
+$sql=$con->query("$query"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql);
+  $rowcount=$sql->num_rows;
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     
 $counter = $row['url_counter'];
 $website = $row['url'];
@@ -61,12 +61,12 @@ $query_rapido = "select * from url_counter where url='rapido' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql_rapido=mysqli_query($con, "$query_rapido"); 
+$sql_rapido=$con->query("$query_rapido"); 
 
   // Return the number of rows in result set
-  $rowcount_rapido=mysqli_num_rows($sql_rapido);
+  $rowcount_rapido=$sql_rapido->num_rows;
 
-while($row_rapido = mysqli_fetch_array($sql_rapido)) {
+while($row_rapido = $sql_rapido->fetch_array()) {
     
 $counter_rapido = $row_rapido['url_counter'];
 $website_rapido = $row_rapido['url'];
@@ -89,12 +89,12 @@ $query_loan = "select * from url_counter where url='loan' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql_loan=mysqli_query($con, "$query_loan"); 
+$sql_loan=$con->query("$query_loan"); 
 
   // Return the number of rows in result set
-  $rowcount_loan=mysqli_num_rows($sql_loan);
+  $rowcount_loan=$sql_loan->num_rows;
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
 $counter_loan = $row_loan['url_counter'];
 $website_loan = $row_loan['url'];
@@ -115,12 +115,12 @@ $query_prestamo = "select * from url_counter where url='prestamo' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql_prestamo=mysqli_query($con, "$query_prestamo"); 
+$sql_prestamo=$con->query("$query_prestamo"); 
 
   // Return the number of rows in result set
-  $rowcount_prestamo=mysqli_num_rows($sql_prestamo);
+  $rowcount_prestamo=$sql_prestamo->num_rows;
 
-while($row_prestamo = mysqli_fetch_array($sql_prestamo)) {
+while($row_prestamo = $sql_prestamo->fetch_array()) {
     
 $counter_prestamo = $row_prestamo['url_counter'];
 $website_prestamo = $row_prestamo['url'];
@@ -139,12 +139,12 @@ $query_credito = "select * from url_counter where url='credito' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql_credito=mysqli_query($con, "$query_credito"); 
+$sql_credito=$con->query("$query_credito"); 
 
   // Return the number of rows in result set
-  $rowcount_credito=mysqli_num_rows($sql_credito);
+  $rowcount_credito=$sql_credito->num_rows;
 
-while($row_credito = mysqli_fetch_array($sql_credito)) {
+while($row_credito = $sql_credito->fetch_array()) {
     
 $counter_credito = $row_credito['url_counter'];
 $website_credito = $row_credito['url'];
@@ -167,12 +167,12 @@ $query_aplicar = "select * from url_counter where url='aplicar' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql_aplicar=mysqli_query($con, "$query_aplicar"); 
+$sql_aplicar=$con->query("$query_aplicar"); 
 
   // Return the number of rows in result set
-  $rowcount_aplicar=mysqli_num_rows($sql_aplicar);
+  $rowcount_aplicar=$sql_aplicar->num_rows;
 
-while($row_aplicar = mysqli_fetch_array($sql_aplicar)) {
+while($row_aplicar = $sql_aplicar->fetch_array()) {
     
 $counter_aplicar = $row_aplicar['url_counter'];
 $website_aplicar = $row_aplicar['url'];
@@ -194,12 +194,12 @@ $query_payday = "select * from url_counter where url='payday' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql_payday=mysqli_query($con, "$query_payday"); 
+$sql_payday=$con->query("$query_payday"); 
 
   // Return the number of rows in result set
-  $rowcount_payday=mysqli_num_rows($sql_payday);
+  $rowcount_payday=$sql_payday->num_rows;
 
-while($row_payday = mysqli_fetch_array($sql_payday)) {
+while($row_payday = $sql_payday->fetch_array()) {
     
 $counter_payday = $row_payday['url_counter'];
 $website_payday = $row_payday['url'];
@@ -227,12 +227,12 @@ $query_payday = "select * from url_counter where url='payday_dinero' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql_payday=mysqli_query($con, "$query_payday"); 
+$sql_payday=$con->query("$query_payday"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql_payday);
+  $rowcount=$sql_payday->num_rows;
 
-while($row_payday = mysqli_fetch_array($sql_payday)) {
+while($row_payday = $sql_payday->fetch_array()) {
     
 $counter_payday = $row_payday['url_counter'];
 $website_payday = $row_payday['url'];
@@ -254,12 +254,12 @@ $query_payday_aplicar = "select * from url_counter where url='payday_aplicar' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql_payday_aplicar=mysqli_query($con, "$query_payday_aplicar"); 
+$sql_payday_aplicar=$con->query("$query_payday_aplicar"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql_payday_aplicar);
+  $rowcount=$sql_payday_aplicar->num_rows;
 
-while($row_payday_aplicar = mysqli_fetch_array($sql_payday_aplicar)) {
+while($row_payday_aplicar = $sql_payday_aplicar->fetch_array()) {
     
 $counter_payday_aplicar = $row_payday_aplicar['url_counter'];
 $website_payday_aplicar = $row_payday_aplicar['url'];
@@ -282,12 +282,12 @@ $query_payday_prestamo = "select * from url_counter where url='payday_prestamo' 
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql_payday_prestamo=mysqli_query($con, "$query_payday_prestamo"); 
+$sql_payday_prestamo=$con->query("$query_payday_prestamo"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql_payday_prestamo);
+  $rowcount=$sql_payday_prestamo->num_rows;
 
-while($row_payday_prestamo = mysqli_fetch_array($sql_payday_prestamo)) {
+while($row_payday_prestamo = $sql_payday_prestamo->fetch_array()) {
     
 $counter_payday_prestamo = $row_payday_prestamo['url_counter'];
 $website_payday_prestamo = $row_payday_prestamo['url'];
@@ -309,12 +309,12 @@ $query_payday_credito = "select * from url_counter where url='payday_credito' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql_payday_credito=mysqli_query($con, "$query_payday_credito"); 
+$sql_payday_credito=$con->query("$query_payday_credito"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql_payday_credito);
+  $rowcount=$sql_payday_credito->num_rows;
 
-while($row_payday_credito = mysqli_fetch_array($sql_payday_credito)) {
+while($row_payday_credito = $sql_payday_credito->fetch_array()) {
     
 $counter_payday_credito = $row_payday_credito['url_counter'];
 $website_payday_credito = $row_payday_credito['url'];
@@ -346,9 +346,9 @@ echo "<h3>Counter for Page ".$website_payday_credito." is : ".$counter_payday_cr
 //****************** pre approved payday loan
 
 $query = "select * from msg_template where msg_name='preapprovedpaydayloan' ";
-$sql=mysqli_query($con, "$query"); 
-  $rowcount=mysqli_num_rows($sql);
-while($row = mysqli_fetch_array($sql)) {
+$sql=$con->query("$query"); 
+  $rowcount=$sql->num_rows;
+while($row = $sql->fetch_array()) {
     $msg_name = $row['msg_name'];
     $msg_content= $row['msg_content'];
  //echo "<br><br><br>";
@@ -359,9 +359,9 @@ while($row = mysqli_fetch_array($sql)) {
 
 
 $query_spanish = "select * from msg_template where msg_name='preapprovedpaydayloanspanish' ";
-$sql_spanish=mysqli_query($con, "$query_spanish"); 
-  $rowcount_spanish=mysqli_num_rows($sql_spanish);
-while($row_spanish = mysqli_fetch_array($sql_spanish)) {
+$sql_spanish=$con->query("$query_spanish"); 
+  $rowcount_spanish=$sql_spanish->num_rows;
+while($row_spanish = $sql_spanish->fetch_array()) {
     $msg_name_spanish = $row_spanish['msg_name'];
     $msg_content_spanish= $row_spanish['msg_content'];
  //echo "<br><br><br>";
@@ -374,9 +374,9 @@ while($row_spanish = mysqli_fetch_array($sql_spanish)) {
 //****************** approved payday loan Start
 
 $query2 = "select * from msg_template where msg_name='approvedpaydayloan' ";
-$sql2=mysqli_query($con, "$query2"); 
-  $rowcount2=mysqli_num_rows($sql2);
-while($row2 = mysqli_fetch_array($sql2)) {
+$sql2=$con->query("$query2"); 
+  $rowcount2=$sql2->num_rows;
+while($row2 = $sql2->fetch_array()) {
     $msg_name2 = $row2['msg_name'];
     $msg_content2= $row2['msg_content'];
  //echo "<br><br><br>";
@@ -387,9 +387,9 @@ while($row2 = mysqli_fetch_array($sql2)) {
 
 
 $query2_spanish = "select * from msg_template where msg_name='approvedpaydayloanspanish' ";
-$sql2_spanish=mysqli_query($con, "$query2_spanish"); 
-  $rowcount2_spanish=mysqli_num_rows($sql2_spanish);
-while($row2_spanish = mysqli_fetch_array($sql2_spanish)) {
+$sql2_spanish=$con->query("$query2_spanish"); 
+  $rowcount2_spanish=$sql2_spanish->num_rows;
+while($row2_spanish = $sql2_spanish->fetch_array()) {
     $msg_name2_spanish = $row2_spanish['msg_name'];
     $msg_content2_spanish= $row2_spanish['msg_content'];
  //echo "<br><br><br>";
@@ -405,9 +405,9 @@ while($row2_spanish = mysqli_fetch_array($sql2_spanish)) {
 //****************** pre approved personal loan Start
 
 $query3 = "select * from msg_template where msg_name='preapprovedpersonalloan' ";
-$sql3=mysqli_query($con, "$query3"); 
-  $rowcount3=mysqli_num_rows($sql3);
-while($row3 = mysqli_fetch_array($sql3)) {
+$sql3=$con->query("$query3"); 
+  $rowcount3=$sql3->num_rows;
+while($row3 = $sql3->fetch_array()) {
     $msg_name3 = $row3['msg_name'];
     $msg_content3= $row3['msg_content'];
  echo "<br><br><br>";
@@ -418,9 +418,9 @@ while($row3 = mysqli_fetch_array($sql3)) {
 
 
 $query3_spanish = "select * from msg_template where msg_name='preapprovedpersonalloanspanish' ";
-$sql3_spanish=mysqli_query($con, "$query3_spanish"); 
-  $rowcount3_spanish=mysqli_num_rows($sql3_spanish);
-while($row3_spanish = mysqli_fetch_array($sql3_spanish)) {
+$sql3_spanish=$con->query("$query3_spanish"); 
+  $rowcount3_spanish=$sql3_spanish->num_rows;
+while($row3_spanish = $sql3_spanish->fetch_array()) {
     $msg_name3_spanish = $row3_spanish['msg_name'];
     $msg_content3_spanish= $row3_spanish['msg_content'];
  echo "<br><br><br>";
@@ -434,9 +434,9 @@ while($row3_spanish = mysqli_fetch_array($sql3_spanish)) {
 //****************** approved personal loan loan Start
 
 $query4 = "select * from msg_template where msg_name='approvedpersonalloan' ";
-$sql4=mysqli_query($con, "$query4"); 
-  $rowcount4=mysqli_num_rows($sql4);
-while($row4 = mysqli_fetch_array($sql4)) {
+$sql4=$con->query("$query4"); 
+  $rowcount4=$sql4->num_rows;
+while($row4 = $sql4->fetch_array()) {
     $msg_name4 = $row4['msg_name'];
     $msg_content4= $row4['msg_content'];
  //echo "<br><br><br>";
@@ -447,9 +447,9 @@ while($row4 = mysqli_fetch_array($sql4)) {
 
 
 $query4_spanish = "select * from msg_template where msg_name='approvedpersonalloanspanish' ";
-$sql4_spanish=mysqli_query($con, "$query4_spanish"); 
-  $rowcount4_spanish=mysqli_num_rows($sql4_spanish);
-while($row4_spanish = mysqli_fetch_array($sql4_spanish)) {
+$sql4_spanish=$con->query("$query4_spanish"); 
+  $rowcount4_spanish=$sql4_spanish->num_rows;
+while($row4_spanish = $sql4_spanish->fetch_array()) {
     $msg_name4_spanish = $row4_spanish['msg_name'];
     $msg_content4_spanish= $row4_spanish['msg_content'];
  //echo "<br><br><br>";
@@ -463,9 +463,9 @@ while($row4_spanish = mysqli_fetch_array($sql4_spanish)) {
 //******************* pre approved commercial loan Start
 
 $query5 = "select * from msg_template where msg_name='preapprovedcommercialloan' ";
-$sql5=mysqli_query($con, "$query5"); 
-  $rowcount5=mysqli_num_rows($sql5);
-while($row5 = mysqli_fetch_array($sql5)) {
+$sql5=$con->query("$query5"); 
+  $rowcount5=$sql5->num_rows;
+while($row5 = $sql5->fetch_array()) {
     $msg_name5 = $row5['msg_name'];
     $msg_content5= $row5['msg_content'];
  //echo "<br><br><br>";
@@ -475,9 +475,9 @@ while($row5 = mysqli_fetch_array($sql5)) {
 }
 
 $query5_spanish = "select * from msg_template where msg_name='preapprovedcommercialloanspanish' ";
-$sql5_spanish=mysqli_query($con, "$query5_spanish"); 
-  $rowcount5_spanish=mysqli_num_rows($sql5_spanish);
-while($row5_spanish = mysqli_fetch_array($sql5_spanish)) {
+$sql5_spanish=$con->query("$query5_spanish"); 
+  $rowcount5_spanish=$sql5_spanish->num_rows;
+while($row5_spanish = $sql5_spanish->fetch_array()) {
     $msg_name5_spanish = $row5_spanish['msg_name'];
     $msg_content5_spanish= $row5_spanish['msg_content'];
  //echo "<br><br><br>";
@@ -490,9 +490,9 @@ while($row5_spanish = mysqli_fetch_array($sql5_spanish)) {
 //*******************approved commercial loan Start
 
 $query6 = "select * from msg_template where msg_name='approvedcommercialloan' ";
-$sql6=mysqli_query($con, "$query6"); 
-  $rowcount6=mysqli_num_rows($sql6);
-while($row6 = mysqli_fetch_array($sql6)) {
+$sql6=$con->query("$query6"); 
+  $rowcount6=$sql6->num_rows;
+while($row6 = $sql6->fetch_array()) {
     $msg_name6 = $row6['msg_name'];
     $msg_content6= $row6['msg_content'];
  //echo "<br><br><br>";
@@ -502,9 +502,9 @@ while($row6 = mysqli_fetch_array($sql6)) {
 }
 
 $query6_spanish = "select * from msg_template where msg_name='approvedcommercialloanspanish' ";
-$sql6_spanish=mysqli_query($con, "$query6_spanish"); 
-  $rowcount6_spanish=mysqli_num_rows($sql6_spanish);
-while($row6_spanish = mysqli_fetch_array($sql6_spanish)) {
+$sql6_spanish=$con->query("$query6_spanish"); 
+  $rowcount6_spanish=$sql6_spanish->num_rows;
+while($row6_spanish = $sql6_spanish->fetch_array()) {
     $msg_name6_spanish = $row6_spanish['msg_name'];
     $msg_content6_spanish= $row6_spanish['msg_content'];
  //echo "<br><br><br>";
@@ -518,9 +518,9 @@ while($row6_spanish = mysqli_fetch_array($sql6_spanish)) {
 //*******************pre approved titleloan Start
 
 $query7 = "select * from msg_template where msg_name='preapprovedtitleloan' ";
-$sql7=mysqli_query($con, "$query7"); 
-  $rowcount7=mysqli_num_rows($sql7);
-while($row7 = mysqli_fetch_array($sql7)) {
+$sql7=$con->query("$query7"); 
+  $rowcount7=$sql7->num_rows;
+while($row7 = $sql7->fetch_array()) {
     $msg_name7 = $row7['msg_name'];
     $msg_content7= $row7['msg_content'];
  //echo "<br><br><br>";
@@ -530,9 +530,9 @@ while($row7 = mysqli_fetch_array($sql7)) {
 }
 
 $query7_spanish = "select * from msg_template where msg_name='preapprovedtitleloanspanish' ";
-$sql7_spanish=mysqli_query($con, "$query7_spanish"); 
-    $rowcount7_spanish=mysqli_num_rows($sql7_spanish);
-    while($row7_spanish = mysqli_fetch_array($sql7_spanish)) {
+$sql7_spanish=$con->query("$query7_spanish"); 
+    $rowcount7_spanish=$sql7_spanish->num_rows;
+    while($row7_spanish = $sql7_spanish->fetch_array()) {
     $msg_name7_spanish = $row7_spanish['msg_name'];
     $msg_content7_spanish= $row7_spanish['msg_content'];
  //echo "<br><br><br>";
@@ -545,9 +545,9 @@ $sql7_spanish=mysqli_query($con, "$query7_spanish");
 
 //*******************approved titleloan Start
 $query8 = "select * from msg_template where msg_name='approvedtitleloan' ";
-$sql8=mysqli_query($con, "$query8"); 
-  $rowcount8=mysqli_num_rows($sql8);
-while($row8 = mysqli_fetch_array($sql8)) {
+$sql8=$con->query("$query8"); 
+  $rowcount8=$sql8->num_rows;
+while($row8 = $sql8->fetch_array()) {
     $msg_name8 = $row8['msg_name'];
     $msg_content8= $row8['msg_content'];
  //echo "<br><br><br>";
@@ -557,9 +557,9 @@ while($row8 = mysqli_fetch_array($sql8)) {
 }
 
 $query8_spanish = "select * from msg_template where msg_name='approvedtitleloanspanish' ";
-$sql8_spanish=mysqli_query($con, "$query8_spanish"); 
-  $rowcount8_spanish=mysqli_num_rows($sql8_spanish);
-while($row8_spanish = mysqli_fetch_array($sql8_spanish)) {
+$sql8_spanish=$con->query("$query8_spanish"); 
+  $rowcount8_spanish=$sql8_spanish->num_rows;
+while($row8_spanish = $sql8_spanish->fetch_array()) {
     $msg_name8_spanish = $row8_spanish['msg_name'];
     $msg_content8_spanish= $row8_spanish['msg_content'];
  //echo "<br><br><br>";
@@ -572,9 +572,9 @@ while($row8_spanish = mysqli_fetch_array($sql8_spanish)) {
 
 //******************* declined sms Start
 $query9 = "select * from msg_template where msg_name='declinedsms' ";
-$sql9=mysqli_query($con, "$query9"); 
-  $rowcount9=mysqli_num_rows($sql9);
-while($row9 = mysqli_fetch_array($sql9)) {
+$sql9=$con->query("$query9"); 
+  $rowcount9=$sql9->num_rows;
+while($row9 = $sql9->fetch_array()) {
     $msg_name9 = $row9['msg_name'];
     $msg_content9= $row9['msg_content'];
  //echo "<br><br><br>";
@@ -584,9 +584,9 @@ while($row9 = mysqli_fetch_array($sql9)) {
 }
 
 $query9_spanish = "select * from msg_template where msg_name='declinedsmsspanish' ";
-$sql9_spanish=mysqli_query($con, "$query9_spanish"); 
-  $rowcount9_spanish=mysqli_num_rows($sql9_spanish);
-while($row9_spanish = mysqli_fetch_array($sql9_spanish)) {
+$sql9_spanish=$con->query("$query9_spanish"); 
+  $rowcount9_spanish=$sql9_spanish->num_rows;
+while($row9_spanish = $sql9_spanish->fetch_array()) {
     $msg_name9_spanish = $row9_spanish['msg_name'];
     $msg_content9_spanish= $row9_spanish['msg_content'];
  //echo "<br><br><br>";
@@ -634,25 +634,25 @@ $approvedtitleloanspanish=$_POST['approvedtitleloanspanish'];
 $declinedsmsspanish=$_POST['declinedsmsspanish'];
 
 
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$preapprovedpaydayloan' where msg_name = '$msg_name'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$approvedpaydayloan' where msg_name = '$msg_name2'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$preapprovedpersonalloan' where msg_name = '$msg_name3'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$approvedpersonalloan' where msg_name = '$msg_name4'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$preapprovedcommercialloan' where msg_name = '$msg_name5'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$approvedcommercialloan'    where msg_name = '$msg_name6'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$preapprovedtitleloan'      where msg_name = '$msg_name7'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$approvedtitleloan'         where msg_name = '$msg_name8'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$declinedsms'               where msg_name = '$msg_name9'");
+$con->query("UPDATE msg_template SET msg_content ='$preapprovedpaydayloan' where msg_name = '$msg_name'");
+$con->query("UPDATE msg_template SET msg_content ='$approvedpaydayloan' where msg_name = '$msg_name2'");
+$con->query("UPDATE msg_template SET msg_content ='$preapprovedpersonalloan' where msg_name = '$msg_name3'");
+$con->query("UPDATE msg_template SET msg_content ='$approvedpersonalloan' where msg_name = '$msg_name4'");
+$con->query("UPDATE msg_template SET msg_content ='$preapprovedcommercialloan' where msg_name = '$msg_name5'");
+$con->query("UPDATE msg_template SET msg_content ='$approvedcommercialloan'    where msg_name = '$msg_name6'");
+$con->query("UPDATE msg_template SET msg_content ='$preapprovedtitleloan'      where msg_name = '$msg_name7'");
+$con->query("UPDATE msg_template SET msg_content ='$approvedtitleloan'         where msg_name = '$msg_name8'");
+$con->query("UPDATE msg_template SET msg_content ='$declinedsms'               where msg_name = '$msg_name9'");
 
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$preapprovedpaydayloanspanish' where msg_name = '$msg_name_spanish'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$approvedpaydayloanspanish' where msg_name = '$msg_name2_spanish'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$preapprovedpersonalloanspanish' where msg_name = '$msg_name3_spanish'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$approvedpersonalloanspanish' where msg_name = '$msg_name4_spanish'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$preapprovedcommercialloanspanish' where msg_name = '$msg_name5_spanish'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$approvedcommercialloanspanish'    where msg_name = '$msg_name6_spanish'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$preapprovedtitleloanspanish'      where msg_name = '$msg_name7_spanish'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$approvedtitleloanspanish'         where msg_name = '$msg_name8_spanish'");
-mysqli_query($con,"UPDATE msg_template SET msg_content ='$declinedsmsspanish'               where msg_name = '$msg_name9_spanish'");
+$con->query("UPDATE msg_template SET msg_content ='$preapprovedpaydayloanspanish' where msg_name = '$msg_name_spanish'");
+$con->query("UPDATE msg_template SET msg_content ='$approvedpaydayloanspanish' where msg_name = '$msg_name2_spanish'");
+$con->query("UPDATE msg_template SET msg_content ='$preapprovedpersonalloanspanish' where msg_name = '$msg_name3_spanish'");
+$con->query("UPDATE msg_template SET msg_content ='$approvedpersonalloanspanish' where msg_name = '$msg_name4_spanish'");
+$con->query("UPDATE msg_template SET msg_content ='$preapprovedcommercialloanspanish' where msg_name = '$msg_name5_spanish'");
+$con->query("UPDATE msg_template SET msg_content ='$approvedcommercialloanspanish'    where msg_name = '$msg_name6_spanish'");
+$con->query("UPDATE msg_template SET msg_content ='$preapprovedtitleloanspanish'      where msg_name = '$msg_name7_spanish'");
+$con->query("UPDATE msg_template SET msg_content ='$approvedtitleloanspanish'         where msg_name = '$msg_name8_spanish'");
+$con->query("UPDATE msg_template SET msg_content ='$declinedsmsspanish'               where msg_name = '$msg_name9_spanish'");
         
 ?>
 

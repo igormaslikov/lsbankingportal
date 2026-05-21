@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 
 include '../dbconnect.php';
@@ -15,18 +15,18 @@ $start = "12:00";
 //*********** Clear last_payment_date if there is not transactions*/
 
 
-$sql_loan_ids = mysqli_query($con, "SELECT tl.loan_id, tl.user_fnd_id,tl.loan_create_id, tl.last_payment_date, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id where (v.value_sum is NULL or v.value_sum = 0) and tl.last_payment_date != ''");
+$sql_loan_ids = $con->query("SELECT tl.loan_id, tl.user_fnd_id,tl.loan_create_id, tl.last_payment_date, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id where (v.value_sum is NULL or v.value_sum = 0) and tl.last_payment_date != ''");
 
-while($rows = mysqli_fetch_array($sql_loan_ids)){
+while($rows = $sql_loan_ids->fetch_array()){
   $loan_id = $rows['loan_id'];
   $user_fnd_id = $rows['user_fnd_id'];
   $loan_create_id = $rows['loan_create_id'];
 
-  mysqli_query($con,"UPDATE tbl_loan SET loan_status='Active', last_payment_date = '' where loan_id= '$loan_id'");
+  $con->query("UPDATE tbl_loan SET loan_status='Active', last_payment_date = '' where loan_id= '$loan_id'");
 
   $date_update= date('Y-m-d H:i:s');
   $query_insert_activity = "Insert into application_status_updates (application_id,loan_create_id,user_id,status,creation_date) Values ('$user_fnd_id','$loan_create_id','N/a','Loan last_payment_date cleared due to missing transactions','$date_update')";
-  $res = mysqli_query($con , $query_insert_activity);
+  $res = $con->query($query_insert_activity);
 }
 
 //**************************************************************** */
@@ -41,9 +41,9 @@ for ($i = 0; $i < count($status_array); $i++)
 
   $where = " where tl.loan_status = '".$status."'";
 
-  $sql_loan_ids = mysqli_query($con, "SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id".$where);
+  $sql_loan_ids = $con->query("SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id".$where);
 
-  while($rows = mysqli_fetch_array($sql_loan_ids)){
+  while($rows = $sql_loan_ids->fetch_array()){
     $loan_id = $rows['loan_id'];
     $user_fnd_id = $rows['user_fnd_id'];
     $loan_create_id = $rows['loan_create_id'];
@@ -77,7 +77,7 @@ for ($i = 0; $i < count($status_array); $i++)
 
     if($loan_status != "")
 
-      mysqli_query($con,"UPDATE tbl_loan SET loan_status = '$loan_status', days_past_due=$days where loan_id= '$loan_id'");
+      $con->query("UPDATE tbl_loan SET loan_status = '$loan_status', days_past_due=$days where loan_id= '$loan_id'");
           
       if($current_loan_status != $loan_status){
         $date_update= date('Y-m-d H:i:s');
@@ -87,9 +87,9 @@ for ($i = 0; $i < count($status_array); $i++)
   }
 }
 
-//  $sql_past_due=mysqli_query($con, "select * from tbl_loan where loan_status !=  AND last_payment_date !=''"); 
+//  $sql_past_due=$con->query("select * from tbl_loan where loan_status !=  AND last_payment_date !=''"); 
 
-// while($row_past_due = mysqli_fetch_array($sql_past_due)) {
+// while($row_past_due = $sql_past_due->fetch_array()) {
 
 // $user_fnd_id=$row_past_due['user_fnd_id'];
 // $loan_create_id=$row_past_due['loan_create_id'];
@@ -115,7 +115,7 @@ for ($i = 0; $i < count($status_array); $i++)
 // }
 
 // if($loan_status != "")
-//   mysqli_query($con,"UPDATE tbl_loan SET  days_past_due=$interval->days where loan_id= '$loan_id'");
+//   $con->query("UPDATE tbl_loan SET  days_past_due=$interval->days where loan_id= '$loan_id'");
       
       
 //   $date_update= date('Y-m-d H:i:s');

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -27,9 +27,9 @@ $DBcon->close();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_personal_loans where p_loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_personal_loans where p_loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_create_id=$row_fnd['loan_create_id'];
@@ -39,8 +39,8 @@ $loan_status=$row_fnd['loan_status'];
 
 
 
-$query_payment = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM personal_loan_transaction where loan_id= '$id'");
-while ($row_payment=mysqli_fetch_array($query_payment)){
+$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM personal_loan_transaction where loan_id= '$id'");
+while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
     $payment = number_format((float)$payment, 2, '.', '');
@@ -55,9 +55,9 @@ while ($row_payment=mysqli_fetch_array($query_payment)){
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -78,9 +78,9 @@ $customer_numbr=$row['mobile_number'];
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql=mysqli_query($con, "select * from tbl_personal_loans where p_loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_personal_loans where p_loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -143,8 +143,8 @@ $timestamp = strtotime($payment_date);
 $new_payment_date= date("m-d-Y", $timestamp);
 
 
-$query_payment = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM personal_loan_transaction where loan_id= '$id'");
-while ($row_payment=mysqli_fetch_array($query_payment)){
+$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM personal_loan_transaction where loan_id= '$id'");
+while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
     $payment = number_format((float)$payment, 2, '.', '');
@@ -155,9 +155,9 @@ while ($row_payment=mysqli_fetch_array($query_payment)){
 
 
 
- $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_loan'"); 
+ $sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -173,9 +173,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -192,9 +192,9 @@ $username=$row_user['username'];
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql_user=mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'"); 
+$sql_user=$con->query("select * from tbl_loan_notes where loan_id= '$id'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $loan_notes=$row_user['notes'];
 
@@ -266,7 +266,7 @@ $loan_notes=$row_user['notes'];
        <h3>Loan Status Activity Log</h3>  
    	<?php
 
-$result_status = mysqli_query($con,"SELECT * FROM application_status_updates where loan_create_id = '$loan_create_id' order by id desc ");
+$result_status = $con->query("SELECT * FROM application_status_updates where loan_create_id = '$loan_create_id' order by id desc ");
 
 echo '<br><table style="width:100%;padding:10px" class="table table-striped table-bordered">'."
 <tr>
@@ -275,13 +275,13 @@ echo '<br><table style="width:100%;padding:10px" class="table table-striped tabl
 <th>User</th>
 </tr>";
 
-while($row_status = mysqli_fetch_array($result_status))
+while($row_status = $result_status->fetch_array())
 
 {
 $created_by_get_db_activity = $row_status['user_id'];
-$sql_activity_by_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by_get_db_activity'"); 
+$sql_activity_by_user=$con->query("select * from tbl_users where user_id= '$created_by_get_db_activity'"); 
 $final_activity_by_user = '';
-while($row_sql_activity_by_user = mysqli_fetch_array($sql_activity_by_user)) {
+while($row_sql_activity_by_user = $sql_activity_by_user->fetch_array()) {
 	$final_activity_by_user = $row_sql_activity_by_user['username'];
 }
 	
@@ -304,7 +304,7 @@ echo "</table><br>";
 <h3>Loan Payment Activity Log</h3>  
    	<?php
 
-$result_statuss = mysqli_query($con,"SELECT * FROM personal_loan_transaction where loan_create_id = '$loan_create_id'");
+$result_statuss = $con->query("SELECT * FROM personal_loan_transaction where loan_create_id = '$loan_create_id'");
 
 echo '<br><table style="width:100%;padding:10px" class="table table-striped table-bordered">'."
 <tr>
@@ -314,13 +314,13 @@ echo '<br><table style="width:100%;padding:10px" class="table table-striped tabl
 <th>User</th>
 </tr>";
 $counter="1";
-while($row_statuss = mysqli_fetch_array($result_statuss))
+while($row_statuss = $result_statuss->fetch_array())
 
 {
 $created_by_get_db_activityy = $row_statuss['user_id'];
-$sql_activity_by_userr=mysqli_query($con, "select * from tbl_users where user_id= '$created_by_get_db_activityy'"); 
+$sql_activity_by_userr=$con->query("select * from tbl_users where user_id= '$created_by_get_db_activityy'"); 
 $final_activity_by_userr = '';
-while($row_sql_activity_by_userr = mysqli_fetch_array($sql_activity_by_userr)) {
+while($row_sql_activity_by_userr = $sql_activity_by_userr->fetch_array()) {
 	$final_activity_by_userr = $row_sql_activity_by_userr['username'];
 }
 	
@@ -338,7 +338,7 @@ echo "</tr>";
 }
 echo "</table><br>";
 
-mysqli_close($con);
+$con->close();
 ?>
 
 

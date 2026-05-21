@@ -1,4 +1,4 @@
-<html>
+﻿<html>
     
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -44,7 +44,7 @@ if ($delete_allowed_validate==1)
 {
     
      $query = "DELETE FROM access_form WHERE id = '$id'";
-    $result = mysqli_query($con, $query);
+    $result = $con->query($query);
        if ($result) {
            //echo "<div class='form'><h3> Customer Successfully Deleted.</h3><br/></div>";
        } else {

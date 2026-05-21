@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -19,20 +19,20 @@ date_default_timezone_set('America/Los_Angeles');
  $current_date= date("Y-m-d") ;
  //$id=$_GET['id'];
  $current_time = date('H:i');
-//$sql_fnd=mysqli_query($con, "select * from tbl_loan where payment_date = '$current_date' AND repay_status='0' AND loan_status='Active' limit 1"); 
+//$sql_fnd=$con->query("select * from tbl_loan where payment_date = '$current_date' AND repay_status='0' AND loan_status='Active' limit 1"); 
 echo  $current_time;
-echo "select * from tbl_loan_schedules  where `payment_date` = '$current_date' AND `schedule_time` < '$current_time' AND `status`='0' limit 1";
-$sql_fnd1=mysqli_query($con, "select * from tbl_loan_schedules  where `payment_date` = '$current_date' AND `schedule_time` < '$current_time' AND `status`='0'  limit 1"); 
+echo "select * from tbl_loan_schedules  where payment_date = '$current_date' AND schedule_time < '$current_time' AND status='0' limit 1";
+$sql_fnd1=$con->query("select * from tbl_loan_schedules  where payment_date = '$current_date' AND schedule_time < '$current_time' AND status='0' ORDER BY id OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY");
 
-while($row_fnd1 = mysqli_fetch_array($sql_fnd1)) {
+while($row_fnd1 = $sql_fnd1->fetch_array()) {
     $FFF_id = $row_fnd1['id'];
     $f_loan_id = $row_fnd1['loan_id'];
     $f_amount = $row_fnd1['amount'];
     $f_card = $row_fnd1['card'];
     
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_create_id = '$f_loan_id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_create_id = '$f_loan_id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_original_id = $row_fnd['loan_id'];
@@ -46,9 +46,9 @@ echo $loan_create_id."<br>";
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -62,9 +62,9 @@ $zip_code=$row['zip_code'];
 
 //echo "fname is:".$first_name;
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_create_id'"); 
+$sql=$con->query("select * from tbl_loan where loan_create_id= '$loan_create_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 	$loan_create_id=$row['loan_create_id'];
@@ -96,9 +96,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -109,9 +109,9 @@ $username=$row_user['username'];
 
 
 
-$sql_transaction=mysqli_query($con, "select * from loan_transaction where loan_id= '$id'"); 
+$sql_transaction=$con->query("select * from loan_transaction where loan_id= '$id'"); 
 
-while($row_transaction = mysqli_fetch_array($sql_transaction)) {
+while($row_transaction = $sql_transaction->fetch_array()) {
 
 $payment_method=$row_transaction['payment_method'];
 
@@ -214,9 +214,9 @@ tr:nth-child(even) {
       
       <?php
       
-      $sql_user=mysqli_query($con, "SELECT * FROM `loan_initial_banking` WHERE `card_number` = '$f_card'"); 
+      $sql_user=$con->query("SELECT * FROM loan_initial_banking WHERE card_number = '$f_card'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $card=$row_user['card_number'];
 $cvv=$row_user['cvv_number'];
@@ -250,9 +250,9 @@ $card_exp_date=$row_user['card_exp_date'];
      echo "Zip Code: $zip_code<br><hr>";
 //********************************************* GET BASE URL 
 
-$sql_payment_api=mysqli_query($con, "select * from payment_api_urls where name='live_url'"); 
+$sql_payment_api=$con->query("select * from payment_api_urls where name='live_url'"); 
 
-while($row_payment_api = mysqli_fetch_array($sql_payment_api)) {
+while($row_payment_api = $sql_payment_api->fetch_array()) {
 
 $url_payment_api=$row_payment_api['url'];
 $app_token_payment=$row_payment_api['token'];
@@ -467,7 +467,7 @@ $trans_type_id=$data_paywithcard['trans_type_id'];
 
  if($status=='error')
    {
-mysqli_query($con,"UPDATE `tbl_loan` SET `repay_status`='5' WHERE `loan_create_id` = '$loan_create_id'");
+$con->query("UPDATE tbl_loan SET repay_status='5' WHERE loan_create_id = '$loan_create_id'");
       $response= str_replace("[","","$response");
        $response= str_replace("]","","$response");
       // echo "This: ".$response."<br>";
@@ -477,13 +477,13 @@ mysqli_query($con,"UPDATE `tbl_loan` SET `repay_status`='5' WHERE `loan_create_i
       $error_description=$data['errors']['description'];
        $payment_error= "$status: $displayerror $error_description, Try to pay $amount with card ($card)";
      
-mysqli_query($con,"UPDATE `tbl_loan_schedules` SET `status`='5' ,`payment_report`='$payment_error',`payment_time`='$current_time',`payment_date_done`='$current_date' WHERE `id` = '$FFF_id'"); 
+$con->query("UPDATE tbl_loan_schedules SET status='5' ,payment_report='$payment_error',payment_time='$current_time',payment_date_done='$current_date' WHERE id = '$FFF_id'"); 
       
         $payment_method='Repay - Schedule';
         $amount='0.00';
         $date_r= date('Y-m-d');
         $query  = "INSERT INTO loan_transaction (loan_id,loan_create_id,user_fnd_id,payment_method,payoff_amount,payment_date,type_of_payment,type_of_loan,created_at,created_by)  VALUES ('$loan_original_id','$loan_create_id','$user_fnd_id','$payment_method','$amount','$date_r','$payment_error','payday loan','$date_r','$u_id')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
  
  
      $date_update= date('Y-m-d H:i:s');
@@ -494,8 +494,8 @@ mysqli_query($con,"UPDATE `tbl_loan_schedules` SET `status`='5' ,`payment_report
   }
    if($card_last_four>0){
 
-        $query_in  = "INSERT INTO `tbl_pay_with_card` (`user_fnd_id`,`loan_create_id`,`merchant_id`, `transaction_id`, `auth_code`, `trx_status`, `result_text`, `zip_code`, `amount`, `card_bin`, `card_exp`, `card_last_four`, `name_on_card`, `customer_id`, `payment_channel`, `source`, `transaction_type`, `transaction_date`)  VALUES ('$user_fnd_id','$loan_create_id','$merchant_id','$transaction_id','$auth_code','$trx_status','$result_text','$zip','$amount','$card_bin','$exp_date','$card_last_four','$name_on_card','$customer_id','$payment_channel','$merchant_name','$trans_type_id','$new_date')";
-        $result_in = mysqli_query($con, $query_in);
+        $query_in  = "INSERT INTO tbl_pay_with_card (user_fnd_id,loan_create_id,merchant_id, transaction_id, auth_code, trx_status, result_text, zip_code, amount, card_bin, card_exp, card_last_four, name_on_card, customer_id, payment_channel, source, transaction_type, transaction_date)  VALUES ('$user_fnd_id','$loan_create_id','$merchant_id','$transaction_id','$auth_code','$trx_status','$result_text','$zip','$amount','$card_bin','$exp_date','$card_last_four','$name_on_card','$customer_id','$payment_channel','$merchant_name','$trans_type_id','$new_date')";
+        $result_in = $con->query($query_in);
         if ($result_in) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -505,16 +505,16 @@ mysqli_query($con,"UPDATE `tbl_loan_schedules` SET `status`='5' ,`payment_report
         $payment_method='Repay - Schedule';
         $type_of_payment='Repay';
         $query  = "INSERT INTO loan_transaction (loan_id,loan_create_id,user_fnd_id,payment_method,payoff_amount,payment_date,type_of_payment,type_of_loan,created_at,created_by,repay_transaction_id)  VALUES ('$loan_original_id','$loan_create_id','$user_fnd_id','$payment_method','$amount','$new_date','$type_of_payment','payday loan','$date','$u_id','$transaction_id')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
         echo "<h3> Error Inserting Data </h3>";
         } 
  
- mysqli_query($con, "UPDATE tbl_loan SET  last_payment_date='$payment_date', loan_status='Paid'  where user_fnd_id ='$user_fnd_id' AND loan_id='$id'");
+ $con->query("UPDATE tbl_loan SET  last_payment_date='$payment_date', loan_status='Paid'  where user_fnd_id ='$user_fnd_id' AND loan_id='$id'");
  
-mysqli_query($con,"UPDATE `tbl_loan_schedules` SET `status`='1',`payment_report`='$result_text',`payment_time`='$current_time',`payment_date_done`='$current_date',`transaction_id`='$transaction_id' WHERE `id` = '$FFF_id'");
+$con->query("UPDATE tbl_loan_schedules SET status='1',payment_report='$result_text',payment_time='$current_time',payment_date_done='$current_date',transaction_id='$transaction_id' WHERE id = '$FFF_id'");
  
      $date_update= date('Y-m-d H:i:s');
      $loan_account_statuss= "Payment is made Via Repay";
@@ -522,7 +522,7 @@ mysqli_query($con,"UPDATE `tbl_loan_schedules` SET `status`='1',`payment_report`
     mysqli_query ($con , $query_insert_activity);
 
 
-mysqli_query($con,"UPDATE `tbl_loan` SET `repay_status`='1' WHERE `loan_create_id` = '$loan_create_id'");
+$con->query("UPDATE tbl_loan SET repay_status='1' WHERE loan_create_id = '$loan_create_id'");
  }
 
 

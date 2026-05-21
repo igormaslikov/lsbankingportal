@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 error_reporting(0);
 include_once 'dbconnect.php';
@@ -39,10 +39,10 @@ $date = date('Y-m-d H:i:s');
 
 $form_name=basename(__FILE__);
 
-    $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+    $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-    while($row_role = mysqli_fetch_array($sql_role)) {
+    while($row_role = $sql_role->fetch_array()) {
 
     $form_id=$row_role['id'];
  
@@ -53,7 +53,7 @@ $form_name=basename(__FILE__);
 
 
 $query_charge = "INSERT INTO tbl_charge_type (loan_id,charge_amount,charge_date,charge_type,charge_info,application_type,creation_date,created_by)  VALUES ('$loan_id_charge','$charge_amount','$charge_date','$charge_type','$charge_info','$application_type','$date','$u_id')";
-        $result_charge = mysqli_query($con, $query_charge);
+        $result_charge = $con->query($query_charge);
         if ($result_charge) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

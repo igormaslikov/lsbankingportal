@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 for ($k = 0 ; $k < 10; $k++){
 include('dbconnect.php');
 include('dbconfig.php');
@@ -22,20 +22,20 @@ $last_date77 = date('Y/m/d', strtotime('-1 days'));
 echo $last_date; 
 $date =  date('Y-m-d');
 $datee =  date('Y/m/d');
-$query = "select * from decision_login_codes where status = '0' AND (date = '$datee' OR date = '$date' OR date = '$last_date1' OR date = '$last_date2' OR date = '$last_date3' OR date = '$last_date4' OR date = '$last_date5' OR date = '$last_date6' OR date = '$last_date7' OR date = '$date' OR date = '$last_date11' OR date = '$last_date22' OR date = '$last_date33' OR date = '$last_date44' OR date = '$last_date55' OR date = '$last_date66' OR date = '$last_date77') Limit 1";
+$query = "select TOP 1 * from decision_login_codes where status = '0' AND (date = '$datee' OR date = '$date' OR date = '$last_date1' OR date = '$last_date2' OR date = '$last_date3' OR date = '$last_date4' OR date = '$last_date5' OR date = '$last_date6' OR date = '$last_date7' OR date = '$date' OR date = '$last_date11' OR date = '$last_date22' OR date = '$last_date33' OR date = '$last_date44' OR date = '$last_date55' OR date = '$last_date66' OR date = '$last_date77')";
 //$query = "select * from decision_login_codes where  id = 564";
 
 echo $query . "<br>";
-$sql=mysqli_query($con, "$query"); 
+$sql=$con->query("$query"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql);
+  $rowcount=$sql->num_rows;
 //  echo "Row Count is : " . $rowcount. "<br>";
 if ($rowcount<1){
 	
-mysqli_query($con,"UPDATE decision_login_codes SET status ='0' where status = '1'");
+$con->query("UPDATE decision_login_codes SET status ='0' where status = '1'");
 }
-while($row = mysqli_fetch_array($sql)) {
+while ($sql && ($row = $sql->fetch_array())) {
     
 $email = $row['email'];
 $code =$row['code'];
@@ -44,6 +44,8 @@ echo $code;
 curl_setopt_array($curl, array(
  CURLOPT_URL => "https://integration.decisionlogic.com/integration-v2.asmx",
  CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
  CURLOPT_ENCODING => "",
  CURLOPT_MAXREDIRS => 10,
  CURLOPT_TIMEOUT => 30,
@@ -83,6 +85,8 @@ $curl = curl_init();
 curl_setopt_array($curl, array(
   CURLOPT_URL => "https://integration.decisionlogic.com/integration-v2.asmx",
   CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
   CURLOPT_TIMEOUT => 30,
@@ -143,9 +147,9 @@ foreach ($hotels as $hotel) {
    
 }
 	$query_name = "select * from fnd_user_profile where email = '$email'";
-$sql_name=mysqli_query($con, "$query_name"); 
+$sql_name=$con->query("$query_name"); 
 $customer_name = '';
-while($row_name = mysqli_fetch_array($sql_name)) {
+while ($sql_name && ($row_name = $sql_name->fetch_array())) {
 $customer_name = $row_name['first_name'] . " " .$row_name['last_name'] ;
 $customer_email = $row_name['email'];
 $phone = $row_name['mobile_number'];
@@ -163,12 +167,12 @@ if ($website_DL_check == 'lspaydayloans'){
     
     
 
-	mysqli_query($con,"UPDATE fnd_user_profile SET application_status ='Declined' where email = '$email'");
+	$con->query("UPDATE fnd_user_profile SET application_status ='Declined' where email = '$email'");
 	echo "Declined Application ";
 	$query_name = "select * from fnd_user_profile where email = '$email'";
-$sql_name=mysqli_query($con, "$query_name"); 
+$sql_name=$con->query("$query_name"); 
 $customer_name = '';
-while($row_name = mysqli_fetch_array($sql_name)) {
+while ($sql_name && ($row_name = $sql_name->fetch_array())) {
 $customer_name = $row_name['first_name'] . " " .$row_name['last_name'] ;
 $customer_email = $row_name['email'];
 $phone = $row_name['mobile_number'];
@@ -189,6 +193,8 @@ mail($to_email,$subject,$message,$headers);
 curl_setopt_array($curl, array(
  CURLOPT_URL => "https://api.twilio.com/2010-04-01/Accounts/ACf81a1660d5933a77a5db881fbbadadd8/Messages.json",
  CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
  CURLOPT_ENCODING => "",
  CURLOPT_MAXREDIRS => 10,
  CURLOPT_TIMEOUT => 30,
@@ -217,8 +223,8 @@ if ($err) {
 $date= date('Y-m-d H:i:s');
 
 echo "<hr> FND ID : ".$user_fnd_id. " ------ ". $date ; 
-$query_update_status= "INSERT INTO `application_status_updates`( `application_id`,  `status`, `creation_date`) VALUES ('$user_fnd_id','AUTOMATIC DECLINED - LS PAYDAYLOANS CRITERIA','$date')";
-mysqli_query($con, $query_update_status); 
+$query_update_status= "INSERT INTO application_status_updates( application_id,  status, creation_date) VALUES ('$user_fnd_id','AUTOMATIC DECLINED - LS PAYDAYLOANS CRITERIA','$date')";
+$con->query($query_update_status); 
 
 
 
@@ -240,12 +246,12 @@ if ($website_DL_check == 'lsprestamos'){
     
     
 
-	mysqli_query($con,"UPDATE fnd_user_profile SET application_status ='Declined' where email = '$email'");
+	$con->query("UPDATE fnd_user_profile SET application_status ='Declined' where email = '$email'");
 	echo "Declined Application ";
 	$query_name = "select * from fnd_user_profile where email = '$email'";
-$sql_name=mysqli_query($con, "$query_name"); 
+$sql_name=$con->query("$query_name"); 
 $customer_name = '';
-while($row_name = mysqli_fetch_array($sql_name)) {
+while ($sql_name && ($row_name = $sql_name->fetch_array())) {
 $customer_name = $row_name['first_name'] . " " .$row_name['last_name'] ;
 $customer_email = $row_name['email'];
 $phone = $row_name['mobile_number'];
@@ -266,6 +272,8 @@ mail($to_email,$subject,$message,$headers);
 curl_setopt_array($curl, array(
  CURLOPT_URL => "https://api.twilio.com/2010-04-01/Accounts/ACf81a1660d5933a77a5db881fbbadadd8/Messages.json",
  CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYHOST => false,
  CURLOPT_ENCODING => "",
  CURLOPT_MAXREDIRS => 10,
  CURLOPT_TIMEOUT => 30,
@@ -294,8 +302,8 @@ if ($err) {
 $date= date('Y-m-d H:i:s');
 
 echo "<hr> FND ID : ".$user_fnd_id. " ------ ". $date ; 
-$query_update_status= "INSERT INTO `application_status_updates`( `application_id`,  `status`, `creation_date`) VALUES ('$user_fnd_id','AUTOMATIC DECLINED - LS PRESTAMOS CRITERIA','$date')";
-mysqli_query($con, $query_update_status); 
+$query_update_status= "INSERT INTO application_status_updates( application_id,  status, creation_date) VALUES ('$user_fnd_id','AUTOMATIC DECLINED - LS PRESTAMOS CRITERIA','$date')";
+$con->query($query_update_status); 
 
 
 
@@ -310,24 +318,24 @@ mysqli_query($con, $query_update_status);
  
  
 // API CODE TO CHECK DL Report END 
-mysqli_query($con,"UPDATE decision_login_codes SET status ='5' where code = '$code'");
-mysqli_query($con,"UPDATE fnd_user_profile SET decision_logic_status ='1',dl_code='$code' where email = '$email'");
+$con->query("UPDATE decision_login_codes SET status ='5' where code = '$code'");
+$con->query("UPDATE fnd_user_profile SET decision_logic_status ='1',dl_code='$code' where email = '$email'");
 
 // For LSPAYDAYLOANS autochange of status start
-mysqli_query($con,"UPDATE fnd_user_profile SET application_status ='Approved Payday Loan' where email = '$email' AND application_status!='Declined' AND website = 'lspaydayloans'");
+$con->query("UPDATE fnd_user_profile SET application_status ='Approved Payday Loan' where email = '$email' AND application_status!='Declined' AND website = 'lspaydayloans'");
 
     $date_update_nd= date('Y-m-d H:i:s');
 $query_insert_activity_nd = "Insert into application_status_updates (application_id, status, creation_date) Values ($user_fnd_id, ' Automatic Status Changed : Approved PayDay Loan ', '$date_update_nd')";
-    mysqli_query ($con , $query_insert_activity_nd);
+    $con->query($query_insert_activity_nd);
 
 // For LSPAYDAYLOANS autochange of status end
 
 
 // Mail Sending
 $query_name = "select * from fnd_user_profile where email = '$email'";
-$sql_name=mysqli_query($con, "$query_name"); 
+$sql_name=$con->query("$query_name"); 
 $customer_name = '';
-while($row_name = mysqli_fetch_array($sql_name)) {
+while ($sql_name && ($row_name = $sql_name->fetch_array())) {
 $customer_name = $row_name['first_name'] . " " .$row_name['last_name'] ;
 }
 
@@ -355,7 +363,7 @@ mail($to_email,$subject,$message,$headers);
 }
 else {
 echo "not verified";
-mysqli_query($con,"UPDATE decision_login_codes SET status ='1' where code = '$code'");
+$con->query("UPDATE decision_login_codes SET status ='1' where code = '$code'");
 }
 
 }

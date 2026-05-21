@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -28,9 +28,9 @@ $DBcon->close();
  $id=$_GET['id'];
  $intallment_id=$_GET['intallment_id'];
 
-$sql=mysqli_query($con, "select * from tbl_commercial_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_commercial_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
     $loan_id=$row['loan_id'];
     $user_fnd_id=$row['user_fnd_id'];
@@ -53,9 +53,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -70,9 +70,9 @@ $customer_numbr=$row['mobile_number'];
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -83,9 +83,9 @@ $username=$row_user['username'];
 
 
 
-$sql_transaction=mysqli_query($con, "select * from tbl_commercial_loan_installments where id='$intallment_id'"); 
+$sql_transaction=$con->query("select * from tbl_commercial_loan_installments where id='$intallment_id'"); 
 
-while($row_transaction = mysqli_fetch_array($sql_transaction)) {
+while($row_transaction = $sql_transaction->fetch_array()) {
 
 $loan_create_id=$row_transaction['loan_create_id'];
 $payment_amount=$row_transaction['payment'];
@@ -103,9 +103,9 @@ $date=date('Y-m-d');
 
 
 
-    $sql_installment_late_fees=mysqli_query($con, "select * from tbl_late_fee_installment"); 
+    $sql_installment_late_fees=$con->query("select * from tbl_late_fee_installment"); 
 
-while($row_installment_late_fees = mysqli_fetch_array($sql_installment_late_fees)) {
+while($row_installment_late_fees = $sql_installment_late_fees->fetch_array()) {
 
 $installment_late_fees=$row_installment_late_fees['late_fees'];
 $installment_late_fees_id=$row_installment_late_fees['id'];
@@ -225,7 +225,7 @@ $date= date('Y-m-d');
 $fee_up=$_POST['fee'];
 $fee_up=str_replace("$","","$fee_up");
 
- mysqli_query($con, "UPDATE tbl_late_fee_installment SET late_fees='$fee_up'  where id ='$installment_late_fees_id'");
+ $con->query("UPDATE tbl_late_fee_installment SET late_fees='$fee_up'  where id ='$installment_late_fees_id'");
  
  
   

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,9 +14,9 @@
     $loan_create_id = $_GET["loan_id"];
 
 
-    $sql_mail_key=mysqli_query($con, "select * from loan_initial_banking where loan_id='$loan_create_id'"); 
+    $sql_mail_key=$con->query("select * from loan_initial_banking where loan_id='$loan_create_id'"); 
 
-    while($row_mail_key = mysqli_fetch_array($sql_mail_key)) {
+    while($row_mail_key = $sql_mail_key->fetch_array()) {
     
         $mail_key=$row_mail_key['email_key'];
 

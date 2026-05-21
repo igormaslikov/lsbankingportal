@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once 'dbconnect.php';
@@ -224,8 +224,8 @@ if($status=='error')
   {
   }
   else{
-$query_in  = "INSERT INTO `tbl_schedule_payment`(`message`, `scheduled_payment_id`, `schedule_max_runs`, `schedule_ends`, `schedule_starts`, `schedule_summary`, `payment_channel`, `multi_pay`, `amount`, `customer_id`, `address_zip`, `transaction_type`, `source`, `payment_method`, `card_bin`, `card_token`, `card_last_four`, `paytoken`, `created_at`)  VALUES ('$message','$scheduled_payment_id','$schedule_max_runs','$schedule_ends','$schedule_starts','$schedule_summary','$payment_channel','$MultiPay','$amount','$customer_id','$address_zip','$transaction_type','$Source','$payment_method','$card_bin','$card_token','$card_last_four','$paytoken','$new_creationDate')";
-        $result_in = mysqli_query($con, $query_in);
+$query_in  = "INSERT INTO tbl_schedule_payment(message, scheduled_payment_id, schedule_max_runs, schedule_ends, schedule_starts, schedule_summary, payment_channel, multi_pay, amount, customer_id, address_zip, transaction_type, source, payment_method, card_bin, card_token, card_last_four, paytoken, created_at)  VALUES ('$message','$scheduled_payment_id','$schedule_max_runs','$schedule_ends','$schedule_starts','$schedule_summary','$payment_channel','$MultiPay','$amount','$customer_id','$address_zip','$transaction_type','$Source','$payment_method','$card_bin','$card_token','$card_last_four','$paytoken','$new_creationDate')";
+        $result_in = $con->query($query_in);
         if ($result_in) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

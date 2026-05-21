@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 include '../dbconnect.php';
 include '../dbconfig.php';
@@ -10,9 +10,9 @@ include '../dbconfig.php';
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where cron_job_loan_status = '0'"); 
+$sql=$con->query("select * from tbl_loan where cron_job_loan_status = '0'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_create_id'];
 $application_id=$row['user_fnd_id'];
@@ -20,8 +20,8 @@ $loan_total_payable=$row['loan_total_payable'];
 
 
 
-$query_trns = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_create_id= '$loan_id'");
-while ($row_trns=mysqli_fetch_array($query_trns)){
+$query_trns = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_create_id= '$loan_id'");
+while ($row_trns=$query_trns->fetch_array()){
     $totall_trans = $row_trns['value_sum'];
    
 
@@ -42,7 +42,7 @@ if ($balns_due=='0')
 {
     
  
-    mysqli_query($con,"UPDATE tbl_loan SET loan_status = 'Paid', cron_job_loan_status='1' where loan_create_id = '$loan_id'");
+    $con->query("UPDATE tbl_loan SET loan_status = 'Paid', cron_job_loan_status='1' where loan_create_id = '$loan_id'");
     
     
     $date_update= date('Y-m-d H:i:s');

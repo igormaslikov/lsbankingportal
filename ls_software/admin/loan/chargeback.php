@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -29,9 +29,9 @@ if($pay_method=='Repay')
 {
 
 
-$sql_trnsaction=mysqli_query($con, "select * from loan_transaction where repay_transaction_id='$id_transaction'"); 
+$sql_trnsaction=$con->query("select * from loan_transaction where repay_transaction_id='$id_transaction'"); 
 
-while($row_trnsaction = mysqli_fetch_array($sql_trnsaction)) {
+while($row_trnsaction = $sql_trnsaction->fetch_array()) {
 
 $transaction_id=$row_trnsaction['transaction_id'];
 $loan_create_id=$row_trnsaction['loan_create_id'];
@@ -49,9 +49,9 @@ $payment_date= date("m-d-Y", $timestamp);
 }
 else{
 
-$sql_trnsaction=mysqli_query($con, "select * from loan_transaction where transaction_id='$id_transaction'"); 
+$sql_trnsaction=$con->query("select * from loan_transaction where transaction_id='$id_transaction'"); 
 
-while($row_trnsaction = mysqli_fetch_array($sql_trnsaction)) {
+while($row_trnsaction = $sql_trnsaction->fetch_array()) {
 
 $transaction_id=$row_trnsaction['transaction_id'];
 $loan_create_id=$row_trnsaction['loan_create_id'];
@@ -74,9 +74,9 @@ $payment_date= date("m-d-Y", $timestamp);
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_create_id'"); 
+$sql=$con->query("select * from tbl_loan where loan_create_id= '$loan_create_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     
    
    $id=$row['loan_id']; 
@@ -93,9 +93,9 @@ $user_fnd_id=$row['user_fnd_id'];
 
 
 
-$sql_fnd=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql_fnd=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
     
 $first_name=$row_fnd['first_name'];
 $last_name=$row_fnd['last_name'];
@@ -112,9 +112,9 @@ $id_photo=$row_fnd['customer_img'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_create_id'"); 
+$sql=$con->query("select * from tbl_loan where loan_create_id= '$loan_create_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 	$loan_create_id=$row['loan_create_id'];
@@ -145,9 +145,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -314,7 +314,7 @@ $chargeback_up="Chargeback ID ($id_transaction)";
 $date = date('Y-m-d H:i:s');
 
 $query  = "INSERT INTO loan_transaction (loan_id,loan_create_id,user_fnd_id,payoff_amount,payment_method,payment_date,type_of_payment,created_at,created_by,chargeback_status)  VALUES ('$id','$loan_create_id','$user_fnd_id','$chargeback_amount','$payment_method_up','$chargeback_date','$chargeback_up','$date','$u_id','1')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

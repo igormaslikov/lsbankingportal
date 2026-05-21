@@ -1,20 +1,19 @@
-<?php
+﻿<?php
 session_start();
 error_reporting(0);
 include_once 'dbconnect.php';
 include 'dbconfig.php';
-if (!isset($_SESSION['userSession'])) {
-    header("Location: index.php");
-}
+include_once 'security.php';
+require_login();
 
-$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $_SESSION['userSession']);
+$user_id_s = (int)$_SESSION['userSession'];
+$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $user_id_s);
 $userRow = $query->fetch_array();
 $u_id = $userRow['user_id'];
 $u_access_id = $userRow['access_id'];
-if ($u_access_id == '0') {
-    echo "YOU ARE NOT AUTHORISED TO ACCESS THIS PAGE.";
-} else {
-    $DBcon->close();
+require_access($u_access_id);
+$DBcon->close();
+if (true) { // keep original indentation structure
 
 ?>
 
@@ -68,85 +67,64 @@ if ($u_access_id == '0') {
             <br><br>
             <?php
 
-            $query_search = "SELECT * FROM `fnd_user_profile` ";
-            $status  = $_GET['status'];
-            $keyword = $_GET['keyword'];
-            $from_date = $_GET['from_date'];
-            $to_date = $_GET['to_date'];
-            $website = $_GET['website'];
-            $state = $_GET['state'];
-            $loan_type = $_GET['loan_type'];
+            // Sanitize all GET inputs — only allow expected values
+            $status    = $_GET['status']    ?? 'All';
+            $keyword   = $_GET['keyword']   ?? '';
+            $from_date = $_GET['from_date'] ?? '';
+            $to_date   = $_GET['to_date']   ?? '';
+            $website   = $_GET['website']   ?? 'All';
+            $state     = $_GET['state']     ?? 'All';
+            $loan_type = $_GET['loan_type'] ?? 'All';
 
-            if (isset($_GET['status']) || isset($_GET['keyword']) || isset($_GET['website']) || isset($_GET['state']) || isset($_GET['loan_type']) || isset($_GET['from_date']) || isset($_GET['to_date'])) {
-                $query_search .= " WHERE ";
+            // Build parameterized WHERE clause
+            $where_parts = [];
+            $search_params = [];
+
+            if ($status !== 'All' && $status !== '') {
+                $where_parts[] = "application_status = ?";
+                $search_params[] = $status;
             }
-            $and_check = 0;
-            if (isset($_GET['status']) && $_GET['status'] != 'All') {
-                $query_search .= " application_status = '$status' ";
-                $and_check = 1;
+            if ($keyword !== '') {
+                $where_parts[] = "(first_name + last_name + email + mobile_number + dl_code) LIKE ?";
+                $search_params[] = '%' . $keyword . '%';
             }
-            if (isset($_GET['keyword']) ||  $_GET['keyword'] != "") {
-                if ($and_check > 0) {
-                    $query_search .= " AND ";
-                    $and_check = 2;
-                }
-                $query_search .= "  CONCAT(`first_name`, `last_name`, `email`, `mobile_number` , `dl_code` ) LIKE '%" . $keyword . "%'";
-                $and_check = 2;
+            if ($from_date !== '' && $to_date !== '') {
+                $where_parts[] = "(creation_date BETWEEN ? AND ?)";
+                $search_params[] = $from_date;
+                $search_params[] = $to_date;
             }
-            if ($_GET['from_date'] != "") {
-                if ($and_check > 1 || $and_check > 0) {
-                    $query_search .= " AND ";
-                    $and_check = 3;
-                }
-                $query_search .= " (creation_date BETWEEN '$from_date'AND '$to_date')";
+            if ($website !== 'All' && $website !== '') {
+                $where_parts[] = "website = ?";
+                $search_params[] = $website;
             }
-            if (isset($_GET['website']) && $_GET['website'] != 'All') {
-                if ($and_check > 1 || $and_check > 0) {
-                    $query_search .= " AND ";
-                    //$and_check = 2;
-                }
-                $query_search .= " website = '$website' ";
-                // $and_check = 1;
+            if ($state !== 'All' && $state !== '') {
+                $where_parts[] = "state = ?";
+                $search_params[] = $state;
+            }
+            if ($loan_type !== 'All' && $loan_type !== '') {
+                $where_parts[] = "loan_type = ?";
+                $search_params[] = $loan_type;
             }
 
-            if (isset($_GET['state']) && $_GET['state'] != 'All') {
-                if ($and_check > 1 || $and_check > 0) {
-                    $query_search .= " AND ";
-                    //$and_check = 2;
-                }
-                $query_search .= " state = '$state' ";
-                // $and_check = 1;
+            $query_search = "SELECT * FROM fnd_user_profile";
+            if (!empty($where_parts)) {
+                $query_search .= " WHERE " . implode(" AND ", $where_parts);
             }
 
-            if (isset($_GET['loan_type']) && $_GET['loan_type'] != 'All') {
-                if ($and_check > 1 || $and_check > 0) {
-                    $query_search .= " AND ";
-                    //$and_check = 2;
-                }
-                $query_search .= " loan_type = '$loan_type' ";
-                // $and_check = 1;
+            $rowcount = 0;
+            if ($result_t = $con->query($query_search, $search_params)) {
+                $rowcount = $result_t->num_rows;
             }
-            // $query_search .= " ORDER By user_fnd_id DESC  LIMIT $offset, $total_records_per_page ";
 
-            //echo "<br><br><br><br>" . $query_search;
-            if ($result_t = mysqli_query($con, $query_search)) {
+            if ($result_UNREAD = $con->query("SELECT * FROM fnd_user_profile WHERE bold_status = '0'")) {
                 // Return the number of rows in result set
-                $rowcount = mysqli_num_rows($result_t);
-                // printf($rowcount);
-                // Free result set
-                $ye = mysqli_free_result($result_t);
-                //echo $ye;
-            }
-
-            if ($result_UNREAD = mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE `bold_status` = '0'")) {
-                // Return the number of rows in result set
-                $rowcount_UNREAD = mysqli_num_rows($result_UNREAD);
+                $rowcount_UNREAD = $result_UNREAD->num_rows;
                 // printf($rowcount);
                 // Free result set
 
             }
 
-            //mysqli_close($con);
+            //$con->close();
             ?>
 
             <div align="right">
@@ -398,7 +376,7 @@ if ($u_access_id == '0') {
                             <td colspan="2" style="font-weight: bold;">
 
                                 Keyword Search
-                                <input type="text" id="search" class="form-control" name="keyword" placeholder="" value="<?php echo $_GET['keyword']; ?>">
+                                <input type="text" id="search" class="form-control" name="keyword" placeholder="" value="<?php echo h($keyword); ?>">
 
                             </td>
 
@@ -433,22 +411,19 @@ if ($u_access_id == '0') {
                             <span style="font-size:13px" ; class="glyphicon glyphicon-filter" aria-hidden="true" alt="edit"> </span>
                             <span style="font-size:13px" ; aria-hidden="true" alt="edit">
                                 <?php
-                                $from_date_filter = date('Y-m-d'); //echo $from_date; 
-                                $to_date_filter = date('Y-m-d');  //echo ' '. $to_date;
-                                echo "
-   -<a href='view_all_customer_main.php?status=" . $_GET['status'] . "&state=" . $_GET['state'] . "&loan_type=" . $_GET['loan_type'] . "&keyword=" . $_GET['keyword'] . "&from_date=$from_date_filter&to_date=$to_date_filter'>  Today  </a> ";
+                                $from_date_filter = date('Y-m-d');
+                                $to_date_filter = date('Y-m-d');
+                                $base_qs = "status=" . urlencode($status) . "&state=" . urlencode($state) . "&loan_type=" . urlencode($loan_type) . "&keyword=" . urlencode($keyword);
+                                echo " -<a href='view_all_customer_main.php?" . $base_qs . "&from_date=$from_date_filter&to_date=$to_date_filter'>  Today  </a> ";
                                 ?>
                             </span>
 
                             <span style="font-size:13px" ; aria-hidden="true" alt="edit">
 
                                 <?php
-                                $to_date_filter = date('Y-m-d', strtotime('-1 day')); //echo $from_date; 
-
-                                $from_date_filter = date('Y-m-d', strtotime('-1 day'));  //echo" ". $to_date;
-                                echo
-                                "
-       -<a href='view_all_customer_main.php?status=" . $_GET['status'] . "&state=" . $_GET['state'] . "&loan_type=" . $_GET['loan_type'] . "&keyword=" . $_GET['keyword'] . "&from_date=$from_date_filter&to_date=$to_date_filter'>  Yesterday </a> ";
+                                $to_date_filter = date('Y-m-d', strtotime('-1 day'));
+                                $from_date_filter = date('Y-m-d', strtotime('-1 day'));
+                                echo " -<a href='view_all_customer_main.php?" . $base_qs . "&from_date=$from_date_filter&to_date=$to_date_filter'>  Yesterday </a> ";
 
                                 ?>
                             </span>
@@ -456,22 +431,18 @@ if ($u_access_id == '0') {
 
                             <span style="font-size:13px" ; aria-hidden="true" alt="edit">
 
-                                <?php $to_date_filter = date('Y-m-d'); //echo $from_date; 
-
-                                $from_date_filter = date('Y-m-d', strtotime('-3 day'));  //echo" ". $to_date;
-                                echo "
-       -<a href='view_all_customer_main.php?status=" . $_GET['status'] . "&state=" . $_GET['state'] . "&loan_type=" . $_GET['loan_type'] . "&keyword=" . $_GET['keyword'] . "&from_date=$from_date_filter&to_date=$to_date_filter'> Last 3 Days </a> ";
+                                <?php $to_date_filter = date('Y-m-d');
+                                $from_date_filter = date('Y-m-d', strtotime('-3 day'));
+                                echo " -<a href='view_all_customer_main.php?" . $base_qs . "&from_date=$from_date_filter&to_date=$to_date_filter'> Last 3 Days </a> ";
                                 ?>
                             </span>
 
 
                             <span style="font-size:13px" ; aria-hidden="true" alt="edit">
 
-                                <?php $to_date_filter = date('Y-m-d'); //echo $from_date; 
+                                <?php $to_date_filter = date('Y-m-d');
                                 $from_date_filter = date('Y-m-d', strtotime('-7 day'));
-                                //echo" ". $to_date;
-                                echo "
-       -<a href='view_all_customer_main.php?status=" . $_GET['status'] . "&state=" . $_GET['state'] . "&loan_type=" . $_GET['loan_type'] . "&keyword=" . $_GET['keyword'] . "&from_date=$from_date_filter&to_date=$to_date_filter'>  Last 7 Days  </a> ";
+                                echo " -<a href='view_all_customer_main.php?" . $base_qs . "&from_date=$from_date_filter&to_date=$to_date_filter'>  Last 7 Days  </a> ";
                                 ?>
                             </span>
 
@@ -479,20 +450,18 @@ if ($u_access_id == '0') {
 
                             <span style="font-size:13px" ; aria-hidden="true" alt="edit">
 
-                                <?php $to_date_filter = date('Y-m-d'); //echo $from_date; 
-                                $from_date_filter = date('Y-m-d', strtotime('first day of this month'));  //echo" ". $to_date;
-                                echo " 
-       -<a href='view_all_customer_main.php?status=" . $_GET['status'] . "&state=" . $_GET['state'] . "&loan_type=" . $_GET['loan_type'] . "&keyword=" . $_GET['keyword'] . "&from_date=$from_date_filter&to_date=$to_date_filter'> This Month </a>";
+                                <?php $to_date_filter = date('Y-m-d');
+                                $from_date_filter = date('Y-m-d', strtotime('first day of this month'));
+                                echo " -<a href='view_all_customer_main.php?" . $base_qs . "&from_date=$from_date_filter&to_date=$to_date_filter'> This Month </a>";
                                 ?>
                             </span>
 
 
 
                             <span style="font-size:13px" ; aria-hidden="true" alt="edit">
-                                <?php $to_date_filter = date('Y-m-d'); // echo $from_date; 
-                                $from_date_filter = date('Y');  //echo" ". $to_date;
-                                echo "
-       -<a href='view_all_customer_main.php?status=" . $_GET['status'] . "&state=" . $_GET['state'] . "&loan_type=" . $_GET['loan_type'] . "&keyword=" . $_GET['keyword'] . "&from_date=$from_date_filter&to_date=$to_date_filter'> This Year  </a> ";
+                                <?php $to_date_filter = date('Y-m-d');
+                                $from_date_filter = date('Y');
+                                echo " -<a href='view_all_customer_main.php?" . $base_qs . "&from_date=$from_date_filter&to_date=$to_date_filter'> This Year  </a> ";
                                 ?>
 
                             </span>
@@ -512,8 +481,20 @@ if ($u_access_id == '0') {
                         </thead>
                         <tbody>
                             <?php
-                            $delete_customer_string = "page_no=" . $_GET['page_no'] . "&status=" . $_GET['status'] . "&state=" . $_GET['state'] . "&loan_type=" . $_GET['loan_type'] . "&keyword=" . $_GET['keyword'] . "&from_date=" . $_GET['from_date'] . "&to_date=" . $_GET['to_date'];
-                            $delete_customer_pagination = "status=" . $_GET['status'] . "&keyword=" . $_GET['keyword'] . "&state=" . $_GET['state'] . "&loan_type=" . $_GET['loan_type'] . "&from_date=" . $_GET['from_date'] . "&to_date=" . $_GET['to_date'];
+                            $page_no_raw = (int)($_GET['page_no'] ?? 1);
+                            $delete_customer_string = "page_no=" . $page_no_raw
+                                . "&status=" . urlencode($status)
+                                . "&state=" . urlencode($state)
+                                . "&loan_type=" . urlencode($loan_type)
+                                . "&keyword=" . urlencode($keyword)
+                                . "&from_date=" . urlencode($from_date)
+                                . "&to_date=" . urlencode($to_date);
+                            $delete_customer_pagination = "status=" . urlencode($status)
+                                . "&keyword=" . urlencode($keyword)
+                                . "&state=" . urlencode($state)
+                                . "&loan_type=" . urlencode($loan_type)
+                                . "&from_date=" . urlencode($from_date)
+                                . "&to_date=" . urlencode($to_date);
 
                             include('db.php');
                             $count = 1;
@@ -529,12 +510,12 @@ if ($u_access_id == '0') {
                             $previous_page = $page_no - 1;
                             $next_page = $page_no + 1;
                             $adjacents = "2";
-                            $query_main_search = "select * from fnd_user_profile_submission ";
+                            $query_main_search = "SELECT * FROM fnd_user_profile_submission ";
 
-                            $query_main_search .= "ORDER By id DESC  LIMIT $offset, $total_records_per_page ";
+                            $query_main_search .= "ORDER BY id DESC OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY";
                             //echo $query_main_search;
-                            $sql_fnd_idd = mysqli_query($con, $query_main_search);
-                            while ($row_fnd_idd = mysqli_fetch_array($sql_fnd_idd)) {
+                            $sql_fnd_idd = $con->query($query_main_search);
+                            while ($sql_fnd_idd && ($row_fnd_idd = $sql_fnd_idd->fetch_array())) {
 
                                 $user_fnd_idd = $row_fnd_idd['user_fnd_id'];
 
@@ -543,18 +524,18 @@ if ($u_access_id == '0') {
 
 
 
-                                $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `fnd_user_profile`");
-                                $total_records = mysqli_fetch_array($result_count);
-                                $total_records = $total_records['total_records'];
+                                $result_count = $con->query("SELECT COUNT(*) As total_records FROM fnd_user_profile");
+                                $total_records = $result_count ? $result_count->fetch_array() : null;
+                                $total_records = $total_records['total_records'] ?? 0;
                                 $total_records = $rowcount;
                                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 $second_last = $total_no_of_pages - 1; // total page minus 1
                                 //  echo "<br>".$total_no_of_pages;
-                                $query_search = "SELECT * FROM `fnd_user_profile` WHERE user_fnd_id = '$user_fnd_idd' ";
-
-                                //echo $query_search;
-                                $result = mysqli_query($con, "$query_search");
-                                while ($row = mysqli_fetch_array($result)) {
+                                $result = $con->query(
+                                    "SELECT * FROM fnd_user_profile WHERE user_fnd_id = ?",
+                                    [$user_fnd_idd]
+                                );
+                                while ($result && ($row = $result->fetch_array())) {
 
                                     $id = $row['user_fnd_id'];
                                     $cr_date = $row['creation_date'];
@@ -600,28 +581,27 @@ if ($u_access_id == '0') {
                                     //$gravatar = "https://www.gravatar.com/avatar/".md5($row['email']);
                                     //$gravatar = "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $row['email'] ) ) );
                                     $gravatar =  "http://profiles.google.com/s2/photos/profile/" . $row['email'] . "?sz=";
+                                    $safe_id = (int)$id;
                                     echo "<tr " . $string_red_rejected . " " . $bold_app . ">
-	 	      
-			  <td>$image_lang " . $id . "</td>
-			  <td>" . $newDate . " " . $created_time . " </td>
-			  <td>" . $row['first_name'] . "</td>
-			  <td>" . $row['last_name'] . "</td>
-	 		  <td>" . $row['mobile_number'] . "</td>
-	 		  <td>" . $row['state'] . "</td>
-	 		  <td>" . $row['loan_type'] . "</td>
-		   	  <td>" . $row['application_status'] . "</td>
-		   	  
-<td> <a href='edit_customer.php?id=$id&$delete_customer_string' title='Edit This Customer'><span class='glyphicon glyphicon-edit' aria-hidden='true' alt='edit'></span></a>
-<a class='remove-box' href='delete_customer.php?id=$id&$delete_customer_string' title='Delete This Customer'><span class='glyphicon glyphicon-remove' aria-hidden='true' alt='delete'></span>" . $decision_logic_Status . $experian_credit_score . "</a>
-<a href='customer_loan_history.php?id=$id'  title='Loan History'><span class='glyphicon glyphicon-collapse-up' aria-hidden='true' alt='Loan History'></span>  <span style = 'color:green; text-align:left'></span></a>
-</td>
-
-	   	  </tr>";
+                                      <td>$image_lang " . $safe_id . "</td>
+                                      <td>" . h($newDate) . " " . h($created_time) . "</td>
+                                      <td>" . h($row['first_name']) . "</td>
+                                      <td>" . h($row['last_name']) . "</td>
+                                      <td>" . h($row['mobile_number']) . "</td>
+                                      <td>" . h($row['state']) . "</td>
+                                      <td>" . h($row['loan_type']) . "</td>
+                                      <td>" . h($row['application_status']) . "</td>
+                                      <td>
+                                        <a href='edit_customer.php?id=$safe_id&$delete_customer_string' title='Edit This Customer'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></a>
+                                        <a class='remove-box' href='delete_customer.php?id=$safe_id&$delete_customer_string' title='Delete This Customer'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>" . $decision_logic_Status . $experian_credit_score . "</a>
+                                        <a href='customer_loan_history.php?id=$safe_id' title='Loan History'><span class='glyphicon glyphicon-collapse-up' aria-hidden='true'></span></a>
+                                      </td>
+                                    </tr>";
                                     $decision_logic_Status = "";
                                     $experian_credit_score = "";
                                 }
                             }
-                            mysqli_close($con);
+                            $con->close();
                             ?>
                         </tbody>
                     </table>

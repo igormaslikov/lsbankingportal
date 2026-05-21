@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
@@ -37,9 +37,9 @@ if ($u_access_id == '0') {
 
    $id_fnd = $_GET['fnd_id'];
 
-   $sql_fetch_fnd = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id_fnd'");
+   $sql_fetch_fnd = $con->query("select * from fnd_user_profile where user_fnd_id= '$id_fnd'");
 
-   while ($row_fetch_fnd = mysqli_fetch_array($sql_fetch_fnd)) {
+   while ($row_fetch_fnd = $sql_fetch_fnd->fetch_array()) {
 
       $email = $row_fetch_fnd['email'];
 
@@ -54,9 +54,9 @@ if ($u_access_id == '0') {
 
 
 
-   $sql_fetch_loan = mysqli_query($con, "select * from tbl_commercial_loan where user_fnd_id= '$id_fnd'");
+   $sql_fetch_loan = $con->query("select * from tbl_commercial_loan where user_fnd_id= '$id_fnd'");
    $loan_id = "";
-   while ($row_fetch_loan = mysqli_fetch_array($sql_fetch_loan)) {
+   while ($row_fetch_loan = $sql_fetch_loan->fetch_array()) {
 
       $loan_id = $row_fetch_loan['loan_create_id'];
       $previous_amount_loan = $row_fetch_loan['previous_amount_loan'];
@@ -90,9 +90,9 @@ if ($u_access_id == '0') {
    //echo "loan id:".$loan_id;
 
 
-   $sql_fetch_user = mysqli_query($con, "select * from tbl_users");
+   $sql_fetch_user = $con->query("select * from tbl_users");
 
-   while ($row_fetch_user = mysqli_fetch_array($sql_fetch_user)) {
+   while ($row_fetch_user = $sql_fetch_user->fetch_array()) {
 
       $email_admin = $row_fetch_user['email'];
       //echo "<br><br><br><br><br>admin email:".$email_admin;
@@ -335,7 +335,7 @@ if ($u_access_id == '0') {
       }
 
       $query_in  = "INSERT INTO commercial_loan_initial_banking (loan_id,user_fnd_id,type_of_id,pic_of_id,type_of_card,card_number,card_exp_date,bank_front_pic,bank_back_pic,bank_name,routing_number,account_number,void_check_pic,cvv_number,creation_date,update_date,created_by,email_key,sign_status,update_by)  VALUES ('$loan_create_idd','$fndd_id','$type_id','$final_File','$type_card','$card_number','$card_exp_date','$final_Filee','$final_Fileee','$bank_name','$routing_number','$account_number','$final_Fileeee','$cvv_number','$date','$date','$u_id','$email_key','0','$u_id')";
-      $result_in = mysqli_query($con, $query_in);
+      $result_in = $con->query($query_in);
       if ($result_in) {
          //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
       } else {
@@ -363,8 +363,8 @@ if ($u_access_id == '0') {
       
    
 
-      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`secondary_portfolio`,`previous_amount_loan`, `amount_of_loan`,`daily_interest`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`)  VALUES ('$fndd_id','$sourcee','$secondary_portfolio','$in_hand','$principal_amountt',$daily_interest,'$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state')";
-      $result = mysqli_query($con, $query);
+      $query  = "INSERT INTO tbl_commercial_loan(user_fnd_id, bg_id,secondary_portfolio,previous_amount_loan, amount_of_loan,daily_interest, loan_interest, years, late_fee, contract_fee, installment_plan, total_payments, principal_amount, contract_date, payment_date, creation_date, created_by, loan_create_id, loan_status, apr,state)  VALUES ('$fndd_id','$sourcee','$secondary_portfolio','$in_hand','$principal_amountt',$daily_interest,'$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state')";
+      $result = $con->query($query);
       if ($result) {
          //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
       } else {
@@ -372,46 +372,46 @@ if ($u_access_id == '0') {
       }
 
       //Add to other fees//
-      mysqli_query($con, "INSERT INTO tbl_lists (kind, item) select 'Other Fee', 'Origination Fee' where not exists( select * from tbl_lists where kind='Other Fee' and item='Origination Fee')");
+      $con->query("INSERT INTO tbl_lists (kind, item) select 'Other Fee', 'Origination Fee' where not exists( select * from tbl_lists where kind='Other Fee' and item='Origination Fee')");
 
-      $sql = mysqli_query($con, "select tbl_lists_id from tbl_lists where kind='Other Fee' and item='Origination Fee'");
+      $sql = $con->query("select tbl_lists_id from tbl_lists where kind='Other Fee' and item='Origination Fee'");
   
-      while ($row = mysqli_fetch_array($sql)) {
+      while ($row = $sql->fetch_array()) {
           $kind = $row['tbl_lists_id'];
       }
 
-      $action_query = "INSERT INTO `tbl_other_fees` (`tbl_other_fees_id`, `kind_fee`, `user_fnd_id`, `loan_created_id`, `amount_fee`, `amount_fee_paid`) VALUES (NULL, '$kind', '$fndd_id', '$loan_create_idd', '$originationn', 0)";
-      mysqli_query($con, $action_query);
+      $action_query = "INSERT INTO tbl_other_fees (tbl_other_fees_id, kind_fee, user_fnd_id, loan_created_id, amount_fee, amount_fee_paid) VALUES (NULL, '$kind', '$fndd_id', '$loan_create_idd', '$originationn', 0)";
+      $con->query($action_query);
 
 
 
       //=====================//
 
-      mysqli_query($con, "UPDATE fnd_user_profile SET id_photo ='$final_File', bank_front='$final_Filee', bank_back='$final_Fileee', void_img='$final_Fileeee'  where user_fnd_id ='$fndd_id'");
+      $con->query("UPDATE fnd_user_profile SET id_photo ='$final_File', bank_front='$final_Filee', bank_back='$final_Fileee', void_img='$final_Fileeee'  where user_fnd_id ='$fndd_id'");
 
-      $sql_bank_info = mysqli_query($con, "select count(bank_id) as count, bank_id from tbl_bank_info where usr_fnd_id= '$fndd_id' and bank_name='$bank_name ' and account_number='$account_number' and routing_number='$routing_number'");
+      $sql_bank_info = $con->query("select count(bank_id) as count, bank_id from tbl_bank_info where usr_fnd_id= '$fndd_id' and bank_name='$bank_name ' and account_number='$account_number' and routing_number='$routing_number'");
 
-      while ($row = mysqli_fetch_array($sql_bank_info)) {
+      while ($row = $sql_bank_info->fetch_array()) {
          $count = $row['count'];
          $bank_id = $row['bank_id'];
       }
 
 
       if ($count == 0) {
-         $action_query = "INSERT INTO `tbl_bank_info` (`bank_id`, `usr_fnd_id`, `bank_name`, `account_number`, `routing_number`, `is_active`) VALUES (NULL, '$fndd_id', '$bank_name', '$account_number', '$routing_number', '1')";
-         mysqli_query($con, $action_query);
-         $bank_id = mysqli_insert_id($con);
+         $action_query = "INSERT INTO tbl_bank_info (bank_id, usr_fnd_id, bank_name, account_number, routing_number, is_active) VALUES (NULL, '$fndd_id', '$bank_name', '$account_number', '$routing_number', '1')";
+         $con->query($action_query);
+         $bank_id = $con->insert_id();
       }
 
-      $sql = mysqli_query($con, "select count(id) as count from tbl_bank_cards where user_fnd_id= '$fndd_id' and type_of_id='$type_id' and  type_of_card='$type_card' and card_number='$card_number' and card_exp_date='$card_exp_date' and cvv_number='$cvv_number'");
+      $sql = $con->query("select count(id) as count from tbl_bank_cards where user_fnd_id= '$fndd_id' and type_of_id='$type_id' and  type_of_card='$type_card' and card_number='$card_number' and card_exp_date='$card_exp_date' and cvv_number='$cvv_number'");
 
-      while ($row = mysqli_fetch_array($sql)) {
+      while ($row = $sql->fetch_array()) {
          $count = $row['count'];
       }
 
       if ($count == 0) {
-         $action_query = "INSERT INTO `tbl_bank_cards` (`id`,`bank_id`, `user_fnd_id`, `type_of_id`, `type_of_card`, `card_number`, `card_exp_date`,`cvv_number`, `is_active`) VALUES (NULL,'$bank_id', '$fndd_id', '$type_id','$type_card', '$card_number', '$card_exp_date','$cvv_number', '1')";
-         mysqli_query($con, $action_query);
+         $action_query = "INSERT INTO tbl_bank_cards (id,bank_id, user_fnd_id, type_of_id, type_of_card, card_number, card_exp_date,cvv_number, is_active) VALUES (NULL,'$bank_id', '$fndd_id', '$type_id','$type_card', '$card_number', '$card_exp_date','$cvv_number', '1')";
+         $con->query($action_query);
       }
 
 
@@ -420,52 +420,52 @@ if ($u_access_id == '0') {
 
       if(isset($_GET['prev_loan_id'])){
          $previous_loan_id =  $_GET['prev_loan_id'];
-         $sql_fetch_loan = mysqli_query($con, "select previous_amount_loan from tbl_commercial_loan where loan_create_id='$loan_create_idd'");
-         while ($row_fetch_loan = mysqli_fetch_array($sql_fetch_loan)) {
+         $sql_fetch_loan = $con->query("select previous_amount_loan from tbl_commercial_loan where loan_create_id='$loan_create_idd'");
+         while ($row_fetch_loan = $sql_fetch_loan->fetch_array()) {
             $previous_amount_loan = $row_fetch_loan['previous_amount_loan'];
          }
 
-         $sql = mysqli_query($con, "select late_fee,amount_of_loan,loan_interest from tbl_commercial_loan where loan_create_id= '$previous_loan_id'");
+         $sql = $con->query("select late_fee,amount_of_loan,loan_interest from tbl_commercial_loan where loan_create_id= '$previous_loan_id'");
 
-         while ($row = mysqli_fetch_array($sql)) {
+         while ($row = $sql->fetch_array()) {
              $late_fee = $row['late_fee'];
              $amount_of_loan = $row['amount_of_loan'];
              $loan_interest = $row['loan_interest'];
          }
 
          $loan_payment = 0;
-         $query_payment = mysqli_query($con, "SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
-         while ($row_payment = mysqli_fetch_array($query_payment)) {
+         $query_payment = $con->query("SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
+         while ($row_payment = $query_payment->fetch_array()) {
            $loan_payment = $row_payment['value_sum'];
          }
 
          $in_hand = str_replace(',','',number_format(((float)($amount_of_loan + $loan_interest - $loan_payment)), 2, '.', ','));
 
          $unpaid_late_fee = 0;
-         $query_payment = mysqli_query($con, "SELECT sum($late_fee - paid_late_fee) as unpaid FROM `tbl_commercial_loan_installments` WHERE `dpd` >= 10 and loan_create_id = '$previous_loan_id' and ($late_fee - paid_late_fee) > 0 ");
-         while ($row_payment = mysqli_fetch_array($query_payment)) {
+         $query_payment = $con->query("SELECT sum($late_fee - paid_late_fee) as unpaid FROM tbl_commercial_loan_installments WHERE dpd >= 10 and loan_create_id = '$previous_loan_id' and ($late_fee - paid_late_fee) > 0 ");
+         while ($row_payment = $query_payment->fetch_array()) {
            $unpaid_late_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
          }
 
          $unpaid_other_fee = 0;
-         $query_payment = mysqli_query($con, "SELECT sum(amount_fee - amount_fee_paid) as unpaid FROM `tbl_other_fees` WHERE loan_created_id = $previous_loan_id ");
-         while ($row_payment = mysqli_fetch_array($query_payment)) {
+         $query_payment = $con->query("SELECT sum(amount_fee - amount_fee_paid) as unpaid FROM tbl_other_fees WHERE loan_created_id = $previous_loan_id ");
+         while ($row_payment = $query_payment->fetch_array()) {
            $unpaid_other_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
          }
-         // $sql_installment = mysqli_query($con, "SELECT SUM(late_fee) as sum_late_fee FROM `commercial_loan_transaction` where `loan_create_id`= '$previous_loan_id'");
+         // $sql_installment = $con->query("SELECT SUM(late_fee) as sum_late_fee FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
          // $sum_late_fee = 0;
-         // while ($row_installment = mysqli_fetch_array($sql_installment)) {
+         // while ($row_installment = $sql_installment->fetch_array()) {
          //     $sum_late_fee = $row_installment['sum_late_fee'];
          // }
 
          $amount_without_fee = $previous_amount_loan - $unpaid_late_fee - $unpaid_other_fee;
          $amount_without_fee = $previous_amount_loan >= $in_hand ? $in_hand : $previous_amount_loan;
 
-         $sql_installment = mysqli_query($con, "SELECT *  FROM `tbl_commercial_loan_installments` where `loan_create_id`= '$previous_loan_id' and status=0 order by id asc");
-         while ($row_installment = mysqli_fetch_array($sql_installment)) {
+         $sql_installment = $con->query("SELECT *  FROM tbl_commercial_loan_installments where loan_create_id= '$previous_loan_id' and status=0 order by id asc");
+         while ($row_installment = $sql_installment->fetch_array()) {
             $payment = $row_installment['payment'];
             if($previous_amount_loan == 0 || $amount_without_fee <= 0){ // status 4 = "Credit"
-               mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET paid_date='$contract_datee', `paid amount`='0', `credit_amount` = '$payment', status=4, paid_by='$u_id' where loan_create_id = '$previous_loan_id' and status = 0 ");
+               $con->query("UPDATE tbl_commercial_loan_installments SET paid_date='$contract_datee', paid amount='0', credit_amount = '$payment', status=4, paid_by='$u_id' where loan_create_id = '$previous_loan_id' and status = 0 ");
                break;
             }
 
@@ -488,11 +488,11 @@ if ($u_access_id == '0') {
 
             $status = $paid_amount+$refinanced >= $credit ? 3 : 4; 
 
-            mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid amount` =`paid amount` + $refinanced, `refinanced_amount` = '$refinanced', `credit_amount` = '$credit',  status='$status', paid_date='$contract_datee',  paid_by='$u_id' where id= '$id'");
+            $con->query("UPDATE tbl_commercial_loan_installments SET paid amount =paid amount + $refinanced, refinanced_amount = '$refinanced', credit_amount = '$credit',  status='$status', paid_date='$contract_datee',  paid_by='$u_id' where id= '$id'");
             
         }
 
-        mysqli_query($con, "UPDATE tbl_commercial_loan SET loan_status='Paid' where loan_create_id = '$previous_loan_id'");
+        $con->query("UPDATE tbl_commercial_loan SET loan_status='Paid' where loan_create_id = '$previous_loan_id'");
 
       }
 
@@ -860,12 +860,9 @@ if ($u_access_id == '0') {
 
             },
             error: function(err) {
-               if (err.responseText == "") {
-                  alert(err.responseText);
-               } else {
-                  alert(err.responseText);
+               if (err.status !== 0) {
+                  console.error('AJAX error:', err.responseText);
                }
-               window.location.reload();
             }
          });
       });
@@ -933,12 +930,9 @@ if ($u_access_id == '0') {
 
             },
             error: function(err) {
-               if (err.responseText == "") {
-                  alert(err.responseText);
-               } else {
-                  alert(err.responseText);
+               if (err.status !== 0) {
+                  console.error('AJAX error:', err.responseText);
                }
-               window.location.reload();
             }
          });
 

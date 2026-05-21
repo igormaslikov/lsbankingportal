@@ -41,15 +41,19 @@ $DBcon->close();
 
 <?php
 
+if (!isset($_GET['id'])) {
+    echo "<p>Missing required parameter: id.</p>";
+    exit;
+}
 $id=$_GET['id'];
 
    include 'dbconnect.php';
    include 'dbconfig.php';
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'");
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 $mobile_verification = $row['mobile_verification_status'];
 $first_name=$row['first_name'];
 
@@ -94,8 +98,8 @@ $id=$_GET['id'];
 //echo "Name is: $id_fname";
 include 'dbconnect.php';
 include 'dbconfig.php';
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
-while($row = mysqli_fetch_array($sql)) {
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
+while($row = $sql->fetch_array()) {
     
     $user_fnd_id=$row['user_fnd_id'];
     
@@ -247,14 +251,17 @@ if ($err) {
 
 $quoteJson = json_decode($response);
 
-$score= $quoteJson->creditProfile[0]->riskModel[0]->score;
-$firstName= $quoteJson->creditProfile[0]->consumerIdentity->name[0]->firstName;
-$surname= $quoteJson->creditProfile[0]->consumerIdentity->name[0]->surname;
-//$ssn= $quoteJson->creditProfile[0]->ssn[0]->number;
-
-
- mysqli_query ($con , "UPDATE `fnd_user_profile` SET `experian_credit_score`='$score' where `user_fnd_id` = '$id'");
-$name=$firstName.' '.$surname;
+if ($quoteJson && isset($quoteJson->creditProfile[0])) {
+    $score = $quoteJson->creditProfile[0]->riskModel[0]->score ?? '';
+    $firstName = $quoteJson->creditProfile[0]->consumerIdentity->name[0]->firstName ?? '';
+    $surname = $quoteJson->creditProfile[0]->consumerIdentity->name[0]->surname ?? '';
+    $con->query("UPDATE fnd_user_profile SET experian_credit_score=? where user_fnd_id = ?", [$score, $id]);
+} else {
+    $score = '';
+    $firstName = $first_name ?? '';
+    $surname = $last_name ?? '';
+}
+$name = $firstName . ' ' . $surname;
 
 // HTML START
 
@@ -266,8 +273,8 @@ $id=$_GET['id'];
    include 'dbconnect.php';
    include 'dbconfig.php';
    
-   $sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
-while($row = mysqli_fetch_array($sql)) {
+   $sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
+while($row = $sql->fetch_array()) {
     
     $user_fnd_id=$row['user_fnd_id'];
     
@@ -312,7 +319,7 @@ $vantage_factor =  $quoteJson->creditProfile[0]->riskModel[0]->modelIndicator;
 
 
  $query_credit  = "INSERT INTO tbl_credit_report (credit_report_key,user_fnd_id,score,vantage_factor)  VALUES ('$credit_key','$user_fnd_id','$score','$vantage_factor')";
-        $result_credit = mysqli_query($con, $query_credit);
+        $result_credit = $con->query($query_credit);
         if ($result_credit) {
             //echo "<div class='form'><h3> successfully added in tbl_credit_report.</h3><br/></div>";
         } else {
@@ -343,7 +350,7 @@ echo " ".$score_code . " ";
 
 
 $query_credit  = "INSERT INTO tbl_credit_report_scorefactor (credit_report_key,score_code)  VALUES ('$credit_report_key','$score_code')";
-        $result_credit = mysqli_query($con, $query_credit);
+        $result_credit = $con->query($query_credit);
         if ($result_credit) {
             //echo "<div class='form'><h3> successfully added in tbl_credit_report.</h3><br/></div>";
         } else {
@@ -528,7 +535,7 @@ echo ' </td>
  
     
   $query_tradeline  = "INSERT INTO tbl_credit_report_tradeline (credit_report_key,subscriber_name,subscriberCode,kob,accout_type,enhancedTerms,accountNumber,openDate,ecoa,balance_date,lastPaymentDate,amount1,balanceamount,amount2,paymentleveldate,amountPastDue,account_condition,monthsHistory,max,history)  VALUES ('$credit_report_key','$subscriber_name','$subscriberCode','$kob','$accout_type','$enhancedTerms','$accountNumber','$openDate','$ecoa','$balance_date','$lastPaymentDate','$amount1','$balanceamount','$amount2','$paymentleveldate','$amountPastDue','$account_condition','$monthsHistory','$max','$history')";
-        $result_tradeline = mysqli_query($con, $query_tradeline);
+        $result_tradeline = $con->query($query_tradeline);
         if ($result_tradeline) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -597,7 +604,7 @@ echo '<table style="width:100%" >
  
   
   $query_inq  = "INSERT INTO  tbl_credit_report_inqueries (credit_report_key,subscriberName,subscriber_code,terms1,type1,kob1,date_inq,amount_inq)  VALUES ('$credit_report_key','$subscriberName','$subscriber_code','$terms1','$type1','$kob1','$date_inq','$amount_inq')";
-        $result_inq = mysqli_query($con, $query_inq);
+        $result_inq = $con->query($query_inq);
         if ($result_inq) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -623,7 +630,7 @@ echo '<table style="width:100%" >
  
   
   $query_msg  = "INSERT INTO tbl_credit_report_msgs (credit_report_key,messageNumber,messageText)  VALUES ('$credit_report_key','$messageNumber','$messageText')";
-        $result_msg = mysqli_query($con, $query_msg);
+        $result_msg = $con->query($query_msg);
         if ($result_msg) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

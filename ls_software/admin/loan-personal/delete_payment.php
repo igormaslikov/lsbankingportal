@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -24,19 +24,19 @@ $DBcon->close();
     $id_trans=$_GET['id'];
     $loan_id=$_GET['loan_id'];
     $form_name="personal-".basename(__FILE__);
-    $sql_fnd=mysqli_query($con, "select * from tbl_personal_loans where p_loan_id = '$loan_id'"); 
+    $sql_fnd=$con->query("select * from tbl_personal_loans where p_loan_id = '$loan_id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_create_id=$row_fnd['loan_create_id'];
 }
     
     echo "Form: ".$form_name;
-    $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+    $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  
@@ -48,7 +48,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
 {
    $del_reason="Transaction is Deleted with ID $id_trans AND User ID is $user_fnd_id";
     $query = "DELETE FROM personal_loan_transaction WHERE transaction_id = '$id_trans'";
-    $result = mysqli_query($con, $query);
+    $result = $con->query($query);
        if ($result) {
            //echo "<div class='form'><h3> Customer Successfully Deleted.</h3><br/></div>";
        } else {

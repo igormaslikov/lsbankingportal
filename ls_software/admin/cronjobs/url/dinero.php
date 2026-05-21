@@ -1,11 +1,11 @@
-<?php
+﻿<?php
  
 include('../../dbconnect.php');
  include('../../dbconfig.php');
 
 $query = "select * from url_counter where url='dinero' ";
-$sql=mysqli_query($con, "$query");
-while($row = mysqli_fetch_array($sql)) {
+$sql=$con->query("$query");
+while($row = $sql->fetch_array()) {
     $url = $row['url'];
     $counter=$row['url_counter'];
     
@@ -16,6 +16,6 @@ while($row = mysqli_fetch_array($sql)) {
 $counter=$counter;
 $counter++;
 
-mysqli_query($con,"UPDATE url_counter SET url_counter ='$counter' where url = 'dinero' ");
+$con->query("UPDATE url_counter SET url_counter ='$counter' where url = 'dinero' ");
 
 ?>

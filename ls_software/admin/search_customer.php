@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 error_reporting(0);
 include_once 'dbconnect.php';
@@ -58,28 +58,14 @@ $DBcon->close();
   
  <br><br>
  <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnection.php';
-$con = mysqli_connect($db_host,$db_user,$db_pass,$db_name);
-// Check connection
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
+require_once $_SERVER['DOCUMENT_ROOT'] . '/SqlServerDb.php';
+$con = portal_get_sqlsrv_db();
 
-$sql_t="SELECT first_name,email FROM fnd_user_profile ORDER BY user_fnd_id";
-
-if ($result_t=mysqli_query($con,$sql_t))
-  {
-  // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
- // printf($rowcount);
-  // Free result set
-  $ye=mysqli_free_result($result_t);
-  echo $ye;
-  }
-
-mysqli_close($con);
-?> 
+$sql_t = "SELECT first_name, email FROM fnd_user_profile ORDER BY user_fnd_id";
+$result_t = $con->query($sql_t);
+$rowcount = $result_t ? $result_t->num_rows : 0;
+$con->close();
+?>
   
 <br>
 

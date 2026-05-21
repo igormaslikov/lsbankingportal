@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 error_reporting(0);
 include_once 'dbconnect.php';
@@ -29,10 +29,10 @@ if(isset($_POST['btn-submit']))
 
 
 
-    $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+    $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-    while($row_role = mysqli_fetch_array($sql_role)) {
+    while($row_role = $sql_role->fetch_array()) {
 
     $form_id=$row_role['id'];
     echo $form_id;
@@ -49,7 +49,7 @@ $category=$_POST['category'];
 $date = date('Y-m-d H:i:s');
 
 $query_notes  = "INSERT INTO tbl_loan_notes (loan_id,notes,category,created_at,created_by)  VALUES ('$loan_id_payoff','$laon_notes','$category','$date','$u_id')";
-        $result = mysqli_query($con, $query_notes);
+        $result = $con->query($query_notes);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

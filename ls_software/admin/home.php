@@ -1,15 +1,15 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
+require_once __DIR__ . '/security.php';
+require_login();
 include_once 'dbconnect.php';
-include 'dbconfig.php';
 
-if (!isset($_SESSION['userSession'])) {
-  header("Location: index.php");
+$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . intval($_SESSION['userSession']));
+if (!$query || !($userRow = $query->fetch_array())) {
+	header("Location: index.php");
+	exit;
 }
-
-$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $_SESSION['userSession']);
-$userRow = $query->fetch_array();
 $DBcon->close();
 
 ?>
@@ -18,7 +18,8 @@ $DBcon->close();
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Welcome - <?php echo $userRow['email']; ?></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome - <?php echo h($userRow['email']); ?></title>
 
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
@@ -39,82 +40,49 @@ $DBcon->close();
 
   <?php include('menu.php'); ?>
   <?php
-  include_once $_SERVER['DOCUMENT_ROOT'] . '/dbconnection.php';
-  $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-  //$con=mysqli_connect("localhost","dblsuser2021","^%D24L*!Ti5%","dbs57337");
-  // Check connection
-  if (mysqli_connect_errno()) {
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  require_once $_SERVER['DOCUMENT_ROOT'] . '/SqlServerDb.php';
+  $con = portal_get_sqlsrv_db();
+
+  $result_t = $con->query("SELECT amount_of_loan FROM tbl_loan ORDER BY loan_id");
+  $rowcount = $result_t ? $result_t->num_rows : 0;
+
+  $query_us = $con->query("SELECT SUM(TRY_CAST(amount_of_loan AS DECIMAL(18,2))) AS value_sum FROM tbl_loan");
+  $us = 0;
+  if ($query_us && ($row_us = $query_us->fetch_array())) {
+    $us = round((float)$row_us['value_sum'], 2);
   }
 
-  $sql_t = "SELECT amount_of_loan FROM tbl_loan ORDER BY loan_id";
-
-  if ($result_t = mysqli_query($con, $sql_t)) {
-    // Return the number of rows in result set
-    $rowcount = mysqli_num_rows($result_t);
-    // printf($rowcount);
-    // Free result set
-    $ye = mysqli_free_result($result_t);
-    echo $ye;
+  $query_le = $con->query("SELECT SUM(TRY_CAST(loan_total_payable AS DECIMAL(18,2))) AS value_sum FROM tbl_loan");
+  $am_le = 0;
+  if ($query_le && ($row_le = $query_le->fetch_array())) {
+    $am_le = round((float)$row_le['value_sum'], 2);
   }
 
-  mysqli_close($con);
-  ?>
-  <?php
-  include 'dbconfig.php';
+  $pay_off      = $us - $am_le;
+  $avg_pay      = ($rowcount > 0) ? round($am_le / $rowcount, 2) : 0;
+  $avg          = ($rowcount > 0) ? round($us / $rowcount, 2) : 0;
 
-  $query_us = mysqli_query($con, "SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan");
-  while ($row_us = mysqli_fetch_array($query_us)) {
-    $us = $row_us['value_sum'];
-    $us = round($us, 2);
-    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
-
+  $loan_id = 0;
+  $sql_last = $con->query("SELECT TOP 1 loan_id FROM tbl_loan ORDER BY loan_id DESC");
+  if ($sql_last && ($row_last = $sql_last->fetch_array())) {
+    $loan_id = (int)$row_last['loan_id'];
   }
 
-  $query_le = mysqli_query($con, "SELECT SUM(amount_left) AS value_sum FROM tbl_loan");
-  while ($row_le = mysqli_fetch_array($query_le)) {
-    $am_le = $row_le['value_sum'];
-    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$am_le;
-
+  $userfnd_id = 0;
+  if ($loan_id > 0) {
+    $sql_fnd = $con->query("SELECT user_fnd_id FROM tbl_loan WHERE loan_id = ?", [$loan_id]);
+    if ($sql_fnd && ($row_fnd = $sql_fnd->fetch_array())) {
+      $userfnd_id = (int)$row_fnd['user_fnd_id'];
+    }
   }
 
-  $pay_off = $us - $am_le;
-  $avg_pay_off = $am_le / $rowcount;
-
-  $avg_pay = round($avg_pay_off, 2);
-
-  $avg_amount = $us / $rowcount;
-
-  $avg = round($avg_amount, 2);
-
-
-  $sql = mysqli_query($con, "select * from tbl_loan ");
-
-  while ($row = mysqli_fetch_array($sql)) {
-
-    $loan_id = $row['loan_id'];
+  $first_name = '';
+  if ($userfnd_id > 0) {
+    $sql_prof = $con->query("SELECT first_name FROM fnd_user_profile WHERE user_fnd_id = ?", [$userfnd_id]);
+    if ($sql_prof && ($row_prof = $sql_prof->fetch_array())) {
+      $first_name = $row_prof['first_name'];
+    }
   }
-  //echo "fndid is:".$loan_id;
-
-  $sql = mysqli_query($con, "select * from tbl_loan where loan_id='$loan_id'");
-
-  while ($row = mysqli_fetch_array($sql)) {
-
-    $userfnd_id = $row['user_fnd_id'];
-  }
-  //echo "fndid is:".$userfnd_id;
-
-
-
-  $sql = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$userfnd_id'");
-
-  while ($row = mysqli_fetch_array($sql)) {
-
-    $first_name = $row['first_name'];
-  }
-
-  //echo "fname is:".$first_name;
-
   ?>
 
 
@@ -125,83 +93,40 @@ $DBcon->close();
     <!--Deatil Of Users Start -->
 
     <?php
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/dbconnection.php';
-    $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-    // Check connection
-    if (mysqli_connect_errno()) {
-      echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    }
-
-    $sql_t = "SELECT username,email FROM tbl_users ORDER BY user_id";
-
-    if ($result_t = mysqli_query($con, $sql_t)) {
-      // Return the number of rows in result set
-      $rowcount_user = mysqli_num_rows($result_t);
-      // printf($rowcount_user);
-      // Free result set
-      $ye = mysqli_free_result($result_t);
-      echo $ye;
-    }
-
-    mysqli_close($con);
+    $result_t = $con->query("SELECT username,email FROM tbl_users ORDER BY user_id");
+    $rowcount_user = $result_t ? $result_t->num_rows : 0;
     ?>
 
 
 
 
     <?php
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/dbconnection.php';
-    $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-    // Check connection
-    if (mysqli_connect_errno()) {
-      echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    }
-
-    $sql_t = "SELECT bg_name,email_id FROM business_group ORDER BY bg_id";
-
-    if ($result_t = mysqli_query($con, $sql_t)) {
-      // Return the number of rows in result set
-      $rowcount_company = mysqli_num_rows($result_t);
-      // printf($rowcount_company);
-      // Free result set
-      $ye = mysqli_free_result($result_t);
-      echo $ye;
-    }
-
-    mysqli_close($con);
+    $result_t = $con->query("SELECT bg_name,email_id FROM business_group ORDER BY bg_id");
+    $rowcount_company = $result_t ? $result_t->num_rows : 0;
     ?>
 
 
     <?php
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/dbconnection.php';
-    $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-    // Check connection
-    if (mysqli_connect_errno()) {
-      echo "Failed to connect to MySQL: " . mysqli_connect_error();
-    }
-
     $sql_t = "SELECT first_name,email FROM fnd_user_profile ORDER BY user_fnd_id";
 
-    if ($result_t = mysqli_query($con, $sql_t)) {
+    if ($result_t = $con->query($sql_t)) {
       // Return the number of rows in result set
-      $rowcount_customer = mysqli_num_rows($result_t);
+      $rowcount_customer = $result_t->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye = mysqli_free_result($result_t);
-      echo $ye;
+      
     }
 
     // final review personal start
 
     $sql_frpl = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Final Review for Personal Loan'";
 
-    if ($result_frpl = mysqli_query($con, $sql_frpl)) {
+    if ($result_frpl = $con->query($sql_frpl)) {
       // Return the number of rows in result set
-      $rowcount_frpl = mysqli_num_rows($result_frpl);
+      $rowcount_frpl = $result_frpl->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye = mysqli_free_result($result_t);
-      echo $ye;
+      
     }
 
     // final review personal end 
@@ -210,13 +135,12 @@ $DBcon->close();
 
     $sql_apersonall = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Personal Loan'";
 
-    if ($result_apersonall = mysqli_query($con, $sql_apersonall)) {
+    if ($result_apersonall = $con->query($sql_apersonall)) {
       // Return the number of rows in result set
-      $rowcount_apersonall = mysqli_num_rows($result_apersonall);
+      $rowcount_apersonall = $result_apersonall->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye = mysqli_free_result($result_t);
-      echo $ye;
+      
     }
 
     // approve personal end 
@@ -225,13 +149,12 @@ $DBcon->close();
 
     $sql_apaydayd = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday Loan' ";
 
-    if ($result_apaydayd = mysqli_query($con, $sql_apaydayd)) {
+    if ($result_apaydayd = $con->query($sql_apaydayd)) {
       // Return the number of rows in result set
-      $rowcount_apaydayd = mysqli_num_rows($result_apaydayd);
+      $rowcount_apaydayd = $result_apaydayd->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye = mysqli_free_result($result_apaydayd);
-      echo $ye;
+      
     }
 
     // approved payday  end 
@@ -243,13 +166,12 @@ $DBcon->close();
 
     $sql_review_payday = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review For Payday' ";
 
-    if ($result_review_payday = mysqli_query($con, $sql_review_payday)) {
+    if ($result_review_payday = $con->query($sql_review_payday)) {
       // Return the number of rows in result set
-      $rowcount_review_payday = mysqli_num_rows($result_review_payday);
+      $rowcount_review_payday = $result_review_payday->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye_review_payday = mysqli_free_result($result_review_payday);
-      echo $ye_review_payday;
+      
     }
 
     // Review For Payday  end
@@ -259,13 +181,12 @@ $DBcon->close();
 
     $sql_pending_docs = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Pending Documents' ";
 
-    if ($result_pending_docs = mysqli_query($con, $sql_pending_docs)) {
+    if ($result_pending_docs = $con->query($sql_pending_docs)) {
       // Return the number of rows in result set
-      $rowcount_pending_docs = mysqli_num_rows($result_pending_docs);
+      $rowcount_pending_docs = $result_pending_docs->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye_pending_docs = mysqli_free_result($result_pending_docs);
-      echo $ye_pending_docs;
+      
     }
 
     // Pending Documents   end
@@ -277,13 +198,12 @@ $DBcon->close();
 
     $sql_dl_completed = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Decision Logic Completed' ";
 
-    if ($result_dl_completed = mysqli_query($con, $sql_dl_completed)) {
+    if ($result_dl_completed = $con->query($sql_dl_completed)) {
       // Return the number of rows in result set
-      $rowcount_dl_completed = mysqli_num_rows($result_dl_completed);
+      $rowcount_dl_completed = $result_dl_completed->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye_dl_completed = mysqli_free_result($result_dl_completed);
-      echo $ye_dl_completed;
+      
     }
 
     // Decision Logic Completed   end
@@ -293,13 +213,12 @@ $DBcon->close();
 
     $sql_cr_completed = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Credit Report Completed' ";
 
-    if ($result_cr_completed = mysqli_query($con, $sql_cr_completed)) {
+    if ($result_cr_completed = $con->query($sql_cr_completed)) {
       // Return the number of rows in result set
-      $rowcount_cr_completed = mysqli_num_rows($result_cr_completed);
+      $rowcount_cr_completed = $result_cr_completed->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye_cr_completed = mysqli_free_result($result_cr_completed);
-      echo $ye_cr_completed;
+      
     }
 
     // Credit Report Completed   end
@@ -309,13 +228,12 @@ $DBcon->close();
 
     $sql_intrvw_completed = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Interview Completed' ";
 
-    if ($result_intrvw_completed = mysqli_query($con, $sql_intrvw_completed)) {
+    if ($result_intrvw_completed = $con->query($sql_intrvw_completed)) {
       // Return the number of rows in result set
-      $rowcount_intrvw_completed = mysqli_num_rows($result_intrvw_completed);
+      $rowcount_intrvw_completed = $result_intrvw_completed->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye_intrvw_completed = mysqli_free_result($result_intrvw_completed);
-      echo $ye_intrvw_completed;
+      
     }
 
     // Interview Completed   end
@@ -327,13 +245,12 @@ $DBcon->close();
 
     $sql_loan_active = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Active' ";
 
-    if ($result_loan_active = mysqli_query($con, $sql_loan_active)) {
+    if ($result_loan_active = $con->query($sql_loan_active)) {
       // Return the number of rows in result set
-      $rowcount_loan_active = mysqli_num_rows($result_loan_active);
+      $rowcount_loan_active = $result_loan_active->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye_loan_active = mysqli_free_result($result_loan_active);
-      echo $ye_loan_active;
+      
     }
 
     // Loan Status Active   end
@@ -343,13 +260,12 @@ $DBcon->close();
 
     $sql_loan_past = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Past Due' ";
 
-    if ($result_loan_past = mysqli_query($con, $sql_loan_past)) {
+    if ($result_loan_past = $con->query($sql_loan_past)) {
       // Return the number of rows in result set
-      $rowcount_loan_past = mysqli_num_rows($result_loan_past);
+      $rowcount_loan_past = $result_loan_past->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye_loan_past = mysqli_free_result($result_loan_past);
-      echo $ye_loan_past;
+      
     }
 
     // Loan Status Past Due   end
@@ -359,13 +275,12 @@ $DBcon->close();
 
     $sql_loan_plan = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Payment Plan' ";
 
-    if ($result_loan_plan = mysqli_query($con, $sql_loan_plan)) {
+    if ($result_loan_plan = $con->query($sql_loan_plan)) {
       // Return the number of rows in result set
-      $rowcount_loan_plan = mysqli_num_rows($result_loan_plan);
+      $rowcount_loan_plan = $result_loan_plan->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye_loan_plan = mysqli_free_result($result_loan_plan);
-      echo $ye_loan_plan;
+      
     }
 
     // Loan Status Pyment Plan   end
@@ -374,13 +289,12 @@ $DBcon->close();
 
     $sql_loan_charge = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Chargeoff' ";
 
-    if ($result_loan_charge = mysqli_query($con, $sql_loan_charge)) {
+    if ($result_loan_charge = $con->query($sql_loan_charge)) {
       // Return the number of rows in result set
-      $rowcount_loan_charge = mysqli_num_rows($result_loan_charge);
+      $rowcount_loan_charge = $result_loan_charge->num_rows;
       // printf($rowcount_customer);
       // Free result set
-      $ye_loan_charge = mysqli_free_result($result_loan_charge);
-      echo $ye_loan_charge;
+      
     }
 
     // Loan Status Chargeoff   end
@@ -389,9 +303,9 @@ $DBcon->close();
 
     $sql_loan_paid = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Paid' ";
 
-    if ($result_loan_paid = mysqli_query($con, $sql_loan_paid)) {
+    if ($result_loan_paid = $con->query($sql_loan_paid)) {
       // Return the number of rows in result set
-      $rowcount_loan_paid = mysqli_num_rows($result_loan_paid);
+      $rowcount_loan_paid = $result_loan_paid->num_rows;
     }
 
     // Loan Status Paid   end
@@ -400,9 +314,9 @@ $DBcon->close();
 
     $sql_loan_promise = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Promise to Pay' ";
 
-    if ($result_loan_promise = mysqli_query($con, $sql_loan_promise)) {
+    if ($result_loan_promise = $con->query($sql_loan_promise)) {
       // Return the number of rows in result set
-      $rowcount_promise = mysqli_num_rows($result_loan_promise);
+      $rowcount_promise = $result_loan_promise->num_rows;
     }
 
     // Loan Status Promise to Pay   end
@@ -411,9 +325,9 @@ $DBcon->close();
 
     $sql_loan_collections = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Collections' ";
 
-    if ($result_loan_collections = mysqli_query($con, $sql_loan_collections)) {
+    if ($result_loan_collections = $con->query($sql_loan_collections)) {
       // Return the number of rows in result set
-      $rowcount_collections = mysqli_num_rows($result_loan_collections);
+      $rowcount_collections = $result_loan_collections->num_rows;
     }
 
     // Loan Status Promise to Pay   end
@@ -423,9 +337,9 @@ $DBcon->close();
 
     $sql_loan_closed = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Closed Account' ";
 
-    if ($result_loan_closed = mysqli_query($con, $sql_loan_closed)) {
+    if ($result_loan_closed = $con->query($sql_loan_closed)) {
       // Return the number of rows in result set
-      $rowcount_closed = mysqli_num_rows($result_loan_closed);
+      $rowcount_closed = $result_loan_closed->num_rows;
     }
 
     // Loan Status Closed Account   end
@@ -437,9 +351,9 @@ $DBcon->close();
 
     $sql_loan_chargeback = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Chargeback' ";
 
-    if ($result_loan_chargeback = mysqli_query($con, $sql_loan_chargeback)) {
+    if ($result_loan_chargeback = $con->query($sql_loan_chargeback)) {
       // Return the number of rows in result set
-      $rowcount_chargeback = mysqli_num_rows($result_loan_chargeback);
+      $rowcount_chargeback = $result_loan_chargeback->num_rows;
     }
 
     // Loan Status Chargeback   end
@@ -450,9 +364,9 @@ $DBcon->close();
 
     $sql_loan_bankruptcy = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Bankruptcy' ";
 
-    if ($result_loan_bankruptcy = mysqli_query($con, $sql_loan_bankruptcy)) {
+    if ($result_loan_bankruptcy = $con->query($sql_loan_bankruptcy)) {
       // Return the number of rows in result set
-      $rowcount_bankruptcy = mysqli_num_rows($result_loan_bankruptcy);
+      $rowcount_bankruptcy = $result_loan_bankruptcy->num_rows;
     }
 
     // Loan Status Bankruptcy   end
@@ -462,9 +376,9 @@ $DBcon->close();
 
     $sql_loan_pending = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Pending' ";
 
-    if ($result_loan_pending = mysqli_query($con, $sql_loan_pending)) {
+    if ($result_loan_pending = $con->query($sql_loan_pending)) {
       // Return the number of rows in result set
-      $rowcount_pending = mysqli_num_rows($result_loan_pending);
+      $rowcount_pending = $result_loan_pending->num_rows;
     }
 
     // Loan Status Pending   end
@@ -475,9 +389,9 @@ $DBcon->close();
 
     $sql_loan_disbursement = "SELECT loan_id,user_fnd_id FROM tbl_loan where loan_status = 'Disbursement' ";
 
-    if ($result_loan_disbursement = mysqli_query($con, $sql_loan_disbursement)) {
+    if ($result_loan_disbursement = $con->query($sql_loan_disbursement)) {
       // Return the number of rows in result set
-      $rowcount_disbursement = mysqli_num_rows($result_loan_disbursement);
+      $rowcount_disbursement = $result_loan_disbursement->num_rows;
     }
 
     // Loan Status Disbursement   end
@@ -489,9 +403,9 @@ $DBcon->close();
 
     $sql_ready_fr_review = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Ready for review' ";
 
-    if ($result_ready_fr_review = mysqli_query($con, $sql_ready_fr_review)) {
+    if ($result_ready_fr_review = $con->query($sql_ready_fr_review)) {
       // Return the number of rows in result set
-      $rowcount_ready_fr_review = mysqli_num_rows($result_ready_fr_review);
+      $rowcount_ready_fr_review = $result_ready_fr_review->num_rows;
       // printf($rowcount_ready_fr_review);
     }
 
@@ -503,9 +417,9 @@ $DBcon->close();
 
     $sql_inf_needed = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Info Needed' ";
 
-    if ($result_inf_needed = mysqli_query($con, $sql_inf_needed)) {
+    if ($result_inf_needed = $con->query($sql_inf_needed)) {
       // Return the number of rows in result set
-      $rowcount_inf_needed = mysqli_num_rows($result_inf_needed);
+      $rowcount_inf_needed = $result_inf_needed->num_rows;
       // printf($rowcount_inf_needed);
     }
 
@@ -516,9 +430,9 @@ $DBcon->close();
 
     $sql_rev_payday_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Payday CA' ";
 
-    if ($result_rev_payday_ca = mysqli_query($con, $sql_rev_payday_ca)) {
+    if ($result_rev_payday_ca = $con->query($sql_rev_payday_ca)) {
       // Return the number of rows in result set
-      $rowcount_rev_payday_ca = mysqli_num_rows($result_rev_payday_ca);
+      $rowcount_rev_payday_ca = $result_rev_payday_ca->num_rows;
       // printf($rowcount_rev_payday_ca);
     }
 
@@ -529,9 +443,9 @@ $DBcon->close();
 
     $sql_dl_bank_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Payday CA' ";
 
-    if ($result_dl_bank_ca = mysqli_query($con, $sql_dl_bank_ca)) {
+    if ($result_dl_bank_ca = $con->query($sql_dl_bank_ca)) {
       // Return the number of rows in result set
-      $rowcount_dl_bank_ca = mysqli_num_rows($result_dl_bank_ca);
+      $rowcount_dl_bank_ca = $result_dl_bank_ca->num_rows;
       // printf($rowcount_dl_bank_ca);
     }
 
@@ -543,9 +457,9 @@ $DBcon->close();
 
     $sql_dl_bank_install_ca = "SELECT * FROM fnd_user_profile where application_status = 'DL/Bank Installment CA' ";
 
-    if ($result_dl_bank_install_ca = mysqli_query($con, $sql_dl_bank_install_ca)) {
+    if ($result_dl_bank_install_ca = $con->query($sql_dl_bank_install_ca)) {
       // Return the number of rows in result set
-      $rowcount_dl_bank_install_ca = mysqli_num_rows($result_dl_bank_install_ca);
+      $rowcount_dl_bank_install_ca = $result_dl_bank_install_ca->num_rows;
       // printf($rowcount_dl_bank_install_ca);
     }
 
@@ -556,9 +470,9 @@ $DBcon->close();
 
     $sql_dl_bank_install_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Installment NV' ";
 
-    if ($result_dl_bank_install_nv = mysqli_query($con, $sql_dl_bank_install_nv)) {
+    if ($result_dl_bank_install_nv = $con->query($sql_dl_bank_install_nv)) {
       // Return the number of rows in result set
-      $rowcount_dl_bank_install_nv = mysqli_num_rows($result_dl_bank_install_nv);
+      $rowcount_dl_bank_install_nv = $result_dl_bank_install_nv->num_rows;
       // printf($rowcount_dl_bank_install_nv);
     }
 
@@ -569,9 +483,9 @@ $DBcon->close();
 
     $sql_dl_bank_install_az = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Installment AZ' ";
 
-    if ($result_dl_bank_install_az = mysqli_query($con, $sql_dl_bank_install_az)) {
+    if ($result_dl_bank_install_az = $con->query($sql_dl_bank_install_az)) {
       // Return the number of rows in result set
-      $rowcount_dl_bank_install_az = mysqli_num_rows($result_dl_bank_install_az);
+      $rowcount_dl_bank_install_az = $result_dl_bank_install_az->num_rows;
       // printf($rowcount_dl_bank_install_az);
     }
 
@@ -585,9 +499,9 @@ $DBcon->close();
 
     $sql_aprovd_paydy_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday NV' ";
 
-    if ($result_aprovd_paydy_nv = mysqli_query($con, $sql_aprovd_paydy_nv)) {
+    if ($result_aprovd_paydy_nv = $con->query($sql_aprovd_paydy_nv)) {
       // Return the number of rows in result set
-      $rowcount_aprovd_paydy_nv = mysqli_num_rows($result_aprovd_paydy_nv);
+      $rowcount_aprovd_paydy_nv = $result_aprovd_paydy_nv->num_rows;
       // printf($rowcount_aprovd_paydy_nv);
     }
 
@@ -602,9 +516,9 @@ $DBcon->close();
 
     $sql_aprovd_install_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Installment NV' ";
 
-    if ($result_install_paydy_nv = mysqli_query($con, $sql_aprovd_install_nv)) {
+    if ($result_install_paydy_nv = $con->query($sql_aprovd_install_nv)) {
       // Return the number of rows in result set
-      $rowcount_install_paydy_nv = mysqli_num_rows($result_install_paydy_nv);
+      $rowcount_install_paydy_nv = $result_install_paydy_nv->num_rows;
       // printf($rowcount_install_paydy_nv);
     }
 
@@ -615,9 +529,9 @@ $DBcon->close();
 
     $sql_aprovd_install_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Installment CA' ";
 
-    if ($result_install_paydy_ca = mysqli_query($con, $sql_aprovd_install_ca)) {
+    if ($result_install_paydy_ca = $con->query($sql_aprovd_install_ca)) {
       // Return the number of rows in result set
-      $rowcount_aprovd_intall_ca = mysqli_num_rows($result_install_paydy_ca);
+      $rowcount_aprovd_intall_ca = $result_install_paydy_ca->num_rows;
       // printf($rowcount_aprovd_intall_ca);
     }
 
@@ -627,9 +541,9 @@ $DBcon->close();
 
     $sql_rev_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Installment CA' ";
 
-    if ($result_rev_ca = mysqli_query($con, $sql_rev_ca)) {
+    if ($result_rev_ca = $con->query($sql_rev_ca)) {
       // Return the number of rows in result set
-      $rowcount_rev_ca = mysqli_num_rows($result_rev_ca);
+      $rowcount_rev_ca = $result_rev_ca->num_rows;
       // printf($rowcount_rev_ca);
     }
 
@@ -642,9 +556,9 @@ $DBcon->close();
 
     $sql_aprovd_install_az = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Installment AZ' ";
 
-    if ($result_install_paydy_az = mysqli_query($con, $sql_aprovd_install_az)) {
+    if ($result_install_paydy_az = $con->query($sql_aprovd_install_az)) {
       // Return the number of rows in result set
-      $rowcount_install_paydy_az = mysqli_num_rows($result_install_paydy_az);
+      $rowcount_install_paydy_az = $result_install_paydy_az->num_rows;
       // printf($rowcount_install_paydy_az);
     }
 
@@ -655,9 +569,9 @@ $DBcon->close();
 
     $sql_rev_install_az = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Installment AZ' ";
 
-    if ($resul_rev_install_az = mysqli_query($con, $sql_rev_install_az)) {
+    if ($resul_rev_install_az = $con->query($sql_rev_install_az)) {
       // Return the number of rows in result set
-      $rowcount_rev_install_az = mysqli_num_rows($resul_rev_install_az);
+      $rowcount_rev_install_az = $resul_rev_install_az->num_rows;
       // printf($rowcount_rev_install_az);
     }
 
@@ -668,9 +582,9 @@ $DBcon->close();
 
     $sql_rev_install_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Installment NV' ";
 
-    if ($resul_rev_install_nv = mysqli_query($con, $sql_rev_install_nv)) {
+    if ($resul_rev_install_nv = $con->query($sql_rev_install_nv)) {
       // Return the number of rows in result set
-      $rowcount_rev_install_nv = mysqli_num_rows($resul_rev_install_nv);
+      $rowcount_rev_install_nv = $resul_rev_install_nv->num_rows;
       // printf($rowcount_rev_install_nv);
     }
 
@@ -683,9 +597,9 @@ $DBcon->close();
 
     $sql_aprovd_comercial_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Commercial CA' ";
 
-    if ($result_aprovd_comercial_ca = mysqli_query($con, $sql_aprovd_comercial_ca)) {
+    if ($result_aprovd_comercial_ca = $con->query($sql_aprovd_comercial_ca)) {
       // Return the number of rows in result set
-      $rowcount_aprovd_comercial_ca = mysqli_num_rows($result_aprovd_comercial_ca);
+      $rowcount_aprovd_comercial_ca = $result_aprovd_comercial_ca->num_rows;
       // printf($rowcount_aprovd_comercial_ca);
     }
 
@@ -695,9 +609,9 @@ $DBcon->close();
 
     $sql_aprovd_paydy_ca = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday CA' ";
 
-    if ($result_aprovd_paydy_ca = mysqli_query($con, $sql_aprovd_paydy_ca)) {
+    if ($result_aprovd_paydy_ca = $con->query($sql_aprovd_paydy_ca)) {
       // Return the number of rows in result set
-      $rowcount_aprovd_paydy_ca = mysqli_num_rows($result_aprovd_paydy_ca);
+      $rowcount_aprovd_paydy_ca = $result_aprovd_paydy_ca->num_rows;
       // printf($rowcount_aprovd_paydy_ca);
     }
 
@@ -709,9 +623,9 @@ $DBcon->close();
 
     $sql_aprovd_paydy_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday NV' ";
 
-    if ($result_aprovd_paydy_nv = mysqli_query($con, $sql_aprovd_paydy_nv)) {
+    if ($result_aprovd_paydy_nv = $con->query($sql_aprovd_paydy_nv)) {
       // Return the number of rows in result set
-      $rowcount_aprovd_paydy_nv = mysqli_num_rows($result_aprovd_paydy_nv);
+      $rowcount_aprovd_paydy_nv = $result_aprovd_paydy_nv->num_rows;
       // printf($rowcount_aprovd_paydy_nv);
     }
 
@@ -724,9 +638,9 @@ $DBcon->close();
 
     $sql_rev_payday_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Payday NV' ";
 
-    if ($result_rev_payday_nv = mysqli_query($con, $sql_rev_payday_nv)) {
+    if ($result_rev_payday_nv = $con->query($sql_rev_payday_nv)) {
       // Return the number of rows in result set
-      $rowcount_rev_payday_nv = mysqli_num_rows($result_rev_payday_nv);
+      $rowcount_rev_payday_nv = $result_rev_payday_nv->num_rows;
       // printf($rowcount_rev_payday_nv);
     }
 
@@ -737,9 +651,9 @@ $DBcon->close();
 
     $sql_dl_bank_nv = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Payday NV' ";
 
-    if ($result_dl_bank_nv = mysqli_query($con, $sql_dl_bank_nv)) {
+    if ($result_dl_bank_nv = $con->query($sql_dl_bank_nv)) {
       // Return the number of rows in result set
-      $rowcount_dl_bank_nv = mysqli_num_rows($result_dl_bank_nv);
+      $rowcount_dl_bank_nv = $result_dl_bank_nv->num_rows;
       // printf($rowcount_dl_bank_nv);
     }
 
@@ -757,9 +671,9 @@ $DBcon->close();
 
     $sql_aprovd_paydy_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Payday IL' ";
 
-    if ($result_aprovd_paydy_il = mysqli_query($con, $sql_aprovd_paydy_il)) {
+    if ($result_aprovd_paydy_il = $con->query($sql_aprovd_paydy_il)) {
       // Return the number of rows in result set
-      $rowcount_aprovd_paydy_il = mysqli_num_rows($result_aprovd_paydy_il);
+      $rowcount_aprovd_paydy_il = $result_aprovd_paydy_il->num_rows;
       // printf($rowcount_aprovd_paydy_nv);
     }
 
@@ -772,9 +686,9 @@ $DBcon->close();
 
     $sql_rev_payday_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Payday IL' ";
 
-    if ($result_rev_payday_il = mysqli_query($con, $sql_rev_payday_il)) {
+    if ($result_rev_payday_il = $con->query($sql_rev_payday_il)) {
       // Return the number of rows in result set
-      $rowcount_rev_payday_il = mysqli_num_rows($result_rev_payday_il);
+      $rowcount_rev_payday_il = $result_rev_payday_il->num_rows;
       // printf($rowcount_rev_payday_il);
     }
 
@@ -785,9 +699,9 @@ $DBcon->close();
 
     $sql_dl_bank_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Payday IL' ";
 
-    if ($result_dl_bank_il = mysqli_query($con, $sql_dl_bank_il)) {
+    if ($result_dl_bank_il = $con->query($sql_dl_bank_il)) {
       // Return the number of rows in result set
-      $rowcount_dl_bank_il = mysqli_num_rows($result_dl_bank_il);
+      $rowcount_dl_bank_il = $result_dl_bank_il->num_rows;
       // printf($rowcount_dl_bank_il);
     }
 
@@ -801,9 +715,9 @@ $DBcon->close();
 
     $sql_aprovd_install_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Approved Installment IL' ";
 
-    if ($result_aprovd_install_il = mysqli_query($con, $sql_aprovd_install_il)) {
+    if ($result_aprovd_install_il = $con->query($sql_aprovd_install_il)) {
       // Return the number of rows in result set
-      $rowcount_aprovd_install_il = mysqli_num_rows($result_aprovd_install_il);
+      $rowcount_aprovd_install_il = $result_aprovd_install_il->num_rows;
       // printf($rowcount_aprovd_install_nv);
     }
 
@@ -816,9 +730,9 @@ $DBcon->close();
 
     $sql_rev_install_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'Review Installment IL' ";
 
-    if ($result_rev_install_il = mysqli_query($con, $sql_rev_install_il)) {
+    if ($result_rev_install_il = $con->query($sql_rev_install_il)) {
       // Return the number of rows in result set
-      $rowcount_rev_install_il = mysqli_num_rows($result_rev_install_il);
+      $rowcount_rev_install_il = $result_rev_install_il->num_rows;
       // printf($rowcount_rev_install_il);
     }
 
@@ -829,9 +743,9 @@ $DBcon->close();
 
     $sql_dl_bank_install_il = "SELECT first_name,email FROM fnd_user_profile where application_status = 'DL/Bank Installment IL' ";
 
-    if ($result_dl_bank_install_il = mysqli_query($con, $sql_dl_bank_install_il)) {
+    if ($result_dl_bank_install_il = $con->query($sql_dl_bank_install_il)) {
       // Return the number of rows in result set
-      $rowcount_dl_bank_install_il = mysqli_num_rows($result_dl_bank_install_il);
+      $rowcount_dl_bank_install_il = $result_dl_bank_install_il->num_rows;
       // printf($rowcount_dl_bank_install_il);
     }
 
@@ -841,7 +755,7 @@ $DBcon->close();
 
     //*******************************************************************************************************************************************************
 
-    mysqli_close($con);
+    /* keep shared SQL connection */
     ?>
 
 
@@ -1034,6 +948,11 @@ $DBcon->close();
 
   </div>
 
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+  <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 
 </html>
+
+
+

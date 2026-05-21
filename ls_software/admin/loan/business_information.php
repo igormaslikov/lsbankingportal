@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -25,9 +25,9 @@ $DBcon->close();
 
  $id=$_GET['id'];
  
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_create_id=$row_fnd['loan_create_id'];
@@ -38,9 +38,9 @@ $loan_create_id=$row_fnd['loan_create_id'];
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -51,9 +51,9 @@ $customer_numbr=$row['mobile_number'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -80,17 +80,17 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
 }
 
-$sql_business_query=mysqli_query($con, "select * from tbl_business_info where user_fnd_id= '$user_fnd_id'"); 
+$sql_business_query=$con->query("select * from tbl_business_info where user_fnd_id= '$user_fnd_id'"); 
 
-while($row_business_source = mysqli_fetch_array($sql_business_query)) {
+while($row_business_source = $sql_business_query->fetch_array()) {
 
 $business_name=$row_business_source['business_name'];
 $business_phone=$row_business_source['business_phone'];
@@ -262,10 +262,10 @@ $business_direct_deposit_update =$_POST['business_direct_deposit'];
 $business_get_paid_update=$_POST['business_get_paid'];
 $business_docs_update=$_POST['business_docs'];
 
-$sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+$sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  
@@ -278,7 +278,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
 
 
     
-      mysqli_query($con, "UPDATE tbl_business_info SET business_name='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date' where user_fnd_id ='$user_fnd_id' AND loan_create_id='$loan_create_id'");
+      $con->query("UPDATE tbl_business_info SET business_name='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date' where user_fnd_id ='$user_fnd_id' AND loan_create_id='$loan_create_id'");
       
 ?>
 

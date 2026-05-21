@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 
@@ -63,30 +63,28 @@ $id=$_GET['id'];
 
 $sql_t="SELECT * from tbl_loan where user_fnd_id=$id";
 
-if ($result_t=mysqli_query($con,$sql_t))
+if ($result_t=$con->query($sql_t))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
-  echo $ye;
-  }
+}
   
   
   $sql_persoanl="SELECT * from tbl_personal_loans where user_fnd_id=$id";
 
-if ($result_personal=mysqli_query($con,$sql_persoanl))
+if ($result_personal=$con->query($sql_persoanl))
   {
  
-  $rowcount_persoanl=mysqli_num_rows($result_personal);
+  $rowcount_persoanl=$result_personal->num_rows;
   
  }
   
   
   
 
-mysqli_close($con);
+$con->close();
 ?>
 
 <div align="right">
@@ -128,14 +126,14 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM tbl_loan where user_fnd_id=$id");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM tbl_loan where user_fnd_id=$id");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-    $result = mysqli_query($con,"SELECT * FROM tbl_loan where user_fnd_id=$id LIMIT $offset, $total_records_per_page");
-    while($row_bank_detail_sec = mysqli_fetch_array($result)){
+    $result = $con->query("SELECT * FROM tbl_loan where user_fnd_id=$id ORDER BY loan_id OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY");
+    while($row_bank_detail_sec = $result->fetch_array()){
 		$loan_id=$row_bank_detail_sec['loan_id'];
        $amount_of_loan=$row_bank_detail_sec['amount_of_loan'];
        $loan_create_id=$row_bank_detail_sec['loan_create_id'];
@@ -157,7 +155,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 
 		   	  </tr>";
         }
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>
@@ -205,14 +203,14 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM tbl_personal_loans where user_fnd_id=$id");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM tbl_personal_loans where user_fnd_id=$id");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-    $result = mysqli_query($con,"SELECT * FROM tbl_personal_loans where user_fnd_id=$id LIMIT $offset, $total_records_per_page");
-    while($row_bank_detail_sec = mysqli_fetch_array($result)){
+    $result = $con->query("SELECT * FROM tbl_personal_loans where user_fnd_id=$id ORDER BY p_loan_id OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY");
+    while($row_bank_detail_sec = $result->fetch_array()){
 	   $loan_id=$row_bank_detail_sec['p_loan_id'];
        $amount_of_loan=$row_bank_detail_sec['amount_of_loan'];
        $loan_create_id=$row_bank_detail_sec['loan_create_id'];
@@ -222,8 +220,8 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
        $timestamp = strtotime($payment_date);
        $due_date= date("m-d-Y", $timestamp);
 		 
-	        $query_payment = mysqli_query($con,"SELECT SUM(interest) AS value_sum FROM tbl_personal_loan_installments where loan_create_id= '$loan_create_id'");
-while ($row_payment=mysqli_fetch_array($query_payment)){
+	        $query_payment = $con->query("SELECT SUM(interest) AS value_sum FROM tbl_personal_loan_installments where loan_create_id= '$loan_create_id'");
+while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
     $interest_amount = number_format((float)$payment, 2, '.', '');
@@ -246,7 +244,7 @@ break;
 
 		   	  </tr>";
         }
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>

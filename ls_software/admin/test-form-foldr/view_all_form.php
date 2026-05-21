@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 
@@ -62,17 +62,15 @@ $DBcon->close();
 
 $sql_t="SELECT*FROM access_form ORDER BY id";
 
-if ($result_t=mysqli_query($con,$sql_t))
+if ($result_t=$con->query($sql_t))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
-  echo $ye;
-  }
+}
 
-mysqli_close($con);
+$con->close();
 ?>
 
 <div align="right">
@@ -112,8 +110,8 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `access_form` ORDER BY id DESC");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM access_form ORDER BY id DESC");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
@@ -121,10 +119,10 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 
 
 
-$sql_role=mysqli_query($con, "select * from access_level_grants"); 
+$sql_role=$con->query("select * from access_level_grants"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
 $role_id=$row_role['role_id'];
 $select_allowed=$row_role['select_allowed'];
@@ -136,8 +134,8 @@ $delete_allowed=$row_role['delete_allowed'];
 
 
 
-    $result = mysqli_query($con,"SELECT * FROM `access_form` ORDER BY id DESC LIMIT $offset, $total_records_per_page");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("SELECT * FROM access_form ORDER BY id DESC OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY");
+    while($row = $result->fetch_array()){
 		 $id=$row['id'];
 		 $access_id=$row['access_id'];
 		$creation_date= $row['created_at'];
@@ -162,7 +160,7 @@ $delete_allowed=$row_role['delete_allowed'];
 
 		   	  </tr>";
         }
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -24,9 +24,9 @@ $DBcon->close();
 
 
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 //echo "FND_ID" .$user_fnd_id;
@@ -37,9 +37,9 @@ $user_fnd_id=$row_fnd['user_fnd_id'];
 <?php
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -59,9 +59,9 @@ $customer_numbr=$row['mobile_number'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where user_fnd_id= '$user_fnd_id' AND loan_id = '$id'"); 
+$sql=$con->query("select * from tbl_loan where user_fnd_id= '$user_fnd_id' AND loan_id = '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -98,9 +98,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -115,9 +115,9 @@ $username=$row_user['username'];
 <?php
 
 
-$sql_user=mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'"); 
+$sql_user=$con->query("select * from tbl_loan_notes where loan_id= '$id'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $loan_notes=$row_user['notes'];
 
@@ -228,7 +228,7 @@ if ($uploadOk == 0) {
     if (move_uploaded_file($_FILES["lender_documents"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["lender_documents"]["name"]). " has been uploaded.";
 		$insert_query_lender_docs = "INSERT Into lender_documents(fnd_user_id, loan_id, file_name, date_created, created_by, description) VALUES ('$user_fnd_id','$id','$target_file_db','$date','$u_id','$description')";
-		mysqli_query($con,$insert_query_lender_docs);
+		$con->query($insert_query_lender_docs);
 		
 		echo '<meta http-equiv="refresh" content="0">';
     } else {

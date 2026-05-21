@@ -4,7 +4,7 @@ include('dbconfig.php');
 date_default_timezone_set('America/Los_Angeles');
 
 
-$result_status = mysqli_query($con,"SELECT * FROM application_status_updates  ORDER BY id desc limit 400");
+$result_status = $con->query("SELECT TOP 400 * FROM application_status_updates  ORDER BY id desc");
 
 echo '<br><table style="width:100%;padding:10px; text-align:left" class="table table-striped table-bordered">'."
 <tr>
@@ -15,14 +15,14 @@ echo '<br><table style="width:100%;padding:10px; text-align:left" class="table t
 <th>User</th>
 </tr>";
 
-while($row_status = mysqli_fetch_array($result_status))
+while($row_status = $result_status->fetch_array())
 
 {
     $application_id = $row_status['application_id'];
 $created_by_get_db_activity = $row_status['user_id'];
-$sql_activity_by_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by_get_db_activity'"); 
+$sql_activity_by_user=$con->query("select * from tbl_users where user_id= '$created_by_get_db_activity'"); 
 $final_activity_by_user = '';
-while($row_sql_activity_by_user = mysqli_fetch_array($sql_activity_by_user)) {
+while($row_sql_activity_by_user = $sql_activity_by_user->fetch_array()) {
 	$final_activity_by_user = $row_sql_activity_by_user['username'];
 }
 	

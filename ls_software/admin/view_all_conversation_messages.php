@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 
@@ -86,14 +86,14 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `tbl_conversation` ORDER BY date DESC");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM tbl_conversation ORDER BY date DESC");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-    $result = mysqli_query($con,"SELECT * FROM `tbl_conversation` ORDER BY date DESC LIMIT $offset, $total_records_per_page");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("SELECT * FROM tbl_conversation ORDER BY date DESC OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY");
+    while($row = $result->fetch_array()){
 		 $caht_key=$row['caht_key'];
 		 $message=$row['message'];
 		 $status_deliver=$row['status_deliver'];
@@ -102,9 +102,9 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 		$incoming_read = $row['incoming_read'];
 		$new_creationDate = date("m-d-y H:i:s", strtotime($creation_date));
 		 
-		  $sql_access=mysqli_query($con, "select * from fnd_user_profile where chat_key= '$caht_key'"); 
+		  $sql_access=$con->query("select * from fnd_user_profile where chat_key= '$caht_key'"); 
 
-while($row_access = mysqli_fetch_array($sql_access)) {
+while($row_access = $sql_access->fetch_array()) {
 
 $user_fnd_id=$row_access['user_fnd_id'];
 $first_name=$row_access['first_name'];
@@ -154,7 +154,7 @@ if($incoming_read == 0){
 
 		   	  </tr>";
         }
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>

@@ -1,23 +1,23 @@
-<?php
+﻿<?php
 
 include('../dbconnect.php');
 include('../dbconfig.php');
 
 
-$query = "select * from decision_login_codes where status='5' AND loan_amount_check !='1' order by id desc Limit 20 ";
+$query = "select TOP 20 * from decision_login_codes where status='5' AND loan_amount_check !='1' order by id desc ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql=mysqli_query($con, "$query"); 
+$sql=$con->query("$query"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql);
+  $rowcount=$sql->num_rows;
 //  echo "Row Count is : " . $rowcount. "<br>";
 if ($rowcount<1){
 	
-//mysqli_query($con,"UPDATE decision_login_codes SET status ='0' where status = '1'");
+//$con->query("UPDATE decision_login_codes SET status ='0' where status = '1'");
 }
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     
 $email = $row['email'];
 $code = $row['code'];
@@ -27,9 +27,9 @@ $query_app_id = "select * from fnd_user_profile where email = '$email' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql_app_id=mysqli_query($con, $query_app_id); 
+$sql_app_id=$con->query($query_app_id); 
 
-while($row_app_id = mysqli_fetch_array($sql_app_id)) {    
+while($row_app_id = $sql_app_id->fetch_array()) {    
     $application_id = $row_app_id['user_fnd_id'];
 }
 
@@ -108,8 +108,8 @@ foreach ($hotels as $hotel) {
 
 if($payroll>7000 && $DL_average_balance>300 && $DL_available_balance>-150 && $DL_overdraft_ov < 4 ) { 
     echo "$250 Loan Amount approved for code : "; 
-    mysqli_query($con, "UPDATE `fnd_user_profile` SET `amount_of_loan`='255' WHERE `email` = '$email'");
-    mysqli_query($con, "UPDATE `decision_login_codes` SET `loan_amount_check`='1' WHERE `id` = '$code_id'");
+    $con->query("UPDATE fnd_user_profile SET amount_of_loan='255' WHERE email = '$email'");
+    $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO 255', '$date_update')";
     mysqli_query ($con , $query_insert_activity);
@@ -121,8 +121,8 @@ if($payroll>7000 && $DL_average_balance>300 && $DL_available_balance>-150 && $DL
 else if($payroll>4000 && $DL_average_balance>200 && $DL_available_balance>-100 && $DL_overdraft_ov < 4 ) { 
     echo "$200 Loan Amount approved for code : ";
     
-    mysqli_query($con, "UPDATE `fnd_user_profile` SET `amount_of_loan`='200' WHERE `email` = '$email'");
-    mysqli_query($con, "UPDATE `decision_login_codes` SET `loan_amount_check`='1' WHERE `id` = '$code_id'");
+    $con->query("UPDATE fnd_user_profile SET amount_of_loan='200' WHERE email = '$email'");
+    $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO 200', '$date_update')";
     mysqli_query ($con , $query_insert_activity);
@@ -133,9 +133,9 @@ else if($payroll>4000 && $DL_average_balance>200 && $DL_available_balance>-100 &
 else if($DL_deposits_credit>8000 && $DL_average_balance>150 && $DL_available_balance>-75 && $DL_overdraft_ov < 5 ) { 
     echo "$150 Loan Amount approved for code : ";
     
-    mysqli_query($con, "UPDATE `fnd_user_profile` SET `amount_of_loan`='150' WHERE `email` = '$email'");
+    $con->query("UPDATE fnd_user_profile SET amount_of_loan='150' WHERE email = '$email'");
     
-    mysqli_query($con, "UPDATE `decision_login_codes` SET `loan_amount_check`='1' WHERE `id` = '$code_id'");
+    $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO 150', '$date_update')";
     mysqli_query ($con , $query_insert_activity);
@@ -147,9 +147,9 @@ else if($DL_deposits_credit>8000 && $DL_average_balance>150 && $DL_available_bal
 else if($DL_deposits_credit>6000 && $DL_average_balance>100 && $DL_available_balance>-50 && $DL_overdraft_ov < 6) { 
     echo "$100 Loan Amount approved for code : ";
     
-    mysqli_query($con, "UPDATE `fnd_user_profile` SET `amount_of_loan`='100' WHERE `email` = '$email'");
+    $con->query("UPDATE fnd_user_profile SET amount_of_loan='100' WHERE email = '$email'");
     
-    mysqli_query($con, "UPDATE `decision_login_codes` SET `loan_amount_check`='1' WHERE `id` = '$code_id'");
+    $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO 100', '$date_update')";
     mysqli_query ($con , $query_insert_activity);
@@ -160,9 +160,9 @@ else if($DL_deposits_credit>6000 && $DL_average_balance>100 && $DL_available_bal
 else if( $DL_deposits_credit>4000 && $DL_average_balance>50 && $DL_available_balance>0 && $DL_overdraft_ov < 7 ) { 
     echo "$250 Loan Amount approved for code : ";
     
-    mysqli_query($con, "UPDATE `fnd_user_profile` SET `amount_of_loan`='50' WHERE `email` = '$email'");
+    $con->query("UPDATE fnd_user_profile SET amount_of_loan='50' WHERE email = '$email'");
     
-    mysqli_query($con, "UPDATE `decision_login_codes` SET `loan_amount_check`='1' WHERE `id` = '$code_id'");
+    $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO 50', '$date_update')";
     mysqli_query ($con , $query_insert_activity);
@@ -173,9 +173,9 @@ else {
     echo "Not Approved "; 
     
     
-    mysqli_query($con, "UPDATE `fnd_user_profile` SET `amount_of_loan`='Needs Review' WHERE `email` = '$email'");
+    $con->query("UPDATE fnd_user_profile SET amount_of_loan='Needs Review' WHERE email = '$email'");
     
-    mysqli_query($con, "UPDATE `decision_login_codes` SET `loan_amount_check`='1' WHERE `id` = '$code_id'");
+    $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO (Needs Review)', '$date_update')";
     mysqli_query ($con , $query_insert_activity);

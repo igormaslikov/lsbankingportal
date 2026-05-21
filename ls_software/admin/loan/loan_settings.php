@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -28,17 +28,17 @@ $id=$_GET['id'];
 
 
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 //echo "FND_ID" .$user_fnd_id;
 }
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -49,9 +49,9 @@ $customer_numbr=$row['mobile_number'];
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_id= '$id'"); 
+$sql_loan=$con->query("select * from tbl_loan where loan_id= '$id'"); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
 
 $loan_id=$row_loan['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -85,9 +85,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -97,19 +97,17 @@ $username=$row_user['username'];
 
 $sql_t="SELECT amount_of_loan FROM tbl_loan  where sign_status='1' ORDER BY loan_id";
 
-if ($result_t=mysqli_query($con,$sql_t))
+if ($result_t=$con->query($sql_t))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
-  echo $ye;
-  }
+}
   
   
-  $query_us = mysqli_query($con,"SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status='1'");
-while ($row_us=mysqli_fetch_array($query_us)){
+  $query_us = $con->query("SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status='1'");
+while ($row_us=$query_us->fetch_array()){
     $total_amount_of_loan = $row_us['value_sum'];
     
     $total_amount_of_loan = number_format((float)$total_amount_of_loan, 2, '.', '');
@@ -119,8 +117,8 @@ while ($row_us=mysqli_fetch_array($query_us)){
 }
 
 
-$query_le = mysqli_query($con,"SELECT SUM(loan_total_payable) AS value_sum FROM tbl_loan where sign_status= '1'");
-while ($row_le=mysqli_fetch_array($query_le)){
+$query_le = $con->query("SELECT SUM(loan_total_payable) AS value_sum FROM tbl_loan where sign_status= '1'");
+while ($row_le=$query_le->fetch_array()){
     $pay_off = $row_le['value_sum'];
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$am_le;
 
@@ -138,8 +136,8 @@ $avg_amount=$total_amount_of_loan/$rowcount;
 $avg = number_format((float)$avg_amount, 2, '.', '');
 
 
-$query_trns = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction ");
-while ($row_trns=mysqli_fetch_array($query_trns)){
+$query_trns = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction ");
+while ($row_trns=$query_trns->fetch_array()){
     $totall_trans = $row_trns['value_sum'];
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$totall_trans;
 
@@ -156,11 +154,11 @@ $totall_trans = number_format((float)$totall_trans, 2, '.', '');
                  //*********************************************************  LOAN FEES  Start**************************************************
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where sign_status= '1'"); 
+$sql=$con->query("select * from tbl_loan where sign_status= '1'"); 
 
 
 $total_loan_fee="0";
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $userfnd_id=$row['user_fnd_id'];
 $loan_status=$row['loan_status'];
@@ -168,8 +166,8 @@ $loan_id_fee=$row['loan_id'];
  $amount_of_loan_fee=$row['amount_of_loan'];
  
 
-$query_payment_fee = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
-while ($row_payment_fee=mysqli_fetch_array($query_payment_fee)){
+$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
     $payment_fee = number_format((float)$payment_fee, 2, '.', '');
@@ -309,14 +307,14 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `tbl_loan_setting`");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM tbl_loan_setting");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-    $result = mysqli_query($con,"SELECT * FROM `tbl_loan_setting` ORDER BY id  LIMIT $offset, $total_records_per_page");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("SELECT * FROM tbl_loan_setting ORDER BY id  OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY");
+    while($row = $result->fetch_array()){
 		 $setting_id=$row['id'];
 		 $loan_amount=$row['loan_amount'];
 	     $loan_fee= $row['loan_fee'];
@@ -337,7 +335,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 
 		   	  </tr>";
         }
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>

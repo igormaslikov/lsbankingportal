@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -154,9 +154,9 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
     $contract_fee = $_POST['origination'];
 
 
-    // $sql_installment = mysqli_query($con, "SELECT loan_id, loan_create_id FROM tbl_commercial_loan WHERE user_fnd_id = $fnd_id order by loan_id desc limit 1");
+    // $sql_installment = $con->query("SELECT loan_id, loan_create_id FROM tbl_commercial_loan WHERE user_fnd_id = $fnd_id order by loan_id desc limit 1");
     // $count = 0;
-    // while ($row_installment = mysqli_fetch_array($sql_installment)) {
+    // while ($row_installment = $sql_installment->fetch_array()) {
     //     $previous_loan_id = $row_installment['loan_create_id'];
     //     $count++;
     // }
@@ -169,43 +169,43 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
     if (isset($_POST['previous_loan_id']) && $_POST['previous_loan_id'] != "") {
         $previous_loan_id = $_POST['previous_loan_id'];
-        $sql = mysqli_query($con, "select late_fee,amount_of_loan,loan_interest from tbl_commercial_loan where loan_create_id= '$previous_loan_id'");
+        $sql = $con->query("select late_fee,amount_of_loan,loan_interest from tbl_commercial_loan where loan_create_id= '$previous_loan_id'");
 
-        while ($row = mysqli_fetch_array($sql)) {
+        while ($row = $sql->fetch_array()) {
             $late_fee = $row['late_fee'];
             $amount_of_loan = $row['amount_of_loan'];
             $loan_interest = $row['loan_interest'];
         }
 
         $loan_payment = 0;
-        $query_payment = mysqli_query($con, "SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
-        while ($row_payment = mysqli_fetch_array($query_payment)) {
+        $query_payment = $con->query("SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
+        while ($row_payment = $query_payment->fetch_array()) {
           $loan_payment = $row_payment['value_sum'];
         }
       
         $in_hand = str_replace(',','',number_format(((float)($amount_of_loan + $loan_interest - $loan_payment)), 2, '.', ','));
 
-        // $sql_installment = mysqli_query($con, "SELECT SUM(payment) as unpaid, SUM(`paid amount`) as paid  FROM `tbl_commercial_loan_installments` where `loan_create_id`= '$previous_loan_id' and `status` = 0 order by id desc");
-        // while ($row_installment = mysqli_fetch_array($sql_installment)) {
+        // $sql_installment = $con->query("SELECT SUM(payment) as unpaid, SUM(paid amount) as paid  FROM tbl_commercial_loan_installments where loan_create_id= '$previous_loan_id' and status = 0 order by id desc");
+        // while ($row_installment = $sql_installment->fetch_array()) {
         //     $in_hand = $row_installment['unpaid'] - $row_installment['paid'];
         // }
 
 
         $unpaid_late_fee = 0;
-        $query_payment = mysqli_query($con, "SELECT sum($late_fee - paid_late_fee) as unpaid FROM `tbl_commercial_loan_installments` WHERE `dpd` >= 10 and loan_create_id = '$previous_loan_id' and ($late_fee - paid_late_fee) > 0 ");
-        while ($row_payment = mysqli_fetch_array($query_payment)) {
+        $query_payment = $con->query("SELECT sum($late_fee - paid_late_fee) as unpaid FROM tbl_commercial_loan_installments WHERE dpd >= 10 and loan_create_id = '$previous_loan_id' and ($late_fee - paid_late_fee) > 0 ");
+        while ($row_payment = $query_payment->fetch_array()) {
           $unpaid_late_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
         }
       
         $unpaid_other_fee = 0;
-        $query_payment = mysqli_query($con, "SELECT sum(amount_fee - amount_fee_paid) as unpaid FROM `tbl_other_fees` WHERE loan_created_id = $previous_loan_id ");
-        while ($row_payment = mysqli_fetch_array($query_payment)) {
+        $query_payment = $con->query("SELECT sum(amount_fee - amount_fee_paid) as unpaid FROM tbl_other_fees WHERE loan_created_id = $previous_loan_id ");
+        while ($row_payment = $query_payment->fetch_array()) {
           $unpaid_other_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
         }
 
-        // $sql_installment = mysqli_query($con, "SELECT SUM(late_fee) as sum_late_fee FROM `commercial_loan_transaction` where `loan_create_id`= '$previous_loan_id'");
+        // $sql_installment = $con->query("SELECT SUM(late_fee) as sum_late_fee FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
         // $sum_late_fee = 0;
-        // while ($row_installment = mysqli_fetch_array($sql_installment)) {
+        // while ($row_installment = $sql_installment->fetch_array()) {
         //     $sum_late_fee = $row_installment['sum_late_fee'];
         // }
         
@@ -283,7 +283,7 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
     $payment_date_weekly = $payment_date;
 
-    mysqli_query($con, "DELETE FROM `tbl_commercial_loan_installments` WHERE `loan_create_id` = '$loan_create_id'");
+    $con->query("DELETE FROM tbl_commercial_loan_installments WHERE loan_create_id = '$loan_create_id'");
     $count = 0;
     $balance_p = 1;
     do {
@@ -376,8 +376,8 @@ function print_schedule($balance, $rate, $payment, $rate_late_days)
 
         $payment_week_day = date("l", strtotime("$payment_date_weekly"));
         //$payment_p = 
-        $query_install1  = "INSERT INTO `tbl_commercial_loan_installments`(`loan_create_id`, `payment`, `interest`, `principal`, `balance`, `payment_date`, `week_day`) VALUES ('$loan_create_id','$payment_p','$interest_p','$principal_p','$balance_p','$payment_date', '$payment_week_day')";
-        $result_install1 = mysqli_query($con, $query_install1);
+        $query_install1  = "INSERT INTO tbl_commercial_loan_installments(loan_create_id, payment, interest, principal, balance, payment_date, week_day) VALUES ('$loan_create_id','$payment_p','$interest_p','$principal_p','$balance_p','$payment_date', '$payment_week_day')";
+        $result_install1 = $con->query($query_install1);
         if ($result_install1) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

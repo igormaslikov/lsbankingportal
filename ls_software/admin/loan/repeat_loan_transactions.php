@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -28,43 +28,42 @@ $DBcon->close();
 
  $id=$_GET['id'];
  
-$sql_fnd=mysqli_query($con, "select DISTINCT user_fnd_id
+$sql_fnd=$con->query("select DISTINCT user_fnd_id
 from loan_transaction"); 
 
 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 //echo "FND_ID" .$user_fnd_id."<br>";
 
 
-$query_search = "SELECT * FROM `loan_transaction` where user_fnd_id= '$user_fnd_id'";
+$query_search = "SELECT * FROM loan_transaction where user_fnd_id= '$user_fnd_id'";
 
-if ($result_t=mysqli_query($con,$query_search))
+if ($result_t=$con->query($query_search))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
  // echo $rowcount;
   
    
    
-   $sql_dup = "SELECT * FROM tbl_repeat_loan_transaction WHERE `user_fnd_id` = '$user_fnd_id'";
-        $result_dup = mysqli_query($con, $sql_dup);
+   $sql_dup = "SELECT * FROM tbl_repeat_loan_transaction WHERE user_fnd_id = '$user_fnd_id'";
+        $result_dup = $con->query($sql_dup);
 
-       if(mysqli_num_rows($result_dup) > 0)
+       if($result_dup->num_rows > 0)
        {
-           mysqli_query($con, "UPDATE tbl_repeat_loan_transaction SET  loan_count='$rowcount'  where user_fnd_id ='$user_fnd_id'");
+           $con->query("UPDATE tbl_repeat_loan_transaction SET  loan_count='$rowcount'  where user_fnd_id ='$user_fnd_id'");
      }
        else
        {  
   
   
       $query_emp  = "INSERT INTO tbl_repeat_loan_transaction (user_fnd_id,loan_count)  VALUES ('$user_fnd_id','$rowcount')";
-        $result_emp = mysqli_query($con, $query_emp);
+        $result_emp = $con->query($query_emp);
         if ($result_emp) {
          //echo "<div class='form'><h3> successfully added in tbl_repeat_loan_transaction.</h3><br/></div>";
         } else {
@@ -82,14 +81,14 @@ if ($result_t=mysqli_query($con,$query_search))
 ?>
 
 <?php
-$query_loan= "SELECT * FROM `loan_transaction`";
-if ($result_loan=mysqli_query($con,$query_loan))
+$query_loan= "SELECT * FROM loan_transaction";
+if ($result_loan=$con->query($query_loan))
   {
   // Return the number of rows in result set
-  $rowcount_loan=mysqli_num_rows($result_loan);
+  $rowcount_loan=$result_loan->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye_loan=mysqli_free_result($result_loan);
+  $ye_loan=
   //echo $ye_loan;
   }
 
@@ -159,13 +158,12 @@ for($i=1;$i<11;$i++)
   $sql_sumary = "SELECT * FROM tbl_repeat_loan_transaction where loan_count='$i'";
  
 
-if ($result_sumary=mysqli_query($con,$sql_sumary))
+if ($result_sumary=$con->query($sql_sumary))
   {
   // Return the number of rows in result set
-  $rowcount_sumary=mysqli_num_rows($result_sumary);
+  $rowcount_sumary=$result_sumary->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_sumary);
   }
  // echo $rowcount_sumary;
 

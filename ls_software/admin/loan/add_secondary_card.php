@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -28,9 +28,9 @@ $DBcon->close();
  $id=$_GET['id'];
  $user_fnd_id=$_GET['fnd_id'];
  $bank_id=$_GET['bank_id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_create_id=$row_fnd['loan_create_id'];
@@ -38,9 +38,9 @@ $loan_create_id=$row_fnd['loan_create_id'];
 }
 
 
-$sql_bank_detail=mysqli_query($con, "select * from loan_initial_banking where user_fnd_id = '$user_fnd_id' AND initial_id='$bank_id'"); 
+$sql_bank_detail=$con->query("select * from loan_initial_banking where user_fnd_id = '$user_fnd_id' AND initial_id='$bank_id'"); 
 
-while($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
+while($row_bank_detail = $sql_bank_detail->fetch_array()) {
 
 $type_of_id=$row_bank_detail['type_of_id'];
 $id_photo=$row_bank_detail['pic_of_id'];
@@ -63,9 +63,9 @@ $cvv_number=$row_bank_detail['cvv_number'];
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -78,9 +78,9 @@ $customer_numbr=$row['mobile_number'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -107,9 +107,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -231,17 +231,17 @@ $username=$row_user['username'];
      $account_number= $_POST['account_number'];
      $cvv_number= $_POST['cvv_number'];
        $date = date('Y-m-d H:i:s'); 
-     $query_in  = "INSERT INTO `tbl_bank_cards` (`bank_id`, `loan_id`, `loan_create_id`, `user_fnd_id`, `type_of_card`, `card_number`, `card_exp_date`, `routing_number`, `account_number`, `cvv_number`, `created_by`)  VALUES ('$bank_id','$id','$loan_create_id','$user_fnd_id','$type_card','$card_number','$card_exp_date','$routing_number','$account_number','$cvv_number','$u_id')";
-        $result_in = mysqli_query($con, $query_in);
+     $query_in  = "INSERT INTO tbl_bank_cards (bank_id, loan_id, loan_create_id, user_fnd_id, type_of_card, card_number, card_exp_date, routing_number, account_number, cvv_number, created_by)  VALUES ('$bank_id','$id','$loan_create_id','$user_fnd_id','$type_card','$card_number','$card_exp_date','$routing_number','$account_number','$cvv_number','$u_id')";
+        $result_in = $con->query($query_in);
         if ($result_in) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
         echo "<h3> Error Inserting Data </h3>";
         }
     
-     $sql_access=mysqli_query($con, "select * from tbl_users where user_id= '$u_id'"); 
+     $sql_access=$con->query("select * from tbl_users where user_id= '$u_id'"); 
 
-while($row_access = mysqli_fetch_array($sql_access)) {
+while($row_access = $sql_access->fetch_array()) {
 
 $username=$row_access['username'];
 

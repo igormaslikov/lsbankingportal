@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
@@ -85,8 +85,8 @@ if(isset($_POST['btn-submit']))
    $date = date('Y-m-d H:i:s');
 
  
- $query_userid3 = mysqli_query($con,"Select user_fnd_id from fnd_user_profile where first_name ='$fnd_name_id'");
-while ($row_user_id3=mysqli_fetch_array($query_userid3)){
+ $query_userid3 = $con->query("Select user_fnd_id from fnd_user_profile where first_name ='$fnd_name_id'");
+while ($row_user_id3=$query_userid3->fetch_array()){
     $fnd_id = $row_user_id3[0];
     
     $apr = $row_user_id3['apr'];
@@ -108,8 +108,8 @@ $headers = 'From: admin@lsfinancing.com';
 //CUSTOMER EMAIL ENDS
 
 
- $query3 = mysqli_query($con,"Select loan_fee,payoff_amount from tbl_loan_setting where loan_amount ='$amount_loan'");
-while ($row3=mysqli_fetch_array($query3)){
+ $query3 = $con->query("Select loan_fee,payoff_amount from tbl_loan_setting where loan_amount ='$amount_loan'");
+while ($row3=$query3->fetch_array()){
     
                  $loan_fee = $row3['loan_fee'];
                  $payoff_amount = $row3['payoff_amount'];
@@ -119,9 +119,9 @@ while ($row3=mysqli_fetch_array($query3)){
 }
 
 
-$sql_fetch_loan=mysqli_query($con, "select * from tbl_commercial_loan where user_fnd_id= '$fnd_idd'"); 
+$sql_fetch_loan=$con->query("select * from tbl_commercial_loan where user_fnd_id= '$fnd_idd'"); 
 
-while($row_fetch_loan = mysqli_fetch_array($sql_fetch_loan)) {
+while($row_fetch_loan = $sql_fetch_loan->fetch_array()) {
 
 $loan_id=$row_fetch_loan['loan_create_id'];
 
@@ -131,7 +131,7 @@ $loan_id=$row_fetch_loan['loan_create_id'];
 
  
 $query  = "INSERT INTO tbl_commercial_loan (user_fnd_id,bg_id,amount_of_loan,secured_loan,contract_date,payment_date,creation_date,created_by,loan_create_id,loan_fee,loan_total_payable,loan_status,secondary_portfolio)  VALUES ('$fnd_idd','$source','$amount_loan','$secure_loan','$contract_date','$payment_date','$date','$u_id','$loan_create_id','$loan_fee','$payoff_amount','Active','None')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -140,7 +140,7 @@ $query  = "INSERT INTO tbl_commercial_loan (user_fnd_id,bg_id,amount_of_loan,sec
         
         
          $query_in  = "INSERT INTO commercial_loan_initial_banking (loan_id,user_fnd_id,creation_date,update_date,created_by,email_key,sign_status,update_by)  VALUES ('$loan_id','$fndd_id','$date','$date','$u_id','$email_key','0','$u_id')";
-        $result_in = mysqli_query($con, $query_in);
+        $result_in = $con->query($query_in);
         if ($result_in) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -209,10 +209,10 @@ window.location.href = 'customer_email_message.php?emaill=<?php echo $email; ?>&
 <?php
 
 $sql_count_loans = "SELECT * FROM tbl_loan";
-if ($result_count_loans=mysqli_query($con,$sql_count_loans))
+if ($result_count_loans=$con->query($sql_count_loans))
   {
   // Return the number of rows in result set
-  $rowcount_count_loans=mysqli_num_rows($result_count_loans)+9000;
+  $rowcount_count_loans=$result_count_loans->num_rows+9000;
   //echo "<br><br><br><br><br>".$rowcount_count_loans;
   }
 ?>
@@ -223,9 +223,9 @@ $id=$_GET['id'];
 include '../dbconnect.php';
 include '../dbconfig.php';
 
-$sql_apr=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
+$sql_apr=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
-while($row_apr = mysqli_fetch_array($sql_apr)) {
+while($row_apr = $sql_apr->fetch_array()) {
 $apr_date = $row_apr['apr'];
 $cus_email= $row_apr['email'];
 //echo $apr_date;
@@ -250,10 +250,10 @@ $cus_email= $row_apr['email'];
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql1 = mysqli_query($con, "SELECT bg_id,bg_name From business_group");
-$row1 = mysqli_num_rows($sql1);
+$sql1 = $con->query("SELECT bg_id,bg_name From business_group");
+$row1 = $sql1->num_rows;
 
-while ($row1 = mysqli_fetch_array($sql1)){
+while ($row1 = $sql1->fetch_array()){
 
 echo "<option value='". $row1['bg_id'] ."'>" .$row1['bg_name'] ."</option>" ;
 }
@@ -287,10 +287,10 @@ echo "<option value='". $row1['bg_id'] ."'>" .$row1['bg_name'] ."</option>" ;
      <?php
 
 
-$sql2 = mysqli_query($con, "SELECT loan_amount From tbl_loan_setting");
-$row2 = mysqli_num_rows($sql2);
+$sql2 = $con->query("SELECT loan_amount From tbl_loan_setting");
+$row2 = $sql2->num_rows;
 
-while ($row2 = mysqli_fetch_array($sql2)){
+while ($row2 = $sql2->fetch_array()){
 
 echo "<option value='". $row2['loan_amount'] ."'>" .$row2['loan_amount'] ."</option>" ;
 }

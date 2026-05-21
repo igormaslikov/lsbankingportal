@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -30,9 +30,9 @@ $id=$_GET['id'];
 $id=$_GET['id'];
 $user_fnd_id=$_GET['fnd_id'];
 $bank_id=$_GET['bank_id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_create_id=$row_fnd['loan_create_id'];
@@ -42,8 +42,8 @@ $loan_status=$row_fnd['loan_status'];
 
 
 
-$query_payment = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
-while ($row_payment=mysqli_fetch_array($query_payment)){
+$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
+while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
     $payment = number_format((float)$payment, 2, '.', '');
@@ -52,9 +52,9 @@ while ($row_payment=mysqli_fetch_array($query_payment)){
 
 }
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -65,9 +65,9 @@ $customer_numbr=$row['mobile_number'];
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_id= '$id'"); 
+$sql_loan=$con->query("select * from tbl_loan where loan_id= '$id'"); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
 
 $loan_id=$row_loan['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -100,9 +100,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -214,15 +214,15 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM  tbl_bank_cards where bank_id = '$bank_id'");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM  tbl_bank_cards where bank_id = '$bank_id'");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-   $sql_loan=mysqli_query($con, "select * from  tbl_bank_cards where bank_id = '$bank_id'"); 
+   $sql_loan=$con->query("select * from  tbl_bank_cards where bank_id = '$bank_id'"); 
 
-while($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
+while($row_bank_detail_sec = $sql_loan->fetch_array()) {
        $initial_id=$row_bank_detail_sec['bank_id'];
        $type_of_id_sec=$row_bank_detail_sec['type_of_id'];
 $id_photo_sec=$row_bank_detail_sec['pic_of_id'];

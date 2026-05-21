@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
@@ -17,6 +17,10 @@ if ($u_access_id == '0') {
 }
 
 
+if (!isset($_GET['id'])) {
+    echo "Missing required parameter: id.";
+    exit;
+}
 $fnd_idd = $_GET['id'];
 //$name_id = $_POST['keyword'];
 //echo "<br><br><br><br><br><br><br><br><br><br>Name Is: $name_id";
@@ -72,15 +76,15 @@ $fnd_idd = $_GET['id'];
       include 'dbconfig.php';
 
 
-      $sql_apr = mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_commercial_loan");
-      while ($row_apr = mysqli_fetch_array($sql_apr)) {
+      $sql_apr = $con->query("SELECT MAX(loan_create_id)+1 as next_id from tbl_commercial_loan");
+      while ($row_apr = $sql_apr->fetch_array()) {
         $next_loan_id = $row_apr['next_id'];
       }
       //echo '<script type="text/javascript">alert("Loan ID ' . $loan_create_id . ' is exists. LoanID well be regerated to '.$next_loan_id.')</script>';
       $loan_create_id = $next_loan_id;
-      $sql_apr = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'");
+      $sql_apr = $con->query("select * from fnd_user_profile where user_fnd_id= '$id'");
 
-      while ($row_apr = mysqli_fetch_array($sql_apr)) {
+      while ($row_apr = $sql_apr->fetch_array()) {
         $apr_date = $row_apr['apr'];
 
         $first_name = $row_apr['first_name'];
@@ -102,10 +106,10 @@ $fnd_idd = $_GET['id'];
 
       }
 
-      // $sql1 = mysqli_query($con, "SELECT  From business_group WHERE bg_name= '$loan_name'");
-      // $row1 = mysqli_num_rows($sql1);
+      // $sql1 = $con->query("SELECT  From business_group WHERE bg_name= '$loan_name'");
+      // $row1 = $sql1->num_rows;
 
-      // while ($row1 = mysqli_fetch_array($sql1)){
+      // while ($row1 = $sql1->fetch_array()){
 
       // $portfolio = $row1['bg_name'];
       // }
@@ -359,11 +363,11 @@ $fnd_idd = $_GET['id'];
 
     let minOnePayment = parseFloat(principal_amount) / parseInt(total_payments);
     if (payment < minOnePayment) {
-      $("#tablePayments")[0].innerHTML = `
+      $("#tablePayments")[0].innerHTML = 
                 <p style="text-align:center;color:red;font-size:20px">
-                  <b>Minimal payment should be more than ` + minOnePayment + `<b>
+                  <b>Minimal payment should be more than  + minOnePayment + <b>
                 </p>
-                `;
+                ;
       e.preventDefault();
       return;
     }

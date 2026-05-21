@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once 'dbconnect.php';
@@ -67,13 +67,12 @@ $DBcon->close();
 <?php
 
 $keyword = $_GET['keyword'];
-$sql_cr=mysqli_query($con, "select * from tbl_credit_report "); 
+$sql_cr=$con->query("select * from tbl_credit_report "); 
 if ($result_t=$sql_cr)
   {
   
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
 
-  $ye=mysqli_free_result($result_t);
 
   }
 
@@ -130,8 +129,8 @@ $count=1;
 
 
 $keyword = $_GET['keyword'];
-    $result = mysqli_query($con,"SELECT * FROM `fnd_user_profile` where CONCAT(`first_name`, `last_name`, `email`, `mobile_number` , `dl_code`, `ssn` ) LIKE '%".$keyword."%'");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("SELECT * FROM fnd_user_profile where CONCAT(first_name, last_name, email, mobile_number , dl_code, ssn ) LIKE '%".$keyword."%'");
+    while($row = $result->fetch_array()){
         
         //$app_id=$row['user_fnd_id'];
         $user_id=$row['user_fnd_id'];
@@ -141,9 +140,9 @@ $ssn=$row['ssn'];
         //$score=$row['score'];
         //$credit_report_key=$row['credit_report_key'];
         
-      $sql_cr=mysqli_query($con, "SELECT * FROM `tbl_credit_report` where `user_fnd_id` = '$user_id' AND score>0 ORDER BY credit_report_key DESC "); 
+      $sql_cr=$con->query("SELECT * FROM tbl_credit_report where user_fnd_id = '$user_id' AND score>0 ORDER BY credit_report_key DESC "); 
 
-while($row_cr = mysqli_fetch_array($sql_cr)) {
+while($row_cr = $sql_cr->fetch_array()) {
 
         $app_id=$row_cr['user_fnd_id'];
         
@@ -168,7 +167,7 @@ while($row_cr = mysqli_fetch_array($sql_cr)) {
         }
     }
     }
-	mysqli_close($con);
+	$con->close();
     ?>
    
 </tbody>

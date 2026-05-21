@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -29,9 +29,9 @@ $DBcon->close();
 
  $id=$_GET['id'];
  
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 
@@ -45,9 +45,9 @@ $loan_create_id=$row_fnd['loan_create_id'];
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -58,9 +58,9 @@ $customer_numbr=$row['mobile_number'];
 
 //echo "fname is:".$first_name;
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 	$loan_create_id=$row['loan_create_id'];
@@ -92,9 +92,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -104,9 +104,9 @@ $username=$row_user['username'];
 
 
 
-$sql_transaction=mysqli_query($con, "select * from loan_transaction where loan_id= '$id'"); 
+$sql_transaction=$con->query("select * from loan_transaction where loan_id= '$id'"); 
 
-while($row_transaction = mysqli_fetch_array($sql_transaction)) {
+while($row_transaction = $sql_transaction->fetch_array()) {
 
 $payment_method=$row_transaction['payment_method'];
 
@@ -234,9 +234,9 @@ tr:nth-child(even) {
     //  echo "Zip Code: $zip_code<br><hr>";
 //********************************************* GET BASE URL 
 
-$sql_payment_api=mysqli_query($con, "select * from payment_api_urls where name='live_url'"); 
+$sql_payment_api=$con->query("select * from payment_api_urls where name='live_url'"); 
 
-while($row_payment_api = mysqli_fetch_array($sql_payment_api)) {
+while($row_payment_api = $sql_payment_api->fetch_array()) {
 
 $url_payment_api=$row_payment_api['url'];
 $app_token_payment=$row_payment_api['token'];
@@ -294,8 +294,8 @@ if($status=='error')
       $payment_error= "$status: $displayerror $error_description, Try to Fund $amount.";
       
       
-         $query_in  = "INSERT INTO `tbl_fund_card`(`customer_id`, `amount`, `url`)  VALUES ('$customer_id','$amount','$payment_error')";
-        $result_in = mysqli_query($con, $query_in);
+         $query_in  = "INSERT INTO tbl_fund_card(customer_id, amount, url)  VALUES ('$customer_id','$amount','$payment_error')";
+        $result_in = $con->query($query_in);
         if ($result_in) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -311,8 +311,8 @@ if($status=='error')
   }
   else{
 
-       $query_in  = "INSERT INTO `tbl_fund_card`(`customer_id`, `amount`, `url`)  VALUES ('$customer_id','$amount','$url')";
-        $result_in = mysqli_query($con, $query_in);
+       $query_in  = "INSERT INTO tbl_fund_card(customer_id, amount, url)  VALUES ('$customer_id','$amount','$url')";
+        $result_in = $con->query($query_in);
         if ($result_in) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

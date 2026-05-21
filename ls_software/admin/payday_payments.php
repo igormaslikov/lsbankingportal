@@ -1,4 +1,4 @@
-<?php
+﻿<?php
  session_start();
  error_reporting(0);
  include_once 'dbconnect.php';
@@ -67,11 +67,11 @@ include 'dbconfig.php';
  <br><br>
  <?php
 
-    $query_search = "SELECT * FROM `loan_transaction` WHERE `payment_method` = 'Repay'
+    $query_search = "SELECT * FROM loan_transaction WHERE payment_method = 'Repay'
   order by transaction_id DESC";
     $status  = $_GET['status'];
 // echo $query_search;
- $result111 = mysqli_query($con,"$query_search");
+ $result111 = $con->query("$query_search");
 ?> 
   
 
@@ -93,19 +93,19 @@ include 'dbconfig.php';
 <tbody>
 <?php
 
-while($row_fnd_idd = mysqli_fetch_array($result111)) {
+while($row_fnd_idd = $result111->fetch_array()) {
 
 $user_fnd_idd=$row_fnd_idd['user_fnd_id'];
 
 
 
 
-    $query_search1 = "SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` = '$user_fnd_idd'
+    $query_search1 = "SELECT * FROM fnd_user_profile WHERE user_fnd_id = '$user_fnd_idd'
 ";
 
 // echo $query_search;
-    $result = mysqli_query($con,"$query_search1");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("$query_search1");
+    while($row = $result->fetch_array()){
         
 		
 		 $name_customer = $row['first_name'] . " " .$row['last_name'];
@@ -145,7 +145,7 @@ $gravatar =  "http://profiles.google.com/s2/photos/profile/". $row['email']."?sz
 	   	  $experian_credit_score = "";
        
 }
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 error_reporting(0);
 include_once 'dbconnect.php';
@@ -68,8 +68,8 @@ $name_id= $_POST['keyword'];
   <div class="row wrapper">
 <?php
 
-$sql_apr=mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_loan"); 
-while($row_apr = mysqli_fetch_array($sql_apr)) {
+$sql_apr=$con->query("SELECT MAX(loan_create_id)+1 as next_id from tbl_loan"); 
+while($row_apr = $sql_apr->fetch_array()) {
   $next_loan_id = $row_apr['next_id'];
   }
 ?>
@@ -84,19 +84,19 @@ $state=$_GET['state'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_apr=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
+$sql_apr=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
-while($row_apr = mysqli_fetch_array($sql_apr)) {
+while($row_apr = $sql_apr->fetch_array()) {
 $apr_date = $row_apr['apr'];
 
 //echo $apr_date;
 
 }
 
-$sql1 = mysqli_query($con, "SELECT  From business_group WHERE bg_name= '$loan_name'");
-$row1 = mysqli_num_rows($sql1);
+$sql1 = $con->query("SELECT  From business_group WHERE bg_name= '$loan_name'");
+$row1 = $sql1->num_rows;
 
-while ($row1 = mysqli_fetch_array($sql1)){
+while ($row1 = $sql1->fetch_array()){
 
 $portfolio = $row1['bg_name'];
 }
@@ -274,8 +274,8 @@ if(isset($_POST['btn-submit']))
    $date = date('Y-m-d H:i:s');
 
  
- $query_userid3 = mysqli_query($con,"Select user_fnd_id from fnd_user_profile where first_name ='$fnd_name_id'");
-while ($row_user_id3=mysqli_fetch_array($query_userid3)){
+ $query_userid3 = $con->query("Select user_fnd_id from fnd_user_profile where first_name ='$fnd_name_id'");
+while ($row_user_id3=$query_userid3->fetch_array()){
     $fnd_id = $row_user_id3[0];
     
     $apr = $row_user_id3['apr'];
@@ -288,8 +288,8 @@ while ($row_user_id3=mysqli_fetch_array($query_userid3)){
 if ($state=="CA")
 {
 
- $query3 = mysqli_query($con,"Select loan_fee,payoff_amount from tbl_loan_setting where loan_amount ='$amount_loan'");
-while ($row3=mysqli_fetch_array($query3)){
+ $query3 = $con->query("Select loan_fee,payoff_amount from tbl_loan_setting where loan_amount ='$amount_loan'");
+while ($row3=$query3->fetch_array()){
     
                  $loan_fee = $row3['loan_fee'];
                  $payoff_amount = $row3['payoff_amount'];
@@ -303,8 +303,8 @@ while ($row3=mysqli_fetch_array($query3)){
 if ($state=="NV")
 {
 
- $query3 = mysqli_query($con,"Select loan_fee,payoff_amount from tbl_loan_setting_nv where loan_amount ='$amount_loan'");
-while ($row3=mysqli_fetch_array($query3)){
+ $query3 = $con->query("Select loan_fee,payoff_amount from tbl_loan_setting_nv where loan_amount ='$amount_loan'");
+while ($row3=$query3->fetch_array()){
     
                  $loan_fee = $row3['loan_fee'];
                  $payoff_amount = $row3['payoff_amount'];
@@ -315,10 +315,10 @@ while ($row3=mysqli_fetch_array($query3)){
 
 }
 
- $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+ $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-    while($row_role = mysqli_fetch_array($sql_role)) {
+    while($row_role = $sql_role->fetch_array()) {
 
     $form_id=$row_role['id'];
  
@@ -326,9 +326,9 @@ while ($row3=mysqli_fetch_array($query3)){
      
      user_roles($u_access_id,$form_id);
      
-     $query_loan_exists = mysqli_query($con,"SELECT COUNT(*) as count FROM tbl_loan WHERE loan_create_id ='$loan_create_id'");
+     $query_loan_exists = $con->query("SELECT COUNT(*) as count FROM tbl_loan WHERE loan_create_id ='$loan_create_id'");
 
-     while ($row_count=mysqli_fetch_array($query_loan_exists)){
+     while ($row_count=$query_loan_exists->fetch_array()){
        $count_loan = $row_count['count'];
        //echo"<br><br><br><br><br><br><br><br> <br><br>User_Key:" .$fnd_id;
    
@@ -336,8 +336,8 @@ while ($row3=mysqli_fetch_array($query3)){
  
      if($count_loan > 0){
        
-        $sql_apr=mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_loan"); 
-        while($row_apr = mysqli_fetch_array($sql_apr)) {
+        $sql_apr=$con->query("SELECT MAX(loan_create_id)+1 as next_id from tbl_loan"); 
+        while($row_apr = $sql_apr->fetch_array()) {
           $next_loan_id = $row_apr['next_id'];
         }
          //echo '<script type="text/javascript">alert("Loan ID ' . $loan_create_id . ' is exists. LoanID well be regerated to '.$next_loan_id.')</script>';
@@ -346,7 +346,7 @@ while ($row3=mysqli_fetch_array($query3)){
     
          
          $query  = "INSERT INTO tbl_loan (user_fnd_id,bg_id,amount_of_loan,secured_loan,contract_date,payment_date,creation_date,created_by,loan_create_id,loan_fee,loan_total_payable,loan_status,secondary_portfolio)  VALUES ('$fnd_idd','Payday Loan','$amount_loan','$secure_loan','$contract_date','$payment_date','$date','$u_id','$loan_create_id','$loan_fee','$payoff_amount','Active','None')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -359,9 +359,9 @@ while ($row3=mysqli_fetch_array($query3)){
      {
      
      
-     $sql_access=mysqli_query($con, "select * from tbl_users where user_id= '$u_id'"); 
+     $sql_access=$con->query("select * from tbl_users where user_id= '$u_id'"); 
 
-while($row_access = mysqli_fetch_array($sql_access)) {
+while($row_access = $sql_access->fetch_array()) {
 
 $username=$row_access['username'];
 

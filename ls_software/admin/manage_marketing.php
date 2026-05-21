@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once 'dbconnect.php';
@@ -36,7 +36,7 @@ $fb_value= $_POST['facebook_value'];
 $goo_value= $_POST['google_value'];
 
 $query_facebook  = "INSERT INTO tbl_fb (fb_value,creation_date)  VALUES ('$fb_value','$cr_date')";
-        $result_facebook = mysqli_query($con, $query_facebook);
+        $result_facebook = $con->query($query_facebook);
         if ($result_facebook) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -45,7 +45,7 @@ $query_facebook  = "INSERT INTO tbl_fb (fb_value,creation_date)  VALUES ('$fb_va
         
         
         $query_google  = "INSERT INTO tbl_google (gogl_value,creation_date)  VALUES ('$goo_value','$cr_date')";
-        $result_google = mysqli_query($con, $query_google);
+        $result_google = $con->query($query_google);
         if ($result_google) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -65,27 +65,27 @@ window.location.href = 'marketing.php';
 
 
 
-$sql_fb=mysqli_query($con, "select * from tbl_fb where creation_date= '$cr_date'"); 
+$sql_fb=$con->query("select * from tbl_fb where creation_date= '$cr_date'"); 
 
-while($row_fbb = mysqli_fetch_array($sql_fb)) {
+while($row_fbb = $sql_fb->fetch_array()) {
     
 $fb=$row_fbb['fb_value'];
 
 }
 
-$sq_datel=mysqli_query($con, "SELECT * FROM tbl_loan WHERE creation_date like '$cr_date'"); 
+$sq_datel=$con->query("SELECT * FROM tbl_loan WHERE creation_date like '$cr_date'"); 
 
     if ($result_loan_day = $sq_datel){
-        $row_count_loan_dayy = mysqli_num_rows($result_loan_day);
+        $row_count_loan_dayy = $result_loan_day->num_rows;
     
         //echo $row_count_loan_dayy."<br>";
     }
         
 
-$sq_datell=mysqli_query($con, "SELECT * FROM fnd_user_profile  WHERE creation_date like '$cr_date'"); 
+$sq_datell=$con->query("SELECT * FROM fnd_user_profile  WHERE creation_date like '$cr_date'"); 
 
     if ($result_lead_day = $sq_datell){
-        $row_count_lead_dayy = mysqli_num_rows($result_lead_day);
+        $row_count_lead_dayy = $result_lead_day->num_rows;
     
         //echo $row_count_loan_dayy."<br>";
     }
@@ -93,9 +93,9 @@ $sq_datell=mysqli_query($con, "SELECT * FROM fnd_user_profile  WHERE creation_da
 
 
 
-$sql_gogl=mysqli_query($con, "select * from tbl_google where creation_date= '$cr_date'"); 
+$sql_gogl=$con->query("select * from tbl_google where creation_date= '$cr_date'"); 
 
-while($row_gogl = mysqli_fetch_array($sql_gogl)) {
+while($row_gogl = $sql_gogl->fetch_array()) {
     
 $gogl=$row_gogl['gogl_value'];
 
@@ -175,9 +175,9 @@ if(isset($_POST['btn-submit']))
 $fb_update= $_POST['facebook_value'];
 $goo_update= $_POST['google_value'];
 
-mysqli_query($con, "UPDATE tbl_fb SET fb_value ='$fb_update' where creation_date ='$cr_date'"); 
+$con->query("UPDATE tbl_fb SET fb_value ='$fb_update' where creation_date ='$cr_date'"); 
 
-mysqli_query($con, "UPDATE tbl_google SET gogl_value ='$goo_update' where creation_date ='$cr_date'"); 
+$con->query("UPDATE tbl_google SET gogl_value ='$goo_update' where creation_date ='$cr_date'"); 
 
     ?>
     

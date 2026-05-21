@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -26,9 +26,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   include_once '../dbconnect.php';
   include_once '../dbconfig.php';
   $id = $_GET['id'];
-  $sql_fnd = mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'");
+  $sql_fnd = $con->query("select * from tbl_commercial_loan where loan_id = '$id'");
 
-  while ($row_fnd = mysqli_fetch_array($sql_fnd)) {
+  while ($row_fnd = $sql_fnd->fetch_array()) {
 
     $user_fnd_id = $row_fnd['user_fnd_id'];
     $loan_create_id = $row_fnd['loan_create_id'];
@@ -39,8 +39,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
 
-  $query_payment = mysqli_query($con, "SELECT SUM(payoff_amount) AS value_sum FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id'");
-  while ($row_payment = mysqli_fetch_array($query_payment)) {
+  $query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id'");
+  while ($row_payment = $query_payment->fetch_array()) {
     $payment = $row_payment['value_sum'];
 
     $payment = number_format((float)$payment, 2, '.', '');
@@ -49,9 +49,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
   }
 
-  $sql = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'");
+  $sql = $con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'");
 
-  while ($row = mysqli_fetch_array($sql)) {
+  while ($row = $sql->fetch_array()) {
 
     $first_name = $row['first_name'];
     $last_name = $row['last_name'];
@@ -60,9 +60,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
 
-  $sql_loan = mysqli_query($con, "select * from tbl_commercial_loan where loan_id= '$id'");
+  $sql_loan = $con->query("select * from tbl_commercial_loan where loan_id= '$id'");
 
-  while ($row_loan = mysqli_fetch_array($sql_loan)) {
+  while ($row_loan = $sql_loan->fetch_array()) {
 
     $loan_id = $row_loan['loan_id'];
     //echo "fndid is:".$fnd_id;
@@ -95,9 +95,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
 
-  $sql_user = mysqli_query($con, "select * from tbl_users where user_id= '$created_by'");
+  $sql_user = $con->query("select * from tbl_users where user_id= '$created_by'");
 
-  while ($row_user = mysqli_fetch_array($sql_user)) {
+  while ($row_user = $sql_user->fetch_array()) {
 
     $username = $row_user['username'];
   }
@@ -237,15 +237,15 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $next_page = $page_no + 1;
               $adjacents = "2";
 
-              $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `tbl_commercial_loan_installments` where loan_create_id='$loan_create_id'");
-              $total_records = mysqli_fetch_array($result_count);
+              $result_count = $con->query("SELECT COUNT(*) As total_records FROM tbl_commercial_loan_installments where loan_create_id='$loan_create_id'");
+              $total_records = $result_count->fetch_array();
               $total_records = $total_records['total_records'];
               $total_no_of_pages = ceil($total_records / $total_records_per_page);
               $second_last = $total_no_of_pages - 1; // total page minus 1
 
               $count_row = 0;
-              $result = mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' order by id asc");
-              while ($row = mysqli_fetch_array($result)) {
+              $result = $con->query("select * from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' order by id asc");
+              while ($row = $result->fetch_array()) {
                 $count_row++;
                 $intallment_id = $row['id'];
                 $loan_create_id = $row['loan_create_id'];
@@ -353,7 +353,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 	 		  <td>$" . number_format($total_balance,   2, ".", ",") . "</td>
 	 		  
 		   	  </tr>";
-              mysqli_close($con);
+              $con->close();
               ?>
             </tbody>
           </table>

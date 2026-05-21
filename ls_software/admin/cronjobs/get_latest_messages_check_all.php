@@ -1,19 +1,19 @@
-<?php
+﻿<?php
 
 date_default_timezone_set('America/Los_Angeles');
 include '../dbconfig.php';
 
- $result1 = mysqli_query($con,"SELECT DISTINCT `caht_key`  FROM `tbl_conversation` where `api_status` = '0' order by id desc limit 100");
+ $result1 = $con->query("SELECT DISTINCT TOP 100 caht_key  FROM tbl_conversation where api_status = '0' order by id desc");
  
-   $rowcount_mc=mysqli_num_rows($result_1);
+   $rowcount_mc=$result_1->num_rows;
       if($rowcount_mc<1){
-                   mysqli_query($con,"UPDATE `tbl_conversation` SET `api_status`='0' ");
+                   $con->query("UPDATE tbl_conversation SET api_status='0' ");
                   }
  
-    while($row1 = mysqli_fetch_array($result1)){
+    while($row1 = $result1->fetch_array()){
 		 $chat_key=$row1['caht_key'];
 		 
-        mysqli_query($con,"UPDATE `tbl_conversation` SET `api_status`='1' WHERE `caht_key` = '$chat_key'");
+        $con->query("UPDATE tbl_conversation SET api_status='1' WHERE caht_key = '$chat_key'");
 
     $admin_name = $_GET['admin_name'];
 
@@ -67,20 +67,20 @@ foreach($response['messages'] as $messages){
    
     $now = date('Y-m-d H:i:s');
     
-    $sql = "SELECT * FROM tbl_conversation WHERE `message_id` = '$sid'";
-        $result = mysqli_query($con, $sql);
+    $sql = "SELECT * FROM tbl_conversation WHERE message_id = '$sid'";
+        $result = $con->query($sql);
 
-       if(mysqli_num_rows($result) > 0)
+       if($result->num_rows > 0)
        {
          // echo 'Rcord exists tbl_products';
-         mysqli_query($con,"UPDATE `tbl_conversation` SET `status_deliver`='$delivered',`status_read`='$read' WHERE  `message_id` = '$sid'");
+         $con->query("UPDATE tbl_conversation SET status_deliver='$delivered',status_read='$read' WHERE  message_id = '$sid'");
             
        }
        
        else{
     
-    $query  = "INSERT INTO `tbl_conversation`(`caht_key`, `message`, `message_id`, `date`, `status_deliver`, `status_read`  , `incoming_read`) VALUES ('$conversation_sid','$body','$sid','$date_created','$delivered','$read','0')";
-        $result = mysqli_query($con, $query);
+    $query  = "INSERT INTO tbl_conversation(caht_key, message, message_id, date, status_deliver, status_read  , incoming_read) VALUES ('$conversation_sid','$body','$sid','$date_created','$delivered','$read','0')";
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
