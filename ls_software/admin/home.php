@@ -9,7 +9,8 @@ include_once 'dbconnect.php';
 include 'dbconfig.php';
 
 $jpgraph_loaded = false;
-if (is_file(__DIR__ . '/jpgraph/jpgraph.php')) {
+// jpgraph needs PHP's GD extension; without it, even loading jpgraph fatal-errors.
+if (extension_loaded('gd') && is_file(__DIR__ . '/jpgraph/jpgraph.php')) {
     require_once __DIR__ . '/jpgraph/jpgraph.php';
     require_once __DIR__ . '/jpgraph/jpgraph_pie.php';
     require_once __DIR__ . '/jpgraph/jpgraph_pie3d.php';
