@@ -104,9 +104,6 @@ function application_notes_update($application_id, $loan_create_id, $user_id, $s
         [$application_id, $loan_create_id, $user_id, $status, $loan_transaction_id, $date]
     );
 }
-$delete_allowed = 1; //TODO fix it
-return "$delete_allowed";
-    
 }
 
 if (!function_exists('user_roles')) {
@@ -123,7 +120,18 @@ function user_roles($user_role, $form_id) {
     return $delete_allowed;
 }
 }
-$update_allowed = 1; //TODO fix it
-return "$update_allowed";
-    
+
+if (!function_exists('user_edit_roles')) {
+function user_edit_roles($user_role, $form_id) {
+    include 'dbconfig.php';
+    $update_allowed = 0;
+    $result = $con->query(
+        "SELECT update_allowed FROM access_level_grants WHERE role_id = ? AND form_id = ?",
+        [$user_role, $form_id]
+    );
+    while ($result && ($row = $result->fetch_array())) {
+        $update_allowed = $row['update_allowed'];
+    }
+    return $update_allowed;
+}
 }
