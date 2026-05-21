@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
@@ -104,15 +104,14 @@ $year=$_GET['year'];
 //echo $year;
 
  
-$sql=mysqli_query($con, "SELECT * FROM tbl_loan WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month"); 
+$sql=$con->query("SELECT * FROM tbl_loan WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month"); 
 
 if ($result_tt=$sql)
   {
   // Return the number of rows in result set
-  $rowcountt=mysqli_num_rows($result_tt);
+  $rowcountt=$result_tt->num_rows;
   echo "Total record of this Month: $rowcountt<br>";
   // Free result set
-  $ye=mysqli_free_result($result_tt);
  // echo $ye;
   }
 ?>
@@ -123,15 +122,15 @@ $month=$_GET['month'];
 $year=$_GET['year'];
 //echo $year;
 
-$sql_leads=mysqli_query($con, "SELECT * FROM fnd_user_profile WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month"); 
+$sql_leads=$con->query("SELECT * FROM fnd_user_profile WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month"); 
 
 if ($result_leads=$sql_leads)
   {
   // Return the number of rows in result set
-  $rowcountt_leads=mysqli_num_rows($result_leads);
+  $rowcountt_leads=$result_leads->num_rows;
   //echo "Total record of this Month: $rowcountt_leads<br>";
   // Free result set
-  $yee=mysqli_free_result($result_leads);
+  $yee=
  // echo $yee;
   }
 ?>
@@ -212,34 +211,34 @@ $pv="'$month'".","."'$i'".","."'$year'";
 
 
 // echo $day;
-$sq_datel=mysqli_query($con, "SELECT * FROM tbl_loan WHERE creation_date like '$day'"); 
+$sq_datel=$con->query("SELECT * FROM tbl_loan WHERE creation_date like '$day'"); 
 
     if ($result_loan_day = $sq_datel){
-        $row_count_loan_day = mysqli_num_rows($result_loan_day);
+        $row_count_loan_day = $result_loan_day->num_rows;
     
        // echo $row_count_loan_day."<br>";
     }
     
-    $sq_fb=mysqli_query($con, "SELECT * FROM tbl_fb WHERE creation_date like '$day'"); 
+    $sq_fb=$con->query("SELECT * FROM tbl_fb WHERE creation_date like '$day'"); 
 $fb_value=0;
-    while($row_fb = mysqli_fetch_array($sq_fb)) {
+    while($row_fb = $sq_fb->fetch_array()) {
 
 $fb_value=$row_fb['fb_value'];
 //echo "value is:".$fb_value;
     }
 
- $sq_goo=mysqli_query($con, "SELECT * FROM tbl_google WHERE creation_date like '$day'"); 
+ $sq_goo=$con->query("SELECT * FROM tbl_google WHERE creation_date like '$day'"); 
 $goo_value=0;
-   while($row_goo = mysqli_fetch_array($sq_goo)) {
+   while($row_goo = $sq_goo->fetch_array()) {
 
 $goo_value=$row_goo['gogl_value'];
 //echo "value is:".$fb_value;
     }
 
- $sq_leads=mysqli_query($con, "SELECT * FROM fnd_user_profile WHERE creation_date like '$day'"); 
+ $sq_leads=$con->query("SELECT * FROM fnd_user_profile WHERE creation_date like '$day'"); 
 
     if ($result_loan_leads = $sq_leads){
-        $row_count_loan_leads = mysqli_num_rows($result_loan_leads);
+        $row_count_loan_leads = $result_loan_leads->num_rows;
     
        // echo $row_count_loan_leads."<br>";
     }
@@ -258,22 +257,22 @@ echo $adj2;   // Blank the balance cell of calendar at the end
 
 echo "</tr></table>";
 
-$query_fb = mysqli_query($con,"SELECT SUM(fb_value) AS value_sum FROM tbl_fb WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
-while ($row_fb=mysqli_fetch_array($query_fb)){
+$query_fb = $con->query("SELECT SUM(fb_value) AS value_sum FROM tbl_fb WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+while ($row_fb=$query_fb->fetch_array()){
     $fb_sum = $row_fb['value_sum'];
     $fb_sum = round($fb_sum, 2);
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
 }
 
-$query_g = mysqli_query($con,"SELECT SUM(gogl_value) AS value_sum FROM tbl_google WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
-while ($row_g=mysqli_fetch_array($query_g)){
+$query_g = $con->query("SELECT SUM(gogl_value) AS value_sum FROM tbl_google WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+while ($row_g=$query_g->fetch_array()){
     $g_sum = $row_g['value_sum'];
     $g_sum = round($g_sum, 2);
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
 }
 
-$query_bud = mysqli_query($con,"SELECT SUM(budget_amount) AS value_sum FROM tbl_budget WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
-while ($row_bud=mysqli_fetch_array($query_bud)){
+$query_bud = $con->query("SELECT SUM(budget_amount) AS value_sum FROM tbl_budget WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+while ($row_bud=$query_bud->fetch_array()){
     $bud_sum = $row_bud['value_sum'];
     $bud_sum = round($bud_sum, 2);
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
@@ -289,8 +288,8 @@ $month=$_GET['month'];
 $year=$_GET['year'];
 //echo $year;
 
-$query_mark = mysqli_query($con,"SELECT * FROM other_marketing WHERE YEAR(date) = $year AND MONTH(date) = $month");
-while ($row_mark = mysqli_fetch_array($query_mark)){
+$query_mark = $con->query("SELECT * FROM other_marketing WHERE YEAR(date) = $year AND MONTH(date) = $month");
+while ($row_mark = $query_mark->fetch_array()){
 
     $mark_name1 = $row_mark['other_mark1_name'];
   
@@ -317,15 +316,15 @@ $other3_name = $_POST['other3_name'];
 $other3_value = $_POST['other3_value'];
 $comm_paid = $_POST['comm_paid'];
 
-$check=mysqli_query($con,"select * from other_marketing where other_mark1_name='$mark_name1'");
-    if(mysqli_num_rows($check) > 0)
+$check=$con->query("select * from other_marketing where other_mark1_name='$mark_name1'");
+    if($check->num_rows > 0)
     {
         echo "Record Exists";
     }
     
 else{
 $query  = "INSERT INTO other_marketing (other_mark1_name,other_mark1_value,other_mark2_name,other_mark2_value,other_mark3_name,other_mark3_value,comm_paid,date)  VALUES ('$other1_name','$other1_value','$other2_name','$other2_value','$other3_name','$other3_value','$comm_paid','$day')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -350,8 +349,8 @@ $year=$_GET['year'];
 //echo $year;
 
 
-$query_mark = mysqli_query($con,"SELECT * FROM other_marketing WHERE YEAR(date) = $year AND MONTH(date) = $month");
-while ($row_mark = mysqli_fetch_array($query_mark)){
+$query_mark = $con->query("SELECT * FROM other_marketing WHERE YEAR(date) = $year AND MONTH(date) = $month");
+while ($row_mark = $query_mark->fetch_array()){
     $mark_id = $row_mark['other_mark_id'];
     $mark_name1 = $row_mark['other_mark1_name'];
     $mark_value1 = $row_mark['other_mark1_value'];
@@ -371,31 +370,31 @@ while ($row_mark = mysqli_fetch_array($query_mark)){
 <?php
 
 
-$query_markting = mysqli_query($con,"SELECT SUM(other_mark1_value) AS value_sum FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
-while ($row_markting=mysqli_fetch_array($query_markting)){
+$query_markting = $con->query("SELECT SUM(other_mark1_value) AS value_sum FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+while ($row_markting=$query_markting->fetch_array()){
     $bud_markting = $row_markting['value_sum'];
     $bud_markting = round($bud_markting, 2);
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
 }
 
 
-$query_markting1 = mysqli_query($con,"SELECT SUM(other_mark2_value) AS value_summ FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
-while ($row_markting1=mysqli_fetch_array($query_markting1)){
+$query_markting1 = $con->query("SELECT SUM(other_mark2_value) AS value_summ FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+while ($row_markting1=$query_markting1->fetch_array()){
     $bud_markting1 = $row_markting1['value_summ'];
     $bud_markting1 = round($bud_markting1, 2);
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
 }
 
 
-$query_markting2 = mysqli_query($con,"SELECT SUM(other_mark3_value) AS value_summm FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
-while ($row_markting2=mysqli_fetch_array($query_markting2)){
+$query_markting2 = $con->query("SELECT SUM(other_mark3_value) AS value_summm FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+while ($row_markting2=$query_markting2->fetch_array()){
     $bud_markting2 = $row_markting2['value_summm'];
     $bud_markting2 = round($bud_markting2, 2);
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
 }
 
-$query_markting3 = mysqli_query($con,"SELECT SUM(comm_paid) AS value_summmm FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
-while ($row_markting3=mysqli_fetch_array($query_markting3)){
+$query_markting3 = $con->query("SELECT SUM(comm_paid) AS value_summmm FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+while ($row_markting3=$query_markting3->fetch_array()){
     $bud_markting3 = $row_markting3['value_summmm'];
     $bud_markting3 = round($bud_markting3, 2);
    //echo"User_Key:" .$bud_markting3;
@@ -489,7 +488,7 @@ $mark_name3 = $_POST['other3_name'];
 $mark_value3 = $_POST['other3_value'];  
 $commsn_paid= $row_mark['comm_paid'];
 
-mysqli_query($con, "UPDATE other_marketing SET other_mark1_name ='$mark_name1' , other_mark1_value='$mark_value1' , other_mark2_name='$mark_name2'  , other_mark2_value='$mark_value2', other_mark3_name='$mark_name3', other_mark3_value='$mark_value3', comm_paid='$comm_paid' WHERE YEAR(date) = '$year' AND MONTH(date) = '$month' "); 
+$con->query("UPDATE other_marketing SET other_mark1_name ='$mark_name1' , other_mark1_value='$mark_value1' , other_mark2_name='$mark_name2'  , other_mark2_value='$mark_value2', other_mark3_name='$mark_name3', other_mark3_value='$mark_value3', comm_paid='$comm_paid' WHERE YEAR(date) = '$year' AND MONTH(date) = '$month' "); 
 
     ?>
     

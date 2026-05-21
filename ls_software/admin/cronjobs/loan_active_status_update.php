@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 
 include '../dbconnect.php';
@@ -15,9 +15,9 @@ $start = "12:00";
 
 //******************Change Active Loans status ****************************
 
- $sql_past_due=mysqli_query($con, "select * from tbl_loan where loan_status= 'Active' AND last_payment_date=''"); 
+ $sql_past_due=$con->query("select * from tbl_loan where loan_status= 'Active' AND last_payment_date=''"); 
 
-while($row_past_due = mysqli_fetch_array($sql_past_due)) {
+while($row_past_due = $sql_past_due->fetch_array()) {
 
 $user_fnd_id=$row_past_due['user_fnd_id'];
 $loan_create_id=$row_past_due['loan_create_id'];
@@ -44,7 +44,7 @@ elseif($days > 60){
 }
 
 if($loan_status != "")
-  mysqli_query($con,"UPDATE tbl_loan SET loan_status = '$loan_status', days_past_due=$days where loan_id= '$loan_id'");
+  $con->query("UPDATE tbl_loan SET loan_status = '$loan_status', days_past_due=$days where loan_id= '$loan_id'");
       
       
   $date_update= date('Y-m-d H:i:s');

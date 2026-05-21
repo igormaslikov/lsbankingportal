@@ -1,22 +1,22 @@
-<?php 
-	//  //$db_host = "50.62.151.36";
-	//  $db_host = "localhost";
-	//  //$db_host = "161.97.149.121";
-	//  $db_user = "dblsuser2021";
-	//  $db_pass = "^%D24L*!Ti5%";
-	//  $db_name = "dbs57337";
+<?php
+/*
+ * Microsoft SQL Server connection (PHP sqlsrv extension).
+ *
+ * $db_host = server or instance (e.g. .\SQLEXPRESS or localhost\SQLEXPRESS).
+ * $db_name = database name (e.g. OfscaBank).
+ *
+ * Set $db_use_windows_auth = true and leave $db_user / $db_pass empty for Windows authentication.
+ * Set $db_use_windows_auth = false and set $db_user / $db_pass for SQL Server authentication.
+ */
 
-	$db_host = "213.136.93.169";
-	//$db_host = "localhost";
-	$db_user = "ki902621_ofsca_portal_user";
-	$db_pass = "(a%Dk?jE0o*e";
-	$db_name = "ki902621_ofsca_portal";
+$db_host = 'MGMA0GHY7Y';
+$db_name = 'OfscaBank';
+$db_user = '';
+$db_pass = '';
 
-	if (isset($_SESSION['Optima']) && ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True")) {
+$db_use_windows_auth = true;
 
-		$db_name = "ki902621_ofsca_portal_new";
-
-		// $and_check = 1;
-	}
-
-?>
+if (isset($_SESSION['Optima']) && ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True")) {
+    // TODO: Confirm SQL Server name for the Optima-specific database (was ki902621_ofsca_portal_new on MySQL).
+    $db_name = 'OfscaBank_new';
+}

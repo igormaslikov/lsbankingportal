@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
@@ -89,12 +89,12 @@ $DBcon->close();
  
  $con = new mysqli("50.62.151.36","message_chat","admin$$123","message_chat");
 $query = "SELECT * FROM webchat_lines where msg_status= 'incoming' order by id DESC";
-$result = mysqli_query($con, $query);
+$result = $con->query($query);
 echo '<h3>Your Notifications</h3>';
 echo '<table id="customers">';
-if(mysqli_num_rows($result) > 0)
+if($result->num_rows > 0)
 {
-while($row = mysqli_fetch_array($result))
+while($row = $result->fetch_array())
 {
   $fnd_id=$row['gravatar'];
     $ts=$row['ts'];

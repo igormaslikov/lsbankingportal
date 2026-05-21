@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include 'dbconfig.php';
@@ -22,10 +22,10 @@ $id=$_GET['id'];
 
 //echo "id is::".$id;
 
-$sql=mysqli_query($con, "select * from tbl_users where user_id= '$id'"); 
+$sql=$con->query("select * from tbl_users where user_id= '$id'"); 
 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $access_id=$row['access_id'];
 $status =$row['status'];
@@ -40,18 +40,18 @@ $update_date=$row['last_update_date'];
  $email=$email;
 
 
-$sql=mysqli_query($con, "select * from access_level where access_id= '$access_id'"); 
+$sql=$con->query("select * from access_level where access_id= '$access_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $access_level=$row['access_level'];
 
 }
 
 
-$sql=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $name=$row['username'];
 }
@@ -59,10 +59,10 @@ $name=$row['username'];
  $email=$email;
 
 
-$sql=mysqli_query($con, "select * from tbl_users where user_id= '$update_by'"); 
+$sql=$con->query("select * from tbl_users where user_id= '$update_by'"); 
 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 
 $name_update=$row['username'];
@@ -110,10 +110,10 @@ include 'functions.php';
 
 $form_name=basename(__FILE__);
 
-    $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+    $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-    while($row_role = mysqli_fetch_array($sql_role)) {
+    while($row_role = $sql_role->fetch_array()) {
 
     $form_id=$row_role['id'];
  
@@ -133,7 +133,7 @@ $date = date('Y-m-d H:i:s');
 
 
 
-mysqli_query($con, "UPDATE tbl_users SET status ='$status_update',access_id='$access_level_update',last_update_by='$uuu_id',last_update_date='$date' where user_id ='$id'");   
+$con->query("UPDATE tbl_users SET status ='$status_update',access_id='$access_level_update',last_update_by='$uuu_id',last_update_date='$date' where user_id ='$id'");   
    
     ?>
     
@@ -185,9 +185,9 @@ window.location.href = 'not_authorize.php';
     <select  class="form-control" name="level_of_access">
     
   <?php  
-$sql_access = mysqli_query($con, "SELECT access_id,access_level From access_level");
-$row_access = mysqli_num_rows($sql_access);
-while ($row_access = mysqli_fetch_array($sql_access)){
+$sql_access = $con->query("SELECT access_id,access_level From access_level");
+$row_access = $sql_access->num_rows;
+while ($row_access = $sql_access->fetch_array()){
     $row_access_level = $row_access['access_level'];
 echo "<option value='". $row_access['access_id']."'" ;
 if($access_level==$row_access_level){ echo 'selected';} 

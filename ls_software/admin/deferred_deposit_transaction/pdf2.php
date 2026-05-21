@@ -1,35 +1,35 @@
-
+﻿
 <?php 
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
-$sql_fnd=mysqli_query($con, "SELECT DISTINCT  `user_fnd_id` FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `sign_status` = 1"); 
+$sql_fnd=$con->query("SELECT DISTINCT  user_fnd_id FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND sign_status = 1"); 
 
 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 
-$sql_fnd_1=mysqli_query($con, "SELECT COUNT(`user_fnd_id`) as counter FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id'AND `sign_status` = 1
+$sql_fnd_1=$con->query("SELECT COUNT(user_fnd_id) as counter FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id'AND sign_status = 1
 "); 
 $total_loan_fee = 0;
-while($row_fnd_1 = mysqli_fetch_array($sql_fnd_1)) {
+while($row_fnd_1 = $sql_fnd_1->fetch_array()) {
 
 $fee_1_repeat=$row_fnd_1['counter'];
 
 
 if($fee_1_repeat==1){
-   // echo "Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id'AND `sign_status` = 1";
-    $sql_fnd_1_fee = mysqli_query($con,"Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id' AND `sign_status` = '1'");
-    while($row_fnd_1_fee=mysqli_fetch_array($sql_fnd_1_fee)) {
+   // echo "Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id'AND sign_status = 1";
+    $sql_fnd_1_fee = $con->query("Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id' AND sign_status = '1'");
+    while($row_fnd_1_fee=$sql_fnd_1_fee->fetch_array()) {
 $ha = "haha";
 $userfnd_id=$row_fnd_1_fee['user_fnd_id'];
 $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
-while ($row_payment_fee=mysqli_fetch_array($query_payment_fee)){
+$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
     $payment_fee = number_format((float)$payment_fee, 2, '.', '');
@@ -55,17 +55,17 @@ $fee_1 = $total_loan_fee_1;
 
 
 if($fee_1_repeat==2){
-   // echo "Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id'AND `sign_status` = 1";
-    $sql_fnd_1_fee = mysqli_query($con,"Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id' AND `sign_status` = '1'");
-    while($row_fnd_1_fee=mysqli_fetch_array($sql_fnd_1_fee)) {
+   // echo "Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id'AND sign_status = 1";
+    $sql_fnd_1_fee = $con->query("Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id' AND sign_status = '1'");
+    while($row_fnd_1_fee=$sql_fnd_1_fee->fetch_array()) {
 $ha = "haha";
 $userfnd_id=$row_fnd_1_fee['user_fnd_id'];
 $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
-while ($row_payment_fee=mysqli_fetch_array($query_payment_fee)){
+$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
     $payment_fee = number_format((float)$payment_fee, 2, '.', '');
@@ -91,17 +91,17 @@ $fee_2 = $total_loan_fee_2;
  
 
 if($fee_1_repeat==3){
-   // echo "Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id'AND `sign_status` = 1";
-    $sql_fnd_1_fee = mysqli_query($con,"Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id' AND `sign_status` = '1'");
-    while($row_fnd_1_fee=mysqli_fetch_array($sql_fnd_1_fee)) {
+   // echo "Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id'AND sign_status = 1";
+    $sql_fnd_1_fee = $con->query("Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id' AND sign_status = '1'");
+    while($row_fnd_1_fee=$sql_fnd_1_fee->fetch_array()) {
 $ha = "haha";
 $userfnd_id=$row_fnd_1_fee['user_fnd_id'];
 $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
-while ($row_payment_fee=mysqli_fetch_array($query_payment_fee)){
+$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
     $payment_fee = number_format((float)$payment_fee, 2, '.', '');
@@ -128,17 +128,17 @@ $fee_3 = $total_loan_fee_3;
   
 
 if($fee_1_repeat==4){
-   // echo "Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id'AND `sign_status` = 1";
-    $sql_fnd_1_fee = mysqli_query($con,"Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id' AND `sign_status` = '1'");
-    while($row_fnd_1_fee=mysqli_fetch_array($sql_fnd_1_fee)) {
+   // echo "Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id'AND sign_status = 1";
+    $sql_fnd_1_fee = $con->query("Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id' AND sign_status = '1'");
+    while($row_fnd_1_fee=$sql_fnd_1_fee->fetch_array()) {
 $ha = "haha";
 $userfnd_id=$row_fnd_1_fee['user_fnd_id'];
 $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
-while ($row_payment_fee=mysqli_fetch_array($query_payment_fee)){
+$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
     $payment_fee = number_format((float)$payment_fee, 2, '.', '');
@@ -163,17 +163,17 @@ $fee_4 = $total_loan_fee_4;
 
 
 if($fee_1_repeat==5){
-   // echo "Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id'AND `sign_status` = 1";
-    $sql_fnd_1_fee = mysqli_query($con,"Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id' AND `sign_status` = '1'");
-    while($row_fnd_1_fee=mysqli_fetch_array($sql_fnd_1_fee)) {
+   // echo "Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id'AND sign_status = 1";
+    $sql_fnd_1_fee = $con->query("Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id' AND sign_status = '1'");
+    while($row_fnd_1_fee=$sql_fnd_1_fee->fetch_array()) {
 $ha = "haha";
 $userfnd_id=$row_fnd_1_fee['user_fnd_id'];
 $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
-while ($row_payment_fee=mysqli_fetch_array($query_payment_fee)){
+$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
     $payment_fee = number_format((float)$payment_fee, 2, '.', '');
@@ -199,17 +199,17 @@ $fee_5 = $total_loan_fee_5;
 
 
 if($fee_1_repeat==6){
-   // echo "Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id'AND `sign_status` = 1";
-    $sql_fnd_1_fee = mysqli_query($con,"Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id' AND `sign_status` = '1'");
-    while($row_fnd_1_fee=mysqli_fetch_array($sql_fnd_1_fee)) {
+   // echo "Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id'AND sign_status = 1";
+    $sql_fnd_1_fee = $con->query("Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id' AND sign_status = '1'");
+    while($row_fnd_1_fee=$sql_fnd_1_fee->fetch_array()) {
 $ha = "haha";
 $userfnd_id=$row_fnd_1_fee['user_fnd_id'];
 $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
-while ($row_payment_fee=mysqli_fetch_array($query_payment_fee)){
+$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
     $payment_fee = number_format((float)$payment_fee, 2, '.', '');
@@ -239,17 +239,17 @@ $fee_6 = $total_loan_fee_6;
 
 
 if($fee_1_repeat>6){
-   // echo "Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id'AND `sign_status` = 1";
-    $sql_fnd_1_fee = mysqli_query($con,"Select * FROM `tbl_loan` WHERE (`contract_date` BETWEEN '2019-01-01' AND '2019-12-31') AND `user_fnd_id` = '$user_fnd_id' AND `sign_status` = '1'");
-    while($row_fnd_1_fee=mysqli_fetch_array($sql_fnd_1_fee)) {
+   // echo "Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id'AND sign_status = 1";
+    $sql_fnd_1_fee = $con->query("Select * FROM tbl_loan WHERE (contract_date BETWEEN '2019-01-01' AND '2019-12-31') AND user_fnd_id = '$user_fnd_id' AND sign_status = '1'");
+    while($row_fnd_1_fee=$sql_fnd_1_fee->fetch_array()) {
 $ha = "haha";
 $userfnd_id=$row_fnd_1_fee['user_fnd_id'];
 $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
-while ($row_payment_fee=mysqli_fetch_array($query_payment_fee)){
+$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
     $payment_fee = number_format((float)$payment_fee, 2, '.', '');

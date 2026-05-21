@@ -1,4 +1,4 @@
-
+﻿
 <html>
    <head>
        <style> 
@@ -81,7 +81,7 @@ echo "Date".$start;
 
 
  $query_in  = "INSERT INTO loan_initial_banking (bank_name)  VALUES ('$start')";
-        $result_in = mysqli_query($con, $query_in);
+        $result_in = $con->query($query_in);
         if ($result_in) {
             echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

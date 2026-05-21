@@ -1,46 +1,45 @@
-<?php
+﻿<?php
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
  $id=$_GET['id'];
  $year="2019";
-$sql_fnd=mysqli_query($con, "select DISTINCT user_fnd_id as visitorss
-from tbl_loan WHERE `contract_date` BETWEEN '2019-01-01' AND '2019-12-31'"); 
+$sql_fnd=$con->query("select DISTINCT user_fnd_id as visitorss
+from tbl_loan WHERE contract_date BETWEEN '2019-01-01' AND '2019-12-31'"); 
 
 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['visitorss'];
 //echo "visitorss" .$user_fnd_id."<br>";
 
 
-$query_search = "SELECT * FROM `tbl_loan` where user_fnd_id= '$user_fnd_id'";
+$query_search = "SELECT * FROM tbl_loan where user_fnd_id= '$user_fnd_id'";
 
-if ($result_t=mysqli_query($con,$query_search))
+if ($result_t=$con->query($query_search))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
  // echo $rowcount;
   
    
    
-   $sql_dup = "SELECT * FROM tbl_repeat_loan_transaction WHERE `user_fnd_id` = '$user_fnd_id'";
-        $result_dup = mysqli_query($con, $sql_dup);
+   $sql_dup = "SELECT * FROM tbl_repeat_loan_transaction WHERE user_fnd_id = '$user_fnd_id'";
+        $result_dup = $con->query($sql_dup);
 
-       if(mysqli_num_rows($result_dup) > 0)
+       if($result_dup->num_rows > 0)
        {
-           mysqli_query($con, "UPDATE tbl_repeat_loan_transaction SET  loan_count='$rowcount'  where user_fnd_id ='$user_fnd_id'");
+           $con->query("UPDATE tbl_repeat_loan_transaction SET  loan_count='$rowcount'  where user_fnd_id ='$user_fnd_id'");
      }
        else
        {  
   
   
       $query_emp  = "INSERT INTO tbl_repeat_loan_transaction (user_fnd_id,loan_count)  VALUES ('$user_fnd_id','$rowcount')";
-        $result_emp = mysqli_query($con, $query_emp);
+        $result_emp = $con->query($query_emp);
         if ($result_emp) {
          //echo "<div class='form'><h3> successfully added in tbl_repeat_loan_transaction.</h3><br/></div>";
         } else {
@@ -68,8 +67,8 @@ if ($result_t=mysqli_query($con,$query_search))
 
 
 <?php
-$sql_income=mysqli_query($con, "select DISTINCT user_fnd_id as visitorss
-from tbl_loan WHERE `contract_date` BETWEEN '2019-01-01' AND '2019-12-31'"); 
+$sql_income=$con->query("select DISTINCT user_fnd_id as visitorss
+from tbl_loan WHERE contract_date BETWEEN '2019-01-01' AND '2019-12-31'"); 
 
 
 
@@ -85,17 +84,17 @@ $net_90=0;
 $net_100=0;
 
 
-while($row_income = mysqli_fetch_array($sql_income)) {
+while($row_income = $sql_income->fetch_array()) {
 
 $user_fnd_incm=$row_income['visitorss'];
 //echo "ID " .$user_fnd_incm."<br>";
 
-$sql_incomee=mysqli_query($con, "select*
+$sql_incomee=$con->query("select*
 from source_income WHERE user_fnd_id='$user_fnd_incm'"); 
 
 
 
-while($row_incomee = mysqli_fetch_array($sql_incomee)) {
+while($row_incomee = $sql_incomee->fetch_array()) {
 
 $user_fnd_incom=$row_incomee['user_fnd_id'];
 $net_check_amount=$row_incomee['net_check_amount'];
@@ -204,14 +203,14 @@ $pay_period=$row_incomee['pay_period'];
 
 
 
-$query_loan= "SELECT * FROM `tbl_loan`";
-if ($result_loan=mysqli_query($con,$query_loan))
+$query_loan= "SELECT * FROM tbl_loan";
+if ($result_loan=$con->query($query_loan))
   {
   // Return the number of rows in result set
-  $rowcount_loan=mysqli_num_rows($result_loan);
+  $rowcount_loan=$result_loan->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye_loan=mysqli_free_result($result_loan);
+  $ye_loan=
   //echo $ye_loan;
   }
 
@@ -323,13 +322,12 @@ for($i=1;$i<11;$i++)
   $sql_sumary = "SELECT * FROM tbl_repeat_loan_transaction where loan_count='$i'";
  
 
-if ($result_sumary=mysqli_query($con,$sql_sumary))
+if ($result_sumary=$con->query($sql_sumary))
   {
   // Return the number of rows in result set
-  $rowcount_sumary=mysqli_num_rows($result_sumary);
+  $rowcount_sumary=$result_sumary->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_sumary);
   }
  //echo"Loan : ". $rowcount_sumary."<br>";
  //echo"I : ". $i."<br>";
@@ -353,13 +351,12 @@ for($i=1;$i<11;$i++)
   $sql_sumary = "SELECT * FROM tbl_repeat_loan_transaction where loan_count='$i'";
  
 
-if ($result_sumary=mysqli_query($con,$sql_sumary))
+if ($result_sumary=$con->query($sql_sumary))
   {
   // Return the number of rows in result set
-  $rowcount_sumary=mysqli_num_rows($result_sumary);
+  $rowcount_sumary=$result_sumary->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_sumary);
   }
  //echo"Loan : ". $rowcount_sumary."<br>";
  //echo"I : ". $i."<br>";
@@ -420,7 +417,7 @@ if ($result_sumary=mysqli_query($con,$sql_sumary))
     <?php
     // User FND Profile 
 
-$sql_db=mysqli_query($con,"SELECT 
+$sql_db=$con->query("SELECT 
 
 CASE WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 20 THEN 'Customers age 18-21:'
      WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 30 THEN 'Customers age 22-31:'
@@ -432,7 +429,7 @@ COUNT(*) total
 FROM fnd_user_profile
 GROUP BY age");
 
-while($row_fnddd = mysqli_fetch_array($sql_db)) {
+while($row_fnddd = $sql_db->fetch_array()) {
 
 $customer_age=$row_fnddd['age'];
 
@@ -458,7 +455,7 @@ echo $customer_age."<br><br>";
      <?php
     // User FND Profile 
 
-$sql_db=mysqli_query($con,"SELECT  
+$sql_db=$con->query("SELECT  
 
 CASE WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 20 THEN 'Customers age 18-21:'
      WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 30 THEN 'Customers age 22-31:'
@@ -470,7 +467,7 @@ COUNT(*) total
 FROM fnd_user_profile
 GROUP BY age");
 
-while($row_fnddd = mysqli_fetch_array($sql_db)) {
+while($row_fnddd = $sql_db->fetch_array()) {
 
 $customr_age=$row_fnddd['total'];
 
@@ -494,18 +491,18 @@ $customr_age=$row_fnddd['total'];
  $tage_58=0;
  $tage_68=0;
  
- $sql_fnd=mysqli_query($con, "select DISTINCT user_fnd_id as visitorss
-from tbl_loan WHERE `contract_date` BETWEEN '2019-01-01' AND '2019-12-31' AND `sign_status` = 1"); 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+ $sql_fnd=$con->query("select DISTINCT user_fnd_id as visitorss
+from tbl_loan WHERE contract_date BETWEEN '2019-01-01' AND '2019-12-31' AND sign_status = 1"); 
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['visitorss'];
 //echo "visitorss" .$user_fnd_id."<br>";
- $sql_age=mysqli_query($con, "SELECT * FROM `fnd_user_profile` WHERE `user_fnd_id` = '$user_fnd_id'"); 
-while($row_age = mysqli_fetch_array($sql_age)) {
+ $sql_age=$con->query("SELECT * FROM fnd_user_profile WHERE user_fnd_id = '$user_fnd_id'"); 
+while($row_age = $sql_age->fetch_array()) {
     
     
-     $sql_transactions=mysqli_query($con, "SELECT COUNT(`user_fnd_id`) AS NumberOftrans FROM `loan_transaction` WHERE `user_fnd_id` = '$user_fnd_id'"); 
-while($row_transactions = mysqli_fetch_array($sql_transactions)) {
+     $sql_transactions=$con->query("SELECT COUNT(user_fnd_id) AS NumberOftrans FROM loan_transaction WHERE user_fnd_id = '$user_fnd_id'"); 
+while($row_transactions = $sql_transactions->fetch_array()) {
 
 $transactions=$row_transactions['NumberOftrans'];
 // echo "Transactions are :  " . $transactions;

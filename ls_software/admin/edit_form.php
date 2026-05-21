@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 
@@ -60,10 +60,10 @@ $id=$_GET['id'];
 
 include 'dbconnect.php';
 include 'dbconfig.php';
-$sql=mysqli_query($con, "select * from access_form where id = '$id'"); 
+$sql=$con->query("select * from access_form where id = '$id'"); 
 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $form_name=$row['form_name'];
 $form_description=$row['form_description'];
@@ -111,10 +111,10 @@ $form_description=$row['form_description'];
 </thead>
 <tbody>
   <?php 
-  $sql_phone=mysqli_query($con, "select * from access_level_grants where form_id = '$id'"); 
+  $sql_phone=$con->query("select * from access_level_grants where form_id = '$id'"); 
 
 
-while($row_phone = mysqli_fetch_array($sql_phone)) {
+while($row_phone = $sql_phone->fetch_array()) {
 $grant_id = $row_phone['grant_id'];
 $role_id=$row_phone['role_id'];
 $select_allowed=$row_phone['select_allowed'];
@@ -122,9 +122,9 @@ $insert_allowed=$row_phone['insert_allowed'];
 $update_allowed=$row_phone['update_allowed'];
 $delete_allowed=$row_phone['delete_allowed'];
 
-$sql_access=mysqli_query($con, "select * from access_level where access_id= '$role_id'"); 
+$sql_access=$con->query("select * from access_level where access_id= '$role_id'"); 
 
-while($row_access = mysqli_fetch_array($sql_access)) {
+while($row_access = $sql_access->fetch_array()) {
 
 $access_level_name=$row_access['access_level'];
 
@@ -197,10 +197,10 @@ echo "<tr>
     
 $form_name_update=$_POST['form_name']; 
 $form_description_update=$_POST['form_description'];
- $sql_role=mysqli_query($con, "select * from access_form where form_name ='$form_name'"); 
+ $sql_role=$con->query("select * from access_form where form_name ='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  //echo $form_id;
@@ -217,7 +217,7 @@ if(isset($_POST['btn-submit'])) {
 if ($update_allowed_validate==1)
 {
 
-mysqli_query($con, "UPDATE access_form SET form_name = '$form_name_update', form_description='$form_description_update' where id ='$id'");   
+$con->query("UPDATE access_form SET form_name = '$form_name_update', form_description='$form_description_update' where id ='$id'");   
    
     ?>
     
@@ -247,9 +247,9 @@ window.location.href = 'not_authorize.php';
     <select  class="form-control" name="level_of_access">
     
   <?php  
-$sql_access = mysqli_query($con, "SELECT access_id,access_level From access_level");
-$row_access = mysqli_num_rows($sql_access);
-while ($row_access = mysqli_fetch_array($sql_access)){
+$sql_access = $con->query("SELECT access_id,access_level From access_level");
+$row_access = $sql_access->num_rows;
+while ($row_access = $sql_access->fetch_array()){
     $row_access_level = $row_access['access_level'];
 echo "<option value='". $row_access['access_id']."'" ;
 if($access_level==$row_access_level){ echo 'selected';} 
@@ -323,7 +323,7 @@ $update_allowed=$_POST['update_allowed'];
 $delete_allowed=$_POST['delete_allowed'];
 
 
-mysqli_query($con, "Insert into  access_level_grants (role_id,form_id,insert_allowed,update_allowed,delete_allowed) Values ('$level_of_access','$id','$insert_allowed','$update_allowed','$delete_allowed')");   
+$con->query("Insert into  access_level_grants (role_id,form_id,insert_allowed,update_allowed,delete_allowed) Values ('$level_of_access','$id','$insert_allowed','$update_allowed','$delete_allowed')");   
    
     ?>
     

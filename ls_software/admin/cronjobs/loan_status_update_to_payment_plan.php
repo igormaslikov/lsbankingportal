@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 include '../dbconnect.php';
 include '../dbconfig.php';
@@ -7,16 +7,16 @@ date_default_timezone_set('America/Los_Angeles');
 
 echo "Created time is " . date("H:i"). "<br>";
 
-$sql=mysqli_query($con, "select * from tbl_loan"); 
+$sql=$con->query("select * from tbl_loan"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_create_id'];
 $application_id=$row['user_fnd_id'];
 $loan_total_payable=$row['loan_total_payable'];
 $totall_trans = 0;
-$query_trns = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_create_id= '$loan_id'");
-while ($row_trns=mysqli_fetch_array($query_trns)){
+$query_trns = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_create_id= '$loan_id'");
+while ($row_trns=$query_trns->fetch_array()){
     $totall_trans = $row_trns['value_sum'];
    
    $totall_trans = $totall_trans;
@@ -30,7 +30,7 @@ if ($totall_trans>0 && $loan_total_payable>$totall_trans)
 {
     
    
-  //  mysqli_query($con,"UPDATE tbl_loan SET loan_status = 'Payment Plan' where loan_create_id = '$loan_id'");
+  //  $con->query("UPDATE tbl_loan SET loan_status = 'Payment Plan' where loan_create_id = '$loan_id'");
    
      echo "Loan _ ID "  .$loan_id . " & Total Payment is ".$totall_trans." & Toatal Payable is ".$loan_total_payable."<br>";
      

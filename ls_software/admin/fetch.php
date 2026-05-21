@@ -1,24 +1,19 @@
 <?php
-//fetch.php
-$connect = mysqli_connect("50.62.151.36", "gwadaron_ls_user", "^%D24L*!Ti5%", "gwadaron_lsbanking");
-$request = mysqli_real_escape_string($connect, $_POST["query"]);
-$query = "
- SELECT Distinct first_name FROM fnd_user_profile WHERE first_name LIKE '%".$request."%'
-";
+// fetch.php — autocomplete endpoint for customer first name search
+require_once $_SERVER['DOCUMENT_ROOT'] . '/SqlServerDb.php';
+$con = portal_get_sqlsrv_db();
 
-$result = mysqli_query($connect, $query);
+$request = isset($_POST["query"]) ? $_POST["query"] : '';
+$result = $con->query(
+    "SELECT DISTINCT first_name FROM fnd_user_profile WHERE first_name LIKE ?",
+    ['%' . $request . '%']
+);
 
-$data = array();
-
-if(mysqli_num_rows($result) > 0)
-{
- while($row = mysqli_fetch_assoc($result))
- {
-  $data[] = $row["first_name"];
- }
- echo json_encode($data);
+$data = [];
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row["first_name"];
+    }
 }
-
+echo json_encode($data);
 ?>
-
-

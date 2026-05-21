@@ -24,9 +24,9 @@ $DBcon->close();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_commercial_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_create_id=$row_fnd['loan_create_id'];
@@ -34,9 +34,9 @@ $loan_create_id=$row_fnd['loan_create_id'];
 }
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -49,9 +49,9 @@ $customer_numbr=$row['mobile_number'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_commercial_loan where user_fnd_id= '$user_fnd_id' AND loan_id = '$id'"); 
+$sql=$con->query("select * from tbl_commercial_loan where user_fnd_id= '$user_fnd_id' AND loan_id = '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -85,9 +85,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -96,9 +96,9 @@ $username=$row_user['username'];
 //echo "fname is:".$username;
 
 
-$sql_user=mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'"); 
+$sql_user=$con->query("select * from tbl_loan_notes where loan_id= '$id'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $loan_notes=$row_user['notes'];
 
@@ -204,8 +204,8 @@ $loan_notes=$row_user['notes'];
             <tbody>
               <?php
               $__job_rows = 0;
-              $sql_doc = mysqli_query($con, "select * from source_income_commercial where user_fnd_id = '$user_fnd_id'");
-              while ($row_doc = mysqli_fetch_array($sql_doc)) {
+              $sql_doc = $con->query("select * from source_income_commercial where user_fnd_id = '$user_fnd_id'");
+              while ($row_doc = $sql_doc->fetch_array()) {
                   $__job_rows++;
                   $scr_inc_id       = $row_doc['scr_inc_id'];
                   $employer_name    = $row_doc['employer_name'];
@@ -268,8 +268,8 @@ $loan_notes=$row_user['notes'];
             <tbody>
               <?php
               $__note_rows = 0;
-              $sql_doc = mysqli_query($con, "select * from tbl_job_notes where user_fnd_id = '$user_fnd_id' order by creation_date desc");
-              while ($row_doc = mysqli_fetch_array($sql_doc)) {
+              $sql_doc = $con->query("select * from tbl_job_notes where user_fnd_id = '$user_fnd_id' order by creation_date desc");
+              while ($row_doc = $sql_doc->fetch_array()) {
                   $__note_rows++;
                   $notes          = $row_doc['notes'];
                   $note_created_by = $row_doc['created_by'];
@@ -277,8 +277,8 @@ $loan_notes=$row_user['notes'];
                       ? date("m-d-Y", strtotime((string)$row_doc['creation_date']))
                       : '';
                   $final_activity_by_user = '';
-                  $sql_u = mysqli_query($con, "select username from tbl_users where user_id = '$note_created_by' limit 1");
-                  if ($sql_u && ($r = mysqli_fetch_assoc($sql_u))) {
+                  $sql_u = $con->query("select username from tbl_users where user_id = '$note_created_by' limit 1");
+                  if ($sql_u && ($r = $sql_u->fetch_assoc())) {
                       $final_activity_by_user = $r['username'];
                   }
                   ?>

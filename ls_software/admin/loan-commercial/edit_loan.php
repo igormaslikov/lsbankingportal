@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -23,9 +23,9 @@ $DBcon->close();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_loan_setting where id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan_setting where id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $loan_amount=$row_fnd['loan_amount'];
 $loan_fee=$row_fnd['loan_fee'];
@@ -100,7 +100,7 @@ $payoff_amount=$row_fnd['payoff_amount'];
     
    
    
-    mysqli_query($con,"UPDATE tbl_loan_setting SET loan_amount ='$loan_amount_f', loan_fee ='$loan_fee', payoff_amount ='$payoff_amount'where id ='$id' ");
+    $con->query("UPDATE tbl_loan_setting SET loan_amount ='$loan_amount_f', loan_fee ='$loan_fee', payoff_amount ='$payoff_amount'where id ='$id' ");
      
 
  ?>

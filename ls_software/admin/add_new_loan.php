@@ -36,8 +36,8 @@ if (isset($_POST['btn-submit'])) {
   $date = date('Y-m-d H:i:s');
 
 
-  $query_userid3 = mysqli_query($con, "Select user_fnd_id from fnd_user_profile where first_name ='$fnd_name_id'");
-  while ($row_user_id3 = mysqli_fetch_array($query_userid3)) {
+  $query_userid3 = $con->query("Select user_fnd_id from fnd_user_profile where first_name ='$fnd_name_id'");
+  while ($row_user_id3 = $query_userid3->fetch_array()) {
     $fnd_id = $row_user_id3[0];
 
     $apr = $row_user_id3['apr'];
@@ -47,8 +47,8 @@ if (isset($_POST['btn-submit'])) {
   }
 
   if ($state_insrt == "CA") {
-    $query3 = mysqli_query($con, "Select loan_fee from tbl_loan_setting_nv where loan_amount ='$amount_loan_ca' AND state='$state_insrt'");
-    while ($row3 = mysqli_fetch_array($query3)) {
+    $query3 = $con->query("Select loan_fee from tbl_loan_setting_nv where loan_amount ='$amount_loan_ca' AND state='$state_insrt'");
+    while ($row3 = $query3->fetch_array()) {
       $amount_loan = $amount_loan_ca;
       $loan_fee = $row3['loan_fee'] * $member_military_percent_fee;
       $loan_fee = number_format((float)$loan_fee, 2, '.', '');
@@ -58,8 +58,8 @@ if (isset($_POST['btn-submit'])) {
   }
 
   if ($state_insrt == "NV") {
-    $query33 = mysqli_query($con, "Select loan_fee from tbl_loan_setting_nv where loan_amount ='$amount_loan_nv' AND state='$state_insrt'");
-    while ($row33 = mysqli_fetch_array($query33)) {
+    $query33 = $con->query("Select loan_fee from tbl_loan_setting_nv where loan_amount ='$amount_loan_nv' AND state='$state_insrt'");
+    while ($row33 = $query33->fetch_array()) {
       $amount_loan = $amount_loan_nv;
       $loan_fee = $row33['loan_fee']* $member_military_percent_fee;
       $loan_fee = number_format((float)$loan_fee, 2, '.', '');
@@ -70,8 +70,8 @@ if (isset($_POST['btn-submit'])) {
 
 
   if ($state_insrt == "IL") {
-    $query3 = mysqli_query($con, "Select loan_fee from tbl_loan_setting_nv where loan_amount ='$amount_loan_il' AND state='$state_insrt'");
-    while ($row3 = mysqli_fetch_array($query3)) {
+    $query3 = $con->query("Select loan_fee from tbl_loan_setting_nv where loan_amount ='$amount_loan_il' AND state='$state_insrt'");
+    while ($row3 = $query3->fetch_array()) {
       $amount_loan = $amount_loan_il;
       $loan_fee = $row3['loan_fee']* $member_military_percent_fee;
       $loan_fee = number_format((float)$loan_fee, 2, '.', '');
@@ -81,18 +81,18 @@ if (isset($_POST['btn-submit'])) {
     }
   }
 
-  $sql_role = mysqli_query($con, "select * from access_form where form_name='$form_name'");
+  $sql_role = $con->query("select * from access_form where form_name='$form_name'");
 
 
-  while ($row_role = mysqli_fetch_array($sql_role)) {
+  while ($row_role = $sql_role->fetch_array()) {
 
     $form_id = $row_role['id'];
   }
 
   user_roles($u_access_id, $form_id);
-  $query_loan_exists = mysqli_query($con, "SELECT COUNT(*) as count FROM tbl_loan WHERE loan_create_id ='$loan_create_id'");
+  $query_loan_exists = $con->query("SELECT COUNT(*) as count FROM tbl_loan WHERE loan_create_id ='$loan_create_id'");
 
-  while ($row_count = mysqli_fetch_array($query_loan_exists)) {
+  while ($row_count = $query_loan_exists->fetch_array()) {
     $count_loan = $row_count['count'];
     //echo"<br><br><br><br><br><br><br><br> <br><br>User_Key:" .$fnd_id;
 
@@ -100,8 +100,8 @@ if (isset($_POST['btn-submit'])) {
 
   if ($count_loan > 0) {
 
-    $sql_apr = mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_loan");
-    while ($row_apr = mysqli_fetch_array($sql_apr)) {
+    $sql_apr = $con->query("SELECT MAX(loan_create_id)+1 as next_id from tbl_loan");
+    while ($row_apr = $sql_apr->fetch_array()) {
       $next_loan_id = $row_apr['next_id'];
     }
     //echo '<script type="text/javascript">alert("Loan ID ' . $loan_create_id . ' is exists. LoanID well be regerated to '.$next_loan_id.')</script>';
@@ -111,7 +111,7 @@ if (isset($_POST['btn-submit'])) {
 
 
   $query  = "INSERT INTO tbl_loan (user_fnd_id,bg_id,amount_of_loan,secured_loan,contract_date,payment_date,creation_date,created_by,loan_create_id,loan_fee,loan_total_payable,loan_status,secondary_portfolio,state)  VALUES ('$fnd_idd','Payday Loan','$amount_loan','$secure_loan','$contract_date','$payment_date','$date','$u_id','$loan_create_id','$loan_fee','$payoff_amount','Active','None','$state_insrt')";
-  $result = mysqli_query($con, $query);
+  $result = $con->query($query);
   if ($result) {
     //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
   } else {
@@ -122,9 +122,9 @@ if (isset($_POST['btn-submit'])) {
   if ($renew_loan_status == "1") {
 
 
-    $sql_access = mysqli_query($con, "select * from tbl_users where user_id= '$u_id'");
+    $sql_access = $con->query("select * from tbl_users where user_id= '$u_id'");
 
-    while ($row_access = mysqli_fetch_array($sql_access)) {
+    while ($row_access = $sql_access->fetch_array()) {
 
       $username = $row_access['username'];
 
@@ -194,6 +194,7 @@ if ($u_access_id == '0') {
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Welcome - <?php echo $userRow['email']; ?></title>
+    <!-- FIXED-V2 -->
 
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
@@ -229,9 +230,9 @@ if ($u_access_id == '0') {
 
         // if ($state_loan == 'CA') {
         //   $sql_count_loans = "SELECT * FROM tbl_loan where state='CA'";
-        //   if ($result_count_loans = mysqli_query($con, $sql_count_loans)) {
+        //   if ($result_count_loans = $con->query($sql_count_loans)) {
         //     // Return the number of rows in result set
-        //     $rowcount_count_loans = mysqli_num_rows($result_count_loans) + 71019;
+        //     $rowcount_count_loans = $result_count_loans->num_rows + 71019;
 
         //     $rowcount_count_loans = $rowcount_count_loans - 143;
         //     //echo "<br><br><br><br><br>".$rowcount_count_loans;
@@ -239,9 +240,9 @@ if ($u_access_id == '0') {
         // }
 
         // $sql_count_ca = "SELECT * FROM tbl_loan where state='CA'";
-        // if ($result_count_ca = mysqli_query($con, $sql_count_ca)) {
+        // if ($result_count_ca = $con->query($sql_count_ca)) {
         //   // Return the number of rows in result set
-        //   $rowcount_count_ca = mysqli_num_rows($result_count_ca) + 71019;
+        //   $rowcount_count_ca = $result_count_ca->num_rows + 71019;
 
         //   $rowcount_count_ca = $rowcount_count_ca - 143;
         //   //echo "<br><br><br><br><br>".$rowcount_count_loans;
@@ -250,9 +251,9 @@ if ($u_access_id == '0') {
 
         // if ($state_loan == 'NV') {
         //   $sql_count_nv = "SELECT * FROM tbl_loan where state='NV'";
-        //   if ($result_count_nv = mysqli_query($con, $sql_count_nv)) {
+        //   if ($result_count_nv = $con->query($sql_count_nv)) {
         //     // Return the number of rows in result set
-        //     $rowcount_count_loans = mysqli_num_rows($result_count_nv);
+        //     $rowcount_count_loans = $result_count_nv->num_rows;
 
         //     //echo "<br><br><br><br><br>".$rowcount_count_nv;
 
@@ -268,9 +269,9 @@ if ($u_access_id == '0') {
 
 
         // $sql_count_nv = "SELECT * FROM tbl_loan where state='NV'";
-        // if ($result_count_nv = mysqli_query($con, $sql_count_nv)) {
+        // if ($result_count_nv = $con->query($sql_count_nv)) {
         //   // Return the number of rows in result set
-        //   $rowcount_count_nv = mysqli_num_rows($result_count_nv);
+        //   $rowcount_count_nv = $result_count_nv->num_rows;
 
         //   //echo "<br><br><br><br><br>".$rowcount_count_nv;
 
@@ -288,9 +289,9 @@ if ($u_access_id == '0') {
 
         // if ($state_loan == 'IL') {
         //   $sql_count_il = "SELECT * FROM tbl_loan where state='IL'";
-        //   if ($result_count_il = mysqli_query($con, $sql_count_il)) {
+        //   if ($result_count_il = $con->query($sql_count_il)) {
         //     // Return the number of rows in result set
-        //     $rowcount_count_loans = mysqli_num_rows($result_count_il);
+        //     $rowcount_count_loans = $result_count_il->num_rows;
         //     $string = 600000 + $rowcount_count_loans;
         //     $insertion = "-";
         //     $index = 1;
@@ -303,9 +304,9 @@ if ($u_access_id == '0') {
         // }
 
         // $sql_count_il = "SELECT * FROM tbl_loan where state='IL'";
-        // if ($result_count_il = mysqli_query($con, $sql_count_il)) {
+        // if ($result_count_il = $con->query($sql_count_il)) {
         //   // Return the number of rows in result set
-        //   $rowcount_count_il = mysqli_num_rows($result_count_il);
+        //   $rowcount_count_il = $result_count_il->num_rows;
         //   $string = 600000 + $rowcount_count_il;
         //   $insertion = "-";
         //   $index = 1;
@@ -328,15 +329,15 @@ if ($u_access_id == '0') {
         include 'dbconnect.php';
         include 'dbconfig.php';
 
-        $sql_apr = mysqli_query($con, "SELECT MAX(loan_create_id)+1 as next_id from tbl_loan");
-        while ($row_apr = mysqli_fetch_array($sql_apr)) {
+        $sql_apr = $con->query("SELECT MAX(loan_create_id)+1 as next_id from tbl_loan");
+        while ($row_apr = $sql_apr->fetch_array()) {
           $next_loan_id = $row_apr['next_id'] == NULL ? 90201 : $row_apr['next_id'];
         }
 
 
-        $sql_apr = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'");
+        $sql_apr = $con->query("select * from fnd_user_profile where user_fnd_id= '$id'");
 
-        while ($row_apr = mysqli_fetch_array($sql_apr)) {
+        while ($row_apr = $sql_apr->fetch_array()) {
         //   $apr_date = $row_apr['apr'];
           $member_military = $row_apr['member_military'] == 0 ? "No" : "Yes";
 
@@ -344,31 +345,29 @@ if ($u_access_id == '0') {
 
         }
 
-        $sql1 = mysqli_query($con, "SELECT * From business_group WHERE bg_name= '$loan_name'");
-        $row1 = mysqli_num_rows($sql1);
+        $sql1 = $con->query("SELECT * From business_group WHERE bg_name= '$loan_name'");
+        $row1 = $sql1->num_rows;
 
-        while ($row1 = mysqli_fetch_array($sql1)) {
+        while ($row1 = $sql1->fetch_array()) {
 
           $portfolio = $row1['bg_name'];
         }
 
-        $sql1 = mysqli_query($con, "SELECT * From source_income WHERE user_fnd_id= '$fnd_idd' ");
-        $row1 = mysqli_num_rows($sql1);
+        $sql1 = $con->query("SELECT * From source_income WHERE user_fnd_id= '$fnd_idd' ");
+        $row1 = $sql1->num_rows;
 
-        while ($row1 = mysqli_fetch_array($sql1)) {
+        while ($row1 = $sql1->fetch_array()) {
 
           $pay_period = $row1['pay_period'];
           $direct_deposit = $row1['direct_deposit'];
           $week_day = $row1['week_day'];
         }
 
-        $sql1 = mysqli_query($con, "SELECT * From tbl_loan WHERE loan_create_id= '$renew_loan_create_id'");
-        $row1 = mysqli_num_rows($sql1);
-
-        while ($row1 = mysqli_fetch_array($sql1)) {
-
-          $amount_of_loan = $row1['amount_of_loan'];
-          
+        $sql1 = $con->query("SELECT * FROM tbl_loan WHERE loan_create_id = ?", [$renew_loan_create_id]);
+        if ($sql1) {
+          while ($row1 = $sql1->fetch_array()) {
+            $amount_of_loan = $row1['amount_of_loan'];
+          }
         }
         //
         ?>

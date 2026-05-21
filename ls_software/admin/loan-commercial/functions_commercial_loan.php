@@ -120,9 +120,9 @@ function UpdateBankInfo()
     $status = $_POST['status'] == "true" ? '1' : '0';
     $newBankInfo = $_POST['newBankInfo'];
 
-    $sql = mysqli_query($con, "select count(bank_id) as count from tbl_bank_info where usr_fnd_id= '$userId' and bank_name='$bankName' and account_number='$accountNumber' and routing_number='$routingNumber' and bank_id != '$bankInfoId'");
+    $sql = $con->query("select count(bank_id) as count from tbl_bank_info where usr_fnd_id= '$userId' and bank_name='$bankName' and account_number='$accountNumber' and routing_number='$routingNumber' and bank_id != '$bankInfoId'");
 
-    while ($row = mysqli_fetch_array($sql)) {
+    while ($row = $sql->fetch_array()) {
         $count = $row['count'];
     }
 
@@ -135,14 +135,14 @@ function UpdateBankInfo()
         return;
     }
 
-    $action_query = "UPDATE `tbl_bank_info` SET `bank_name` = '$bankName', `account_number` = '$accountNumber', `routing_number` = '$routingNumber',`account_type` = '$accountType',`bank_type` = '$bankType', `is_active` = '$status' WHERE `tbl_bank_info`.`bank_id` = '$bankInfoId '";
+    $action_query = "UPDATE tbl_bank_info SET bank_name = '$bankName', account_number = '$accountNumber', routing_number = '$routingNumber',account_type = '$accountType',bank_type = '$bankType', is_active = '$status' WHERE tbl_bank_info.bank_id = '$bankInfoId '";
     $message = "Bank info updated";
     if ($newBankInfo == "true") {
 
-        $action_query = "INSERT INTO `tbl_bank_info` (`bank_id`, `usr_fnd_id`, `bank_name`, `account_number`, `routing_number`,`account_type`,`bank_type`, `is_active`) VALUES (NULL, '$userId', '$bankName', '$accountNumber', '$routingNumber', '$accountType','$bankType','$status')";
+        $action_query = "INSERT INTO tbl_bank_info (bank_id, usr_fnd_id, bank_name, account_number, routing_number,account_type,bank_type, is_active) VALUES (NULL, '$userId', '$bankName', '$accountNumber', '$routingNumber', '$accountType','$bankType','$status')";
         $message = "Bank info inserted";
     }
-    mysqli_query($con, $action_query);
+    $con->query($action_query);
 
 
     $articles[] = array(
@@ -158,9 +158,9 @@ function DeleteBankInfo()
 
     $bankInfoId = $_POST['itemId'];
     $status = "ok";
-    $action_query = "DELETE FROM `tbl_bank_info` WHERE `tbl_bank_info`.`bank_id` = '$bankInfoId'";
+    $action_query = "DELETE FROM tbl_bank_info WHERE tbl_bank_info.bank_id = '$bankInfoId'";
     $message = "Bank info deleted";
-    $result = mysqli_query($con, $action_query);
+    $result = $con->query($action_query);
 
     if (!$result) {
         $status = "fail";
@@ -189,9 +189,9 @@ function UpdateCardInfo()
     $status = $_POST['status'] == "true" ? '1' : '0';
     $newCardInfo = $_POST['newCardInfo'];
 
-    $sql = mysqli_query($con, "select count(id) as count from tbl_bank_cards where user_fnd_id= '$userId' and type_of_id='$typeOfID' and type_of_card='$typeOfCard' and card_number='$cardNumber' and card_exp_date='$expirationDate' and cvv_number='$cvv' and id != '$cardInfoId'");
+    $sql = $con->query("select count(id) as count from tbl_bank_cards where user_fnd_id= '$userId' and type_of_id='$typeOfID' and type_of_card='$typeOfCard' and card_number='$cardNumber' and card_exp_date='$expirationDate' and cvv_number='$cvv' and id != '$cardInfoId'");
 
-    while ($row = mysqli_fetch_array($sql)) {
+    while ($row = $sql->fetch_array()) {
         $count = $row['count'];
     }
 
@@ -204,14 +204,14 @@ function UpdateCardInfo()
         return;
     }
 
-    $action_query = "UPDATE `tbl_bank_cards` SET `bank_id`='$bankId', `type_of_id` = '$typeOfID',`type_of_card` = '$typeOfCard', `card_number` = '$cardNumber', `card_exp_date` = '$expirationDate',`cvv_number`='$cvv', `is_active` = '$status' WHERE `tbl_bank_cards`.`id` = '$cardInfoId '";
+    $action_query = "UPDATE tbl_bank_cards SET bank_id='$bankId', type_of_id = '$typeOfID',type_of_card = '$typeOfCard', card_number = '$cardNumber', card_exp_date = '$expirationDate',cvv_number='$cvv', is_active = '$status' WHERE tbl_bank_cards.id = '$cardInfoId '";
     $message = "Card info updated";
     if ($newCardInfo == "true") {
 
-        $action_query = "INSERT INTO `tbl_bank_cards` (`id`,`bank_id`, `user_fnd_id`,`type_of_id`, `type_of_card`, `card_number`, `card_exp_date`,`cvv_number`, `is_active`) VALUES (NULL,'$bankId', '$userId', '$typeOfID', '$typeOfCard', '$cardNumber', '$expirationDate','$cvv', '$status')";
+        $action_query = "INSERT INTO tbl_bank_cards (id,bank_id, user_fnd_id,type_of_id, type_of_card, card_number, card_exp_date,cvv_number, is_active) VALUES (NULL,'$bankId', '$userId', '$typeOfID', '$typeOfCard', '$cardNumber', '$expirationDate','$cvv', '$status')";
         $message = "Card info inserted";
     }
-    mysqli_query($con, $action_query);
+    $con->query($action_query);
 
 
     $articles[] = array(
@@ -226,9 +226,9 @@ function DeleteCardInfo()
 
     $bankInfoId = $_POST['itemId'];
     $status = "ok";
-    $action_query = "DELETE FROM `tbl_bank_info` WHERE `tbl_bank_info`.`bank_id` = '$bankInfoId'";
+    $action_query = "DELETE FROM tbl_bank_info WHERE tbl_bank_info.bank_id = '$bankInfoId'";
     $message = "Bank info deleted";
-    $result = mysqli_query($con, $action_query);
+    $result = $con->query($action_query);
 
     if (!$result) {
         $status = "fail";
@@ -248,8 +248,8 @@ function GetCardInfoTable()
     $user_fnd_id = $_POST['userId'];
     $loan_create_id = $_POST['loan_create_id'];
 
-    $sql_loan = mysqli_query($con, "SELECT `type_of_id`,`type_of_card`,`card_number`,`card_exp_date`,`bank_name`,`routing_number`,`account_number`,`cvv_number` FROM `commercial_loan_initial_banking` WHERE `loan_id` ='$loan_create_id'");
-    while ($row_bank_detail = mysqli_fetch_array($sql_loan)) {
+    $sql_loan = $con->query("SELECT type_of_id,type_of_card,card_number,card_exp_date,bank_name,routing_number,account_number,cvv_number FROM commercial_loan_initial_banking WHERE loan_id ='$loan_create_id'");
+    while ($row_bank_detail = $sql_loan->fetch_array()) {
         $loan_type_of_id = $row_bank_detail['type_of_id'];
         $loan_type_of_card = $row_bank_detail['type_of_card'];
         $loan_card_number = $row_bank_detail['card_number'];
@@ -278,9 +278,9 @@ function GetCardInfoTable()
 
     // total page minus 1
 
-    $sql_loan = mysqli_query($con, "select * from tbl_bank_cards where user_fnd_id = '$user_fnd_id' and is_active=1");
+    $sql_loan = $con->query("select * from tbl_bank_cards where user_fnd_id = '$user_fnd_id' and is_active=1");
 
-    while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
+    while ($row_bank_detail_sec = $sql_loan->fetch_array()) {
         $card_id = $row_bank_detail_sec['id'];
         $type_of_id = $row_bank_detail_sec['type_of_id'];
         $type_of_card = $row_bank_detail_sec['type_of_card'];
@@ -319,8 +319,8 @@ function GetCardInfoTable()
             </thead>
             <tbody>";
     // total page minus 1
-    $sql_loan = mysqli_query($con, "select * from tbl_bank_info where usr_fnd_id = '$user_fnd_id' and is_active=1");
-    while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
+    $sql_loan = $con->query("select * from tbl_bank_info where usr_fnd_id = '$user_fnd_id' and is_active=1");
+    while ($row_bank_detail_sec = $sql_loan->fetch_array()) {
         $bank_id = $row_bank_detail_sec['bank_id'];
         $bank_name = $row_bank_detail_sec['bank_name'];
         $routing_number = $row_bank_detail_sec['routing_number'];
@@ -359,14 +359,14 @@ function GetCardInfoByBankId()
     $loan_card_exp_date = "";
     $loan_cvv_number = "";
 
-    $query = "SELECT `type_of_id`, `type_of_card`,`card_number`,`card_exp_date`,`bank_name`,`routing_number`,`account_number`,`cvv_number` FROM `commercial_loan_initial_banking` WHERE `loan_id` ='$loan_create_id'";
+    $query = "SELECT type_of_id, type_of_card,card_number,card_exp_date,bank_name,routing_number,account_number,cvv_number FROM commercial_loan_initial_banking WHERE loan_id ='$loan_create_id'";
     if (isset($_POST['is_card']) && $_POST['is_card'] == "true") {
         $transaction_id = $_POST['transaction_id'];
         $query = "select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id  where transaction_id='$transaction_id'";
     }
 
-    $sql_loan = mysqli_query($con, $query);
-    while ($row_bank_detail = mysqli_fetch_array($sql_loan)) {
+    $sql_loan = $con->query($query);
+    while ($row_bank_detail = $sql_loan->fetch_array()) {
         $loan_type_of_id = $row_bank_detail['type_of_id'];
         $loan_type_of_card = $row_bank_detail['type_of_card'];
         $loan_card_number = $row_bank_detail['card_number'];
@@ -392,9 +392,9 @@ function GetCardInfoByBankId()
 
     // total page minus 1
 
-    $sql_loan = mysqli_query($con, "select * from tbl_bank_cards where user_fnd_id = '$user_fnd_id' and is_active=1 and bank_id='$bankId'");
+    $sql_loan = $con->query("select * from tbl_bank_cards where user_fnd_id = '$user_fnd_id' and is_active=1 and bank_id='$bankId'");
 
-    while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
+    while ($row_bank_detail_sec = $sql_loan->fetch_array()) {
         $card_id = $row_bank_detail_sec['id'];
         $type_of_id = $row_bank_detail_sec['type_of_id'];
         $type_of_card = $row_bank_detail_sec['type_of_card'];
@@ -430,17 +430,17 @@ function GetBankInfoTable()
     global $con;
     $user_fnd_id = $_POST['userId'];
     $loan_create_id = $_POST['loan_create_id'];
-    $query = "SELECT `type_of_card`,`card_number`,`card_exp_date`,`bank_name`,`routing_number`,`account_number`,`cvv_number` FROM `commercial_loan_initial_banking` WHERE `loan_id` ='$loan_create_id'";
+    $query = "SELECT type_of_card,card_number,card_exp_date,bank_name,routing_number,account_number,cvv_number FROM commercial_loan_initial_banking WHERE loan_id ='$loan_create_id'";
     if (isset($_POST['is_card']) && $_POST['is_card'] == "true") {
         $transaction_id = $_POST['transaction_id'];
         $query = "select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id  where transaction_id='$transaction_id'";
     }
 
-    $sql_loan = mysqli_query($con, $query);
+    $sql_loan = $con->query($query);
     $loan_bank_name = "";
     $loan_routing_number = "";
     $loan_account_number = "";
-    while ($row_bank_detail = mysqli_fetch_array($sql_loan)) {
+    while ($row_bank_detail = $sql_loan->fetch_array()) {
         $loan_type_of_card = $row_bank_detail['type_of_card'];
         $loan_card_number = $row_bank_detail['card_number'];
         $loan_card_exp_date = $row_bank_detail['card_exp_date'];
@@ -469,8 +469,8 @@ function GetBankInfoTable()
             </thead>
             <tbody>";
     // total page minus 1
-    $sql_loan = mysqli_query($con, "select * from tbl_bank_info where usr_fnd_id = '$user_fnd_id' and is_active=1");
-    while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
+    $sql_loan = $con->query("select * from tbl_bank_info where usr_fnd_id = '$user_fnd_id' and is_active=1");
+    while ($row_bank_detail_sec = $sql_loan->fetch_array()) {
         $bank_id = $row_bank_detail_sec['bank_id'];
         $bank_name = $row_bank_detail_sec['bank_name'];
         $routing_number = $row_bank_detail_sec['routing_number'];
@@ -518,8 +518,8 @@ function GetBankInfoByUserId()
         </thead>
         <tbody>";
 
-    $sql_loan = mysqli_query($con, "select * from tbl_bank_info where usr_fnd_id = '$userId' and is_active=1");
-    while ($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
+    $sql_loan = $con->query("select * from tbl_bank_info where usr_fnd_id = '$userId' and is_active=1");
+    while ($row_bank_detail_sec = $sql_loan->fetch_array()) {
         $bank_id = $row_bank_detail_sec['bank_id'];
         $bank_name = $row_bank_detail_sec['bank_name'];
         $routing_number = $row_bank_detail_sec['routing_number'];
@@ -545,8 +545,8 @@ function InsertAllBankInformation()
 {
     global $con;
     $user_fnd_id = $_POST['userId'];
-    $sql_loan = mysqli_query($con, "SELECT `type_of_card`,`card_number`,`card_exp_date`,`bank_name`,`routing_number`,`account_number`,`cvv_number` FROM `commercial_loan_initial_banking` WHERE `user_fnd_id` ='$user_fnd_id'");
-    while ($row_bank_detail = mysqli_fetch_array($sql_loan)) {
+    $sql_loan = $con->query("SELECT type_of_card,card_number,card_exp_date,bank_name,routing_number,account_number,cvv_number FROM commercial_loan_initial_banking WHERE user_fnd_id ='$user_fnd_id'");
+    while ($row_bank_detail = $sql_loan->fetch_array()) {
         $_POST['cardInfoId'] = "";
         $_POST['typeOfCard'] = $row_bank_detail['type_of_card'];
         $_POST['cardNumber'] = $row_bank_detail['card_number'];
@@ -586,8 +586,8 @@ function SetChargeback()
     $skip_amount = $transaction_amount - $chargeback_amount;
 
     $installment_id = 0;
-    $sql_chargeback = mysqli_query($con, "SELECT * FROM `tbl_commercial_loan_chargeback` where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
-    while ($row_chargeback = mysqli_fetch_array($sql_chargeback)) {
+    $sql_chargeback = $con->query("SELECT * FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
+    while ($row_chargeback = $sql_chargeback->fetch_array()) {
         $installment_id = $row_chargeback['installment_id'];
         $installment_paid = $row_chargeback['installment_paid'];
         $late_fee_paid = $row_chargeback['late_fee_paid'];
@@ -611,28 +611,28 @@ function SetChargeback()
         $chargeback_paid = $installment_paid - $skip_amount;
         $skip_amount = 0;
 
-        $action_query = "UPDATE `tbl_commercial_loan_installments` SET `chargeback_amount`=`chargeback_amount`+'$chargeback_paid',`paid amount`=`paid amount`-$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid,`status` = 0 WHERE `id` = '$installment_id'";
-        mysqli_query($con, $action_query);
+        $action_query = "UPDATE tbl_commercial_loan_installments SET chargeback_amount=chargeback_amount+'$chargeback_paid',paid amount=paid amount-$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid,status = 0 WHERE id = '$installment_id'";
+        $con->query($action_query);
     }
 
     if ($other_fee != 0) {
-        $action_query = "UPDATE `tbl_other_fees` SET `amount_fee_paid`= amount_fee_paid - $other_fee WHERE `tbl_other_fees_id` = '$other_fee_id'";
-        mysqli_query($con, $action_query);
+        $action_query = "UPDATE tbl_other_fees SET amount_fee_paid= amount_fee_paid - $other_fee WHERE tbl_other_fees_id = '$other_fee_id'";
+        $con->query($action_query);
     }
 
     $interest = 0;
     $principal_amount = 0;
     if ($transaction_amount != 0) {
-        $sql_transactions = mysqli_query($con, "SELECT * FROM `commercial_loan_transaction` where loan_create_id= '$loan_id' and transaction_id = $transaction_id");
-        while ($row_transaction = mysqli_fetch_array($sql_transactions)) {
+        $sql_transactions = $con->query("SELECT * FROM commercial_loan_transaction where loan_create_id= '$loan_id' and transaction_id = $transaction_id");
+        while ($row_transaction = $sql_transactions->fetch_array()) {
             $percent = $chargeback_amount / $transaction_amount;
             $interest = -$row_transaction['interest'] * $percent;
             $principal_amount = number_format(-$row_transaction['principal_amount'] * $percent, 2);
         }
     }
 
-    $sql_transactions = mysqli_query($con, "SELECT * FROM `commercial_loan_transaction` where loan_create_id= '$loan_id' order by transaction_id desc limit 1");
-    while ($row_transaction = mysqli_fetch_array($sql_transactions)) {
+    $sql_transactions = $con->query("SELECT * FROM commercial_loan_transaction where loan_create_id= '$loan_id' order by transaction_id desc OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY");
+    while ($row_transaction = $sql_transactions->fetch_array()) {
         $remaining_balance = $row_transaction['remaining_balance'] - $principal_amount;
         $id = $row_transaction['loan_id'];
         $user_fnd_id = $row_transaction['user_fnd_id'];
@@ -645,36 +645,36 @@ function SetChargeback()
     $due_date = strftime('%Y-%m-%d', strtotime("now"));
     $payment_method = "Chargeback (" . $transaction_id . ")";
 
-    $query_insert_trans = "INSERT INTO `commercial_loan_transaction`(`loan_id`, `loan_create_id`, `user_fnd_id`, `installment_id`, 
-    `payment_amount`, `interest`, `principal_amount`, `remaining_balance`, `late_fee`,
-     `convenience_fee` ,`other_fee`,`other_fee_id`, `payment_date`, `payment_description`,`payment_method`, `created_at`, `created_by`) VALUES ('$id','$loan_id','$user_fnd_id','$installment_id',
+    $query_insert_trans = "INSERT INTO commercial_loan_transaction(loan_id, loan_create_id, user_fnd_id, installment_id, 
+    payment_amount, interest, principal_amount, remaining_balance, late_fee,
+     convenience_fee ,other_fee,other_fee_id, payment_date, payment_description,payment_method, created_at, created_by) VALUES ('$id','$loan_id','$user_fnd_id','$installment_id',
      '-$chargeback_amount','$interest','$principal_amount','$remaining_balance','$late_fee','$convenience_fee','$other_fee','$other_fee_id',
      '$due_date','$payment_description','$payment_method','$due_date','$u_id')";
-    $result_insert_trans = mysqli_query($con, $query_insert_trans);
+    $result_insert_trans = $con->query($query_insert_trans);
 
-    $action_query = "UPDATE `commercial_loan_transaction` SET `is_chargeback`=1 WHERE `transaction_id` = '$transaction_id'";
-    mysqli_query($con, $action_query);
+    $action_query = "UPDATE commercial_loan_transaction SET is_chargeback=1 WHERE transaction_id = '$transaction_id'";
+    $con->query($action_query);
 
 
-    mysqli_query($con, "INSERT INTO tbl_lists (kind, item) select 'Other Fee', 'Chargeback Fee' where not exists( select * from tbl_lists where kind='Other Fee' and item='Chargeback Fee')");
+    $con->query("INSERT INTO tbl_lists (kind, item) select 'Other Fee', 'Chargeback Fee' where not exists( select * from tbl_lists where kind='Other Fee' and item='Chargeback Fee')");
 
-    $sql = mysqli_query($con, "select tbl_lists_id from tbl_lists where kind='Other Fee' and item='Chargeback Fee'");
+    $sql = $con->query("select tbl_lists_id from tbl_lists where kind='Other Fee' and item='Chargeback Fee'");
 
-    while ($row = mysqli_fetch_array($sql)) {
+    while ($row = $sql->fetch_array()) {
         $kind = $row['tbl_lists_id'];
     }
 
-    $action_query = "UPDATE `tbl_other_fees` SET `amount_fee`=`amount_fee` + 15 WHERE `loan_created_id` = '$loan_id' AND `kind_fee` = $kind AND `user_fnd_id` = '$user_fnd_id'";
-    $update_result = mysqli_query($con, $action_query);
+    $action_query = "UPDATE tbl_other_fees SET amount_fee=amount_fee + 15 WHERE loan_created_id = '$loan_id' AND kind_fee = $kind AND user_fnd_id = '$user_fnd_id'";
+    $update_result = $con->query($action_query);
 
     if (if_insert($con)) {
         $action_query = "INSERT INTO `tbl_other_fees` (`tbl_other_fees_id`, `kind_fee`, `user_fnd_id`, `loan_created_id`, `amount_fee`, `amount_fee_paid`) VALUES (NULL, '$kind', '$user_fnd_id', '$loan_id', 15, 0)";
-        mysqli_query($con, $action_query);
-        $other_fee_transaction = mysqli_insert_id($con);
+        $con->query($action_query);
+        $other_fee_transaction = $con->insert_id();
     }
 
-    $action_query = "UPDATE `commercial_loan_transaction` SET `chargeback_fee`=15, `chargeback_fee_id` = (SELECT tbl_other_fees_id from tbl_other_fees  WHERE `loan_created_id` = '$loan_id' AND `kind_fee` = $kind AND `user_fnd_id` = '$user_fnd_id') WHERE `transaction_id` = '$transaction_id'";
-    mysqli_query($con, $action_query);
+    $action_query = "UPDATE commercial_loan_transaction SET chargeback_fee=15, chargeback_fee_id = (SELECT tbl_other_fees_id from tbl_other_fees  WHERE loan_created_id = '$loan_id' AND kind_fee = $kind AND user_fnd_id = '$user_fnd_id') WHERE transaction_id = '$transaction_id'";
+    $con->query($action_query);
 
     $message = "Chargeback added";
 
@@ -697,11 +697,11 @@ function UpdateOtherFee()
     $newOtherFee = $_POST['newOtherFee'];
 
 
-    mysqli_query($con, "INSERT INTO tbl_lists (kind, item) select * from (SELECT 'Other Fee' as other_fee , '$description' as description) as new_value where not exists( select * from tbl_lists where kind='Other Fee' and item='$description')");
+    $con->query("INSERT INTO tbl_lists (kind, item) select * from (SELECT 'Other Fee' as other_fee , '$description' as description) as new_value where not exists( select * from tbl_lists where kind='Other Fee' and item='$description')");
 
-    $sql = mysqli_query($con, "select tbl_lists_id from tbl_lists where kind='Other Fee' and item='$description'");
+    $sql = $con->query("select tbl_lists_id from tbl_lists where kind='Other Fee' and item='$description'");
 
-    while ($row = mysqli_fetch_array($sql)) {
+    while ($row = $sql->fetch_array()) {
         $kind = $row['tbl_lists_id'];
     }
 
@@ -721,7 +721,7 @@ function UpdateOtherFee()
         $action_query = "INSERT INTO `tbl_other_fees` (`tbl_other_fees_id`, `kind_fee`, `user_fnd_id`, `loan_created_id`,`installment_id`, `amount_fee`, `amount_fee_paid`) VALUES (NULL, '$kind', '$userId', '$loanId', '$number_installment' ,'$amountFee', 0)";
         $message = "Other fee inserted";
     }
-    mysqli_query($con, $action_query);
+    $con->query($action_query);
 
 
     $articles[] = array(
@@ -737,9 +737,9 @@ function DeleteOtherFee()
 
     $other_fee_id = $_POST['itemId'];
     $status = "ok";
-    $action_query = "DELETE FROM `tbl_other_fees` WHERE `tbl_other_fees`.`tbl_other_fees_id` = '$other_fee_id'";
+    $action_query = "DELETE FROM tbl_other_fees WHERE tbl_other_fees.tbl_other_fees_id = '$other_fee_id'";
     $message = "Other fee deleted";
-    $result = mysqli_query($con, $action_query);
+    $result = $con->query($action_query);
 
     if (!$result) {
         $status = "fail";
@@ -759,10 +759,10 @@ function GetUnpaidOtherFee()
 
     $id = $_POST["id"];
 
-    $sql = mysqli_query($con, "SELECT (amount_fee - amount_fee_paid) as nonpaid from tbl_other_fees where tbl_other_fees_id = '$id'");
+    $sql = $con->query("SELECT (amount_fee - amount_fee_paid) as nonpaid from tbl_other_fees where tbl_other_fees_id = '$id'");
 
     $nonpaid = 0;
-    while ($row = mysqli_fetch_array($sql)) {
+    while ($row = $sql->fetch_array()) {
         $nonpaid = $row['nonpaid'];
     }
 
@@ -789,8 +789,8 @@ function UpdateTransaction()
     $payment_method = $_POST['payment_method'];
     $payment_description = $_POST['payment_description'];
 
-    $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$transaction_id'");
-    while ($row_loan = mysqli_fetch_array($sql_loan)) {
+    $sql_loan = $con->query("select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$transaction_id'");
+    while ($row_loan = $sql_loan->fetch_array()) {
         $payment_amount = $row_loan['payment_amount'];
         $interest = $row_loan['interest'];
         $principal_amount = $row_loan['principal_amount'];
@@ -839,7 +839,7 @@ function UpdateTransaction()
         $payment_method = $prev_payment_method;
     } else {
         if ($card_info != 0) {
-            mysqli_query($con, "DELETE FROM commercial_loan_transaction_cards_info where card_info_id='$card_info'");
+            $con->query("DELETE FROM commercial_loan_transaction_cards_info where card_info_id='$card_info'");
         }
     }
 
@@ -866,34 +866,34 @@ function UpdateTransaction()
     /******
      * * Increase paid amount and paid late fee from installments and other fee amount form other fees related to tbl_commercial_loan_chargeback table
      */
-    $sql_chargeback = mysqli_query($con, "SELECT * FROM `tbl_commercial_loan_chargeback` where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
-    while ($row_chargeback = mysqli_fetch_array($sql_chargeback)) {
+    $sql_chargeback = $con->query("SELECT * FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
+    while ($row_chargeback = $sql_chargeback->fetch_array()) {
         $installment_id = $row_chargeback['installment_id'];
         $installment_paid = $row_chargeback['installment_paid'];
         $late_fee_paid = $row_chargeback['late_fee_paid'];
         $convenience_fee_paid = $row_chargeback['convenience_fee_paid'];
         $other_fee_id_paid = $row_chargeback['other_fee_id'];
         $other_fee_paid = $row_chargeback['other_fee_paid'];
-        mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET status = 0, `paid amount`=`paid amount` -  $installment_paid, paid_late_fee = paid_late_fee - $late_fee_paid  where id = $installment_id");
-        mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid - $other_fee_paid  where tbl_other_fees_id = $other_fee_id_paid");
+        $con->query("UPDATE tbl_commercial_loan_installments SET status = 0, paid amount=paid amount -  $installment_paid, paid_late_fee = paid_late_fee - $late_fee_paid  where id = $installment_id");
+        $con->query("UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid - $other_fee_paid  where tbl_other_fees_id = $other_fee_id_paid");
     }
 
-    mysqli_query($con, "DELETE FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
+    $con->query("DELETE FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
 
 
     $if_empty_payment = $to_be_paid_amount == 0;
 
     if ($if_empty_payment) {
-        $query_payment = mysqli_query($con, "Select remaining_balance from commercial_loan_transaction where loan_create_id = '$loan_id' order by transaction_id desc limit 2");
+        $query_payment = $con->query("Select remaining_balance from commercial_loan_transaction where loan_create_id = '$loan_id' order by transaction_id desc OFFSET 0 ROWS FETCH NEXT 2 ROWS ONLY");
         $count = 0;
-        while ($row = mysqli_fetch_array($query_payment)) {
+        while ($row = $query_payment->fetch_array()) {
             $count++;
             $rem_balance  = $row['remaining_balance'];
         }
 
         if ($count == 1) {
-            $sql_loan = mysqli_query($con, "SELECT * FROM `tbl_commercial_loan` where loan_create_id = '$loan_id'");
-            while ($row_loan = mysqli_fetch_array($sql_loan)) {
+            $sql_loan = $con->query("SELECT * FROM tbl_commercial_loan where loan_create_id = '$loan_id'");
+            while ($row_loan = $sql_loan->fetch_array()) {
                 $rem_balance = $row_loan["amount_of_loan"];
             }
         }
@@ -905,8 +905,8 @@ function UpdateTransaction()
     $continue = true;
     $installment_dict = [];
 
-    $query_payment = mysqli_query($con, "Select payment, `id`, `paid amount`, balance, interest, principal, paid_late_fee from `tbl_commercial_loan_installments` where loan_create_id = '$loan_id' and status = 0 order by id asc");
-    while ($row_payment = mysqli_fetch_array($query_payment)) {
+    $query_payment = $con->query("Select payment, id, paid amount, balance, interest, principal, paid_late_fee from tbl_commercial_loan_installments where loan_create_id = '$loan_id' and status = 0 order by id asc");
+    while ($row_payment = $query_payment->fetch_array()) {
         if ($to_be_paid_amount == 0) {
             break;
         }
@@ -945,7 +945,7 @@ function UpdateTransaction()
             $paid_late_fee = $late_fee + $row_payment['paid_late_fee'];
         }
 
-        mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `paid_late_fee` = '$paid_late_fee', `paid amount`= `paid amount` + '$to_paid',status=$status, payment_description='$payment_description'  where id ='$intallment_id'");
+        $con->query("UPDATE tbl_commercial_loan_installments SET paid_late_fee = '$paid_late_fee', paid amount= paid amount + '$to_paid',status=$status, payment_description='$payment_description'  where id ='$intallment_id'");
 
         $installment_dict[$intallment_id] = $to_paid;
     }
@@ -957,19 +957,19 @@ function UpdateTransaction()
 
     if ($type_of_description != "") {
         $other_fee_id = str_replace(array("(", ")"), array("", ""), end(explode(" ", $type_of_description)));
-        mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $other_fee where tbl_other_fees_id = $other_fee_id");
+        $con->query("UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid + $other_fee where tbl_other_fees_id = $other_fee_id");
     }
 
-    mysqli_query($con, "UPDATE commercial_loan_transaction SET `payment_amount` = $db_totalamountpaid, `interest` = $db_interestpaid, `principal_amount` = $db_principlepaid, `remaining_balance` = $rem_balance, `late_fee` = $late_fee, `convenience_fee` = $convenience_fee ,`other_fee` = $other_fee,`other_fee_id`=$other_fee_id,`payment_description` = '$payment_description',`payment_method` = '$payment_method' where transaction_id=$transaction_id");
+    $con->query("UPDATE commercial_loan_transaction SET payment_amount = $db_totalamountpaid, interest = $db_interestpaid, principal_amount = $db_principlepaid, remaining_balance = $rem_balance, late_fee = $late_fee, convenience_fee = $convenience_fee ,other_fee = $other_fee,other_fee_id=$other_fee_id,payment_description = '$payment_description',payment_method = '$payment_method' where transaction_id=$transaction_id");
 
 
 
     if (isset($_POST['bankExists']) && isset($_POST['cardExists'])) {
-        $query_transaction = "INSERT INTO `commercial_loan_transaction_cards_info` (`card_info_id`,`type_of_id`, `type_of_card`, `card_number`, `card_exp_date`, `cvv_number`, `bank_name`, `account_number`, `routing_number`, `account_type`, `bank_type`) VALUES ('','$typeOfID', '$typeOfCard', '$cardNumber', '$expDate', '$cvv', '$bankName', '$accountNumber', '$routingNumber', '$accountType', '$bankType')";
-        $result = mysqli_query($con, $query_transaction);
-        $card_info_id = mysqli_insert_id($con);
+        $query_transaction = "INSERT INTO commercial_loan_transaction_cards_info (card_info_id,type_of_id, type_of_card, card_number, card_exp_date, cvv_number, bank_name, account_number, routing_number, account_type, bank_type) VALUES ('','$typeOfID', '$typeOfCard', '$cardNumber', '$expDate', '$cvv', '$bankName', '$accountNumber', '$routingNumber', '$accountType', '$bankType')";
+        $result = $con->query($query_transaction);
+        $card_info_id = $con->insert_id();
 
-        mysqli_query($con, "UPDATE commercial_loan_transaction SET card_info='$card_info_id' where transaction_id ='$transaction_id'");
+        $con->query("UPDATE commercial_loan_transaction SET card_info='$card_info_id' where transaction_id ='$transaction_id'");
     }
 
     if ($if_empty_payment) {
@@ -977,8 +977,8 @@ function UpdateTransaction()
     }
 
     foreach ($installment_dict as $installment_id => $paid_amount) {
-        $query_insert_chargeback = "INSERT INTO `tbl_commercial_loan_chargeback` (`id`, `loan_create_id`, `transaction_id`, `installment_id`, `installment_paid`, `late_fee_paid`, `convenience_fee_paid`, `other_fee_id`, `other_fee_paid`) VALUES (NULL, $loan_id, $transaction_id, $installment_id,  $paid_amount, $late_fee, $convenience_fee, $other_fee_id,  $other_fee)";
-        $result_insert_chargeback = mysqli_query($con, $query_insert_chargeback);
+        $query_insert_chargeback = "INSERT INTO tbl_commercial_loan_chargeback (id, loan_create_id, transaction_id, installment_id, installment_paid, late_fee_paid, convenience_fee_paid, other_fee_id, other_fee_paid) VALUES (NULL, $loan_id, $transaction_id, $installment_id,  $paid_amount, $late_fee, $convenience_fee, $other_fee_id,  $other_fee)";
+        $result_insert_chargeback = $con->query($query_insert_chargeback);
         $late_fee = 0;
         $convenience_fee = 0;
         $other_fee_id = 0;
@@ -1037,8 +1037,8 @@ function UpdateChargebackTransaction()
     $payment_description = $_POST['payment_description'];
 
     // * original transaction
-    $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$chargeback_transaction_id'");
-    while ($row_loan = mysqli_fetch_array($sql_loan)) {
+    $sql_loan = $con->query("select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$chargeback_transaction_id'");
+    while ($row_loan = $sql_loan->fetch_array()) {
         $payment_amount = $row_loan['payment_amount'];
         $late_fee_chargeback = $row_loan['late_fee'];
         $convenience_fee_chargeback = $row_loan['convenience_fee'];
@@ -1051,15 +1051,15 @@ function UpdateChargebackTransaction()
     $last =  end($tmp);
     $transaction_id = str_replace(array("(", ")"), array("", ""), $last);
 
-    $sql_chargeback = mysqli_query($con, "SELECT sum(`installment_paid`) as transaction_amount FROM `tbl_commercial_loan_chargeback` where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
-    while ($row_chargeback = mysqli_fetch_array($sql_chargeback)) {
+    $sql_chargeback = $con->query("SELECT sum(installment_paid) as transaction_amount FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
+    while ($row_chargeback = $sql_chargeback->fetch_array()) {
         $transaction_amount = $row_chargeback['transaction_amount'];
     }
 
     $skip_amount = $transaction_amount + $payment_amount; // * payment_amount - negative number
 
-    $sql_chargeback = mysqli_query($con, "SELECT * FROM `tbl_commercial_loan_chargeback` where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
-    while ($row_chargeback = mysqli_fetch_array($sql_chargeback)) {
+    $sql_chargeback = $con->query("SELECT * FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
+    while ($row_chargeback = $sql_chargeback->fetch_array()) {
         $installment_id = $row_chargeback['installment_id'];
         $installment_paid = $row_chargeback['installment_paid'];
         $late_fee_paid = $row_chargeback['late_fee_paid'];
@@ -1082,13 +1082,13 @@ function UpdateChargebackTransaction()
 
         $chargeback_paid = $installment_paid - $skip_amount;
         $skip_amount = 0;
-        $action_query = "UPDATE `tbl_commercial_loan_installments` SET `chargeback_amount`=`chargeback_amount`-'$chargeback_paid',`paid amount`=`paid amount`+$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid, status = (select if(payment=`paid amount`+$chargeback_paid,1,0) from (select * from `tbl_commercial_loan_installments`) as t where id = '$installment_id') WHERE `id` = '$installment_id'";
-        mysqli_query($con, $action_query);
+        $action_query = "UPDATE tbl_commercial_loan_installments SET chargeback_amount=chargeback_amount-'$chargeback_paid',paid amount=paid amount+$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid, status = (select if(payment=paid amount+$chargeback_paid,1,0) from (select * from tbl_commercial_loan_installments) as t where id = '$installment_id') WHERE id = '$installment_id'";
+        $con->query($action_query);
     }
 
     if ($other_fee_chargeback != 0) {
-        $action_query = "UPDATE `tbl_other_fees` SET `amount_fee_paid`= amount_fee_paid - $other_fee_chargeback WHERE `tbl_other_fees_id` = '$other_fee_id'";
-        mysqli_query($con, $action_query);
+        $action_query = "UPDATE tbl_other_fees SET amount_fee_paid= amount_fee_paid - $other_fee_chargeback WHERE tbl_other_fees_id = '$other_fee_id'";
+        $con->query($action_query);
     }
 
 
@@ -1117,8 +1117,8 @@ function UpdateChargebackTransaction()
     $skip_amount = $transaction_amount - $to_be_paid_amount;
 
     $installment_id = 0;
-    $sql_chargeback = mysqli_query($con, "SELECT * FROM `tbl_commercial_loan_chargeback` where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
-    while ($row_chargeback = mysqli_fetch_array($sql_chargeback)) {
+    $sql_chargeback = $con->query("SELECT * FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
+    while ($row_chargeback = $sql_chargeback->fetch_array()) {
         $installment_id = $row_chargeback['installment_id'];
         $installment_paid = $row_chargeback['installment_paid'];
         $late_fee_paid = $row_chargeback['late_fee_paid'];
@@ -1142,28 +1142,28 @@ function UpdateChargebackTransaction()
         $chargeback_paid = $installment_paid - $skip_amount;
         $skip_amount = 0;
 
-        $action_query = "UPDATE `tbl_commercial_loan_installments` SET `chargeback_amount`=`chargeback_amount`+'$chargeback_paid',`paid amount`=`paid amount`-$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid,`status` = 0 WHERE `id` = '$installment_id'";
-        mysqli_query($con, $action_query);
+        $action_query = "UPDATE tbl_commercial_loan_installments SET chargeback_amount=chargeback_amount+'$chargeback_paid',paid amount=paid amount-$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid,status = 0 WHERE id = '$installment_id'";
+        $con->query($action_query);
     }
 
     if ($other_fee != 0) {
-        $action_query = "UPDATE `tbl_other_fees` SET `amount_fee_paid`= amount_fee_paid - $other_fee WHERE `tbl_other_fees_id` = '$other_fee_id'";
-        mysqli_query($con, $action_query);
+        $action_query = "UPDATE tbl_other_fees SET amount_fee_paid= amount_fee_paid - $other_fee WHERE tbl_other_fees_id = '$other_fee_id'";
+        $con->query($action_query);
     }
 
     $interest = 0;
     $principal_amount = 0;
     if ($transaction_amount != 0) {
-        $sql_transactions = mysqli_query($con, "SELECT * FROM `commercial_loan_transaction` where loan_create_id= '$loan_id' and transaction_id = $transaction_id");
-        while ($row_transaction = mysqli_fetch_array($sql_transactions)) {
+        $sql_transactions = $con->query("SELECT * FROM commercial_loan_transaction where loan_create_id= '$loan_id' and transaction_id = $transaction_id");
+        while ($row_transaction = $sql_transactions->fetch_array()) {
             $percent = $to_be_paid_amount / $transaction_amount;
             $interest = -$row_transaction['interest'] * $percent;
             $principal_amount = number_format(-$row_transaction['principal_amount'] * $percent, 2);
         }
     }
 
-    $sql_transactions = mysqli_query($con, "SELECT * FROM `commercial_loan_transaction` where loan_create_id= '$loan_id' and transaction_id != '$chargeback_transaction_id' order by transaction_id desc limit 1");
-    while ($row_transaction = mysqli_fetch_array($sql_transactions)) {
+    $sql_transactions = $con->query("SELECT * FROM commercial_loan_transaction where loan_create_id= '$loan_id' and transaction_id != '$chargeback_transaction_id' order by transaction_id desc OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY");
+    while ($row_transaction = $sql_transactions->fetch_array()) {
         $remaining_balance = $row_transaction['remaining_balance'] - $principal_amount;
         $id = $row_transaction['loan_id'];
         $user_fnd_id = $row_transaction['user_fnd_id'];
@@ -1175,9 +1175,9 @@ function UpdateChargebackTransaction()
     $convenience_fee = $convenience_fee == 0 ? 0 : -$convenience_fee;
     $other_fee = $other_fee == 0 ? 0 : -$other_fee;
 
-    $action_query = "UPDATE `commercial_loan_transaction` SET `payment_amount` = '-$to_be_paid_amount', `interest` = '$interest', `principal_amount` ='$principal_amount', `remaining_balance` = '$remaining_balance', `late_fee` = '$late_fee',
-    `convenience_fee` = '$convenience_fee' ,`other_fee` = '$other_fee',`payment_description` = '$payment_description' WHERE `transaction_id` = '$chargeback_transaction_id'";
-    mysqli_query($con, $action_query);
+    $action_query = "UPDATE commercial_loan_transaction SET payment_amount = '-$to_be_paid_amount', interest = '$interest', principal_amount ='$principal_amount', remaining_balance = '$remaining_balance', late_fee = '$late_fee',
+    convenience_fee = '$convenience_fee' ,other_fee = '$other_fee',payment_description = '$payment_description' WHERE transaction_id = '$chargeback_transaction_id'";
+    $con->query($action_query);
 
     $message = "Chargeback transaction updated";
 
@@ -1194,8 +1194,8 @@ function DeleteChargebackTransaction()
     $chargeback_transaction_id = $_POST["transactionId"];
 
     // * original transaction
-    $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$chargeback_transaction_id'");
-    while ($row_loan = mysqli_fetch_array($sql_loan)) {
+    $sql_loan = $con->query("select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$chargeback_transaction_id'");
+    while ($row_loan = $sql_loan->fetch_array()) {
         $payment_amount = $row_loan['payment_amount'];
         $late_fee_chargeback = $row_loan['late_fee'];
         $convenience_fee_chargeback = $row_loan['convenience_fee'];
@@ -1210,15 +1210,15 @@ function DeleteChargebackTransaction()
     $last =  end($tmp);
     $transaction_id = str_replace(array("(", ")"), array("", ""), $last);
 
-    $sql_chargeback = mysqli_query($con, "SELECT sum(`installment_paid`) as transaction_amount FROM `tbl_commercial_loan_chargeback` where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
-    while ($row_chargeback = mysqli_fetch_array($sql_chargeback)) {
+    $sql_chargeback = $con->query("SELECT sum(installment_paid) as transaction_amount FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
+    while ($row_chargeback = $sql_chargeback->fetch_array()) {
         $transaction_amount = $row_chargeback['transaction_amount'];
     }
 
     $skip_amount = $transaction_amount + $payment_amount; // * payment_amount - negative number
 
-    $sql_chargeback = mysqli_query($con, "SELECT * FROM `tbl_commercial_loan_chargeback` where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
-    while ($row_chargeback = mysqli_fetch_array($sql_chargeback)) {
+    $sql_chargeback = $con->query("SELECT * FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
+    while ($row_chargeback = $sql_chargeback->fetch_array()) {
         $installment_id = $row_chargeback['installment_id'];
         $installment_paid = $row_chargeback['installment_paid'];
         $late_fee_paid = $row_chargeback['late_fee_paid'];
@@ -1241,17 +1241,17 @@ function DeleteChargebackTransaction()
 
         $chargeback_paid = $installment_paid - $skip_amount;
         $skip_amount = 0;
-        $action_query = "UPDATE `tbl_commercial_loan_installments` SET `chargeback_amount`=`chargeback_amount`-'$chargeback_paid',`paid amount`=`paid amount`+$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid, status = (select if(payment=`paid amount`+$chargeback_paid,1,0) from (select * from `tbl_commercial_loan_installments`) as t where id = '$installment_id') WHERE `id` = '$installment_id'";
-        mysqli_query($con, $action_query);
+        $action_query = "UPDATE tbl_commercial_loan_installments SET chargeback_amount=chargeback_amount-'$chargeback_paid',paid amount=paid amount+$chargeback_paid, paid_late_fee = paid_late_fee - $late_fee_paid, status = (select if(payment=paid amount+$chargeback_paid,1,0) from (select * from tbl_commercial_loan_installments) as t where id = '$installment_id') WHERE id = '$installment_id'";
+        $con->query($action_query);
     }
 
     if ($other_fee_chargeback != 0) {
-        $action_query = "UPDATE `tbl_other_fees` SET `amount_fee_paid`= amount_fee_paid - $other_fee_chargeback WHERE `tbl_other_fees_id` = '$other_fee_id'";
-        mysqli_query($con, $action_query);
+        $action_query = "UPDATE tbl_other_fees SET amount_fee_paid= amount_fee_paid - $other_fee_chargeback WHERE tbl_other_fees_id = '$other_fee_id'";
+        $con->query($action_query);
     }
 
-    $sql_other_fees = mysqli_query($con, "SELECT * FROM `tbl_other_fees` where kind_fee = (select tbl_lists_id from tbl_lists where kind='Other Fee' and item='Chargeback Fee' ) AND loan_created_id = '$loan_id'");
-    while ($row_fees = mysqli_fetch_array($sql_other_fees)) {
+    $sql_other_fees = $con->query("SELECT * FROM tbl_other_fees where kind_fee = (select tbl_lists_id from tbl_lists where kind='Other Fee' and item='Chargeback Fee' ) AND loan_created_id = '$loan_id'");
+    while ($row_fees = $sql_other_fees->fetch_array()) {
         $amount_fee = $row_fees['amount_fee'];
         $amount_fee_paid = $row_fees['amount_fee_paid'];
         $tbl_other_fees_id = $row_fees['tbl_other_fees_id'];
@@ -1261,14 +1261,14 @@ function DeleteChargebackTransaction()
             $action_query = "DELETE FROM `tbl_other_fees` WHERE `tbl_other_fees_id` = '$tbl_other_fees_id'";
         }
 
-        mysqli_query($con, $action_query);
+        $con->query($action_query);
     }
 
 
-    $action_query = "UPDATE `commercial_loan_transaction` SET `is_chargeback`=0 WHERE `transaction_id` = '$transaction_id'";
-    mysqli_query($con, $action_query);
+    $action_query = "UPDATE commercial_loan_transaction SET is_chargeback=0 WHERE transaction_id = '$transaction_id'";
+    $con->query($action_query);
 
-    mysqli_query($con, "DELETE FROM commercial_loan_transaction where transaction_id='$chargeback_transaction_id' and loan_create_id = '$loan_id'");
+    $con->query("DELETE FROM commercial_loan_transaction where transaction_id='$chargeback_transaction_id' and loan_create_id = '$loan_id'");
 
     $message = "Chargeback transaction deleted";
 
@@ -1284,8 +1284,8 @@ function DeleteTransaction()
     global $con;
     $transaction_id = $_POST['transactionId'];
 
-    $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$transaction_id'");
-    while ($row_loan = mysqli_fetch_array($sql_loan)) {
+    $sql_loan = $con->query("select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$transaction_id'");
+    while ($row_loan = $sql_loan->fetch_array()) {
         $loan_create_id = $row_loan['loan_create_id'];
         $payment_amount = $row_loan['payment_amount'];
         $interest = $row_loan['interest'];
@@ -1311,39 +1311,39 @@ function DeleteTransaction()
         $cvv_number = $row_loan['cvv_number'];
     }
 
-    $sql_chargeback = mysqli_query($con, "SELECT * FROM `tbl_commercial_loan_chargeback` where transaction_id='$transaction_id' and loan_create_id = '$loan_create_id'");
-    while ($row_chargeback = mysqli_fetch_array($sql_chargeback)) {
+    $sql_chargeback = $con->query("SELECT * FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_create_id'");
+    while ($row_chargeback = $sql_chargeback->fetch_array()) {
         $installment_id = $row_chargeback['installment_id'];
         $installment_paid = $row_chargeback['installment_paid'];
         $late_fee_paid = $row_chargeback['late_fee_paid'];
         $convenience_fee_paid = $row_chargeback['convenience_fee_paid'];
         $other_fee_id_paid = $row_chargeback['other_fee_id'];
         $other_fee_paid = $row_chargeback['other_fee_paid'];
-        mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET status = 0, `paid amount`=`paid amount` -  $installment_paid, paid_late_fee = paid_late_fee - $late_fee_paid, dpd = 0 where id = $installment_id");
-        mysqli_query($con, "UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid - $other_fee_paid  where tbl_other_fees_id = $other_fee_id_paid");
+        $con->query("UPDATE tbl_commercial_loan_installments SET status = 0, paid amount=paid amount -  $installment_paid, paid_late_fee = paid_late_fee - $late_fee_paid, dpd = 0 where id = $installment_id");
+        $con->query("UPDATE tbl_other_fees SET amount_fee_paid = amount_fee_paid - $other_fee_paid  where tbl_other_fees_id = $other_fee_id_paid");
     }
 
-    mysqli_query($con, "DELETE FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_create_id'");
+    $con->query("DELETE FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_create_id'");
 
-    mysqli_query($con, "DELETE FROM commercial_loan_transaction where transaction_id='$transaction_id' and loan_create_id = '$loan_create_id'");
+    $con->query("DELETE FROM commercial_loan_transaction where transaction_id='$transaction_id' and loan_create_id = '$loan_create_id'");
 
     if ($card_info != 0) {
-        mysqli_query($con, "DELETE FROM commercial_loan_transaction_cards_info where card_info_id='$card_info'");
+        $con->query("DELETE FROM commercial_loan_transaction_cards_info where card_info_id='$card_info'");
     }
 
     if ($payment_method == "Repay") {
         /**
          * TODO: disable repay transaction via Repay API
          */
-        $sql_repay = mysqli_query($con, "SELECT * FROM `tbl_pay_with_card` where loan_transaction_id='$transaction_id' and loan_create_id = '$loan_create_id'");
-        while ($row_repay = mysqli_fetch_array($sql_repay)) {
+        $sql_repay = $con->query("SELECT * FROM tbl_pay_with_card where loan_transaction_id='$transaction_id' and loan_create_id = '$loan_create_id'");
+        while ($row_repay = $sql_repay->fetch_array()) {
             $repay_transaction_id = $row_repay['transaction_id'];
             $amount = $row_repay['amount'];
         }
 
-        $sql_payment_api = mysqli_query($con, "select * from payment_api_urls where name='live_url2'");
+        $sql_payment_api = $con->query("select * from payment_api_urls where name='live_url2'");
 
-        while ($row_payment_api = mysqli_fetch_array($sql_payment_api)) {
+        while ($row_payment_api = $sql_payment_api->fetch_array()) {
 
             $url_payment_api = $row_payment_api['url'];
             $app_token_payment = $row_payment_api['token'];
@@ -1387,9 +1387,9 @@ function GetEditTransactionModal()
     $loan_id = $_POST['loanId'];
     $transaction_id = $_POST['transactionId'];
 
-    $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$transaction_id'");
+    $sql_loan = $con->query("select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$transaction_id'");
 
-    while ($row_loan = mysqli_fetch_array($sql_loan)) {
+    while ($row_loan = $sql_loan->fetch_array()) {
         $payment_amount = $row_loan['payment_amount'];
         $interest = $row_loan['interest'];
         $principal_amount = $row_loan['principal_amount'];
@@ -1472,8 +1472,8 @@ function GetEditTransactionModal()
         $tmp = explode(" ", $payment_method);
         $last =  end($tmp);
         $chargeback_transaction_id = str_replace(array("(", ")"), array("", ""), $last);
-        $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$chargeback_transaction_id'");
-        while ($row_loan = mysqli_fetch_array($sql_loan)) {
+        $sql_loan = $con->query("select * from commercial_loan_transaction clt left join commercial_loan_transaction_cards_info cltci on clt.card_info = cltci.card_info_id left join tbl_other_fees tof on other_fee_id = tof.tbl_other_fees_id left join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id  where transaction_id='$chargeback_transaction_id'");
+        while ($row_loan = $sql_loan->fetch_array()) {
             $payment_amount_chargeback = $row_loan['payment_amount'];
             $late_fee_chargeback = $row_loan['late_fee'];
             $convenience_fee_chargeback = $row_loan['convenience_fee'];
@@ -1550,9 +1550,9 @@ function GetEditTransactionModal()
                 <select name="type_of_description" id="lblTypeOfDescription" onchange="GetUnpaidOtherFee(this,event)" style="width:65%;' . $other_fee_description_disabled . '"  value="' . $select_other_fee . '">
                     <option value="' . $select_other_fee . '">' . $select_other_fee . '</option>';
 
-    $sql_loan = mysqli_query($con, "select * from tbl_other_fees tof inner join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_created_id='$loan_id' and user_fnd_id = '$user_fnd_id' and (amount_fee_paid != amount_fee or tbl_other_fees_id = $other_fee_id)");
+    $sql_loan = $con->query("select * from tbl_other_fees tof inner join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_created_id='$loan_id' and user_fnd_id = '$user_fnd_id' and (amount_fee_paid != amount_fee or tbl_other_fees_id = $other_fee_id)");
 
-    while ($row_loan = mysqli_fetch_array($sql_loan)) {
+    while ($row_loan = $sql_loan->fetch_array()) {
         $row_item = $row_loan['item'];
         $id = $row_loan['tbl_other_fees_id'];
         $editModal .= "<option value='$row_item ($id)'>$row_item ($id)</option>";
@@ -1622,9 +1622,9 @@ function ValidateLoanId()
     global $con;
     $loan_id = $_POST["id"];
 
-    $query_loan = mysqli_query($con, "select COUNT(loan_create_id) as cnt FROM `tbl_commercial_loan` WHERE loan_create_id = '$loan_id'");
+    $query_loan = $con->query("select COUNT(loan_create_id) as cnt FROM `tbl_commercial_loan` WHERE loan_create_id = '$loan_id'");
     $count = 0;
-    while ($loan = mysqli_fetch_array($query_loan)) {
+    while ($loan = $query_loan->fetch_array()) {
         $count = $loan['cnt'];    
     }
 
@@ -1645,8 +1645,8 @@ function CalculateInstallmetsPerDiem()
     $default = isset($_POST["default_installment"]) ? json_decode($_POST["default_installment"]) : False;
     $transactions = isset($_POST["transactions"]) ? json_decode($_POST["transactions"]) : False;
 
-    $query_loan = mysqli_query($con, "SELECT * from `tbl_commercial_loan` where `loan_create_id` = $loan_create_id");
-    while ($loan = mysqli_fetch_array($query_loan)) {
+    $query_loan = $con->query("SELECT * from `tbl_commercial_loan` where `loan_create_id` = $loan_create_id");
+    while ($loan = $query_loan->fetch_array()) {
         $apr = $loan['apr'];
         $amount_loan = $loan['amount_of_loan'];
         $loan_interest = $loan['loan_interest'];
@@ -1696,7 +1696,7 @@ function CalculateInstallmetsPerDiem()
         </thead>
         <tbody>";
     if ($default or $transactions) {
-        mysqli_query($con, "DELETE FROM `tbl_commercial_loan_installmets_calculated` WHERE `loan_create_id` = '$loan_create_id'");
+        $con->query("DELETE FROM `tbl_commercial_loan_installmets_calculated` WHERE `loan_create_id` = '$loan_create_id'");
     }
     $total_payment = 0;
 
@@ -1704,11 +1704,11 @@ function CalculateInstallmetsPerDiem()
     $total_principal = 0;
     $total_balance = 0;
     if ($transactions) {
-        $result = mysqli_query($con,"select tcli.*, tof.sum_fee, tof.sum_fee_paid, (tof.sum_fee - tof.sum_fee_paid) as sum_fee_unpaid, tof.description from tbl_commercial_loan_installments as tcli left join (select installment_id, SUM(amount_fee) as sum_fee, SUM(amount_fee_paid) as sum_fee_paid, group_concat(tl.item SEPARATOR ',') as description from tbl_other_fees left join tbl_lists tl on tl.tbl_lists_id = kind_fee WHERE loan_created_id = '$loan_create_id' GROUP by installment_id ) as tof on tcli.number_of_payment = tof.installment_id where tcli.loan_create_id='$loan_create_id' order by tcli.id");
-       // $result = mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' order by id");
+        $result = $con->query("select tcli.*, tof.sum_fee, tof.sum_fee_paid, (tof.sum_fee - tof.sum_fee_paid) as sum_fee_unpaid, tof.description from tbl_commercial_loan_installments as tcli left join (select installment_id, SUM(amount_fee) as sum_fee, SUM(amount_fee_paid) as sum_fee_paid, group_concat(tl.item SEPARATOR ',') as description from tbl_other_fees left join tbl_lists tl on tl.tbl_lists_id = kind_fee WHERE loan_created_id = '$loan_create_id' GROUP by installment_id ) as tof on tcli.number_of_payment = tof.installment_id where tcli.loan_create_id='$loan_create_id' order by tcli.id");
+       // $result = $con->query("select * from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' order by id");
         $i = 1;
-        // $res =  mysqli_fetch_array($result);
-        while ($row = mysqli_fetch_array($result)) {
+        // $res =  $result->fetch_array();
+        while ($row = $result->fetch_array()) {
             $due_date_real = $row['payment_date'];
             $payment_date = $row['paid_date'];
             $days_from_last_payment = $row['days'];
@@ -1789,7 +1789,7 @@ function CalculateInstallmetsPerDiem()
 
             $query_install = "INSERT INTO `tbl_commercial_loan_installmets_calculated` (`number_of_payment`, `loan_create_id`, `due_date`, `payment_date`, `days`, `per_diem`, `payment_amount`, `interest`, `principal`, `balance`, `status`)
             VALUES ('$i', '$loan_create_id', '$due_date_real', '$payment_date','$days_from_last_payment', '$per_diem', '$loan_payment_amount', '$interest', '$principal', '$balance', '$status')";
-            $result_install = mysqli_query($con, $query_install);
+            $result_install = $con->query($query_install);
             $i++;
         }
         $total_balance = $balance;
@@ -1799,7 +1799,7 @@ function CalculateInstallmetsPerDiem()
     $add_to_interest = 0;
     $status="0";
     $installment_status = "Unpaid";
-    $query_all_installments = mysqli_query($con, "SELECT * from `tbl_commercial_loan_installments` where `loan_create_id` = $loan_create_id order by id asc");
+    $query_all_installments = $con->query("SELECT * from `tbl_commercial_loan_installments` where `loan_create_id` = $loan_create_id order by id asc");
 
     for ($i = 1; $i <= (int)$total_payments and !$transactions; $i++) {
 
@@ -1828,15 +1828,15 @@ function CalculateInstallmetsPerDiem()
             <td>" . $installment_status . "</td>
             </tr>";
             $action_query = "UPDATE `tbl_commercial_loan_installmets_calculated` SET `due_date`= '$due_date_real', `payment_date` = null, `days` = '0', `per_diem` = '0', `payment_amount` = '0', `interest` = '0', `principal` = '0', `balance` = '0' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
-            mysqli_query($con, $action_query);
+            $con->query($action_query);
             $previous_due_date = $due_date_real;
             continue;
         }
 
         $loan_payment_date = null;
         $loan_payment_amount = $payment;
-        $result = mysqli_query($con, "select * from tbl_commercial_loan_installmets_calculated where loan_create_id='$loan_create_id' and number_of_payment='$i'");
-        while ($row = mysqli_fetch_array($result)) {
+        $result = $con->query("select * from tbl_commercial_loan_installmets_calculated where loan_create_id='$loan_create_id' and number_of_payment='$i'");
+        while ($row = $result->fetch_array()) {
             $loan_payment_date = $row['payment_date'];
             $loan_due_date = $row['due_date'];
             $loan_payment_amount = $row['payment_amount'];
@@ -1857,7 +1857,7 @@ function CalculateInstallmetsPerDiem()
             <td>" . $installment_status. "</td>
             </tr>";
             $action_query = "UPDATE `tbl_commercial_loan_installmets_calculated` SET `due_date`= '$due_date_real', `payment_date` = null, `days` = '0', `per_diem` = '0', `payment_amount` = '0', `interest` = '0', `principal` = '0', `balance` = '0' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
-            mysqli_query($con, $action_query);
+            $con->query($action_query);
             $previous_due_date = $due_date_real;
             continue;
         }
@@ -1935,12 +1935,12 @@ function CalculateInstallmetsPerDiem()
         if ($default) {
             $query_install = "INSERT INTO `tbl_commercial_loan_installmets_calculated` (`number_of_payment`, `loan_create_id`, `due_date`, `payment_date`, `days`, `per_diem`, `payment_amount`, `interest`, `principal`, `balance`)
             VALUES ('$i', '$loan_create_id', '$due_date_real', '$payment_date','$days_from_last_payment', '$per_diem', '$loan_payment_amount', '$interest', '$principal', '$balance')";
-            $result_install = mysqli_query($con, $query_install);
+            $result_install = $con->query($query_install);
         }
 
         if ($number_payment != -1) {
             $action_query = "UPDATE `tbl_commercial_loan_installmets_calculated` SET `due_date`= '$due_date_real', `payment_date` = '$payment_date', `days` = '$days_from_last_payment', `per_diem` = '$per_diem', `payment_amount` = '$loan_payment_amount', `interest` = '$interest', `principal` = '$principal', `balance` = '$balance' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
-            mysqli_query($con, $action_query);
+            $con->query($action_query);
         }
 
         $previous_balance =  $balance;
@@ -2000,7 +2000,7 @@ function CalculateInstallmetsPerDiem()
     // $previous_balance =  $balance;
 
     // $previous_payment_date = $date_due_date;
-    // mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `interest` = '$interest', `principal`= $principal, `balance`= '$balance' where id ='$intallment_id'");
+    // $con->query("UPDATE tbl_commercial_loan_installments SET `interest` = '$interest', `principal`= $principal, `balance`= '$balance' where id ='$intallment_id'");
 }
 
 function GetLoanCreateId(){
@@ -2011,8 +2011,8 @@ function GetLoanCreateId(){
     $default_loan_id = $portfolio_type."-10001";
     if ($portfolio_type == "OF1"){
         $count_non_portfolio = 0;
-        $sql_count_non_portfolio = mysqli_query($con,"SELECT COUNT(loan_id) as cnt from tbl_commercial_loan WHERE portfolio_type = '$portfolio_type'");
-        while ($row_apr = mysqli_fetch_array($sql_count_non_portfolio)) {
+        $sql_count_non_portfolio = $con->query("SELECT COUNT(loan_id) as cnt from tbl_commercial_loan WHERE portfolio_type = '$portfolio_type'");
+        while ($row_apr = $sql_count_non_portfolio->fetch_array()) {
             $count_non_portfolio = $row_apr['cnt'];
         }
 
@@ -2022,8 +2022,8 @@ function GetLoanCreateId(){
     }
 
     $next_loan_id = NULL;
-    $sql_apr = mysqli_query($con, $query_string );
-    while ($row_apr = mysqli_fetch_array($sql_apr)) {
+    $sql_apr = $con->query($query_string );
+    while ($row_apr = $sql_apr->fetch_array()) {
         $next_loan_id = $row_apr['next_id'];
     }
     
@@ -2044,9 +2044,9 @@ function GetLoanCreateId(){
     // $previous_balance =  null;
     
     // //$apr
-    // $query_all_installments = mysqli_query($con, "SELECT * from `tbl_commercial_loan_installments` where `loan_create_id` = $loan_create_id order by id asc");
+    // $query_all_installments = $con->query("SELECT * from `tbl_commercial_loan_installments` where `loan_create_id` = $loan_create_id order by id asc");
     // $index_installment = 1;
-    // while ($installment = mysqli_fetch_array($query_all_installments)){
+    // while ($installment = $query_all_installments->fetch_array()){
     //     $paid_date = $installment['paid_date'];
     //     $status = $installment['status'];
     //     $payment_date = $installment['payment_date'];
@@ -2081,6 +2081,6 @@ function GetLoanCreateId(){
     //     $previous_balance =  $balance;
         
     //     $previous_payment_date = $date_due_date;
-    //     mysqli_query($con, "UPDATE tbl_commercial_loan_installments SET `interest` = '$interest', `principal`= $principal, `balance`= '$balance' where id ='$intallment_id'");
+    //     $con->query("UPDATE tbl_commercial_loan_installments SET `interest` = '$interest', `principal`= $principal, `balance`= '$balance' where id ='$intallment_id'");
     //     $index_installment++;
     // }

@@ -25,9 +25,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   include_once '../dbconnect.php';
   include_once '../dbconfig.php';
   $id = $_GET['id'];
-  $sql_fnd = mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'");
+  $sql_fnd = $con->query("select * from tbl_commercial_loan where loan_id = '$id'");
 
-  while ($row_fnd = mysqli_fetch_array($sql_fnd)) {
+  while ($row_fnd = $sql_fnd->fetch_array()) {
 
     $user_fnd_id = $row_fnd['user_fnd_id'];
     $loan_create_id = $row_fnd['loan_create_id'];
@@ -39,8 +39,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
   $settlement_amount = 0;
-  $query_payment = mysqli_query($con, "SELECT SUM(payment) AS sum_payment, SUM(`paid amount`) AS sum_paid_amount, SUM(`refinanced_amount`) as sum_refinanced_amount, SUM(`credit_amount`) as sum_credit_amount FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id' and (status=2 or status = 3 or status = 4)");
-  while ($row_payment = mysqli_fetch_array($query_payment)) {
+  $query_payment = $con->query("SELECT SUM(payment) AS sum_payment, SUM(paid amount) AS sum_paid_amount, SUM(refinanced_amount) as sum_refinanced_amount, SUM(credit_amount) as sum_credit_amount FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id' and (status=2 or status = 3 or status = 4)");
+  while ($row_payment = $query_payment->fetch_array()) {
     $sum_payment = $row_payment['sum_payment'];
     $sum_paid_amount = $row_payment['sum_paid_amount'];
     $settlement_amount = $sum_payment - $sum_paid_amount;
@@ -51,9 +51,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     $settlement_amount = number_format((float)$settlement_amount, 2, '.', '');
   }
 
-  $sql = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'");
+  $sql = $con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'");
 
-  while ($row = mysqli_fetch_array($sql)) {
+  while ($row = $sql->fetch_array()) {
 
     $first_name = $row['first_name'];
     $last_name = $row['last_name'];
@@ -64,9 +64,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   //echo "fname is:".$first_name;
 
 
-  $sql = mysqli_query($con, "select * from tbl_commercial_loan where loan_id= '$id'");
+  $sql = $con->query("select * from tbl_commercial_loan where loan_id= '$id'");
 
-  while ($row = mysqli_fetch_array($sql)) {
+  while ($row = $sql->fetch_array()) {
 
     $loan_id = $row['loan_id'];
     //echo "fndid is:".$fnd_id;
@@ -109,8 +109,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     $late_fee = $row['late_fee'];
   }
 
-  $query_payment = mysqli_query($con, "Select payment, `paid amount`, payment_date, chargeback_amount from `tbl_commercial_loan_installments` where loan_create_id = '$loan_create_id' and status = 0 order by id asc limit 1 ");
-  while ($row_payment = mysqli_fetch_array($query_payment)) {
+  $query_payment = $con->query("Select payment, [paid amount], payment_date, chargeback_amount from tbl_commercial_loan_installments where loan_create_id = '$loan_create_id' and status = 0 order by id asc OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY");
+  while ($row_payment = $query_payment->fetch_array()) {
     $due_date = $row_payment['payment_date'];
     $payment = $row_payment['payment'];
     $paid_amount = $row_payment['paid amount'];
@@ -125,8 +125,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   $interval = date_diff($date_due_date, $date_now);
 
   $payment = 0;
-  $query_payment = mysqli_query($con, "SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
-  while ($row_payment = mysqli_fetch_array($query_payment)) {
+  $query_payment = $con->query("SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
+  while ($row_payment = $query_payment->fetch_array()) {
     $payment = $row_payment['value_sum'];
   }
 
@@ -142,22 +142,22 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   }
 
 
-  $sql_user = mysqli_query($con, "select * from tbl_users where user_id= '$created_by'");
+  $sql_user = $con->query("select * from tbl_users where user_id= '$created_by'");
 
-  while ($row_user = mysqli_fetch_array($sql_user)) {
+  while ($row_user = $sql_user->fetch_array()) {
 
     $username = $row_user['username'];
   }
 
   $unpaid_late_fee = 0;
-  $query_payment = mysqli_query($con, "SELECT sum($late_fee - paid_late_fee) as unpaid FROM `tbl_commercial_loan_installments` WHERE `dpd` >= 10 and loan_create_id = '$loan_create_id' and ($late_fee - paid_late_fee) > 0 ");
-  while ($row_payment = mysqli_fetch_array($query_payment)) {
+  $query_payment = $con->query("SELECT sum($late_fee - paid_late_fee) as unpaid FROM tbl_commercial_loan_installments WHERE dpd >= 10 and loan_create_id = '$loan_create_id' and ($late_fee - paid_late_fee) > 0 ");
+  while ($row_payment = $query_payment->fetch_array()) {
     $unpaid_late_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
   }
 
   $unpaid_other_fee = 0;
-  $query_payment = mysqli_query($con, "SELECT sum(amount_fee - amount_fee_paid) as unpaid FROM `tbl_other_fees` WHERE loan_created_id = '$loan_create_id'");
-  while ($row_payment = mysqli_fetch_array($query_payment)) {
+  $query_payment = $con->query("SELECT sum(amount_fee - amount_fee_paid) as unpaid FROM `tbl_other_fees` WHERE loan_created_id = '$loan_create_id'");
+  while ($row_payment = $query_payment->fetch_array()) {
     $unpaid_other_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
   }
 
@@ -483,9 +483,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                       </thead>
                       <tbody>
                         <?php
-                        $sql_loan = mysqli_query($con, "select * from tbl_other_fees tof inner join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_created_id='$loan_create_id' and user_fnd_id = '$user_fnd_id'");
+                        $sql_loan = $con->query("select * from tbl_other_fees tof inner join tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_created_id='$loan_create_id' and user_fnd_id = '$user_fnd_id'");
 
-                        while ($row_loan = mysqli_fetch_array($sql_loan)) {
+                        while ($row_loan = $sql_loan->fetch_array()) {
                           $other_fee_id = $row_loan['tbl_other_fees_id'];
                           $row_item_fee = $row_loan['item'];
                           $amount_fee = $row_loan['amount_fee'];
@@ -593,15 +593,15 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
             <?php
             include('db.php');
-            $result_count = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `commercial_loan_transaction` where loan_id='$id'");
-            $total_records = mysqli_fetch_array($result_count);
+            $result_count = $con->query("SELECT COUNT(*) As total_records FROM commercial_loan_transaction where loan_id='$id'");
+            $total_records = $result_count->fetch_array();
             $total_records = $total_records['total_records'];
             $total_no_of_pages = ceil($total_records / $total_records_per_page);
             $second_last = $total_no_of_pages - 1; // total page minus 1
 
-            $sql_loan = mysqli_query($con, "select * from commercial_loan_transaction clt LEFT join tbl_other_fees tof on clt.other_fee_id = tof.tbl_other_fees_id LEFT JOIN tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_id='$id' order by transaction_id desc");
+            $sql_loan = $con->query("select * from commercial_loan_transaction clt LEFT join tbl_other_fees tof on clt.other_fee_id = tof.tbl_other_fees_id LEFT JOIN tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where loan_id='$id' order by transaction_id desc");
             $count = 0;
-            while ($row_loan = mysqli_fetch_array($sql_loan)) {
+            while ($row_loan = $sql_loan->fetch_array()) {
               $count++;
               $transaction_id = $row_loan['transaction_id'];
               $loan_create_id = $row_loan['loan_create_id'];
@@ -622,8 +622,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $chargeback_fee_id = $row_loan['chargeback_fee_id'];
               $description_chargeback = "";
               if($chargeback_fee_id != 0){
-                $sql_loan_chargeback = mysqli_query($con, "select * from commercial_loan_transaction clt LEFT join tbl_other_fees tof on clt.chargeback_fee_id = tof.tbl_other_fees_id LEFT JOIN tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where transaction_id='$transaction_id'");
-                while ($row_chargeback = mysqli_fetch_array($sql_loan_chargeback)) {
+                $sql_loan_chargeback = $con->query("select * from commercial_loan_transaction clt LEFT join tbl_other_fees tof on clt.chargeback_fee_id = tof.tbl_other_fees_id LEFT JOIN tbl_lists tl on tof.kind_fee = tl.tbl_lists_id where transaction_id='$transaction_id'");
+                while ($row_chargeback = $sql_loan_chargeback->fetch_array()) {
                   $description_chargeback = $row_chargeback['item'] == null ? "" : $row_loan['item'] . " (" . $row_loan['chargeback_fee_id'] . ")";
                 }
               }
@@ -636,8 +636,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $start_mark = "";
               $end_mark = "";
               if ($card_info != 0) {
-                $query_card_info = mysqli_query($con, "SELECT * FROM commercial_loan_transaction_cards_info where card_info_id= '$card_info'");
-                while ($row_card_info = mysqli_fetch_array($query_card_info)) {
+                $query_card_info = $con->query("SELECT * FROM commercial_loan_transaction_cards_info where card_info_id= '$card_info'");
+                while ($row_card_info = $query_card_info->fetch_array()) {
                   $type_of_id = $row_card_info['type_of_id'];
                   $type_of_card = $row_card_info['type_of_card'];
                   $card_number = $row_card_info['card_number'];
@@ -704,8 +704,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               }
               $convenience_fee = $convenience_fee == "" ? 0 : $convenience_fee;
 
-              $query_balnce = mysqli_query($con, "SELECT * FROM tbl_commercial_loan where loan_create_id= '$loan_create_id'");
-              while ($row_balnce = mysqli_fetch_array($query_balnce)) {
+              $query_balnce = $con->query("SELECT * FROM tbl_commercial_loan where loan_create_id= '$loan_create_id'");
+              while ($row_balnce = $query_balnce->fetch_array()) {
                 $amount_of_loan = $row_balnce['amount_of_loan'];
 
                 $amount_of_loan = number_format((float)$amount_of_loan, 2, '.', '');
@@ -719,9 +719,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
               $total_principal += $principal_amount;
               $total_balnce = $amount_of_loan - $total_principal;
 
-              $sql_activity_by_user = mysqli_query($con, "select * from tbl_users where user_id= '$created_by_get_db_activity'");
+              $sql_activity_by_user = $con->query("select * from tbl_users where user_id= '$created_by_get_db_activity'");
               $final_activity_by_user = '';
-              while ($row_sql_activity_by_user = mysqli_fetch_array($sql_activity_by_user)) {
+              while ($row_sql_activity_by_user = $sql_activity_by_user->fetch_array()) {
                 $final_activity_by_user = $row_sql_activity_by_user['username'];
               }
 
@@ -920,9 +920,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                   <input list="type_of_descriptions" name="type_of_description" id="lblTypeOfDescription" style="width:100%">
                   <datalist id="type_of_descriptions">
                     <?php
-                    $sql_loan = mysqli_query($con, "select * from tbl_lists where kind='Other Fee'");
+                    $sql_loan = $con->query("select * from tbl_lists where kind='Other Fee'");
 
-                    while ($row_loan = mysqli_fetch_array($sql_loan)) {
+                    while ($row_loan = $sql_loan->fetch_array()) {
                       $row_item = $row_loan['item'];
                       echo "
                         <option value='$row_item'></option>";
@@ -1029,13 +1029,13 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
       $amount_loan_up = str_replace("$", "", "$amount_loan_up");
       $amount_left_up = str_replace("$", "", "$amount_left_up");
 
-      mysqli_query($con, "UPDATE tbl_commercial_loan SET loan_status = '$account_status', secondary_portfolio='$portfolio' where user_fnd_id ='$user_fnd_id' AND loan_id='$id'");
+      $con->query("UPDATE tbl_commercial_loan SET loan_status = '$account_status', secondary_portfolio='$portfolio' where user_fnd_id ='$user_fnd_id' AND loan_id='$id'");
 
 
       $date_update = date('Y-m-d H:i:s');
       $loan_account_statuss = "Account Status Updated to: " . $_POST['account_status'];
       $query_insert_activity = "Insert into application_status_updates (application_id, loan_create_id, user_id, status, creation_date) Values ('$user_fnd_id', '$loan_create_id', '$u_id', '$loan_account_statuss', '$date_update')";
-      mysqli_query($con, $query_insert_activity);
+      $con->query($query_insert_activity);
 
 
     ?>

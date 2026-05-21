@@ -24,15 +24,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 ?>
 
     <?php
-
     include '../functions.php';
     $doc_id = $_GET['doc_id'];
     $id = $_GET['id'];
     $loan_id = $_GET['loan_id'];
 
-    $sql_fnd = mysqli_query($con, "select * from tbl_loan where loan_id = '$loan_id'");
+    $sql_fnd = $con->query("select * from tbl_loan where loan_id = '$loan_id'");
 
-    while ($row_fnd = mysqli_fetch_array($sql_fnd)) {
+    while ($row_fnd = $sql_fnd->fetch_array()) {
 
         $user_fnd_id = $row_fnd['user_fnd_id'];
         $loan_create_id = $row_fnd['loan_create_id'];
@@ -41,10 +40,10 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
     $form_name = "payday-" . basename(__FILE__);
 
     echo "Form: " . $form_name;
-    $sql_role = mysqli_query($con, "select * from access_form where form_name='$form_name'");
+    $sql_role = $con->query("select * from access_form where form_name='$form_name'");
 
 
-    while ($row_role = mysqli_fetch_array($sql_role)) {
+    while ($row_role = $sql_role->fetch_array()) {
 
         $form_id = $row_role['id'];
     }
@@ -57,7 +56,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
         $delete_reason = "Document is Deleted with Loan ID: $loan_create_id";
 
         $query = "DELETE FROM  lender_documents WHERE id= '$doc_id' AND  fnd_user_id = '$id' ";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> Customer Successfully Deleted.</h3><br/></div>";
         } else {

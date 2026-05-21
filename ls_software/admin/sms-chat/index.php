@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
 }
 
 $curl = curl_init();
-mysqli_query($con, "UPDATE `tbl_conversation` SET  `incoming_read`= '1' WHERE `caht_key` = '$chat_key'");
+$con->query("UPDATE tbl_conversation SET  incoming_read= '1' WHERE caht_key = '$chat_key'");
 curl_setopt_array($curl, array(
   CURLOPT_URL => "https://conversations.twilio.com/v1/Conversations/$chat_key/Messages",
   CURLOPT_RETURNTRANSFER => true,
@@ -200,16 +200,16 @@ foreach ($response['messages'] as $messages) {
   }
   $now = date('Y-m-d H:i:s');
 
-  $sql = "SELECT * FROM tbl_conversation WHERE `message_id` = '$sid'";
-  $result = mysqli_query($con, $sql);
+  $sql = "SELECT * FROM tbl_conversation WHERE message_id = '$sid'";
+  $result = $con->query($sql);
 
-  if (mysqli_num_rows($result) > 0) {
+  if ($result->num_rows > 0) {
     // echo 'Rcord exists tbl_products';
-    mysqli_query($con, "UPDATE `tbl_conversation` SET `status_deliver`='$delivered',`status_read`='$read' WHERE  `message_id` = '$sid'");
+    $con->query("UPDATE tbl_conversation SET status_deliver='$delivered',status_read='$read' WHERE  message_id = '$sid'");
   } else {
 
-    $query  = "INSERT INTO `tbl_conversation`(`caht_key`, `message`, `message_id`, `date`, `status_deliver`, `status_read`) VALUES ('$conversation_sid','$body','$sid','$date_created','$delivered','$read')";
-    $result = mysqli_query($con, $query);
+    $query  = "INSERT INTO tbl_conversation(caht_key, message, message_id, date, status_deliver, status_read) VALUES ('$conversation_sid','$body','$sid','$date_created','$delivered','$read')";
+    $result = $con->query($query);
     if ($result) {
       //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
     } else {

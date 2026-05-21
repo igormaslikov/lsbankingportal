@@ -5,9 +5,10 @@ include_once 'dbconfig.php';
 
 if (!isset($_SESSION['userSession'])) {
 	header("Location: index.php");
+	exit;
 }
 
-$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
+$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".(int)$_SESSION['userSession']);
 $userRow=$query->fetch_array();
 $u_id=$userRow['user_id'];
 //echo $u_id;
@@ -32,14 +33,17 @@ $DBcon->close();
 }
       $email_key = generateRandomString();;
      // echo $email_key;
-     
 
-   
+if (!isset($_GET['fnd_id'])) {
+    echo "<p>Missing required parameters.</p>";
+    exit;
+}
+
    $id_fnd=$_GET['fnd_id'];
 
-$sql_fetch_fnd=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id_fnd'"); 
+$sql_fetch_fnd=$con->query("select * from fnd_user_profile where user_fnd_id= '$id_fnd'"); 
 
-while($row_fetch_fnd = mysqli_fetch_array($sql_fetch_fnd)) {
+while($row_fetch_fnd = $sql_fetch_fnd->fetch_array()) {
 
 $email=$row_fetch_fnd['email'];
 
@@ -55,9 +59,9 @@ $void_img=$row_fetch_fnd['void_img'];
 
 
 
-$sql_fetch_loan=mysqli_query($con, "select * from tbl_personal_loans where user_fnd_id= '$id_fnd'"); 
+$sql_fetch_loan=$con->query("select * from tbl_personal_loans where user_fnd_id= '$id_fnd'"); 
 
-while($row_fetch_loan = mysqli_fetch_array($sql_fetch_loan)) {
+while($row_fetch_loan = $sql_fetch_loan->fetch_array()) {
 
 $loan_id=$row_fetch_loan['loan_create_id'];
 
@@ -102,9 +106,9 @@ $headers = 'From: support@ofsca.com';
 //echo "loan id:".$loan_id;
 
 
-$sql_fetch_user=mysqli_query($con, "select * from tbl_users"); 
+$sql_fetch_user=$con->query("select * from tbl_users"); 
 
-while($row_fetch_user = mysqli_fetch_array($sql_fetch_user)) {
+while($row_fetch_user = $sql_fetch_user->fetch_array()) {
 
 $email_admin=$row_fetch_user['email'];
 //echo "<br><br><br><br><br>admin email:".$email_admin;
@@ -369,7 +373,7 @@ else if(isset($_FILES['imageeeee']))
 } 
  
     $query_in  = "INSERT INTO personal_loan_initial_banking (loan_id,user_fnd_id,type_of_id,pic_of_id,type_of_card,card_number,card_exp_date,bank_front_pic,bank_back_pic,bank_name,routing_number,account_number,void_check_pic,cvv_number,creation_date,update_date,created_by,email_key,sign_status,update_by)  VALUES ('$loan_create_idd','$fndd_id','$type_id','$final_File','$type_card','$card_number','$card_exp_date','$final_Filee','$final_Fileee','$bank_name','$routing_number','$account_number','$final_Fileeee','$cvv_number','$date','$date','$u_id','$email_key','0','$u_id')";
-        $result_in = mysqli_query($con, $query_in);
+        $result_in = $con->query($query_in);
         if ($result_in) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -377,8 +381,8 @@ else if(isset($_FILES['imageeeee']))
         }
     
     
-       $query  = "INSERT INTO `tbl_personal_loans`(`user_fnd_id`, `bg_id`, `amount_of_loan`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `state`)  VALUES ('$fndd_id','$sourcee','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$state')";
-        $result = mysqli_query($con, $query);
+       $query  = "INSERT INTO tbl_personal_loans(user_fnd_id, bg_id, amount_of_loan, loan_interest, years, late_fee, contract_fee, installment_plan, total_payments, principal_amount, contract_date, payment_date, creation_date, created_by, loan_create_id, loan_status, state)  VALUES ('$fndd_id','$sourcee','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$state')";
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -387,7 +391,7 @@ else if(isset($_FILES['imageeeee']))
     
      
     
-    mysqli_query($con, "UPDATE fnd_user_profile SET id_photo ='$final_File', bank_front='$final_Filee', bank_back='$final_Fileee', void_img='$final_Fileeee'  where user_fnd_id ='$fndd_id'"); 
+    $con->query("UPDATE fnd_user_profile SET id_photo ='$final_File', bank_front='$final_Filee', bank_back='$final_Fileee', void_img='$final_Fileeee'  where user_fnd_id ='$fndd_id'"); 
     
 ?>
 
@@ -683,6 +687,10 @@ window.location.href = 'customer_email_message_personal_loan.php?emaill=<?php ec
   <div align="center">
 
 <?php
+
+if (!isset($_GET['fnd_id'])) {
+    exit;
+}
 
      $fnd_idd=$_GET['fnd_id'];
 
@@ -1035,7 +1043,7 @@ echo '<colgroup align="right" width="115">';
     $payment_date=$_GET['payment_date'];
     $payment_date_weekly = $payment_date;
     
-   // mysqli_query($con,"DELETE FROM `tbl_personal_loan_installments` WHERE `loan_create_id` = '$loan_create_id'");
+   // $con->query("DELETE FROM tbl_personal_loan_installments WHERE loan_create_id = '$loan_create_id'");
 $count = 0;
 do {
    $count++;
@@ -1099,8 +1107,8 @@ $payment_date_weekly= date( "Y-m-d", strtotime( "$payment_date_weekly +30 day" )
    
    
    
-//   $query_install1  = "INSERT INTO `tbl_personal_loan_installments`(`loan_create_id`, `payment`, `interest`, `principal`, `balance`, `payment_date`) VALUES ('$loan_create_id','$payment','$interest','$principal','$balance','$payment_date_weekly')";
-//         $result_install1 = mysqli_query($con, $query_install1);
+//   $query_install1  = "INSERT INTO tbl_personal_loan_installments(loan_create_id, payment, interest, principal, balance, payment_date) VALUES ('$loan_create_id','$payment','$interest','$principal','$balance','$payment_date_weekly')";
+//         $result_install1 = $con->query($query_install1);
 //         if ($result_install1) {
 //             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
 //         } else {

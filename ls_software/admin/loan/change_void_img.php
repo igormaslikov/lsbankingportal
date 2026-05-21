@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -24,9 +24,9 @@ $DBcon->close();
 include '../functions.php';
 
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 //echo "FND_ID" .$user_fnd_id;
@@ -38,9 +38,9 @@ $user_fnd_id=$row_fnd['user_fnd_id'];
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -60,9 +60,9 @@ $customer_numbr=$row['mobile_number'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from tbl_loan where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -98,9 +98,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -116,9 +116,9 @@ $username=$row_user['username'];
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'"); 
+$sql_user=$con->query("select * from tbl_loan_notes where loan_id= '$id'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $loan_notes=$row_user['notes'];
 
@@ -211,18 +211,18 @@ $loan_notes=$row_user['notes'];
   <?php
  
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 //echo "FND_ID" .$user_fnd_id;
 }
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from tbl_loan where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $created_by=$row['created_by'];
 
@@ -278,10 +278,10 @@ $date= date('Y-m-d H:i:s');
     // Upload Picture of ID Ends 
     
     
-    $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+    $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  
@@ -292,7 +292,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
     if ($update_allowed==1)
 {
     
-    mysqli_query($con,"UPDATE fnd_user_profile SET void_img ='$final_File' where user_fnd_id ='$user_fnd_id' ");
+    $con->query("UPDATE fnd_user_profile SET void_img ='$final_File' where user_fnd_id ='$user_fnd_id' ");
 
 
   

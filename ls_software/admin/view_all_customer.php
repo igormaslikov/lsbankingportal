@@ -127,17 +127,17 @@ if (isset($_GET['loan_type']) && $_GET['loan_type']!='All') {
    // $query_search .= " ORDER By user_fnd_id DESC  LIMIT $offset, $total_records_per_page ";
 
 //echo "<br><br><br><br>" . $query_search;
-if ($result_t=mysqli_query($con,$query_search))
+if ($result_t=$con->query($query_search))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
+  $ye=null;
   echo $ye;
   }
 
-//mysqli_close($con);
+//$con->close();
 ?> 
   
 <div align="right">
@@ -386,8 +386,8 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `fnd_user_profile`");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM `fnd_user_profile`");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
 	$total_records = $rowcount;
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
@@ -447,8 +447,8 @@ if (isset($_GET['loan_type']) && $_GET['loan_type']!='All') {
     $query_search .= " ORDER By user_fnd_id DESC  LIMIT $offset, $total_records_per_page ";
  
  //echo $query_search;
-    $result = mysqli_query($con,"$query_search");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("$query_search");
+    while($row = $result->fetch_array()){
         
 		 $id=$row['user_fnd_id'];
 		 $cr_date= $row['application_date'];
@@ -529,7 +529,7 @@ $gravatar =  "http://profiles.google.com/s2/photos/profile/". $row['email']."?sz
 	   	  $decision_logic_Status = "";
 	   	  $experian_credit_score = "";
         }
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>

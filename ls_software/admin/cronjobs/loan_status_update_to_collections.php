@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 
 include '../dbconnect.php';
@@ -14,9 +14,9 @@ $start = "12:00";
 
 
 
- $sql_past_due=mysqli_query($con, "select * from tbl_loan where loan_status= 'Past Due' AND last_payment_date=''"); 
+ $sql_past_due=$con->query("select * from tbl_loan where loan_status= 'Past Due' AND last_payment_date=''"); 
 
-while($row_past_due = mysqli_fetch_array($sql_past_due)) {
+while($row_past_due = $sql_past_due->fetch_array()) {
 
 $user_fnd_id=$row_past_due['user_fnd_id'];
 $loan_create_id=$row_past_due['loan_create_id'];
@@ -30,7 +30,7 @@ if($date>$payment_date_verification)
 {
     
     
-  mysqli_query($con,"UPDATE tbl_loan SET loan_status = 'Collections' where loan_create_id= '$loan_create_id'");
+  $con->query("UPDATE tbl_loan SET loan_status = 'Collections' where loan_create_id= '$loan_create_id'");
     
     
      

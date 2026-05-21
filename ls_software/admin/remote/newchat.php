@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 include_once 'common.php'; //replace by whatever your startup server variables are
 
@@ -18,7 +18,7 @@ $title = $_REQUEST['title'];
 include 'db.php'; //replace by whatever your db connections are
 mysql_select_db(CIU_DBNAME); //replace by whatever your db connections are
 $chatsql = <<<EOD
-	SELECT * FROM `chat_pages` WHERE `page` = '{$page}';
+	SELECT * FROM chat_pages WHERE page = '{$page}';
 
 EOD;
 $chatresult = mysql_query($chatsql) or die(mysql_error());

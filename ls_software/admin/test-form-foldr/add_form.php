@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 
 include_once '../dbconnect.php';
@@ -61,8 +61,8 @@ if(isset($_POST['btn-submit'])) {
  
 $form_name = $_POST['form_name'];
  
-$query  = "INSERT INTO `access_form` (`form_name`) VALUES ('$form_name')";
-        $result = mysqli_query($con, $query);
+$query  = "INSERT INTO access_form (form_name) VALUES ('$form_name')";
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

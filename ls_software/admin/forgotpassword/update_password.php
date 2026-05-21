@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 include '../dbconnect.php';
 include '../dbconfig.php';
@@ -21,7 +21,7 @@ if ($pass === $cpass) {
     
      $password = password_hash($cpass, PASSWORD_DEFAULT);
      
-        mysqli_query($con, "Update `tbl_users` SET `password`='$password' where email ='$email'");
+        $con->query("Update tbl_users SET password='$password' where email ='$email'");
 
        echo '<script type="text/javascript">'; 
 echo 'alert("Password  Updated Successfully");'; 

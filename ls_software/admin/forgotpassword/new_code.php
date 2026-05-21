@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 //Database credentials
 $servername = "mymoneyline.com/lsbankingportal/";
@@ -32,9 +32,9 @@ $email = $_POST['email'];
 
  
 // checks if the username is in use
-$sql=mysqli_query($conn, "select * from tbl_users WHERE email = '$email'"); 
+$sql=$conn->query("select * from tbl_users WHERE email = '$email'"); 
 
-$count =mysqli_num_rows($sql);
+$count =$sql->num_rows;
 
 if($count > 0)
 
@@ -122,7 +122,7 @@ echo '</script>';
     }
     
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 
 $new_password =$row[4];

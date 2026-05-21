@@ -232,11 +232,11 @@ if (!isset($_SESSION['Optima'])) {
     $rowcount_mc_int = 0;
     if (isset($con) && $con) {
       $sql_mc = "SELECT COUNT(*) AS n FROM `tbl_conversation` WHERE `incoming_read` = 0";
-      if ($result_mc = mysqli_query($con, $sql_mc)) {
-        if ($r = mysqli_fetch_assoc($result_mc)) {
+      if ($result_mc = $con->query($sql_mc)) {
+        if ($r = $result_mc->fetch_assoc()) {
           $rowcount_mc_int = (int)$r['n'];
         }
-        mysqli_free_result($result_mc);
+        null;
       }
     }
     // Legacy variable kept because some other files reference it

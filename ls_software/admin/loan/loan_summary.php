@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 
 // ini_set('display_errors', 1);
@@ -33,9 +33,9 @@ $DBcon->close();
 
 
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_create_id=$row_fnd['loan_create_id'];
@@ -45,8 +45,8 @@ $loan_status=$row_fnd['loan_status'];
 
 
 
-$query_payment = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
-while ($row_payment=mysqli_fetch_array($query_payment)){
+$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
+while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
     $payment = number_format((float)$payment, 2, '.', '');
@@ -60,9 +60,9 @@ while ($row_payment=mysqli_fetch_array($query_payment)){
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -83,9 +83,9 @@ $chat_key=$row['chat_key'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -200,8 +200,8 @@ if ($datediff1<0)
 
               if ($last_payment_date == "" || $last_payment_date== '01-01-1970') {
 
-                  $query_payment = mysqli_query($con, "SELECT * FROM loan_transaction where loan_id= '$id' AND payoff_amount>1");
-                  while ($row_payment = mysqli_fetch_array($query_payment)) {
+                  $query_payment = $con->query("SELECT * FROM loan_transaction where loan_id= '$id' AND payoff_amount>1");
+                  while ($row_payment = $query_payment->fetch_array()) {
                       $last_payment_date1 = $row_payment['payment_date'];
                   }
               }
@@ -233,8 +233,8 @@ $timestamp = strtotime($payment_date);
 $new_payment_date= date("m-d-Y", $timestamp);
 
 
-$query_payment = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
-while ($row_payment=mysqli_fetch_array($query_payment)){
+$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
+while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
     $payment = number_format((float)$payment, 2, '.', '');
@@ -258,9 +258,9 @@ while ($row_payment=mysqli_fetch_array($query_payment)){
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -276,9 +276,9 @@ $username=$row_user['username'];
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'"); 
+$sql_user=$con->query("select * from tbl_loan_notes where loan_id= '$id'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $loan_notes=$row_user['notes'];
 
@@ -509,15 +509,15 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `tbl_loan`");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM tbl_loan");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-   $sql_loan=mysqli_query($con, "select * from loan_transaction where loan_id='$id' Order By transaction_id DESC"); 
+   $sql_loan=$con->query("select * from loan_transaction where loan_id='$id' Order By transaction_id DESC"); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
 
         $transaction_id=$row_loan['transaction_id'];
          $loan_create_id=$row_loan['loan_create_id'];
@@ -693,10 +693,10 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
      
      $form_name="payday-".basename(__FILE__);
      
-     $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+     $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  
@@ -707,7 +707,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
     if ($update_allowed==1)
 {
      
-      mysqli_query($con, "UPDATE tbl_loan SET amount_of_loan ='$amount_loan_up', loan_total_payable ='$amount_left_up', payment_date ='$next_payment_date_up', loan_status='$account_status', secondary_portfolio='$portfolio', days_past_due='$days_past_due', apr='$apr_up'  where user_fnd_id ='$user_fnd_id' AND loan_id='$id'");
+      $con->query("UPDATE tbl_loan SET amount_of_loan ='$amount_loan_up', loan_total_payable ='$amount_left_up', payment_date ='$next_payment_date_up', loan_status='$account_status', secondary_portfolio='$portfolio', days_past_due='$days_past_due', apr='$apr_up'  where user_fnd_id ='$user_fnd_id' AND loan_id='$id'");
     
     
      $date_update= date('Y-m-d H:i:s');

@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <?php
 error_reporting(0);
 session_start();
@@ -27,10 +27,10 @@ $DBcon->close();
     $id=$_GET['id'];
     $form_name=basename(__FILE__);
     
-     $sql_role=mysqli_query($con, "select * from access_form where form_name ='$form_name'"); 
+     $sql_role=$con->query("select * from access_form where form_name ='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
 }
@@ -43,7 +43,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
     
 
     $query = "DELETE FROM access_level WHERE access_id = '$id'";
-    $result = mysqli_query($con, $query);
+    $result = $con->query($query);
        if ($result) {
            //echo "<div class='form'><h3> Customer Successfully Deleted.</h3><br/></div>";
        } else {

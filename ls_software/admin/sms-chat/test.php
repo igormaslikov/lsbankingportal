@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 date_default_timezone_set('America/Los_Angeles');
 $host = "mymoneyline.com/lsbankingportal/"; 
 $user = "dblsuser2021"; 
@@ -94,8 +94,8 @@ foreach($response['messages'] as $messages){
         
     }
     
-$query  = "INSERT INTO `tbl_conversation`(`caht_key`, `message`, `message_id`, `date`, `status_deliver`, `status_read`) VALUES ('$conversation_sid','$body','$sid','$now','$delivered','$read')";
-        $result = mysqli_query($con, $query);
+$query  = "INSERT INTO tbl_conversation(caht_key, message, message_id, date, status_deliver, status_read) VALUES ('$conversation_sid','$body','$sid','$now','$delivered','$read')";
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

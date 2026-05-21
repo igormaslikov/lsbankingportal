@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <?php
 error_reporting(0);
 session_start();
@@ -29,7 +29,7 @@ $DBcon->close();
     //$page=$_GET['page_id'];
 
     $query = "DELETE FROM access_level_grants WHERE grant_id = '$id'";
-    $result = mysqli_query($con, $query);
+    $result = $con->query($query);
        if ($result) {
            //echo "<div class='form'><h3> Customer Successfully Deleted.</h3><br/></div>";
        } else {

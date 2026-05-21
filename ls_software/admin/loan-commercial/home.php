@@ -158,7 +158,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     $cl_flash_err = 'Security check failed. Please reload the page and try again.';
                 } elseif (!empty($_POST['signed_loan'])) {
                     $signed_id = (int)$_POST['signed_loan'];
-                    if ($signed_id > 0 && mysqli_query($con, "UPDATE `tbl_commercial_loan` SET `sign_status`='1' WHERE `loan_id` = $signed_id")) {
+                    if ($signed_id > 0 && $con->query("UPDATE `tbl_commercial_loan` SET `sign_status`='1' WHERE `loan_id` = $signed_id")) {
                         $cl_flash_ok = "Loan #$signed_id marked as signed.";
                     } else {
                         $cl_flash_err = "Could not mark loan #$signed_id as signed.";
@@ -182,25 +182,18 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                           LEFT JOIN fnd_user_profile u ON u.user_fnd_id = l.user_fnd_id
                           $filter_where";
             $rowcount = 0;
-            if ($stmt = mysqli_prepare($con, $count_sql)) {
-                if ($filter_types !== '') {
-                    mysqli_stmt_bind_param($stmt, $filter_types, ...$filter_params);
+            if ($cnt_res = $con->query($count_sql, $filter_params)) {
+                if ($cnt_row = $cnt_res->fetch_assoc()) {
+                    $rowcount = (int)$cnt_row['total'];
                 }
-                if (mysqli_stmt_execute($stmt)) {
-                    $cnt_res = mysqli_stmt_get_result($stmt);
-                    if ($cnt_row = mysqli_fetch_assoc($cnt_res)) {
-                        $rowcount = (int)$cnt_row['total'];
-                    }
-                    mysqli_free_result($cnt_res);
-                }
-                mysqli_stmt_close($stmt);
             }
             ?>
             <?php
 
 
-            $query_us = mysqli_query($con, "SELECT SUM(principal_amount) AS value_sum FROM tbl_commercial_loan where sign_status= $sign_status or sign_status= '$sign_status'");
-            while ($row_us = mysqli_fetch_array($query_us)) {
+            $us = 0; $pay_off = 0; $totall_trans = 0; $avg = 0; $avg_pay = 0; $total_loan_fee = 0;
+$query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2))) AS value_sum FROM tbl_commercial_loan where sign_status= $sign_status or sign_status= '$sign_status'");
+            while ($query_us && ($row_us = $query_us->fetch_array())) {
                 $us = $row_us['value_sum'];
 
                 $us = number_format((float)$us, 2, '.', '');
@@ -208,14 +201,14 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             }
 
 
-            $query_le = mysqli_query($con, "SELECT SUM(payment) AS value_sum FROM tbl_commercial_loan_installments where status= '0'");
-            while ($row_le = mysqli_fetch_array($query_le)) {
+            $query_le = $con->query("SELECT SUM(TRY_CAST(payment AS DECIMAL(18,2))) AS value_sum FROM tbl_commercial_loan_installments where status= '0'");
+            while ($query_le && ($row_le = $query_le->fetch_array())) {
                 $pay_off = $row_le['value_sum'];
                 break;
             }
 
-            $query_trns = mysqli_query($con, "SELECT SUM(principal_amount) AS value_sum FROM commercial_loan_transaction ");
-            while ($row_trns = mysqli_fetch_array($query_trns)) {
+            $query_trns = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2))) AS value_sum FROM commercial_loan_transaction ");
+            while ($query_trns && ($row_trns = $query_trns->fetch_array())) {
                 $totall_trans = $row_trns['value_sum'];
                 break;
             }
@@ -235,8 +228,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             $avg = number_format((float)$avg_amount, 2, '.', '');
 
 
-            $query_interest = mysqli_query($con, "SELECT SUM(interest) AS value_sum FROM commercial_loan_transaction ");
-            while ($row_interest = mysqli_fetch_array($query_interest)) {
+            $query_interest = $con->query("SELECT SUM(TRY_CAST(interest AS DECIMAL(18,2))) AS value_sum FROM commercial_loan_transaction ");
+            while ($query_interest && ($row_interest = $query_interest->fetch_array())) {
                 $total_loan_fee = $row_interest['value_sum'];
                 if ($total_loan_fee == NULL){
                      $total_loan_fee = 0;
@@ -244,8 +237,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                 break;
             }
 
-            $query_pament_amount = mysqli_query($con, "SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction ");
-            while ($row_pament_amount = mysqli_fetch_array($query_pament_amount)) {
+            $query_pament_amount = $con->query("SELECT SUM(TRY_CAST(payment_amount AS DECIMAL(18,2))) AS value_sum FROM commercial_loan_transaction ");
+            while ($query_pament_amount && ($row_pament_amount = $query_pament_amount->fetch_array())) {
                 $totall_pament_amount = $row_pament_amount['value_sum'];
                 break;
             }
@@ -461,20 +454,13 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                                 LEFT JOIN fnd_user_profile u ON u.user_fnd_id = l.user_fnd_id
                                 $filter_where
                                 ORDER BY l.loan_id DESC
-                                LIMIT ?, ?";
+                                OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 
-                            $list_types  = $filter_types . 'ii';
                             $list_params = array_merge($filter_params, [$offset, $total_records_per_page]);
 
-                            $result = false;
-                            $stmt_list = mysqli_prepare($con, $list_sql);
-                            if ($stmt_list) {
-                                mysqli_stmt_bind_param($stmt_list, $list_types, ...$list_params);
-                                mysqli_stmt_execute($stmt_list);
-                                $result = mysqli_stmt_get_result($stmt_list);
-                            }
+                            $result = $con->query($list_sql, $list_params);
                             $rows_rendered = 0;
-                            while ($row = mysqli_fetch_array($result)) {
+                            while ($row = $result->fetch_array()) {
                                 $user_fnd_id           = $row['user_fnd_id'];
                                 $user_name             = $row['first_name'];
                                 $last_name             = $row['last_name'];
@@ -564,10 +550,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                             if ($rows_rendered === 0) {
                                 echo "<tr><td colspan='10' class='cl-empty-state'>No loans match your current filters. <a href='home.php'>Clear all</a>.</td></tr>";
                             }
-                            if (!empty($stmt_list)) {
-                                mysqli_stmt_close($stmt_list);
-                            }
-                            mysqli_close($con);
+                            $con->close();
                             ?>
 
                         </tbody>
@@ -756,3 +739,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 <?php
 }
 ?>
+
+
+
+

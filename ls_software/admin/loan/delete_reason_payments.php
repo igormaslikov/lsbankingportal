@@ -28,9 +28,9 @@ if($pay_method=='Repay1')
 {
 
 
-$sql_trnsaction=mysqli_query($con, "select * from loan_transaction where repay_transaction_id='$id_transaction'"); 
+$sql_trnsaction=$con->query("select * from loan_transaction where repay_transaction_id='$id_transaction'"); 
 
-while($row_trnsaction = mysqli_fetch_array($sql_trnsaction)) {
+while($row_trnsaction = $sql_trnsaction->fetch_array()) {
 
 $transaction_id=$row_trnsaction['transaction_id'];
 $loan_create_id=$row_trnsaction['loan_create_id'];
@@ -48,9 +48,9 @@ $payment_date= date("m-d-Y", $timestamp);
 }
 else{
 
-$sql_trnsaction=mysqli_query($con, "select * from loan_transaction where transaction_id='$id_transaction'"); 
+$sql_trnsaction=$con->query("select * from loan_transaction where transaction_id='$id_transaction'"); 
 
-while($row_trnsaction = mysqli_fetch_array($sql_trnsaction)) {
+while($row_trnsaction = $sql_trnsaction->fetch_array()) {
 
 $transaction_id=$row_trnsaction['transaction_id'];
 $loan_create_id=$row_trnsaction['loan_create_id'];
@@ -73,9 +73,9 @@ $payment_date= date("m-d-Y", $timestamp);
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_create_id'"); 
+$sql=$con->query("select * from tbl_loan where loan_create_id= '$loan_create_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     
    
    $id=$row['loan_id']; 
@@ -92,9 +92,9 @@ $user_fnd_id=$row['user_fnd_id'];
 
 
 
-$sql_fnd=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql_fnd=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
     
 $first_name=$row_fnd['first_name'];
 $last_name=$row_fnd['last_name'];
@@ -111,9 +111,9 @@ $id_photo=$row_fnd['customer_img'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_create_id'"); 
+$sql=$con->query("select * from tbl_loan where loan_create_id= '$loan_create_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 	$loan_create_id=$row['loan_create_id'];
@@ -144,18 +144,18 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
 }
 
 
-//  $sql_status=mysqli_query($con, "select * from application_status_updates where loan_transaction_id ='$id_transaction'"); 
+//  $sql_status=$con->query("select * from application_status_updates where loan_transaction_id ='$id_transaction'"); 
 
-// while($row_status = mysqli_fetch_array($sql_status)) {
+// while($row_status = $sql_status->fetch_array()) {
 
 // $status=$row_status['status'];
 
@@ -298,10 +298,10 @@ tr:nth-child(even) {
     $form_name="payday-".basename(__FILE__);
     
     //echo "Form: ".$form_name;
-    $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+    $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  
@@ -329,7 +329,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
    //******************************************************* Application Notes END ****************************************
    
    $query = "DELETE FROM loan_transaction WHERE transaction_id = '$transaction_id'";
-    $result = mysqli_query($con, $query);
+    $result = $con->query($query);
        if ($result) {
            //echo "<div class='form'><h3> Customer Successfully Deleted.</h3><br/></div>";
        } else {

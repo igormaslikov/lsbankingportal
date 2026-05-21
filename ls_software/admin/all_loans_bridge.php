@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
@@ -72,10 +72,10 @@ $loan_type=$_GET['loan_type'];
 <?php
 
 $sql_count_loans = "SELECT * FROM tbl_loan";
-if ($result_count_loans=mysqli_query($con,$sql_count_loans))
+if ($result_count_loans=$con->query($sql_count_loans))
   {
   // Return the number of rows in result set
-  $rowcount_count_loans=mysqli_num_rows($result_count_loans)+71019;
+  $rowcount_count_loans=$result_count_loans->num_rows+71019;
   
   $rowcount_count_loans= $rowcount_count_loans-100;
   //echo "<br><br><br><br><br>".$rowcount_count_loans;

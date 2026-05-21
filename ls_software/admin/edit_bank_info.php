@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include 'dbconfig.php';
@@ -24,9 +24,9 @@ $fnd_id=$_GET['fnd_id'];
 //echo "id is::".$id;
 
 
-$sql_bank_detail=mysqli_query($con, "select * from loan_initial_banking where initial_id = '$id'"); 
+$sql_bank_detail=$con->query("select * from loan_initial_banking where initial_id = '$id'"); 
 
-while($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
+while($row_bank_detail = $sql_bank_detail->fetch_array()) {
 
 $type_of_id=$row_bank_detail['type_of_id'];
 $id_photo=$row_bank_detail['pic_of_id'];
@@ -179,10 +179,10 @@ $cvv_number=$row_bank_detail['cvv_number'];
     $form_name=basename(__FILE__);
     
 
- $sql_role=mysqli_query($con, "select * from access_form where form_name ='$form_name'"); 
+ $sql_role=$con->query("select * from access_form where form_name ='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  //echo $form_id;
@@ -219,7 +219,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
         $loan_create_id="";
         $transaction_id="";
         $edit_reason="The Bank Info is Updated by $use_name";
-      mysqli_query($con, "UPDATE loan_initial_banking SET type_of_card='$type_card_up', card_number='$card_number_up', card_exp_date='$card_exp_date_up', bank_name='$bank_name_up', routing_number='$routing_number_up', account_number='$account_number_up', cvv_number='$cvv_number_up' where initial_id='$id'");
+      $con->query("UPDATE loan_initial_banking SET type_of_card='$type_card_up', card_number='$card_number_up', card_exp_date='$card_exp_date_up', bank_name='$bank_name_up', routing_number='$routing_number_up', account_number='$account_number_up', cvv_number='$cvv_number_up' where initial_id='$id'");
    
        application_notes_update($fnd_id,$loan_create_id,$uuu_id,$edit_reason,$transaction_id);
    

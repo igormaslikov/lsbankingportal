@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include 'dbconfig.php';
@@ -56,9 +56,9 @@ $DBcon->close();
 
 $query_sms_content = "select * from msg_template where msg_name='preapprovedtitleloan' ";
 $msg_content = '';
-$sql_sms_content=mysqli_query($con, "$query_sms_content"); 
-  $rowcount_sms_content=mysqli_num_rows($sql_sms_content);
-while($row_sms_content = mysqli_fetch_array($sql_sms_content)) {
+$sql_sms_content=$con->query("$query_sms_content"); 
+  $rowcount_sms_content=$sql_sms_content->num_rows;
+while($row_sms_content = $sql_sms_content->fetch_array()) {
     $msg_name2 = $row_sms_content['msg_name'];
     $msg_content= $row_sms_content['msg_content'];
  //echo "<br><br><br>";
@@ -67,11 +67,11 @@ while($row_sms_content = mysqli_fetch_array($sql_sms_content)) {
 
 }
 $date= date('Y-m-d H:i:s');
-$query_update_status= "INSERT INTO `application_status_updates`( `application_id`, `user_id`, `status`, `creation_date`) VALUES ('$cu_id','$u_id','Pre-Approved Title Loan SMS Sent','$date')";
+$query_update_status= "INSERT INTO application_status_updates( application_id, user_id, status, creation_date) VALUES ('$cu_id','$u_id','Pre-Approved Title Loan SMS Sent','$date')";
 echo   $query_update_status;     
 
 
-	   $result_status_update = mysqli_query($con, $query_update_status);
+	   $result_status_update = $con->query($query_update_status);
         if ($result_status_update) {
          //  echo "<div class='form'><h3> successfully added in application_status_updates.</h3><br/></div>";
         } else {

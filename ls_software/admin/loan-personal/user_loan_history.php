@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -24,9 +24,9 @@ $DBcon->close();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_personal_loans where p_loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_personal_loans where p_loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 $loan_create_id=$row_fnd['loan_create_id'];
@@ -36,8 +36,8 @@ $loan_status=$row_fnd['loan_status'];
 
 
 
-$query_payment = mysqli_query($con,"SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
-while ($row_payment=mysqli_fetch_array($query_payment)){
+$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
+while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
     $payment = number_format((float)$payment, 2, '.', '');
@@ -53,9 +53,9 @@ while ($row_payment=mysqli_fetch_array($query_payment)){
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -76,9 +76,9 @@ $customer_numbr=$row['mobile_number'];
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql=mysqli_query($con, "select * from tbl_personal_loans where user_fnd_id= '$user_fnd_id' AND p_loan_id = '$id'"); 
+$sql=$con->query("select * from tbl_personal_loans where user_fnd_id= '$user_fnd_id' AND p_loan_id = '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['p_loan_id'];
 //echo "fndid is:".$fnd_id;
@@ -117,9 +117,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -136,9 +136,9 @@ $username=$row_user['username'];
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql_user=mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'"); 
+$sql_user=$con->query("select * from tbl_loan_notes where loan_id= '$id'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $loan_notes=$row_user['notes'];
 
@@ -150,15 +150,13 @@ $loan_notes=$row_user['notes'];
 
 $sql_t="SELECT loan_id FROM tbl_personal_loans  where sign_status='1' AND user_fnd_id= '$user_fnd_id' ORDER BY p_loan_id";
 
-if ($result_t=mysqli_query($con,$sql_t))
+if ($result_t=$con->query($sql_t))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
-  echo $ye;
-  }
+}
 
 ?>
 
@@ -269,9 +267,9 @@ include_once '../dbconfig.php';
 
  $id=$_GET['id'];
  
-$sql_fnd=mysqli_query($con, "select * from tbl_personal_loans where p_loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_personal_loans where p_loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 
 
@@ -279,9 +277,9 @@ $user_fnd_id=$row_fnd['user_fnd_id'];
 //echo "FND_ID" .$user_fnd_id;
 }
 
-$sql_loan_his=mysqli_query($con, "select * from tbl_personal_loans where user_fnd_id = '$user_fnd_id' AND sign_status='1' "); 
+$sql_loan_his=$con->query("select * from tbl_personal_loans where user_fnd_id = '$user_fnd_id' AND sign_status='1' "); 
 
-while($row_loan_his = mysqli_fetch_array($sql_loan_his)) {
+while($row_loan_his = $sql_loan_his->fetch_array()) {
     
     
     $loan_id=$row_loan_his['p_loan_id'];
@@ -338,17 +336,17 @@ if ($days_past<0)
               $varibl="$";
           }
           
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $daily_interest=$row_loan_settings['daily_interest'];
 $payoff=$row_loan_settings['payoff_amount'];
 }
 
-$sql_doc=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'"); 
+$sql_doc=$con->query("select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'"); 
 
-while($row_doc = mysqli_fetch_array($sql_doc)) {
+while($row_doc = $sql_doc->fetch_array()) {
 
 $first_name=$row_doc['first_name'];
 $last_name=$row_doc['last_name'];

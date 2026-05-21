@@ -118,10 +118,10 @@ $date = date('Y-m-d H:i:s');
 
 $form_name=basename(__FILE__);
 
-    $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+    $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-    while($row_role = mysqli_fetch_array($sql_role)) {
+    while($row_role = $sql_role->fetch_array()) {
 
     $form_id=$row_role['id'];
  
@@ -130,22 +130,22 @@ $form_name=basename(__FILE__);
      user_roles($u_access_id,$form_id);
      
 
-$sql_fnd=mysqli_query($con, "select * from fnd_user_profile where email = '$email' AND mobile_number = '$phone_number'"); 
+$sql_fnd=$con->query("select * from fnd_user_profile where email = '$email' AND mobile_number = '$phone_number'"); 
 
-            while($row_fnd_id = mysqli_fetch_array($sql_fnd)) {
+            while($row_fnd_id = $sql_fnd->fetch_array()) {
             $user_fnd_iddd = $row_fnd_id['user_fnd_id'];
             $creation_date = $row_fnd_id['application_date'];
             $application_status = $row_fnd_id['application_status'];
             }
             
-          $rowcount_funded=mysqli_num_rows($sql_fnd);  
+          $rowcount_funded=$sql_fnd->num_rows;  
           
      if($rowcount_funded>0){
          
 if ($creation_date<$date_duplicate){
-mysqli_query($con, "UPDATE fnd_user_profile SET application_status='New Application', application_date='$to_date_filter', loan_type='$loan_type' where user_fnd_id ='$user_fnd_iddd'");
+$con->query("UPDATE fnd_user_profile SET application_status='New Application', application_date='$to_date_filter', loan_type='$loan_type' where user_fnd_id ='$user_fnd_iddd'");
 $query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id)  VALUES ('$user_fnd_iddd')";
-        $result_fnd = mysqli_query($con, $query_fnd_id);
+        $result_fnd = $con->query($query_fnd_id);
         if ($result_fnd) {
             echo "<div class='form'><h3> Duplicated successfully added.</h3><br/></div>";
         } else {
@@ -314,7 +314,7 @@ admin_leads_email_notification($subject_data,$message_data);
            
 $query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_number,address,city,state,zip_code,date_of_birth,ssn,created_by,creation_date,user_key,application_status,website,created_time_,source_of_lead,declined_reason,loan_type, application_date)  VALUES ('$first_name','$last_name','$email','$phone_number','$address','$city','$state','$zip','$dob','$ssn','$u_id','$date','$user_key','New Application','By Office','$time_created','$source_of_lead','$decline_reason','$loan_type','$application_date')";
         // echo $query;
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         // echo $result;
         // exit();
         if ($result) {
@@ -325,15 +325,15 @@ $query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_numbe
         }
         
         
-        $sql_fnd_11=mysqli_query($con, "select * from fnd_user_profile where email = '$email'"); 
+        $sql_fnd_11=$con->query("select * from fnd_user_profile where email = '$email'"); 
 
-while($row_fnd_id = mysqli_fetch_array($sql_fnd_11)) {
+while($row_fnd_id = $sql_fnd_11->fetch_array()) {
 $user_fnd_iddd = $row_fnd_id['user_fnd_id'];
 
 }
 
 $query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id)  VALUES ('$user_fnd_iddd')";
-        $result_fnd = mysqli_query($con, $query_fnd_id);
+        $result_fnd = $con->query($query_fnd_id);
         if ($result_fnd) {
             echo "<div class='form'><h3> New successfully added.</h3><br/></div>";
         } else {
@@ -342,15 +342,15 @@ $query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id)  VALUES 
         
       
 //$created_by= $userRow['user_id'];
-$query_userid = mysqli_query($con,"Select * from fnd_user_profile where user_key = '$user_key'");
-while ($row_user_id=mysqli_fetch_array($query_userid)){
+$query_userid = $con->query("Select * from fnd_user_profile where user_key = '$user_key'");
+while ($row_user_id=$query_userid->fetch_array()){
     $user_id = $row_user_id[0];
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$user_id;
 
 }
 
 $query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,created_by,creation_date,business_type,business_create)  VALUES ('$user_id','$employer_name','$work_phone','$net_amount','$direct_deposit','$get_paid','$last_check','$next_check','$u_id','$date','$business_type_update', '$business_create_update')";
-        $result3 = mysqli_query($con, $query3);
+        $result3 = $con->query($query3);
         if ($result3) {
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
         } else {
@@ -359,7 +359,7 @@ $query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,n
 
 
         $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,business_address,business_city,business_state,business_zip,monthly_gross_amount,direct_deposit,how_paid,business_docs,created_by,created_at)  VALUES ('$user_id','$business_name_update','$business_phone_update','$business_address_update','$business_city_update','$business_state_update','$business_zip_update','$gross_amount_update','$business_direct_deposit_update','$business_get_paid_update','$business_docs_update','$u_id','$date')";
-        $result_business = mysqli_query($con, $query_business);
+        $result_business = $con->query($query_business);
         if ($result_business) {
           //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
         } else {
@@ -367,7 +367,7 @@ $query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,n
         }
         
     $query3  = "INSERT INTO binary_questions (user_fnd_id,bq_answer,created_by,creation_date)  VALUES ('$user_id','$payment','$u_id','$date')";
-        $result3 = mysqli_query($con, $query3);
+        $result3 = $con->query($query3);
         if ($result3) {
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
         } else {
@@ -375,7 +375,7 @@ $query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,n
         }  
         
          $query34  = "INSERT INTO application_notes (user_fnd_id,app_notes,created_by,creation_date)  VALUES ('$user_id','$application_notes','$u_id','$date')";
-        $result34 = mysqli_query($con, $query34);
+        $result34 = $con->query($query34);
         if ($result34) {
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
         } else {

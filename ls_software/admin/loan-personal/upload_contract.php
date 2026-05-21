@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 error_reporting(0);
 
@@ -50,11 +50,11 @@ include_once '../dbconfig.php';
 
 $id=$_GET['id'];
 
-$sql_fnd=mysqli_query($con, "select * from tbl_personal_loans where p_loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_personal_loans where p_loan_id = '$id'"); 
 
 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 
 
@@ -82,11 +82,11 @@ include_once '../dbconfig.php';
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 
 
@@ -128,11 +128,11 @@ include_once '../dbconfig.php';
 
 
 
-$sql=mysqli_query($con, "select * from tbl_personal_loans where loan_create_id= '$loan_create_id'"); 
+$sql=$con->query("select * from tbl_personal_loans where loan_create_id= '$loan_create_id'"); 
 
 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 
 
@@ -208,11 +208,11 @@ include_once '../dbconfig.php';
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 
 
@@ -246,11 +246,11 @@ include_once '../dbconfig.php';
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_personal_loans_notes where p_loan_id= '$id'"); 
+$sql_user=$con->query("select * from tbl_personal_loans_notes where p_loan_id= '$id'"); 
 
 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 
 
@@ -462,7 +462,7 @@ if ($uploadOk == 0) {
 
         echo "The file ". basename( $_FILES["lender_documents"]["name"]). " has been uploaded.";
 
-         mysqli_query($con,"UPDATE tbl_personal_loans SET contract ='$target_file_db', contract_status='1' where loan_create_id ='$loan_create_id'");
+         $con->query("UPDATE tbl_personal_loans SET contract ='$target_file_db', contract_status='1' where loan_create_id ='$loan_create_id'");
 
 		echo '<meta http-equiv="refresh" content="0">';
 

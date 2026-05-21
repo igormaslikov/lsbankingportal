@@ -1,20 +1,15 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include 'dbconfig.php';
-if (!isset($_SESSION['userSession'])) {
-	header("Location: index.php");
-}
-
-$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
-$userRow=$query->fetch_array();
-$u_id=$userRow['user_id'];
+include_once 'security.php';
+require_login();
+$user_id = (int)$_SESSION['userSession'];
+$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $user_id);
+$userRow = $query->fetch_array();
+$u_id = $userRow['user_id'];
 $u_access_id = $userRow['access_id'];
-if($u_access_id=='0'){
-    echo "YOU ARE NOT AUTHORISED TO ACCESS THIS PAGE.";
- 
-}
-else {
+require_access($u_access_id);
 $DBcon->close();
 
 ?>
@@ -59,26 +54,12 @@ $DBcon->close();
 <br><br>
  <?php
 include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnection.php';
-$con = mysqli_connect($db_host,$db_user,$db_pass,$db_name);
-// Check connection
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
-
-$sql_t="SELECT bg_name,email_id FROM business_group ORDER BY bg_id";
-
-if ($result_t=mysqli_query($con,$sql_t))
-  {
-  // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
- // printf($rowcount);
-  // Free result set
-  $ye=mysqli_free_result($result_t);
-  echo $ye;
-  }
-
-mysqli_close($con);
+$con = portal_get_sqlsrv_db();
+$sql_t = "SELECT bg_name,email_id FROM business_group ORDER BY bg_id";
+$rowcount = 0;
+if ($result_t = $con->query($sql_t)) {
+    $rowcount = $result_t->num_rows;
+}
 ?>
    
 <div align="right">
@@ -110,41 +91,37 @@ $count=1;
 if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$page_no = $_GET['page_no'];
 	$count = $count + (25*($page_no-1));
-	} else {
-		$page_no = 1;
-        }
-
-	$total_records_per_page = 25;
+} else {
+	$page_no = 1;
+}
+$total_records_per_page = 25;
     $offset = ($page_no-1) * $total_records_per_page;
 	$previous_page = $page_no - 1;
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `business_group`");
-	$total_records = mysqli_fetch_array($result_count);
-	$total_records = $total_records['total_records'];
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM business_group");
+	$total_records = $result_count ? $result_count->fetch_array() : null;
+	$total_records = $total_records['total_records'] ?? 0;
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-    $result = mysqli_query($con,"SELECT * FROM `business_group` ORDER BY bg_id DESC LIMIT $offset, $total_records_per_page");
-    while($row = mysqli_fetch_array($result)){
-		 $id=$row['bg_id'];
-		echo "<tr>
-	 	      
-			  <td>".$count++."</td>
-			  <td>".$row['bg_name']."</td>
-	 		  <td>".$row['email_id']."</td>
-	 		  <td>".$row['address1']."</td>
-		   	  <td>".$row['contact_number1']."</td>
-		   	  
-<td><a href='edit_company.php?id=$id' title='Edit This Company'><span class='glyphicon glyphicon-edit' aria-hidden='true' alt='edit'></span></a>
-<a class='remove-box' href='delete_company.php?id=$id' title='Delete This User'><span class='glyphicon glyphicon-remove' aria-hidden='true' alt='delete'></span></a>
-
-</td>
-
-		   	  </tr>";
-        }
-	mysqli_close($con);
+    $result = $con->query("SELECT * FROM business_group ORDER BY bg_id DESC OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY");
+    while ($result && ($row = $result->fetch_array())) {
+        $id = $row['bg_id'];
+        echo "<tr>
+              <td>" . $count++ . "</td>
+              <td>" . h($row['bg_name']) . "</td>
+              <td>" . h($row['email_id']) . "</td>
+              <td>" . h($row['address1']) . "</td>
+              <td>" . h($row['contact_number1']) . "</td>
+              <td>
+                <a href='/ls_software/admin/edit_company.php?id=" . (int)$id . "' title='Edit This Company'><span class='glyphicon glyphicon-edit' aria-hidden='true'></span></a>
+                <a class='remove-box' href='/ls_software/admin/delete_company.php?id=" . (int)$id . "' title='Delete This Portfolio'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>
+              </td>
+            </tr>";
+    }
+    $con->close();
     ?>
     
     </tbody>
@@ -161,69 +138,60 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	<a <?php if($page_no > 1){ echo "href='?page_no=$previous_page'"; } ?>>Previous</a>
 	</li>
        
-    <?php 
-	if ($total_no_of_pages <= 10){  	 
-		for ($counter = 1; $counter <= $total_no_of_pages; $counter++){
-			if ($counter == $page_no) {
-		   echo "<li class='active'><a>$counter</a></li>";	
-				}else{
-           echo "<li><a href='?page_no=$counter'>$counter</a></li>";
-				}
-        }
-	}
-	elseif($total_no_of_pages > 10){
-		
-	if($page_no <= 4) {			
-	 for ($counter = 1; $counter < 8; $counter++){		 
-			if ($counter == $page_no) {
-		   echo "<li class='active'><a>$counter</a></li>";	
-				}else{
-           echo "<li><a href='?page_no=$counter'>$counter</a></li>";
-				}
-        }
-		echo "<li><a>...</a></li>";
-		echo "<li><a href='?page_no=$second_last'>$second_last</a></li>";
-		echo "<li><a href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
-		}
-
-	 elseif($page_no > 4 && $page_no < $total_no_of_pages - 4) {		 
-		echo "<li><a href='?page_no=1'>1</a></li>";
-		echo "<li><a href='?page_no=2'>2</a></li>";
-        echo "<li><a>...</a></li>";
-        for ($counter = $page_no - $adjacents; $counter <= $page_no + $adjacents; $counter++) {			
-           if ($counter == $page_no) {
-		   echo "<li class='active'><a>$counter</a></li>";	
-				}else{
-           echo "<li><a href='?page_no=$counter'>$counter</a></li>";
-				}                  
-       }
-       echo "<li><a>...</a></li>";
-	   echo "<li><a href='?page_no=$second_last'>$second_last</a></li>";
-	   echo "<li><a href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";      
+    <?php
+    if ($total_no_of_pages <= 10) {
+        for ($counter = 1; $counter <= $total_no_of_pages; $counter++) {
+            if ($counter == $page_no) {
+                echo "<li class='active'><a>$counter</a></li>";
+            } else {
+                echo "<li><a href='?page_no=$counter'>$counter</a></li>";
             }
-		
-		else {
+        }
+    } elseif ($page_no <= 4) {
+        for ($counter = 1; $counter < 8; $counter++) {
+            if ($counter == $page_no) {
+                echo "<li class='active'><a>$counter</a></li>";
+            } else {
+                echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+            }
+        }
+        echo "<li><a>...</a></li>";
+        echo "<li><a href='?page_no=$second_last'>$second_last</a></li>";
+        echo "<li><a href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
+    } elseif ($page_no > 4 && $page_no < $total_no_of_pages - 4) {
         echo "<li><a href='?page_no=1'>1</a></li>";
-		echo "<li><a href='?page_no=2'>2</a></li>";
+        echo "<li><a href='?page_no=2'>2</a></li>";
         echo "<li><a>...</a></li>";
-
-        for ($counter = $total_no_of_pages - 6; $counter <= $total_no_of_pages; $counter++) {
-          if ($counter == $page_no) {
-		   echo "<li class='active'><a>$counter</a></li>";	
-				}else{
-           echo "<li><a href='?page_no=$counter'>$counter</a></li>";
-				}                   
-                }
+        for ($counter = $page_no - $adjacents; $counter <= $page_no + $adjacents; $counter++) {
+            if ($counter == $page_no) {
+                echo "<li class='active'><a>$counter</a></li>";
+            } else {
+                echo "<li><a href='?page_no=$counter'>$counter</a></li>";
             }
-	}
-?>
-    
+        }
+        echo "<li><a>...</a></li>";
+        echo "<li><a href='?page_no=$second_last'>$second_last</a></li>";
+        echo "<li><a href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
+    } else {
+        echo "<li><a href='?page_no=1'>1</a></li>";
+        echo "<li><a href='?page_no=2'>2</a></li>";
+        echo "<li><a>...</a></li>";
+        for ($counter = $total_no_of_pages - 6; $counter <= $total_no_of_pages; $counter++) {
+            if ($counter == $page_no) {
+                echo "<li class='active'><a>$counter</a></li>";
+            } else {
+                echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+            }
+        }
+    }
+    ?>
+
 	<li <?php if($page_no >= $total_no_of_pages){ echo "class='disabled'"; } ?>>
 	<a <?php if($page_no < $total_no_of_pages) { echo "href='?page_no=$next_page'"; } ?>>Next</a>
 	</li>
-    <?php if($page_no < $total_no_of_pages){
-		echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
-		} ?>
+    <?php if ($page_no < $total_no_of_pages) {
+        echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+    } ?>
 </ul>
 
 
@@ -235,15 +203,10 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
   </section>
 
   <style>
-      .navbar-default{
-          background-color:#fb3f06 !important;
-      }
-      
-  </style>
+      .navbar-default          background-color:#fb3f06 !important;  </style>
 
 </body>
 </html>
 
-<?php
-}
-?>
+<?php?>
+

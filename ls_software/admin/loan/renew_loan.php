@@ -7,12 +7,12 @@ if (!isset($_POST['btn-submit']) && isset($_REQUEST['card_number'])) {
   include_once '../dbconfig.php';
   $loan_id = $_POST['loanId'];
   $card_number = $_POST['card_number'];
-  $sql_bank_detail = mysqli_query($con, "select distinct card_exp_date, cvv_number, type_of_card, bank_name from loan_initial_banking where user_fnd_id = (SELECT user_fnd_id from tbl_loan WHERE loan_id = '$loan_id') and card_number='$card_number'");
+  $sql_bank_detail = $con->query("select distinct card_exp_date, cvv_number, type_of_card, bank_name from loan_initial_banking where user_fnd_id = (SELECT user_fnd_id from tbl_loan WHERE loan_id = '$loan_id') and card_number='$card_number'");
   // $type_of_card = '';
   // $renew_year = '';
   // $rerenew_month = '';
   // $cvv_number = '';
-  while ($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
+  while ($row_bank_detail = $sql_bank_detail->fetch_array()) {
 
     $type_of_card = $row_bank_detail['type_of_card'];
 
@@ -67,9 +67,9 @@ include_once '../dbconfig.php';
 
 
   $id = $_GET['id'];
-  $sql_fnd = mysqli_query($con, "select * from tbl_loan where loan_id = '$id'");
+  $sql_fnd = $con->query("select * from tbl_loan where loan_id = '$id'");
 
-  while ($row_fnd = mysqli_fetch_array($sql_fnd)) {
+  while ($row_fnd = $sql_fnd->fetch_array()) {
 
     $user_fnd_id = $row_fnd['user_fnd_id'];
     //echo "FND_ID" .$user_fnd_id;
@@ -81,9 +81,9 @@ include_once '../dbconfig.php';
 
 
 
-  $sql = mysqli_query($con, "select * from tbl_loan where loan_id= '$id'");
+  $sql = $con->query("select * from tbl_loan where loan_id= '$id'");
 
-  while ($row = mysqli_fetch_array($sql)) {
+  while ($row = $sql->fetch_array()) {
 
     $loan_id = $row['loan_id'];
     $loan_create_id = $row['loan_create_id'];
@@ -119,9 +119,9 @@ include_once '../dbconfig.php';
 
 
 
-  $sql_user = mysqli_query($con, "select * from tbl_users where user_id= '$created_by'");
+  $sql_user = $con->query("select * from tbl_users where user_id= '$created_by'");
 
-  while ($row_user = mysqli_fetch_array($sql_user)) {
+  while ($row_user = $sql_user->fetch_array()) {
 
     $username = $row_user['username'];
   }
@@ -136,9 +136,9 @@ include_once '../dbconfig.php';
 
 
 
-  $sql_user = mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'");
+  $sql_user = $con->query("select * from tbl_loan_notes where loan_id= '$id'");
 
-  while ($row_user = mysqli_fetch_array($sql_user)) {
+  while ($row_user = $sql_user->fetch_array()) {
 
     $loan_notes = $row_user['notes'];
   }
@@ -152,9 +152,9 @@ include_once '../dbconfig.php';
 
 
 
-  $sql_fnd = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'");
+  $sql_fnd = $con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'");
 
-  while ($row_fnd = mysqli_fetch_array($sql_fnd)) {
+  while ($row_fnd = $sql_fnd->fetch_array()) {
 
     $first_name = $row_fnd['first_name'];
     $last_name = $row_fnd['last_name'];
@@ -177,9 +177,9 @@ include_once '../dbconfig.php';
     $decision_logic_status = $row_fnd['decision_logic_status'];
   }
 
-  $sql_bank_detail = mysqli_query($con, "select * from loan_initial_banking where user_fnd_id = '$user_fnd_id' AND loan_id= '$loan_create_id'");
+  $sql_bank_detail = $con->query("select * from loan_initial_banking where user_fnd_id = '$user_fnd_id' AND loan_id= '$loan_create_id'");
 
-  while ($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
+  while ($row_bank_detail = $sql_bank_detail->fetch_array()) {
 
     $type_of_id = $row_bank_detail['type_of_id'];
     $id_photo = $row_bank_detail['pic_of_id'];
@@ -550,9 +550,9 @@ include_once '../dbconfig.php';
                     <label for="card_number">Card Number</label>
                     <select name="card_number" id="card_number" class="form-control" value="" required>
                       <?php
-                      $sql_card_details = mysqli_query($con, "SELECT DISTINCT card_number FROM `loan_initial_banking` WHERE user_fnd_id = '$user_fnd_id'");
+                      $sql_card_details = $con->query("SELECT DISTINCT card_number FROM loan_initial_banking WHERE user_fnd_id = '$user_fnd_id'");
 
-                      while ($row_bank_detail = mysqli_fetch_array($sql_card_details)) {
+                      while ($row_bank_detail = $sql_card_details->fetch_array()) {
 
                         $card_number_from_list = $row_bank_detail['card_number'];
                         $selected = "";
@@ -752,10 +752,10 @@ include_once '../dbconfig.php';
 
 
 
-      mysqli_query($con, "UPDATE fnd_user_profile SET first_name ='$first_name_update', last_name='$last_name_update', mobile_number='$phone_number_update', email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update' where user_fnd_id ='$user_fnd_id'");
+      $con->query("UPDATE fnd_user_profile SET first_name ='$first_name_update', last_name='$last_name_update', mobile_number='$phone_number_update', email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update' where user_fnd_id ='$user_fnd_id'");
 
 
-      mysqli_query($con, "UPDATE loan_initial_banking SET type_of_id='$type_id_up', type_of_card='$type_card_up', card_number='$card_number_up', card_exp_date='$card_exp_date_up', bank_name='$bank_name_up', routing_number='$routing_number_up', account_number='$account_number_up', cvv_number='$cvv_number_up' where user_fnd_id ='$user_fnd_id'  AND loan_id= '$loan_create_id'");
+      $con->query("UPDATE loan_initial_banking SET type_of_id='$type_id_up', type_of_card='$type_card_up', card_number='$card_number_up', card_exp_date='$card_exp_date_up', bank_name='$bank_name_up', routing_number='$routing_number_up', account_number='$account_number_up', cvv_number='$cvv_number_up' where user_fnd_id ='$user_fnd_id'  AND loan_id= '$loan_create_id'");
 
     ?>
       <script type="text/javascript">

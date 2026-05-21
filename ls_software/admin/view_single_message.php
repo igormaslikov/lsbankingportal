@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
@@ -60,10 +60,10 @@ $DBcon->close();
  <?php
  include('sms-chat/dbconfig.php');
 $query = "SELECT * FROM webchat_lines ORDER BY id DESC";
-$result = mysqli_query($con, $query);
-if(mysqli_num_rows($result) > 0)
+$result = $con->query($query);
+if($result->num_rows > 0)
 {
-while($row = mysqli_fetch_array($result))
+while($row = $result->fetch_array())
 {
   $msg_id=$row['id'];
     $ts=$row['ts'];

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
@@ -43,9 +43,9 @@ error_reporting(0);
    
    $id_fnd=$_GET['fnd_id'];
 
-$sql_fetch_fnd=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id_fnd'"); 
+$sql_fetch_fnd=$con->query("select * from fnd_user_profile where user_fnd_id= '$id_fnd'"); 
 
-while($row_fetch_fnd = mysqli_fetch_array($sql_fetch_fnd)) {
+while($row_fetch_fnd = $sql_fetch_fnd->fetch_array()) {
 
 $email=$row_fetch_fnd['email'];
 
@@ -61,9 +61,9 @@ $void_img=$row_fetch_fnd['void_img'];
 
 
 
-$sql_fetch_loan=mysqli_query($con, "select * from tbl_title_loans where user_fnd_id= '$id_fnd'"); 
+$sql_fetch_loan=$con->query("select * from tbl_title_loans where user_fnd_id= '$id_fnd'"); 
 
-while($row_fetch_loan = mysqli_fetch_array($sql_fetch_loan)) {
+while($row_fetch_loan = $sql_fetch_loan->fetch_array()) {
 
 $loan_id=$row_fetch_loan['loan_create_id'];
 
@@ -86,9 +86,9 @@ $headers = 'From: admin@lsfinancing.com';
 //echo "loan id:".$loan_id;
 
 
-$sql_fetch_user=mysqli_query($con, "select * from tbl_users"); 
+$sql_fetch_user=$con->query("select * from tbl_users"); 
 
-while($row_fetch_user = mysqli_fetch_array($sql_fetch_user)) {
+while($row_fetch_user = $sql_fetch_user->fetch_array()) {
 
 $email_admin=$row_fetch_user['email'];
 //echo "<br><br><br><br><br>admin email:".$email_admin;
@@ -338,7 +338,7 @@ else if(isset($_FILES['imageeeee']))
 } 
  
     $query_in  = "INSERT INTO title_loan_initial_banking (loan_id,user_fnd_id,type_of_id,pic_of_id,type_of_card,card_number,card_exp_date,bank_front_pic,bank_back_pic,bank_name,routing_number,account_number,void_check_pic,cvv_number,creation_date,update_date,created_by,email_key,sign_status,update_by)  VALUES ('$loan_id','$fndd_id','$type_id','$final_File','$type_card','$card_number','$card_exp_date','$final_Filee','$final_Fileee','$bank_name','$routing_number','$account_number','$final_Fileeee','$cvv_number','$date','$date','$u_id','$email_key','0','$u_id')";
-        $result_in = mysqli_query($con, $query_in);
+        $result_in = $con->query($query_in);
         if ($result_in) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -349,7 +349,7 @@ else if(isset($_FILES['imageeeee']))
     
      
     
-    mysqli_query($con, "UPDATE fnd_user_profile SET id_photo ='$final_File', bank_front='$final_Filee', bank_back='$final_Fileee', void_img='$final_Fileeee'  where user_fnd_id ='$fndd_id'"); 
+    $con->query("UPDATE fnd_user_profile SET id_photo ='$final_File', bank_front='$final_Filee', bank_back='$final_Fileee', void_img='$final_Fileeee'  where user_fnd_id ='$fndd_id'"); 
     
 ?>
 

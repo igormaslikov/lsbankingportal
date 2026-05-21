@@ -37,8 +37,8 @@ if (!function_exists('app_base_url')) {
 
 $id = $_GET['id'];
 $user_fnd_id = $loan_create_id = $contract_status = $contract_db = '';
-$sql_fnd = mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'");
-while ($row_fnd = mysqli_fetch_array($sql_fnd)) {
+$sql_fnd = $con->query("select * from tbl_commercial_loan where loan_id = '$id'");
+while ($row_fnd = $sql_fnd->fetch_array()) {
     $user_fnd_id     = $row_fnd['user_fnd_id'];
     $loan_create_id  = $row_fnd['loan_create_id'];
     $contract_status = $row_fnd['contract_status'];
@@ -47,8 +47,8 @@ while ($row_fnd = mysqli_fetch_array($sql_fnd)) {
 }
 
 $first_name = $last_name = $customer_numbr = '';
-$sql = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'");
-while ($row = mysqli_fetch_array($sql)) {
+$sql = $con->query("select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'");
+while ($row = $sql->fetch_array()) {
     $first_name     = $row['first_name'];
     $last_name      = $row['last_name'];
     $customer_numbr = $row['mobile_number'];
@@ -61,8 +61,8 @@ while ($row = mysqli_fetch_array($sql)) {
 $val = '';
 $amount_loan = '0.00';
 $new_creation_date = '';
-$sql = mysqli_query($con, "select * from tbl_commercial_loan where user_fnd_id = '$user_fnd_id' AND loan_id = '$id'");
-while ($row = mysqli_fetch_array($sql)) {
+$sql = $con->query("select * from tbl_commercial_loan where user_fnd_id = '$user_fnd_id' AND loan_id = '$id'");
+while ($row = $sql->fetch_array()) {
     $amount_loan = number_format((float)$row['principal_amount'], 2, '.', '');
     if ($amount_loan != '0') { $val = '$'; }
     $creation_date = $row['contract_date'];
@@ -73,8 +73,8 @@ while ($row = mysqli_fetch_array($sql)) {
 }
 
 $mail_key = '';
-$sql_mail_key = mysqli_query($con, "select * from commercial_loan_initial_banking where loan_id = '$loan_create_id'");
-while ($row_mail_key = mysqli_fetch_array($sql_mail_key)) {
+$sql_mail_key = $con->query("select * from commercial_loan_initial_banking where loan_id = '$loan_create_id'");
+while ($row_mail_key = $sql_mail_key->fetch_array()) {
     $mail_key = $row_mail_key['email_key'];
 }
 
@@ -294,8 +294,8 @@ $doc_cards = [
             <tbody>
               <?php
               $__doc_rows = 0;
-              $sql_doc = mysqli_query($con, "select * from lender_documents where fnd_user_id = '$user_fnd_id' ORDER BY id desc");
-              while ($row_doc = mysqli_fetch_array($sql_doc)) {
+              $sql_doc = $con->query("select * from lender_documents where fnd_user_id = '$user_fnd_id' ORDER BY id desc");
+              while ($row_doc = $sql_doc->fetch_array()) {
                   $__doc_rows++;
                   $doc_id           = $row_doc['id'];
                   $date_created     = $row_doc['date_created'];
@@ -304,8 +304,8 @@ $doc_cards = [
                   $description_name = $row_doc['description'];
 
                   $final_lender_by_user = '';
-                  $sql_lbu = mysqli_query($con, "select username from tbl_users where user_id = '$doc_created_by' limit 1");
-                  if ($sql_lbu && ($r = mysqli_fetch_assoc($sql_lbu))) {
+                  $sql_lbu = $con->query("select username from tbl_users where user_id = '$doc_created_by' limit 1");
+                  if ($sql_lbu && ($r = $sql_lbu->fetch_assoc())) {
                       $final_lender_by_user = $r['username'];
                   }
                   ?>

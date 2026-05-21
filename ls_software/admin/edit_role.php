@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include 'dbconfig.php';
@@ -21,9 +21,9 @@ if($u_access_id!='1'){
 $id=$_GET['id'];
 
 
-$sql=mysqli_query($con, "select * from access_level where access_id= '$id'"); 
+$sql=$con->query("select * from access_level where access_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $access_level=$row['access_level'];
 
@@ -100,10 +100,10 @@ if(isset($_POST['btn-submit'])) {
     
 $user_role=$_POST['user_role']; 
 
-$sql_role=mysqli_query($con, "select * from access_form where form_name ='$form_name'"); 
+$sql_role=$con->query("select * from access_form where form_name ='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  //echo $form_id;
@@ -114,7 +114,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
 {
 
 
-mysqli_query($con, "UPDATE `access_level` SET `access_level`='$user_role' where access_id ='$id'");   
+$con->query("UPDATE access_level SET access_level='$user_role' where access_id ='$id'");   
    
     ?>
     

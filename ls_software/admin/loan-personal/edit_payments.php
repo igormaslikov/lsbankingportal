@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 error_reporting(0);
 
@@ -54,11 +54,11 @@ $id=$_GET['id'];
 
 
 
-$sql_trnsaction=mysqli_query($con, "select * from personal_loan_transaction where transaction_id='$id_transaction'"); 
+$sql_trnsaction=$con->query("select * from personal_loan_transaction where transaction_id='$id_transaction'"); 
 
 
 
-while($row_trnsaction = mysqli_fetch_array($sql_trnsaction)) {
+while($row_trnsaction = $sql_trnsaction->fetch_array()) {
 
 
 
@@ -98,11 +98,11 @@ $payment_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_install=mysqli_query($con, "select * from tbl_personal_loan_installments where id='$installment_id'"); 
+$sql_install=$con->query("select * from tbl_personal_loan_installments where id='$installment_id'"); 
 
 
 
-while($row_install = mysqli_fetch_array($sql_install)) {
+while($row_install = $sql_install->fetch_array()) {
 
     $payment_description=$row_install['payment_description'];
 
@@ -114,11 +114,11 @@ while($row_install = mysqli_fetch_array($sql_install)) {
 
 
 
-$sql=mysqli_query($con, "select * from tbl_personal_loans where loan_create_id= '$loan_create_id'"); 
+$sql=$con->query("select * from tbl_personal_loans where loan_create_id= '$loan_create_id'"); 
 
 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
     
 
@@ -154,11 +154,11 @@ include '../dbconfig.php';
 
 
 
-$sql_fnd=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql_fnd=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
     
 
@@ -192,11 +192,11 @@ $id_photo=$row_fnd['customer_img'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_personal_loans where loan_create_id= '$loan_create_id'"); 
+$sql=$con->query("select * from tbl_personal_loans where loan_create_id= '$loan_create_id'"); 
 
 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 
 
@@ -258,11 +258,11 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 
 
@@ -648,13 +648,13 @@ tr:nth-child(even) {
 
      
 
-      $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+      $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
 
 
@@ -680,11 +680,11 @@ while($row_role = mysqli_fetch_array($sql_role)) {
 
      $edit_reason= "Payment Edit Reason: ". $_POST['edit_reason']." with Personal loan ID $loan_create_id_up And Payment ID $transaction_id";
 
-    mysqli_query($con, "UPDATE personal_loan_transaction SET interest='$interest_amount_up', principal_amount='$principal_amount_up', remaining_balance='$balance_amount', late_fee='$late_fee', payment_date='$payment_date_up' where id='$transaction_id'");
+    $con->query("UPDATE personal_loan_transaction SET interest='$interest_amount_up', principal_amount='$principal_amount_up', remaining_balance='$balance_amount', late_fee='$late_fee', payment_date='$payment_date_up' where id='$transaction_id'");
 
      
 
-    mysqli_query($con, "UPDATE tbl_personal_loan_installments SET payment_description='$payment_description_up' where id='$installment_id_up'");
+    $con->query("UPDATE tbl_personal_loan_installments SET payment_description='$payment_description_up' where id='$installment_id_up'");
 
       
 
@@ -700,7 +700,7 @@ while($row_role = mysqli_fetch_array($sql_role)) {
 
 $query_app  = "INSERT INTO application_status_updates (application_id,loan_create_id,user_id,status,creation_date,loan_transaction_id)  VALUES ('$user_fnd_id','$loan_create_id','$u_id','$edit_reason','$date','$transaction_id')";
 
-        $result_app = mysqli_query($con, $query_app);
+        $result_app = $con->query($query_app);
 
         if ($result_app) {
 

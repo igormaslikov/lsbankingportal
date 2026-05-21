@@ -77,18 +77,17 @@ function vac_filter_where() {
     return [$where, $types, $params];
 }
 include 'dbconfig.php';
-if (!isset($_SESSION['userSession'])) {
-    header("Location: index.php");
-}
+include_once 'security.php';
+require_login();
 
-$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $_SESSION['userSession']);
+$user_id_s = (int)$_SESSION['userSession'];
+$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . $user_id_s);
 $userRow = $query->fetch_array();
 $u_id = $userRow['user_id'];
 $u_access_id = $userRow['access_id'];
-if ($u_access_id == '0') {
-    echo "YOU ARE NOT AUTHORISED TO ACCESS THIS PAGE.";
-} else {
-    $DBcon->close();
+require_access($u_access_id);
+$DBcon->close();
+if (true) { // keep original indentation structure
 
 ?>
 
@@ -148,26 +147,18 @@ if ($u_access_id == '0') {
             $count_sql = "SELECT COUNT(*) AS total FROM fnd_user_profile" . $filter_where;
 
             $rowcount = 0;
-            if ($stmt_cnt = mysqli_prepare($con, $count_sql)) {
-                if ($filter_types !== '') {
-                    mysqli_stmt_bind_param($stmt_cnt, $filter_types, ...$filter_params);
+            if ($cnt_res = $con->query($count_sql, $filter_params)) {
+                if ($cnt_row = $cnt_res->fetch_assoc()) {
+                    $rowcount = (int)$cnt_row['total'];
                 }
-                if (mysqli_stmt_execute($stmt_cnt)) {
-                    $cnt_res = mysqli_stmt_get_result($stmt_cnt);
-                    if ($cnt_row = mysqli_fetch_assoc($cnt_res)) {
-                        $rowcount = (int)$cnt_row['total'];
-                    }
-                    mysqli_free_result($cnt_res);
-                }
-                mysqli_stmt_close($stmt_cnt);
             }
 
             $rowcount_UNREAD = 0;
-            if ($result_UNREAD = mysqli_query($con, "SELECT COUNT(*) AS n FROM `fnd_user_profile` WHERE `bold_status` = '0'")) {
-                if ($r = mysqli_fetch_assoc($result_UNREAD)) {
+            if ($result_UNREAD = $con->query("SELECT COUNT(*) AS n FROM `fnd_user_profile` WHERE `bold_status` = '0'")) {
+                if ($r = $result_UNREAD->fetch_assoc()) {
                     $rowcount_UNREAD = (int)$r['n'];
                 }
-                mysqli_free_result($result_UNREAD);
+                null;
             }
             ?>
 
@@ -339,20 +330,13 @@ if ($u_access_id == '0') {
 
                             // Layer 3+4: single LIST query via prepared statement — filters NOW actually apply to the list
                             // (old code used a submission-based query that ignored filters entirely).
-                            $list_sql = "SELECT * FROM fnd_user_profile" . $filter_where . " ORDER BY user_fnd_id DESC LIMIT ?, ?";
-                            $list_types  = $filter_types . 'ii';
+                            $list_sql = "SELECT * FROM fnd_user_profile" . $filter_where . " ORDER BY user_fnd_id DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
                             $list_params = array_merge($filter_params, [$offset, $total_records_per_page]);
 
-                            $result = false;
-                            $stmt_list = mysqli_prepare($con, $list_sql);
-                            if ($stmt_list) {
-                                mysqli_stmt_bind_param($stmt_list, $list_types, ...$list_params);
-                                mysqli_stmt_execute($stmt_list);
-                                $result = mysqli_stmt_get_result($stmt_list);
-                            }
+                            $result = $con->query($list_sql, $list_params);
 
                             $rows_rendered_vac = 0;
-                            while ($result && ($row = mysqli_fetch_assoc($result))) {
+                            while ($result && ($row = $result->fetch_assoc())) {
                                 $id          = $row['user_fnd_id'];
                                 $cr_date     = $row['application_date'];
                                 $lang        = $row['lang'] ?? '';
@@ -425,10 +409,7 @@ if ($u_access_id == '0') {
                             if ($rows_rendered_vac === 0) {
                                 echo "<tr><td colspan='9' class='vac-empty-state'>No applications match your current filters. <a href='view_all_customer_main.php'>Clear all</a>.</td></tr>";
                             }
-                            if (!empty($stmt_list)) {
-                                mysqli_stmt_close($stmt_list);
-                            }
-                            mysqli_close($con);
+                            $con->close();
                             ?>
                         </tbody>
                     </table>

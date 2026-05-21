@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -23,16 +23,16 @@ $DBcon->close();
 
     $id=$_GET['id'];
     
-    $sql_fnd=mysqli_query($con, "select * from tbl_payment_method where id = '$id'"); 
+    $sql_fnd=$con->query("select * from tbl_payment_method where id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 }
     
 
     $query = "DELETE FROM tbl_payment_method WHERE id = '$id'";
-    $result = mysqli_query($con, $query);
+    $result = $con->query($query);
        if ($result) {
            //echo "<div class='form'><h3> Customer Successfully Deleted.</h3><br/></div>";
        } else {

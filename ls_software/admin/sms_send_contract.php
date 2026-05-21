@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include 'dbconfig.php';
@@ -64,11 +64,11 @@ $DBcon->close();
                           send_email_notification($to_email,$subject,$message_contract);
                           
                          $date= date('Y-m-d H:i:s');
-                         $query_update_status= "INSERT INTO `application_status_updates`( `application_id`, `user_id`, `status`, `creation_date`) VALUES ('$cu_id','$u_id','Contract was sent successfully Via SMS','$date')";
+                         $query_update_status= "INSERT INTO application_status_updates( application_id, user_id, status, creation_date) VALUES ('$cu_id','$u_id','Contract was sent successfully Via SMS','$date')";
                          echo   $query_update_status;     
 
 
-	                      $result_status_update = mysqli_query($con, $query_update_status);
+	                      $result_status_update = $con->query($query_update_status);
                           if ($result_status_update) {
                           // echo "<div class='form'><h3> successfully added in application_status_updates.</h3><br/></div>";
                            } else {

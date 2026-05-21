@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 
   
 // Function to return the array 
@@ -8,10 +8,10 @@
 
 function user_roles($user_role,$form_id){
     include '../dbconfig.php';  
-      $sql_role=mysqli_query($con, "select * from access_level_grants where role_id='$user_role' AND form_id='$form_id'"); 
+      $sql_role=$con->query("select * from access_level_grants where role_id='$user_role' AND form_id='$form_id'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  
  $delete_allowed=$row_role['delete_allowed'];
@@ -29,10 +29,10 @@ return "$delete_allowed";
 
 function user_edit_roles($user_role,$form_id){
     include '../dbconfig.php';  
-      $sql_role=mysqli_query($con, "select * from access_level_grants where role_id='$user_role' AND form_id='$form_id'"); 
+      $sql_role=$con->query("select * from access_level_grants where role_id='$user_role' AND form_id='$form_id'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $role_id=$row_role['role_id'];
  $select_allowed=$row_role['select_allowed'];

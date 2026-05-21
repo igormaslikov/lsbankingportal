@@ -1,12 +1,12 @@
-<?php 
+﻿<?php 
 
 function user_roles($user_role,$form_id){
     include '../dbconfig.php';
     $date= date('Y-m-d H:i:s');    
-      $sql_role=mysqli_query($con, "select * from access_level_grants where role_id='$user_role' AND form_id='$form_id'"); 
+      $sql_role=$con->query("select * from access_level_grants where role_id='$user_role' AND form_id='$form_id'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $role_id=$row_role['role_id'];
  $select_allowed=$row_role['select_allowed'];

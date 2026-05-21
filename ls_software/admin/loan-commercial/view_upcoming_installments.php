@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -116,14 +116,14 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `tbl_commercial_loan_installments` where status='0'");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM tbl_commercial_loan_installments where status='0'");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-    $result = mysqli_query($con, "select * from tbl_commercial_loan_installments where status='0'");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("select * from tbl_commercial_loan_installments where status='0'");
+    while($row = $result->fetch_array()){
 		 
 		 $intallment_id=$row['id'];
 		  $loan_create_id=$row['loan_create_id'];
@@ -143,8 +143,8 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	
 
 	      
-$result_query = mysqli_query($con, "select * from tbl_commercial_loan where loan_create_id='$loan_create_id'");
-    while($row_payfre = mysqli_fetch_array($result_query)){
+$result_query = $con->query("select * from tbl_commercial_loan where loan_create_id='$loan_create_id'");
+    while($row_payfre = $result_query->fetch_array()){
         $p_loan_id= $row_payfre['loan_id'];
         $user_fnd_id= $row_payfre['user_fnd_id'];
        $installment_plan= $row_payfre['installment_plan'];
@@ -152,8 +152,8 @@ $result_query = mysqli_query($con, "select * from tbl_commercial_loan where loan
        
      // echo "Fnd ID: ".$user_fnd_id."<br>";
       //echo "Loan ID: ".$loan_create_id."<br>";
-    $result_query_customer = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$user_fnd_id'");
-    while($row_customer = mysqli_fetch_array($result_query_customer)){
+    $result_query_customer = $con->query("select * from fnd_user_profile where user_fnd_id='$user_fnd_id'");
+    while($row_customer = $result_query_customer->fetch_array()){
         $first_name= $row_customer['first_name'];
         $last_name= $row_customer['last_name'];
        $customer_name= $first_name.' '.$last_name;
@@ -215,7 +215,7 @@ if($date>$payment_date)
 	 		  <td>$".number_format($total_balance,   2, ".", ",")."</td>
 	 		  
 		   	  </tr>";
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>

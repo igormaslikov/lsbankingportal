@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -27,10 +27,10 @@ $DBcon->close();
     $form_name="payday-".basename(__FILE__);
     
     echo "Form: ".$form_name;
-    $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+    $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  
@@ -42,16 +42,16 @@ while($row_role = mysqli_fetch_array($sql_role)) {
 {
      
     
-    $sql_fnd=mysqli_query($con, "select * from loan_transaction where transaction_id = '$id_trans'"); 
+    $sql_fnd=$con->query("select * from loan_transaction where transaction_id = '$id_trans'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $id=$row_fnd['loan_id'];
 }
     
 
     $query = "DELETE FROM loan_transaction WHERE transaction_id = '$id_trans'";
-    $result = mysqli_query($con, $query);
+    $result = $con->query($query);
        if ($result) {
            //echo "<div class='form'><h3> Customer Successfully Deleted.</h3><br/></div>";
        } else {

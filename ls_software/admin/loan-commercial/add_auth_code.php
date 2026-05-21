@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -30,9 +30,9 @@ $late_fee = $_GET['late_fee'];
 
  $id=$_GET['id'];
  $fund_card=$_GET['fund_card'];
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 
@@ -51,9 +51,9 @@ $loan_create_id=$row_fnd['loan_create_id'];
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -69,9 +69,9 @@ $customer_numbr=$row['mobile_number'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_commercial_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_commercial_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 	$loan_create_id=$row['loan_create_id'];

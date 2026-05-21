@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -23,9 +23,9 @@ $DBcon->close();
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 $id=$_GET['id'];
-$sql_fnd=mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_commercial_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 //echo "FND_ID" .$user_fnd_id;
@@ -99,7 +99,7 @@ $user_fnd_id=$row_fnd['user_fnd_id'];
    
      
       $query_emp  = "INSERT INTO tbl_loan_setting (loan_amount,loan_fee,payoff_amount)  VALUES ('$loan_amount_f','$loan_fee','$payoff_amount')";
-        $result_emp = mysqli_query($con, $query_emp);
+        $result_emp = $con->query($query_emp);
         if ($result_emp) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

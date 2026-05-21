@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
@@ -88,36 +88,26 @@ $DBcon->close();
       
  <?php
  
- $con = new mysqli("50.62.151.36","message_chat","admin$$123","message_chat");
-$query = "SELECT * FROM webchat_lines where msg_status= 'incoming' order by id DESC";
-$result = mysqli_query($con, $query);
 echo '<h3>Your Notifications</h3>';
 echo '<table id="customers">';
-if(mysqli_num_rows($result) > 0)
-{
-while($row = mysqli_fetch_array($result))
-{
-  $fnd_id=$row['gravatar'];
-    $ts=$row['ts'];
-  $fulltime = $ts;
- $dt = new DateTime($fulltime);
-$time = $dt->format('H:i:s');
- 
-
-  echo '
-   
-  <tr>
- 
-    <td><a href="edit_customer.php?id='.$fnd_id.'#conversation" style="color:black">You received a message from '.$row["author"].': <b>'.$row["text"].'</b>  <br> <span>'.$time.' </span></a></td>
-    
-  </tr>
-  
-  ';
-  
+try {
+  $con_chat = @new mysqli("50.62.151.36","message_chat","admin\$\$123","message_chat");
+  if ($con_chat->connect_errno === 0) {
+    $query_chat = "SELECT * FROM webchat_lines where msg_status= 'incoming' order by id DESC";
+    $result_chat = $con_chat->query($query_chat);
+    if ($result_chat && $result_chat->num_rows > 0) {
+      while ($row = $result_chat->fetch_array()) {
+        $fnd_id = $row['gravatar'];
+        $ts = $row['ts'];
+        $dt = new DateTime($ts);
+        $time = $dt->format('H:i:s');
+        echo '<tr><td><a href="edit_customer.php?id='.$fnd_id.'#conversation" style="color:black">You received a message from '.$row["author"].': <b>'.$row["text"].'</b><br><span>'.$time.'</span></a></td></tr>';
+      }
+    }
+  }
+} catch (Exception $e) {
+  // Chat server unavailable in this environment
 }
-
-}
-
 echo '</table>';
 ?>
   

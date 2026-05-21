@@ -56,12 +56,12 @@ $query = "select * from url_counter where url='dinero' ";
 //$query = "select * from decision_login_codes where  id = 564";
 
 //echo $query . "<br>";
-$sql=mysqli_query($con, "$query"); 
+$sql=$con->query("$query"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql);
+  $rowcount=$sql->num_rows;
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     
 $counter = $row['url_counter'];
 $website = $row['url'];

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
  session_start();
  error_reporting(0);
  include_once 'dbconnect.php';
@@ -68,7 +68,7 @@ include 'dbconfig.php';
  <br><br>
  <?php
 
- $query_search = "SELECT * FROM `fnd_user_profile` ";
+ $query_search = "SELECT * FROM fnd_user_profile ";
     $status  = $_GET['status'];
     $keyword = $_GET['keyword'];
     $from_date = $_GET['from_date'];
@@ -90,7 +90,7 @@ if (isset($_GET['keyword']) ||  $_GET['keyword'] !="") {
       $query_search .= " AND ";
       $and_check = 2;
     }
-    $query_search .= "  CONCAT(`first_name`, `last_name`, `email`, `mobile_number` , `dl_code` ) LIKE '%".$keyword."%'";
+    $query_search .= "  CONCAT(first_name, last_name, email, mobile_number , dl_code ) LIKE '%".$keyword."%'";
   $and_check = 2;
 }if ($_GET['from_date']!="") {
   if($and_check>1 || $and_check>0){
@@ -128,17 +128,15 @@ if (isset($_GET['loan_type']) && $_GET['loan_type']!='All') {
    // $query_search .= " ORDER By user_fnd_id DESC  LIMIT $offset, $total_records_per_page ";
 
 //echo "<br><br><br><br>" . $query_search;
-if ($result_t=mysqli_query($con,$query_search))
+if ($result_t=$con->query($query_search))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result_t);
+  $rowcount=$result_t->num_rows;
  // printf($rowcount);
   // Free result set
-  $ye=mysqli_free_result($result_t);
-  echo $ye;
-  }
+}
 
-//mysqli_close($con);
+//$con->close();
 ?> 
   
 <div align="right">
@@ -377,9 +375,9 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 	
-	$sql_fnd_idd=mysqli_query($con, "select * from fnd_user_profile_submission"); 
+	$sql_fnd_idd=$con->query("select * from fnd_user_profile_submission"); 
 
-while($row_fnd_idd = mysqli_fetch_array($sql_fnd_idd)) {
+while($row_fnd_idd = $sql_fnd_idd->fetch_array()) {
 
 $user_fnd_idd=$row_fnd_idd['user_fnd_id'];
 
@@ -388,14 +386,14 @@ $user_fnd_idd=$row_fnd_idd['user_fnd_id'];
 
 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `fnd_user_profile`");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM fnd_user_profile");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
 	$total_records = $rowcount;
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 //  echo "<br>".$total_no_of_pages;
-    $query_search = "SELECT * FROM `fnd_user_profile` WHERE user_fnd_id = '$user_fnd_idd' ";
+    $query_search = "SELECT * FROM fnd_user_profile WHERE user_fnd_id = '$user_fnd_idd' ";
 if (isset($_GET['status']) || isset($_GET['state']) || isset($_GET['loan_type']) || isset($_GET['keyword']) || isset($_GET['from_date']) || isset($_GET['to_date'])) {
     $query_search .= " AND ";
 }
@@ -408,7 +406,7 @@ if (isset($_GET['status']) && $_GET['status']!='All') {
       $query_search .= " AND ";
       $and_check = 2;
     }
-    $query_search .= "  CONCAT(`user_fnd_id`, `first_name`, `last_name`, `email`, `mobile_number` , `dl_code` ) LIKE '%".$keyword."%'";
+    $query_search .= "  CONCAT(user_fnd_id, first_name, last_name, email, mobile_number , dl_code ) LIKE '%".$keyword."%'";
   $and_check = 2;
 }if ($_GET['from_date']!="") {
   if($and_check>1 || $and_check>0){
@@ -446,11 +444,11 @@ if (isset($_GET['loan_type']) && $_GET['loan_type']!='All') {
     $query_search .= " loan_type = '$loan_type' ";
  // $and_check = 1;
 }
-    $query_search .= " ORDER By user_fnd_id DESC  LIMIT $offset, $total_records_per_page ";
+    $query_search .= " ORDER By user_fnd_id DESC  OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY ";
  
  //echo $query_search;
-    $result = mysqli_query($con,"$query_search");
-    while($row = mysqli_fetch_array($result)){
+    $result = $con->query("$query_search");
+    while($row = $result->fetch_array()){
         
 		 $id=$row['user_fnd_id'];
 		 $cr_date= $row['creation_date'];
@@ -513,7 +511,7 @@ $gravatar =  "http://profiles.google.com/s2/photos/profile/". $row['email']."?sz
 	   	  $experian_credit_score = "";
         }
 }
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>

@@ -25,9 +25,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
   $id = $_GET['id'];
-  $sql_fnd = mysqli_query($con, "select * from tbl_loan where loan_id = '$id'");
+  $sql_fnd = $con->query("select * from tbl_loan where loan_id = '$id'");
 
-  while ($row_fnd = mysqli_fetch_array($sql_fnd)) {
+  while ($row_fnd = $sql_fnd->fetch_array()) {
 
     $user_fnd_id = $row_fnd['user_fnd_id'];
     $loan_create_id = $row_fnd['loan_create_id'];
@@ -37,8 +37,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
 
-  $query_payment = mysqli_query($con, "SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
-  while ($row_payment = mysqli_fetch_array($query_payment)) {
+  $query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
+  while ($row_payment = $query_payment->fetch_array()) {
     $payment = $row_payment['value_sum'];
 
     $payment = number_format((float)$payment, 2, '.', '');
@@ -53,9 +53,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
 
-  $sql = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'");
+  $sql = $con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'");
 
-  while ($row = mysqli_fetch_array($sql)) {
+  while ($row = $sql->fetch_array()) {
 
     $first_name = $row['first_name'];
     $last_name = $row['last_name'];
@@ -73,9 +73,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
 
-  $sql = mysqli_query($con, "select * from tbl_loan where user_fnd_id= '$user_fnd_id' AND loan_id = '$id'");
+  $sql = $con->query("select * from tbl_loan where user_fnd_id= '$user_fnd_id' AND loan_id = '$id'");
 
-  while ($row = mysqli_fetch_array($sql)) {
+  while ($row = $sql->fetch_array()) {
 
     $loan_id = $row['loan_id'];
     //echo "fndid is:".$fnd_id;
@@ -115,9 +115,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
 
-  $sql_user = mysqli_query($con, "select * from tbl_users where user_id= '$created_by'");
+  $sql_user = $con->query("select * from tbl_users where user_id= '$created_by'");
 
-  while ($row_user = mysqli_fetch_array($sql_user)) {
+  while ($row_user = $sql_user->fetch_array()) {
 
     $username = $row_user['username'];
   }
@@ -132,9 +132,9 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
 
-  $sql_user = mysqli_query($con, "select * from tbl_loan_notes where loan_id= '$id'");
+  $sql_user = $con->query("select * from tbl_loan_notes where loan_id= '$id'");
 
-  while ($row_user = mysqli_fetch_array($sql_user)) {
+  while ($row_user = $sql_user->fetch_array()) {
 
     $loan_notes = $row_user['notes'];
   }
@@ -145,14 +145,12 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
   $sql_t = "SELECT loan_id FROM tbl_loan  where sign_status='1' AND user_fnd_id= '$user_fnd_id' ORDER BY loan_id";
 echo $sql_t;
-  if ($result_t = mysqli_query($con, $sql_t)) {
+  if ($result_t = $con->query($sql_t)) {
     // Return the number of rows in result set
-    $rowcount = mysqli_num_rows($result_t);
+    $rowcount = $result_t->num_rows;
     // printf($rowcount);
     // Free result set
-    $ye = mysqli_free_result($result_t);
-    echo $ye;
-  }
+}
 
   ?>
 
@@ -275,9 +273,9 @@ echo $sql_t;
 
               $id = $_GET['id'];
 
-              $sql_fnd = mysqli_query($con, "select * from tbl_loan where loan_id = '$id'");
+              $sql_fnd = $con->query("select * from tbl_loan where loan_id = '$id'");
 
-              while ($row_fnd = mysqli_fetch_array($sql_fnd)) {
+              while ($row_fnd = $sql_fnd->fetch_array()) {
 
 
 
@@ -285,9 +283,9 @@ echo $sql_t;
                 //echo "FND_ID" .$user_fnd_id;
               }
 
-              $sql_loan_his = mysqli_query($con, "select * from tbl_loan where user_fnd_id = '$user_fnd_id' AND sign_status='1' ");
+              $sql_loan_his = $con->query("select * from tbl_loan where user_fnd_id = '$user_fnd_id' AND sign_status='1' ");
 
-              while ($row_loan_his = mysqli_fetch_array($sql_loan_his)) {
+              while ($row_loan_his = $sql_loan_his->fetch_array()) {
 
 
                 $loan_id = $row_loan_his['loan_id'];
@@ -336,8 +334,8 @@ echo $sql_t;
 
                 if ($last_payment_date == "") {
 
-                  $query_payment = mysqli_query($con, "SELECT * FROM loan_transaction where loan_id= '$loan_id' AND payoff_amount>1");
-                  while ($row_payment = mysqli_fetch_array($query_payment)) {
+                  $query_payment = $con->query("SELECT * FROM loan_transaction where loan_id= '$loan_id' AND payoff_amount>1");
+                  while ($row_payment = $query_payment->fetch_array()) {
                     $last_payment_date = $row_payment['payment_date'];
                   }
                 }
@@ -374,9 +372,9 @@ echo $sql_t;
 
 
                 //$user_fnd_id = $row_loan_his['user_fnd_id'];
-                $sql_doc = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'");
+                $sql_doc = $con->query("select * from fnd_user_profile where user_fnd_id = '$user_fnd_id'");
 
-                while ($row_doc = mysqli_fetch_array($sql_doc)) {
+                while ($row_doc = $sql_doc->fetch_array()) {
 
                   $first_name = $row_doc['first_name'];
                   $last_name = $row_doc['last_name'];
@@ -385,14 +383,14 @@ echo $sql_t;
                 }
 
                 //get emailkey by loanid
-                $sql_fnd = mysqli_query($con, "select lib.email_key,lib.card_number,lib.user_fnd_id, tl.loan_id from loan_initial_banking lib LEFT JOIN tbl_loan tl on tl.loan_create_id = lib.loan_id where lib.loan_id = '$loan_create_id' and lib.email_key <> '' order by lib.initial_id DESC");
+                $sql_fnd = $con->query("select lib.email_key,lib.card_number,lib.user_fnd_id, tl.loan_id from loan_initial_banking lib LEFT JOIN tbl_loan tl on tl.loan_create_id = lib.loan_id where lib.loan_id = '$loan_create_id' and lib.email_key <> '' order by lib.initial_id DESC");
 
 
                 $email_keys = array();
                 $cards = array();
                 $loan_ids = array();
 
-                while ($row_fnd = mysqli_fetch_array($sql_fnd)) {
+                while ($row_fnd = $sql_fnd->fetch_array()) {
                   //$email_key=$row_fnd['email_key'];
                   array_push($cards, $row_fnd['card_number']);
                   array_push($email_keys, $row_fnd['email_key']);

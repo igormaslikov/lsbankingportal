@@ -1,11 +1,11 @@
-<?php 
+﻿<?php 
 date_default_timezone_set('America/Los_Angeles');
 
 $conn = new mysqli("50.62.151.36","message_chat","admin$$123","message_chat");
 $count=0;
 $sql2="SELECT * FROM webchat_lines WHERE notification_status = 0";
-$result=mysqli_query($conn, $sql2);
-$count=mysqli_num_rows($result);
+$result=$conn->query($sql2);
+$count=$result->num_rows;
 
 ?>
 

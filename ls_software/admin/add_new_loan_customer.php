@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 error_reporting(0);
 include_once 'dbconnect.php';
@@ -186,10 +186,10 @@ else {
      
      $form_name=basename(__FILE__);
 
-    $sql_role=mysqli_query($con, "select * from access_form where form_name='$form_name'"); 
+    $sql_role=$con->query("select * from access_form where form_name='$form_name'"); 
 
 
-    while($row_role = mysqli_fetch_array($sql_role)) {
+    while($row_role = $sql_role->fetch_array()) {
 
     $form_id=$row_role['id'];
  
@@ -200,7 +200,7 @@ else {
   
            
 $query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_number,password,address,zip_code,date_of_birth,ssn,created_by,creation_date,user_key,application_status,source_of_lead,declined_reason)  VALUES ('$first_name','$last_name','$email','$phone_number','$hashed_password','$address','$zip_code','$dob','$ssn','$u_id','$date','$user_key','$application_status','$source_of_lead','$decline_reason')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -209,15 +209,15 @@ $query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_numbe
       
     
 //$created_by= $userRow['user_id'];
-$query_userid = mysqli_query($con,"Select * from fnd_user_profile where user_key = '$user_key'");
-while ($row_user_id=mysqli_fetch_array($query_userid)){
+$query_userid = $con->query("Select * from fnd_user_profile where user_key = '$user_key'");
+while ($row_user_id=$query_userid->fetch_array()){
     $user_id = $row_user_id[0];
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$user_id;
 
 }
 
 $query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,pay_period,last_pay_date,next_pay_date,monthly_income,created_by,start_date,creation_date)  VALUES ('$user_id','$employer_name','$work_phone','$get_paid','$last_check','$next_check','$income_month','$u_id','$working','$date')";
-        $result3 = mysqli_query($con, $query3);
+        $result3 = $con->query($query3);
         if ($result3) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -225,7 +225,7 @@ $query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,p
         }
         
     $query3  = "INSERT INTO binary_questions (user_fnd_id,bq_answer,created_by,creation_date)  VALUES ('$user_id','$payment','$u_id','$date')";
-        $result3 = mysqli_query($con, $query3);
+        $result3 = $con->query($query3);
         if ($result3) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

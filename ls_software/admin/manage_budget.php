@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once 'dbconnect.php';
@@ -44,7 +44,7 @@ $monthly_budget= $_POST['monthly_budget'];
 //echo "date is:".$date_bu;
 
 $query_budget  = "INSERT INTO tbl_budget (budget_amount,creation_date)  VALUES ('$monthly_budget','$day_budget')";
-        $result_budget = mysqli_query($con, $query_budget);
+        $result_budget = $con->query($query_budget);
         if ($result_budget) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -120,9 +120,9 @@ if(isset($_POST['btn-submit']))
 $fb_update= $_POST['facebook_value'];
 $goo_update= $_POST['google_value'];
 
-mysqli_query($con, "UPDATE tbl_fb SET fb_value ='$fb_update' where creation_date ='$cr_date'"); 
+$con->query("UPDATE tbl_fb SET fb_value ='$fb_update' where creation_date ='$cr_date'"); 
 
-mysqli_query($con, "UPDATE tbl_google SET gogl_value ='$goo_update' where creation_date ='$cr_date'"); 
+$con->query("UPDATE tbl_google SET gogl_value ='$goo_update' where creation_date ='$cr_date'"); 
 
     ?>
     

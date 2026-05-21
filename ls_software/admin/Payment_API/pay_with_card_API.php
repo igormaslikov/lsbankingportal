@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once 'dbconnect.php';
@@ -218,8 +218,8 @@ if($status=='error')
   }
   else{
 
-        $query_in  = "INSERT INTO `tbl_pay_with_card` (`merchant_id`, `transaction_id`, `auth_code`, `trx_status`, `result_text`, `zip_code`, `amount`, `card_bin`, `card_exp`, `card_last_four`, `name_on_card`, `customer_id`, `payment_channel`, `source`, `transaction_type`, `transaction_date`)  VALUES ('$merchant_id','$transaction_id','$auth_code','$trx_status','$result_text','$zip','$amount','$card_bin','$exp_date','$card_last_four','$name_on_card','$customer_id','$payment_channel','$merchant_name','$trans_type_id','$new_date')";
-        $result_in = mysqli_query($con, $query_in);
+        $query_in  = "INSERT INTO tbl_pay_with_card (merchant_id, transaction_id, auth_code, trx_status, result_text, zip_code, amount, card_bin, card_exp, card_last_four, name_on_card, customer_id, payment_channel, source, transaction_type, transaction_date)  VALUES ('$merchant_id','$transaction_id','$auth_code','$trx_status','$result_text','$zip','$amount','$card_bin','$exp_date','$card_last_four','$name_on_card','$customer_id','$payment_channel','$merchant_name','$trans_type_id','$new_date')";
+        $result_in = $con->query($query_in);
         if ($result_in) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

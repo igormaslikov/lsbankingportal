@@ -24,9 +24,9 @@ $id=$_GET['id'];
 //echo "Name is: $id_fname";
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 $mobile_verification = $row['mobile_verification_status'];
 $first_name=$row['first_name'];
 //$middle_name =$row['middle_name'];
@@ -73,9 +73,9 @@ $loan_request_amount = $row['loan_request_amount'];
 $payback_period = $row['payback_period'];
 }
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where user_fnd_id= '$id'"); 
+$sql_loan=$con->query("select * from tbl_loan where user_fnd_id= '$id'"); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
 
 $amount_of_loan = $row_loan['amount_of_loan'];
 }
@@ -83,18 +83,18 @@ $amount_of_loan = $row_loan['amount_of_loan'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $name=$row['username'];
 }
 //echo $name;
 
 
-$sql=mysqli_query($con, "select * from tbl_users where user_id= '$last_update'"); 
+$sql=$con->query("select * from tbl_users where user_id= '$last_update'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $name_update=$row['username'];
 }
@@ -104,9 +104,9 @@ $name_update=$row['username'];
 
 
 
-$sql_source=mysqli_query($con, "select * from source_income where user_fnd_id= '$id'"); 
+$sql_source=$con->query("select * from source_income where user_fnd_id= '$id'"); 
 
-while($row_source = mysqli_fetch_array($sql_source)) {
+while($row_source = $sql_source->fetch_array()) {
 
 $emp_name=$row_source['employer_name'];
 $emp_phone=$row_source['work_phone_no'];
@@ -123,9 +123,9 @@ $mon_income=$row_source['monthly_income'];
 
 
 
-$sql_business_query=mysqli_query($con, "select * from tbl_business_info where user_fnd_id= '$id'"); 
+$sql_business_query=$con->query("select * from tbl_business_info where user_fnd_id= '$id'"); 
 
-while($row_business_source = mysqli_fetch_array($sql_business_query)) {
+while($row_business_source = $sql_business_query->fetch_array()) {
 
 $business_name=$row_business_source['business_name'];
 $business_phone=$row_business_source['business_phone'];
@@ -140,9 +140,9 @@ $business_docs=$row_business_source['business_docs'];
 
 
 
-$sql_vehicle_query=mysqli_query($con, "select * from tbl_vehicle_info where user_fnd_id= '$id'"); 
+$sql_vehicle_query=$con->query("select * from tbl_vehicle_info where user_fnd_id= '$id'"); 
 
-while($row_vehicle_source = mysqli_fetch_array($sql_vehicle_query)) {
+while($row_vehicle_source = $sql_vehicle_query->fetch_array()) {
 
 $vehicle_year=$row_vehicle_source['vehicle_year'];
 $vehicle_make=$row_vehicle_source['vehicle_made'];
@@ -161,9 +161,9 @@ $vehicle_ltv=$row_vehicle_source['vehicle_ltv'];
 
 
 
-$sql_bq=mysqli_query($con, "select * from binary_questions where user_fnd_id= '$id'"); 
+$sql_bq=$con->query("select * from binary_questions where user_fnd_id= '$id'"); 
 
-while($row_bq = mysqli_fetch_array($sql_bq)) {
+while($row_bq = $sql_bq->fetch_array()) {
     
 $mode_payment=$row_bq['bq_answer'];
 
@@ -172,21 +172,20 @@ $mode_payment=$row_bq['bq_answer'];
 
 	 $sql_emp="SELECT employer_name FROM source_income where user_fnd_id = '$id' ";
 
-if ($result_emp=mysqli_query($con,$sql_emp))
+if ($result_emp=$con->query($sql_emp))
   {
   // Return the number of rows in result set
-  $rowcount_emp=mysqli_num_rows($result_emp);
+  $rowcount_emp=$result_emp->num_rows;
  // printf($rowcount_customer);
   // Free result set
-  $ye=mysqli_free_result($result_emp);
  // echo "<br>".$rowcount_emp;
   }
 
 
 
-$sql_app_notes=mysqli_query($con, "select * from application_notes where user_fnd_id= '$id'"); 
+$sql_app_notes=$con->query("select * from application_notes where user_fnd_id= '$id'"); 
 
-while($row_app_notes = mysqli_fetch_array($sql_app_notes)) {
+while($row_app_notes = $sql_app_notes->fetch_array()) {
     
 $app_notes=$row_app_notes['app_notes'];
 
@@ -238,8 +237,8 @@ tr:nth-child(even) {
  
 
 $finalDL_code = $fnd_dl_code; 
-$decision_login_code = mysqli_query($con,"SELECT * FROM decision_login_codes where email ='$customer_email' ");
- while($row_decision_login_code = mysqli_fetch_array($decision_login_code))
+$decision_login_code = $con->query("SELECT * FROM decision_login_codes where email ='$customer_email' ");
+ while($row_decision_login_code = $decision_login_code->fetch_array())
 {
 $finalDL_code = $fnd_dl_code;
 
@@ -357,7 +356,7 @@ foreach ($hotels as $hotel) {
  
  	<?php
 if ($web == 'lsprestamos' || $web == 'lsbanking_pl' || $web == 'mymoneyline_cl') {
-$credit_report = mysqli_query($con,"SELECT * FROM  tbl_credit_report where user_fnd_id = '$id'  AND score>0 ");
+$credit_report = $con->query("SELECT * FROM  tbl_credit_report where user_fnd_id = '$id'  AND score>0 ");
 
 echo '<br><table style="width:100%;padding:10px" class="table table-striped table-bordered">'."
 <tr>
@@ -366,7 +365,7 @@ echo '<br><table style="width:100%;padding:10px" class="table table-striped tabl
 </tr>';
 
 
-while($row_credit_report = mysqli_fetch_array($credit_report))
+while($row_credit_report = $credit_report->fetch_array())
 {
     $credit_report_id = $row_credit_report['id'];
     $credit_report_key = $row_credit_report['credit_report_key'];
@@ -475,7 +474,7 @@ foreach ($hotels as $hotel) {
 	
 
 
-$lender_documents = mysqli_query($con,"SELECT * FROM lender_documents where fnd_user_id = '$id' ");
+$lender_documents = $con->query("SELECT * FROM lender_documents where fnd_user_id = '$id' ");
 
 echo '<br><table style="width:100%;padding:10px" class="table table-striped table-bordered">'."
 <tr>
@@ -484,13 +483,13 @@ echo '<br><table style="width:100%;padding:10px" class="table table-striped tabl
 <th>Created By</th>
 </tr>";
 
-while($row_lender_documents = mysqli_fetch_array($lender_documents))
+while($row_lender_documents = $lender_documents->fetch_array())
 {
     $doc_id = $row_lender_documents['id'];
 $created_by_get_db = $row_lender_documents['created_by'];
-$sql_lender_by_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by_get_db'"); 
+$sql_lender_by_user=$con->query("select * from tbl_users where user_id= '$created_by_get_db'"); 
 $final_lender_by_user = '';
-while($row_sql_lender_by_user = mysqli_fetch_array($sql_lender_by_user)) {
+while($row_sql_lender_by_user = $sql_lender_by_user->fetch_array()) {
 	$final_lender_by_user = $row_sql_lender_by_user['username'];
 }
 	// PDF POPUP Code
@@ -576,7 +575,7 @@ if ($uploadOk == 0) {
     if (move_uploaded_file($_FILES["lender_documents"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["lender_documents"]["name"]). " has been uploaded.";
 		$insert_query_lender_docs = "INSERT Into lender_documents(fnd_user_id, file_name, date_created, created_by) VALUES ('$id','$target_file_db','$date','$u_id')";
-		mysqli_query($con,$insert_query_lender_docs);
+		$con->query($insert_query_lender_docs);
 		
 		echo '<meta http-equiv="refresh" content="0">';
     } else {
@@ -593,9 +592,9 @@ if(isset($_POST['btn-notes-submit'])) {
 
 $date= date('Y-m-d H:i:s');
 $app_notes_update="Notes Updated : ".$_POST['app_notes'];
-$query_update_status= "INSERT INTO `application_status_updates`( `application_id`, `user_id`, `status`, `creation_date`) VALUES ('$id','$u_id','$app_notes_update','$date')";
+$query_update_status= "INSERT INTO application_status_updates( application_id, user_id, status, creation_date) VALUES ('$id','$u_id','$app_notes_update','$date')";
 echo   $query_update_status;
-	   $result_status_update = mysqli_query($con, $query_update_status);
+	   $result_status_update = $con->query($query_update_status);
         if ($result_status_update) {
           // echo "<div class='form'><h3> successfully added in application_status_updates.</h3><br/></div>";
 		 
@@ -665,10 +664,10 @@ $requested_loan_amount_update=$_POST['requested_loan_amount'];
 
 $form_name=basename(__FILE__);
 
-$sql_role=mysqli_query($con, "select * from access_form where form_name ='$form_name'"); 
+$sql_role=$con->query("select * from access_form where form_name ='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  //echo $form_id;
@@ -969,9 +968,9 @@ admin_leads_email_notification($subject,$message);
 
         
 	
-	$query_update_status= "INSERT INTO `application_status_updates`( `application_id`, `user_id`, `status`, `creation_date`) VALUES ('$id','$u_id','$app_status_update','$date')";
+	$query_update_status= "INSERT INTO application_status_updates( application_id, user_id, status, creation_date) VALUES ('$id','$u_id','$app_status_update','$date')";
 echo   $query_update_status;
-	   $result_status_update = mysqli_query($con, $query_update_status);
+	   $result_status_update = $con->query($query_update_status);
         if ($result_status_update) {
            echo "<div class='form'><h3> successfully added in application_status_updates.</h3><br/></div>";
         } else {
@@ -983,8 +982,8 @@ echo   $query_update_status;
 	
 	
 
-//mysqli_query ($con,"INSERT INTO `application_status_updates`( `application_id`, `user_id`, `status`, `creation_date`) VALUES ('$id','$u_id','$app_status_update','$date')");
-mysqli_query($con, "UPDATE fnd_user_profile SET first_name ='$first_name_update' , last_name='$last_name__update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update', last_update_by='$u_id',last_update_date='$date',application_status='$app_status_update',source_of_lead='$source_lead_update',declined_reason='$decline_reason_update', amount_of_loan='$amount_loan_update', dl_code='$dl_code_update', personal_loan='$personal_loan', apr='$update_apr', title_loan_amount='$title_loan_amount', loan_request_amount='$requested_loan_amount_update', payback_period='$payback_period_update' where user_fnd_id ='$id'"); 
+//mysqli_query ($con,"INSERT INTO application_status_updates( application_id, user_id, status, creation_date) VALUES ('$id','$u_id','$app_status_update','$date')");
+$con->query("UPDATE fnd_user_profile SET first_name ='$first_name_update' , last_name='$last_name__update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', city='$city_update', state='$state_update', zip_code='$zip_update', date_of_birth='$dob_update', ssn='$ssn_update', last_update_by='$u_id',last_update_date='$date',application_status='$app_status_update',source_of_lead='$source_lead_update',declined_reason='$decline_reason_update', amount_of_loan='$amount_loan_update', dl_code='$dl_code_update', personal_loan='$personal_loan', apr='$update_apr', title_loan_amount='$title_loan_amount', loan_request_amount='$requested_loan_amount_update', payback_period='$payback_period_update' where user_fnd_id ='$id'"); 
 
 
 
@@ -993,7 +992,7 @@ if($rowcount_emp<1)
         // *********************************** Employee Info Insertion **********************************************
         
        $query_emp  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,net_check_amount,direct_deposit,pay_period,last_pay_date,next_pay_date,creation_date)  VALUES ('$id','$employer_name_update','$work_phone_update','$net_amount_update','$direct_deposit_update','$pay_fre_update','$last_date_update','$next_date_update','$date')";
-        $result_emp = mysqli_query($con, $query_emp);
+        $result_emp = $con->query($query_emp);
         if ($result_emp) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -1003,7 +1002,7 @@ if($rowcount_emp<1)
         // *********************************** Business Info Insertion **********************************************
         
        $query_business  = "INSERT INTO tbl_business_info (user_fnd_id,business_name,business_phone,monthly_gross_amount,direct_deposit,how_paid,business_docs,created_by,created_at)  VALUES ('$id','$business_name_update','$business_phone_update','$gross_amount_update','$business_direct_deposit_update','$business_get_paid_update','$business_docs_update','$u_id','$date')";
-        $result_business = mysqli_query($con, $query_business);
+        $result_business = $con->query($query_business);
         if ($result_business) {
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
         } else {
@@ -1013,7 +1012,7 @@ if($rowcount_emp<1)
         // *********************************** Vehicle Info Insertion **********************************************
         
          $query_vehicle  = "INSERT INTO tbl_vehicle_info (user_fnd_id,vehicle_year,vehicle_made,vehicle_model,vehicle_miles,vehicle_kbb,vehicle_ltv,created_by,created_at)  VALUES ('$id','$vehicle_year_update','$vehicle_make_update','$vehicle_model_update','$vehicle_miles_update','$vehicle_kbb_update','$vehicle_ltv_update','$u_id','$date')";
-        $result_vehicle = mysqli_query($con, $query_vehicle);
+        $result_vehicle = $con->query($query_vehicle);
         if ($result_vehicle) {
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
         } else {
@@ -1024,19 +1023,19 @@ if($rowcount_emp<1)
     }
 
 else{
-  mysqli_query($con, "UPDATE source_income SET employer_name ='$employer_name_update', work_phone_no='$work_phone_update', net_check_amount='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'"); 
+  $con->query("UPDATE source_income SET employer_name ='$employer_name_update', work_phone_no='$work_phone_update', net_check_amount='$net_amount_update', direct_deposit='$direct_deposit_update', pay_period='$pay_fre_update', last_pay_date='$last_date_update', next_pay_date='$next_date_update', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'"); 
 
-  mysqli_query($con, "UPDATE tbl_business_info SET business_name ='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date' where user_fnd_id ='$id'"); 
+  $con->query("UPDATE tbl_business_info SET business_name ='$business_name_update', business_phone='$business_phone_update', monthly_gross_amount='$gross_amount_update', direct_deposit='$business_direct_deposit_update', how_paid='$business_get_paid_update', business_docs='$business_docs_update', last_update_by='$u_id', last_update_date='$date' where user_fnd_id ='$id'"); 
   
-  mysqli_query($con, "UPDATE tbl_vehicle_info SET vehicle_year ='$vehicle_year_update', vehicle_made='$vehicle_make_update', vehicle_model='$vehicle_model_update', vehicle_miles='$vehicle_miles_update', vehicle_kbb='$vehicle_kbb_update', vehicle_ltv='$vehicle_ltv_update', last_update_by='$u_id', last_update_date='$date' where user_fnd_id ='$id'"); 
+  $con->query("UPDATE tbl_vehicle_info SET vehicle_year ='$vehicle_year_update', vehicle_made='$vehicle_make_update', vehicle_model='$vehicle_model_update', vehicle_miles='$vehicle_miles_update', vehicle_kbb='$vehicle_kbb_update', vehicle_ltv='$vehicle_ltv_update', last_update_by='$u_id', last_update_date='$date' where user_fnd_id ='$id'"); 
    
     
     
 }	
 
-mysqli_query($con, "UPDATE binary_questions SET bq_answer ='$payment_update', creation_date='$date', last_update_date='$date', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
+$con->query("UPDATE binary_questions SET bq_answer ='$payment_update', creation_date='$date', last_update_date='$date', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
 
-mysqli_query($con, "UPDATE application_notes SET app_notes ='$app_notes_update', creation_date='$date', last_update_date='$date', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
+$con->query("UPDATE application_notes SET app_notes ='$app_notes_update', creation_date='$date', last_update_date='$date', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
   	  $delete_customer_string = "page_no=".$_GET['page_no'];
       $delete_customer_string = str_replace("#","",$delete_customer_string);
     ?>

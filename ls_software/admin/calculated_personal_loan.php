@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include 'dbconnect.php';
 include 'dbconfig.php';
@@ -146,7 +146,7 @@ function print_schedule($balance, $rate, $payment)
 
 
     $payment_date_weekly = $payment_date;
-    mysqli_query($con, "DELETE FROM `tbl_personal_loan_installments` WHERE `loan_create_id` = '$loan_create_id'");
+    $con->query("DELETE FROM tbl_personal_loan_installments WHERE loan_create_id = '$loan_create_id'");
     $count = 0;
     do {
         $count++;
@@ -222,8 +222,8 @@ function print_schedule($balance, $rate, $payment)
             $payment_date = $payment_date_weekly;
         }
         //$payment_p = 
-        $query_install1  = "INSERT INTO `tbl_personal_loan_installments`(`loan_create_id`, `payment`, `interest`, `principal`, `balance`, `payment_date`) VALUES ('$loan_create_id','$payment_p','$interest_p','$principal_p','$balance_p','$payment_date')";
-        $result_install1 = mysqli_query($con, $query_install1);
+        $query_install1  = "INSERT INTO tbl_personal_loan_installments(loan_create_id, payment, interest, principal, balance, payment_date) VALUES ('$loan_create_id','$payment_p','$interest_p','$principal_p','$balance_p','$payment_date')";
+        $result_install1 = $con->query($query_install1);
         if ($result_install1) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

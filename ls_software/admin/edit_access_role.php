@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 
@@ -60,10 +60,10 @@ $id=$_GET['f_id'];
 $access_id=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
-$sql=mysqli_query($con, "select * from access_level_grants where grant_id = '$access_id'"); 
+$sql=$con->query("select * from access_level_grants where grant_id = '$access_id'"); 
 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $role_id=$row['role_id'];
 $select_allowed=$row['select_allowed'];
@@ -73,9 +73,9 @@ $delete_allowed=$row['delete_allowed'];
 }
 
 
-$sql_access = mysqli_query($con, "SELECT * From access_level where access_id='$role_id'");
-$row_access = mysqli_num_rows($sql_access);
-while ($row_access = mysqli_fetch_array($sql_access)){
+$sql_access = $con->query("SELECT * From access_level where access_id='$role_id'");
+$row_access = $sql_access->num_rows;
+while ($row_access = $sql_access->fetch_array()){
     $row_access_level = $row_access['access_level'];
     
 }
@@ -145,10 +145,10 @@ include 'functions.php';
     
 
 
- $sql_role=mysqli_query($con, "select * from access_form where form_name ='$form_name'"); 
+ $sql_role=$con->query("select * from access_form where form_name ='$form_name'"); 
 
 
-while($row_role = mysqli_fetch_array($sql_role)) {
+while($row_role = $sql_role->fetch_array()) {
 
  $form_id=$row_role['id'];
  //echo $form_id;
@@ -168,7 +168,7 @@ $update_allowed_update=$_POST['update_allowed'];
 $delete_allowed_update=$_POST['delete_allowed']; 
     if ($update_allowed_validate==1)
 {
-mysqli_query($con, "UPDATE access_level_grants SET role_id = '$level_of_access_update', select_allowed='$select_allowed_update', insert_allowed='$insert_allowed_update', update_allowed='$update_allowed_update', delete_allowed='$delete_allowed_update' where grant_id ='$access_id'");   
+$con->query("UPDATE access_level_grants SET role_id = '$level_of_access_update', select_allowed='$select_allowed_update', insert_allowed='$insert_allowed_update', update_allowed='$update_allowed_update', delete_allowed='$delete_allowed_update' where grant_id ='$access_id'");   
    
     ?>
     

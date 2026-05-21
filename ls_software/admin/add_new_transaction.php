@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 include_once 'dbconfig.php';
@@ -34,7 +34,7 @@ $laon_notes=$_POST['loan_notes'];
 $date = date('Y-m-d H:i:s');
 
 $query  = "INSERT INTO loan_transaction (loan_id,payment_method,payoff_amount,payment_date,info,quick_pay,type_of_payment,created_at,created_by)  VALUES ('$loan_id_payoff','$payment_method','$payoff_amount','$payment_date','$info','$quick_pay','$type_of_payment','$date','$u_id')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -42,7 +42,7 @@ $query  = "INSERT INTO loan_transaction (loan_id,payment_method,payoff_amount,pa
         } 
  
 $query_notes  = "INSERT INTO tbl_loan_notes (loan_id,notes,created_at,created_by)  VALUES ('$loan_id_payoff','$laon_notes','$date','$u_id')";
-        $result = mysqli_query($con, $query_notes);
+        $result = $con->query($query_notes);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

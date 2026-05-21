@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 include_once 'dbconnect.php';
 
@@ -23,9 +23,9 @@ $id_loan=$_GET['id'];
 
 
 
-$sql_loan_type=mysqli_query($con, "select * from tbl_loan_notes where loan_id='$id_loan'"); 
+$sql_loan_type=$con->query("select * from tbl_loan_notes where loan_id='$id_loan'"); 
 
-while($row_loan_type = mysqli_fetch_array($sql_loan_type)) {
+while($row_loan_type = $sql_loan_type->fetch_array()) {
 
 $loan_id=$row_loan_type['loan_id'];
 //echo $loan_id;
@@ -44,9 +44,9 @@ $id=$_GET['id'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $fnd_id=$row['user_fnd_id'];
 //echo "fndis is:".$fnd_id;
@@ -62,9 +62,9 @@ $primary_port=$row['primary_portfolio'];
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 
@@ -74,9 +74,9 @@ $first_name=$row['first_name'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $username=$row['username'];
 
@@ -84,9 +84,9 @@ $username=$row['username'];
 
 
 
-$sql=mysqli_query($con, "select * from tbl_users where user_id= '$last_update'"); 
+$sql=$con->query("select * from tbl_users where user_id= '$last_update'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $username_update=$row['username'];
 
@@ -219,7 +219,7 @@ $notes_update = $_POST['next_payment'];
 $category_update=$_POST['category'];
 $date = date('Y-m-d H:i:s');
 
- mysqli_query($con, "UPDATE tbl_loan_notes SET  notes ='$notes_update' , category='$category_update' , updated_at ='$date' , updated_by ='$uu_id' where loan_id ='$loan_id'"); 
+ $con->query("UPDATE tbl_loan_notes SET  notes ='$notes_update' , category='$category_update' , updated_at ='$date' , updated_by ='$uu_id' where loan_id ='$loan_id'"); 
     
     ?>
 

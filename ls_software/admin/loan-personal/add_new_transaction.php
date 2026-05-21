@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
    error_reporting(0);
 
@@ -50,11 +50,11 @@
 
    
 
-   $sql=mysqli_query($con, "select * from tbl_personal_loans where p_loan_id= '$id'"); 
+   $sql=$con->query("select * from tbl_personal_loans where p_loan_id= '$id'"); 
 
    
 
-   while($row = mysqli_fetch_array($sql)) {
+   while($row = $sql->fetch_array()) {
 
    
 
@@ -100,11 +100,11 @@
 
    
 
-   $sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+   $sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
    
 
-   while($row = mysqli_fetch_array($sql)) {
+   while($row = $sql->fetch_array()) {
 
    
 
@@ -134,11 +134,11 @@
 
    
 
-   $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+   $sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
    
 
-   while($row_user = mysqli_fetch_array($sql_user)) {
+   while($row_user = $sql_user->fetch_array()) {
 
    
 
@@ -160,11 +160,11 @@
 
    
 
-   $sql_transaction=mysqli_query($con, "select * from tbl_personal_loan_installments where id='$intallment_id'"); 
+   $sql_transaction=$con->query("select * from tbl_personal_loan_installments where id='$intallment_id'"); 
 
    
 
-   while($row_transaction = mysqli_fetch_array($sql_transaction)) {
+   while($row_transaction = $sql_transaction->fetch_array()) {
 
    
 
@@ -196,9 +196,9 @@
 
    
 
-   $query_interest_installment = mysqli_query($con,"SELECT SUM(remaining_interest) AS value_sum FROM personal_loan_transaction where loan_create_id= '$loan_create_id'");
+   $query_interest_installment = $con->query("SELECT SUM(remaining_interest) AS value_sum FROM personal_loan_transaction where loan_create_id= '$loan_create_id'");
 
-   while ($row_interest_installment=mysqli_fetch_array($query_interest_installment)){
+   while ($row_interest_installment=$query_interest_installment->fetch_array()){
 
       $calculated_interest = $row_interest_installment['value_sum'];
 
@@ -216,9 +216,9 @@
 
    
 
-         $query_installment_principal = mysqli_query($con,"SELECT SUM(remaining_installment_principal) AS value_sum FROM personal_loan_transaction where loan_create_id= '$loan_create_id'");
+         $query_installment_principal = $con->query("SELECT SUM(remaining_installment_principal) AS value_sum FROM personal_loan_transaction where loan_create_id= '$loan_create_id'");
 
-         while ($row_installment_principal=mysqli_fetch_array($query_installment_principal)){
+         while ($row_installment_principal=$query_installment_principal->fetch_array()){
 
          $installment_principal_sum = $row_installment_principal['value_sum'];
 
@@ -398,9 +398,9 @@
 
          $status="Installment is made with Installment ID  $intallment_id";
 
-         mysqli_query($con, "UPDATE tbl_personal_loan_installments SET payment_date='$paid_date', paid_date='$paid_date', status='1', paid_by='$u_id', payment_description='$payment_description'  where id ='$intallment_id'");
+         $con->query("UPDATE tbl_personal_loan_installments SET payment_date='$paid_date', paid_date='$paid_date', status='1', paid_by='$u_id', payment_description='$payment_description'  where id ='$intallment_id'");
 
-         mysqli_query($con, "UPDATE tbl_personal_loans SET last_payment_date='$paid_date' where loan_create_id ='$loan_create_id'");
+         $con->query("UPDATE tbl_personal_loans SET last_payment_date='$paid_date' where loan_create_id ='$loan_create_id'");
 
          
 
@@ -414,9 +414,9 @@
 
          
 
-          $query_insert_trans= "INSERT INTO `personal_loan_transaction`(`loan_id`, `loan_create_id`, `user_fnd_id`, `installment_id`, `payment_amount`, `interest`, `principal_amount`, `remaining_balance`, `remaining_interest`, `remaining_installment_principal`, `late_fee`, `payment_date`, `payment_description`, `created_at`, `created_by`) VALUES ('$id','$loan_create_id','$user_fnd_id','$intallment_id','$db_totalamountpaid','$db_interestpaid','$db_principlepaid','$rem_balance','$db_remaininginterest','$db_remainingprinciple','$db_latefeepaid','$paid_date','$payment_description','$date','$u_id')";
+          $query_insert_trans= "INSERT INTO personal_loan_transaction(loan_id, loan_create_id, user_fnd_id, installment_id, payment_amount, interest, principal_amount, remaining_balance, remaining_interest, remaining_installment_principal, late_fee, payment_date, payment_description, created_at, created_by) VALUES ('$id','$loan_create_id','$user_fnd_id','$intallment_id','$db_totalamountpaid','$db_interestpaid','$db_principlepaid','$rem_balance','$db_remaininginterest','$db_remainingprinciple','$db_latefeepaid','$paid_date','$payment_description','$date','$u_id')";
 
-          $result_insert_trans = mysqli_query($con, $query_insert_trans);
+          $result_insert_trans = $con->query($query_insert_trans);
 
                if ($result_insert_trans) {
 

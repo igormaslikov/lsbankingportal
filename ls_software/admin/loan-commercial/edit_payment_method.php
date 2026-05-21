@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -29,9 +29,9 @@ include_once '../dbconfig.php';
  
 
 
-$sql_bank_detail=mysqli_query($con, "select * from tbl_payment_method where id= '$id'"); 
+$sql_bank_detail=$con->query("select * from tbl_payment_method where id= '$id'"); 
 
-while($row_bank_detail = mysqli_fetch_array($sql_bank_detail)) {
+while($row_bank_detail = $sql_bank_detail->fetch_array()) {
 $user_fnd_id=$row_bank_detail['user_fnd_id'];
 $type_of_card=$row_bank_detail['card_type'];
 $card_exp_date=$row_bank_detail['card_exp_date'];
@@ -53,9 +53,9 @@ $created_by=$row_bank_detail['created_by'];
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -73,9 +73,9 @@ $customer_numbr=$row['mobile_number'];
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -171,7 +171,7 @@ $username=$row_user['username'];
     
 
      
-      mysqli_query($con, "UPDATE tbl_payment_method SET card_type='$type_card_up', card_exp_date='$card_exp_date_up', card_number='$card_number_up', bank_name='$bank_name_up', routing_number='$routing_number_up', account_number='$account_number_up', cvv='$cvv_number_up', created_by='$cvv_number_up' where user_fnd_id='$user_fnd_id'");
+      $con->query("UPDATE tbl_payment_method SET card_type='$type_card_up', card_exp_date='$card_exp_date_up', card_number='$card_number_up', bank_name='$bank_name_up', routing_number='$routing_number_up', account_number='$account_number_up', cvv='$cvv_number_up', created_by='$cvv_number_up' where user_fnd_id='$user_fnd_id'");
       
       
 }

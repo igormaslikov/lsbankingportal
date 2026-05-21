@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 session_start();
 include_once '../dbconnect.php';
@@ -27,9 +27,9 @@ $DBcon->close();
 
  $id=$_GET['id'];
  
-$sql_fnd=mysqli_query($con, "select * from tbl_loan where loan_id = '$id'"); 
+$sql_fnd=$con->query("select * from tbl_loan where loan_id = '$id'"); 
 
-while($row_fnd = mysqli_fetch_array($sql_fnd)) {
+while($row_fnd = $sql_fnd->fetch_array()) {
 
 $user_fnd_id=$row_fnd['user_fnd_id'];
 
@@ -48,9 +48,9 @@ $loan_create_id=$row_fnd['loan_create_id'];
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $last_name=$row['last_name'];
@@ -68,9 +68,9 @@ $customer_full_name= $first_name.' '.$last_name;
 
 
 
-$sql=mysqli_query($con, "select * from tbl_loan where loan_id= '$id'"); 
+$sql=$con->query("select * from tbl_loan where loan_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 	$loan_create_id=$row['loan_create_id'];
@@ -105,9 +105,9 @@ $new_creation_date= date("m-d-Y", $timestamp);
 
 
 
-$sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -122,9 +122,9 @@ $username=$row_user['username'];
 
 
 
-$sql_transaction=mysqli_query($con, "select * from loan_transaction where loan_id= '$id'"); 
+$sql_transaction=$con->query("select * from loan_transaction where loan_id= '$id'"); 
 
-while($row_transaction = mysqli_fetch_array($sql_transaction)) {
+while($row_transaction = $sql_transaction->fetch_array()) {
 
 $payment_method=$row_transaction['payment_method'];
 
@@ -138,9 +138,9 @@ $type_of_payment=$row_transaction['type_of_payment'];
 }
 
 $scheduling_id = $_GET['schedule_id'];
-$sql_scheduling=mysqli_query($con, "select * from tbl_loan_schedules where id= '$scheduling_id'"); 
+$sql_scheduling=$con->query("select * from tbl_loan_schedules where id= '$scheduling_id'"); 
 //echo "select * from loan_transaction where id= '$scheduling_id'";
-while($row_scheduling = mysqli_fetch_array($sql_scheduling)) {
+while($row_scheduling = $sql_scheduling->fetch_array()) {
 
 $schedule_card=$row_scheduling['card'];
 
@@ -244,9 +244,9 @@ $schedule_payment_date=$row_scheduling['payment_date'];
     <select  class="form-control city" name="card">
     <option value='<?php echo $schedule_card;?>'><?php echo $schedule_card;?></option>
   <?php 
-      $sql_loan=mysqli_query($con, "select DISTINCT `card_number`,`card_exp_date` from loan_initial_banking where user_fnd_id = '$user_fnd_id' ORDER BY primary_status ASC"); 
+      $sql_loan=$con->query("select DISTINCT card_number,card_exp_date from loan_initial_banking where user_fnd_id = '$user_fnd_id' ORDER BY primary_status ASC"); 
 
-while($row_bank_detail_sec = mysqli_fetch_array($sql_loan)) {
+while($row_bank_detail_sec = $sql_loan->fetch_array()) {
      $card=$row_bank_detail_sec['card_number'];
      $card_cvv=$row_bank_detail_sec['cvv'];
     
@@ -342,7 +342,7 @@ $payment_amount = $_POST['payment_amount'];
 $schedule_payment = $_POST['schedule_payment'];
 $card = $_POST['card'];
 $loan_create_id = $_POST['loan_create_id'];
-mysqli_query($con,"UPDATE `tbl_loan_schedules` SET `payment_date`='$schedule_payment',`schedule_time`='$schedule_frequency',`amount`='$payment_amount',`card`='$card' WHERE `id`='$scheduling_id'");
+$con->query("UPDATE tbl_loan_schedules SET payment_date='$schedule_payment',schedule_time='$schedule_frequency',amount='$payment_amount',card='$card' WHERE id='$scheduling_id'");
 
 
 ?>

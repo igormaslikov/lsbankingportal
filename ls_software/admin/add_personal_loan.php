@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 session_start();
-include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
+include_once __DIR__ . '/dbconnect.php';
 
 
 if (!isset($_SESSION['userSession'])) {
@@ -64,10 +64,10 @@ $fnd_idd=$_GET['id'];
 <?php
 
 $sql_count_loans = "SELECT * FROM tbl_personal_loans";
-if ($result_count_loans=mysqli_query($con,$sql_count_loans))
+if ($result_count_loans=$con->query($sql_count_loans))
   {
   // Return the number of rows in result set
-  $rowcount_count_loans=mysqli_num_rows($result_count_loans)+10003;
+  $rowcount_count_loans=$result_count_loans->num_rows+10003;
   
   //$rowcount_count_loans= $rowcount_count_loans-100;
   //echo "<br><br><br><br><br>".$rowcount_count_loans;
@@ -83,9 +83,9 @@ $due_date=$_GET['next_pay_date'];
 include $_SERVER['DOCUMENT_ROOT'].'/dbconnect.php';
 
 
-$sql_apr=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
+$sql_apr=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
-while($row_apr = mysqli_fetch_array($sql_apr)) {
+while($row_apr = $sql_apr->fetch_array()) {
 $apr_date = $row_apr['apr'];
 
 $first_name = $row_apr['first_name'];
@@ -107,10 +107,10 @@ $ssn = $row_apr['ssn'];
 
 }
 
-// $sql1 = mysqli_query($con, "SELECT  From business_group WHERE bg_name= '$loan_name'");
-// //$row1 = mysqli_num_rows($sql1);
+// $sql1 = $con->query("SELECT  From business_group WHERE bg_name= '$loan_name'");
+// //$row1 = $sql1->num_rows;
 
-// while ($row1 = mysqli_fetch_array($sql1)){
+// while ($row1 = $sql1->fetch_array()){
 
 // $portfolio = $row1['bg_name'];
 //}
@@ -317,11 +317,11 @@ function calculate(e){
   
   let minOnePayment = parseFloat(principal_amount) / parseInt(total_payments);
   if(payment < minOnePayment){
-    $("#tablePayments")[0].innerHTML = `
+    $("#tablePayments")[0].innerHTML = 
                 <p style="text-align:center;color:red;font-size:20px">
-                  <b>Minimal payment should be more than `+ minOnePayment +`<b>
+                  <b>Minimal payment should be more than + minOnePayment +<b>
                 </p>
-                `;
+                ;
     e.preventDefault();
     return;
   }
