@@ -15,8 +15,3 @@ $db_user = '';
 $db_pass = '';
 
 $db_use_windows_auth = true;
-
-if (isset($_SESSION['Optima']) && ($_SESSION["Optima"] == "true" or $_SESSION["Optima"] == "True")) {
-    // TODO: Confirm SQL Server name for the Optima-specific database (was ki902621_ofsca_portal_new on MySQL).
-    $db_name = 'OfscaBank_new';
-}
