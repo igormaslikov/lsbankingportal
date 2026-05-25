@@ -139,7 +139,9 @@ $fnd_idd = $_GET['id'] ?? '';
     include 'dbconfig.php';
     $portfolio_type = "OF1";
 
-    $query_string = "SELECT CONCAT('$portfolio_type','-',(MAX(CAST(SUBSTRING(loan_create_id FROM 5) AS UNSIGNED))+1)) as next_id from tbl_commercial_loan where portfolio_type = '$portfolio_type'";
+    // SQL Server: SUBSTRING(col, start, length) and CAST(... AS INT). MySQL's
+    // SUBSTRING(col FROM N) and CAST AS UNSIGNED are not valid in T-SQL.
+    $query_string = "SELECT CONCAT('$portfolio_type','-',(MAX(CAST(SUBSTRING(loan_create_id, 5, LEN(loan_create_id)) AS INT))+1)) as next_id from tbl_commercial_loan where portfolio_type = '$portfolio_type'";
     $default_loan_id = $portfolio_type . "-10001";
     if ($portfolio_type == "OF1") {
         $count_non_portfolio = 0;
@@ -148,7 +150,7 @@ $fnd_idd = $_GET['id'] ?? '';
             $count_non_portfolio = $row_apr['cnt'];
         }
         if ($count_non_portfolio == 0) {
-            $query_string = "SELECT CONCAT('$portfolio_type','-',(MAX(CAST(SUBSTRING(loan_create_id FROM 3) AS UNSIGNED))+1)) as next_id from tbl_commercial_loan where portfolio_type = ''";
+            $query_string = "SELECT CONCAT('$portfolio_type','-',(MAX(CAST(SUBSTRING(loan_create_id, 3, LEN(loan_create_id)) AS INT))+1)) as next_id from tbl_commercial_loan where portfolio_type = ''";
         }
     }
     $next_loan_id = NULL;
