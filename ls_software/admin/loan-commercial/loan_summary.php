@@ -1,5 +1,8 @@
 <?php
 error_reporting(0);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 include_once '../dbconnect.php';
 
@@ -39,8 +42,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
 
   $settlement_amount = 0;
-  $query_payment = $con->query("SELECT SUM(payment) AS sum_payment, SUM(paid amount) AS sum_paid_amount, SUM(refinanced_amount) as sum_refinanced_amount, SUM(credit_amount) as sum_credit_amount FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id' and (status=2 or status = 3 or status = 4)");
-  while ($row_payment = $query_payment->fetch_array()) {
+  $query_payment = $con->query("SELECT SUM(TRY_CAST(payment AS DECIMAL(18,2))) AS sum_payment, SUM(TRY_CAST([paid amount] AS DECIMAL(18,2))) AS sum_paid_amount, SUM(TRY_CAST(refinanced_amount AS DECIMAL(18,2))) AS sum_refinanced_amount, SUM(TRY_CAST(credit_amount AS DECIMAL(18,2))) AS sum_credit_amount FROM tbl_commercial_loan_installments where loan_create_id= '$loan_create_id' and (status=2 or status = 3 or status = 4)");
+  while ($query_payment && ($row_payment = $query_payment->fetch_array())) {
     $sum_payment = $row_payment['sum_payment'];
     $sum_paid_amount = $row_payment['sum_paid_amount'];
     $settlement_amount = $sum_payment - $sum_paid_amount;
