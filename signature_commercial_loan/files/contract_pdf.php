@@ -42,7 +42,32 @@ include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd = $_GET['id'];
 
+// Diagnostic mode: ?debug=1 returns JSON of each query's result instead of PDF
+// so you can see whether the row exists / which fields are populated.
+$__debug = !empty($_GET['debug']);
+if ($__debug) {
+    header('Content-Type: application/json; charset=utf-8');
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+}
+
 $sql1 = $con->query("select * from commercial_loan_initial_banking where email_key='$iddd' ");
+if ($__debug) {
+    $rows1 = [];
+    while ($r = $sql1->fetch_array()) { $rows1[] = $r; }
+    if (!$rows1) {
+        echo json_encode([
+            'step' => 'commercial_loan_initial_banking lookup',
+            'email_key' => $iddd,
+            'rows_returned' => 0,
+            'sqlsrv_errors' => function_exists('sqlsrv_errors') ? sqlsrv_errors() : null,
+            'note' => 'No row matches this email_key on SQL Server. Either the row was never migrated from MySQL, or the table does not exist.',
+        ], JSON_PRETTY_PRINT);
+        exit;
+    }
+    echo json_encode(['step' => 'commercial_loan_initial_banking lookup', 'rows' => $rows1], JSON_PRETTY_PRINT);
+    exit;
+}
 
 while ($row1 = $sql1->fetch_array()) {
 
