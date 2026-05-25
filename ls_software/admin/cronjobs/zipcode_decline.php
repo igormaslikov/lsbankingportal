@@ -2,7 +2,7 @@
    include('../dbconnect.php');
    include('../dbconfig.php');
    include('../functions.php');
-   $query = "select * from fnd_user_profile WHERE date_time_current < (NOW() - INTERVAL 5 MINUTE) AND application_status='New Application'";
+   $query = "select * from fnd_user_profile WHERE date_time_current < DATEADD(MINUTE, -5, GETDATE()) AND application_status='New Application'";
    $sql=$con->query("$query");
    while($row = $sql->fetch_array()) {
      $first_name = $row['first_name'];

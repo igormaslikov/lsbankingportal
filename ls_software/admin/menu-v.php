@@ -1,6 +1,8 @@
-﻿<?php 
+﻿<?php
 date_default_timezone_set('America/Los_Angeles');
 
+// TODO sqlsrv-migration: external chat host 50.62.151.36 is a separate MySQL server, not the portal DB.
+// Leaving mysqli connection in place because the SqlServerDb shim targets the portal SQL Server instance only.
 $conn = new mysqli("50.62.151.36","message_chat","admin$$123","message_chat");
 $count=0;
 $sql2="SELECT * FROM webchat_lines WHERE notification_status = 0";

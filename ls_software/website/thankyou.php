@@ -58,7 +58,7 @@ $date = date('Y-m-d H:i:s');
 
 $query="INSERT INTO banking_information (user_fnd_id,routing_aba_number,account_number,verify_account_number,card_number,expiry_date,name_of_card,billing_zip_code,creation_date,last_update_date)  VALUES ('$user_id','$aba_number','$acc_number','$verify_acc_number','$card_number','$month','$name_card','$zip_code','$date','$date')";
 
-$result = mysqli_query($con,$query);
+$result = $con->query($query);
         if ($result) {
            //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
        } else {

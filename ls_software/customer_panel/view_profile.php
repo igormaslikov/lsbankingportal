@@ -67,9 +67,9 @@ $DBcon->close();
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_source=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$id'"); 
+$sql_source=$con->query("select * from fnd_user_profile where user_fnd_id='$id'"); 
 echo "<table width='900'>";
-while($row_source = mysqli_fetch_array($sql_source)) {
+while($row_source = $sql_source->fetch_array()) {
 
 $first_name=$row_source['first_name'];
 $middle_name=$row_source['middle_name']; 
@@ -100,9 +100,9 @@ echo "</table>";
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_source=mysqli_query($con, "select * from source_income where user_fnd_id='$id'"); 
+$sql_source=$con->query("select * from source_income where user_fnd_id='$id'"); 
 echo "<table width='900'>";
-while($row_source = mysqli_fetch_array($sql_source)) {
+while($row_source = $sql_source->fetch_array()) {
 
 $emp_name=$row_source['employer_name'];
 $emp_phone=$row_source['work_phone_no'];
@@ -130,9 +130,9 @@ echo "</table>";
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_banking=mysqli_query($con, "select * from banking_information where user_fnd_id='$id'"); 
+$sql_banking=$con->query("select * from banking_information where user_fnd_id='$id'"); 
 echo "<table width='900'>";
-while($row_banking = mysqli_fetch_array($sql_banking)) {
+while($row_banking = $sql_banking->fetch_array()) {
 
 $debit_card_number=$row_banking['card_number'];
 $card_exp_date=$row_banking['expiry_date'];
@@ -155,9 +155,9 @@ echo "</table>";
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_bq=mysqli_query($con, "select * from binary_questions where user_fnd_id='$id'"); 
+$sql_bq=$con->query("select * from binary_questions where user_fnd_id='$id'"); 
 echo "<table width='900'>";
-while($row_bq = mysqli_fetch_array($sql_bq)) {
+while($row_bq = $sql_bq->fetch_array()) {
     
     
     

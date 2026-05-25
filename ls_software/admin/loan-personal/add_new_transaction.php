@@ -196,7 +196,7 @@
 
    
 
-   $query_interest_installment = $con->query("SELECT SUM(remaining_interest) AS value_sum FROM personal_loan_transaction where loan_create_id= '$loan_create_id'");
+   $query_interest_installment = $con->query("SELECT SUM(TRY_CAST(remaining_interest AS DECIMAL(18,2))) AS value_sum FROM personal_loan_transaction where loan_create_id= '$loan_create_id'");
 
    while ($row_interest_installment=$query_interest_installment->fetch_array()){
 
@@ -216,7 +216,7 @@
 
    
 
-         $query_installment_principal = $con->query("SELECT SUM(remaining_installment_principal) AS value_sum FROM personal_loan_transaction where loan_create_id= '$loan_create_id'");
+         $query_installment_principal = $con->query("SELECT SUM(TRY_CAST(remaining_installment_principal AS DECIMAL(18,2))) AS value_sum FROM personal_loan_transaction where loan_create_id= '$loan_create_id'");
 
          while ($row_installment_principal=$query_installment_principal->fetch_array()){
 

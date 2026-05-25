@@ -6,15 +6,15 @@ $year=$_GET['year'];
 include 'dbconnect.php';
 include 'dbconfig.php';
  
-$sql=mysqli_query($con, "SELECT * FROM tbl_loan WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month"); 
+$sql=$con->query("SELECT * FROM tbl_loan WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month"); 
 
 if ($result_tt=$sql)
   {
   // Return the number of rows in result set
-  $rowcountt=mysqli_num_rows($result_tt);
+  $rowcountt=$result_tt->num_rows;
   echo "Total record of this Month: $rowcountt<br>";
   // Free result set
-  $ye=mysqli_free_result($result_tt);
+  $ye=null;
  // echo $ye;
   }
 ?>
@@ -160,10 +160,10 @@ $pv="'$month'".","."'$i'".","."'$year'";
 include 'dbconnect.php';
 include 'dbconfig.php';
 // echo $day;
-$sq_datel=mysqli_query($con, "SELECT * FROM tbl_loan WHERE creation_date like '$day'"); 
+$sq_datel=$con->query("SELECT * FROM tbl_loan WHERE creation_date like '$day'"); 
 
     if ($result_loan_day = $sq_datel){
-        $row_count_loan_day = mysqli_num_rows($result_loan_day);
+        $row_count_loan_day = $result_loan_day->num_rows;
     
        // echo $row_count_loan_day."<br>";
     }
@@ -199,13 +199,13 @@ $readfile = file($day);
 
 echo $readfile;
 
-	$result_counttt = mysqli_query($con,"SELECT * FROM tbl_loan WHERE creation_date=$readfile");
-    while($rowww = mysqli_fetch_array($result_counttt))
+	$result_counttt = $con->query("SELECT * FROM tbl_loan WHERE creation_date=$readfile");
+    while($rowww = $result_counttt->fetch_array())
     {
 		 $iddddd=$rowww['loan_id'];
 	     echo "Loan ID is:".$iddddd. "<br>";
         }
-	mysqli_close($con);
+	$con->close();
 
 }
 

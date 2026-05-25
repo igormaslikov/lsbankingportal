@@ -386,7 +386,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = $con->query("SELECT COUNT(*) As total_records FROM `fnd_user_profile`");
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM fnd_user_profile");
 	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
 	$total_records = $rowcount;
@@ -444,7 +444,7 @@ if (isset($_GET['loan_type']) && $_GET['loan_type']!='All') {
     $query_search .= " loan_type = '$loan_type' ";
  // $and_check = 1;
 }
-    $query_search .= " ORDER By user_fnd_id DESC  LIMIT $offset, $total_records_per_page ";
+    $query_search .= " ORDER By user_fnd_id DESC  OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY ";
  
  //echo $query_search;
     $result = $con->query("$query_search");

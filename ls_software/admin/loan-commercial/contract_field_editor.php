@@ -49,10 +49,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         $payload = json_decode($_POST['rows'] ?? '[]', true);
         if (!is_array($payload)) { echo json_encode(['ok'=>false,'error'=>'bad payload']); exit; }
         $updated = 0;
-        $stmt = mysqli_prepare($con,
-            "UPDATE contract_field_coords
+        $sql_update = "UPDATE contract_field_coords
              SET x_mm=?, y_mm=?, w_mm=?, h_mm=?, font_size=?, align=?, updated_by=?
-             WHERE id=?");
+             WHERE id=?";
         foreach ($payload as $r) {
             $x = (float)($r['x_mm'] ?? 0); $y = (float)($r['y_mm'] ?? 0);
             $w = (float)($r['w_mm'] ?? 0); $h = (float)($r['h_mm'] ?? 5);
@@ -60,10 +59,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
             $al = substr((string)($r['align'] ?? 'C'), 0, 1);
             $id = (int)($r['id'] ?? 0);
             if ($id <= 0) continue;
-            mysqli_stmt_bind_param($stmt, 'ddddisii', $x, $y, $w, $h, $fs, $al, $u_id, $id);
-            if (mysqli_stmt_execute($stmt)) $updated++;
+            if ($con->query($sql_update, [$x, $y, $w, $h, $fs, $al, $u_id, $id])) $updated++;
         }
-        mysqli_stmt_close($stmt);
+        null;
         echo json_encode(['ok'=>true,'updated'=>$updated]);
         exit;
     }
@@ -71,22 +69,23 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     if ($action === 'delete') {
         $id = (int)($_POST['id'] ?? 0);
         if ($id <= 0) { echo json_encode(['ok'=>false,'error'=>'missing id']); exit; }
-        $ok = mysqli_query($con, "DELETE FROM contract_field_coords WHERE id=$id");
+        $ok = $con->query("DELETE FROM contract_field_coords WHERE id=$id");
         echo json_encode(['ok'=>(bool)$ok]);
         exit;
     }
 
     if ($action === 'insert') {
-        $tpl = mysqli_real_escape_string($con, $_POST['template'] ?? '');
+        $tpl = $con->real_escape_string($_POST['template'] ?? '');
         $pg  = (int)($_POST['page_num'] ?? 0);
-        $fk  = mysqli_real_escape_string($con, $_POST['field_key'] ?? '');
+        $fk  = $con->real_escape_string($_POST['field_key'] ?? '');
         $ft  = in_array($_POST['field_type'] ?? '', ['text','image']) ? $_POST['field_type'] : 'text';
         $x = (float)($_POST['x_mm'] ?? 60); $y = (float)($_POST['y_mm'] ?? 60);
         $w = (float)($_POST['w_mm'] ?? 40); $h = (float)($_POST['h_mm'] ?? 5);
         $fs = (int)($_POST['font_size'] ?? 9);
         $al = substr((string)($_POST['align'] ?? 'C'), 0, 1);
         if ($tpl === '' || $pg <= 0 || $fk === '') { echo json_encode(['ok'=>false,'error'=>'missing fields']); exit; }
-        $ok = mysqli_query($con,
+        // TODO(sqlsrv): ON DUPLICATE KEY UPDATE is MySQL-only; rewrite as MERGE or explicit UPDATE/INSERT for T-SQL.
+        $ok = $con->query(
             "INSERT INTO contract_field_coords
              (template, page_num, field_key, field_type, x_mm, y_mm, w_mm, h_mm, font_size, align, updated_by)
              VALUES ('$tpl', $pg, '$fk', '$ft', $x, $y, $w, $h, $fs, '$al', $u_id)
@@ -94,7 +93,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                field_type=VALUES(field_type), x_mm=VALUES(x_mm), y_mm=VALUES(y_mm),
                w_mm=VALUES(w_mm), h_mm=VALUES(h_mm), font_size=VALUES(font_size),
                align=VALUES(align), updated_by=VALUES(updated_by)");
-        echo json_encode(['ok'=>(bool)$ok, 'error'=>$ok ? null : mysqli_error($con)]);
+        echo json_encode(['ok'=>(bool)$ok, 'error'=>$ok ? null : '']);
         exit;
     }
     echo json_encode(['ok'=>false,'error'=>'unknown action']);
@@ -102,21 +101,21 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
 }
 
 // ---------------- GET: render the editor form ----------------
-$tpl_escaped = mysqli_real_escape_string($con, $template);
-$res = mysqli_query($con, "SELECT * FROM contract_field_coords
+$tpl_escaped = $con->real_escape_string($template);
+$res = $con->query("SELECT * FROM contract_field_coords
     WHERE template='$tpl_escaped' AND page_num=$page_num ORDER BY field_key");
 $rows = [];
-while ($res && $r = mysqli_fetch_assoc($res)) $rows[] = $r;
+while ($res && $r = $res->fetch_assoc()) $rows[] = $r;
 
 // Pick a real loan_id for the "real data" preview — use the first signed
 // loan of the active template, or fall back to any loan on this template.
 $preview_real_loan_key = '';
-$qpick = mysqli_query($con,
+$qpick = $con->query(
     "SELECT cli.email_key FROM commercial_loan_initial_banking cli
      JOIN tbl_commercial_loan cl ON cli.loan_id = cl.loan_create_id
      WHERE cl.contract_template = '$tpl_escaped' AND cli.email_key <> ''
-     ORDER BY cli.sign_status DESC, cli.creation_date DESC LIMIT 1");
-if ($qpick && $rp = mysqli_fetch_assoc($qpick)) $preview_real_loan_key = $rp['email_key'];
+     ORDER BY cli.sign_status DESC, cli.creation_date DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY");
+if ($qpick && $rp = $qpick->fetch_assoc()) $preview_real_loan_key = $rp['email_key'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

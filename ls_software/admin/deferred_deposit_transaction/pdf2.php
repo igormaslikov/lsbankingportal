@@ -28,7 +28,7 @@ $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+$query_payment_fee = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
 while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
@@ -64,7 +64,7 @@ $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+$query_payment_fee = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
 while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
@@ -100,7 +100,7 @@ $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+$query_payment_fee = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
 while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
@@ -137,7 +137,7 @@ $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+$query_payment_fee = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
 while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
@@ -172,7 +172,7 @@ $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+$query_payment_fee = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
 while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
@@ -208,7 +208,7 @@ $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+$query_payment_fee = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
 while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
@@ -248,7 +248,7 @@ $loan_status=$row_fnd_1_fee['loan_status'];
 $loan_id_fee=$row_fnd_1_fee['loan_id'];
  $amount_of_loan_fee=$row_fnd_1_fee['amount_of_loan'];
  
-$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+$query_payment_fee = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
 while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     

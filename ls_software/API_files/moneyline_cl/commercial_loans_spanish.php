@@ -69,10 +69,10 @@ $time_created = date("g:i a");
 
 $query_check_funded = "select * from fnd_user_profile where  ((email = '$customer_email' ) OR (mobile_number = '$customer_tel')  AND (application_status = 'Funded')";
 //echo $query_check . "<br>";
-$sql_check_funded=mysqli_query($con, "$query_check_funded"); 
+$sql_check_funded=$con->query("$query_check_funded"); 
 
   // Return the number of rows in result set
-  $rowcount_funded=mysqli_num_rows($sql_check_funded);
+  $rowcount_funded=$sql_check_funded->num_rows;
 //  echo "Row Count is : " . $rowcount. "<br>";
 if ($rowcount_funded>0){
     
@@ -182,10 +182,10 @@ $date_decline = date('Y-m-d', strtotime('-90 days'));
 echo $date_decline;
 $query_check = "select * from fnd_user_profile where  ( (email = '$customer_email' AND email !='') OR (mobile_number = '$customer_tel' AND mobile_number != '') ) AND (application_status = 'Declined' OR application_status = 'Rejected By Customer') AND (creation_date BETWEEN '$date_decline'AND '$date')";
 echo $query_check . "<br>";
-$sql_check=mysqli_query($con, "$query_check"); 
+$sql_check=$con->query("$query_check"); 
 
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql_check);
+  $rowcount=$sql_check->num_rows;
 //  echo "Row Count is : " . $rowcount. "<br>";
 if ($rowcount>0){
     
@@ -227,10 +227,10 @@ else {
     
     $query_check_d = "select * from fnd_user_profile where  (email = '$customer_email' AND application_status ='New Application') ";
 echo $query_check_d . "<br>";
-$sql_check_d=mysqli_query($con, "$query_check_d"); 
+$sql_check_d=$con->query("$query_check_d"); 
 
   // Return the number of rows in result set
-  $rowcount_d=mysqli_num_rows($sql_check_d);
+  $rowcount_d=$sql_check_d->num_rows;
 //  echo "Row Count is : " . $rowcount. "<br>";
 if ($rowcount_d>0){
     echo "record duplications";
@@ -259,25 +259,25 @@ admin_leads_email_notification($subject,$message);
           // DB INSERTION STARTS
           
 $query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_number,address,city,state,zip_code,date_of_birth,creation_date,application_status,website,created_time_,loan_type)  VALUES ('$customer_fname','$customer_lname','$customer_email','$customer_tel','$address','$customer_city','$customer_state','$customer_zip','$dobb','$date','$app_status','$web_site','$time_created','$type_loan')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
         echo "<h3> Error Inserting Data Fnd </h3>";
         }
-$sql_source_fndid=mysqli_query($con, "select * from fnd_user_profile where email= '$customer_email'  AND mobile_number= '$customer_tel'"); 
+$sql_source_fndid=$con->query("select * from fnd_user_profile where email= '$customer_email'  AND mobile_number= '$customer_tel'"); 
 
-while($row_sql_source_fndid = mysqli_fetch_array($sql_source_fndid)) {
+while($row_sql_source_fndid = $sql_source_fndid->fetch_array()) {
 
 $user_fnd_id=$row_sql_source_fndid['user_fnd_id'];
 }
 		$query_employment_entry = "INSERT INTO tbl_business_info(user_fnd_id,business_name,address_b,address_line_b,city_b,state_b,zip_b,business_phone,monthly_gross_amount,how_paid,last_payday) VALUES ('$user_fnd_id','$emp_name','$address_b','$address_line_b','$customer_city_b','$customer_state_b','$customer_zip_b','$emp_phone','$emp_amount','$emp_payfre','$last_paydate')";
 		
 		
-       mysqli_query($con,$query_employment_entry);
+       $con->query($query_employment_entry);
 	   
       $query34  = "INSERT INTO tbl_loan (user_fnd_id,type_of_loan)  VALUES ('$user_fnd_id','$type_loan')";
-        $result34 = mysqli_query($con, $query34);
+        $result34 = $con->query($query34);
         if ($result34) {
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
         } else {

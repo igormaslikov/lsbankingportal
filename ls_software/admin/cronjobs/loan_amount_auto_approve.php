@@ -112,7 +112,7 @@ if($payroll>7000 && $DL_average_balance>300 && $DL_available_balance>-150 && $DL
     $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO 255', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
 }
 
@@ -125,7 +125,7 @@ else if($payroll>4000 && $DL_average_balance>200 && $DL_available_balance>-100 &
     $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO 200', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
 }
 
@@ -138,7 +138,7 @@ else if($DL_deposits_credit>8000 && $DL_average_balance>150 && $DL_available_bal
     $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO 150', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
 }
 
@@ -152,7 +152,7 @@ else if($DL_deposits_credit>6000 && $DL_average_balance>100 && $DL_available_bal
     $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO 100', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
 }
 
@@ -165,7 +165,7 @@ else if( $DL_deposits_credit>4000 && $DL_average_balance>50 && $DL_available_bal
     $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO 50', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
 }
 
@@ -178,7 +178,7 @@ else {
     $con->query("UPDATE decision_login_codes SET loan_amount_check='1' WHERE id = '$code_id'");
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : LOAN AMOUNT UPDATED TO (Needs Review)', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
 }
 

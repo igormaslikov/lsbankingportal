@@ -8,14 +8,14 @@ include_once '../dbconfig.php';
 
 if ($table=="tbl_loan")
 {
- $sql = mysqli_query("select * from tbl_loan where loan_create_id like '$search'");
+ $sql = $con->query("select * from tbl_loan where loan_create_id like '$search'");
 }
 if ($table=="fnd_user_profile")
 {
- $sql = mysqli_query("select * from fnd_user_profile where first_name like '$search'");
+ $sql = $con->query("select * from fnd_user_profile where first_name like '$search'");
 }
 
-while ($row=mysql_fetch_array($sql))
+while ($row=$sql->fetch_array())
 {
                                 echo " <table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#CCCCCC' >  ";
                                 echo " <tr bgcolor='green'>";
@@ -48,7 +48,7 @@ while ($row=mysql_fetch_array($sql))
                                echo '<br/><br/>';
   } 
  //This counts the number or results - and if there wasn't any it gives them a little message explaining that 
- $anymatches=mysql_num_rows($sql); 
+ $anymatches=$sql->num_rows;
  if ($anymatches == '0') 
     { 
     echo"<a href='searchform.html'> back </a>";

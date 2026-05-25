@@ -39,7 +39,7 @@ $date = date('Y-m-d H:i:s');
           // DB INSERTION STARTS
           
 $query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_number,address,city,state,zip_code,date_of_birth,ssn,creation_date,application_status,website)  VALUES ('$customer_fname','$customer_lname','$customer_email','$customer_tel','$address','$customer_city','$customer_state','$customer_zip','$dobb','$customer_ssn','$date','$app_status','$web_site')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -48,7 +48,7 @@ $query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_numbe
       
       
       $query34  = "INSERT INTO tbl_loan (type_of_loan)  VALUES ('$type_loan')";
-        $result34 = mysqli_query($con, $query34);
+        $result34 = $con->query($query34);
         if ($result34) {
             //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
         } else {

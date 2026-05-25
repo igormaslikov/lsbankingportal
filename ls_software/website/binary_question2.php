@@ -11,7 +11,7 @@ $date = date('Y-m-d H:i:s');
 
 $query="INSERT INTO binary_questions (user_fnd_id,state_bq,creation_date)  VALUES ('$user_id2','$state_final','$date') ";
 
-$result = mysqli_query($con,$query);
+$result = $con->query($query);
         if ($result) {
            //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
        } else {

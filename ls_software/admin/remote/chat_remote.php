@@ -1,6 +1,6 @@
-﻿<?php
-include 'db.php'; //replace by your db connections
-mysql_select_db(CIU_DBNAME); //replace by your db connections
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'].'/SqlServerDb.php';
+$con = portal_get_sqlsrv_db();
 
 $method = isset($_POST['method'])?$_POST['method']:'Error: no method was set.';
 
@@ -59,21 +59,21 @@ EOD;
 		$checksql = <<<EOD
 		SELECT * FROM chat_users WHERE nickname = '{$nickname}' OR email = '{$email}';
 EOD;
-		$checkresult = mysql_query($checksql) or die(mysql_error());
-		$num_rows = mysql_num_rows($checkresult);
+		$checkresult = $con->query($checksql);
+		$num_rows = $checkresult->num_rows;
 		if($num_rows == 0){
 			$insert = <<<EOD
 				INSERT INTO chat_users (nickname,email,ipaddress,loggedin)
 				VALUES ('{$nickname}','{$email}', '{$ip}', 'yes');
 EOD;
-			$results = mysql_query($insert) or die(mysql_error());
+			$results = $con->query($insert);
 			$_SESSION['nickname'] = $nickname;
 			echo <<<EOD
 				Logged in as {$nickname} <a href="LogOut" onclick="logmeout();return false;">Logout</a>
 EOD;
 		}
 		else if($num_rows >= 1){
-			while($row = mysql_fetch_assoc($checkresult)){
+			while($row = $checkresult->fetch_assoc()){
 				if($row['nickname'] == $nickname && $row['email'] != $email){
 
 				echo <<<EOD
@@ -106,7 +106,7 @@ EOD;
 					$insert = <<<EOD
 					UPDATE chat_users SET loggedin = 'yes' WHERE nickname = '{$nickname}' AND email = '{$email}';
 EOD;
-					$results = mysql_query($insert) or die(mysql_error());
+					$results = $con->query($insert);
 					$_SESSION['nickname'] = $nickname;
 					echo <<<EOD
 						Logged in as {$nickname} <a href="LogOut" onclick="logmeout();return false;">Logout</a>
@@ -120,7 +120,7 @@ EOD;
 				$insert = <<<EOD
 				UPDATE chat_users SET loggedin = 'yes' WHERE nickname = '{$nickname}' AND email = '{$email}';
 EOD;
-				$results = mysql_query($insert) or die(mysql_error());
+				$results = $con->query($insert);
 				$_SESSION['nickname'] = $nickname;
 				echo <<<EOD
 				Logged in as {$nickname} <a href="LogOut" onclick="logmeout();return false;">Logout</a>
@@ -142,7 +142,7 @@ EOD;
 			$sql = <<<EOD
 				UPDATE chat_users SET loggedin = 'no' WHERE nickname = '{$nickname}';
 EOD;
-			$result = mysql_query($sql) or die(mysql_error());
+			$result = $con->query($sql);
 			unset($_SESSION['nickname']);
 			echo <<<EOD
 				<form id="chat_nickform" name="chat_nickform" action="/remote/chat_remote.php" method="post" onsubmit="new Ajax.Updater('chat_nickname',this.action,{method:'post',asynchronous:true,parameters:Form.serialize(this)});new Ajax.Updater('chat_users','/remote/chat_remote.php',{method:'post',asynchronous:true,parameters:'checklogins='});return false;">
@@ -157,23 +157,25 @@ EOD;
 EOD;
 			break;
 			case 'inactive':
+			// TODO: SQL Server rewrite — MySQL `count(if(DATEADD(...) > CURRENT_TIMESTAMP,1,null))`
+			// needs CASE WHEN ... THEN 1 END inside COUNT for T-SQL.
 			$sqlone = <<<EOD
 				SELECT *,
-					count(if(DATE_ADD(timestamp, INTERVAL 1 HOUR) > CURRENT_TIMESTAMP,1,null)) as new
+					COUNT(CASE WHEN DATEADD(HOUR, 1, timestamp) > CURRENT_TIMESTAMP THEN 1 END) as new
 				FROM chat_transcript
 				group by user_id
-				having new = 0;
+				having COUNT(CASE WHEN DATEADD(HOUR, 1, timestamp) > CURRENT_TIMESTAMP THEN 1 END) = 0;
 EOD;
-			$resultone = mysql_query($sqlone) or die(mysql_error());
-			if(mysql_num_rows($resultone) > 0){
-				while($row = mysql_fetch_assoc($resultone)){
+			$resultone = $con->query($sqlone);
+			if($resultone->num_rows > 0){
+				while($row = $resultone->fetch_assoc()){
 					$idlist[] = $row['user_id'];
 				}
 				$idlist = implode(',',$idlist);
 				$sql = <<<EOD
 					UPDATE chat_users  SET loggedin = 'no' WHERE user_id IN ({$idlist});
 EOD;
-			$result = mysql_query($sql) or die(mysql_error());
+			$result = $con->query($sql);
 
 			echo <<<EOD
 			<form id="chat_nickform" name="chat_nickform" action="/remote/chat_remote.php" method="post" onsubmit="new Ajax.Updater('chat_nickname',this.action,{method:'post',asynchronous:true,parameters:Form.serialize(this)});new Ajax.Updater('chat_users','/remote/chat_remote.php',{method:'post',asynchronous:true,parameters:'checklogins='});return false;">
@@ -193,23 +195,24 @@ EOD;
 		}
 	break;
 	case 'logoutinactive':
+		// TODO: same MySQL count(if(...)) pattern rewritten as COUNT(CASE WHEN ...).
 		$sqlone = <<<EOD
 		SELECT *,
-		       count(if(DATE_ADD(timestamp, INTERVAL 1 HOUR) > CURRENT_TIMESTAMP,1,null)) as new
+		       COUNT(CASE WHEN DATEADD(HOUR, 1, timestamp) > CURRENT_TIMESTAMP THEN 1 END) as new
 		FROM chat_transcript
 		group by user_id
-		having new = 0;
+		having COUNT(CASE WHEN DATEADD(HOUR, 1, timestamp) > CURRENT_TIMESTAMP THEN 1 END) = 0;
 EOD;
-		$resultone = mysql_query($sqlone) or die(mysql_error());
-		if(mysql_num_rows($resultone) > 0){
-			while($row = mysql_fetch_assoc($resultone)){
+		$resultone = $con->query($sqlone);
+		if($resultone->num_rows > 0){
+			while($row = $resultone->fetch_assoc()){
 				$idlist[] = $row['user_id'];
 			}
 			$idlist = implode(',',$idlist);
 			$sql = <<<EOD
 				UPDATE chat_users  SET loggedin = 'no' WHERE user_id IN ({$idlist});
 EOD;
-			$result = mysql_query($sql) or die(mysql_error());
+			$result = $con->query($sql);
 		}
 	break;
 	case 'chat':
@@ -222,15 +225,15 @@ EOD;
 			$user_sql = <<<EOD
 			SELECT user_id, last_login FROM chat_users WHERE nickname = '{$nick}';
 EOD;
-			$user_result = mysql_query($user_sql) or die(mysql_error());
-			$user_array = mysql_fetch_assoc($user_result);
+			$user_result = $con->query($user_sql);
+			$user_array = $user_result->fetch_assoc();
 			$user_id = $user_array['user_id'];
 			$page = $_POST['page'];
 			$page_sql = <<<EOD
 			SELECT page_id FROM chat_pages WHERE page = '{$page}';
 EOD;
-			$page_result = mysql_query($page_sql) or die(mysql_error());
-			$page_array = mysql_fetch_assoc($page_result);
+			$page_result = $con->query($page_sql);
+			$page_array = $page_result->fetch_assoc();
 			$page_id = $page_array['page_id'];
 			$c_text = addslashes($_POST['chat_text']);
 			$trans_sql = <<<EOD
@@ -239,22 +242,22 @@ EOD;
 			VALUES
 			('{$user_id}','{$page_id}','{$c_text}');
 EOD;
-			$trans_result=mysql_query($trans_sql) or die(mysql_error());
+			$trans_result=$con->query($trans_sql);
 
 			$chat_sql = <<<EOD
-			SELECT *,  date_format(timestamp,"%Y-%m-%d %H:%i:%s") as timestamp FROM chat_transcript
+			SELECT *,  FORMAT(timestamp, 'yyyy-MM-dd HH:mm:ss') as timestamp FROM chat_transcript
 			WHERE timestamp >= '{$user_array['last_login']}'
 			AND page_id = '{$page_id}'
 			ORDER BY timestamp DESC;
 EOD;
-			$chat_result = mysql_query($chat_sql) or die(mysql_error());
-			while($chat = mysql_fetch_assoc($chat_result)){
+			$chat_result = $con->query($chat_sql);
+			while($chat = $chat_result->fetch_assoc()){
 				$uid = $chat['user_id'];
 				$nick_sql = <<<EOD
 				SELECT nickname FROM chat_users WHERE user_id = '{$uid}';
 EOD;
-				$nick_result = mysql_query($nick_sql) or die(mysql_error());
-				$nick_array = mysql_fetch_array($nick_result);
+				$nick_result = $con->query($nick_sql);
+				$nick_array = $nick_result->fetch_array();
 				$nickname = $nick_array['nickname'];
 				$time = date('g:i:s A',strtotime($chat['timestamp']));
 				echo <<<EOD
@@ -272,30 +275,30 @@ EOD;
 			$user_sql = <<<EOD
 				SELECT user_id, last_login FROM chat_users WHERE nickname = '{$nick}';
 EOD;
-			$user_result = mysql_query($user_sql) or die(mysql_error());
-			$user_array = mysql_fetch_assoc($user_result);
+			$user_result = $con->query($user_sql);
+			$user_array = $user_result->fetch_assoc();
 			$user_id = $user_array['user_id'];
 			$page = $_POST['page'];
 			$page_sql = <<<EOD
 				SELECT page_id FROM chat_pages WHERE page = '{$page}';
 EOD;
-			$page_result = mysql_query($page_sql) or die(mysql_error());
-			$page_array = mysql_fetch_assoc($page_result);
+			$page_result = $con->query($page_sql);
+			$page_array = $page_result->fetch_assoc();
 			$page_id = $page_array['page_id'];
 			$chat_sql = <<<EOD
-			SELECT * , date_format(timestamp,"%Y-%m-%d %H:%i:%s") as timestamp FROM chat_transcript
+			SELECT * , FORMAT(timestamp, 'yyyy-MM-dd HH:mm:ss') as timestamp FROM chat_transcript
 			WHERE timestamp >= '{$user_array['last_login']}'
 			AND page_id = '{$page_id}'
 			ORDER BY timestamp DESC;
 EOD;
-			$chat_result = mysql_query($chat_sql) or die(mysql_error());
-			while($chat = mysql_fetch_assoc($chat_result)){
+			$chat_result = $con->query($chat_sql);
+			while($chat = $chat_result->fetch_assoc()){
 				$uid = $chat['user_id'];
 				$nick_sql = <<<EOD
 				SELECT nickname FROM chat_users WHERE user_id = '{$uid}';
 EOD;
-				$nick_result = mysql_query($nick_sql) or die(mysql_error());
-				$nick_array = mysql_fetch_array($nick_result);
+				$nick_result = $con->query($nick_sql);
+				$nick_array = $nick_result->fetch_array();
 				$nickname = $nick_array['nickname'];
 				$time = date('g:i:s A',strtotime($chat['timestamp']));
 				echo <<<EOD
@@ -316,10 +319,10 @@ EOD;
 		$user_sql = <<<EOD
 		SELECT * FROM chat_users WHERE loggedin = 'yes';
 EOD;
-		$user_results = mysql_query($user_sql) or die("chat_user MySql error: ".mysql_error());
-		$num_rows = mysql_num_rows($user_results);
+		$user_results = $con->query($user_sql);
+		$num_rows = $user_results->num_rows;
 		if($num_rows !=0){
-			while($user = mysql_fetch_assoc($user_results)){
+			while($user = $user_results->fetch_assoc()){
 				echo $user['nickname']."<br />";
 				//echo $nexthour."<br />";
 			//echo $thishour;

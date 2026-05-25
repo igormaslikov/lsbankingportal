@@ -87,7 +87,8 @@ $DBcon->close();
       
  <?php
  
- $con = new mysqli("50.62.151.36","message_chat","admin$$123","message_chat");
+ require_once $_SERVER['DOCUMENT_ROOT'] . '/SqlServerDb.php';
+ $con = portal_get_sqlsrv_db();
 $query = "SELECT * FROM webchat_lines where msg_status= 'incoming' order by id DESC";
 $result = $con->query($query);
 echo '<h3>Your Notifications</h3>';

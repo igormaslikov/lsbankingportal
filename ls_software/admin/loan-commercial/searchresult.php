@@ -7,11 +7,11 @@
 
 if ($table=="tbl_loan")
 {
- $sql = mysqli_query("select * from tbl_loan where loan_create_id like '$search'");
+ $sql = $con->query("select * from tbl_loan where loan_create_id like '$search'");
 }
 if ($table=="fnd_user_profile")
 {
- $sql = mysqli_query("select * from fnd_user_profile where first_name like '$search'");
+ $sql = $con->query("select * from fnd_user_profile where first_name like '$search'");
 }
 
 while ($row=mysql_fetch_array($sql))

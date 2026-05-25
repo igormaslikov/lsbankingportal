@@ -1,8 +1,6 @@
 <?php
 error_reporting(0);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
 session_start();
 include_once '../dbconnect.php';
 
@@ -156,13 +154,13 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   }
 
   $unpaid_late_fee = 0;
-  $query_payment = $con->query("SELECT sum($late_fee - paid_late_fee) as unpaid FROM tbl_commercial_loan_installments WHERE dpd >= 10 and loan_create_id = '$loan_create_id' and ($late_fee - paid_late_fee) > 0 ");
+  $query_payment = $con->query("SELECT sum(TRY_CAST($late_fee AS DECIMAL(18,2)) - TRY_CAST(paid_late_fee AS DECIMAL(18,2))) as unpaid FROM tbl_commercial_loan_installments WHERE dpd >= 10 and loan_create_id = '$loan_create_id' and (TRY_CAST($late_fee AS DECIMAL(18,2)) - TRY_CAST(paid_late_fee AS DECIMAL(18,2))) > 0 ");
   while ($row_payment = $query_payment->fetch_array()) {
     $unpaid_late_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
   }
 
   $unpaid_other_fee = 0;
-  $query_payment = $con->query("SELECT sum(amount_fee - amount_fee_paid) as unpaid FROM `tbl_other_fees` WHERE loan_created_id = '$loan_create_id'");
+  $query_payment = $con->query("SELECT sum(TRY_CAST(amount_fee AS DECIMAL(18,2)) - TRY_CAST(amount_fee_paid AS DECIMAL(18,2))) as unpaid FROM tbl_other_fees WHERE loan_created_id = '$loan_create_id'");
   while ($row_payment = $query_payment->fetch_array()) {
     $unpaid_other_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
   }

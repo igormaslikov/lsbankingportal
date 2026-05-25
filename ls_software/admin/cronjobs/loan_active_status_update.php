@@ -49,7 +49,7 @@ if($loan_status != "")
       
   $date_update= date('Y-m-d H:i:s');
   $query_insert_activity = "Insert into application_status_updates (application_id,loan_create_id,user_id,status,creation_date) Values ('$user_fnd_id','$loan_create_id','N/a','Account Status Auto-Updated to $loan_status due to over due date','$date_update')";
-  mysqli_query ($con , $query_insert_activity);
+  $con->query($query_insert_activity);
 }
 
 //******************Past Due END  ****************************/

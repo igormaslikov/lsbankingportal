@@ -116,7 +116,7 @@ if ($u_access_id == '0') {
    // Fetch an admin email for the contract notification. Grab only what we need
    // instead of SELECT * FROM tbl_users.
    $email_admin = '';
-   $sql_fetch_user = $con->query("SELECT email FROM tbl_users WHERE access_id <> '0' ORDER BY user_id ASC LIMIT 1");
+   $sql_fetch_user = $con->query("SELECT email FROM tbl_users WHERE access_id <> '0' ORDER BY user_id ASC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY");
    if ($sql_fetch_user && ($row_fetch_user = $sql_fetch_user->fetch_array())) {
       $email_admin = $row_fetch_user['email'];
    }
@@ -468,7 +468,7 @@ if ($u_access_id == '0') {
          }
 
          $loan_payment = 0;
-         $query_payment = $con->query("SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
+         $query_payment = $con->query("SELECT SUM(TRY_CAST(payment_amount AS DECIMAL(18,2))) AS value_sum FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
          while ($row_payment = $query_payment->fetch_array()) {
            $loan_payment = $row_payment['value_sum'];
          }
@@ -476,7 +476,7 @@ if ($u_access_id == '0') {
          $in_hand = str_replace(',','',number_format(((float)($amount_of_loan + $loan_interest - $loan_payment)), 2, '.', ','));
 
          $unpaid_late_fee = 0;
-         $query_payment = $con->query("SELECT sum($late_fee - paid_late_fee) as unpaid FROM tbl_commercial_loan_installments WHERE dpd >= 10 and loan_create_id = '$previous_loan_id' and ($late_fee - paid_late_fee) > 0 ");
+         $query_payment = $con->query("SELECT SUM(TRY_CAST($late_fee AS DECIMAL(18,2)) - TRY_CAST(paid_late_fee AS DECIMAL(18,2))) as unpaid FROM tbl_commercial_loan_installments WHERE dpd >= 10 and loan_create_id = '$previous_loan_id' and (TRY_CAST($late_fee AS DECIMAL(18,2)) - TRY_CAST(paid_late_fee AS DECIMAL(18,2))) > 0 ");
          while ($row_payment = $query_payment->fetch_array()) {
            $unpaid_late_fee = $row_payment['unpaid'] == null ? 0 : $row_payment['unpaid'];
          }

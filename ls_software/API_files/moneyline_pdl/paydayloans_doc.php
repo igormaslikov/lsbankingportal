@@ -26,14 +26,14 @@ echo "statement3".$statement3."<br>";
 
 
 			  
-              $sql_fnd=mysqli_query($con, "select * from fnd_user_profile where email = '$customer_email' AND mobile_number = '$customer_tel'"); 
+              $sql_fnd=$con->query("select * from fnd_user_profile where email = '$customer_email' AND mobile_number = '$customer_tel'"); 
 
-            while($row_fnd_id = mysqli_fetch_array($sql_fnd)) {
+            while($row_fnd_id = $sql_fnd->fetch_array()) {
             $user_fnd_iddd = $row_fnd_id['user_fnd_id'];
             }
             
             
-          $rowcount_funded=mysqli_num_rows($sql_fnd);
+          $rowcount_funded=$sql_fnd->num_rows;
 
 if($rowcount_funded>0){
 
@@ -43,15 +43,15 @@ if($rowcount_funded>0){
     $status="Document Uploded of User ID:  $user_fnd_iddd.";
     $loan_transaction_id="";
    
-        $query_bank_statement  = "INSERT INTO `tbl_bank_statements`(`user_fnd_id`, `statement1`, `statement2`, `statement3`)  VALUES ('$user_fnd_iddd','$statement1','$statement2','$statement3')";
-        $result_bank_statement = mysqli_query($con, $query_bank_statement);
+        $query_bank_statement  = "INSERT INTO tbl_bank_statements(user_fnd_id, statement1, statement2, statement3)  VALUES ('$user_fnd_iddd','$statement1','$statement2','$statement3')";
+        $result_bank_statement = $con->query($query_bank_statement);
         if ($result_bank_statement) {
             echo "<div class='form'><h3> New successfully added.</h3><br/></div>";
         } else {
         //echo "<h3> Error Inserting Data tbl_loan </h3>";
         }  
 
-         mysqli_query($con,"UPDATE `fnd_user_profile` SET `document_status`= '1' WHERE user_fnd_id= '$user_fnd_iddd' ");
+         $con->query("UPDATE fnd_user_profile SET document_status= '1' WHERE user_fnd_id= '$user_fnd_iddd' ");
          
         application_notes_update($user_fnd_iddd,$loan_create_id,$user_id,$status,$loan_transaction_id);
     

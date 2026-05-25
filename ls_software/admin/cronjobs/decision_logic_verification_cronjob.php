@@ -266,7 +266,7 @@ $con->query("UPDATE fnd_user_profile SET application_status ='Review For Payday'
 
     $date_update_nd= date('Y-m-d H:i:s');
 $query_insert_activity_nd = "Insert into application_status_updates (application_id, status, creation_date) Values ($user_fnd_id, ' Automatic Status Changed : Approved PayDay Loan ', '$date_update_nd')";
-    mysqli_query ($con , $query_insert_activity_nd);
+    $con->query($query_insert_activity_nd);
 
 // For LSPAYDAYLOANS autochange of status end
 

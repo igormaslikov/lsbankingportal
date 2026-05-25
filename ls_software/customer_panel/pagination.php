@@ -2,9 +2,9 @@
 $id= $_GET['id'];
 include 'dbconnect.php';
 
-$sql=mysqli_query($DBcon, "select * from fnd_user_profile where user_fnd_id='$id'"); 
+$sql=$DBcon->query("select * from fnd_user_profile where user_fnd_id='$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     
 $name=$row[7];
 $email=$row[10];

@@ -919,7 +919,7 @@ while ($sql_app_notes && ($row_app_notes = $sql_app_notes->fetch_array())) {
                     $second_last = $total_no_of_pages - 1; // total page minus 1
 
                     // Layer-A perf: honor pagination ($offset + $total_records_per_page) instead of fetching every row
-                    $sql_loan = $con->query("select * from loan_initial_banking where user_fnd_id = '$id' ORDER BY initial_id DESC LIMIT $offset, $total_records_per_page");
+                    $sql_loan = $con->query("select * from loan_initial_banking where user_fnd_id = '$id' ORDER BY initial_id DESC OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY");
 
                     while ($sql_loan && ($row_bank_detail_sec = $sql_loan->fetch_array())) {
                       $initial_id = $row_bank_detail_sec['initial_id'];
@@ -1374,7 +1374,7 @@ while ($sql_app_notes && ($row_app_notes = $sql_app_notes->fetch_array())) {
                   LEFT JOIN tbl_users u ON u.user_id = s.user_id
                   WHERE s.application_id = '$id' AND s.status LIKE '%Notes%'
                   ORDER BY s.id DESC
-                  LIMIT 30");
+                  OFFSET 0 ROWS FETCH NEXT 30 ROWS ONLY");
 
               echo '<br><table style="width:100%;padding:10px" class="table table-striped table-bordered">' . "
 <tr>

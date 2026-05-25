@@ -690,8 +690,8 @@ if ($u_access_id != '1') {
 
 
 
-         $query_insert_trans = "INSERT INTO `commercial_loan_transaction`(`loan_id`, `loan_create_id`, `user_fnd_id`, `installment_id`, `payment_amount`, `interest`, `principal_amount`,
-        `remaining_balance`,`late_fee`,`convenience_fee` ,`other_fee`,`other_fee_id`,`payment_date`,`payment_description`,`payment_method`, `created_at`, `created_by`) 
+         $query_insert_trans = "INSERT INTO commercial_loan_transaction(loan_id, loan_create_id, user_fnd_id, installment_id, payment_amount, interest, principal_amount,
+        remaining_balance,late_fee,convenience_fee ,other_fee,other_fee_id,payment_date,payment_description,payment_method, created_at, created_by)
         VALUES ('$id','$loan_create_id','$user_fnd_id','$installment_id_post','$db_totalamountpaid','$db_interestpaid','$db_principlepaid',
           '$rem_balance','$db_latefeepaid','$convenience_fee','$other_fee','$other_fee_id','$due_date','$payment_description','$payment_method','$paid_date','$u_id')";
 
@@ -759,7 +759,7 @@ if ($u_access_id != '1') {
             }
 
             foreach ($installment_dict as $installment_id => $paid_amount) {
-                $query_insert_chargeback = "INSERT INTO `tbl_commercial_loan_chargeback` (`id`, `loan_create_id`, `transaction_id`, `installment_id`, `installment_paid`, `late_fee_paid`, `convenience_fee_paid`, `other_fee_id`, `other_fee_paid`) 
+                $query_insert_chargeback = "INSERT INTO tbl_commercial_loan_chargeback (id, loan_create_id, transaction_id, installment_id, installment_paid, late_fee_paid, convenience_fee_paid, other_fee_id, other_fee_paid)
                 VALUES (NULL, $loan_create_id, $transaction_id, $installment_id,  $paid_amount, $late_fee, $convenience_fee, $other_fee_id,  $other_fee)";
 
                 $result_insert_chargeback = $con->query($query_insert_chargeback);
@@ -770,13 +770,13 @@ if ($u_access_id != '1') {
             }
             if($db_totalamountpaid>0){
                 $status = '1';
-                $con->query("UPDATE tbl_commercial_loan_installments SET `payment` = '$db_totalamountpaid', paid_date='$paid_date', status=$status, paid_by='$u_id', payment_description='$payment_description'  where id ='$intallment_id'");
+                $con->query("UPDATE tbl_commercial_loan_installments SET payment = '$db_totalamountpaid', paid_date='$paid_date', status=$status, paid_by='$u_id', payment_description='$payment_description'  where id ='$intallment_id'");
                 
                 $previous_payment_date = null;
                 $previous_balance =  null;
                 
                 //$apr
-                $query_all_installments = $con->query("SELECT * from `tbl_commercial_loan_installments` where `loan_create_id` = $loan_create_id order by id asc");
+                $query_all_installments = $con->query("SELECT * from tbl_commercial_loan_installments where loan_create_id = $loan_create_id order by id asc");
                 $index_installment = 1;
                 $add_to_interest = 0;
                 $total_payment = 0;
@@ -822,7 +822,7 @@ if ($u_access_id != '1') {
                         $loan_payment_amount =$payoff - $total_payment;
                         $principal = $loan_payment_amount - $interest;
     
-                        $con->query("UPDATE tbl_commercial_loan_installments SET `payment` = '$loan_payment_amount' where id ='$intallment_id'");
+                        $con->query("UPDATE tbl_commercial_loan_installments SET payment = '$loan_payment_amount' where id ='$intallment_id'");
     
                     }
     
@@ -836,7 +836,7 @@ if ($u_access_id != '1') {
                     $previous_balance =  $balance;
                     
                     $previous_payment_date = $date_due_date;
-                    $con->query("UPDATE tbl_commercial_loan_installments SET `days` = '$days_from_last_payment', `per_diem` = '$per_diem', `interest` = '$interest', `principal`= $principal, `balance`= '$balance' where id ='$intallment_id'");
+                    $con->query("UPDATE tbl_commercial_loan_installments SET days = '$days_from_last_payment', per_diem = '$per_diem', interest = '$interest', principal= $principal, balance= '$balance' where id ='$intallment_id'");
                     $index_installment++;
     
                     $total_payment += $payment ;

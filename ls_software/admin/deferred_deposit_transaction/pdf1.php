@@ -417,14 +417,16 @@ if ($result_sumary=$con->query($sql_sumary))
     <?php
     // User FND Profile 
 
-$sql_db=$con->query("SELECT 
+// TODO: SQL Server rewrite of MySQL DATE_FORMAT age calculation - rewritten using
+// DATEDIFF/YEAR/MONTH/DAY equivalents. Verify boundary cases match original behavior.
+$sql_db=$con->query("SELECT
 
-CASE WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 20 THEN 'Customers age 18-21:'
-     WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 30 THEN 'Customers age 22-31:'
-     WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 40 THEN 'Customers age 32-41:'
-     WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 50 THEN 'Customers age 42-51:' 
-     WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 60 THEN 'Customers age 52-61:'
-     WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 70 THEN 'Customers age 62 or older:'END AS age,
+CASE WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 20 THEN 'Customers age 18-21:'
+     WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 30 THEN 'Customers age 22-31:'
+     WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 40 THEN 'Customers age 32-41:'
+     WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 50 THEN 'Customers age 42-51:'
+     WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 60 THEN 'Customers age 52-61:'
+     WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 70 THEN 'Customers age 62 or older:' END AS age,
 COUNT(*) total
 FROM fnd_user_profile
 GROUP BY age");
@@ -455,14 +457,16 @@ echo $customer_age."<br><br>";
      <?php
     // User FND Profile 
 
-$sql_db=$con->query("SELECT  
+// TODO: SQL Server rewrite of MySQL DATE_FORMAT age calculation - rewritten using
+// DATEDIFF/YEAR/MONTH/DAY equivalents. Verify boundary cases match original behavior.
+$sql_db=$con->query("SELECT
 
-CASE WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 20 THEN 'Customers age 18-21:'
-     WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 30 THEN 'Customers age 22-31:'
-     WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 40 THEN 'Customers age 32-41:'
-     WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 50 THEN 'Customers age 42-51:' 
-     WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 60 THEN 'Customers age 52-61:'
-     WHEN (DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(date_of_birth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(date_of_birth, '00-%m-%d'))) <= 70 THEN 'Customers age 62 or older:'END AS age,
+CASE WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 20 THEN 'Customers age 18-21:'
+     WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 30 THEN 'Customers age 22-31:'
+     WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 40 THEN 'Customers age 32-41:'
+     WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 50 THEN 'Customers age 42-51:'
+     WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 60 THEN 'Customers age 52-61:'
+     WHEN (YEAR(GETDATE()) - YEAR(date_of_birth) - (CASE WHEN (MONTH(GETDATE()) * 100 + DAY(GETDATE())) < (MONTH(date_of_birth) * 100 + DAY(date_of_birth)) THEN 1 ELSE 0 END)) <= 70 THEN 'Customers age 62 or older:' END AS age,
 COUNT(*) total
 FROM fnd_user_profile
 GROUP BY age");

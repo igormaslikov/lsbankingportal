@@ -6,11 +6,11 @@ include('dbconfig.php');
 $email = $_GET['email'];
 $code =$_GET['code'];
     
-    	$query_name = "SELECT * FROM `decision_login_codes` WHERE `code` = '$code'";
+    	$query_name = "SELECT * FROM decision_login_codes WHERE code = '$code'";
     	$status_dl = 0;
-        $sql_name=mysqli_query($con, "$query_name"); 
+        $sql_name=$con->query("$query_name"); 
         $customer_name = '';
-        while($row_name = mysqli_fetch_array($sql_name)) {
+        while($row_name = $sql_name->fetch_array()) {
         $status_dl = $row_name['status']  ;
         }
 
@@ -149,9 +149,9 @@ foreach ($hotels as $hotel) {
 
 
 	$query_name = "select * from fnd_user_profile where email = '$email'";
-$sql_name=mysqli_query($con, "$query_name"); 
+$sql_name=$con->query("$query_name"); 
 $customer_name = '';
-while($row_name = mysqli_fetch_array($sql_name)) {
+while($row_name = $sql_name->fetch_array()) {
 $customer_name = $row_name['first_name'] . " " .$row_name['last_name'];
 $customer_email = $row_name['email'];
 $phone = $row_name['mobile_number'];
@@ -198,14 +198,14 @@ echo $json_array_loans;
 // 255$ End
  
 // API CODE TO CHECK DL Report END 
-mysqli_query($con,"UPDATE decision_login_codes SET status ='5' where code = '$code'");
-mysqli_query($con,"UPDATE fnd_user_profile SET decision_logic_status ='1',dl_code='$code' where email = '$email'");
+$con->query("UPDATE decision_login_codes SET status ='5' where code = '$code'");
+$con->query("UPDATE fnd_user_profile SET decision_logic_status ='1',dl_code='$code' where email = '$email'");
 
 }
 else {
 
      echo '{ "status" : "Not Verified"}';
-//mysqli_query($con,"UPDATE decision_login_codes SET status ='1' where code = '$code'");
+//$con->query("UPDATE decision_login_codes SET status ='1' where code = '$code'");
 }
 
 

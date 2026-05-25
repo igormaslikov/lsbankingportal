@@ -158,7 +158,7 @@ if(isset($_POST["import"])) {
         while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
             $sqlInsert = "INSERT into schedule_mms (phone,message,date,time,status,created_at,img_url)
                    values ('" . $column[0] . "','$msg','$date_name','$time','0','$today','$target_file')";
-            $result = mysqli_query($con, $sqlInsert);
+            $result = $con->query($sqlInsert);
             
             if (! empty($result)) {
                 $type = "success";
@@ -264,10 +264,10 @@ if(isset($_POST["import"])) {
         </div>
                <?php
                $count=1;
-            $sqlSelect = "SELECT * FROM schedule_mms where status='1' ORDER BY id DESC LIMIT 5";
-            $result = mysqli_query($con, $sqlSelect);
+            $sqlSelect = "SELECT * FROM schedule_mms where status='1' ORDER BY id DESC OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY";
+            $result = $con->query($sqlSelect);
             
-            if (mysqli_num_rows($result) > 0) {
+            if ($result->num_rows > 0) {
                 ?>
             <table id='userTable'>
             <thead>
@@ -281,7 +281,7 @@ if(isset($_POST["import"])) {
             </thead>
 <?php
                 
-                while ($row = mysqli_fetch_array($result)) {
+                while ($row = $result->fetch_array()) {
                     ?>
   
                 <tbody>
@@ -301,26 +301,27 @@ if(isset($_POST["import"])) {
         
  <?php
       $rowcount = 0;
-$con=mysqli_connect("50.62.151.36","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
+require_once $_SERVER['DOCUMENT_ROOT'] . '/SqlServerDb.php';
+$con = portal_get_sqlsrv_db();
 // Check connection
-if (mysqli_connect_errno())
+if (0)
   {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  echo "Failed to connect to MySQL: " . '';
   }
 
 $sql="SELECT * FROM schedule_mms WHERE status='1'";
 
-if ($result=mysqli_query($con,$sql))
+if ($result=$con->query($sql))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result);
+  $rowcount=$result->num_rows;
   //printf("Result set has %d rows.\n",$rowcount);
   // Free result set
-  mysqli_free_result($result);
+  null;
   }
 
 echo"<br><b>TOTAL MMS SENT :</b><span style='color:red;font-size:20px;'>" .$rowcount."</span>";
-mysqli_close($con);
+$con->close();
 ?>          
 
 
@@ -331,27 +332,28 @@ mysqli_close($con);
 <!-- QUEUED SMS STARTS -->
 
 <?php
-$con=mysqli_connect("50.62.151.36","db2lsuser2021","^%D24L*!Ti5%","dbs64065");
+require_once $_SERVER['DOCUMENT_ROOT'] . '/SqlServerDb.php';
+$con = portal_get_sqlsrv_db();
 // Check connection
-if (mysqli_connect_errno())
+if (0)
   {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  echo "Failed to connect to MySQL: " . '';
   }
 
 $sql="SELECT * FROM schedule_mms WHERE status='0'";
 
 
-if ($result=mysqli_query($con,$sql))
+if ($result=$con->query($sql))
   {
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result);
+  $rowcount=$result->num_rows;
   //printf("Result set has %d rows.\n",$rowcount);
   // Free result set
-  mysqli_free_result($result);
+  null;
   }
 
 echo"<br><b>TOTAL QUEUED MMS :</b><span style='color:red;font-size:20px;'>" .$rowcount."  </span>";
-mysqli_close($con);
+$con->close();
 ?>    
         
         <!-- QUEUED SMS ENDS -->

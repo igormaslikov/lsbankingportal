@@ -23,12 +23,12 @@ while($row = $sql->fetch_array()) {
     $fname = $row['first_name'];
     echo $application_id . "<br>";
     
-    mysqli_query ($con , "UPDATE fnd_user_profile SET application_status='No Decision Logic For Payday' where user_fnd_id = '$application_id'");
-    
-    
+    $con->query("UPDATE fnd_user_profile SET application_status='No Decision Logic For Payday' where user_fnd_id = '$application_id'");
+
+
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Automatic App :  Status Changed/No Decision Logic For Payday ', '$date_update')";
-        mysqli_query ($con , $query_insert_activity);
+        $con->query($query_insert_activity);
     
     
 }

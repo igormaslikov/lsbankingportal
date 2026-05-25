@@ -4,7 +4,7 @@ include('../dbconfig.php');
 include('../functions.php');
 date_default_timezone_set('America/Los_Angeles');
 
-$query = "SELECT * FROM fnd_user_profile WHERE date_time_current < (NOW() - INTERVAL 10 MINUTE) AND application_status = 'New Application'  AND decision_logic_status != '1' AND (website = 'lsprestamos' OR website = 'lsbanking_pl')  AND experian_api_limit < 1 ORDER By user_fnd_id DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY";
+$query = "SELECT * FROM fnd_user_profile WHERE date_time_current < DATEADD(MINUTE, -10, GETDATE()) AND application_status = 'New Application'  AND decision_logic_status != '1' AND (website = 'lsprestamos' OR website = 'lsbanking_pl')  AND experian_api_limit < 1 ORDER By user_fnd_id DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY";
 
 //echo $query . "<br>";
 $sql=$con->query("$query"); 
@@ -63,7 +63,7 @@ $cityy =str_replace(" ", "",$cityy) ;
 $zipp = str_replace(" ", "",$zipp) ;
 
 
-mysqli_query ($con , "UPDATE fnd_user_profile SET  experian_api_limit='1'  where user_fnd_id = '$application_id'");
+$con->query("UPDATE fnd_user_profile SET  experian_api_limit='1'  where user_fnd_id = '$application_id'");
     $code= substr($ssn, 0, 1);
    
    if ($code !== '9' )
@@ -145,26 +145,26 @@ $quoteJson = json_decode($response);
     
     if($score<500 && $score>10)
     {
-     mysqli_query ($con , "UPDATE fnd_user_profile SET application_status='Declined'  where user_fnd_id = '$application_id'");
-     mysqli_query ($con , "UPDATE fnd_user_profile SET experian_credit_score='$score'  where user_fnd_id = '$application_id'");
-          mysqli_query ($con , "UPDATE fnd_user_profile SET  experian_api_limit='1'  where user_fnd_id = '$application_id'");
+     $con->query("UPDATE fnd_user_profile SET application_status='Declined'  where user_fnd_id = '$application_id'");
+     $con->query("UPDATE fnd_user_profile SET experian_credit_score='$score'  where user_fnd_id = '$application_id'");
+          $con->query("UPDATE fnd_user_profile SET  experian_api_limit='1'  where user_fnd_id = '$application_id'");
     
     
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Automatic App :  Status Changed (Declined) Via Experian API Credit Report ', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     }
     
     if($score>500)
     {
-          mysqli_query ($con , "UPDATE fnd_user_profile SET experian_credit_score='$score' where user_fnd_id = '$application_id'");
-    
-     mysqli_query ($con , "UPDATE fnd_user_profile SET application_status='Credit Report Completed'  where user_fnd_id = '$application_id'");
-          mysqli_query ($con , "UPDATE fnd_user_profile SET  experian_api_limit='1'  where user_fnd_id = '$application_id'");
+          $con->query("UPDATE fnd_user_profile SET experian_credit_score='$score' where user_fnd_id = '$application_id'");
+
+     $con->query("UPDATE fnd_user_profile SET application_status='Credit Report Completed'  where user_fnd_id = '$application_id'");
+          $con->query("UPDATE fnd_user_profile SET  experian_api_limit='1'  where user_fnd_id = '$application_id'");
     
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Automatic App :  Status Changed (Credit Report Completed) Via Experian API Credit Report ', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
     
     
@@ -186,12 +186,12 @@ $quoteJson = json_decode($response);
     }
     if($score=='')
     {
-          mysqli_query ($con , "UPDATE fnd_user_profile SET application_status='Credit Report Needed' where user_fnd_id = '$application_id'");
+          $con->query("UPDATE fnd_user_profile SET application_status='Credit Report Needed' where user_fnd_id = '$application_id'");
     
     
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Automatic App :  Status Changed (Credit Report Needed) Via Experian API Credit Report ', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     }
     //************************************* Credit Report Query *******************
     
@@ -466,10 +466,10 @@ $query_credit  = "INSERT INTO tbl_credit_report_scorefactor (credit_report_key,s
    
    else{
        
-      mysqli_query ($con , "UPDATE fnd_user_profile SET application_status='Credit Report Needed'  where user_fnd_id = '$application_id'");
+      $con->query("UPDATE fnd_user_profile SET application_status='Credit Report Needed'  where user_fnd_id = '$application_id'");
        $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Automatic App :  Status Changed (Credit Report Needed) On The Bases Of SSN ', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
    }
     
   

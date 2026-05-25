@@ -3,9 +3,10 @@ include_once 'dbconfig.php';
 date_default_timezone_set('America/Los_Angeles');
 
 
-$sql_sms=mysqli_query($con, "select * from schedule_mms where status='0' LIMIT 30"); 
+// TODO(sqlsrv): LIMIT without ORDER BY — needs ORDER BY clause for OFFSET/FETCH conversion.
+$sql_sms=$con->query("select * from schedule_mms where status='0' LIMIT 30");
 
-while($row_sms = mysqli_fetch_array($sql_sms)) {
+while($row_sms = $sql_sms->fetch_array()) {
 $sms_id = $row_sms['id'];
 $phone_number="+1".$row_sms['phone'];
 $message=$row_sms['message'];
@@ -59,7 +60,7 @@ if ($err) {
 }     
 
 
-mysqli_query($con, "UPDATE schedule_mms SET status ='1'  where id = '$sms_id'");
+$con->query("UPDATE schedule_mms SET status ='1'  where id = '$sms_id'");
 
 
 

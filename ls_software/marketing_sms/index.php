@@ -161,7 +161,7 @@ if (isset($_POST["import"])) {
                $count=1;
             $result = null;
             if ($con) {
-                $sqlSelect = "SELECT * FROM marketing_sms where status='1' ORDER BY sms_id DESC LIMIT 5";
+                $sqlSelect = "SELECT * FROM marketing_sms where status='1' ORDER BY sms_id DESC OFFSET 0 ROWS FETCH NEXT 5 ROWS ONLY";
                 $result = $con->query($sqlSelect);
             }
             if ($result && $result->num_rows > 0) {

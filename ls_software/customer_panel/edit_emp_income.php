@@ -20,9 +20,9 @@ $id=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_source=mysqli_query($con, "select * from source_income where user_fnd_id= '$id'"); 
+$sql_source=$con->query("select * from source_income where user_fnd_id= '$id'"); 
 
-while($row_source = mysqli_fetch_array($sql_source)) {
+while($row_source = $sql_source->fetch_array()) {
 
 $emp_name=$row_source['employer_name'];
 $emp_phone=$row_source['work_phone_no'];
@@ -130,7 +130,7 @@ $next_check =$_POST['next_check'];
 $date = date('Y-m-d H:i:s');
 
 
-mysqli_query($con, "UPDATE source_income SET how_tell_ur_income='$income_month_update' , employer_name ='$employer_name_update' , work_phone_no='$work_phone_update' , pay_period='$get_paid_update' , last_pay_date='$last_check_update' , next_pay_date='$next_check', start_date='$working_update', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
+$con->query("UPDATE source_income SET how_tell_ur_income='$income_month_update' , employer_name ='$employer_name_update' , work_phone_no='$work_phone_update' , pay_period='$get_paid_update' , last_pay_date='$last_check_update' , next_pay_date='$next_check', start_date='$working_update', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
     
 ?>
     

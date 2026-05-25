@@ -15,7 +15,7 @@ $loan_id=$row['loan_create_id'];
 $application_id=$row['user_fnd_id'];
 $loan_total_payable=$row['loan_total_payable'];
 $totall_trans = 0;
-$query_trns = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_create_id= '$loan_id'");
+$query_trns = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM loan_transaction where loan_create_id= '$loan_id'");
 while ($row_trns=$query_trns->fetch_array()){
     $totall_trans = $row_trns['value_sum'];
    

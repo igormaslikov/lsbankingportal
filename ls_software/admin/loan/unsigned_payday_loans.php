@@ -55,13 +55,13 @@ include '../dbconfig.php';
 
 if(isset($_GET['signed_loan'])) {
     $signed_loan_id = $_GET['signed_loan'];
-    $con->query("UPDATE `tbl_loan` SET `sign_status`='1' WHERE `loan_id` = '$signed_loan_id'");
-}  
+    $con->query("UPDATE tbl_loan SET sign_status='1' WHERE loan_id = '$signed_loan_id'");
+}
 if(isset($_GET['delete_loan'])) {
     $signed_loan_id = $_GET['delete_loan'];
-    $con->query("DELETE FROM `tbl_loan` WHERE `loan_id` = '$signed_loan_id'");
-}  
-$query_search = "SELECT * FROM `tbl_loan` where sign_status= '0'";
+    $con->query("DELETE FROM tbl_loan WHERE loan_id = '$signed_loan_id'");
+}
+$query_search = "SELECT * FROM tbl_loan where sign_status= '0'";
  
     $status  = $_GET['status'];
     $keyword = $_GET['keyword'];
@@ -140,7 +140,7 @@ if ($result_t=$con->query($query_search))
 ?>
     <?php
 
-$query_us = $con->query("SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '0'");
+$query_us = $con->query("SELECT SUM(TRY_CAST(amount_of_loan AS DECIMAL(18,2))) AS value_sum FROM tbl_loan where sign_status= '0'");
 while ($row_us=$query_us->fetch_array()){
     $us = $row_us['value_sum'];
     
@@ -156,7 +156,7 @@ while ($query_le && ($row_le = $query_le->fetch_array())){
 break;
 }
 
-$query_trns = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction "); //TODO add optima check
+$query_trns = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM loan_transaction "); //TODO add optima check
 while ($row_trns=$query_trns->fetch_array()){
     $totall_trans = $row_trns['value_sum'];
 break;

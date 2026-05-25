@@ -34,7 +34,7 @@ if ($u_access_id != '1') {
 
 
 
-  $query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
+  $query_payment = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
   while ($row_payment = $query_payment->fetch_array()) {
     $payment = $row_payment['value_sum'];
 

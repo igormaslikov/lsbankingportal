@@ -15,21 +15,21 @@ include_once 'common.php'; //replace by whatever your startup server variables a
 //check to see if live chat is enabled for this page
 $page = $_REQUEST['page'];
 $title = $_REQUEST['title'];
-include 'db.php'; //replace by whatever your db connections are
-mysql_select_db(CIU_DBNAME); //replace by whatever your db connections are
+require_once $_SERVER['DOCUMENT_ROOT'].'/SqlServerDb.php';
+$con = portal_get_sqlsrv_db();
 $chatsql = <<<EOD
 	SELECT * FROM chat_pages WHERE page = '{$page}';
 
 EOD;
-$chatresult = mysql_query($chatsql) or die(mysql_error());
+$chatresult = $con->query($chatsql);
 //if chat is enabled, include the class
-if(mysql_num_rows($chatresult) > 0){
+if($chatresult->num_rows > 0){
 
 	include 'class.ajaxchat.php';
 	$chat = new ajaxchat($page,$title);
 }
 //chat stylesheet -> images are in /images/chat/
-if(mysql_num_rows($chatresult) > 0){
+if($chatresult->num_rows > 0){
 	echo <<<EOD
 	<link rel="stylesheet" type="text/css" media="all" href="/css/ajaxchat.css" />
 EOD;
@@ -41,7 +41,7 @@ EOD;
 
 <?php
 //show live chat if it is enabled for this page
-if(mysql_num_rows($chatresult) > 0){
+if($chatresult->num_rows > 0){
 	$chat->showchat();
 
 }

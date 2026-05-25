@@ -257,21 +257,21 @@ echo $adj2;   // Blank the balance cell of calendar at the end
 
 echo "</tr></table>";
 
-$query_fb = $con->query("SELECT SUM(fb_value) AS value_sum FROM tbl_fb WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+$query_fb = $con->query("SELECT SUM(TRY_CAST(fb_value AS DECIMAL(18,2))) AS value_sum FROM tbl_fb WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
 while ($row_fb=$query_fb->fetch_array()){
     $fb_sum = $row_fb['value_sum'];
     $fb_sum = round($fb_sum, 2);
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
 }
 
-$query_g = $con->query("SELECT SUM(gogl_value) AS value_sum FROM tbl_google WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+$query_g = $con->query("SELECT SUM(TRY_CAST(gogl_value AS DECIMAL(18,2))) AS value_sum FROM tbl_google WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
 while ($row_g=$query_g->fetch_array()){
     $g_sum = $row_g['value_sum'];
     $g_sum = round($g_sum, 2);
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
 }
 
-$query_bud = $con->query("SELECT SUM(budget_amount) AS value_sum FROM tbl_budget WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+$query_bud = $con->query("SELECT SUM(TRY_CAST(budget_amount AS DECIMAL(18,2))) AS value_sum FROM tbl_budget WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
 while ($row_bud=$query_bud->fetch_array()){
     $bud_sum = $row_bud['value_sum'];
     $bud_sum = round($bud_sum, 2);
@@ -370,7 +370,7 @@ while ($row_mark = $query_mark->fetch_array()){
 <?php
 
 
-$query_markting = $con->query("SELECT SUM(other_mark1_value) AS value_sum FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+$query_markting = $con->query("SELECT SUM(TRY_CAST(other_mark1_value AS DECIMAL(18,2))) AS value_sum FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
 while ($row_markting=$query_markting->fetch_array()){
     $bud_markting = $row_markting['value_sum'];
     $bud_markting = round($bud_markting, 2);
@@ -378,7 +378,7 @@ while ($row_markting=$query_markting->fetch_array()){
 }
 
 
-$query_markting1 = $con->query("SELECT SUM(other_mark2_value) AS value_summ FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+$query_markting1 = $con->query("SELECT SUM(TRY_CAST(other_mark2_value AS DECIMAL(18,2))) AS value_summ FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
 while ($row_markting1=$query_markting1->fetch_array()){
     $bud_markting1 = $row_markting1['value_summ'];
     $bud_markting1 = round($bud_markting1, 2);
@@ -386,14 +386,14 @@ while ($row_markting1=$query_markting1->fetch_array()){
 }
 
 
-$query_markting2 = $con->query("SELECT SUM(other_mark3_value) AS value_summm FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+$query_markting2 = $con->query("SELECT SUM(TRY_CAST(other_mark3_value AS DECIMAL(18,2))) AS value_summm FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
 while ($row_markting2=$query_markting2->fetch_array()){
     $bud_markting2 = $row_markting2['value_summm'];
     $bud_markting2 = round($bud_markting2, 2);
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
 }
 
-$query_markting3 = $con->query("SELECT SUM(comm_paid) AS value_summmm FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
+$query_markting3 = $con->query("SELECT SUM(TRY_CAST(comm_paid AS DECIMAL(18,2))) AS value_summmm FROM other_marketing WHERE YEAR(creation_date) = $year AND MONTH(creation_date) = $month");
 while ($row_markting3=$query_markting3->fetch_array()){
     $bud_markting3 = $row_markting3['value_summmm'];
     $bud_markting3 = round($bud_markting3, 2);

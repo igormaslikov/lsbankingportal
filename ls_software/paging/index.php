@@ -32,14 +32,15 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 	$next_page = $page_no + 1;
 	$adjacents = "2"; 
 
-	$result_count = mysqli_query($con,"SELECT COUNT(*) As total_records FROM `fnd_user_profile`");
-	$total_records = mysqli_fetch_array($result_count);
+	$result_count = $con->query("SELECT COUNT(*) As total_records FROM fnd_user_profile");
+	$total_records = $result_count->fetch_array();
 	$total_records = $total_records['total_records'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 	$second_last = $total_no_of_pages - 1; // total page minus 1
 
-    $result = mysqli_query($con,"SELECT * FROM `fnd_user_profile` LIMIT $offset, $total_records_per_page");
-    while($row = mysqli_fetch_array($result)){
+    // TODO(sqlsrv): LIMIT offset,count converted to OFFSET/FETCH; added ORDER BY user_fnd_id for deterministic pagination.
+    $result = $con->query("SELECT * FROM fnd_user_profile ORDER BY user_fnd_id OFFSET $offset ROWS FETCH NEXT $total_records_per_page ROWS ONLY");
+    while($row = $result->fetch_array()){
 		echo "<tr>
 			  <td>".$row['user_fund_id']."</td>
 			  <td>".$row['first_name']."</td>
@@ -47,7 +48,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 		   	  <td>".$row['application_status']."</td>
 		   	  </tr>";
         }
-	mysqli_close($con);
+	$con->close();
     ?>
 </tbody>
 </table>

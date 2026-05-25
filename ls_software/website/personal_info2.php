@@ -21,7 +21,7 @@ $hashed_password = password_hash($passs, PASSWORD_DEFAULT);
 
 $query="INSERT INTO fnd_user_profile (first_name,last_name,email,password,mobile_number,user_key,creation_date,last_update_date,application_status)  VALUES ('$first_nam','$last_nam','$emailll','$hashed_password','$phoneee','$keyy','$date','$date','$application_status')";
 
-$result = mysqli_query($con,$query);
+$result = $con->query($query);
         if ($result) {
            //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
        } else {
@@ -30,8 +30,8 @@ $result = mysqli_query($con,$query);
        
 } //IF ENDS
 
-$query_userid = mysqli_query($con,"Select * from fnd_user_profile where user_key = '$keyy'");
-while ($row_user_id=mysqli_fetch_array($query_userid)){
+$query_userid = $con->query("Select * from fnd_user_profile where user_key = '$keyy'");
+while ($row_user_id=$query_userid->fetch_array()){
     $user_id = $row_user_id[0];
    // echo "idddddd".$user_id;
 }
@@ -47,8 +47,8 @@ mail($to_email,$subject,$message,$headers);
 // Admin Email
 
 
-$query_admin = mysqli_query($con,"Select * from tbl_users");
-while ($row_email=mysqli_fetch_array($query_admin)){
+$query_admin = $con->query("Select * from tbl_users");
+while ($row_email=$query_admin->fetch_array()){
     $admin_email = $row_email[email];
     //echo "Email is: $admin_email<br>";
     

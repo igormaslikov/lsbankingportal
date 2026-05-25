@@ -26,16 +26,16 @@ while($row = $sql->fetch_array()) {
     $con->query("UPDATE fnd_user_profile SET application_status='Decision Logic Completed' WHERE user_fnd_id = '$application_id'");
      $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : DL verified & status changed to DL Completed', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     }
     else if ($website == 'mymoneyline_pdl'){
-    
-    
+
+
     $con->query("UPDATE fnd_user_profile SET application_status='Review For Payday' WHERE user_fnd_id = '$application_id'");
-    
+
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Auto Update : DL verified & status changed to Review For PAYDAY', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
 }
 }

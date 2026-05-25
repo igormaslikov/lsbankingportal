@@ -306,7 +306,7 @@ if($status=='error')
      $date_update= date('Y-m-d H:i:s');
      $loan_account_statuss= "Error In Fund Card Via Repay";
     $query_insert_activity = "Insert into application_status_updates (application_id, loan_create_id, user_id, status, creation_date) Values ('$user_fnd_id', '$loan_create_id', '$u_id', '$loan_account_statuss', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
       
   }
   else{
@@ -325,7 +325,7 @@ if($status=='error')
      $date_update= date('Y-m-d H:i:s');
      $loan_account_statuss= "Successfully Fund Card Via Repay";
     $query_insert_activity = "Insert into application_status_updates (application_id, loan_create_id, user_id, status, creation_date) Values ('$user_fnd_id', '$loan_create_id', '$u_id', '$loan_account_statuss', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
 }
 
 

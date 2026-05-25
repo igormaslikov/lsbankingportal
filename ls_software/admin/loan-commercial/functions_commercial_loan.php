@@ -668,7 +668,7 @@ function SetChargeback()
     $update_result = $con->query($action_query);
 
     if (if_insert($con)) {
-        $action_query = "INSERT INTO `tbl_other_fees` (`tbl_other_fees_id`, `kind_fee`, `user_fnd_id`, `loan_created_id`, `amount_fee`, `amount_fee_paid`) VALUES (NULL, '$kind', '$user_fnd_id', '$loan_id', 15, 0)";
+        $action_query = "INSERT INTO tbl_other_fees (tbl_other_fees_id, kind_fee, user_fnd_id, loan_created_id, amount_fee, amount_fee_paid) VALUES (NULL, '$kind', '$user_fnd_id', '$loan_id', 15, 0)";
         $con->query($action_query);
         $other_fee_transaction = $con->insert_id();
     }
@@ -714,11 +714,11 @@ function UpdateOtherFee()
     //     return;
     // }
 
-    $action_query = "UPDATE `tbl_other_fees` SET `kind_fee` = '$kind', `amount_fee` = '$amountFee', `user_fnd_id` = '$userId',`loan_created_id` = '$loanId', `installment_id` = '$number_installment' WHERE `tbl_other_fees_id` = '$otherFeeId'";
+    $action_query = "UPDATE tbl_other_fees SET kind_fee = '$kind', amount_fee = '$amountFee', user_fnd_id = '$userId',loan_created_id = '$loanId', installment_id = '$number_installment' WHERE tbl_other_fees_id = '$otherFeeId'";
     $message = "Other fee updated";
     if ($newOtherFee == "true") {
 
-        $action_query = "INSERT INTO `tbl_other_fees` (`tbl_other_fees_id`, `kind_fee`, `user_fnd_id`, `loan_created_id`,`installment_id`, `amount_fee`, `amount_fee_paid`) VALUES (NULL, '$kind', '$userId', '$loanId', '$number_installment' ,'$amountFee', 0)";
+        $action_query = "INSERT INTO tbl_other_fees (tbl_other_fees_id, kind_fee, user_fnd_id, loan_created_id,installment_id, amount_fee, amount_fee_paid) VALUES (NULL, '$kind', '$userId', '$loanId', '$number_installment' ,'$amountFee', 0)";
         $message = "Other fee inserted";
     }
     $con->query($action_query);
@@ -1051,7 +1051,7 @@ function UpdateChargebackTransaction()
     $last =  end($tmp);
     $transaction_id = str_replace(array("(", ")"), array("", ""), $last);
 
-    $sql_chargeback = $con->query("SELECT sum(installment_paid) as transaction_amount FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
+    $sql_chargeback = $con->query("SELECT sum(TRY_CAST(installment_paid AS DECIMAL(18,2))) as transaction_amount FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
     while ($row_chargeback = $sql_chargeback->fetch_array()) {
         $transaction_amount = $row_chargeback['transaction_amount'];
     }
@@ -1210,7 +1210,7 @@ function DeleteChargebackTransaction()
     $last =  end($tmp);
     $transaction_id = str_replace(array("(", ")"), array("", ""), $last);
 
-    $sql_chargeback = $con->query("SELECT sum(installment_paid) as transaction_amount FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
+    $sql_chargeback = $con->query("SELECT sum(TRY_CAST(installment_paid AS DECIMAL(18,2))) as transaction_amount FROM tbl_commercial_loan_chargeback where transaction_id='$transaction_id' and loan_create_id = '$loan_id'");
     while ($row_chargeback = $sql_chargeback->fetch_array()) {
         $transaction_amount = $row_chargeback['transaction_amount'];
     }
@@ -1256,9 +1256,9 @@ function DeleteChargebackTransaction()
         $amount_fee_paid = $row_fees['amount_fee_paid'];
         $tbl_other_fees_id = $row_fees['tbl_other_fees_id'];
 
-        $action_query = "UPDATE `tbl_other_fees` SET `amount_fee`= amount_fee - 15 WHERE `tbl_other_fees_id` = '$tbl_other_fees_id'";
+        $action_query = "UPDATE tbl_other_fees SET amount_fee= amount_fee - 15 WHERE tbl_other_fees_id = '$tbl_other_fees_id'";
         if ($amount_fee <= 15) {
-            $action_query = "DELETE FROM `tbl_other_fees` WHERE `tbl_other_fees_id` = '$tbl_other_fees_id'";
+            $action_query = "DELETE FROM tbl_other_fees WHERE tbl_other_fees_id = '$tbl_other_fees_id'";
         }
 
         $con->query($action_query);
@@ -1622,7 +1622,7 @@ function ValidateLoanId()
     global $con;
     $loan_id = $_POST["id"];
 
-    $query_loan = $con->query("select COUNT(loan_create_id) as cnt FROM `tbl_commercial_loan` WHERE loan_create_id = '$loan_id'");
+    $query_loan = $con->query("select COUNT(loan_create_id) as cnt FROM tbl_commercial_loan WHERE loan_create_id = '$loan_id'");
     $count = 0;
     while ($loan = $query_loan->fetch_array()) {
         $count = $loan['cnt'];    
@@ -1645,7 +1645,7 @@ function CalculateInstallmetsPerDiem()
     $default = isset($_POST["default_installment"]) ? json_decode($_POST["default_installment"]) : False;
     $transactions = isset($_POST["transactions"]) ? json_decode($_POST["transactions"]) : False;
 
-    $query_loan = $con->query("SELECT * from `tbl_commercial_loan` where `loan_create_id` = $loan_create_id");
+    $query_loan = $con->query("SELECT * from tbl_commercial_loan where loan_create_id = $loan_create_id");
     while ($loan = $query_loan->fetch_array()) {
         $apr = $loan['apr'];
         $amount_loan = $loan['amount_of_loan'];
@@ -1696,7 +1696,7 @@ function CalculateInstallmetsPerDiem()
         </thead>
         <tbody>";
     if ($default or $transactions) {
-        $con->query("DELETE FROM `tbl_commercial_loan_installmets_calculated` WHERE `loan_create_id` = '$loan_create_id'");
+        $con->query("DELETE FROM tbl_commercial_loan_installmets_calculated WHERE loan_create_id = '$loan_create_id'");
     }
     $total_payment = 0;
 
@@ -1704,7 +1704,7 @@ function CalculateInstallmetsPerDiem()
     $total_principal = 0;
     $total_balance = 0;
     if ($transactions) {
-        $result = $con->query("select tcli.*, tof.sum_fee, tof.sum_fee_paid, (tof.sum_fee - tof.sum_fee_paid) as sum_fee_unpaid, tof.description from tbl_commercial_loan_installments as tcli left join (select installment_id, SUM(amount_fee) as sum_fee, SUM(amount_fee_paid) as sum_fee_paid, group_concat(tl.item SEPARATOR ',') as description from tbl_other_fees left join tbl_lists tl on tl.tbl_lists_id = kind_fee WHERE loan_created_id = '$loan_create_id' GROUP by installment_id ) as tof on tcli.number_of_payment = tof.installment_id where tcli.loan_create_id='$loan_create_id' order by tcli.id");
+        $result = $con->query("select tcli.*, tof.sum_fee, tof.sum_fee_paid, (tof.sum_fee - tof.sum_fee_paid) as sum_fee_unpaid, tof.description from tbl_commercial_loan_installments as tcli left join (select installment_id, SUM(TRY_CAST(amount_fee AS DECIMAL(18,2))) as sum_fee, SUM(TRY_CAST(amount_fee_paid AS DECIMAL(18,2))) as sum_fee_paid, STRING_AGG(tl.item, ',') as description from tbl_other_fees left join tbl_lists tl on tl.tbl_lists_id = kind_fee WHERE loan_created_id = '$loan_create_id' GROUP by installment_id ) as tof on tcli.number_of_payment = tof.installment_id where tcli.loan_create_id='$loan_create_id' order by tcli.id");
        // $result = $con->query("select * from tbl_commercial_loan_installments where loan_create_id='$loan_create_id' order by id");
         $i = 1;
         // $res =  $result->fetch_array();
@@ -1787,7 +1787,7 @@ function CalculateInstallmetsPerDiem()
             <td>" . $fee_description . "</td>
             </tr>";
 
-            $query_install = "INSERT INTO `tbl_commercial_loan_installmets_calculated` (`number_of_payment`, `loan_create_id`, `due_date`, `payment_date`, `days`, `per_diem`, `payment_amount`, `interest`, `principal`, `balance`, `status`)
+            $query_install = "INSERT INTO tbl_commercial_loan_installmets_calculated (number_of_payment, loan_create_id, due_date, payment_date, days, per_diem, payment_amount, interest, principal, balance, [status])
             VALUES ('$i', '$loan_create_id', '$due_date_real', '$payment_date','$days_from_last_payment', '$per_diem', '$loan_payment_amount', '$interest', '$principal', '$balance', '$status')";
             $result_install = $con->query($query_install);
             $i++;
@@ -1799,7 +1799,7 @@ function CalculateInstallmetsPerDiem()
     $add_to_interest = 0;
     $status="0";
     $installment_status = "Unpaid";
-    $query_all_installments = $con->query("SELECT * from `tbl_commercial_loan_installments` where `loan_create_id` = $loan_create_id order by id asc");
+    $query_all_installments = $con->query("SELECT * from tbl_commercial_loan_installments where loan_create_id = $loan_create_id order by id asc");
 
     for ($i = 1; $i <= (int)$total_payments and !$transactions; $i++) {
 
@@ -1827,7 +1827,7 @@ function CalculateInstallmetsPerDiem()
             <td>" . number_format(0,   2, ".", ",") . "</td>
             <td>" . $installment_status . "</td>
             </tr>";
-            $action_query = "UPDATE `tbl_commercial_loan_installmets_calculated` SET `due_date`= '$due_date_real', `payment_date` = null, `days` = '0', `per_diem` = '0', `payment_amount` = '0', `interest` = '0', `principal` = '0', `balance` = '0' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
+            $action_query = "UPDATE tbl_commercial_loan_installmets_calculated SET due_date= '$due_date_real', payment_date = null, days = '0', per_diem = '0', payment_amount = '0', interest = '0', principal = '0', balance = '0' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
             $con->query($action_query);
             $previous_due_date = $due_date_real;
             continue;
@@ -1856,7 +1856,7 @@ function CalculateInstallmetsPerDiem()
             <td>" . number_format(0,   2, ".", ",") . "</td>
             <td>" . $installment_status. "</td>
             </tr>";
-            $action_query = "UPDATE `tbl_commercial_loan_installmets_calculated` SET `due_date`= '$due_date_real', `payment_date` = null, `days` = '0', `per_diem` = '0', `payment_amount` = '0', `interest` = '0', `principal` = '0', `balance` = '0' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
+            $action_query = "UPDATE tbl_commercial_loan_installmets_calculated SET due_date= '$due_date_real', payment_date = null, days = '0', per_diem = '0', payment_amount = '0', interest = '0', principal = '0', balance = '0' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
             $con->query($action_query);
             $previous_due_date = $due_date_real;
             continue;
@@ -1933,13 +1933,13 @@ function CalculateInstallmetsPerDiem()
         $total_principal += $principal;
 
         if ($default) {
-            $query_install = "INSERT INTO `tbl_commercial_loan_installmets_calculated` (`number_of_payment`, `loan_create_id`, `due_date`, `payment_date`, `days`, `per_diem`, `payment_amount`, `interest`, `principal`, `balance`)
+            $query_install = "INSERT INTO tbl_commercial_loan_installmets_calculated (number_of_payment, loan_create_id, due_date, payment_date, days, per_diem, payment_amount, interest, principal, balance)
             VALUES ('$i', '$loan_create_id', '$due_date_real', '$payment_date','$days_from_last_payment', '$per_diem', '$loan_payment_amount', '$interest', '$principal', '$balance')";
             $result_install = $con->query($query_install);
         }
 
         if ($number_payment != -1) {
-            $action_query = "UPDATE `tbl_commercial_loan_installmets_calculated` SET `due_date`= '$due_date_real', `payment_date` = '$payment_date', `days` = '$days_from_last_payment', `per_diem` = '$per_diem', `payment_amount` = '$loan_payment_amount', `interest` = '$interest', `principal` = '$principal', `balance` = '$balance' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
+            $action_query = "UPDATE tbl_commercial_loan_installmets_calculated SET due_date= '$due_date_real', payment_date = '$payment_date', days = '$days_from_last_payment', per_diem = '$per_diem', payment_amount = '$loan_payment_amount', interest = '$interest', principal = '$principal', balance = '$balance' WHERE  loan_create_id='$loan_create_id' and number_of_payment = '$i'";
             $con->query($action_query);
         }
 

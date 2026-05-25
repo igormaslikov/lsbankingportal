@@ -220,7 +220,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
        $timestamp = strtotime($payment_date);
        $due_date= date("m-d-Y", $timestamp);
 		 
-	        $query_payment = $con->query("SELECT SUM(interest) AS value_sum FROM tbl_personal_loan_installments where loan_create_id= '$loan_create_id'");
+	        $query_payment = $con->query("SELECT SUM(TRY_CAST(interest AS DECIMAL(18,2))) AS value_sum FROM tbl_personal_loan_installments where loan_create_id= '$loan_create_id'");
 while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     

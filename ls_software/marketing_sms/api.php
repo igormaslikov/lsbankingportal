@@ -15,9 +15,10 @@ if (($now >= $start  && $now <= $end))
 { 
     // echo "time in between";
 
-$sql_sms=mysqli_query($con, "select * from marketing_sms where status='0' LIMIT 2"); 
+// TODO(sqlsrv): LIMIT without ORDER BY — needs ORDER BY clause for OFFSET/FETCH conversion.
+$sql_sms=$con->query("select * from marketing_sms where status='0' LIMIT 2");
 
-while($row_sms = mysqli_fetch_array($sql_sms)) {
+while($row_sms = $sql_sms->fetch_array()) {
 
 $phone_number=$row_sms['phone_number'];
 $message=$row_sms['message'];
@@ -63,7 +64,7 @@ if($api_status=='queued')
 
 }
 
-mysqli_query($con, "UPDATE marketing_sms SET status ='1'  where sms_id = '$sms_id'");
+$con->query("UPDATE marketing_sms SET status ='1'  where sms_id = '$sms_id'");
 }
 
 }

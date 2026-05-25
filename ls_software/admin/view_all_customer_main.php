@@ -154,7 +154,7 @@ if (true) { // keep original indentation structure
             }
 
             $rowcount_UNREAD = 0;
-            if ($result_UNREAD = $con->query("SELECT COUNT(*) AS n FROM `fnd_user_profile` WHERE `bold_status` = '0'")) {
+            if ($result_UNREAD = $con->query("SELECT COUNT(*) AS n FROM fnd_user_profile WHERE bold_status = '0'")) {
                 if ($r = $result_UNREAD->fetch_assoc()) {
                     $rowcount_UNREAD = (int)$r['n'];
                 }

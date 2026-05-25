@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 
-$id = $_GET['id'];
+// $id = $_GET['id'];
 session_start();
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
@@ -158,7 +158,7 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     $cl_flash_err = 'Security check failed. Please reload the page and try again.';
                 } elseif (!empty($_POST['signed_loan'])) {
                     $signed_id = (int)$_POST['signed_loan'];
-                    if ($signed_id > 0 && $con->query("UPDATE `tbl_commercial_loan` SET `sign_status`='1' WHERE `loan_id` = $signed_id")) {
+                    if ($signed_id > 0 && $con->query("UPDATE tbl_commercial_loan SET sign_status='1' WHERE loan_id = $signed_id")) {
                         $cl_flash_ok = "Loan #$signed_id marked as signed.";
                     } else {
                         $cl_flash_err = "Could not mark loan #$signed_id as signed.";
@@ -333,8 +333,8 @@ $query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2)))
                             <div class="col-md-3 cl-field">
                                 <label>Sign Status</label>
                                 <select id="lstbSignStatus" name="sign_status" class="form-control">
-                                    <option value="Signed" <?php if ($_GET['sign_status'] == 'Signed') echo 'selected'; ?>>Signed</option>
-                                    <option value="UnSigned" <?php if ($_GET['sign_status'] == 'UnSigned') echo 'selected'; ?>>UnSigned</option>
+                                    <option value="Signed" <?php if (($_GET['sign_status'] ?? '') == 'Signed') echo 'selected'; ?>>Signed</option>
+                                    <option value="UnSigned" <?php if (($_GET['sign_status'] ?? '') == 'UnSigned') echo 'selected'; ?>>UnSigned</option>
                                 </select>
                             </div>
                             <div class="col-md-3 cl-field">
@@ -442,14 +442,14 @@ $query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2)))
                                     u.last_name,
                                     u.mobile_number,
                                     u.decision_logic_status,
-                                    (SELECT i.payment_date
+                                    (SELECT TOP 1 i.payment_date
                                        FROM tbl_commercial_loan_installments i
                                        WHERE i.loan_create_id = l.loan_create_id AND i.status = 0
-                                       ORDER BY i.id ASC LIMIT 1) AS next_due_date,
-                                    (SELECT t.created_at
+                                       ORDER BY i.id ASC) AS next_due_date,
+                                    (SELECT TOP 1 t.created_at
                                        FROM commercial_loan_transaction t
                                        WHERE t.loan_create_id = l.loan_create_id
-                                       ORDER BY t.transaction_id DESC LIMIT 1) AS last_txn_at
+                                       ORDER BY t.transaction_id DESC) AS last_txn_at
                                 FROM tbl_commercial_loan l
                                 LEFT JOIN fnd_user_profile u ON u.user_fnd_id = l.user_fnd_id
                                 $filter_where

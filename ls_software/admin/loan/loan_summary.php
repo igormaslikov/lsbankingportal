@@ -45,7 +45,7 @@ $loan_status=$row_fnd['loan_status'];
 
 
 
-$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
+$query_payment = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM loan_transaction where loan_id= '$id'");
 while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
@@ -233,7 +233,7 @@ $timestamp = strtotime($payment_date);
 $new_payment_date= date("m-d-Y", $timestamp);
 
 
-$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$id'");
+$query_payment = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM loan_transaction where loan_id= '$id'");
 while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     
@@ -713,7 +713,7 @@ while($row_role = $sql_role->fetch_array()) {
      $date_update= date('Y-m-d H:i:s');
      $loan_account_statuss= "Loan Summary Updated by $u_name";
     $query_insert_activity = "Insert into application_status_updates (application_id, loan_create_id, user_id, status, creation_date) Values ('$user_fnd_id', '$loan_create_id', '$u_id', '$loan_account_statuss', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
     
      ?>

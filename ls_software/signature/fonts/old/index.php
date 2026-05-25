@@ -1,4 +1,4 @@
-<?php require_once('../connections/mysqli_connect.php'); ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/SqlServerDb.php'; $con = portal_get_sqlsrv_db(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

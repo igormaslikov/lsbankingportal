@@ -262,7 +262,7 @@ function print_schedule($balance, $apr, $payment, $num_of_days, $num_late_days)
         }
 
         $loan_payment = 0;
-        $query_payment = $con->query("SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
+        $query_payment = $con->query("SELECT SUM(TRY_CAST(payment_amount AS DECIMAL(18,2))) AS value_sum FROM commercial_loan_transaction where loan_create_id= '$previous_loan_id'");
         while ($row_payment = $query_payment->fetch_array()) {
           $loan_payment = $row_payment['value_sum'];
         }

@@ -57,11 +57,12 @@ EOD;
 </script>
 
 EOD;
+	global $con;
 	$sql = <<<EOD
 	SELECT start_time,end_time, description, days_of_week FROM chat_pages WHERE page = '{$this->page}';
 EOD;
-	$query = mysql_query($sql) or die(mysql_error());
-	$results = mysql_fetch_assoc($query);
+	$query = $con->query($sql);
+	$results = $query->fetch_assoc();
 	$currenttime = date('H:m:s');
 	$currentday = date('l');
 	$days = explode(',', $results['days_of_week']);

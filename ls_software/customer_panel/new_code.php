@@ -1,21 +1,7 @@
 <?php
 
-//Database credentials
-$servername = "mymoneyline.com/lsbankingportal/";
-$dbname = 'dbs57337';
-$dbUsername = 'dblsuser2021';
-$dbPassword = '^%D24L*!Ti5%';
-
-
-
-
-// Create connection
-$conn = new mysqli($servername,  $dbUsername, $dbPassword,$dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/SqlServerDb.php';
+$conn = portal_get_sqlsrv_db();
 
 
 //echo "Connected successfully";
@@ -32,9 +18,9 @@ $email = $_POST['email'];
 
  
 // checks if the username is in use
-$sql=mysqli_query($conn, "select * from tbl_users WHERE email = '$email'"); 
+$sql=$conn->query("select * from tbl_users WHERE email = '$email'"); 
 
-$count =mysqli_num_rows($sql);
+$count =$sql->num_rows;
 
 if($count > 0)
 
@@ -122,7 +108,7 @@ echo '</script>';
     }
     
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 
 $new_password =$row[4];

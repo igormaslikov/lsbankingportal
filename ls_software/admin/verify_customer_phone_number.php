@@ -32,8 +32,8 @@ $DBcon->close();
 
 <?php include('menu.php') ;?>
  <?php
-include_once $_SERVER['DOCUMENT_ROOT'].'/dbconnection.php';
-$con = mysqli_connect($db_host,$db_user,$db_pass,$db_name);
+include_once $_SERVER['DOCUMENT_ROOT'].'/SqlServerDb.php';
+$con = portal_get_sqlsrv_db();
 // Check connection
 if (0)
   {
@@ -52,7 +52,7 @@ if ($result_t=$con->query($sql_t))
 
 
 
-$query_us = $con->query("SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan");
+$query_us = $con->query("SELECT SUM(TRY_CAST(amount_of_loan AS DECIMAL(18,2))) AS value_sum FROM tbl_loan");
 while ($row_us=$query_us->fetch_array()){
     $us = $row_us['value_sum'];
     $us=round($us, 2);
@@ -60,7 +60,7 @@ while ($row_us=$query_us->fetch_array()){
 
 }
 
-$query_le = $con->query("SELECT SUM(amount_left) AS value_sum FROM tbl_loan");
+$query_le = $con->query("SELECT SUM(TRY_CAST(amount_left AS DECIMAL(18,2))) AS value_sum FROM tbl_loan");
 while ($row_le=$query_le->fetch_array()){
     $am_le = $row_le['value_sum'];
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$am_le;

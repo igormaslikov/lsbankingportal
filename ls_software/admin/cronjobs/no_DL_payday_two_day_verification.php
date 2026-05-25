@@ -60,7 +60,7 @@ while($row_sms_content = $sql_sms_content->fetch_array()) {
     
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Automatic App : Pre Approved PayDay Loan SMS Sent', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
     
 }
@@ -98,7 +98,7 @@ while($row = $sql->fetch_array()) {
     
     $date_update= date('Y-m-d H:i:s');
     $query_insert_activity = "Insert into application_status_updates (application_id, status, creation_date) Values ($application_id, ' Automatic App : Autochange status to NO ANSWER', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
     
   }

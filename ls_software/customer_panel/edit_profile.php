@@ -20,9 +20,9 @@ $id=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $first_name=$row['first_name'];
 $middle_name =$row['middle_name'];
@@ -43,9 +43,9 @@ $id=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_banking=mysqli_query($con, "select * from banking_information where user_fnd_id= '$id'"); 
+$sql_banking=$con->query("select * from banking_information where user_fnd_id= '$id'"); 
 
-while($row_banking = mysqli_fetch_array($sql_banking)) {
+while($row_banking = $sql_banking->fetch_array()) {
 
 $debit_card_number=$row_banking['card_number'];
 $card_exp_date=$row_banking['expiry_date'];
@@ -65,9 +65,9 @@ $id=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_source=mysqli_query($con, "select * from source_income where user_fnd_id= '$id'"); 
+$sql_source=$con->query("select * from source_income where user_fnd_id= '$id'"); 
 
-while($row_source = mysqli_fetch_array($sql_source)) {
+while($row_source = $sql_source->fetch_array()) {
 
 $emp_name=$row_source['employer_name'];
 $emp_phone=$row_source['work_phone_no'];
@@ -87,9 +87,9 @@ $id=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_bq=mysqli_query($con, "select * from binary_questions where user_fnd_id= '$id'"); 
+$sql_bq=$con->query("select * from binary_questions where user_fnd_id= '$id'"); 
 
-while($row_bq = mysqli_fetch_array($sql_bq)) {
+while($row_bq = $sql_bq->fetch_array()) {
     
 $mode_payment=$row_bq['bq_answer'];
 
@@ -321,13 +321,13 @@ $acc_number_update =$_POST['acc_number'];
 
 $date = date('Y-m-d H:i:s');
 
-mysqli_query($con, "UPDATE fnd_user_profile SET first_name ='$first_name_update' , middle_name='$middle_name_update' , last_name='$last_name__update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', date_of_birth='$dob_update', ssn='$ssn_update', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'"); 
+$con->query("UPDATE fnd_user_profile SET first_name ='$first_name_update' , middle_name='$middle_name_update' , last_name='$last_name__update' , mobile_number='$phone_number_update' , email='$email_update', address='$address_update', date_of_birth='$dob_update', ssn='$ssn_update', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'"); 
 
-mysqli_query($con, "UPDATE banking_information SET account_number='$acc_number_update', card_number ='$card_number_update' , expiry_date='$exp_date_update' , name_of_card='$name_on_Card_update' , billing_zip_code='$zip_code_update' , routing_aba_number='$cvv_number_update', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
+$con->query("UPDATE banking_information SET account_number='$acc_number_update', card_number ='$card_number_update' , expiry_date='$exp_date_update' , name_of_card='$name_on_Card_update' , billing_zip_code='$zip_code_update' , routing_aba_number='$cvv_number_update', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
 
-mysqli_query($con, "UPDATE source_income SET how_tell_ur_income='$income_month_update' , employer_name ='$employer_name_update' , work_phone_no='$work_phone_update' , pay_period='$get_paid_update' , last_pay_date='$last_check_update' , next_pay_date='$next_check', start_date='$working_update', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
+$con->query("UPDATE source_income SET how_tell_ur_income='$income_month_update' , employer_name ='$employer_name_update' , work_phone_no='$work_phone_update' , pay_period='$get_paid_update' , last_pay_date='$last_check_update' , next_pay_date='$next_check', start_date='$working_update', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
     
-mysqli_query($con, "UPDATE binary_questions SET bq_answer ='$payment_update', creation_date='$date', last_update_date='$date', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
+$con->query("UPDATE binary_questions SET bq_answer ='$payment_update', creation_date='$date', last_update_date='$date', last_update_by='$u_id',last_update_date='$date' where user_fnd_id ='$id'");   
         
     ?>
     

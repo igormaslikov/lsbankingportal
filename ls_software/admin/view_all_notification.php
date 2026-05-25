@@ -91,6 +91,8 @@ $DBcon->close();
 echo '<h3>Your Notifications</h3>';
 echo '<table id="customers">';
 try {
+  // TODO sqlsrv-migration: external chat host 50.62.151.36 is a separate MySQL server, not the portal DB.
+  // Leaving mysqli connection in place; the SqlServerDb shim only targets the portal SQL Server.
   $con_chat = @new mysqli("50.62.151.36","message_chat","admin\$\$123","message_chat");
   if ($con_chat->connect_errno === 0) {
     $query_chat = "SELECT * FROM webchat_lines where msg_status= 'incoming' order by id DESC";

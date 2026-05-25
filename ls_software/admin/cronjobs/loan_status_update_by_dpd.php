@@ -15,7 +15,7 @@ $start = "12:00";
 //*********** Clear last_payment_date if there is not transactions*/
 
 
-$sql_loan_ids = $con->query("SELECT tl.loan_id, tl.user_fnd_id,tl.loan_create_id, tl.last_payment_date, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id where (v.value_sum is NULL or v.value_sum = 0) and tl.last_payment_date != ''");
+$sql_loan_ids = $con->query("SELECT tl.loan_id, tl.user_fnd_id,tl.loan_create_id, tl.last_payment_date, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id where (v.value_sum is NULL or v.value_sum = 0) and tl.last_payment_date != ''");
 
 while($rows = $sql_loan_ids->fetch_array()){
   $loan_id = $rows['loan_id'];
@@ -31,7 +31,7 @@ while($rows = $sql_loan_ids->fetch_array()){
 
 //**************************************************************** */
 
-$query = "SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id ";
+$query = "SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id ";
 
 $status_array = array("Paid","Chargeoff","Collections","Past Due", "Active");
 
@@ -41,8 +41,8 @@ for ($i = 0; $i < count($status_array); $i++)
 
   $where = " where tl.loan_status = '".$status."'";
 
-  $sql_loan_ids = $con->query("SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id".$where);
-// echo "SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(payoff_amount) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id".$where;
+  $sql_loan_ids = $con->query("SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id".$where);
+// echo "SELECT tl.*, v.value_sum from tbl_loan tl Left JOIN (SELECT loan_id, SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM loan_transaction GROUP by loan_id) v on tl.loan_id = v.loan_id".$where;
   while($rows = $sql_loan_ids->fetch_array()){
     $loan_id = $rows['loan_id'];
     $user_fnd_id = $rows['user_fnd_id'];

@@ -15,8 +15,8 @@ $date = date('Y-m-d H:i:s');
 
 $hashed_password = password_hash($passs, PASSWORD_DEFAULT); 
 
-$query="UPDATE `fnd_user_profile` SET `ssn` = '$ssn', `date_of_birth` = '$dob', `address` = '$address' where`user_fnd_id` = '$user_id'";
-$result = mysqli_query($con,$query);
+$query="UPDATE fnd_user_profile SET ssn = '$ssn', date_of_birth = '$dob', address = '$address' where user_fnd_id = '$user_id'";
+$result = $con->query($query);
         if ($result) {
            //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
        } else {
@@ -26,8 +26,8 @@ $result = mysqli_query($con,$query);
 
 } //IF ENDS
 
-$query_userid = mysqli_query($con,"Select * from fnd_user_profile where user_key = '$keyy'");
-while ($row_user_id=mysqli_fetch_array($query_userid)){
+$query_userid = $con->query("Select * from fnd_user_profile where user_key = '$keyy'");
+while ($row_user_id=$query_userid->fetch_array()){
     $user_id_n = $row_user_id[0];
 }
 ?>

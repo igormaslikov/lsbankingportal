@@ -22,7 +22,7 @@ $date = date('Y-m-d H:i:s');
 
 $query="INSERT INTO source_income (user_fnd_id,income_source,employer_name,work_phone_no,start_date,pay_period,monthly_income,last_pay_date,next_pay_date,how_tell_ur_income,gross_pay,take_home_pay,creation_date)  VALUES ('$user_id','$income_source','$emp_name','$work_phone','$start_working','$get_paid','$final_month_income','$last_pay','$next_pay','$income','$gross_pay','$take_home','$date')";
 
-$result = mysqli_query($con,$query);
+$result = $con->query($query);
         if ($result) {
            //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
        } else {

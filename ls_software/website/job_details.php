@@ -18,7 +18,7 @@ $date = date('Y-m-d H:i:s');
 //$name = "umer";
 $query="INSERT INTO binary_questions (user_fnd_id,bq_answer,creation_date)  VALUES ('$user_id3','$payment_final','$date') ";
 
-$result = mysqli_query($con,$query);
+$result = $con->query($query);
         if ($result) {
            //echo "<div class='form'><h3> successfully added.</h3><br/></div>";
        } else {

@@ -126,7 +126,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
        $contract_date=$row_bank_detail_sec['contract_date'];
        $payment_date =$row_bank_detail_sec['payment_date'];
        
-       $query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$loan_id'");
+       $query_payment = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM loan_transaction where loan_id= '$loan_id'");
 while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     

@@ -574,8 +574,8 @@ if(isset($_POST['btnupload']))
                 $errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";        
             }
 
- $query_sign  = "UPDATE loan_initial_banking SET `sign_status`='1',`signed_pic`='$userpic' WHERE `email_key` = '$iddd' ";
-        $result_sign = mysqli_query($con, $query_sign);
+ $query_sign  = "UPDATE loan_initial_banking SET sign_status='1',signed_pic='$userpic' WHERE email_key = '$iddd' ";
+        $result_sign = $con->query($query_sign);
         if ($result_sign) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {

@@ -136,7 +136,7 @@ if ($result_t=$con->query($query_search))
     <?php
 
 
-$query_us = $con->query("SELECT SUM(amount_of_loan) AS value_sum FROM tbl_loan where sign_status= '1'");
+$query_us = $con->query("SELECT SUM(TRY_CAST(amount_of_loan AS DECIMAL(18,2))) AS value_sum FROM tbl_loan where sign_status= '1'");
 while ($row_us=$query_us->fetch_array()){
     $us = $row_us['value_sum'];
     
@@ -146,13 +146,13 @@ break;
 }
 
 
-$query_le = $con->query("SELECT SUM(loan_total_payable) AS value_sum FROM tbl_loan where sign_status= '1'");
+$query_le = $con->query("SELECT SUM(TRY_CAST(loan_total_payable AS DECIMAL(18,2))) AS value_sum FROM tbl_loan where sign_status= '1'");
 while ($row_le=$query_le->fetch_array()){
     $pay_off = $row_le['value_sum'];
 break;
 }
 
-$query_trns = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction ");
+$query_trns = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM loan_transaction ");
 while ($row_trns=$query_trns->fetch_array()){
     $totall_trans = $row_trns['value_sum'];
 break;
@@ -189,7 +189,7 @@ $loan_status=$row['loan_status'];
 $loan_id_fee=$row['loan_id'];
  $amount_of_loan_fee=$row['amount_of_loan'];
  
-$query_payment_fee = $con->query("SELECT SUM(payoff_amount) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
+$query_payment_fee = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_summ FROM loan_transaction where loan_id= '$loan_id_fee'");
 while ($row_payment_fee=$query_payment_fee->fetch_array()){
     $payment_fee = $row_payment_fee['value_summ'];
     
@@ -526,7 +526,7 @@ if (isset($_GET['to_date'])) {
         
         
     
-$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM loan_transaction where loan_id= '$loan_id_calculation'");
+$query_payment = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM loan_transaction where loan_id= '$loan_id_calculation'");
 while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
     

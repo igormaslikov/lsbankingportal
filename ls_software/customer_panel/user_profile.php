@@ -78,9 +78,9 @@ $DBcon->close();
 
 include 'dbconnect.php';
 
-$sql=mysqli_query($DBcon, "select * from fnd_user_profile where user_fnd_id='$id'"); 
+$sql=$DBcon->query("select * from fnd_user_profile where user_fnd_id='$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     
 
 $name=$row[7];
@@ -159,9 +159,9 @@ echo"<a href='edit_user_info.php?id=$id' title='Edit This Customer'><span class=
 
 include 'dbconnect.php';
 
-$sql=mysqli_query($DBcon, "select * from banking_information where user_fnd_id='$id'"); 
+$sql=$DBcon->query("select * from banking_information where user_fnd_id='$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     
 $rout_num=$row[2];
 $acc_num=$row[3];
@@ -238,9 +238,9 @@ echo"<a href='edit_banking_info.php?id=$id' title='Edit This Customer'><span cla
 
 include 'dbconnect.php';
 
-$sql=mysqli_query($DBcon, "select * from source_income where user_fnd_id='$id'"); 
+$sql=$DBcon->query("select * from source_income where user_fnd_id='$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     
 
 $emp_name=$row[3];
@@ -315,9 +315,9 @@ echo"<a href='edit_emp_income.php?id=$id' title='Edit This Customer'><span class
 
 include 'dbconnect.php';
 
-$sql=mysqli_query($DBcon, "select * from binary_questions where user_fnd_id='$id'"); 
+$sql=$DBcon->query("select * from binary_questions where user_fnd_id='$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
     
 $bq_ques=$row['bq_answer'];
 

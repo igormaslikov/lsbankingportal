@@ -39,10 +39,10 @@ $loan_status=$row_fnd['loan_status'];
 
 
 
-$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM personal_loan_transaction where loan_id= '$id'");
+$query_payment = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM personal_loan_transaction where loan_id= '$id'");
 while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
-    
+
     $payment = number_format((float)$payment, 2, '.', '');
 
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
@@ -55,7 +55,7 @@ while ($row_payment=$query_payment->fetch_array()){
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'");
 
 while($row = $sql->fetch_array()) {
 
@@ -150,10 +150,10 @@ $timestamp = strtotime($payment_date);
 $new_payment_date= date("m-d-Y", $timestamp);
 
 
-$query_payment = $con->query("SELECT SUM(payoff_amount) AS value_sum FROM personal_loan_transaction where loan_id= '$id'");
+$query_payment = $con->query("SELECT SUM(TRY_CAST(payoff_amount AS DECIMAL(18,2))) AS value_sum FROM personal_loan_transaction where loan_id= '$id'");
 while ($row_payment=$query_payment->fetch_array()){
     $payment = $row_payment['value_sum'];
-    
+
     $payment = number_format((float)$payment, 2, '.', '');
 
    // echo"<br><br><br> <br><br><br><br><br> <br><br>User_Key:" .$us;
@@ -167,7 +167,7 @@ while ($row_payment=$query_payment->fetch_array()){
 include_once '../dbconnect.php';
 include_once '../dbconfig.php';
 
-$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
+$sql_user=$con->query("select * from tbl_users where user_id= '$created_by'");
 
 while($row_user = $sql_user->fetch_array()) {
 
@@ -581,7 +581,7 @@ while($row_sql_activity_by_user = $sql_activity_by_user->fetch_array()) {
      $date_update= date('Y-m-d H:i:s');
      $loan_account_statuss= "Account Status Updated to: ".$_POST['account_status'];
     $query_insert_activity = "Insert into application_status_updates (application_id, loan_create_id, user_id, status, creation_date) Values ('$user_fnd_id', '$loan_create_id', '$u_id', '$loan_account_statuss', '$date_update')";
-    mysqli_query ($con , $query_insert_activity);
+    $con->query($query_insert_activity);
     
     
      ?>

@@ -1,21 +1,7 @@
 ﻿<?php
 
-//Database credentials
-$servername = "mymoneyline.com/lsbankingportal/";
-$dbname = 'dbs57337';
-$dbUsername = 'dblsuser2021';
-$dbPassword = '^%D24L*!Ti5%';
-
-
-
-
-// Create connection
-$conn = new mysqli($servername,  $dbUsername, $dbPassword,$dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
+require_once $_SERVER['DOCUMENT_ROOT'].'/SqlServerDb.php';
+$conn = portal_get_sqlsrv_db();
 
 
 //echo "Connected successfully";

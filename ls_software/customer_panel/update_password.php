@@ -21,7 +21,7 @@ if ($pass === $cpass) {
     
      $password = password_hash($cpass, PASSWORD_DEFAULT);
      
-        mysqli_query($con, "Update `register_user` SET `password`='$password' where email ='$email'");
+        $con->query("Update register_user SET [password]='$password' where email ='$email'");
 
        echo '<script type="text/javascript">'; 
 echo 'alert("Password  Updated Successfully");'; 
