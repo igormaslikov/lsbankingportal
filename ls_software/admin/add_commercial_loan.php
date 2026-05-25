@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 error_reporting(0);
 include_once 'dbconnect.php';
@@ -511,11 +514,10 @@ $fnd_idd = $_GET['id'] ?? '';
 
     let minOnePayment = parseFloat(principal_amount) / parseInt(total_payments);
     if (payment < minOnePayment) {
-      $("#tablePayments")[0].innerHTML = 
-                <p style="text-align:center;color:red;font-size:20px">
-                  <b>Minimal payment should be more than  + minOnePayment + <b>
-                </p>
-                ;
+      $("#tablePayments")[0].innerHTML =
+        '<p style="text-align:center;color:red;font-size:20px">' +
+          '<b>Minimal payment should be more than ' + minOnePayment + '</b>' +
+        '</p>';
       e.preventDefault();
       return;
     }
