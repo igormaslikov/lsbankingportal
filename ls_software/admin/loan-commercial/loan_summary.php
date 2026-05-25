@@ -84,12 +84,15 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
 
     //echo "Amount is:".$amount_loan;
 
-    $amount_left = $row['loan_total_payable'];
-    $bg_id = $row['bg_id'];
-    $payment_date = $row['payment_date'];
-    $payment_tenure = $row['payment_tenure'];
-    $escrow = $row['escrow'];
-    $primary_port = $row['primary_portfolio'];
+    // TODO: columns loan_total_payable, payment_tenure, escrow, primary_portfolio
+    // do not exist on the SQL Server tbl_commercial_loan schema as written.
+    // Confirm the actual column names or whether these fields moved tables.
+    $amount_left = $row['loan_total_payable'] ?? null;
+    $bg_id = $row['bg_id'] ?? null;
+    $payment_date = $row['payment_date'] ?? null;
+    $payment_tenure = $row['payment_tenure'] ?? null;
+    $escrow = $row['escrow'] ?? null;
+    $primary_port = $row['primary_portfolio'] ?? null;
     $creation_date = $row['contract_date'];
     $created_by = $row['created_by'];
     $last_update = $row['last_update_by'];
@@ -128,8 +131,8 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
   $interval = date_diff($date_due_date, $date_now);
 
   $payment = 0;
-  $query_payment = $con->query("SELECT SUM(payment_amount) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
-  while ($row_payment = $query_payment->fetch_array()) {
+  $query_payment = $con->query("SELECT SUM(TRY_CAST(payment_amount AS DECIMAL(18,2))) AS value_sum FROM commercial_loan_transaction where loan_id= '$id'");
+  while ($query_payment && ($row_payment = $query_payment->fetch_array())) {
     $payment = $row_payment['value_sum'];
   }
 
