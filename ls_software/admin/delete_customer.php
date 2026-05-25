@@ -4,7 +4,6 @@ session_start();
 $_SESSION['userSession'] = $_GET['uid'];
 
 if (!isset($_SESSION['Optima'])) {
-
     $_SESSION['Optima'] = True;
 }
 include_once 'dbconnect.php';
@@ -15,9 +14,9 @@ require_login();
 csrf_verify();
 
 
-$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
-$userRow=$query->fetch_array();
-$u_id=$userRow['user_id'];
+$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=" . intval($_SESSION['userSession']));
+$userRow = $query->fetch_array();
+$u_id = $userRow['user_id'];
 $u_access_id = $userRow['access_id'];
 
 require_access($u_access_id);
@@ -42,16 +41,30 @@ while ($sql_loan && ($row_loan = $sql_loan->fetch_array())) {
 }
 
 $delete_allowed = user_roles($u_access_id, $form_id);
+$delete_allowed = 1; // legacy override — keep behavior
 
-$delete_allowed = user_roles($u_access_id,$form_id);
-$delete_allowed=1;
-//echo $delete_allowed;
+if ($delete_allowed == 1 && $loan_status != 'Active') {
 
-    $qs = "status=" . urlencode($status)
-        . "&keyword=" . urlencode($keyword)
-        . "&from_date=" . urlencode($from_date)
-        . "&to_date=" . urlencode($to_date)
-        . "&page_no=" . $page_no;
+    $con->query("DELETE FROM fnd_user_profile             WHERE user_fnd_id = ?", [$id]);
+    $con->query("DELETE FROM fnd_user_profile_submission  WHERE user_fnd_id = ?", [$id]);
+    $con->query("DELETE FROM source_income                WHERE user_fnd_id = ?", [$id]);
+    $con->query("DELETE FROM binary_questions             WHERE user_fnd_id = ?", [$id]);
+    $con->query("DELETE FROM application_notes            WHERE user_fnd_id = ?", [$id]);
+    $con->query("DELETE FROM tbl_bank_statements          WHERE user_fnd_id = ?", [$id]);
+
+    $status     = $_GET['status']     ?? '';
+    $keyword    = $_GET['keyword']    ?? '';
+    $search     = $_GET['search']     ?? '';
+    $from_date  = $_GET['from_date']  ?? '';
+    $to_date    = $_GET['to_date']    ?? '';
+    $page_no    = $_GET['page_no']    ?? '';
+
+    $qs = 'status='     . urlencode($status)
+        . '&keyword='   . urlencode($keyword)
+        . '&search='    . urlencode($search)
+        . '&from_date=' . urlencode($from_date)
+        . '&to_date='   . urlencode($to_date)
+        . '&page_no='   . urlencode($page_no);
 
     echo '<script>window.location.href = "/ls_software/admin/view_all_customer_main.php?' . $qs . '";</script>';
 } else {
