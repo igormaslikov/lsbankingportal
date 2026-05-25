@@ -53,19 +53,48 @@ if ($__debug) {
 
 $sql1 = $con->query("select * from commercial_loan_initial_banking where email_key='$iddd' ");
 if ($__debug) {
+    // Walk all three lookups and report columns + values for each, so we can
+    // see which columns are missing on SQL Server vs what contract_pdf.php
+    // expects to read.
     $rows1 = [];
-    while ($r = $sql1->fetch_array()) { $rows1[] = $r; }
-    if (!$rows1) {
-        echo json_encode([
-            'step' => 'commercial_loan_initial_banking lookup',
-            'email_key' => $iddd,
-            'rows_returned' => 0,
-            'sqlsrv_errors' => function_exists('sqlsrv_errors') ? sqlsrv_errors() : null,
-            'note' => 'No row matches this email_key on SQL Server. Either the row was never migrated from MySQL, or the table does not exist.',
-        ], JSON_PRETTY_PRINT);
-        exit;
+    while ($r = $sql1->fetch_assoc()) { $rows1[] = $r; }
+    $row1 = $rows1[0] ?? null;
+    $fnd_id_dbg = $row1['user_fnd_id'] ?? null;
+    $loan_id_bor_dbg = $row1['loan_id'] ?? null;
+
+    $rows2 = [];
+    if ($loan_id_bor_dbg !== null) {
+        $sql2dbg = $con->query("select * from tbl_commercial_loan where loan_create_id='$loan_id_bor_dbg'");
+        while ($r = $sql2dbg->fetch_assoc()) { $rows2[] = $r; }
     }
-    echo json_encode(['step' => 'commercial_loan_initial_banking lookup', 'rows' => $rows1], JSON_PRETTY_PRINT);
+
+    $rows3 = [];
+    if ($fnd_id_dbg !== null) {
+        $sql3dbg = $con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id_dbg'");
+        while ($r = $sql3dbg->fetch_assoc()) { $rows3[] = $r; }
+    }
+
+    echo json_encode([
+        'email_key' => $iddd,
+        'commercial_loan_initial_banking' => [
+            'row_count' => count($rows1),
+            'columns' => $row1 ? array_keys($row1) : [],
+            'row' => $row1,
+        ],
+        'tbl_commercial_loan_lookup' => [
+            'loan_create_id_searched' => $loan_id_bor_dbg,
+            'row_count' => count($rows2),
+            'columns' => $rows2[0] ?? null ? array_keys($rows2[0]) : [],
+            'row' => $rows2[0] ?? null,
+        ],
+        'fnd_user_profile_lookup' => [
+            'user_fnd_id_searched' => $fnd_id_dbg,
+            'row_count' => count($rows3),
+            'columns' => $rows3[0] ?? null ? array_keys($rows3[0]) : [],
+            'row' => $rows3[0] ?? null,
+        ],
+        'sqlsrv_errors' => function_exists('sqlsrv_errors') ? sqlsrv_errors() : null,
+    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     exit;
 }
 
