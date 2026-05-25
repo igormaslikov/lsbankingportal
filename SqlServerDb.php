@@ -9,11 +9,17 @@ final class SqlServerResult
 	private $stmt;
 	/** @var int|false */
 	public $num_rows;
+	/** @var bool true if wrapping a real (successful) statement; false on query failure */
+	public $success;
+	/** @var string last sqlsrv error message (empty when success === true) */
+	public $error_message;
 
-	public function __construct($stmt)
+	public function __construct($stmt, $error_message = '')
 	{
 		$this->stmt = $stmt;
-		if ($stmt !== null && $stmt !== false) {
+		$this->success = ($stmt !== null && $stmt !== false);
+		$this->error_message = (string) $error_message;
+		if ($this->success) {
 			$n = sqlsrv_num_rows($stmt);
 			$this->num_rows = ($n === false) ? 0 : (int) $n;
 		} else {
@@ -72,11 +78,11 @@ final class SqlServerDb
 				$errors = sqlsrv_errors();
 				$msg = $errors ? $errors[0]['message'] : 'unknown error';
 				error_log("SqlServerDb::query FAILED: $msg | SQL: " . substr($sql, 0, 300));
-				// Return an empty SqlServerResult instead of bare false so callers
-				// that do `$res->fetch_array()` or `$res->num_rows` degrade to "no rows"
-				// instead of fataling with "Call to a member function ... on bool".
-				// Errors are still in the PHP error log for diagnosis.
-				return new SqlServerResult(false);
+				// Return an empty SqlServerResult so callers that do `->fetch_array()`
+				// or `->num_rows` degrade safely. Callers that need to know whether
+				// the query succeeded (INSERT/UPDATE/DELETE) check `->success` and
+				// `->error_message`. Errors are also written to the PHP error log.
+				return new SqlServerResult(false, $msg);
 			}
 		}
 		return new SqlServerResult($stmt);

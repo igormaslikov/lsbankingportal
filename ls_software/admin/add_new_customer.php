@@ -313,15 +313,12 @@ admin_leads_email_notification($subject_data,$message_data);
           
            
 $query  = "INSERT INTO fnd_user_profile (first_name,last_name,email,mobile_number,address,city,state,zip_code,date_of_birth,ssn,created_by,creation_date,user_key,application_status,website,created_time_,source_of_lead,declined_reason,loan_type, application_date)  VALUES ('$first_name','$last_name','$email','$phone_number','$address','$city','$state','$zip','$dob','$ssn','$u_id','$date','$user_key','New Application','By Office','$time_created','$source_of_lead','$decline_reason','$loan_type','$application_date')";
-        // echo $query;
         $result = $con->query($query);
-        // echo $result;
-        // exit();
-        if ($result) {
-            
-            //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
-        } else {
-        echo "<h3> Error Inserting Data FND </h3>";
+        $insert_fnd_failed = !($result && $result->success);
+        if ($insert_fnd_failed) {
+            echo "<div class='alert alert-danger'><h3>Error Inserting Data (fnd_user_profile)</h3><pre>"
+                . htmlspecialchars($result ? $result->error_message : 'unknown')
+                . "</pre><pre>SQL: " . htmlspecialchars($query) . "</pre></div>";
         }
         
         
@@ -334,10 +331,12 @@ $user_fnd_iddd = $row_fnd_id['user_fnd_id'];
 
 $query_fnd_id  = "INSERT INTO fnd_user_profile_submission (user_fnd_id)  VALUES ('$user_fnd_iddd')";
         $result_fnd = $con->query($query_fnd_id);
-        if ($result_fnd) {
+        if ($result_fnd && $result_fnd->success) {
             echo "<div class='form'><h3> New successfully added.</h3><br/></div>";
         } else {
-        //echo "<h3> Error Inserting Data tbl_loan </h3>";
+            echo "<div class='alert alert-danger'><h3>Error Inserting Data (fnd_user_profile_submission)</h3><pre>"
+                . htmlspecialchars($result_fnd ? $result_fnd->error_message : 'unknown')
+                . "</pre></div>";
         }
         
       
@@ -386,9 +385,11 @@ $query3  = "INSERT INTO source_income (user_fnd_id,employer_name,work_phone_no,n
         
 ?>
 
+<?php if (!isset($insert_fnd_failed) || !$insert_fnd_failed) { ?>
 <script type="text/javascript">
 window.location.href = 'view_all_customer_main.php';
 </script>
+<?php } ?>
 <?php
 
 
