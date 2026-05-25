@@ -2028,8 +2028,13 @@ function GetLoanCreateId(){
     while ($row_apr = $sql_apr->fetch_array()) {
         $next_loan_id = $row_apr['next_id'];
     }
-    
-    $loan_create_id = $next_loan_id == NULL ? $default_loan_id : $next_loan_id;
+
+    // SQL Server CONCAT() treats NULL as empty string, so when MAX(...)+1 is
+    // NULL (no existing rows) the query returns "OF3-" instead of NULL.
+    // Fall back to default unless the result actually ends in digits.
+    $loan_create_id = (empty($next_loan_id) || !preg_match('/-\d+$/', $next_loan_id))
+        ? $default_loan_id
+        : $next_loan_id;
 
     $articles[] = array(
         'status'         =>  "Pass",

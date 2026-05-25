@@ -158,7 +158,11 @@ $fnd_idd = $_GET['id'] ?? '';
     while ($row_apr = $sql_apr->fetch_array()) {
         $next_loan_id = $row_apr['next_id'];
     }
-    $loan_create_id = $next_loan_id == NULL ? $default_loan_id : $next_loan_id;
+    // SQL Server CONCAT() treats NULL as empty string; "OF3-" can come back
+    // when there are no existing rows. Fall back unless result ends in digits.
+    $loan_create_id = (empty($next_loan_id) || !preg_match('/-\d+$/', $next_loan_id))
+        ? $default_loan_id
+        : $next_loan_id;
 
     $sql_apr = $con->query("select * from fnd_user_profile where user_fnd_id= '$id'");
     while ($row_apr = $sql_apr->fetch_array()) {
