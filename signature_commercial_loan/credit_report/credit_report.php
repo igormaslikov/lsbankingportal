@@ -4,9 +4,9 @@ $id=$_GET['id'];
 include 'dbconfig.php';
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$id'"); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id= '$id'"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 $mobile_verification = $row['mobile_verification_status'];
 $first_name=$row['first_name'];
 $last_name =$row['last_name'];

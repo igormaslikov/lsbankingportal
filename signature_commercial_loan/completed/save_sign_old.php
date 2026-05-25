@@ -37,20 +37,20 @@ include 'dbconnect.php';
 include 'dbconfig.php';
 
     $query_sign  = "UPDATE `commercial_loan_initial_banking` SET `sign_status`='1',`signed_pic`='$filename_sig', `initial_pic`='$filename_initial', `sig_coborrow_pic`='$filename_sig_coborrow', `co_borrow_name`='$co_borrow_name', `co_borrow_mobile`='$co_borrow_mobile' WHERE `email_key` = '$key'";
-        $result_sign = mysqli_query($con, $query_sign);
+        $result_sign = $con->query($query_sign);
         if ($result_sign) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
         //echo "<h3> Error Inserting Data </h3>";
         }
-$sql=mysqli_query($con, "select * from commercial_loan_initial_banking where email_key = '$key' "); 
+$sql=$con->query("select * from commercial_loan_initial_banking where email_key = '$key' "); 
 $loan_id = "";
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 //echo $loan_id;
 }
-mysqli_query ($con,"UPDATE `tbl_commercial_loan` SET `sign_status`='1' WHERE `loan_create_id` = '$loan_id'");
+$con->query("UPDATE `tbl_commercial_loan` SET `sign_status`='1' WHERE `loan_create_id` = '$loan_id'");
 
 $articles[] = array(
     'status'         =>  "OK"

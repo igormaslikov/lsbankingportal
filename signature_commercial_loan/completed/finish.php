@@ -8,9 +8,9 @@ $idd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql=mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$idd' "); 
+$sql=$con->query("select * from commercial_loan_initial_banking where email_key='$idd' "); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 $creation_date=$row['creation_date'];
@@ -36,9 +36,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
  //echo "ID is".$img_signed;
 
-$sql_loan=mysqli_query($con, "select * from tbl_commercial_loan where loan_id= '$loan_id' "); 
+$sql_loan=$con->query("select * from tbl_commercial_loan where loan_id= '$loan_id' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     $amount_of_loan=$row_loan['amount_of_loan'];
     $payment_date=$row_loan['payment_date'];
@@ -78,9 +78,9 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
 
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $f_name=$row['first_name'];
 $address=$row['address'];

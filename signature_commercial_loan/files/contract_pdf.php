@@ -42,9 +42,9 @@ include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd = $_GET['id'];
 
-$sql1 = mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$iddd' ");
+$sql1 = $con->query("select * from commercial_loan_initial_banking where email_key='$iddd' ");
 
-while ($row1 = mysqli_fetch_array($sql1)) {
+while ($row1 = $sql1->fetch_array()) {
 
   $mail_key = $row1['email_key'];
   $signed_status = $row1['sign_status'];
@@ -114,9 +114,9 @@ if ($__is_signed && is_file($__frozen_path) && filesize($__frozen_path) > 0) {
     exit;
 }
 
-$sql_loan = mysqli_query($con, "select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' ");
+$sql_loan = $con->query("select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' ");
 
-while ($row_loan = mysqli_fetch_array($sql_loan)) {
+while ($row_loan = $sql_loan->fetch_array()) {
 
 
   // PHP 8 won't auto-coerce string values into floats for arithmetic or number_format().
@@ -155,8 +155,8 @@ if (!empty($_GET['template']) && in_array($_GET['template'], ['unsecured_2024_09
     $contract_template = $_GET['template'];
 }
 
-$sql2 = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' ");
-while ($row2 = mysqli_fetch_array($sql2)) {
+$sql2 = $con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' ");
+while ($row2 = $sql2->fetch_array()) {
   $ff_name = $row2['first_name'];
   $l_name = $row2['last_name'];
   $f_name = $ff_name . ' ' . $l_name;
@@ -198,17 +198,17 @@ if (empty(trim((string)$co_borrow_full_name))) {
     $sig_coborrow_pic    = '';   // blocks set_image() from drawing the signature
 }
 
-$sql2 = mysqli_query($con, "select * from source_income where user_fnd_id='$fnd_id' ");
-while ($row2 = mysqli_fetch_array($sql2)) {
+$sql2 = $con->query("select * from source_income where user_fnd_id='$fnd_id' ");
+while ($row2 = $sql2->fetch_array()) {
   $address_b = $row2['address_b'];
   $city_b = $row2['city_b'];
   $state_b = $row2['state_b'];
   $zip_b = $row2['zip_b'];
 }
 
-$sql_business_query = mysqli_query($con, "select * from tbl_business_info where user_fnd_id= '$fnd_id'");
+$sql_business_query = $con->query("select * from tbl_business_info where user_fnd_id= '$fnd_id'");
 
-while ($row_business_source = mysqli_fetch_array($sql_business_query)) {
+while ($row_business_source = $sql_business_query->fetch_array()) {
 
   $business_name = $row_business_source['business_name'];
   $business_phone = $row_business_source['business_phone'];
@@ -220,29 +220,29 @@ while ($row_business_source = mysqli_fetch_array($sql_business_query)) {
   $business_type = $row_business_source['business_docs'] ?? ''; // closest DB field
 }
 
-$sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id asc limit 1");
-while ($row_installment = mysqli_fetch_array($sql_installment)) {
+$sql_installment = $con->query("select payment, payment_date from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id asc limit 1");
+while ($row_installment = $sql_installment->fetch_array()) {
   $first_payment_date = $row_installment['payment_date'];
 }
 
 $first_payment  = 0;
 $last_payment   = 0;
 $count_payments = 0;
-$sql_installment = mysqli_query($con, "select first_payment, last_payment,total_payments from tbl_commercial_loan where loan_create_id='$loan_id_bor'");
-while ($row_installment = mysqli_fetch_array($sql_installment)) {
+$sql_installment = $con->query("select first_payment, last_payment,total_payments from tbl_commercial_loan where loan_create_id='$loan_id_bor'");
+while ($row_installment = $sql_installment->fetch_array()) {
   $first_payment  = (float)($row_installment['first_payment']  ?? 0);
   $last_payment   = (float)($row_installment['last_payment']   ?? 0);
   $count_payments = (int)  ($row_installment['total_payments'] ?? 0);
 }
 
-$sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id desc limit 1");
-while ($row_installment = mysqli_fetch_array($sql_installment)) {
+$sql_installment = $con->query("select payment, payment_date from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id desc limit 1");
+while ($row_installment = $sql_installment->fetch_array()) {
   $last_payment_date =  $row_installment['payment_date'];
 }
 
 
-// $sql_installment = mysqli_query($con, "select  as count from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
-// while ($row_installment = mysqli_fetch_array($sql_installment)) {
+// $sql_installment = $con->query("select  as count from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
+// while ($row_installment = $sql_installment->fetch_array()) {
 //   $count_payments = $row_installment['count'];
 // }
 
@@ -250,8 +250,8 @@ $second_payment = 0;
 
 if ($count_payments > 2) {
   $count_payments = $count_payments - 2;
-  $sql_installment = mysqli_query($con, "select payment from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id asc limit 2");
-  while ($row_installment = mysqli_fetch_array($sql_installment)) {
+  $sql_installment = $con->query("select payment from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id asc limit 2");
+  while ($row_installment = $sql_installment->fetch_array()) {
     $second_payment = (float)filter_var($row_installment['payment'] ?? 0, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
   }
 }
@@ -1013,9 +1013,9 @@ $pdf->Output();
 // $date_last_7days = date('Y-m-d',time()-(7*86400)); 
 // echo "Fnd ID: $date_last_7days<br>";
 
-// $sql=mysqli_query($con, "select * from loan_transaction where created_at >='$date_last_7days'"); 
+// $sql=$con->query("select * from loan_transaction where created_at >='$date_last_7days'"); 
 
-// while($row = mysqli_fetch_array($sql)) {
+// while($row = $sql->fetch_array()) {
 // $mobile_verification = $row['user_fnd_id'];
 // $loan_create_id = $row['loan_create_id'];
 

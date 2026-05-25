@@ -19,14 +19,14 @@ require_once __DIR__ . '/contract_pdf_fields.php';
 
 /** Fetch every coord row for one template keyed by page_num → list of rows. */
 function _load_template_coords($con, $template) {
-    $tpl_escaped = mysqli_real_escape_string($con, $template);
+    $tpl_escaped = $con->real_escape_string($template);
     $sql = "SELECT page_num, field_key, field_type, x_mm, y_mm, w_mm, h_mm, font_size, align
             FROM contract_field_coords
             WHERE template = '$tpl_escaped'
             ORDER BY page_num, field_key";
-    $res = mysqli_query($con, $sql);
+    $res = $con->query($sql);
     $by_page = [];
-    while ($res && $r = mysqli_fetch_assoc($res)) {
+    while ($res && $r = $res->fetch_assoc()) {
         $by_page[(int)$r['page_num']][] = $r;
     }
     return $by_page;

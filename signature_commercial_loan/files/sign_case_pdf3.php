@@ -9,9 +9,9 @@ echo "idddd" . $iddd;
 
 //echo "key is".$mail_key;
 
-$sql1 = mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$iddd' ");
+$sql1 = $con->query("select * from commercial_loan_initial_banking where email_key='$iddd' ");
 
-while ($row1 = mysqli_fetch_array($sql1)) {
+while ($row1 = $sql1->fetch_array()) {
 
   $mail_key = $row1['email_key'];
   $signed_status = $row1['sign_status'];
@@ -40,8 +40,8 @@ $result_sig_co_borrow = $url_logo . '/doc_signs_coborrow/' . $img_signed_co_borr
 
 
 
-$sql2 = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' ");
-while ($row2 = mysqli_fetch_array($sql2)) {
+$sql2 = $con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' ");
+while ($row2 = $sql2->fetch_array()) {
   $ff_name = $row2['first_name'];
   $l_name = $row2['last_name'];
   $f_name = $ff_name . ' ' . $l_name;
@@ -67,8 +67,8 @@ if (count($images) > 0) { // make sure at least one image exists
 }
 
 $business_name = "";
-$sql2 = mysqli_query($con, "select business_name from tbl_business_info where user_fnd_id='$fnd_id' ");
-while ($row2 = mysqli_fetch_array($sql2)) {
+$sql2 = $con->query("select business_name from tbl_business_info where user_fnd_id='$fnd_id' ");
+while ($row2 = $sql2->fetch_array()) {
   $business_name = $row2['business_name'];
 }
 

@@ -78,34 +78,23 @@ $filename_sig          = save_signature_png($sig_b64,      './doc_signs');
 $filename_initial      = save_signature_png($initial_b64,  './doc_initials');
 $filename_sig_coborrow = save_signature_png($coborrow_b64, './doc_signs_coborrow');
 
-// Update the loan banking row. Use a prepared statement so the key
-// can't be used for SQL injection.
-if ($key !== '' && $stmt = mysqli_prepare($con, "UPDATE commercial_loan_initial_banking
-    SET sign_status='1', signed_pic=?, initial_pic=?, sig_coborrow_pic=?, co_borrow_name=?, co_borrow_mobile=?
-    WHERE email_key=?")) {
-    mysqli_stmt_bind_param(
-        $stmt, 'ssssss',
-        $filename_sig, $filename_initial, $filename_sig_coborrow,
-        $co_borrow_name, $co_borrow_mobile, $key
+// Update the loan banking row. Parameterized so the key can't be used for SQL injection.
+if ($key !== '') {
+    $con->query(
+        "UPDATE commercial_loan_initial_banking
+            SET sign_status='1', signed_pic=?, initial_pic=?, sig_coborrow_pic=?, co_borrow_name=?, co_borrow_mobile=?
+            WHERE email_key=?",
+        [$filename_sig, $filename_initial, $filename_sig_coborrow, $co_borrow_name, $co_borrow_mobile, $key]
     );
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
 
     // Flag the loan itself as signed
     $loan_id = '';
-    if ($stmt2 = mysqli_prepare($con, "SELECT loan_id FROM commercial_loan_initial_banking WHERE email_key=?")) {
-        mysqli_stmt_bind_param($stmt2, 's', $key);
-        mysqli_stmt_execute($stmt2);
-        $res = mysqli_stmt_get_result($stmt2);
-        if ($row = mysqli_fetch_assoc($res)) {
-            $loan_id = $row['loan_id'];
-        }
-        mysqli_stmt_close($stmt2);
+    $res = $con->query("SELECT loan_id FROM commercial_loan_initial_banking WHERE email_key=?", [$key]);
+    if ($res && ($row = $res->fetch_assoc())) {
+        $loan_id = $row['loan_id'];
     }
-    if ($loan_id !== '' && $stmt3 = mysqli_prepare($con, "UPDATE tbl_commercial_loan SET sign_status='1' WHERE loan_create_id=?")) {
-        mysqli_stmt_bind_param($stmt3, 's', $loan_id);
-        mysqli_stmt_execute($stmt3);
-        mysqli_stmt_close($stmt3);
+    if ($loan_id !== '') {
+        $con->query("UPDATE tbl_commercial_loan SET sign_status='1' WHERE loan_create_id=?", [$loan_id]);
     }
 }
 

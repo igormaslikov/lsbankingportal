@@ -22,14 +22,12 @@ $url_logo = sig_base_url() . 'signature_commercial_loan/completed';
 
 $iddd = $_GET['id'] ?? '';
 
-// Prepared statement — email_key comes from an untrusted URL parameter.
+// Parameterized query — email_key comes from an untrusted URL parameter.
 $signed_status = null;
 $row1 = null;
-if ($iddd !== '' && $stmt = mysqli_prepare($con, "select * from commercial_loan_initial_banking where email_key = ?")) {
-    mysqli_stmt_bind_param($stmt, 's', $iddd);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    if ($result && ($row1 = mysqli_fetch_assoc($result))) {
+if ($iddd !== '') {
+    $result = $con->query("select * from commercial_loan_initial_banking where email_key = ?", [$iddd]);
+    if ($result && ($row1 = $result->fetch_assoc())) {
         $mail_key        = $row1['email_key'];
         $signed_status   = $row1['sign_status'];
         $creation_date   = $row1['creation_date'];
@@ -45,7 +43,6 @@ if ($iddd !== '' && $stmt = mysqli_prepare($con, "select * from commercial_loan_
         $img_signed      = $row1['signed_pic'];
         $result_sig      = $url_logo . '/doc_signs/' . $img_signed;
     }
-    mysqli_stmt_close($stmt);
 }
 
 // ---------- Contract NOT found ----------
@@ -110,22 +107,22 @@ if ((int)$signed_status > 0) {
 }
 
 // ---------- Fetch the loan + customer for display context ----------
-$loan_id_bor_esc = mysqli_real_escape_string($con, (string)$loan_id_bor);
-$sql_loan = mysqli_query($con, "select * from tbl_commercial_loan where loan_id = '$loan_id_bor_esc'");
+$loan_id_bor_esc = $con->real_escape_string((string)$loan_id_bor);
+$sql_loan = $con->query("select * from tbl_commercial_loan where loan_id = '$loan_id_bor_esc'");
 $amount_of_loan = '';
 $payment_date = '';
 $payoff = '';
-if ($sql_loan && ($row_loan = mysqli_fetch_array($sql_loan))) {
+if ($sql_loan && ($row_loan = $sql_loan->fetch_array())) {
     $amount_of_loan = $row_loan['amount_of_loan'];
     $payment_date   = $row_loan['payment_date'];
     $payoff         = $row_loan['loan_total_payable'];
 }
 
-$fnd_id_esc = mysqli_real_escape_string($con, (string)$fnd_id);
-$sql2 = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id = '$fnd_id_esc'");
+$fnd_id_esc = $con->real_escape_string((string)$fnd_id);
+$sql2 = $con->query("select * from fnd_user_profile where user_fnd_id = '$fnd_id_esc'");
 $f_name = $l_name = $address = $city = $state = $zip = $mobile_number = '';
 $has_co_borrow = false;
-if ($sql2 && ($row2 = mysqli_fetch_array($sql2))) {
+if ($sql2 && ($row2 = $sql2->fetch_array())) {
     $f_name        = $row2['first_name'];
     $l_name        = $row2['last_name'];
     $address       = $row2['address'];

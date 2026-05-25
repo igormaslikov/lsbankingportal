@@ -9,9 +9,9 @@ echo "idddd" . $iddd;
 
 //echo "key is".$mail_key;
 
-$sql1 = mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$iddd' ");
+$sql1 = $con->query("select * from commercial_loan_initial_banking where email_key='$iddd' ");
 
-while ($row1 = mysqli_fetch_array($sql1)) {
+while ($row1 = $sql1->fetch_array()) {
 
   $mail_key = $row1['email_key'];
   $signed_status = $row1['sign_status'];
@@ -42,9 +42,9 @@ while ($row1 = mysqli_fetch_array($sql1)) {
 //echo "ID is".$loan_id;
 
 
-$sql_loan = mysqli_query($con, "select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' ");
+$sql_loan = $con->query("select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' ");
 
-while ($row_loan = mysqli_fetch_array($sql_loan)) {
+while ($row_loan = $sql_loan->fetch_array()) {
 
 
   $principal_f = $row_loan['amount_of_loan'];
@@ -111,9 +111,9 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
 
 }
 
-// $sql_loan_settings = mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'");
+// $sql_loan_settings = $con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'");
 
-// while ($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+// while ($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 //   $loan_fee = $row_loan_settings['loan_fee'];
 //   $loan_payable = $row_loan_settings['payoff_amount'];
@@ -124,8 +124,8 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
 // $anual_pr = $calculation;
 
 
-$sql2 = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' ");
-while ($row2 = mysqli_fetch_array($sql2)) {
+$sql2 = $con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' ");
+while ($row2 = $sql2->fetch_array()) {
   $ff_name = $row2['first_name'];
   $l_name = $row2['last_name'];
   $f_name = $ff_name . ' ' . $l_name;
@@ -138,8 +138,8 @@ while ($row2 = mysqli_fetch_array($sql2)) {
 }
 
 
-// $sql_installment = mysqli_query($con, "select * from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
-// while ($row_installment = mysqli_fetch_array($sql_installment)) {
+// $sql_installment = $con->query("select * from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
+// while ($row_installment = $sql_installment->fetch_array()) {
 //   $payment_install = $row_installment['payment'];
 //   $payment_date_install = $row_installment['payment_date'];
 //   $timestampp = strtotime($payment_date_install);
@@ -148,20 +148,20 @@ while ($row2 = mysqli_fetch_array($sql2)) {
 // }
 
 
-$sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 1");
-while ($row_installment = mysqli_fetch_array($sql_installment)) {
+$sql_installment = $con->query("select payment, payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 1");
+while ($row_installment = $sql_installment->fetch_array()) {
   $fitst_payment = $row_installment['payment'];
   $fitst_payment_date = $row_installment['payment_date'];
 }
 
-$sql_installment = mysqli_query($con, "select payment, payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id desc limit 1");
-while ($row_installment = mysqli_fetch_array($sql_installment)) {
+$sql_installment = $con->query("select payment, payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id desc limit 1");
+while ($row_installment = $sql_installment->fetch_array()) {
   $last_payment = $row_installment['payment'];
   $last_payment_date =  $row_installment['payment_date'];
 }
 
-$sql_installment = mysqli_query($con, "select count(id) as count from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
-while ($row_installment = mysqli_fetch_array($sql_installment)) {
+$sql_installment = $con->query("select count(id) as count from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor");
+while ($row_installment = $sql_installment->fetch_array()) {
   $count_payments = $row_installment['count'];
 }
 
@@ -169,8 +169,8 @@ $second_payment = 0;
 
 if ($count_payments > 2) {
   $count_payments = $count_payments - 2;
-  $sql_installment = mysqli_query($con, "select payment from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 2");
-  while ($row_installment = mysqli_fetch_array($sql_installment)) {
+  $sql_installment = $con->query("select payment from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id asc limit 2");
+  while ($row_installment = $sql_installment->fetch_array()) {
     $second_payment = $row_installment['payment'];
   }
 }
@@ -178,16 +178,16 @@ if ($count_payments > 2) {
 $count_payments = $count_payments <= 2 ? "" : $count_payments;
 $second_payment = $second_payment == 0 ? "": $second_payment;
 
-// $sql_installment = mysqli_query($con, "SELECT count(loan_id) as count, loan_create_id FROM tbl_commercial_loan WHERE user_fnd_id = $fnd_id order by loan_id desc limit 2");
-// while ($row_installment = mysqli_fetch_array($sql_installment)) {
+// $sql_installment = $con->query("SELECT count(loan_id) as count, loan_create_id FROM tbl_commercial_loan WHERE user_fnd_id = $fnd_id order by loan_id desc limit 2");
+// while ($row_installment = $sql_installment->fetch_array()) {
 //   $count = $row_installment['count'];
 //   $previous_loan_id = $row_installment['loan_create_id'];
 // }
 
 // $in_hand = 0;
 // if($count>1){
-//   $sql_installment = mysqli_query($con, "SELECT SUM(payment) as in_hand FROM `tbl_commercial_loan_installments` where `loan_create_id`= $previous_loan_id and `status` = 0 order by id desc");
-//   while ($row_installment = mysqli_fetch_array($sql_installment)) {
+//   $sql_installment = $con->query("SELECT SUM(payment) as in_hand FROM `tbl_commercial_loan_installments` where `loan_create_id`= $previous_loan_id and `status` = 0 order by id desc");
+//   while ($row_installment = $sql_installment->fetch_array()) {
 //     $in_hand = $row_installment['in_hand'];
 //   }
 // }

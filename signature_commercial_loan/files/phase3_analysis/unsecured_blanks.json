@@ -1,0 +1,870 @@
+[
+ {
+  "page": 1,
+  "x": 79.2,
+  "y": 607.1,
+  "w": 248.4,
+  "label": "X"
+ },
+ {
+  "page": 1,
+  "x": 434.8,
+  "y": 607.1,
+  "w": 99.3,
+  "label": "_____________"
+ },
+ {
+  "page": 1,
+  "x": 79.2,
+  "y": 682.1,
+  "w": 248.4,
+  "label": "X"
+ },
+ {
+  "page": 1,
+  "x": 434.8,
+  "y": 682.1,
+  "w": 99.3,
+  "label": "_____________"
+ },
+ {
+  "page": 2,
+  "x": 79.2,
+  "y": 606.5,
+  "w": 248.4,
+  "label": "X"
+ },
+ {
+  "page": 2,
+  "x": 434.8,
+  "y": 606.5,
+  "w": 99.3,
+  "label": "_____________"
+ },
+ {
+  "page": 2,
+  "x": 79.2,
+  "y": 681.5,
+  "w": 248.4,
+  "label": "X"
+ },
+ {
+  "page": 2,
+  "x": 434.8,
+  "y": 681.5,
+  "w": 99.3,
+  "label": "_____________"
+ },
+ {
+  "page": 3,
+  "x": 104.1,
+  "y": 40.6,
+  "w": 98.7,
+  "label": "Contract No:"
+ },
+ {
+  "page": 3,
+  "x": 458.4,
+  "y": 46.3,
+  "w": 76.6,
+  "label": "Date:"
+ },
+ {
+  "page": 3,
+  "x": 105.5,
+  "y": 54.9,
+  "w": 175.3,
+  "label": "Borrower:"
+ },
+ {
+  "page": 3,
+  "x": 105.0,
+  "y": 68.4,
+  "w": 175.2,
+  "label": ""
+ },
+ {
+  "page": 3,
+  "x": 107.1,
+  "y": 81.0,
+  "w": 175.3,
+  "label": ""
+ },
+ {
+  "page": 3,
+  "x": 104.9,
+  "y": 94.4,
+  "w": 175.3,
+  "label": "Co-Borrower"
+ },
+ {
+  "page": 3,
+  "x": 104.0,
+  "y": 108.7,
+  "w": 175.3,
+  "label": ""
+ },
+ {
+  "page": 3,
+  "x": 104.0,
+  "y": 122.1,
+  "w": 175.2,
+  "label": ""
+ },
+ {
+  "page": 3,
+  "x": 102.3,
+  "y": 135.9,
+  "w": 176.0,
+  "label": "Business:"
+ },
+ {
+  "page": 3,
+  "x": 103.8,
+  "y": 148.2,
+  "w": 176.0,
+  "label": ""
+ },
+ {
+  "page": 3,
+  "x": 103.8,
+  "y": 161.4,
+  "w": 176.0,
+  "label": ""
+ },
+ {
+  "page": 3,
+  "x": 72.3,
+  "y": 233.9,
+  "w": 62.5,
+  "label": ""
+ },
+ {
+  "page": 3,
+  "x": 184.8,
+  "y": 233.9,
+  "w": 80.5,
+  "label": "______________% $"
+ },
+ {
+  "page": 3,
+  "x": 323.3,
+  "y": 233.9,
+  "w": 80.5,
+  "label": "$__________________ $"
+ },
+ {
+  "page": 3,
+  "x": 430.9,
+  "y": 233.9,
+  "w": 80.5,
+  "label": "___ $__________________ $"
+ },
+ {
+  "page": 3,
+  "x": 331.4,
+  "y": 300.1,
+  "w": 53.8,
+  "label": "1 Due"
+ },
+ {
+  "page": 3,
+  "x": 427.4,
+  "y": 300.1,
+  "w": 49.2,
+  "label": "Due ____________, beginning"
+ },
+ {
+  "page": 3,
+  "x": 331.4,
+  "y": 321.6,
+  "w": 53.8,
+  "label": "Due"
+ },
+ {
+  "page": 3,
+  "x": 342.9,
+  "y": 343.1,
+  "w": 53.8,
+  "label": "Last Payment of Due on"
+ },
+ {
+  "page": 3,
+  "x": 228.5,
+  "y": 395.2,
+  "w": 31.4,
+  "label": "igination Fee: A prepaid finance charge for $"
+ },
+ {
+  "page": 3,
+  "x": 515.9,
+  "y": 733.2,
+  "w": 60.3,
+  "label": "Initials"
+ },
+ {
+  "page": 4,
+  "x": 206.5,
+  "y": 98.7,
+  "w": 234.3,
+  "label": "Borrower Name/Nombre del Deudor:"
+ },
+ {
+  "page": 4,
+  "x": 206.8,
+  "y": 114.7,
+  "w": 234.4,
+  "label": "Loan Number/Numero de Prestamo:"
+ },
+ {
+  "page": 4,
+  "x": 208.3,
+  "y": 442.3,
+  "w": 318.9,
+  "label": "at Borrower’s physical address, being:"
+ },
+ {
+  "page": 4,
+  "x": 36.0,
+  "y": 670.5,
+  "w": 251.5,
+  "label": ""
+ },
+ {
+  "page": 4,
+  "x": 552.0,
+  "y": 716.3,
+  "w": 16.7,
+  "label": "ancial Solutions Inc"
+ },
+ {
+  "page": 4,
+  "x": 36.0,
+  "y": 718.4,
+  "w": 251.5,
+  "label": ""
+ },
+ {
+  "page": 5,
+  "x": 133.4,
+  "y": 44.5,
+  "w": 98.6,
+  "label": "Numero de Contrato:"
+ },
+ {
+  "page": 5,
+  "x": 497.0,
+  "y": 45.3,
+  "w": 76.6,
+  "label": "Fecha:"
+ },
+ {
+  "page": 5,
+  "x": 132.7,
+  "y": 61.1,
+  "w": 175.1,
+  "label": "Prestatario:"
+ },
+ {
+  "page": 5,
+  "x": 132.5,
+  "y": 74.6,
+  "w": 175.3,
+  "label": ""
+ },
+ {
+  "page": 5,
+  "x": 131.7,
+  "y": 90.9,
+  "w": 175.1,
+  "label": ""
+ },
+ {
+  "page": 5,
+  "x": 130.9,
+  "y": 104.3,
+  "w": 175.1,
+  "label": "Co-Prestatario:"
+ },
+ {
+  "page": 5,
+  "x": 131.7,
+  "y": 117.7,
+  "w": 175.1,
+  "label": ""
+ },
+ {
+  "page": 5,
+  "x": 131.7,
+  "y": 131.2,
+  "w": 175.1,
+  "label": ""
+ },
+ {
+  "page": 5,
+  "x": 132.1,
+  "y": 148.7,
+  "w": 176.0,
+  "label": "Negocio:"
+ },
+ {
+  "page": 5,
+  "x": 131.9,
+  "y": 161.9,
+  "w": 176.0,
+  "label": ""
+ },
+ {
+  "page": 5,
+  "x": 131.9,
+  "y": 175.1,
+  "w": 176.0,
+  "label": ""
+ },
+ {
+  "page": 5,
+  "x": 72.3,
+  "y": 278.4,
+  "w": 62.5,
+  "label": ""
+ },
+ {
+  "page": 5,
+  "x": 205.9,
+  "y": 278.4,
+  "w": 80.5,
+  "label": "______________% $"
+ },
+ {
+  "page": 5,
+  "x": 326.6,
+  "y": 278.4,
+  "w": 80.5,
+  "label": "$__________________ $"
+ },
+ {
+  "page": 5,
+  "x": 474.7,
+  "y": 278.4,
+  "w": 80.5,
+  "label": "$__________________ $"
+ },
+ {
+  "page": 5,
+  "x": 335.9,
+  "y": 324.7,
+  "w": 53.6,
+  "label": "1 Pago"
+ },
+ {
+  "page": 5,
+  "x": 447.3,
+  "y": 324.7,
+  "w": 49.2,
+  "label": "Pago ____________, empezando el"
+ },
+ {
+  "page": 5,
+  "x": 339.4,
+  "y": 343.7,
+  "w": 53.6,
+  "label": "Pagos"
+ },
+ {
+  "page": 5,
+  "x": 367.9,
+  "y": 366.1,
+  "w": 53.8,
+  "label": "timo Pago de Que vence en"
+ },
+ {
+  "page": 5,
+  "x": 322.7,
+  "y": 416.9,
+  "w": 35.9,
+  "label": "regara un cargo prepago de financiamiento por $"
+ },
+ {
+  "page": 5,
+  "x": 515.9,
+  "y": 725.0,
+  "w": 60.3,
+  "label": "Iniciales"
+ },
+ {
+  "page": 6,
+  "x": 206.5,
+  "y": 69.8,
+  "w": 234.3,
+  "label": "Borrower Name/Nombre del Deudor:"
+ },
+ {
+  "page": 6,
+  "x": 203.7,
+  "y": 85.6,
+  "w": 234.4,
+  "label": "Loan Number/Numero de Prestamo:"
+ },
+ {
+  "page": 6,
+  "x": 194.4,
+  "y": 396.1,
+  "w": 257.9,
+  "label": "dirección física del prestatario, siendo:"
+ },
+ {
+  "page": 6,
+  "x": 36.0,
+  "y": 657.5,
+  "w": 251.5,
+  "label": ""
+ },
+ {
+  "page": 6,
+  "x": 564.4,
+  "y": 692.4,
+  "w": 16.7,
+  "label": "cial Solutions Inc"
+ },
+ {
+  "page": 6,
+  "x": 36.0,
+  "y": 705.3,
+  "w": 251.5,
+  "label": ""
+ },
+ {
+  "page": 7,
+  "x": 206.7,
+  "y": 57.5,
+  "w": 234.3,
+  "label": "Borrower Name/Nombre del Deudor:"
+ },
+ {
+  "page": 7,
+  "x": 206.8,
+  "y": 73.5,
+  "w": 234.4,
+  "label": "Loan Number/Numero de Prestamo:"
+ },
+ {
+  "page": 7,
+  "x": 205.8,
+  "y": 89.5,
+  "w": 234.3,
+  "label": "Date/Fecha:"
+ },
+ {
+  "page": 7,
+  "x": 82.8,
+  "y": 230.9,
+  "w": 57.5,
+  "label": "of"
+ },
+ {
+  "page": 7,
+  "x": 371.4,
+  "y": 232.7,
+  "w": 53.6,
+  "label": "s paid. We will calculate del"
+ },
+ {
+  "page": 7,
+  "x": 359.9,
+  "y": 450.9,
+  "w": 69.1,
+  "label": ""
+ },
+ {
+  "page": 7,
+  "x": 187.9,
+  "y": 465.6,
+  "w": 74.2,
+  "label": "all amounts outstanding on"
+ },
+ {
+  "page": 7,
+  "x": 127.1,
+  "y": 709.8,
+  "w": 63.6,
+  "label": "Initials/Iniciales:"
+ },
+ {
+  "page": 8,
+  "x": 206.5,
+  "y": 60.1,
+  "w": 234.3,
+  "label": "Borrower Name/Nombre del Deudor:"
+ },
+ {
+  "page": 8,
+  "x": 203.7,
+  "y": 75.9,
+  "w": 234.4,
+  "label": "Loan Number/Numero de Prestamo:"
+ },
+ {
+  "page": 8,
+  "x": 205.8,
+  "y": 91.9,
+  "w": 234.3,
+  "label": "Date/Fecha:"
+ },
+ {
+  "page": 8,
+  "x": 123.5,
+  "y": 707.3,
+  "w": 63.6,
+  "label": "Initials/Iniciales:"
+ },
+ {
+  "page": 9,
+  "x": 206.5,
+  "y": 85.6,
+  "w": 234.3,
+  "label": "Borrower Name/Nombre del Deudor:"
+ },
+ {
+  "page": 9,
+  "x": 203.8,
+  "y": 101.6,
+  "w": 234.4,
+  "label": "Loan Number/Numero de Prestamo:"
+ },
+ {
+  "page": 9,
+  "x": 205.8,
+  "y": 117.6,
+  "w": 234.3,
+  "label": "Date/Fecha:"
+ },
+ {
+  "page": 9,
+  "x": 36.0,
+  "y": 625.1,
+  "w": 174.6,
+  "label": ""
+ },
+ {
+  "page": 9,
+  "x": 225.1,
+  "y": 625.1,
+  "w": 67.2,
+  "label": "____________________________________"
+ },
+ {
+  "page": 9,
+  "x": 298.4,
+  "y": 625.1,
+  "w": 174.7,
+  "label": "____________________ _______________"
+ },
+ {
+  "page": 9,
+  "x": 491.6,
+  "y": 625.1,
+  "w": 67.2,
+  "label": "____________________________________"
+ },
+ {
+  "page": 10,
+  "x": 206.6,
+  "y": 72.1,
+  "w": 234.3,
+  "label": "Borrower Name/Nombre del Deudor:"
+ },
+ {
+  "page": 10,
+  "x": 203.7,
+  "y": 88.0,
+  "w": 234.4,
+  "label": "Loan Number/Numero de Prestamo:"
+ },
+ {
+  "page": 10,
+  "x": 205.8,
+  "y": 103.9,
+  "w": 234.3,
+  "label": "Date/Fecha:"
+ },
+ {
+  "page": 10,
+  "x": 36.0,
+  "y": 644.9,
+  "w": 218.7,
+  "label": ""
+ },
+ {
+  "page": 10,
+  "x": 38.4,
+  "y": 712.4,
+  "w": 223.7,
+  "label": ""
+ },
+ {
+  "page": 11,
+  "x": 206.6,
+  "y": 67.1,
+  "w": 234.3,
+  "label": "Borrower Name/Nombre del Deudor:"
+ },
+ {
+  "page": 11,
+  "x": 203.7,
+  "y": 83.1,
+  "w": 234.4,
+  "label": "Loan Number/Numero de Prestamo:"
+ },
+ {
+  "page": 11,
+  "x": 205.8,
+  "y": 99.1,
+  "w": 234.3,
+  "label": "Date/Fecha:"
+ },
+ {
+  "page": 11,
+  "x": 123.5,
+  "y": 727.7,
+  "w": 63.6,
+  "label": "Initials/Iniciales:"
+ },
+ {
+  "page": 12,
+  "x": 206.5,
+  "y": 67.1,
+  "w": 234.3,
+  "label": "Borrower Name/Nombre del Deudor:"
+ },
+ {
+  "page": 12,
+  "x": 203.8,
+  "y": 83.1,
+  "w": 234.4,
+  "label": "Loan Number/Numero de Prestamo:"
+ },
+ {
+  "page": 12,
+  "x": 205.8,
+  "y": 99.1,
+  "w": 234.3,
+  "label": "Date/Fecha:"
+ },
+ {
+  "page": 12,
+  "x": 36.0,
+  "y": 630.2,
+  "w": 217.7,
+  "label": ""
+ },
+ {
+  "page": 12,
+  "x": 36.0,
+  "y": 697.7,
+  "w": 222.7,
+  "label": ""
+ },
+ {
+  "page": 13,
+  "x": 206.7,
+  "y": 67.1,
+  "w": 234.3,
+  "label": "Borrower Name/Nombre del Deudor:"
+ },
+ {
+  "page": 13,
+  "x": 206.8,
+  "y": 83.1,
+  "w": 234.4,
+  "label": "Loan Number/Numero de Prestamo:"
+ },
+ {
+  "page": 13,
+  "x": 209.0,
+  "y": 99.1,
+  "w": 234.3,
+  "label": "Date/Fecha:"
+ },
+ {
+  "page": 13,
+  "x": 342.8,
+  "y": 547.8,
+  "w": 171.9,
+  "label": ""
+ },
+ {
+  "page": 13,
+  "x": 97.9,
+  "y": 549.9,
+  "w": 171.6,
+  "label": ""
+ },
+ {
+  "page": 13,
+  "x": 343.6,
+  "y": 599.6,
+  "w": 171.9,
+  "label": ""
+ },
+ {
+  "page": 13,
+  "x": 98.8,
+  "y": 601.6,
+  "w": 171.5,
+  "label": ""
+ },
+ {
+  "page": 13,
+  "x": 94.8,
+  "y": 664.4,
+  "w": 171.5,
+  "label": ""
+ },
+ {
+  "page": 13,
+  "x": 343.6,
+  "y": 666.3,
+  "w": 171.5,
+  "label": "_________________"
+ },
+ {
+  "page": 14,
+  "x": 206.5,
+  "y": 65.9,
+  "w": 234.3,
+  "label": "Borrower Name/Nombre del Deudor:"
+ },
+ {
+  "page": 14,
+  "x": 203.8,
+  "y": 81.9,
+  "w": 234.4,
+  "label": "Loan Number/Numero de Prestamo:"
+ },
+ {
+  "page": 14,
+  "x": 205.8,
+  "y": 97.9,
+  "w": 234.3,
+  "label": "Date/Fecha:"
+ },
+ {
+  "page": 14,
+  "x": 64.6,
+  "y": 184.3,
+  "w": 25.6,
+  "label": "xxxxxx"
+ },
+ {
+  "page": 14,
+  "x": 168.4,
+  "y": 184.3,
+  "w": 158.4,
+  "label": "xxxxxx_____(“Account”) at"
+ },
+ {
+  "page": 14,
+  "x": 279.7,
+  "y": 194.0,
+  "w": 35.7,
+  "label": "”). You authorize us to initiate debits of"
+ },
+ {
+  "page": 14,
+  "x": 467.9,
+  "y": 194.0,
+  "w": 61.4,
+  "label": "_____ (“scheduled debit amount”) Every"
+ },
+ {
+  "page": 14,
+  "x": 176.9,
+  "y": 203.8,
+  "w": 40.9,
+  "label": "payment due dates, beginning on"
+ },
+ {
+  "page": 14,
+  "x": 36.0,
+  "y": 656.3,
+  "w": 171.5,
+  "label": ""
+ },
+ {
+  "page": 14,
+  "x": 36.0,
+  "y": 693.9,
+  "w": 169.0,
+  "label": ""
+ },
+ {
+  "page": 15,
+  "x": 206.6,
+  "y": 92.8,
+  "w": 234.3,
+  "label": "Borrower Name/Nombre del Deudor:"
+ },
+ {
+  "page": 15,
+  "x": 203.7,
+  "y": 108.8,
+  "w": 234.4,
+  "label": "Loan Number/Numero de Prestamo:"
+ },
+ {
+  "page": 15,
+  "x": 205.8,
+  "y": 124.8,
+  "w": 234.3,
+  "label": "Date/Fecha:"
+ },
+ {
+  "page": 15,
+  "x": 506.6,
+  "y": 180.6,
+  "w": 25.6,
+  "label": "u cuenta de depósito terminada en xxxxxx"
+ },
+ {
+  "page": 15,
+  "x": 128.9,
+  "y": 190.3,
+  "w": 178.9,
+  "label": "(“Cuenta”) del banco"
+ },
+ {
+  "page": 15,
+  "x": 325.9,
+  "y": 200.0,
+  "w": 30.6,
+  "label": "os autoriza a comenzar a hacer débitos de $"
+ },
+ {
+  "page": 15,
+  "x": 36.0,
+  "y": 209.8,
+  "w": 81.8,
+  "label": ""
+ },
+ {
+  "page": 15,
+  "x": 330.1,
+  "y": 209.8,
+  "w": 61.4,
+  "label": "fechas de vencimiento del pago, a partir del"
+ },
+ {
+  "page": 15,
+  "x": 36.0,
+  "y": 666.8,
+  "w": 271.0,
+  "label": ""
+ },
+ {
+  "page": 15,
+  "x": 36.0,
+  "y": 703.5,
+  "w": 267.2,
+  "label": ""
+ }
+]

@@ -9,9 +9,9 @@ echo "idddd" . $iddd;
 
 //echo "key is".$mail_key;
 
-$sql1 = mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$iddd' ");
+$sql1 = $con->query("select * from commercial_loan_initial_banking where email_key='$iddd' ");
 
-while ($row1 = mysqli_fetch_array($sql1)) {
+while ($row1 = $sql1->fetch_array()) {
 
   $mail_key = $row1['email_key'];
   $signed_status = $row1['sign_status'];
@@ -43,9 +43,9 @@ while ($row1 = mysqli_fetch_array($sql1)) {
 //echo "ID is".$loan_id;
 
 
-$sql_loan = mysqli_query($con, "select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' ");
+$sql_loan = $con->query("select * from tbl_commercial_loan where loan_create_id= '$loan_id_bor' ");
 
-while ($row_loan = mysqli_fetch_array($sql_loan)) {
+while ($row_loan = $sql_loan->fetch_array()) {
 
 
   $principal_f = $row_loan['amount_of_loan'];
@@ -68,9 +68,9 @@ while ($row_loan = mysqli_fetch_array($sql_loan)) {
   $installment_plan = $row_loan['installment_plan'];
 }
 
-$sql_loan_settings = mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'");
+$sql_loan_settings = $con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'");
 
-while ($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while ($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
   $loan_fee = $row_loan_settings['loan_fee'];
   $loan_payable = $row_loan_settings['payoff_amount'];
@@ -81,8 +81,8 @@ $calculation = round($calculation, 2);
 $anual_pr = $calculation;
 
 
-$sql2 = mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' ");
-while ($row2 = mysqli_fetch_array($sql2)) {
+$sql2 = $con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' ");
+while ($row2 = $sql2->fetch_array()) {
   $ff_name = $row2['first_name'];
   $l_name = $row2['last_name'];
   $f_name = $ff_name . ' ' . $l_name;
@@ -109,8 +109,8 @@ if (count($images) > 0) { // make sure at least one image exists
 
 
 
-$sql_installment = mysqli_query($con, "select payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id desc limit 1");
-while ($row_installment = mysqli_fetch_array($sql_installment)) {
+$sql_installment = $con->query("select payment_date from tbl_commercial_loan_installments where loan_create_id=$loan_id_bor ORDER by id desc limit 1");
+while ($row_installment = $sql_installment->fetch_array()) {
   $last_payment_date =  $row_installment['payment_date'];
 }
 

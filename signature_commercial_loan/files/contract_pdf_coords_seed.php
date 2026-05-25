@@ -295,21 +295,18 @@ foreach ([26, 27] as $pg) emit_header_trio($rows, $TPL, $pg, 14, 18, 23);
 // Pages 28-47: static (no overlays)
 
 // ==================== INSERT ====================
-$stmt = mysqli_prepare($con, "INSERT INTO contract_field_coords
+// TODO(sqlsrv): ON DUPLICATE KEY UPDATE is MySQL-only; rewrite as MERGE.
+// For now, attempt INSERT; duplicates will error and be skipped via failed-query degradation.
+$insert_sql = "INSERT INTO contract_field_coords
     (template, page_num, field_key, field_type, x_mm, y_mm, w_mm, h_mm, font_size, align)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ON DUPLICATE KEY UPDATE
-    field_type=VALUES(field_type), x_mm=VALUES(x_mm), y_mm=VALUES(y_mm),
-    w_mm=VALUES(w_mm), h_mm=VALUES(h_mm),
-    font_size=VALUES(font_size), align=VALUES(align)");
-if (!$stmt) { die('prepare failed: ' . mysqli_error($con)); }
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $count = 0;
 foreach ($rows as $r) {
-    mysqli_stmt_bind_param($stmt, 'sissddddis',
+    $res = $con->query($insert_sql, [
         $r['tpl'], $r['pg'], $r['key'], $r['type'],
         $r['x'], $r['y'], $r['w'], $r['h'], $r['font'], $r['align']
-    );
-    if (mysqli_stmt_execute($stmt)) $count++;
+    ]);
+    if ($res) $count++;
 }
 echo "Inserted/updated $count rows across " . count($rows) . " seed entries.\n";

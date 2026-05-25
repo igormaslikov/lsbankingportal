@@ -178,8 +178,9 @@ function build_context_from_globals() {
     $ctx['veh'] = [];
     if (isset($GLOBALS['con'], $GLOBALS['fnd_id'])) {
         $fnd = $GLOBALS['fnd_id'];
-        $vq = mysqli_query($GLOBALS['con'], "select * from tbl_vehicle_info where user_fnd_id='$fnd' limit 1");
-        if ($vq && ($vr = mysqli_fetch_assoc($vq))) $ctx['veh'] = $vr;
+        // TODO: LIMIT needs ORDER BY for SQL Server OFFSET/FETCH — left as-is (single-row lookup likely OK without ORDER BY in practice)
+        $vq = $GLOBALS['con']->query("select TOP 1 * from tbl_vehicle_info where user_fnd_id='$fnd'");
+        if ($vq && ($vr = $vq->fetch_assoc())) $ctx['veh'] = $vr;
     }
     return $ctx;
 }

@@ -3,18 +3,18 @@
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql=mysqli_query($con, "select * from commercial_loan_initial_banking"); 
+$sql=$con->query("select * from commercial_loan_initial_banking"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $mail_key=$row['email_key'];
 
 }
 //echo "key is".$mail_key;
 
-$sql=mysqli_query($con, "select * from commercial_loan_initial_banking where email_key='$mail_key' "); 
+$sql=$con->query("select * from commercial_loan_initial_banking where email_key='$mail_key' "); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 $creation_date=$row['creation_date'];
@@ -25,9 +25,9 @@ $fnd_id=$row['user_fnd_id'];
 //echo "ID is".$loan_id;
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $f_name=$row['first_name'];
 $address=$row['address'];

@@ -23,11 +23,11 @@ if (isset($_POST['btnupload']) && isset($_FILES['imagee'])) {
     } elseif ($imgSize >= 5_000_000) {
         $upload_error = "File is too large (5 MB max).";
     } elseif ($tmp_dir && move_uploaded_file($tmp_dir, $upload_dir . $userpic)) {
-        $iddd_esc = mysqli_real_escape_string($con, (string)$iddd);
-        $userpic_esc = mysqli_real_escape_string($con, $userpic);
+        $iddd_esc = $con->real_escape_string((string)$iddd);
+        $userpic_esc = $con->real_escape_string($userpic);
         // NOTE: original code targeted `loan_initial_banking`; real table is
         // `commercial_loan_initial_banking` per the signer page.
-        mysqli_query($con, "UPDATE commercial_loan_initial_banking SET sign_status='1', signed_pic='$userpic_esc' WHERE email_key='$iddd_esc'");
+        $con->query("UPDATE commercial_loan_initial_banking SET sign_status='1', signed_pic='$userpic_esc' WHERE email_key='$iddd_esc'");
         header('Location: finish.php?id=' . urlencode((string)$iddd));
         exit;
     } else {
@@ -49,27 +49,24 @@ $customer_name = '';
 $amount_of_loan = '';
 $contract_date  = '';
 $signed_already = false;
-if ($iddd !== '' && $stmt = mysqli_prepare($con, "select user_fnd_id, loan_id, sign_status, creation_date from commercial_loan_initial_banking where email_key = ?")) {
-    mysqli_stmt_bind_param($stmt, 's', $iddd);
-    mysqli_stmt_execute($stmt);
-    $r = mysqli_stmt_get_result($stmt);
-    if ($row1 = mysqli_fetch_assoc($r)) {
+if ($iddd !== '') {
+    $r = $con->query("select user_fnd_id, loan_id, sign_status, creation_date from commercial_loan_initial_banking where email_key = ?", [$iddd]);
+    if ($r && ($row1 = $r->fetch_assoc())) {
         if ((int)$row1['sign_status'] > 0) { $signed_already = true; }
         $contract_date = $row1['creation_date'];
         $fnd_id = $row1['user_fnd_id'];
         $loan_id_bor = $row1['loan_id'];
-        $fnd_id_esc = mysqli_real_escape_string($con, (string)$fnd_id);
-        $q = mysqli_query($con, "select first_name, last_name from fnd_user_profile where user_fnd_id = '$fnd_id_esc'");
-        if ($q && ($p = mysqli_fetch_assoc($q))) {
+        $fnd_id_esc = $con->real_escape_string((string)$fnd_id);
+        $q = $con->query("select first_name, last_name from fnd_user_profile where user_fnd_id = '$fnd_id_esc'");
+        if ($q && ($p = $q->fetch_assoc())) {
             $customer_name = trim(($p['first_name'] ?? '') . ' ' . ($p['last_name'] ?? ''));
         }
-        $loan_id_esc = mysqli_real_escape_string($con, (string)$loan_id_bor);
-        $q = mysqli_query($con, "select amount_of_loan from tbl_commercial_loan where loan_id = '$loan_id_esc'");
-        if ($q && ($l = mysqli_fetch_assoc($q))) {
+        $loan_id_esc = $con->real_escape_string((string)$loan_id_bor);
+        $q = $con->query("select amount_of_loan from tbl_commercial_loan where loan_id = '$loan_id_esc'");
+        if ($q && ($l = $q->fetch_assoc())) {
             $amount_of_loan = $l['amount_of_loan'];
         }
     }
-    mysqli_stmt_close($stmt);
 }
 
 $contract_iframe_url = 'contract_pdf.php?id=' . urlencode((string)$iddd);

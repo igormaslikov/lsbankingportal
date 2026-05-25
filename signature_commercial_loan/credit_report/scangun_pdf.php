@@ -168,9 +168,9 @@ $style = array(
 */
 
 
-   $sql=mysqli_query($con, "select * from tbl_shipments where shipment_key = '$key1'"); 
+   $sql=$con->query("select * from tbl_shipments where shipment_key = '$key1'"); 
    
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 $shipment_id=$row[0];
 $Shipment_key1=$row[1];
 $Shipmentt_ID=$row[2];
@@ -214,9 +214,9 @@ $pdf->Text(115, 139, $Destination1);
 
 $i=180;
 
-$sqlitems=mysqli_query($con,"select * from tbl_shipments_items where shipment_key='$key1' AND status='1'");
+$sqlitems=$con->query("select * from tbl_shipments_items where shipment_key='$key1' AND status='1'");
 $barcode_items = "AMZN,PO:".$Shipmentt_ID;
-while($row = mysqli_fetch_array($sqlitems)) {
+while($row = $sqlitems->fetch_array()) {
 $item_id=$row['0'];
 $item_shipment_key=$row['1'];
 $item_Shipment_ID=$row['2'];
@@ -271,9 +271,9 @@ $pdf->write2DBarcode($Shipmentt_ID."U".str_pad($box_number,6,"0",STR_PAD_LEFT), 
 
 //End
 
-$sqlitems=mysqli_query($con,"select * from tbl_shipments_items where shipment_key='$key1' AND status='1'");
+$sqlitems=$con->query("select * from tbl_shipments_items where shipment_key='$key1' AND status='1'");
 $barcode_items = "";
-while($row = mysqli_fetch_array($sqlitems)) {
+while($row = $sqlitems->fetch_array()) {
 $item_id=$row['0'];
 $item_shipment_key=$row['1'];
 $item_Shipment_ID=$row['2'];
