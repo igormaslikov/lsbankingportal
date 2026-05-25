@@ -23,6 +23,9 @@ final class SqlServerResult
 
 	public function fetch_array($result_type = null)
 	{
+		if ($this->stmt === null || $this->stmt === false) {
+			return false;
+		}
 		if ($result_type === null) {
 			$result_type = defined('MYSQLI_BOTH') ? MYSQLI_BOTH : 3;
 		}
@@ -39,6 +42,9 @@ final class SqlServerResult
 
 	public function fetch_assoc()
 	{
+		if ($this->stmt === null || $this->stmt === false) {
+			return false;
+		}
 		return sqlsrv_fetch_array($this->stmt, SQLSRV_FETCH_ASSOC);
 	}
 }
@@ -55,9 +61,10 @@ final class SqlServerDb
 
 	public function query($sql, $params = [], array $options = [])
 	{
-		// STATIC cursor supports num_rows and works with aggregates/complex queries.
-		// KEYSET fails on aggregate queries (no unique key). Fall back to FORWARD if STATIC also fails.
-		$opt = array_merge(['Scrollable' => SQLSRV_CURSOR_STATIC], $options);
+		// CLIENT_BUFFERED supports num_rows + works with aggregates, and pulls the entire
+		// result set in one network round-trip — STATIC creates a server-side cursor that
+		// round-trips per fetch, which hangs over high-latency links (e.g. Tailscale).
+		$opt = array_merge(['Scrollable' => SQLSRV_CURSOR_CLIENT_BUFFERED], $options);
 		$stmt = sqlsrv_query($this->conn, $sql, $params, $opt);
 		if ($stmt === false) {
 			$stmt = sqlsrv_query($this->conn, $sql, $params, []);
@@ -65,7 +72,11 @@ final class SqlServerDb
 				$errors = sqlsrv_errors();
 				$msg = $errors ? $errors[0]['message'] : 'unknown error';
 				error_log("SqlServerDb::query FAILED: $msg | SQL: " . substr($sql, 0, 300));
-				return false;
+				// Return an empty SqlServerResult instead of bare false so callers
+				// that do `$res->fetch_array()` or `$res->num_rows` degrade to "no rows"
+				// instead of fataling with "Call to a member function ... on bool".
+				// Errors are still in the PHP error log for diagnosis.
+				return new SqlServerResult(false);
 			}
 		}
 		return new SqlServerResult($stmt);
