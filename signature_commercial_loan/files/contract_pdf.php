@@ -74,6 +74,19 @@ if ($__debug) {
         while ($r = $sql3dbg->fetch_assoc()) { $rows3[] = $r; }
     }
 
+    // When the requested key doesn't match, show recent existing keys so the
+    // caller can copy one and re-test the PDF flow with real data.
+    $recent_keys = [];
+    if (!$rows1) {
+        $sqlR = $con->query("SELECT TOP 20 email_key, user_fnd_id, loan_id, creation_date FROM commercial_loan_initial_banking ORDER BY creation_date DESC");
+        while ($r = $sqlR->fetch_assoc()) { $recent_keys[] = $r; }
+        $sqlC = $con->query("SELECT COUNT(*) AS total_rows FROM commercial_loan_initial_banking");
+        $totalRow = $sqlC ? $sqlC->fetch_assoc() : null;
+        $table_total_rows = $totalRow['total_rows'] ?? null;
+    } else {
+        $table_total_rows = null;
+    }
+
     echo json_encode([
         'email_key' => $iddd,
         'commercial_loan_initial_banking' => [
@@ -93,6 +106,8 @@ if ($__debug) {
             'columns' => $rows3[0] ?? null ? array_keys($rows3[0]) : [],
             'row' => $rows3[0] ?? null,
         ],
+        'commercial_loan_initial_banking_total_rows' => $table_total_rows,
+        'recent_existing_email_keys' => $recent_keys,
         'sqlsrv_errors' => function_exists('sqlsrv_errors') ? sqlsrv_errors() : null,
     ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     exit;
