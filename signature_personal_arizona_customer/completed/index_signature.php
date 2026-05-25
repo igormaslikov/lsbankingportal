@@ -1,20 +1,20 @@
-<?php
+﻿<?php
 
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql=mysqli_query($con, "select * from personal_loan_initial_banking"); 
+$sql=$con->query("select * from personal_loan_initial_banking"); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $mail_key=$row['email_key'];
 
 }
 //echo "key is".$mail_key;
 
-$sql=mysqli_query($con, "select * from personal_loan_initial_banking where email_key='$mail_key' "); 
+$sql=$con->query("select * from personal_loan_initial_banking where email_key='$mail_key' "); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $loan_id=$row['loan_id'];
 $creation_date=$row['creation_date'];
@@ -25,9 +25,9 @@ $fnd_id=$row['user_fnd_id'];
 //echo "ID is".$loan_id;
 
 
-$sql=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $f_name=$row['first_name'];
 $address=$row['address'];
@@ -608,13 +608,13 @@ body {margin-top: 0px;margin-left: 0px;}
 <IMG src="data:image/jpg;base64,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" id="p2img1"></DIV>
 
 
-<P class="p23 ft14">CONTRATO DE PRÉSTAMO DE PAGO Y DECLARACIÓN DE DIVULGACIÓN</P>
+<P class="p23 ft14">CONTRATO DE PRÃ‰STAMO DE PAGO Y DECLARACIÃ“N DE DIVULGACIÃ“N</P>
 <P class="p24 ft1">Prestamista: Optima Financial Solutions Inc 4645 Van Nuys Blvd # 202 Sherman Oaks, CA 91403</P>
 <TABLE cellpadding=0 cellspacing=0 class="t3">
 <TR>
 	<TD class="tr10 td24"><P class="p2 ft15">Fecha del Contrato:</P></TD>
 	<TD class="tr10 td25"><P class="p2 ft3">&nbsp;</P></TD>
-	<TD colspan=2 class="tr10 td26"><P class="p25 ft15">Número de Préstamo:</P></TD>
+	<TD colspan=2 class="tr10 td26"><P class="p25 ft15">NÃºmero de PrÃ©stamo:</P></TD>
 </TR>
 <TR>
 	<TD class="tr11 td24"><P class="p2 ft15">Prestatario:</P></TD>
@@ -623,13 +623,13 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr11 td27"><P class="p2 ft3">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD class="tr11 td24"><P class="p2 ft15">Dirección:</P></TD>
+	<TD class="tr11 td24"><P class="p2 ft15">DirecciÃ³n:</P></TD>
 	<TD class="tr11 td25"><P class="p2 ft3">&nbsp;</P></TD>
 	<TD class="tr11 td2"><P class="p2 ft3">&nbsp;</P></TD>
 	<TD class="tr11 td27"><P class="p2 ft3">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD class="tr1 td24"><P class="p2 ft15">Código postal:</P></TD>
+	<TD class="tr1 td24"><P class="p2 ft15">CÃ³digo postal:</P></TD>
 	<TD class="tr1 td25"><P class="p2 ft3">&nbsp;</P></TD>
 	<TD class="tr1 td2"><P class="p2 ft3">&nbsp;</P></TD>
 	<TD class="tr1 td27"><P class="p2 ft3">&nbsp;</P></TD>
@@ -642,7 +642,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD class="tr6 td31"><P class="p2 ft3">&nbsp;</P></TD>
-	<TD colspan=3 class="tr6 td32"><P class="p26 ft4">DECLARACIÓN FEDERAL DE DIVULGACIÓN DE VERDAD EN PRÉSTAMO</P></TD>
+	<TD colspan=3 class="tr6 td32"><P class="p26 ft4">DECLARACIÃ“N FEDERAL DE DIVULGACIÃ“N DE VERDAD EN PRÃ‰STAMO</P></TD>
 </TR>
 <TR>
 	<TD class="tr6 td33"><P class="p5 ft5">TASA DE PORCENTAJE</P></TD>
@@ -657,7 +657,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr6 td35"><P class="p2 ft3">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD class="tr6 td33"><P class="p8 ft6">El costo de su crédito</P></TD>
+	<TD class="tr6 td33"><P class="p8 ft6">El costo de su crÃ©dito</P></TD>
 	<TD class="tr6 td34"><P class="p7 ft6">El importe en dolares que le</P></TD>
 	<TD class="tr6 td11"><P class="p7 ft16">Cantidad de credito provista</P></TD>
 	<TD class="tr6 td35"><P class="p7 ft7">El monto que Habra pagado</P></TD>
@@ -682,12 +682,12 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 </TABLE>
 <P class="p16 ft7">Seguridad</P>
-<P class="p27 ft9"><SPAN class="ft7">*</SPAN><SPAN class="ft17">Su (s) pago (s) con fecha posterior y / o la Autorización de la Cámara de Compensación Automatizada ("ACHA") que, de ser así, se hacen / forman parte de este Acuerdo, como si se indicara completamente en este documento como garantía del préstamo.</SPAN></P>
-<P class="p28 ft7"><SPAN class="ft7">*</SPAN><SPAN class="ft18">Su asignación de salario, si se otorga, también es garantía para este préstamo.</SPAN></P>
+<P class="p27 ft9"><SPAN class="ft7">*</SPAN><SPAN class="ft17">Su (s) pago (s) con fecha posterior y / o la AutorizaciÃ³n de la CÃ¡mara de CompensaciÃ³n Automatizada ("ACHA") que, de ser asÃ­, se hacen / forman parte de este Acuerdo, como si se indicara completamente en este documento como garantÃ­a del prÃ©stamo.</SPAN></P>
+<P class="p28 ft7"><SPAN class="ft7">*</SPAN><SPAN class="ft18">Su asignaciÃ³n de salario, si se otorga, tambiÃ©n es garantÃ­a para este prÃ©stamo.</SPAN></P>
 <TABLE cellpadding=0 cellspacing=0 class="t4">
 <TR>
 	<TD class="tr9 td39"><P class="p2 ft5">CALENDARIO DE PAGO</P></TD>
-	<TD colspan=2 class="tr9 td40"><P class="p2 ft7">Su calendario de pago será:</P></TD>
+	<TD colspan=2 class="tr9 td40"><P class="p2 ft7">Su calendario de pago serÃ¡:</P></TD>
 	<TD class="tr9 td41"><P class="p2 ft3">&nbsp;</P></TD>
 </TR>
 <TR>
@@ -704,11 +704,11 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 </TABLE>
 <P class="p16 ft5">Pago por adelantado</P>
-<P class="p32 ft9">Un Consumidor puede cancelar futuras obligaciones de pago en un préstamo de día de pago, sin costos ni cargos financieros, a más tardar al final del segundo día hábil, inmediatamente después del día en que se ejecutó el préstamo de día de pago. Si paga anticipadamente, no tendrá derecho a un reembolso de una parte del cargo financiero. Consulte a continuación y / o la segunda página de este contrato para obtener información adicional sobre la falta de pago, el incumplimiento de pago, cualquier pago requerido en su totalidad antes de la fecha programada y los reembolsos y multas por pago anticipado.</P>
-<P class="p33 ft9">Al firmar este Contrato de préstamo y Declaración de divulgación (este "contrato") y aceptar un préstamo de Optima Financial Solutions Inc ("Prestador"), el prestatario abajo firmante ("yo", "usted", "prestatario") esta de acuerdo y acepta los términos y condiciones establecidas en todas las páginas de este contrato.</P>
-<P class="p34 ft19">ENTIENDO QUE SI AÚN DEBO EN UNO O MÁS PRÉSTAMOS DE DIA DE PAGO DESPUÉS DE 35 DÍAS, SE ME PERMITE ENTRAR EN UN PLAN DE REPAGO QUE ME DARÁ  AL MENOS 55 DÍAS  PARA REPAGAR EL PRESTAMOS EN PAGOS SIN CARGOS DE FINANCIAMIENTO, INTERESES, HONORARIOS O OTROS CARGOS DE CUALQUIER TIPO.</P>
-<P class="p35 ft20">ADVERTENCIA: ESTE PRÉSTAMO NO ESTÁ  INTENCIONADO A CUMPLIR CON LAS NECESIDADES FINANCIERAS A LARGO PLAZO. ESTE PRÉSTAMO DEBE SER USADO PARA CUMPLIR CON LAS NECESIDADES DE EFECTIVO A CORTO PLAZO. EL COSTO DE SU PRÉSTAMO PUEDE SER MAYOR QUE LOS PRÉSTAMOS OFRECIDOS POR OTRAS INSTITUCIONES DE PRÉSTAMOS. ESTE PRÉSTAMO ESTÁ  REGULADO POR EL DEPARTAMENTO DE REGULACIÓN FINANCIERA Y PROFESIONAL.</P>
-<P class="p36 ft20">NO SE PUEDE PROCESADO EN LA CORTE PENAL PARA RECOGER ESTE PRÉSTAMO.</P>
+<P class="p32 ft9">Un Consumidor puede cancelar futuras obligaciones de pago en un prÃ©stamo de dÃ­a de pago, sin costos ni cargos financieros, a mÃ¡s tardar al final del segundo dÃ­a hÃ¡bil, inmediatamente despuÃ©s del dÃ­a en que se ejecutÃ³ el prÃ©stamo de dÃ­a de pago. Si paga anticipadamente, no tendrÃ¡ derecho a un reembolso de una parte del cargo financiero. Consulte a continuaciÃ³n y / o la segunda pÃ¡gina de este contrato para obtener informaciÃ³n adicional sobre la falta de pago, el incumplimiento de pago, cualquier pago requerido en su totalidad antes de la fecha programada y los reembolsos y multas por pago anticipado.</P>
+<P class="p33 ft9">Al firmar este Contrato de prÃ©stamo y DeclaraciÃ³n de divulgaciÃ³n (este "contrato") y aceptar un prÃ©stamo de Optima Financial Solutions Inc ("Prestador"), el prestatario abajo firmante ("yo", "usted", "prestatario") esta de acuerdo y acepta los tÃ©rminos y condiciones establecidas en todas las pÃ¡ginas de este contrato.</P>
+<P class="p34 ft19">ENTIENDO QUE SI AÃšN DEBO EN UNO O MÃS PRÃ‰STAMOS DE DIA DE PAGO DESPUÃ‰S DE 35 DÃAS, SE ME PERMITE ENTRAR EN UN PLAN DE REPAGO QUE ME DARÃ  AL MENOS 55 DÃAS  PARA REPAGAR EL PRESTAMOS EN PAGOS SIN CARGOS DE FINANCIAMIENTO, INTERESES, HONORARIOS O OTROS CARGOS DE CUALQUIER TIPO.</P>
+<P class="p35 ft20">ADVERTENCIA: ESTE PRÃ‰STAMO NO ESTÃ  INTENCIONADO A CUMPLIR CON LAS NECESIDADES FINANCIERAS A LARGO PLAZO. ESTE PRÃ‰STAMO DEBE SER USADO PARA CUMPLIR CON LAS NECESIDADES DE EFECTIVO A CORTO PLAZO. EL COSTO DE SU PRÃ‰STAMO PUEDE SER MAYOR QUE LOS PRÃ‰STAMOS OFRECIDOS POR OTRAS INSTITUCIONES DE PRÃ‰STAMOS. ESTE PRÃ‰STAMO ESTÃ  REGULADO POR EL DEPARTAMENTO DE REGULACIÃ“N FINANCIERA Y PROFESIONAL.</P>
+<P class="p36 ft20">NO SE PUEDE PROCESADO EN LA CORTE PENAL PARA RECOGER ESTE PRÃ‰STAMO.</P>
 <TABLE cellpadding=0 cellspacing=0 class="t5">
 <TR>
 	<TD class="tr9 td20"><P class="p2 ft7">Firma del Prestatario</P></TD>
@@ -767,8 +767,8 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p65 ft31">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</P>
 <P class="p66 ft23">Authorization to make payments on my <SPAN class="ft29">Optima Financial Solutions Inc </SPAN>Loan # _______________ on continuig basis using the</P>
 <P class="p67 ft32">Credit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card Holder.</P>
-<P class="p68 ft23">Autorización para hacer pagos en mi cuenta de <SPAN class="ft29">Optima Financial Solutions Inc, </SPAN>Inc prestamo # _______________ sobre la base</P>
-<P class="p69 ft32">continua utilizando la tarjeta de crédito que se describe a continuación y los términos de este préstamo , a menos que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito .</P>
+<P class="p68 ft23">AutorizaciÃ³n para hacer pagos en mi cuenta de <SPAN class="ft29">Optima Financial Solutions Inc, </SPAN>Inc prestamo # _______________ sobre la base</P>
+<P class="p69 ft32">continua utilizando la tarjeta de crÃ©dito que se describe a continuaciÃ³n y los tÃ©rminos de este prÃ©stamo , a menos que se indique lo contrario por escrito por el titular de la Tarjeta de CrÃ©dito .</P>
 <P class="p70 ft23"><SPAN class="ft29">Type of Debit/Credit Card: </SPAN>_______________________________</P>
 <P class="p71 ft23"><SPAN class="ft29">Credit Card Number: </SPAN>____________________________________</P>
 <P class="p72 ft29">Expiration Date: <SPAN class="ft23">________________</SPAN></P>
@@ -779,7 +779,7 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p75 ft23"><SPAN class="ft29">Telephone: </SPAN>_______________________</P>
 <P class="p76 ft23">I, __________________________________, the undersigned hereby states that the above described Credit Card</P>
 <P class="p77 ft23">is in my name and that i authorize its charge to <SPAN class="ft29">Optima Financial Solutions Inc </SPAN>for full or partial payments.</P>
-<P class="p78 ft23">Yo , __________________________________, el abajo firmante de la tarjeta de crédito en mi nombre descrita</P>
+<P class="p78 ft23">Yo , __________________________________, el abajo firmante de la tarjeta de crÃ©dito en mi nombre descrita</P>
 <P class="p79 ft23">en la parte superior y que autorizo su cargos a <SPAN class="ft29">Optima Financial Solutions Inc </SPAN>para los pagos totales o parciales.</P>
 <P class="p80 ft33">____________________________________________________</P>
 <P class="p77 ft34">Cardholder's Signature/Firma del Titular de la Tarjeta de Credito/Debito</P>
@@ -805,7 +805,7 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p88 ft37">I (we) hereby authorize <SPAN class="ft36">Optima Financial Solutions Inc </SPAN>to initiate entries to my (our) checking/savings accounts at The Financial Institution listed below and, if necessary, initiate adjustments for any transactions credited/debited in error. This authority will remain in effect until <SPAN class="ft36">Optima Financial Solutions Inc </SPAN>is notified by me (us) in writing to cancel it in such time as to afford <SPAN class="ft36">Optima Financial Solutions Inc </SPAN>and The Financial Institution a reasonable opportunity to act on it.</P>
 </DIV>
 <DIV id="id5_2_2">
-<P class="p88 ft23">Yo (nosotros) autorizamos a <SPAN class="ft38">Optima Financial Solutions Inc </SPAN>a iniciar inscripciones a mi (nuestras) cuentas de cheques/ahorros en La Institución Financiera que se enumera a continuación y, si es necesario, iniciar ajustes por cualquier transacción acreditada o debitada por error. Esta autoridad permanecerá en vigor hasta que <SPAN class="ft38">Optima Financial Solutions Inc </SPAN>sea notificada por escrito (por escrito) para cancelarla en el tiempo que se dé a <SPAN class="ft38">Optima Financial Solutions Inc </SPAN>y La Institución Financiera una oportunidad razonable para actuar en ella.</P>
+<P class="p88 ft23">Yo (nosotros) autorizamos a <SPAN class="ft38">Optima Financial Solutions Inc </SPAN>a iniciar inscripciones a mi (nuestras) cuentas de cheques/ahorros en La InstituciÃ³n Financiera que se enumera a continuaciÃ³n y, si es necesario, iniciar ajustes por cualquier transacciÃ³n acreditada o debitada por error. Esta autoridad permanecerÃ¡ en vigor hasta que <SPAN class="ft38">Optima Financial Solutions Inc </SPAN>sea notificada por escrito (por escrito) para cancelarla en el tiempo que se dÃ© a <SPAN class="ft38">Optima Financial Solutions Inc </SPAN>y La InstituciÃ³n Financiera una oportunidad razonable para actuar en ella.</P>
 </DIV>
 </DIV>
 <DIV id="id5_3">
@@ -882,12 +882,12 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD rowspan=2 class="tr20 td59"><P class="p5 ft44">What?</P></TD>
-	<TD colspan=2 class="tr11 td48"><P class="p96 ft26">• Social Security number and income</P></TD>
+	<TD colspan=2 class="tr11 td48"><P class="p96 ft26">â€¢ Social Security number and income</P></TD>
 	<TD class="tr11 td49"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td60"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD colspan=2 rowspan=2 class="tr11 td48"><P class="p96 ft26">• Account balances and payment history</P></TD>
+	<TD colspan=2 rowspan=2 class="tr11 td48"><P class="p96 ft26">â€¢ Account balances and payment history</P></TD>
 	<TD class="tr18 td49"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr18 td60"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
@@ -898,7 +898,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD class="tr11 td59"><P class="p2 ft39">&nbsp;</P></TD>
-	<TD colspan=2 class="tr11 td48"><P class="p96 ft26">• Credit history and credit scores</P></TD>
+	<TD colspan=2 class="tr11 td48"><P class="p96 ft26">â€¢ Credit history and credit scores</P></TD>
 	<TD class="tr11 td49"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td60"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
@@ -910,11 +910,11 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD class="tr22 td59"><P class="p2 ft39">&nbsp;</P></TD>
-	<TD colspan=4 class="tr22 td56"><P class="p96 ft26">All financial companies need to share customer’s personal information to run their everyday business.</P></TD>
+	<TD colspan=4 class="tr22 td56"><P class="p96 ft26">All financial companies need to share customerâ€™s personal information to run their everyday business.</P></TD>
 </TR>
 <TR>
 	<TD rowspan=2 class="tr10 td59"><P class="p5 ft42">How?</P></TD>
-	<TD colspan=4 class="tr5 td56"><P class="p96 ft26">In the section below, we list the reasons financial companies can share their customers’ personal information; the</P></TD>
+	<TD colspan=4 class="tr5 td56"><P class="p96 ft26">In the section below, we list the reasons financial companies can share their customersâ€™ personal information; the</P></TD>
 </TR>
 <TR>
 	<TD colspan=3 rowspan=2 class="tr18 td51"><P class="p96 ft26">reasons Optima Financial Solutions Inc chooses to share; and whether you can limit this sharing.</P></TD>
@@ -957,7 +957,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr21 td77"><P class="p2 ft45">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD colspan=2 class="tr23 td78"><P class="p97 ft43">For our everyday business purposes –</P></TD>
+	<TD colspan=2 class="tr23 td78"><P class="p97 ft43">For our everyday business purposes â€“</P></TD>
 	<TD class="tr23 td79"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr23 td80"><P class="p99 ft22">Yes</P></TD>
 	<TD class="tr23 td81"><P class="p100 ft22">No</P></TD>
@@ -987,7 +987,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr5 td84"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD colspan=2 class="tr11 td78"><P class="p97 ft43">For our marketing purposes –</P></TD>
+	<TD colspan=2 class="tr11 td78"><P class="p97 ft43">For our marketing purposes â€“</P></TD>
 	<TD class="tr11 td79"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td80"><P class="p101 ft26">Yes</P></TD>
 	<TD class="tr11 td81"><P class="p100 ft22">No</P></TD>
@@ -1008,7 +1008,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD colspan=2 class="tr1 td78"><P class="p97 ft43">For joint marketing with other financial companies</P></TD>
 	<TD class="tr1 td79"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr1 td80"><P class="p98 ft22">No</P></TD>
-	<TD class="tr1 td81"><P class="p6 ft22">We don’t share</P></TD>
+	<TD class="tr1 td81"><P class="p6 ft22">We donâ€™t share</P></TD>
 </TR>
 <TR>
 	<TD colspan=2 class="tr17 td82"><P class="p2 ft39">&nbsp;</P></TD>
@@ -1017,10 +1017,10 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr17 td84"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD colspan=2 class="tr11 td78"><P class="p97 ft43">For our affiliates’ everyday business purposes –</P></TD>
+	<TD colspan=2 class="tr11 td78"><P class="p97 ft43">For our affiliatesâ€™ everyday business purposes â€“</P></TD>
 	<TD class="tr11 td79"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td80"><P class="p98 ft22">No</P></TD>
-	<TD class="tr11 td81"><P class="p6 ft22">We don’t share</P></TD>
+	<TD class="tr11 td81"><P class="p6 ft22">We donâ€™t share</P></TD>
 </TR>
 <TR>
 	<TD colspan=2 class="tr11 td78"><P class="p97 ft26">information about your transactions and experiences</P></TD>
@@ -1035,10 +1035,10 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr5 td84"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD colspan=2 class="tr1 td78"><P class="p97 ft43">For our affiliates’ everyday business purposes –</P></TD>
+	<TD colspan=2 class="tr1 td78"><P class="p97 ft43">For our affiliatesâ€™ everyday business purposes â€“</P></TD>
 	<TD class="tr1 td79"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr1 td80"><P class="p98 ft22">No</P></TD>
-	<TD class="tr1 td81"><P class="p6 ft22">We don’t share</P></TD>
+	<TD class="tr1 td81"><P class="p6 ft22">We donâ€™t share</P></TD>
 </TR>
 <TR>
 	<TD colspan=2 class="tr11 td78"><P class="p97 ft26">information about your creditworthiness</P></TD>
@@ -1056,7 +1056,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD colspan=2 class="tr11 td78"><P class="p97 ft43">For our affiliates to market to you</P></TD>
 	<TD class="tr11 td79"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td80"><P class="p98 ft22">No</P></TD>
-	<TD class="tr11 td81"><P class="p6 ft22">We don’t share</P></TD>
+	<TD class="tr11 td81"><P class="p6 ft22">We donâ€™t share</P></TD>
 </TR>
 <TR>
 	<TD colspan=2 class="tr17 td82"><P class="p2 ft39">&nbsp;</P></TD>
@@ -1068,7 +1068,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD colspan=2 class="tr1 td78"><P class="p97 ft43">For <NOBR>non-affiliates</NOBR> to market to you</P></TD>
 	<TD class="tr1 td79"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr1 td80"><P class="p98 ft22">No</P></TD>
-	<TD class="tr1 td81"><P class="p6 ft22">We don’t share</P></TD>
+	<TD class="tr1 td81"><P class="p6 ft22">We donâ€™t share</P></TD>
 </TR>
 <TR>
 	<TD class="tr17 td85"><P class="p2 ft39">&nbsp;</P></TD>
@@ -1169,13 +1169,13 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD rowspan=2 class="tr27 td104"><P class="p110 ft42">Que?</P></TD>
-	<TD colspan=2 class="tr11 td105"><P class="p108 ft26">• Numero de Seguro Social y Ingresos</P></TD>
+	<TD colspan=2 class="tr11 td105"><P class="p108 ft26">â€¢ Numero de Seguro Social y Ingresos</P></TD>
 	<TD class="tr11 td106"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td92"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td101"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD colspan=2 rowspan=2 class="tr11 td105"><P class="p108 ft26">• Saldos de cuentas e historial de pagos</P></TD>
+	<TD colspan=2 rowspan=2 class="tr11 td105"><P class="p108 ft26">â€¢ Saldos de cuentas e historial de pagos</P></TD>
 	<TD class="tr28 td106"><P class="p2 ft49">&nbsp;</P></TD>
 	<TD class="tr28 td92"><P class="p2 ft49">&nbsp;</P></TD>
 	<TD class="tr28 td101"><P class="p2 ft49">&nbsp;</P></TD>
@@ -1188,7 +1188,7 @@ body {margin-top: 0px;margin-left: 0px;}
 </TR>
 <TR>
 	<TD class="tr11 td104"><P class="p2 ft39">&nbsp;</P></TD>
-	<TD colspan=2 class="tr11 td105"><P class="p108 ft26">• Historial de credito</P></TD>
+	<TD colspan=2 class="tr11 td105"><P class="p108 ft26">â€¢ Historial de credito</P></TD>
 	<TD class="tr11 td106"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td92"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td101"><P class="p2 ft39">&nbsp;</P></TD>
@@ -1271,7 +1271,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr21 td125"><P class="p2 ft45">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD colspan=2 class="tr20 td126"><P class="p97 ft43">Para nuestras actividades diarias –</P></TD>
+	<TD colspan=2 class="tr20 td126"><P class="p97 ft43">Para nuestras actividades diarias â€“</P></TD>
 	<TD class="tr20 td127"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr20 td128"><P class="p112 ft22">Yes</P></TD>
 	<TD class="tr20 td129"><P class="p113 ft26">No</P></TD>
@@ -1299,7 +1299,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr5 td125"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD colspan=2 class="tr11 td126"><P class="p97 ft43">Para nuestras actividades comerciales –</P></TD>
+	<TD colspan=2 class="tr11 td126"><P class="p97 ft43">Para nuestras actividades comerciales â€“</P></TD>
 	<TD class="tr11 td127"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td128"><P class="p114 ft26">Yes</P></TD>
 	<TD class="tr11 td129"><P class="p113 ft26">No</P></TD>
@@ -1334,7 +1334,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr17 td125"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD colspan=2 class="tr11 td126"><P class="p97 ft43">Para las actividades diarias de nuestros afiliados –</P></TD>
+	<TD colspan=2 class="tr11 td126"><P class="p97 ft43">Para las actividades diarias de nuestros afiliados â€“</P></TD>
 	<TD class="tr11 td127"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td128"><P class="p112 ft22">No</P></TD>
 	<TD class="tr11 td129"><P class="p7 ft22">No Compartimos</P></TD>
@@ -1355,7 +1355,7 @@ body {margin-top: 0px;margin-left: 0px;}
 	<TD class="tr11 td125"><P class="p2 ft39">&nbsp;</P></TD>
 </TR>
 <TR>
-	<TD colspan=2 class="tr11 td126"><P class="p97 ft43">Para las actividades diarias de nuestros afiliados –</P></TD>
+	<TD colspan=2 class="tr11 td126"><P class="p97 ft43">Para las actividades diarias de nuestros afiliados â€“</P></TD>
 	<TD class="tr11 td127"><P class="p2 ft39">&nbsp;</P></TD>
 	<TD class="tr11 td128"><P class="p112 ft22">No</P></TD>
 	<TD class="tr11 td129"><P class="p7 ft22">No Compartimos</P></TD>

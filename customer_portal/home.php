@@ -9,8 +9,8 @@ if(!$_SESSION['email'])
 }  
   
   $check_user="SELECT * FROM fnd_user_profile WHERE email ='{$_SESSION['email']}'";
-  
-    $run=mysqli_query($DBcon,$check_user);
+
+    $run=$DBcon->query($check_user);
     $userRow=$run->fetch_array();
        $user_fnd_id = $userRow['user_fnd_id'];
      $first_name = $userRow['first_name'];
@@ -20,8 +20,8 @@ if(!$_SESSION['email'])
        $date_of_birth = $userRow['date_of_birth'];
     
       
-      $sql ="SELECT * FROM `tbl_loan` WHERE `user_fnd_id`='$user_fnd_id'";
-      $play=mysqli_query($DBcon,$sql);
+      $sql ="SELECT * FROM tbl_loan WHERE user_fnd_id='$user_fnd_id'";
+      $play=$DBcon->query($sql);
       $row=$play->fetch_array();
         $amount_of_loan = $row['amount_of_loan'];
           $contract_date = $row['contract_date'];

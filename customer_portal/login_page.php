@@ -69,9 +69,9 @@ if(isset($_POST['btn-login']))
   
     $check_user="select * from fnd_user_profile WHERE email='$user_email'AND mobile_number='$user_pass'";  
   
-    $run=mysqli_query($DBcon,$check_user);  
+    $run=$DBcon->query($check_user);
     echo "is sis:".$user_fnd_id;
-    if(mysqli_num_rows($run))  
+    if($run->num_rows)
     {  
         echo "<script>window.open('home.php','_self')</script>";  
   

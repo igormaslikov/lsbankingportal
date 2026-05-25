@@ -3,10 +3,10 @@
  include('../ls_software/admin/dbconnect.php');
  
 
-$sql=mysqli_query($con, "select * from fnd_user_profile"); 
-$rowcount_funded=mysqli_num_rows($sql);
+$sql=$con->query("select * from fnd_user_profile");
+$rowcount_funded=$sql->num_rows;
 echo "Row Count: $rowcount_funded<br><hr><br>";
-while($row = mysqli_fetch_array($sql)) {
+while($row = $sql->fetch_array()) {
 
 $mobile_number=$row['mobile_number'];
 $email=$row['email'];
@@ -16,7 +16,7 @@ $email=$row['email'];
 
 
     $query = "DELETE FROM tbl_echeck_customer WHERE mobile_number = '$mobile_number'";
-    $result = mysqli_query($con, $query);
+    $result = $con->query($query);
 
 
 

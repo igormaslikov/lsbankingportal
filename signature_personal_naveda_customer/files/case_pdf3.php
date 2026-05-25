@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -12,9 +12,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from personal_loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from personal_loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -47,9 +47,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -102,9 +102,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -117,9 +117,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -254,21 +254,21 @@ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
 <table>
 <tbody>
 <tr>
-<td><b style="font-size:8px;">•Late Payments and Delinquency Fees:</b><span style="font-size:6px;">If you fail to make any payment in full on or before the 10th calendar day after the due date of payment, we may impose a delinquency fee of $10. You understand that you will pay more interest if you make your payment after the payment due date.</span>
+<td><b style="font-size:8px;">â€¢Late Payments and Delinquency Fees:</b><span style="font-size:6px;">If you fail to make any payment in full on or before the 10th calendar day after the due date of payment, we may impose a delinquency fee of $10. You understand that you will pay more interest if you make your payment after the payment due date.</span>
 <br>
-<b style="font-size:8px;">•Waiver of Rights:</b><span style="font-size:6px;">You waive your rights to require us to do certain things. Those things are: (a) to demand payment of amounts due; (b) to give notice that amounts due have not been paid; and (c) to obtain an official certification of loan payments. Anyone else (i) who agrees to keep the promises made in this Agreement or (ii) who agrees to make payment to us if you fail to keep your promises under this Agreement (these persons are known as “Co-Makers”, “Co-Signers”, “Guarantors”, and “Sureties”), also waives these rights.</span>
-<br>
-
-<b style="font-size:8px;">•Co-Makers and Sureties:</b><span style="font-size:6px;">If more than one person signs this Agreement, each of you agrees to be fully and personally obligated to pay the full amount owed and to keel all the promises made in this Agreement. Any co-maker, guarantor, surety or endorser of this Agreement (as described in paragraph 8, above) is also obligated to do these things. You agree that we may enforce our rights under this Agreement against each of you individually or against any and all of you together. This means that any one of you may be required to pay all of the amounts owed under this Agreement.</span>
-<br>  
-<b style="font-size:8px;">•Electronic Agreement:</b><span style="font-size:6px;">. You expressly state that any or all of the various paper-based documents you execute in connection with this loan may be converted into Electronic form (“Electronic Agreements”) and that these Electronic Agreements are transferable records in electronic form and may be authenticated, sorted, and transmitted by electronic means, and will be valid for all legal purposes, as set forth in the electronic Signatures in Global and National Commerce Act, the Uniform Electronic Transactions Act, and the Uniform Commercial Code to the extent applicable. You agree that the Electronic Agreements may be converted back to paper at our discretion, in which the case the reconverted paper documents will be considered to been the original documents between us.</span>
-<br>
-<b style="font-size:8px;">•Governing Law:</b><span style="font-size:6px;">This Agreement will be governed by the laws of the State of California.</span>
-<br>  
-<b style="font-size:8px;">•No Waiver:</b><span style="font-size:6px;">You agree that any failure by us to assert any right or remedy under this Agreement or applicable law shall not constitute a waiver of such right or remedy or of any other right or remedy accruing to us under the terms of this Agreement or applicable law. No partial exercise by us of any right or remedy hereunder shall preclude any other or further exercise of any such right or the exercise of any other remedy.</span>
+<b style="font-size:8px;">â€¢Waiver of Rights:</b><span style="font-size:6px;">You waive your rights to require us to do certain things. Those things are: (a) to demand payment of amounts due; (b) to give notice that amounts due have not been paid; and (c) to obtain an official certification of loan payments. Anyone else (i) who agrees to keep the promises made in this Agreement or (ii) who agrees to make payment to us if you fail to keep your promises under this Agreement (these persons are known as â€œCo-Makersâ€, â€œCo-Signersâ€, â€œGuarantorsâ€, and â€œSuretiesâ€), also waives these rights.</span>
 <br>
 
-<b style="font-size:8px;">•Interpretation; Counterparts:</b><span style="font-size:6px;">Any ambiguities in this Agreement shall not be construed strictly against the drafter of the language concerned but shall be resolved by applying the most reasonable interpretation under the circumstances, giving full of consideration to the intentions of the parties at the time of contracting. This Agreement shall not be construed against any part by reason of its preparation. This Agreement may be executed in counterparts, each of which shall be deemed to be an original but all of which together shall be deemed to be one instrument. If any portion of this Agreement is held unenforceable, the remainder of this Agreement shall continue in force.</span>
+<b style="font-size:8px;">â€¢Co-Makers and Sureties:</b><span style="font-size:6px;">If more than one person signs this Agreement, each of you agrees to be fully and personally obligated to pay the full amount owed and to keel all the promises made in this Agreement. Any co-maker, guarantor, surety or endorser of this Agreement (as described in paragraph 8, above) is also obligated to do these things. You agree that we may enforce our rights under this Agreement against each of you individually or against any and all of you together. This means that any one of you may be required to pay all of the amounts owed under this Agreement.</span>
+<br>  
+<b style="font-size:8px;">â€¢Electronic Agreement:</b><span style="font-size:6px;">. You expressly state that any or all of the various paper-based documents you execute in connection with this loan may be converted into Electronic form (â€œElectronic Agreementsâ€) and that these Electronic Agreements are transferable records in electronic form and may be authenticated, sorted, and transmitted by electronic means, and will be valid for all legal purposes, as set forth in the electronic Signatures in Global and National Commerce Act, the Uniform Electronic Transactions Act, and the Uniform Commercial Code to the extent applicable. You agree that the Electronic Agreements may be converted back to paper at our discretion, in which the case the reconverted paper documents will be considered to been the original documents between us.</span>
+<br>
+<b style="font-size:8px;">â€¢Governing Law:</b><span style="font-size:6px;">This Agreement will be governed by the laws of the State of California.</span>
+<br>  
+<b style="font-size:8px;">â€¢No Waiver:</b><span style="font-size:6px;">You agree that any failure by us to assert any right or remedy under this Agreement or applicable law shall not constitute a waiver of such right or remedy or of any other right or remedy accruing to us under the terms of this Agreement or applicable law. No partial exercise by us of any right or remedy hereunder shall preclude any other or further exercise of any such right or the exercise of any other remedy.</span>
+<br>
+
+<b style="font-size:8px;">â€¢Interpretation; Counterparts:</b><span style="font-size:6px;">Any ambiguities in this Agreement shall not be construed strictly against the drafter of the language concerned but shall be resolved by applying the most reasonable interpretation under the circumstances, giving full of consideration to the intentions of the parties at the time of contracting. This Agreement shall not be construed against any part by reason of its preparation. This Agreement may be executed in counterparts, each of which shall be deemed to be an original but all of which together shall be deemed to be one instrument. If any portion of this Agreement is held unenforceable, the remainder of this Agreement shall continue in force.</span>
 <br>
 
 </td>
@@ -276,26 +276,26 @@ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
 
 <td>
 
-<b style="font-size:8px;">•Pagos morosos y cargos por morosidad:</b><span style="font-size:6px;">Si usted falla en hacer sus pagos en su totalidad en o antes de 10 días calendario después de la fecha de vencimiento, nosotros podríamos imponer un cargo por morosidad de $10. Usted comprende que pagara más interés si hace su pago después de la fecha límite de pago.</span>
+<b style="font-size:8px;">â€¢Pagos morosos y cargos por morosidad:</b><span style="font-size:6px;">Si usted falla en hacer sus pagos en su totalidad en o antes de 10 dÃ­as calendario despuÃ©s de la fecha de vencimiento, nosotros podrÃ­amos imponer un cargo por morosidad de $10. Usted comprende que pagara mÃ¡s interÃ©s si hace su pago despuÃ©s de la fecha lÃ­mite de pago.</span>
 <br>
 
-<b style="font-size:8px;">•Renuncia de derechos:</b><span style="font-size:6px;">Usted renuncia a sus derechos de exigir que hagamos ciertas cosas. Estas cosas son; (a) exigir el pago del balance restante; (b) avisar que los pagos atrasados no se han pagado; y (c) obtener una certificación oficial de documentos del préstamo. Cualquier otra persona que: i) convenga en cumplir las promesas hechas en este contrato o (ii) convenga hacer los pagos si usted no cumple sus promesas conforme a este contrato (estas personas se conocen como “cotitulares”, “cosignatarias”, “garantes” o “fiadores”), también renuncia a estos derechos.</span>
+<b style="font-size:8px;">â€¢Renuncia de derechos:</b><span style="font-size:6px;">Usted renuncia a sus derechos de exigir que hagamos ciertas cosas. Estas cosas son; (a) exigir el pago del balance restante; (b) avisar que los pagos atrasados no se han pagado; y (c) obtener una certificaciÃ³n oficial de documentos del prÃ©stamo. Cualquier otra persona que: i) convenga en cumplir las promesas hechas en este contrato o (ii) convenga hacer los pagos si usted no cumple sus promesas conforme a este contrato (estas personas se conocen como â€œcotitularesâ€, â€œcosignatariasâ€, â€œgarantesâ€ o â€œfiadoresâ€), tambiÃ©n renuncia a estos derechos.</span>
 <br>
 
 
-<b style="font-size:8px;">•Co-titulares y fiadores:</b><span style="font-size:6px;">Si más de una persona firma este contrato, cada uno de ustedes tendrá la obligación total y personal de pagar el balance total y de cumplir totas las promesas hechas en este contrato. Cualquier cotitular, cosignatario, garante fiador endosante de este contrato (tal como se describe en el párrafo 8 arriba) también tendrá la obligación de hacer estas cosas. Usted conviene que podremos ejercer nuestros derechos conforme a este contrato en contra de cada uno de ustedes en forma individual o conjunta. Esto significa que cualquiera de ustedes podrá tener la obligación de pagar todo el balance restante en virtud de este contrato.</span>
+<b style="font-size:8px;">â€¢Co-titulares y fiadores:</b><span style="font-size:6px;">Si mÃ¡s de una persona firma este contrato, cada uno de ustedes tendrÃ¡ la obligaciÃ³n total y personal de pagar el balance total y de cumplir totas las promesas hechas en este contrato. Cualquier cotitular, cosignatario, garante fiador endosante de este contrato (tal como se describe en el pÃ¡rrafo 8 arriba) tambiÃ©n tendrÃ¡ la obligaciÃ³n de hacer estas cosas. Usted conviene que podremos ejercer nuestros derechos conforme a este contrato en contra de cada uno de ustedes en forma individual o conjunta. Esto significa que cualquiera de ustedes podrÃ¡ tener la obligaciÃ³n de pagar todo el balance restante en virtud de este contrato.</span>
 <br>
 
-<b style="font-size:8px;">•Contrato electrónico:</b><span style="font-size:6px;">Usted declara de manera expresa que todos o cualquiera de los diversos documentos impresos que usted firme en relación con este préstamo podrán ser convertidos a un formato electrónico (“contratos electrónicos”), y que estos contratos electrónicos son registros transferibles en forma electrónico, que podrán ser autenticados almacenados u transmitidos por medios electrónicos y que serán validos para todos los fines legales, tal como se estipula en la ley de firmas electrónicas en el comercio global y Nacional, la ley de transacciones electrónicas uniformes u el código comercial uniforme, en la medida que resulten aplicables. Usted conviene que los contratos electrónicos podrán ser convertidos de vuelta a un formato impreso a nuestra discreción, y que en este caso los nuevos documentos impresos se consideraran los documentos originales firmados por usted u nosotros.</span>
+<b style="font-size:8px;">â€¢Contrato electrÃ³nico:</b><span style="font-size:6px;">Usted declara de manera expresa que todos o cualquiera de los diversos documentos impresos que usted firme en relaciÃ³n con este prÃ©stamo podrÃ¡n ser convertidos a un formato electrÃ³nico (â€œcontratos electrÃ³nicosâ€), y que estos contratos electrÃ³nicos son registros transferibles en forma electrÃ³nico, que podrÃ¡n ser autenticados almacenados u transmitidos por medios electrÃ³nicos y que serÃ¡n validos para todos los fines legales, tal como se estipula en la ley de firmas electrÃ³nicas en el comercio global y Nacional, la ley de transacciones electrÃ³nicas uniformes u el cÃ³digo comercial uniforme, en la medida que resulten aplicables. Usted conviene que los contratos electrÃ³nicos podrÃ¡n ser convertidos de vuelta a un formato impreso a nuestra discreciÃ³n, y que en este caso los nuevos documentos impresos se consideraran los documentos originales firmados por usted u nosotros.</span>
 <br>
 
-<b style="font-size:8px;">•Leyes vigentes:</b><span style="font-size:6px;">Este contrato será regido por las leyes del estado de California.</span>
+<b style="font-size:8px;">â€¢Leyes vigentes:</b><span style="font-size:6px;">Este contrato serÃ¡ regido por las leyes del estado de California.</span>
 <br>
 
-<b style="font-size:8px;">•Sin renuncia:</b><span style="font-size:6px;">Usted conviene que el hecho de que nosotros no ejerzamos alguno de los derechos o remedios conforme a este contrato o ni a cualquier otro derecho o remedio que pudiéramos tener conforme a los términos y condiciones de este contrato lo las leyes vigentes. Ningún ejercicio parcial por nuestra parte de alguno de los derechos o remedios conforme a este documento excluirá el ejercicio futuro de tal derecho o el ejercicio de otro remedio.</span>
+<b style="font-size:8px;">â€¢Sin renuncia:</b><span style="font-size:6px;">Usted conviene que el hecho de que nosotros no ejerzamos alguno de los derechos o remedios conforme a este contrato o ni a cualquier otro derecho o remedio que pudiÃ©ramos tener conforme a los tÃ©rminos y condiciones de este contrato lo las leyes vigentes. NingÃºn ejercicio parcial por nuestra parte de alguno de los derechos o remedios conforme a este documento excluirÃ¡ el ejercicio futuro de tal derecho o el ejercicio de otro remedio.</span>
 <br>
 
-<b style="font-size:8px;">•Interpretación; Contrapartes:</b><span style="font-size:6px;">Cualquier ambigüedad en este contrato no será interpretada de manera estricta en contra del redactor del texto en cuestión, sino que será resuelto mediante la aplicación de la interpretación más razonable según las circunstancias, teniendo en cuenta las intenciones de las partes en el momento del contrato. Este contrato no podrá ser interpretado en contra de una parte por razón de su elaboración. Este acuerdo podrá firmarse en contrapartes, cada una de las cuales se considerara como original, pero ambas en conjunto se consideran un mismo instrumento. Si se determina que alguna parte de este contrato es inejecutable, el resto de este contrato siguiera vigente.</span>
+<b style="font-size:8px;">â€¢InterpretaciÃ³n; Contrapartes:</b><span style="font-size:6px;">Cualquier ambigÃ¼edad en este contrato no serÃ¡ interpretada de manera estricta en contra del redactor del texto en cuestiÃ³n, sino que serÃ¡ resuelto mediante la aplicaciÃ³n de la interpretaciÃ³n mÃ¡s razonable segÃºn las circunstancias, teniendo en cuenta las intenciones de las partes en el momento del contrato. Este contrato no podrÃ¡ ser interpretado en contra de una parte por razÃ³n de su elaboraciÃ³n. Este acuerdo podrÃ¡ firmarse en contrapartes, cada una de las cuales se considerara como original, pero ambas en conjunto se consideran un mismo instrumento. Si se determina que alguna parte de este contrato es inejecutable, el resto de este contrato siguiera vigente.</span>
 <br>
 
 </td>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 $id=$_GET['id'];
 ?>
@@ -12,9 +12,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -44,9 +44,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 //echo "ID is".$loan_id;
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -112,17 +112,17 @@ $days_between = ceil(abs($end - $start) / 86400);
   	$anual_pr= $calculation;
  
  
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+ $sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
 }	
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
-while($row2 = mysqli_fetch_array($sql2)) {
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+while($row2 = $sql2->fetch_array()) {
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
 $f_name= $ff_name.' '.$l_name;
@@ -212,7 +212,7 @@ $style = array(
 );
 
  $html = '
- <h1 style="text-align:center">CONTRATO DE PRÉSTAMO DE PAGO Y DECLARACIÓN DE DIVULGACIÓN</h1>
+ <h1 style="text-align:center">CONTRATO DE PRÃ‰STAMO DE PAGO Y DECLARACIÃ“N DE DIVULGACIÃ“N</h1>
  
  <table border="0" style="text-align:left">
  <tbody>
@@ -221,8 +221,8 @@ $style = array(
     <b>Loan ID :</b> '.$loan_id_bor.' <br>
     <b>Fecha del Contrato   :</b>  '.$creation_date.' <br>
     <b>Prestatario        :</b> '. $f_name.'<br>
-    <b>Dirección         :</b> '.$address.'<br>
-    <b>Código postal:</b> '.$city.' '.$state.' '.$zip.'<br><br>
+    <b>DirecciÃ³n         :</b> '.$address.'<br>
+    <b>CÃ³digo postal:</b> '.$city.' '.$state.' '.$zip.'<br><br>
  </td>
  <td>
  <b>Prestamista :</b> Optima Financial Solutions Inc<br>
@@ -238,11 +238,11 @@ $style = array(
 <table border="1" style="text-align:center">
 <tbody>
 <tr>
-<td  colspan="4"><b style="text-align:center">DECLARACIÓN FEDERAL DE DIVULGACIÓN DE VERDAD EN PRÉSTAMO</b></td>
+<td  colspan="4"><b style="text-align:center">DECLARACIÃ“N FEDERAL DE DIVULGACIÃ“N DE VERDAD EN PRÃ‰STAMO</b></td>
 </tr>
 <tr>
 <td><b style="text-align:center">TASA DE PORCENTAJE<br>
-ANUAL</b> <br>El costo de su crédito
+ANUAL</b> <br>El costo de su crÃ©dito
  <br> expresado como tasa annual<br><br><br>'.$anual_pr.'%<br></td>
 <td><b style="text-align:center">CARGOS DE
 <br>
@@ -276,7 +276,7 @@ los pagos programados .<br>$'.$loan_payable.'<br></td>
 
 <br>
 
- <b>CALENDARIO DE PAGO </b> Su calendario de pago será:<br>
+ <b>CALENDARIO DE PAGO </b> Su calendario de pago serÃ¡:<br>
  <b><table border="1">
 <tbody>
 <tr style="text-align:center">
@@ -293,39 +293,39 @@ los pagos programados .<br>$'.$loan_payable.'<br></td>
 </table></b>
 
 <div style="font-size:8px">
-<b>Garantía:</b>Su(s) pago(s) posfechado(s) y/o la Autorización de la Cámara de Compensación Automatizada ("ACHA"), que si se adjunta(n), forma(n)
-parte de este Acuerdo, como si estuviera(n) completamente establecido(s) en el mismo, constituye(n) una garantía para el préstamo. La cesión de su
-salario, si se ha dado, también es garantía de este préstamo.<br>
-<b>Pago anticipado:</b> Un Consumidor puede cancelar sus obligaciones de pagos futuros en un préstamo de día de pago, sin costo o cargos financieros, a más
-tardar al final del segundo día hábil, inmediatamente posterior al día en que se ejecutó el préstamo de día de pago. Si se cancela antes de tiempo, no
-tendrá derecho a la devolución de una parte del cargo de financiación.<br>
-<b>Cargo por cheque sin fondos:</b> El Prestatario pagará un cargo al Prestamista de $ 15.00 si el Prestatario realiza un pago del préstamo del día de pago y el
+<b>GarantÃ­a:</b>Su(s) pago(s) posfechado(s) y/o la AutorizaciÃ³n de la CÃ¡mara de CompensaciÃ³n Automatizada ("ACHA"), que si se adjunta(n), forma(n)
+parte de este Acuerdo, como si estuviera(n) completamente establecido(s) en el mismo, constituye(n) una garantÃ­a para el prÃ©stamo. La cesiÃ³n de su
+salario, si se ha dado, tambiÃ©n es garantÃ­a de este prÃ©stamo.<br>
+<b>Pago anticipado:</b> Un Consumidor puede cancelar sus obligaciones de pagos futuros en un prÃ©stamo de dÃ­a de pago, sin costo o cargos financieros, a mÃ¡s
+tardar al final del segundo dÃ­a hÃ¡bil, inmediatamente posterior al dÃ­a en que se ejecutÃ³ el prÃ©stamo de dÃ­a de pago. Si se cancela antes de tiempo, no
+tendrÃ¡ derecho a la devoluciÃ³n de una parte del cargo de financiaciÃ³n.<br>
+<b>Cargo por cheque sin fondos:</b> El Prestatario pagarÃ¡ un cargo al Prestamista de $ 15.00 si el Prestatario realiza un pago del prÃ©stamo del dÃ­a de pago y el
 cheque o el cargo preautorizado con el que el Prestatario paga es posteriormente devuelto por no suficientes fondos.
 <br>
-<b>Pago Diferido:</b>El cliente no puede ser procesado en una acción penal en relación con una transacción de depósito diferido para un cheque devuelto o
-ser amenazado con persecución. Optima Financial Solutions Inc. no puede aceptar ninguna garantía en relación con una transacción de depósito diferido. Optima Financial Solutions Inc
-no puede hacer una transacción de depósito diferido contingente en la compra de otro producto o servicio. El cheque del Prestatario forma parte
-de una transacción de depósito diferido realizada de conformidad con el artículo 23035 del Código Financiero y no está sujeto a las disposiciones del
-artículo 1719 del Código Civil. No se podrá exigir al Prestatario el pago de daños y perjuicios triples si este cheque no se hace efectivo
+<b>Pago Diferido:</b>El cliente no puede ser procesado en una acciÃ³n penal en relaciÃ³n con una transacciÃ³n de depÃ³sito diferido para un cheque devuelto o
+ser amenazado con persecuciÃ³n. Optima Financial Solutions Inc. no puede aceptar ninguna garantÃ­a en relaciÃ³n con una transacciÃ³n de depÃ³sito diferido. Optima Financial Solutions Inc
+no puede hacer una transacciÃ³n de depÃ³sito diferido contingente en la compra de otro producto o servicio. El cheque del Prestatario forma parte
+de una transacciÃ³n de depÃ³sito diferido realizada de conformidad con el artÃ­culo 23035 del CÃ³digo Financiero y no estÃ¡ sujeto a las disposiciones del
+artÃ­culo 1719 del CÃ³digo Civil. No se podrÃ¡ exigir al Prestatario el pago de daÃ±os y perjuicios triples si este cheque no se hace efectivo
 <br>
-<b>Reclamos e inquietudes:</b>El prestatario puede llamar al número de teléfono gratuito del Departamento de Protección e Innovación Financiera: 866-275-
+<b>Reclamos e inquietudes:</b>El prestatario puede llamar al nÃºmero de telÃ©fono gratuito del Departamento de ProtecciÃ³n e InnovaciÃ³n Financiera: 866-275-
 2677 para presentar quejas e inquietudes.
 <br>
-<u><b>Optima Financial Solutions Inc. con Licencia # 10DBO-133110 está autorizada por el Departamento de Protección e Innovación Financiera de acuerdo con la Ley de
-Transacciones de Depósito Diferido de California. Los préstamos de California que no sean de depósito diferido se emiten de acuerdo con la Ley de
-Financiación de California.</b></u>
+<u><b>Optima Financial Solutions Inc. con Licencia # 10DBO-133110 estÃ¡ autorizada por el Departamento de ProtecciÃ³n e InnovaciÃ³n Financiera de acuerdo con la Ley de
+Transacciones de DepÃ³sito Diferido de California. Los prÃ©stamos de California que no sean de depÃ³sito diferido se emiten de acuerdo con la Ley de
+FinanciaciÃ³n de California.</b></u>
 <br>
 
-ENTIENDO QUE SI AÚN DEBO EN UNO O MÁS PRÉSTAMOS DE DIA DE PAGO DESPUÉS DE 35 DÍAS, SE ME PERMITE
-ENTRAR EN UN PLAN DE REPAGO QUE ME DARÁ AL MENOS 55 DÍAS PARA REPAGAR EL PRESTAMOS EN PAGOS SIN
+ENTIENDO QUE SI AÃšN DEBO EN UNO O MÃS PRÃ‰STAMOS DE DIA DE PAGO DESPUÃ‰S DE 35 DÃAS, SE ME PERMITE
+ENTRAR EN UN PLAN DE REPAGO QUE ME DARÃ AL MENOS 55 DÃAS PARA REPAGAR EL PRESTAMOS EN PAGOS SIN
 CARGOS DE FINANCIAMIENTO, INTERESES, HONORARIOS O OTROS CARGOS DE CUALQUIER TIPO. <br>
-<b>ADVERTENCIA:</b> ESTE PRÉSTAMO NO ESTÁ INTENCIONADO A CUMPLIR CON LAS NECESIDADES FINANCIERAS A LARGO
-PLAZO. ESTE PRÉSTAMO DEBE SER USADO PARA CUMPLIR CON LAS NECESIDADES DE EFECTIVO A CORTO PLAZO. EL
-COSTO DE SU PRÉSTAMO PUEDE SER MAYOR QUE LOS PRÉSTAMOS OFRECIDOS POR OTRAS INSTITUCIONES DE
-PRÉSTAMOS. ESTE PRÉSTAMO ESTÁ REGULADO POR EL DEPARTAMENTO DE PROTECCIÓN E INNOCACIÓN
+<b>ADVERTENCIA:</b> ESTE PRÃ‰STAMO NO ESTÃ INTENCIONADO A CUMPLIR CON LAS NECESIDADES FINANCIERAS A LARGO
+PLAZO. ESTE PRÃ‰STAMO DEBE SER USADO PARA CUMPLIR CON LAS NECESIDADES DE EFECTIVO A CORTO PLAZO. EL
+COSTO DE SU PRÃ‰STAMO PUEDE SER MAYOR QUE LOS PRÃ‰STAMOS OFRECIDOS POR OTRAS INSTITUCIONES DE
+PRÃ‰STAMOS. ESTE PRÃ‰STAMO ESTÃ REGULADO POR EL DEPARTAMENTO DE PROTECCIÃ“N E INNOCACIÃ“N
 FINANCIERA.<br>
-Al firmar este Contrato de Préstamo y Declaración de Divulgación (este "contrato") y aceptar un préstamo de Optima Financial Solutions Inc ("Prestamista") el
-prestatario abajo firmante ("Yo", "usted", "prestatario") está de acuerdo y acepta los términos y condiciones establecidos en todas las páginas de este
+Al firmar este Contrato de PrÃ©stamo y DeclaraciÃ³n de DivulgaciÃ³n (este "contrato") y aceptar un prÃ©stamo de Optima Financial Solutions Inc ("Prestamista") el
+prestatario abajo firmante ("Yo", "usted", "prestatario") estÃ¡ de acuerdo y acepta los tÃ©rminos y condiciones establecidos en todas las pÃ¡ginas de este
 contrato
 </div>
 <br>
@@ -342,7 +342,7 @@ contrato
 <td>&nbsp;</td>
 <td align="center">'.$creation_date.'</td>
 <td align="center"> <b>Nombre</b> <br>'.$username.'<br></td>
-<td align="center"> <b>Titulo</b><br>Agente de préstamo</td>
+<td align="center"> <b>Titulo</b><br>Agente de prÃ©stamo</td>
 <td>'.$creation_date.'</td>
 </tr>
 </tbody>

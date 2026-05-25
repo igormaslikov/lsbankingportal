@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -14,9 +14,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from personal_loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from personal_loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -48,9 +48,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 //echo "ID is".$loan_id;
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -109,9 +109,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     $installment_plan = $row_loan['installment_plan'];
  }
  
- $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+ $sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -123,9 +123,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
  
  
  
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+ $sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -134,8 +134,8 @@ $username=$row_user['username'];
 	
 	
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
-while($row2 = mysqli_fetch_array($sql2)) {
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+while($row2 = $sql2->fetch_array()) {
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
 $f_name= $ff_name.' '.$l_name;
@@ -162,8 +162,8 @@ $address=$row2['address'];
    
   
   
-    $result_install = mysqli_query($con, "select * from tbl_personal_loan_installments where loan_create_id='$loan_id_bor'");
-    while($row_install = mysqli_fetch_array($result_install)){
+    $result_install = $con->query("select * from tbl_personal_loan_installments where loan_create_id='$loan_id_bor'");
+    while($row_install = $result_install->fetch_array()){
 		 
 		  $intallment_id=$row_install['id'];
 	      $payment= $row_install['payment'];
@@ -253,11 +253,11 @@ because we value our customers and try to provide an accurate translation. If th
 English version of the Loan Agreement and Basic Terms, you fully understand that the English Personal Loan Contract
 is the legal binding Agreement between Borrower and Lender.</span><br><br>
 Loan Number   :  '.$loan_id_bor.'<br>
-Borrower’s Name        : '. $f_name.'<br>
-Borrower’s Address:         : '.$address.'<br><br>
+Borrowerâ€™s Name        : '. $f_name.'<br>
+Borrowerâ€™s Address:         : '.$address.'<br><br>
 
-<span>The terms ”you” and “your” refer to each Borrower and Co-Borrower, if any. The terms “Lender,” “Optima,” “we,” “us,” and
-“our” refer to the lender and any assignee or transferee of the lender. </span><br>
+<span>The terms â€youâ€ and â€œyourâ€ refer to each Borrower and Co-Borrower, if any. The terms â€œLender,â€ â€œOptima,â€ â€œwe,â€ â€œus,â€ and
+â€œourâ€ refer to the lender and any assignee or transferee of the lender. </span><br>
 
 <table border="1" style="text-align:center">
 <tbody>
@@ -304,7 +304,7 @@ Credit will cost you<br><br><br><br> $'.number_format($total_interest,   2, ".",
 and the agreement.</span>
 </td>
 <td colspan="1">
-<b>Lender’s License:</b> <br><br>
+<b>Lenderâ€™s License:</b> <br><br>
 <span>60DBO-88277</span>
 
 </td>
@@ -315,17 +315,17 @@ and the agreement.</span>
 </tbody>
 </table>
 <br><br>
- This Document, which consist of this form (called “Basic Terms”) and the attached supplements (called “Terms and Conditions”),
-creates a loan agreement (“Agreement”) between Borrower and Lender. By signing, Borrower confirms that Borrower understands and
+ This Document, which consist of this form (called â€œBasic Termsâ€) and the attached supplements (called â€œTerms and Conditionsâ€),
+creates a loan agreement (â€œAgreementâ€) between Borrower and Lender. By signing, Borrower confirms that Borrower understands and
 agrees to the terms of this Agreement.
 <br>
  See the Contract Documents below for additional information about nonpayment, default, the right to accelarate the maturity of the
 loan, and prepayment.<br><br>
 
-Borrower’s Signature :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date : 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <u>Optima</u></b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lender’s Name
+Borrowerâ€™s Signature :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date : 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <u>Optima</u></b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lenderâ€™s Name
 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lender’s Authorized Signature &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lenderâ€™s Authorized Signature &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date
 ';
 
 

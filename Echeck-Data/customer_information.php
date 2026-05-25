@@ -80,8 +80,8 @@ foreach($rows as $row => $data)
       echo 'Row ' . $row . ' Phone: ' . $homePhone . '<br />';
 
  
- $sql_fnd=mysqli_query($con, "select * from tbl_echeck_customer where mobile_number = '$homePhone'"); 
- $rowcount_funded=mysqli_num_rows($sql_fnd);
+ $sql_fnd=$con->query("select * from tbl_echeck_customer where mobile_number = '$homePhone'");
+ $rowcount_funded=$sql_fnd->num_rows;
 
 if($rowcount_funded>0)
 {
@@ -91,7 +91,7 @@ else
 {
 
 $query  = "INSERT INTO tbl_echeck_customer (first_name,last_name,email,mobile_number,address,city,state,zip_code,date_of_birth,ssn,creation_date,application_status,created_time_,application_date)  VALUES ('$firstName','$lastName','$email','$homePhone','$address','$city','$state','$zip','$dateOfBirth','$ssn','$date','New Application','$time_created','$date')";
-        $result = mysqli_query($con, $query);
+        $result = $con->query($query);
         if ($result) {
             echo "<div class='form'><h3> successfully added in tbl_echeck_customer.</h3><br/></div>";
         } else {

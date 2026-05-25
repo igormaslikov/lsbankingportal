@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -46,9 +46,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -101,9 +101,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -116,9 +116,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -254,7 +254,7 @@ $style = array(
 <td>
 <span style="font-size:8px;">In the event of any loss or damage to the vehicle, I will immediately notify the Lender in writing and file a proof of loss with the insurer. The Lender may file proof of loss on my behalf if I fall or refuse to do so. The Lender may endorse my name to any check, draft or other instrument the Lender receives in payment of an insurance loss or return insurance premiums. The Lender may apply any insurance proceeds you receive to repair or replace the vehicle if, it is economically feasible, and I am not them in default under this Agreement.</span>
 <br><br>
-<b style="font-size:8px;">H.LENDER’S RIGHT IF I BREAK MY PROMISES ABOUT THE SECURITY INTEREST, VEHICLE OR INSURANCE:</b><span style="font-size:8px;">If I fail to pay the filing fees, taxes or amount necessary to keep the vehicle in good condition and repair you may if you choose advance the sums necessary to protect your interest.<br> If I fail to keep in force the required insurance and/or fail to provide evidence of such insurance to you, you may notify me that I should purchase the required insurance at my expense. If I fail to purchase the insurance within the time stated in the and/or fail to provide evidence of such insurance to you, you may purchase coverage under Lender’s Collateral Protection Policy to protect your interest in the balance due under this Agreement, to the extent permitted by applicable law, and charge me the cost of the premiums and any other amounts you incur in purchasing the insurance. THE INSURANCE YOU PURCHASE MAY BE SIGNIFICANTLY MORE EXPENSIVE AND PROVIDE ME LESS COVERAGE THAN INSURANCE I COULD PURCHASE MYSELF.
+<b style="font-size:8px;">H.LENDERâ€™S RIGHT IF I BREAK MY PROMISES ABOUT THE SECURITY INTEREST, VEHICLE OR INSURANCE:</b><span style="font-size:8px;">If I fail to pay the filing fees, taxes or amount necessary to keep the vehicle in good condition and repair you may if you choose advance the sums necessary to protect your interest.<br> If I fail to keep in force the required insurance and/or fail to provide evidence of such insurance to you, you may notify me that I should purchase the required insurance at my expense. If I fail to purchase the insurance within the time stated in the and/or fail to provide evidence of such insurance to you, you may purchase coverage under Lenderâ€™s Collateral Protection Policy to protect your interest in the balance due under this Agreement, to the extent permitted by applicable law, and charge me the cost of the premiums and any other amounts you incur in purchasing the insurance. THE INSURANCE YOU PURCHASE MAY BE SIGNIFICANTLY MORE EXPENSIVE AND PROVIDE ME LESS COVERAGE THAN INSURANCE I COULD PURCHASE MYSELF.
 <br>
 If permitted by applicable law, any sums you advance will be payable by me, as you alone may direct. 
 <br>
@@ -263,7 +263,7 @@ If you advance any amounts on my behalf, it will not cure my default. The rights
 You may charge reasonable compensation for the services which you provide in obtaining any required insurance on my behalf. The required insurance may be obtained through a licensed insurance agency affiliated with you. This agency will receive a fee for providing the required insurance. In addition, an affiliate may be responsible for some or all the underlying insurance risks and may receive compensation for assuming such risks.
 </span>
 <br>
-<b style="font-size:8px;">I.DEFAULT:</b><span style="font-size:8px;">I will be in “Default” on this agreement if any one or more of the following things happen<br>
+<b style="font-size:8px;">I.DEFAULT:</b><span style="font-size:8px;">I will be in â€œDefaultâ€ on this agreement if any one or more of the following things happen<br>
 (1)	I do not make any payments on or before the day it is due;<br>
 (2)	I do not keep any promise made in this Agreement;<br>
 (3)	I do not keep any promises I made in another contract, not, loan or agreement with the Lender;<br>
@@ -281,27 +281,27 @@ reasonable time;<br>
 
 
 <td>
-<span style="font-size:8px;">En caso de pérdida o daño al vehículo, notificaré inmediatamente al prestamista por escrito y presentaré un comprobante de pérdida al asegurador. El prestamista puede presentar una prueba de pérdida en mi nombre si me caigo o me niego a hacerlo. El Prestamista puede endosar mi nombre a cualquier cheque, giro u otro instrumento que el Prestamista reciba para pagar una pérdida de seguro o devolver las primas del seguro. El Prestamista puede aplicar cualquier producto del seguro que reciba para reparar o reemplazar el vehículo si es económicamente factible y no estoy en incumplimiento de conformidad con este Acuerdo.</span>
+<span style="font-size:8px;">En caso de pÃ©rdida o daÃ±o al vehÃ­culo, notificarÃ© inmediatamente al prestamista por escrito y presentarÃ© un comprobante de pÃ©rdida al asegurador. El prestamista puede presentar una prueba de pÃ©rdida en mi nombre si me caigo o me niego a hacerlo. El Prestamista puede endosar mi nombre a cualquier cheque, giro u otro instrumento que el Prestamista reciba para pagar una pÃ©rdida de seguro o devolver las primas del seguro. El Prestamista puede aplicar cualquier producto del seguro que reciba para reparar o reemplazar el vehÃ­culo si es econÃ³micamente factible y no estoy en incumplimiento de conformidad con este Acuerdo.</span>
 <br><br>
-<b style="font-size:8px;">H.DERECHO DEL PRESTAMISTA SI ROMPIO MIS PROMESAS SOBRE EL INTERÉS DE SEGURIDAD, EL VEHÍCULO O EL SEGURO:</b><span style="font-size:8px;">Si no pago las tarifas de presentación, los impuestos o la cantidad necesaria para mantener el vehículo en buenas condiciones y repararlo, si elige adelantar las sumas necesarias para proteger su interesar.<br> Si no mantengo en vigencia el seguro requerido y / o no le proporciono evidencia de dicho seguro, puede notificarme que debo comprar el seguro requerido a mi cargo. Si no compro el seguro dentro del tiempo establecido en el documento y / o no le proporciono evidencia de dicho seguro, puede comprar cobertura bajo la Política de protección colateral del prestamista para proteger su interés en el saldo adeudado en virtud de este Acuerdo, en la medida permitido por la ley aplicable y cobrarme el costo de las primas y cualquier otro monto en el que incurra al comprar el seguro. EL SEGURO QUE COMPRA PUEDE SER SIGNIFICATIVAMENTE MÁS CARO Y PROPORCIONARME MENOS COBERTURA QUE EL SEGURO PODRÍA COMPRARME MISMO.
+<b style="font-size:8px;">H.DERECHO DEL PRESTAMISTA SI ROMPIO MIS PROMESAS SOBRE EL INTERÃ‰S DE SEGURIDAD, EL VEHÃCULO O EL SEGURO:</b><span style="font-size:8px;">Si no pago las tarifas de presentaciÃ³n, los impuestos o la cantidad necesaria para mantener el vehÃ­culo en buenas condiciones y repararlo, si elige adelantar las sumas necesarias para proteger su interesar.<br> Si no mantengo en vigencia el seguro requerido y / o no le proporciono evidencia de dicho seguro, puede notificarme que debo comprar el seguro requerido a mi cargo. Si no compro el seguro dentro del tiempo establecido en el documento y / o no le proporciono evidencia de dicho seguro, puede comprar cobertura bajo la PolÃ­tica de protecciÃ³n colateral del prestamista para proteger su interÃ©s en el saldo adeudado en virtud de este Acuerdo, en la medida permitido por la ley aplicable y cobrarme el costo de las primas y cualquier otro monto en el que incurra al comprar el seguro. EL SEGURO QUE COMPRA PUEDE SER SIGNIFICATIVAMENTE MÃS CARO Y PROPORCIONARME MENOS COBERTURA QUE EL SEGURO PODRÃA COMPRARME MISMO.
 <br>
-Si lo permite la ley aplicable, cualquier cantidad que adelante será pagadera por mí, como usted solo puede ordenar. 
+Si lo permite la ley aplicable, cualquier cantidad que adelante serÃ¡ pagadera por mÃ­, como usted solo puede ordenar. 
 <br>
-Si adelantas cualquier cantidad en mi nombre, no se subsanará mi incumplimiento. Los derechos establecidos en esta sección son adicionales a los derechos establecidos en otras secciones de este Acuerdo por mi incumplimiento de mis promesas.
+Si adelantas cualquier cantidad en mi nombre, no se subsanarÃ¡ mi incumplimiento. Los derechos establecidos en esta secciÃ³n son adicionales a los derechos establecidos en otras secciones de este Acuerdo por mi incumplimiento de mis promesas.
 <br>
-Puede cobrar una compensación razonable por los servicios que proporciona al obtener cualquier seguro requerido en mi nombre. El seguro requerido se puede obtener a través de una agencia de seguros con licencia afiliada a usted. Esta agencia recibirá una tarifa por proporcionar el seguro requerido. Además, un afiliado puede ser responsable de algunos o todos los riesgos de seguro subyacentes y puede recibir una compensación por asumir dichos riesgos.
+Puede cobrar una compensaciÃ³n razonable por los servicios que proporciona al obtener cualquier seguro requerido en mi nombre. El seguro requerido se puede obtener a travÃ©s de una agencia de seguros con licencia afiliada a usted. Esta agencia recibirÃ¡ una tarifa por proporcionar el seguro requerido. AdemÃ¡s, un afiliado puede ser responsable de algunos o todos los riesgos de seguro subyacentes y puede recibir una compensaciÃ³n por asumir dichos riesgos.
 </span>
 <br>
-<b style="font-size:8px;">I.PREDETERMINADO:</b><span style="font-size:8px;">Estaré en "Predeterminado" en este acuerdo si ocurre una o más de las siguientes cosas:<br>
-(1)  No hago ningún pago el día de vencimiento o antes;<br>
+<b style="font-size:8px;">I.PREDETERMINADO:</b><span style="font-size:8px;">EstarÃ© en "Predeterminado" en este acuerdo si ocurre una o mÃ¡s de las siguientes cosas:<br>
+(1)  No hago ningÃºn pago el dÃ­a de vencimiento o antes;<br>
 (2)  No cumplo ninguna promesa hecha en este Acuerdo;<br>
-(3)  No cumplo ninguna promesa que hice en otro contrato, no en un préstamo o acuerdo con el Prestador;<br>
-(4) Cometí cualquier falsificación en relación con el Acuerdo;<br>
-(5) El vehículo se pierde, se lo roban, se destruye o se daña más allá de una reparación económica y no se repara ni se encuentra dentro tiempo razonable;<br>
-(6) Tomo el vehículo fuera de los Estados Unidos sin el consentimiento por escrito del prestamista;<br>
+(3)  No cumplo ninguna promesa que hice en otro contrato, no en un prÃ©stamo o acuerdo con el Prestador;<br>
+(4) CometÃ­ cualquier falsificaciÃ³n en relaciÃ³n con el Acuerdo;<br>
+(5) El vehÃ­culo se pierde, se lo roban, se destruye o se daÃ±a mÃ¡s allÃ¡ de una reparaciÃ³n econÃ³mica y no se repara ni se encuentra dentro tiempo razonable;<br>
+(6) Tomo el vehÃ­culo fuera de los Estados Unidos sin el consentimiento por escrito del prestamista;<br>
 (7) Presento un procedimiento de quiebra o insolvencia o cualquier persona presenta un procedimiento de quiebra o insolvencia en mi contra;<br>
-(8) Hago algo que hace que el vehículo esté sujeto a confiscación por parte de las autoridades gubernamentales;<br>
-(9) Uso el vehículo o permito que otra persona lo use de manera que no esté cubierto por el seguro;
+(8) Hago algo que hace que el vehÃ­culo estÃ© sujeto a confiscaciÃ³n por parte de las autoridades gubernamentales;<br>
+(9) Uso el vehÃ­culo o permito que otra persona lo use de manera que no estÃ© cubierto por el seguro;
 
 
 </span>

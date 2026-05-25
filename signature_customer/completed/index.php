@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $_SESSION["Optima"] = "true";
 $url_logo="https://ofsca.com/loanportal/website/images/Money-Line-Logo.JPG"; 
 include 'dbconnect.php';
@@ -13,9 +13,9 @@ $iddd=$_GET['id'];
 
 $url="https://ofsca.com/loanportal/signature_customer/files/contract_pdf.php?id=$iddd";
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -48,9 +48,9 @@ else {
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -61,9 +61,9 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
     
 }
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$user_fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$user_fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $f_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -260,8 +260,8 @@ include 'dbconfig.php';
                 $errMSG = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";        
             }
 
- $query_sign  = "UPDATE loan_initial_banking SET `sign_status`='1',`signed_pic`='$userpic' WHERE `email_key` = '$iddd' ";
-        $result_sign = mysqli_query($con, $query_sign);
+ $query_sign  = "UPDATE loan_initial_banking SET sign_status='1',signed_pic='$userpic' WHERE email_key = '$iddd' ";
+        $result_sign = $con->query($query_sign);
         if ($result_sign) {
             //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
         } else {
@@ -359,9 +359,9 @@ include 'dbconfig.php';
 include 'dbconnect.php';
 include 'dbconfig.php';
 $iddd=$_GET['id'];
-$sql_link=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql_link=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row_link = mysqli_fetch_array($sql_link)) {
+while($row_link = $sql_link->fetch_array()) {
     
     $mail_key_link=$row_link['email_key'];
     //echo $mail_key_link;

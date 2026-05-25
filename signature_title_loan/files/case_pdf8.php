@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -46,9 +46,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -101,9 +101,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -116,9 +116,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -296,38 +296,38 @@ $style = array(
 
 
 <td>
-<span style="font-size:8px;">(10) Otro acreedor intenta llevar el vehículo a través de un proceso legal; o 
+<span style="font-size:8px;">(10) Otro acreedor intenta llevar el vehÃ­culo a travÃ©s de un proceso legal; o 
 <br>
-(11) Muero, me condenan por un delito de fraude o deshonestidad o un tribunal con jurisdicción me declara que lo hace  estar incapacitado.
+(11) Muero, me condenan por un delito de fraude o deshonestidad o un tribunal con jurisdicciÃ³n me declara que lo hace  estar incapacitado.
 
 </span>
 <br>
-<b style="font-size:8px;">J. SUS DERECHOS SI ESTOY POR DEFECTO ESTE ACUERDO:</b><span style="font-size:8px;">Estoy en incumplimiento con este Acuerdo; F el prestamista puede hacer valer sus derechos de acuerdo con la ley. El prestamista también puede hacer las cosas específicamente mencionadas en este Acuerdo. Según lo permitido por la ley aplicable y sujeto a cualquier aviso requerido. El prestamista puede hacer una de estas cosas y al mismo tiempo o más tarde hacer otra. Algunas de las cosas que el prestamista puede hacer son las siguientes:
+<b style="font-size:8px;">J. SUS DERECHOS SI ESTOY POR DEFECTO ESTE ACUERDO:</b><span style="font-size:8px;">Estoy en incumplimiento con este Acuerdo; F el prestamista puede hacer valer sus derechos de acuerdo con la ley. El prestamista tambiÃ©n puede hacer las cosas especÃ­ficamente mencionadas en este Acuerdo. SegÃºn lo permitido por la ley aplicable y sujeto a cualquier aviso requerido. El prestamista puede hacer una de estas cosas y al mismo tiempo o mÃ¡s tarde hacer otra. Algunas de las cosas que el prestamista puede hacer son las siguientes:
 <br>
-<b style="font-size:8px;">(1) Aceleración: </b> El Prestamista puede exigir que le pague el saldo completo impago del Acuerdo, todos los Cargos financieros impagos y otro dinero adeudado. Estoy de acuerdo en que pagaré este dinero al prestamista en un solo pago inmediatamente después de recibir su demanda. 
+<b style="font-size:8px;">(1) AceleraciÃ³n: </b> El Prestamista puede exigir que le pague el saldo completo impago del Acuerdo, todos los Cargos financieros impagos y otro dinero adeudado. Estoy de acuerdo en que pagarÃ© este dinero al prestamista en un solo pago inmediatamente despuÃ©s de recibir su demanda. 
 <br>
-<b style="font-size:8px;">(2) Recuperación: </b> El prestamista puede recuperar el vehículo, a menos que lo prohíba la ley. El prestamista puede hacer esto, que lo haga una persona calificada o que lo haga un funcionario del gobierno (por reposición). Estoy de acuerdo en que el prestamista o sus representantes pueden venir pacíficamente a mi propiedad para hacer esto. Sujeto a los requisitos de notificación e inventario provistos por la ley aplicable, puede tomar cualquier propiedad personal que se encuentre en el vehículo, pero me lo devolverá si lo solicito. Si quiero recuperar estas cosas, acepto reclamarlas dentro de los 60 días. Si no reclamo mis cosas dentro del tiempo para hacerlo, renuncio a reclamarlas. Acepto que el Prestamista pueda usar mis placas de matrícula para transportar el vehículo a un lugar de almacenamiento. 
+<b style="font-size:8px;">(2) RecuperaciÃ³n: </b> El prestamista puede recuperar el vehÃ­culo, a menos que lo prohÃ­ba la ley. El prestamista puede hacer esto, que lo haga una persona calificada o que lo haga un funcionario del gobierno (por reposiciÃ³n). Estoy de acuerdo en que el prestamista o sus representantes pueden venir pacÃ­ficamente a mi propiedad para hacer esto. Sujeto a los requisitos de notificaciÃ³n e inventario provistos por la ley aplicable, puede tomar cualquier propiedad personal que se encuentre en el vehÃ­culo, pero me lo devolverÃ¡ si lo solicito. Si quiero recuperar estas cosas, acepto reclamarlas dentro de los 60 dÃ­as. Si no reclamo mis cosas dentro del tiempo para hacerlo, renuncio a reclamarlas. Acepto que el Prestamista pueda usar mis placas de matrÃ­cula para transportar el vehÃ­culo a un lugar de almacenamiento. 
 <br>
 
-<b style="font-size:8px;">(3) Entrega Voluntaria: </b> El prestamista puede pedirme que devuelva el vehículo en un lugar conveniente y razonable. Estoy de acuerdo en darle al prestamista el vehículo si me lo piden. 
+<b style="font-size:8px;">(3) Entrega Voluntaria: </b> El prestamista puede pedirme que devuelva el vehÃ­culo en un lugar conveniente y razonable. Estoy de acuerdo en darle al prestamista el vehÃ­culo si me lo piden. 
 <br>
-<b style="font-size:8px;">(4) Retraso en la Ejecución: </b>El prestamista puede demorar en hacer cualquiera de estas cosas sin perder ningún derecho. 
+<b style="font-size:8px;">(4) Retraso en la EjecuciÃ³n: </b>El prestamista puede demorar en hacer cualquiera de estas cosas sin perder ningÃºn derecho. 
 
 
 </span>
 <br>
-<b style="font-size:8px;">K. ALGUNAS COSAS QUE DEBO SABER SI EL PRESTADOR RECONOCE EL VEHÍCULO:</b><span style="font-size:8px;">Si el prestamista toma posesión sin usar un funcionario gubernamental:
+<b style="font-size:8px;">K. ALGUNAS COSAS QUE DEBO SABER SI EL PRESTADOR RECONOCE EL VEHÃCULO:</b><span style="font-size:8px;">Si el prestamista toma posesiÃ³n sin usar un funcionario gubernamental:
 <br>
-<b style="font-size:8px;">(1) Aviso: </b>El prestamista me enviará un aviso que me indicará cómo volver a comprar (canjear) el vehículo. Sujeto a las limitaciones de la Ley de California, también puedo tener el derecho de restablecer el Acuerdo pagando solo las cuotas morosas, cumpliendo todos los gravámenes que he permitido que se coloquen en el vehículo u obteniendo un seguro según sea el caso y pagando sus costos de recuperación como se describe a continuación. El aviso que me envía el prestamista me informará otra información requerida por la ley. 
+<b style="font-size:8px;">(1) Aviso: </b>El prestamista me enviarÃ¡ un aviso que me indicarÃ¡ cÃ³mo volver a comprar (canjear) el vehÃ­culo. Sujeto a las limitaciones de la Ley de California, tambiÃ©n puedo tener el derecho de restablecer el Acuerdo pagando solo las cuotas morosas, cumpliendo todos los gravÃ¡menes que he permitido que se coloquen en el vehÃ­culo u obteniendo un seguro segÃºn sea el caso y pagando sus costos de recuperaciÃ³n como se describe a continuaciÃ³n. El aviso que me envÃ­a el prestamista me informarÃ¡ otra informaciÃ³n requerida por la ley. 
 <br>
-<b style="font-size:8px;">(2) Canje: </b>Tengo derecho a comprar (Canjear) el vehículo en cualquier momento. 
+<b style="font-size:8px;">(2) Canje: </b>Tengo derecho a comprar (Canjear) el vehÃ­culo en cualquier momento. 
 <br>
 
-<b style="font-size:8px;">(3) Venta: </b>si no canjea, el prestamista venderá el vehículo. El dinero recibido en la venta se usará para pagar los costos y gastos que debo y luego para pagar la cantidad que debo en el Acuerdo. 
+<b style="font-size:8px;">(3) Venta: </b>si no canjea, el prestamista venderÃ¡ el vehÃ­culo. El dinero recibido en la venta se usarÃ¡ para pagar los costos y gastos que debo y luego para pagar la cantidad que debo en el Acuerdo. 
 <br>
-<b style="font-size:8px;">(4) Excedente o Deficiencia: </b>Si queda dinero, se lo pagará al Prestatario. Si no hay suficiente dinero de la venta para pagar lo que debo, el Prestatario y el Co-firmante acuerdan pagar lo que aún se le debe. 
+<b style="font-size:8px;">(4) Excedente o Deficiencia: </b>Si queda dinero, se lo pagarÃ¡ al Prestatario. Si no hay suficiente dinero de la venta para pagar lo que debo, el Prestatario y el Co-firmante acuerdan pagar lo que aÃºn se le debe. 
 <br>
-<b style="font-size:8px;">(5) Gastos: </b>Estoy de acuerdo en pagar las tarifas reales y necesarias para recuperar el vehículo y los costos de almacenamiento, reparación, preparación para la venta y venta del vehículo según lo permita la ley. 
+<b style="font-size:8px;">(5) Gastos: </b>Estoy de acuerdo en pagar las tarifas reales y necesarias para recuperar el vehÃ­culo y los costos de almacenamiento, reparaciÃ³n, preparaciÃ³n para la venta y venta del vehÃ­culo segÃºn lo permita la ley. 
 
 
 </span>

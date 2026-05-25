@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 
 ?>
@@ -12,9 +12,9 @@ include_once 'dbconfig.php';
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_id= '$id' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_id= '$id' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
    
    $loan_id=$row_loan['loan_id'];
     $user_fnd_id=$row_loan['user_fnd_id'];
@@ -66,8 +66,8 @@ $datediff = round($datediff / (60 * 60 * 24));
  }
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
-while($row2 = mysqli_fetch_array($sql2)) {
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id= '$user_fnd_id'"); 
+while($row2 = $sql2->fetch_array()) {
 $first_name=$row2['first_name'];
 $l_name=$row2['last_name'];
 $f_name= $first_name.' '.$l_name;
@@ -101,9 +101,9 @@ $id=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_source=mysqli_query($con, "select * from source_income where user_fnd_id= '$user_fnd_id'"); 
+$sql_source=$con->query("select * from source_income where user_fnd_id= '$user_fnd_id'"); 
 
-while($row_source = mysqli_fetch_array($sql_source)) {
+while($row_source = $sql_source->fetch_array()) {
 
 
 $net_check_amount=$row_source['net_check_amount'];
@@ -122,9 +122,9 @@ $id=$_GET['id'];
 include 'dbconnect.php';
 include 'dbconfig.php';
 
-$sql_acount=mysqli_query($con, "select * from loan_initial_banking where user_fnd_id= '$user_fnd_id'"); 
+$sql_acount=$con->query("select * from loan_initial_banking where user_fnd_id= '$user_fnd_id'"); 
 
-while($row_acount = mysqli_fetch_array($sql_acount)) {
+while($row_acount = $sql_acount->fetch_array()) {
 
 
 $account_number=$row_acount['account_number'];

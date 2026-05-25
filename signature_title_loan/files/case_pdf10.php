@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -46,9 +46,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -101,9 +101,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -116,9 +116,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -255,8 +255,8 @@ $style = array(
 <b style="font-size:8px;">ARBITRATION CLAUSE</b> <br>
 <span style="font-size:8px;"><u>PLEASE REVIEW-IMPORTANT-AFFECT YOUR LEGAL RIGHTS</u></span>
 <br><br>
-<span style="font-size:8px;">In this arbitration clause, “you” and “your” refer to the Borrower. “Lender” refers to the original Lender and any Assignee.Right to Reject Arbitration Agreement:</span>
-<b style="font-size:7px;">YOU MAY REJECT THIS ARBITRATION AGREEMENT BY SENDING LENDER A NOTICE (“REJECTION NOTICE”) THAT IS RECEIVED WITHIN (30) DAYS AFTER THE DATE OF YOUR APPLICATION. THE REJECTION NOTICE MUST INCLUDE YOUR NAME, ADDRESS, TELEPHONE NUMBER AND THE DATE OF YOUR APPLICATION AND MUST EITHER BE MAILED OR SENT BY MESSANGER SERVICE (SUCH AS FEDEX) TO: 4645 VAN NUYS BLVD SUITE 202 SHERMAN OAKS CA 91403 (OR SUCH OTHER NOTICE ADDRESS AS LENDER PROVIDES TO YOU IN WRITING). IF YOU REJECT ARBITRATION, NEITHER YOU NOR LENDER WILL HAVE THE RIGHT TO REQUIRE ARBITRATION OF SOME OR ALL CLAIMS (AS SUCH TERM IS DEFINED BELOW). REJECTION OF ARBITRATION AGREEMENT WILL NOT AFFECT LENDER’S WILLINGNESS TO PROVIDE YOU WITH A LOAN (NOW OR IN THE FUTURE), NOR WILL IT AFFECT THE TERMS OF YOU PROMISSORY NOTE AND SECURITY AGREEMENT WITH LENDER (THE “LOAN AGREEMENT”). ANY REJECTION OF ARBITRATION WILL APPLY ONLY TO THIS ARBITRATION AGREEMENT (AND NOT TO ANY PRIOR OR SUBSEQUENT ARBITRATION AGREEMENT)
+<span style="font-size:8px;">In this arbitration clause, â€œyouâ€ and â€œyourâ€ refer to the Borrower. â€œLenderâ€ refers to the original Lender and any Assignee.Right to Reject Arbitration Agreement:</span>
+<b style="font-size:7px;">YOU MAY REJECT THIS ARBITRATION AGREEMENT BY SENDING LENDER A NOTICE (â€œREJECTION NOTICEâ€) THAT IS RECEIVED WITHIN (30) DAYS AFTER THE DATE OF YOUR APPLICATION. THE REJECTION NOTICE MUST INCLUDE YOUR NAME, ADDRESS, TELEPHONE NUMBER AND THE DATE OF YOUR APPLICATION AND MUST EITHER BE MAILED OR SENT BY MESSANGER SERVICE (SUCH AS FEDEX) TO: 4645 VAN NUYS BLVD SUITE 202 SHERMAN OAKS CA 91403 (OR SUCH OTHER NOTICE ADDRESS AS LENDER PROVIDES TO YOU IN WRITING). IF YOU REJECT ARBITRATION, NEITHER YOU NOR LENDER WILL HAVE THE RIGHT TO REQUIRE ARBITRATION OF SOME OR ALL CLAIMS (AS SUCH TERM IS DEFINED BELOW). REJECTION OF ARBITRATION AGREEMENT WILL NOT AFFECT LENDERâ€™S WILLINGNESS TO PROVIDE YOU WITH A LOAN (NOW OR IN THE FUTURE), NOR WILL IT AFFECT THE TERMS OF YOU PROMISSORY NOTE AND SECURITY AGREEMENT WITH LENDER (THE â€œLOAN AGREEMENTâ€). ANY REJECTION OF ARBITRATION WILL APPLY ONLY TO THIS ARBITRATION AGREEMENT (AND NOT TO ANY PRIOR OR SUBSEQUENT ARBITRATION AGREEMENT)
 <br>
 EITHER YOU OR WE MAY CHOOSE TO HAVE ANY DISPUTE BETWEEN US DECIDED BY ARBITRATION AND NOT IN COURT OR BY JURY TRAIL.
 DISCOVERY AND RIGHTS TOO APPEAL IN ARBITRATION ARE GENERALLY MORE LIMITED THAN IN A LAWSUIT, AND OTHER RIGHTS THAT YOU AND WE
@@ -269,7 +269,7 @@ YOU MAY HAVE AGAINST US INCLUDING ANY RIGHT TO CLASS ARBITRATION OR ANY CONSOLID
 Any claim or dispute, whether in contract, tort, statute or otherwise (Including the interpretation and scope of this clause, and the arbitrability of the claim or dispute) between you and us or our employees, agents, successors or assignee, which arise out of or relate to your credit application and/or loan, this contract or any resulting transaction or relationship (Including any such relationship with third parties who do not sign this contract) shall, at your or our election, be resolved by neutral, binding arbitration and not by a court action. Any claim or dispute is to be arbitrated by a single arbitrator.
 You may choose one of the following arbitration organization and its applicable rules: The American Arbitration Association, 1633 Broadway, 10th Floor, New York, NY 10019 (www.adr.org) also 725 S Figueroa, Suite 2400, Los Angeles, CA 90017 (www.adr.org) or ARC 700 S Flower Street Suite 415, Los Angeles, CA 90017 (www.arc4adr.com) or any other organization that you may choose subject to our approval. You may get a copy of the rules of these organizations by contacting the arbitration organization or visiting its website.
 <br>
-Arbitrators shall be retired judges and shall be selected pursuant to the applicable rules. The arbitrator shall apply governing substantive law in making as award. The arbitration hearing shall be conducted in The Federal District in which you reside unless the Creditor is a party to the claim or dispute, in which case the hearing will be held in The Federal District where the contract was executed. We will advance you filling, administration, service or case management fee and your arbitration or hearing fee all up to maximum of $1,500.00 which may be reimbursed by decision of the arbitrator at the arbitrator’s discretion.
+Arbitrators shall be retired judges and shall be selected pursuant to the applicable rules. The arbitrator shall apply governing substantive law in making as award. The arbitration hearing shall be conducted in The Federal District in which you reside unless the Creditor is a party to the claim or dispute, in which case the hearing will be held in The Federal District where the contract was executed. We will advance you filling, administration, service or case management fee and your arbitration or hearing fee all up to maximum of $1,500.00 which may be reimbursed by decision of the arbitrator at the arbitratorâ€™s discretion.
 </span>
 <br>
 
@@ -282,25 +282,25 @@ Arbitrators shall be retired judges and shall be selected pursuant to the applic
 <b style="font-size:8px;">CLAUSULA DE ARBITRAJE</b> <br>
 <span style="font-size:8px;"><u>POR FAVOR REVISE-IMPORTANTE-AFECTE SUS DERECHOS LEGALES</u></span>
 <br><br>
-<span style="font-size:8px;">En esta cláusula de arbitraje, "usted" y "su" se refieren al Prestatario. "Prestamista" se refiere al prestamista original y a cualquier cesionario.Derecho a rechazar el acuerdo de arbitraje:</span>
-<b style="font-size:6px;">PUEDE RECHAZAR ESTE ACUERDO DE ARBITRAJE ENVIANDO UN AVISO AL PRESTAMISTA ("AVISO DE RECHAZO") QUE SE RECIBE DENTRO DE (30) DÍAS DESPUÉS DE LA FECHA DE SU SOLICITUD. EL AVISO DE RECHAZO DEBE INCLUIR SU NOMBRE, DIRECCIÓN, NÚMERO DE TELÉFONO Y LA FECHA DE SU SOLICITUD Y DEBE SER ENVIADO POR CORREO O ENVIADO POR EL SERVICIO DE MENSAJEROS (TAL COMO FEDEX) A: 4645 VAN NUYS BLVD SUITE 202 SHERMAN OAKS CA 91403 (O DICHO OTRO AVISO DIRECCIÓN COMO PRESTAMISTA LE PROPORCIONA POR ESCRITO). SI RECHAZA EL ARBITRAJE, NI USTED NI EL PRESTAMISTA TENDRÁN EL DERECHO DE REQUERIR EL ARBITRAJE DE ALGUNAS O TODAS LAS RECLAMACIONES (COMO TAL TÉRMINO SE DEFINE A CONTINUACIÓN). EL RECHAZO DEL ACUERDO DE ARBITRAJE NO AFECTARÁ LA DISPUESTA DEL PRESTAMISTA PARA PROPORCIONARLE UN PRÉSTAMO (AHORA O EN EL FUTURO), NI AFECTARÁ LOS TÉRMINOS DE SU NOTA PROMISORIA Y ACUERDO DE SEGURIDAD CON EL PRESTADOR (EL "ACUERDO DE PRÉSTAMO"). CUALQUIER RECHAZO DE ARBITRAJE SE APLICARÁ SOLO A ESTE ACUERDO DE ARBITRAJE (Y NO A NINGÚN ACUERDO DE ARBITRAJE ANTERIOR O POSTERIOR)
+<span style="font-size:8px;">En esta clÃ¡usula de arbitraje, "usted" y "su" se refieren al Prestatario. "Prestamista" se refiere al prestamista original y a cualquier cesionario.Derecho a rechazar el acuerdo de arbitraje:</span>
+<b style="font-size:6px;">PUEDE RECHAZAR ESTE ACUERDO DE ARBITRAJE ENVIANDO UN AVISO AL PRESTAMISTA ("AVISO DE RECHAZO") QUE SE RECIBE DENTRO DE (30) DÃAS DESPUÃ‰S DE LA FECHA DE SU SOLICITUD. EL AVISO DE RECHAZO DEBE INCLUIR SU NOMBRE, DIRECCIÃ“N, NÃšMERO DE TELÃ‰FONO Y LA FECHA DE SU SOLICITUD Y DEBE SER ENVIADO POR CORREO O ENVIADO POR EL SERVICIO DE MENSAJEROS (TAL COMO FEDEX) A: 4645 VAN NUYS BLVD SUITE 202 SHERMAN OAKS CA 91403 (O DICHO OTRO AVISO DIRECCIÃ“N COMO PRESTAMISTA LE PROPORCIONA POR ESCRITO). SI RECHAZA EL ARBITRAJE, NI USTED NI EL PRESTAMISTA TENDRÃN EL DERECHO DE REQUERIR EL ARBITRAJE DE ALGUNAS O TODAS LAS RECLAMACIONES (COMO TAL TÃ‰RMINO SE DEFINE A CONTINUACIÃ“N). EL RECHAZO DEL ACUERDO DE ARBITRAJE NO AFECTARÃ LA DISPUESTA DEL PRESTAMISTA PARA PROPORCIONARLE UN PRÃ‰STAMO (AHORA O EN EL FUTURO), NI AFECTARÃ LOS TÃ‰RMINOS DE SU NOTA PROMISORIA Y ACUERDO DE SEGURIDAD CON EL PRESTADOR (EL "ACUERDO DE PRÃ‰STAMO"). CUALQUIER RECHAZO DE ARBITRAJE SE APLICARÃ SOLO A ESTE ACUERDO DE ARBITRAJE (Y NO A NINGÃšN ACUERDO DE ARBITRAJE ANTERIOR O POSTERIOR)
 <br>
 TU O NOSOTROS PODEMOS ELEGIR TENER CUALQUIER DISPUTA ENTRE NOSOTROS DECIDIDOS POR ARBITRAJE Y NO EN EL TRIBUNAL O POR EL CAMINO DEL JURADO.
-EL DESCUBRIMIENTO Y LOS DERECHOS TAMBIÉN APELACIÓN EN EL ARBITRAJE SON GENERALMENTE MÁS LIMITADOS QUE EN UNA DEMANDA, Y OTROS DERECHOS QUE USTED Y NOSOTROS
-PODRÍA TENER EN TRIBUNAL PUEDE NO ESTAR DISPONIBLE EN ARBITRAJE.
+EL DESCUBRIMIENTO Y LOS DERECHOS TAMBIÃ‰N APELACIÃ“N EN EL ARBITRAJE SON GENERALMENTE MÃS LIMITADOS QUE EN UNA DEMANDA, Y OTROS DERECHOS QUE USTED Y NOSOTROS
+PODRÃA TENER EN TRIBUNAL PUEDE NO ESTAR DISPONIBLE EN ARBITRAJE.
 
 <br>
-SI UNA DISPUTA ES ARBITRADA, USTED DEJARÁ SU DERECHO A PARTICIPAR COMO REPRESENTANTE DE LA CLASE O MIEMBRO DE LA CLASE EN CUALQUIER RECLAMO DE CLASE
-PUEDE TENER CONTRA NOSOTROS, INCLUYENDO CUALQUIER DERECHO A ARBITRAJE DE CLASE O CUALQUIER CONSOLIDACIÓN DE ARBITRAJE INDIVIDUAL.
+SI UNA DISPUTA ES ARBITRADA, USTED DEJARÃ SU DERECHO A PARTICIPAR COMO REPRESENTANTE DE LA CLASE O MIEMBRO DE LA CLASE EN CUALQUIER RECLAMO DE CLASE
+PUEDE TENER CONTRA NOSOTROS, INCLUYENDO CUALQUIER DERECHO A ARBITRAJE DE CLASE O CUALQUIER CONSOLIDACIÃ“N DE ARBITRAJE INDIVIDUAL.
 </b> <br>
 <span style="font-size:8px;">
-SI UNA DISPUTA ES ARBITRADA, USTED DEJARÁ SU DERECHO A PARTICIPAR COMO REPRESENTANTE DE LA CLASE O MIEMBRO DE LA CLASE EN CUALQUIER RECLAMO DE CLASE
-PUEDE TENER CONTRA NOSOTROS, INCLUYENDO CUALQUIER DERECHO A ARBITRAJE DE CLASE O CUALQUIER CONSOLIDACIÓN DE ARBITRAJE INDIVIDUAL.
+SI UNA DISPUTA ES ARBITRADA, USTED DEJARÃ SU DERECHO A PARTICIPAR COMO REPRESENTANTE DE LA CLASE O MIEMBRO DE LA CLASE EN CUALQUIER RECLAMO DE CLASE
+PUEDE TENER CONTRA NOSOTROS, INCLUYENDO CUALQUIER DERECHO A ARBITRAJE DE CLASE O CUALQUIER CONSOLIDACIÃ“N DE ARBITRAJE INDIVIDUAL.
 
 <br>
-Puede elegir una de las siguientes organizaciones de arbitraje y sus reglas aplicables: The American Arbitration Association, 1633 Broadway, 10th Floor, New York, NY 10019 (www.adr.org) también 725 S Figueroa, Suite 2400, Los Angeles, CA 90017 (www.adr.org) o ARC 700 S Flower Street Suite 415, Los Ángeles, CA 90017 (www.arc4adr.com) o cualquier otra organización que pueda elegir sujeto a nuestra aprobación. Puede obtener una copia de las reglas de estas organizaciones comunicándose con la organización de arbitraje o visitando su sitio web.
+Puede elegir una de las siguientes organizaciones de arbitraje y sus reglas aplicables: The American Arbitration Association, 1633 Broadway, 10th Floor, New York, NY 10019 (www.adr.org) tambiÃ©n 725 S Figueroa, Suite 2400, Los Angeles, CA 90017 (www.adr.org) o ARC 700 S Flower Street Suite 415, Los Ãngeles, CA 90017 (www.arc4adr.com) o cualquier otra organizaciÃ³n que pueda elegir sujeto a nuestra aprobaciÃ³n. Puede obtener una copia de las reglas de estas organizaciones comunicÃ¡ndose con la organizaciÃ³n de arbitraje o visitando su sitio web.
 <br>
-Los árbitros serán jueces retirados y serán seleccionados de conformidad con las normas aplicables. El árbitro aplicará la ley sustantiva vigente al hacer un laudo. La audiencia de arbitraje se llevará a cabo en el Distrito Federal en el que resida, a menos que el Acreedor sea parte en el reclamo o disputa, en cuyo caso la audiencia se llevará a cabo en el Distrito Federal donde se ejecutó el contrato. Le adelantaremos la tarifa de administración, administración, servicio o gestión de casos y su tarifa de arbitraje o audiencia, todo hasta un máximo de $ 1,500.00, que puede reembolsarse por decisión del árbitro a discreción del árbitro
+Los Ã¡rbitros serÃ¡n jueces retirados y serÃ¡n seleccionados de conformidad con las normas aplicables. El Ã¡rbitro aplicarÃ¡ la ley sustantiva vigente al hacer un laudo. La audiencia de arbitraje se llevarÃ¡ a cabo en el Distrito Federal en el que resida, a menos que el Acreedor sea parte en el reclamo o disputa, en cuyo caso la audiencia se llevarÃ¡ a cabo en el Distrito Federal donde se ejecutÃ³ el contrato. Le adelantaremos la tarifa de administraciÃ³n, administraciÃ³n, servicio o gestiÃ³n de casos y su tarifa de arbitraje o audiencia, todo hasta un mÃ¡ximo de $ 1,500.00, que puede reembolsarse por decisiÃ³n del Ã¡rbitro a discreciÃ³n del Ã¡rbitro
 
 </span>
 <br>

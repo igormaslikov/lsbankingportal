@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -14,9 +14,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -49,9 +49,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -100,9 +100,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
  
-  $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+  $sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -113,9 +113,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
   	$anual_pr= $calculation;
  
  
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+ $sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -126,8 +126,8 @@ $username=$row_user['username'];
  
  
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
-while($row2 = mysqli_fetch_array($sql2)) {
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+while($row2 = $sql2->fetch_array()) {
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
 $f_name= $ff_name.' '.$l_name;
@@ -216,14 +216,14 @@ $style = array(
 );
 
  $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span><br><br>
- <b style="text-align:center">NOTA PROMISORIA DE CALIFORNIA Y ACUERDO DE SEGURIDAD BIENES DE CONSUMO DIRECTOS - PROPÓSITO DEL CONSUMIDOR</b>
+ <b style="text-align:center">NOTA PROMISORIA DE CALIFORNIA Y ACUERDO DE SEGURIDAD BIENES DE CONSUMO DIRECTOS - PROPÃ“SITO DEL CONSUMIDOR</b>
 <br><br>
 
 <span style="font-size:8px;"><table border="1" style="text-align:center">
 <tbody>
 <tr>
-<td style="text-align:left">Nombre y Dirección del Prestatario</td>
-<td style="text-align:left">Nombre y Dirección del Prestamista</td>
+<td style="text-align:left">Nombre y DirecciÃ³n del Prestatario</td>
+<td style="text-align:left">Nombre y DirecciÃ³n del Prestamista</td>
 </tr>
 <tr>
 <td style="text-align:center" height="50">Borrower Name and Address</td>
@@ -235,21 +235,21 @@ Ph. (747) 300-1542
 </td>
 </tr>
 <tr>
-<td style="text-align:left">Nombre y Dirección del Co-prestatario</td>
+<td style="text-align:left">Nombre y DirecciÃ³n del Co-prestatario</td>
 <td style="text-align:left">Numero de Licencia.:60DBO-88277</td>
 </tr>
 <tr>
 <td style="text-align:center" height="50"></td>
-<td style="text-align:left" height="50">Número de Cuenta:</td>
+<td style="text-align:left" height="50">NÃºmero de Cuenta:</td>
 </tr>
 <tr>
-<td style="text-align:left">Fecha de Préstamo:</td>
+<td style="text-align:left">Fecha de PrÃ©stamo:</td>
 <td style="text-align:left">Fecha de vencimiento: </td>
 </tr>
 
 </tbody>
 </table></span>
-<span style="font-size:9px;">En este Pagaré y Acuerdo de Seguridad ("Acuerdo"). El prestatario y el Co-prestatario se denominan "usted" y "su" y el prestamista se denomina "nosotros" y "nuestro". La divulgación de la Ley Federal de Veracidad en los Préstamos es parte de este Acuerdo. En la fecha que se muestra enfrente de su (s) firma (s) a continuación, le hemos prestado dinero y nos ha otorgado un interés de seguridad en su vehículo de motor descrito a continuación ("Vehículo") como garantía para garantizar el reembolso.</span>
+<span style="font-size:9px;">En este PagarÃ© y Acuerdo de Seguridad ("Acuerdo"). El prestatario y el Co-prestatario se denominan "usted" y "su" y el prestamista se denomina "nosotros" y "nuestro". La divulgaciÃ³n de la Ley Federal de Veracidad en los PrÃ©stamos es parte de este Acuerdo. En la fecha que se muestra enfrente de su (s) firma (s) a continuaciÃ³n, le hemos prestado dinero y nos ha otorgado un interÃ©s de seguridad en su vehÃ­culo de motor descrito a continuaciÃ³n ("VehÃ­culo") como garantÃ­a para garantizar el reembolso.</span>
 <br><br>
 <span style="font-size:8px;"><table border="1" style="text-align:center">
 <tbody>
@@ -259,7 +259,7 @@ Ph. (747) 300-1542
 <td style="text-align:left">VIN# </td>
 </tr>
 <tr>
-<td style="text-align:left">Año:</td>
+<td style="text-align:left">AÃ±o:</td>
 <td style="text-align:left">Modelo: </td>
 <td style="text-align:left">Color: Balck</td>
 </tr>
@@ -274,18 +274,18 @@ Ph. (747) 300-1542
 <span style="font-size:8px;"> <table border="1" style="text-align:center">
 <tbody>
 <tr>
-<td  colspan="4" style="text-align:center"><b>VERDAD FEDERAL EN LA DIVULGACIÓN DE LEY DE PRÉSTAMO</b></td>
+<td  colspan="4" style="text-align:center"><b>VERDAD FEDERAL EN LA DIVULGACIÃ“N DE LEY DE PRÃ‰STAMO</b></td>
 </tr>
 <tr>
-<td style="text-align:center"><b>TASA DE PORCENTAJE ANUAL </b><br>El costo de su crédito como tasa anual<br><br>'.$anual_pr.'%<br></td>
-<td style="text-align:center"><b>CARGO FINANCIERO</b><br>El monto en dólares que le costará el crédito.<br><br> $'.$loan_fee.'<br></td>
-<td style="text-align:center"><b>MONTO FINANCIADO</b><br>La cantidad de crédito otorgado a usted o en su nombre<br><br>$'.$amount_of_loan.'<br></td>
-<td style="text-align:center"><b>TOTAL DE PAGOS</b><br>La cantidad que habrá pagado después de haber realizado todos los pagos según lo programado<br><br> $'.$loan_payable.'<br></td>
+<td style="text-align:center"><b>TASA DE PORCENTAJE ANUAL </b><br>El costo de su crÃ©dito como tasa anual<br><br>'.$anual_pr.'%<br></td>
+<td style="text-align:center"><b>CARGO FINANCIERO</b><br>El monto en dÃ³lares que le costarÃ¡ el crÃ©dito.<br><br> $'.$loan_fee.'<br></td>
+<td style="text-align:center"><b>MONTO FINANCIADO</b><br>La cantidad de crÃ©dito otorgado a usted o en su nombre<br><br>$'.$amount_of_loan.'<br></td>
+<td style="text-align:center"><b>TOTAL DE PAGOS</b><br>La cantidad que habrÃ¡ pagado despuÃ©s de haber realizado todos los pagos segÃºn lo programado<br><br> $'.$loan_payable.'<br></td>
 </tr>
 </tbody>
 </table></span>
 <br>
-Su calendario de pagos será:<br>
+Su calendario de pagos serÃ¡:<br>
  <span style="font-size:9px;"><table border="1">
 <tbody>
 <tr style="text-align:center">
@@ -315,9 +315,9 @@ Su calendario de pagos será:<br>
 </tr>
 </tbody>
 </table></span>
-<b style="font-size:8px;">Seguridad: </b><span style="font-size:8px;">Usted está dando un interés de seguridad en su vehículo.<span><br>
-<b style="font-size:8px;">Cargo por retraso: </b><span style="font-size:8px;">Si no se realiza ningún pago dentro de los 10 días posteriores a su vencimiento, se le cobrará un cargo por retraso de $ 10.00.<span><br>
-<b style="font-size:8px;">Pago anticipado: </b><span style="font-size:8px;">Si paga temprano, no tendrá que pagar una multa. Consulte el documento de su contrato para obtener información adicional sobre incumplimiento de pago y el derecho a acelerar el vencimiento de la obligación.<span><br>
+<b style="font-size:8px;">Seguridad: </b><span style="font-size:8px;">Usted estÃ¡ dando un interÃ©s de seguridad en su vehÃ­culo.<span><br>
+<b style="font-size:8px;">Cargo por retraso: </b><span style="font-size:8px;">Si no se realiza ningÃºn pago dentro de los 10 dÃ­as posteriores a su vencimiento, se le cobrarÃ¡ un cargo por retraso de $ 10.00.<span><br>
+<b style="font-size:8px;">Pago anticipado: </b><span style="font-size:8px;">Si paga temprano, no tendrÃ¡ que pagar una multa. Consulte el documento de su contrato para obtener informaciÃ³n adicional sobre incumplimiento de pago y el derecho a acelerar el vencimiento de la obligaciÃ³n.<span><br>
 <b style="font-size:8px;text-align:center"> *El prestamista puede retener una parte de estos montos </b><br><br>
 <table border="1">
 <tbody>
@@ -337,15 +337,15 @@ A-4. Monto pagado a:<br>
 A-5. Monto pagado a:<br>
 B. Tarifas de Registro del DMV<br>
 C. Tasa de Gravamen del DMV<br>
-D. Tarifa de Renovación<br>
+D. Tarifa de RenovaciÃ³n<br>
 E. Cantidad Financiada (A a D)<br>
 F. Tasa Administrativa (Cargo por financiamiento prepago)<br>
-G. Monto Total del Préstamo
+G. Monto Total del PrÃ©stamo
 
 </span>
 
 </td>
-<td align="left"> <b style="font-size:7px;">ESTE ES UN PRÉSTAMO DE ALTO COSTO. PUEDE PODER OBTENER UN PRÉSTAMO DE ALGUIEN MÁS A UNA TASA DE INTERÉS MENOR. Optima Financial Solutions Inc LE RECOMIENDA PENSAR CUIDADOSAMENTE ANTES DE DECIDIR ADQUIRIR ESTE PRÉSTAMO.</b>
+<td align="left"> <b style="font-size:7px;">ESTE ES UN PRÃ‰STAMO DE ALTO COSTO. PUEDE PODER OBTENER UN PRÃ‰STAMO DE ALGUIEN MÃS A UNA TASA DE INTERÃ‰S MENOR. Optima Financial Solutions Inc LE RECOMIENDA PENSAR CUIDADOSAMENTE ANTES DE DECIDIR ADQUIRIR ESTE PRÃ‰STAMO.</b>
 <br><br>
 Firma del Prestatario &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha :
 <br><br>

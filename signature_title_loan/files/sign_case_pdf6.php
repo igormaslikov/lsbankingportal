@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -12,9 +12,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -41,9 +41,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -89,9 +89,9 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $f_name=$row2['first_name'];
 $address=$row2['address'];
@@ -235,9 +235,9 @@ esta notificacion cuidadosamente para entender lo que hacemos.<br><br></td>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br><br>Que?<br></td>
 <td style="width: 83.1267%;"><br><br>Los tipos de datos personales que tomamos y compartimos dependen del producto o servicio que tenga con nosotros. Estos
 datos pueden incluir:<br><br>
-• Numero de Seguro Social y Ingresos<br>
-• Saldos de cuentas e historial de pagos<br>
-• Historial de credito<br><br></td>
+â€¢ Numero de Seguro Social y Ingresos<br>
+â€¢ Saldos de cuentas e historial de pagos<br>
+â€¢ Historial de credito<br><br></td>
 </tr>
 <tr>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>Como ? <br></td>
@@ -260,35 +260,35 @@ Comparte?</b></td>
 <td style="width: 20.8981%; text-align:center;background-color:grey; color:white"><b>Usted puede limitar?</b></td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para nuestras actividades diarias –</b><br>
+<td style="width: 60%;"><br><br><b>Para nuestras actividades diarias â€“</b><br>
 tales como procesar sus operaciones, mantener su(s) cuenta(s), responder
 requisitos judiciales e investigaciones legales o reportar a agencias de credito.<br></td>
 <td style="width: 20.1019%;text-align:center"><br><br> Yes &nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> No&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para nuestras actividades comerciales –</b> <br>
+<td style="width: 60%;"><br><br><b>Para nuestras actividades comerciales â€“</b> <br>
 para ofrecerle nuestros productos y servicios<br></td>
 <td style="width: 20.1019%;text-align:center"><br><br> Yes &nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> No&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para comercializacion conjunta con otras empresas financieras–</b> <br></td>
+<td style="width: 60%;"><br><br><b>Para comercializacion conjunta con otras empresas financierasâ€“</b> <br></td>
 <td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> No Compartimos&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para las actividades diarias de nuestros afiliados –</b> <br>informacion acerca de sus operaciones y experiencias&nbsp;</td>
+<td style="width: 60%;"><br><br><b>Para las actividades diarias de nuestros afiliados â€“</b> <br>informacion acerca de sus operaciones y experiencias&nbsp;</td>
 <td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> No Compartimos&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para las actividades diarias de nuestros afiliados –</b> <br>informacion sobre su solvencia<br></td>
+<td style="width: 60%;"><br><br><b>Para las actividades diarias de nuestros afiliados â€“</b> <br>informacion sobre su solvencia<br></td>
 <td style="width: 20.1019%;text-align:center"><br><br> No Compartimos&nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> We dont share&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>Para que nuetros afiliados lleven a cabo actividades comerciales –</b> <br>&nbsp;</td>
+<td style="width: 60%;"><br><br><b>Para que nuetros afiliados lleven a cabo actividades comerciales â€“</b> <br>&nbsp;</td>
 <td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> No Compartimos&nbsp;</td>
 </tr>

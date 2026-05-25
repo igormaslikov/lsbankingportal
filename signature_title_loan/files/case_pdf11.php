@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -46,9 +46,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -101,9 +101,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -116,9 +116,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -254,8 +254,8 @@ $style = array(
 <td>
 <span style="font-size:8px;">
 
-Each party shall be responsible for its own Attorney, expert and other fees, unless awarded by the arbitrator under applicable law. If the chosen arbitration organization’s rules conflict with this cause, then, the provisions of this cause shall control. The arbitrator’s award shall be final and binding on all parties, except that in the event the arbitrator’s award for a party is $0 or against a party is in excess of $100.000 or includes an award of injunctive relief against a party, that party may request a new arbitration under the rules of the arbitration organization by a three-arbitrator panel. The appealing party requesting new arbitration shall be responsible for the filling fee and other arbitration costs subject to a final determination by the arbitrators of a fair apportionment of cost. Any arbitration under this Arbitration Clause shall be governed by Federal Arbitration Act (9 U.S.C. 1 et. Seq.) and not by any state law concerning arbitration.<br>
-You and Lender retain any rights to self-help remedies, such as repossession, you and Lender retain the right to seek remedies in small claims court for disputes or claims within the court’s jurisdiction, unless such action is transferred, removed or appealed to a different court. Neither you nor Lender waive the right to arbitrate by using self-help remedies or filling suit. Any court having jurisdiction may enter judgment on the arbitrator’s award. This clause shall survive any termination, payoff or transfer of this contract. If any part of this arbitration clause is deemed or found to be unenforceable for any reason, the reminder shall remain enforceable. If a waiver of class actions rights is deemed or found to be unenforceable for any reason in a case in which class action allegations have been made; the remainder of this arbitration clause shall be enforceable.
+Each party shall be responsible for its own Attorney, expert and other fees, unless awarded by the arbitrator under applicable law. If the chosen arbitration organizationâ€™s rules conflict with this cause, then, the provisions of this cause shall control. The arbitratorâ€™s award shall be final and binding on all parties, except that in the event the arbitratorâ€™s award for a party is $0 or against a party is in excess of $100.000 or includes an award of injunctive relief against a party, that party may request a new arbitration under the rules of the arbitration organization by a three-arbitrator panel. The appealing party requesting new arbitration shall be responsible for the filling fee and other arbitration costs subject to a final determination by the arbitrators of a fair apportionment of cost. Any arbitration under this Arbitration Clause shall be governed by Federal Arbitration Act (9 U.S.C. 1 et. Seq.) and not by any state law concerning arbitration.<br>
+You and Lender retain any rights to self-help remedies, such as repossession, you and Lender retain the right to seek remedies in small claims court for disputes or claims within the courtâ€™s jurisdiction, unless such action is transferred, removed or appealed to a different court. Neither you nor Lender waive the right to arbitrate by using self-help remedies or filling suit. Any court having jurisdiction may enter judgment on the arbitratorâ€™s award. This clause shall survive any termination, payoff or transfer of this contract. If any part of this arbitration clause is deemed or found to be unenforceable for any reason, the reminder shall remain enforceable. If a waiver of class actions rights is deemed or found to be unenforceable for any reason in a case in which class action allegations have been made; the remainder of this arbitration clause shall be enforceable.
 
 
 </span>
@@ -263,11 +263,11 @@ You and Lender retain any rights to self-help remedies, such as repossession, yo
 
 <br><br><br><br><br>
 
-<span style="font-size:8px;">Borrower’s Signature / Firma del Prestatario:</span>
+<span style="font-size:8px;">Borrowerâ€™s Signature / Firma del Prestatario:</span>
 <br><br>
 X____________________________________      
 <br><br>
-<span style="font-size:8px;">Co-Borrower’s Signature / Firma del Co-Prestatario:</span>
+<span style="font-size:8px;">Co-Borrowerâ€™s Signature / Firma del Co-Prestatario:</span>
 <br><br>
 X_____________________________________
 
@@ -282,8 +282,8 @@ X_____________________________________
 
 
 <td>
-<span style="font-size:8px;">Cada parte será responsable de su propio abogado, experto y otros honorarios, a menos que el árbitro lo otorgue de conformidad con la ley aplicable. Si las reglas de la organización de arbitraje elegida entran en conflicto con esta causa, las disposiciones de esta causa prevalecerán. El laudo del árbitro será definitivo y vinculante para todas las partes, excepto que en el caso de que el laudo del árbitro para una parte sea de $ 0 o contra una parte sea superior a $ 100,000 o incluya una adjudicación de medidas cautelares contra una parte, esa parte puede solicitar un nuevo arbitraje bajo las reglas de la organización de arbitraje por un panel de tres árbitros. La parte apelante que solicite un nuevo arbitraje será responsable de la tarifa de tramitación y otros costos de arbitraje sujetos a una determinación final por parte de los árbitros de una distribución equitativa del costo. Cualquier arbitraje bajo esta Cláusula de Arbitraje se regirá por la Ley Federal de Arbitraje (9 U.S.C.1 y siguientes) y no por ninguna ley estatal sobre arbitraje.<br>
-Usted y el Prestamista conservan cualquier derecho a remedios de autoayuda, como la recuperación, usted y el Prestamista se reservan el derecho de buscar remedios en el tribunal de reclamos menores por disputas o reclamos dentro de la jurisdicción del tribunal, a menos que dicha acción sea transferida, eliminada o apelada a otra Corte. Ni usted ni el prestamista renunciar al derecho de arbitraje mediante el uso de remedios de autoayuda o llenar el traje. Cualquier tribunal que tenga jurisdicción puede emitir un fallo sobre el laudo del árbitro. Esta cláusula sobrevivirá a cualquier terminación, pago o transferencia de este contrato. Si alguna parte de esta cláusula de arbitraje se considera o se considera que no se puede hacer cumplir por algún motivo, el recordatorio seguirá siendo ejecutable. Si se considera o se considera que una renuncia a los derechos de las acciones de clase es inaplicable por cualquier motivo en un caso en el que se han realizado acusaciones de acción de clase; El resto de esta cláusula de arbitraje será exigible.
+<span style="font-size:8px;">Cada parte serÃ¡ responsable de su propio abogado, experto y otros honorarios, a menos que el Ã¡rbitro lo otorgue de conformidad con la ley aplicable. Si las reglas de la organizaciÃ³n de arbitraje elegida entran en conflicto con esta causa, las disposiciones de esta causa prevalecerÃ¡n. El laudo del Ã¡rbitro serÃ¡ definitivo y vinculante para todas las partes, excepto que en el caso de que el laudo del Ã¡rbitro para una parte sea de $ 0 o contra una parte sea superior a $ 100,000 o incluya una adjudicaciÃ³n de medidas cautelares contra una parte, esa parte puede solicitar un nuevo arbitraje bajo las reglas de la organizaciÃ³n de arbitraje por un panel de tres Ã¡rbitros. La parte apelante que solicite un nuevo arbitraje serÃ¡ responsable de la tarifa de tramitaciÃ³n y otros costos de arbitraje sujetos a una determinaciÃ³n final por parte de los Ã¡rbitros de una distribuciÃ³n equitativa del costo. Cualquier arbitraje bajo esta ClÃ¡usula de Arbitraje se regirÃ¡ por la Ley Federal de Arbitraje (9 U.S.C.1 y siguientes) y no por ninguna ley estatal sobre arbitraje.<br>
+Usted y el Prestamista conservan cualquier derecho a remedios de autoayuda, como la recuperaciÃ³n, usted y el Prestamista se reservan el derecho de buscar remedios en el tribunal de reclamos menores por disputas o reclamos dentro de la jurisdicciÃ³n del tribunal, a menos que dicha acciÃ³n sea transferida, eliminada o apelada a otra Corte. Ni usted ni el prestamista renunciar al derecho de arbitraje mediante el uso de remedios de autoayuda o llenar el traje. Cualquier tribunal que tenga jurisdicciÃ³n puede emitir un fallo sobre el laudo del Ã¡rbitro. Esta clÃ¡usula sobrevivirÃ¡ a cualquier terminaciÃ³n, pago o transferencia de este contrato. Si alguna parte de esta clÃ¡usula de arbitraje se considera o se considera que no se puede hacer cumplir por algÃºn motivo, el recordatorio seguirÃ¡ siendo ejecutable. Si se considera o se considera que una renuncia a los derechos de las acciones de clase es inaplicable por cualquier motivo en un caso en el que se han realizado acusaciones de acciÃ³n de clase; El resto de esta clÃ¡usula de arbitraje serÃ¡ exigible.
 
 
 </span>

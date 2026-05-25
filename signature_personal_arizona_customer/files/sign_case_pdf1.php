@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -13,9 +13,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from personal_loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from personal_loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -46,9 +46,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -106,9 +106,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
  
-  $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+  $sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -118,9 +118,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
     $calculation = round($calculation, 2);
   	$anual_pr= $calculation;
  
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+ $sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -129,8 +129,8 @@ $username=$row_user['username'];
  
  
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
-while($row2 = mysqli_fetch_array($sql2)) {
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+while($row2 = $sql2->fetch_array()) {
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
 $f_name= $ff_name.' '.$l_name;
@@ -155,8 +155,8 @@ $address=$row2['address'];
        // possibly display a placeholder image?
    }
    
-  $result_install = mysqli_query($con, "select * from tbl_personal_loan_installments where loan_create_id='$loan_id_bor'");
-    while($row_install = mysqli_fetch_array($result_install)){
+  $result_install = $con->query("select * from tbl_personal_loan_installments where loan_create_id='$loan_id_bor'");
+    while($row_install = $result_install->fetch_array()){
 		 
 		  $intallment_id=$row_install['id'];
 	      $payment= $row_install['payment'];
@@ -239,21 +239,21 @@ $style = array(
 
  $html = '<br><br><img src="images/Money-Line-Logo.JPG" style="height:400%" align="left"/><br><span style="text-align:left">11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703</span>
  <br><div style="line-height:7px"><h1 style="text-align:center"><u>Contrato de Prestamo</u></h1>
-<span style="text-align:center;font-weight:bold;">Convenio de Préstamo y Condiciones Básicas</span><br><br>
+<span style="text-align:center;font-weight:bold;">Convenio de PrÃ©stamo y Condiciones BÃ¡sicas</span><br><br>
 </div>
-<span>El Convenio de este Préstamo, comienza en la fecha especificada a continuación entre el Prestatario y cualquier Co-Prestatario
-("usted", el “Prestatario”), que vive y puede ser contactado en la siguiente dirección y Optima (“nosotros", "nos", el
-"Prestamista"). Se incluye una traducción al español de este Convenio de Préstamo y Condiciones. Tomemos en consideración que
-proporcionamos una traducción al español como cortesía porque valoramos a nuestros clientes y tratamos de proporcionar una
-traducción precisa. Si la traducción en Español difiere a la versión en Inglés del Convenio de Préstamo y términos básicos, usted
-entiende completamente que el Contrato de Préstamo Personal en Inglés es el Acuerdo de unión legal entre prestatario y
+<span>El Convenio de este PrÃ©stamo, comienza en la fecha especificada a continuaciÃ³n entre el Prestatario y cualquier Co-Prestatario
+("usted", el â€œPrestatarioâ€), que vive y puede ser contactado en la siguiente direcciÃ³n y Optima (â€œnosotros", "nos", el
+"Prestamista"). Se incluye una traducciÃ³n al espaÃ±ol de este Convenio de PrÃ©stamo y Condiciones. Tomemos en consideraciÃ³n que
+proporcionamos una traducciÃ³n al espaÃ±ol como cortesÃ­a porque valoramos a nuestros clientes y tratamos de proporcionar una
+traducciÃ³n precisa. Si la traducciÃ³n en EspaÃ±ol difiere a la versiÃ³n en InglÃ©s del Convenio de PrÃ©stamo y tÃ©rminos bÃ¡sicos, usted
+entiende completamente que el Contrato de PrÃ©stamo Personal en InglÃ©s es el Acuerdo de uniÃ³n legal entre prestatario y
 prestamista.</span><br><br>
 Numero de Prestamo:  '.$loan_id_bor.'<br>
 Nombre del Prestatario: '. $f_name.'<br>
 Direccion del Prestatario: '.$address.'<br><br>
 
-<span>Los términos "usted" y "su" se refieren a cada Prestatario y Co-Prestatario, si corresponde. Los términos "Prestamista",
-"Optima", "nosotros", "nos" y "nuestro” nos referimos al prestamista y a cualquier cesionario del prestamista.</span><br><br>
+<span>Los tÃ©rminos "usted" y "su" se refieren a cada Prestatario y Co-Prestatario, si corresponde. Los tÃ©rminos "Prestamista",
+"Optima", "nosotros", "nos" y "nuestroâ€ nos referimos al prestamista y a cualquier cesionario del prestamista.</span><br><br>
 
 <table border="1" style="text-align:center">
 <tbody>
@@ -294,7 +294,7 @@ como tasa anual<br><br>'.$anual_pr.'%<br></td>
 <br>
 <b style="text-align:left">Cargo por Incumplimiento:</b><span style="font-size:9px"> Si un pago se hace con mas de 10 dias de retraso, se le cobrara $10.</span>
 <br>
-<b style="text-align:left">Cargo de Originación:</b><span style="font-size:9px">Se agregará un cargo prepago de financiamiento por $ 75 para cubrir el costo de procesar su solicitud y el acuerdo.</span>
+<b style="text-align:left">Cargo de OriginaciÃ³n:</b><span style="font-size:9px">Se agregarÃ¡ un cargo prepago de financiamiento por $ 75 para cubrir el costo de procesar su solicitud y el acuerdo.</span>
 </td>
 <td colspan="1">
 <b>Licencia del Prestamista:</b> <br><br>
@@ -308,12 +308,12 @@ como tasa anual<br><br>'.$anual_pr.'%<br></td>
 </tbody>
 </table>
 <br><br>
- Este documento, que consta de este formulario (denominado "Términos básicos") y los suplementos adjuntos (llamados "Términos y
-condiciones"), crea un acuerdo de préstamo ("Acuerdo") entre el Prestatario y el Prestamista. Al firmar, el Prestatario confirma que el
-Prestatario entiende y acepta los términos de este Acuerdo.
+ Este documento, que consta de este formulario (denominado "TÃ©rminos bÃ¡sicos") y los suplementos adjuntos (llamados "TÃ©rminos y
+condiciones"), crea un acuerdo de prÃ©stamo ("Acuerdo") entre el Prestatario y el Prestamista. Al firmar, el Prestatario confirma que el
+Prestatario entiende y acepta los tÃ©rminos de este Acuerdo.
 <br>
- Consulte los Documentos del Contrato a continuación para obtener información adicional sobre la falta de pago, el incumplimiento, el
-derecho a expresar el vencimiento del préstamo y el pago anticipado.<br><br>
+ Consulte los Documentos del Contrato a continuaciÃ³n para obtener informaciÃ³n adicional sobre la falta de pago, el incumplimiento, el
+derecho a expresar el vencimiento del prÃ©stamo y el pago anticipado.<br><br>
 
 Firma del Prestatario :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha : 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b> <u>Optima</u></b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nombre del Prestamista

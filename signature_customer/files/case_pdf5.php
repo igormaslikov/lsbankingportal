@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 $id=$_GET['id'];
 ?>
@@ -12,9 +12,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -48,9 +48,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -104,9 +104,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -119,9 +119,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -256,59 +256,59 @@ Loan Number/Numero de Prestamo: <span style="text-decoration:underline">'.$loan_
 Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
  <br>
 <h3 style="text-align:center">
-AUTORIZACIÓN DE PAGO RECURRENTE
+AUTORIZACIÃ“N DE PAGO RECURRENTE
 </h3>
 
 <div style="font-size:8px">
-1. Al firmar a continuación, el titular de la cuenta (“<b>usted</b>”) autoriza a Optima Financial Solutions Inc y sus afiliados (“<b>nosotros</b>”, “<b>nos</b>” y “<b>nuestro</b>”) para
-retirar automáticamente su pago del préstamo de su cuenta de depósito que termina en xxxxxx'.$account_number.' (“<b>Cuenta</b>”) en '.$bank_name.'
-(“<b>Banco</b>”)  a través de entradas de débito electrónico ACH (“<b>Autorización</b>”). Usted
-nos autoriza a iniciar el débito de $'.$total_loan_payable.' (“<b>importe de débito programado</b>”) en la fecha de vencimiento del pago, a partir de '.$payment_date.',
-que es la fecha de entrada en vigor de esta Autorización. Este débito continuarán hasta
-que el monto adeudado bajo su préstamo sea pagado en su totalidad o hasta que esta Autorización sea cancelada. También nos autoriza a iniciar
-débitos o créditos ACH en su Cuenta según sea necesario para corregir transacciones erróneas..<br>
-2. Usted tiene derecho a que le notifiquemos por escrito, con 10 días de antelación, el importe y la fecha de cualquier cargo que varíe el importe
-programado. No obstante, si cargamos en su cuenta cualquier importe comprendido entre 1 dólar y el importe de cargo programado, usted acepta que
-no tenemos que enviarle dicha notificación previa por escrito, a menos que lo exija la ley. No cargaremos en su Cuenta un importe superior al importe
+1. Al firmar a continuaciÃ³n, el titular de la cuenta (â€œ<b>usted</b>â€) autoriza a Optima Financial Solutions Inc y sus afiliados (â€œ<b>nosotros</b>â€, â€œ<b>nos</b>â€ y â€œ<b>nuestro</b>â€) para
+retirar automÃ¡ticamente su pago del prÃ©stamo de su cuenta de depÃ³sito que termina en xxxxxx'.$account_number.' (â€œ<b>Cuenta</b>â€) en '.$bank_name.'
+(â€œ<b>Banco</b>â€)  a travÃ©s de entradas de dÃ©bito electrÃ³nico ACH (â€œ<b>AutorizaciÃ³n</b>â€). Usted
+nos autoriza a iniciar el dÃ©bito de $'.$total_loan_payable.' (â€œ<b>importe de dÃ©bito programado</b>â€) en la fecha de vencimiento del pago, a partir de '.$payment_date.',
+que es la fecha de entrada en vigor de esta AutorizaciÃ³n. Este dÃ©bito continuarÃ¡n hasta
+que el monto adeudado bajo su prÃ©stamo sea pagado en su totalidad o hasta que esta AutorizaciÃ³n sea cancelada. TambiÃ©n nos autoriza a iniciar
+dÃ©bitos o crÃ©ditos ACH en su Cuenta segÃºn sea necesario para corregir transacciones errÃ³neas..<br>
+2. Usted tiene derecho a que le notifiquemos por escrito, con 10 dÃ­as de antelaciÃ³n, el importe y la fecha de cualquier cargo que varÃ­e el importe
+programado. No obstante, si cargamos en su cuenta cualquier importe comprendido entre 1 dÃ³lar y el importe de cargo programado, usted acepta que
+no tenemos que enviarle dicha notificaciÃ³n previa por escrito, a menos que lo exija la ley. No cargaremos en su Cuenta un importe superior al importe
 de cargo programado anteriormente.<br>
-3. Si cualquier fecha de pago cae en un fin de semana o en un día festivo, el débito se procesará el siguiente día hábil. 4. Si su Banco rechaza
-cualquier cargo porque usted no tiene una cuenta en el Banco, cancelaremos estos cargos recurrentes. Si su Banco rechaza cualquier débito porque
-no hay suficiente dinero en su Cuenta, suspenderemos estos débitos recurrentes y le daremos de baja de los pagos recurrentes hasta que haya
-pagado todos los pagos atrasados y cualquier tarifa de pago devuelto o cualquier otra tarifa debida bajo su pagaré. Una vez que su cuenta esté al día,
-le volveremos a inscribir en los pagos recurrentes de la ACH bajo esta Autorización, a menos que nos diga que no desea volver a inscribirse, en cuyo
+3. Si cualquier fecha de pago cae en un fin de semana o en un dÃ­a festivo, el dÃ©bito se procesarÃ¡ el siguiente dÃ­a hÃ¡bil. 4. Si su Banco rechaza
+cualquier cargo porque usted no tiene una cuenta en el Banco, cancelaremos estos cargos recurrentes. Si su Banco rechaza cualquier dÃ©bito porque
+no hay suficiente dinero en su Cuenta, suspenderemos estos dÃ©bitos recurrentes y le daremos de baja de los pagos recurrentes hasta que haya
+pagado todos los pagos atrasados y cualquier tarifa de pago devuelto o cualquier otra tarifa debida bajo su pagarÃ©. Una vez que su cuenta estÃ© al dÃ­a,
+le volveremos a inscribir en los pagos recurrentes de la ACH bajo esta AutorizaciÃ³n, a menos que nos diga que no desea volver a inscribirse, en cuyo
 caso cancelaremos los pagos recurrentes de la ACH..<br>
 4. Usted declara que es un firmante autorizado en la Cuenta. Se compromete a notificarnos con prontitud cualquier cambio en la Cuenta y debe
-avisarnos con siete (7) días de antelación de cualquier cambio en la misma. Usted reconoce que las transacciones ACH a su Cuenta deben cumplir
-con la legislación de los Estados Unidos.<br>
-5. Cómo cancelar. Puede cancelar esta Autorización llamándonos al (818) 856-4302 durante nuestro horario de atención. Debe notificarnos la
-cancelación al menos 3 días antes de la fecha de vencimiento del pago. También puede cancelar estos pagos recurrentes de la ACH siguiendo los
-procedimientos de suspensión de pagos de su banco, pero su banco puede cobrarle una comisión. Si cancela, deberá seguir realizando los pagos de
-su préstamo a tiempo
+avisarnos con siete (7) dÃ­as de antelaciÃ³n de cualquier cambio en la misma. Usted reconoce que las transacciones ACH a su Cuenta deben cumplir
+con la legislaciÃ³n de los Estados Unidos.<br>
+5. CÃ³mo cancelar. Puede cancelar esta AutorizaciÃ³n llamÃ¡ndonos al (818) 856-4302 durante nuestro horario de atenciÃ³n. Debe notificarnos la
+cancelaciÃ³n al menos 3 dÃ­as antes de la fecha de vencimiento del pago. TambiÃ©n puede cancelar estos pagos recurrentes de la ACH siguiendo los
+procedimientos de suspensiÃ³n de pagos de su banco, pero su banco puede cobrarle una comisiÃ³n. Si cancela, deberÃ¡ seguir realizando los pagos de
+su prÃ©stamo a tiempo
 <br><br>
-Salvo que se indique lo contrario, todos los términos en mayúsculas utilizados, pero no definidos en el presente documento tendrán el significado que
-se les atribuye en las Normas de la NACHA (según se definen más adelante). Al utilizar los Servicios, usted acepta los términos y condiciones de este
-Acuerdo. Salvo que se estipule expresamente lo contrario en el presente Anexo, en la medida en que este Anexo sea incompatible con los términos del
-Acuerdo inicial, prevalecerá el presente Anexo y cualquier modificación de este que se realice periódicamente, pero sólo en la medida necesaria para
-resolver dicho conflicto. Servicio ACH; cumplimiento de las normas de la NACHA y de la legislación aplicable. La red ACH es un sistema de
-transferencia de fondos que permite la compensación interbancaria de las entradas electrónicas de crédito y débito de las instituciones financieras
+Salvo que se indique lo contrario, todos los tÃ©rminos en mayÃºsculas utilizados, pero no definidos en el presente documento tendrÃ¡n el significado que
+se les atribuye en las Normas de la NACHA (segÃºn se definen mÃ¡s adelante). Al utilizar los Servicios, usted acepta los tÃ©rminos y condiciones de este
+Acuerdo. Salvo que se estipule expresamente lo contrario en el presente Anexo, en la medida en que este Anexo sea incompatible con los tÃ©rminos del
+Acuerdo inicial, prevalecerÃ¡ el presente Anexo y cualquier modificaciÃ³n de este que se realice periÃ³dicamente, pero sÃ³lo en la medida necesaria para
+resolver dicho conflicto. Servicio ACH; cumplimiento de las normas de la NACHA y de la legislaciÃ³n aplicable. La red ACH es un sistema de
+transferencia de fondos que permite la compensaciÃ³n interbancaria de las entradas electrÃ³nicas de crÃ©dito y dÃ©bito de las instituciones financieras
 participantes.
 <br><br>
-El sistema ACH se rige por las Normas de funcionamiento y las Directrices de funcionamiento de la Asociación Nacional de Cámaras de
-Compensación Automatizadas ("NACHA") (colectivamente, las "Normas NACHA"). Sus derechos y obligaciones con respecto a cualquier Entrada se
-rigen por las Normas de la NACHA, el presente Acuerdo y la legislación aplicable. Usted reconoce que tiene acceso a una copia de las Normas de
-NACHA y acepta obtener y revisar una copia. (Las Reglas de NACHA pueden obtenerse en el sitio web de NACHA en www.NACHA.org o poniéndose
-en contacto directamente con NACHA en el 703-561-1100). También acepta suscribirse para recibir las revisiones de las Normas de NACHA
-directamente de NACHA. Usted declara y garantiza que cumplirá las Normas de NACHA y las leyes, reglamentos y requisitos normativos aplicables.
-Asimismo, declara y garantiza que no transmitirá ninguna Entrada ni participará en ningún acto u omisión que infrinja o nos haga infringir las Normas de
+El sistema ACH se rige por las Normas de funcionamiento y las Directrices de funcionamiento de la AsociaciÃ³n Nacional de CÃ¡maras de
+CompensaciÃ³n Automatizadas ("NACHA") (colectivamente, las "Normas NACHA"). Sus derechos y obligaciones con respecto a cualquier Entrada se
+rigen por las Normas de la NACHA, el presente Acuerdo y la legislaciÃ³n aplicable. Usted reconoce que tiene acceso a una copia de las Normas de
+NACHA y acepta obtener y revisar una copia. (Las Reglas de NACHA pueden obtenerse en el sitio web de NACHA en www.NACHA.org o poniÃ©ndose
+en contacto directamente con NACHA en el 703-561-1100). TambiÃ©n acepta suscribirse para recibir las revisiones de las Normas de NACHA
+directamente de NACHA. Usted declara y garantiza que cumplirÃ¡ las Normas de NACHA y las leyes, reglamentos y requisitos normativos aplicables.
+Asimismo, declara y garantiza que no transmitirÃ¡ ninguna Entrada ni participarÃ¡ en ningÃºn acto u omisiÃ³n que infrinja o nos haga infringir las Normas de
 la NACHA o las leyes de los Estados Unidos, o cualquier otra ley, reglamento o requisito normativo aplicable, incluidos, entre otros, los reglamentos de
-la Oficina de Control de Activos Extranjeros ("OFAC"), las sanciones o las órdenes ejecutivas
+la Oficina de Control de Activos Extranjeros ("OFAC"), las sanciones o las Ã³rdenes ejecutivas
 <br><br>
 <b>IMPORTANTE<b><br>
-Para evitar cualquier comisión por devolución de pago, usted acepta que tendrá suficiente dinero en su Cuenta para cubrir el importe del
-débito programado.Los débitos ACH podrían tardar hasta 5 días hábiles en ser deducidos de su Cuenta.<br><br>
-Usted reconoce que (1) esta Autorización es voluntaria y no se requiere como condición para obtener su préstamo, (2) la Traducción al
-español se proporciona sólo como una cortesía y la versión en inglés es la versión legalmente efectiva, y (3) usted recibió una copia de
-esta Autorización cuando la firmó
+Para evitar cualquier comisiÃ³n por devoluciÃ³n de pago, usted acepta que tendrÃ¡ suficiente dinero en su Cuenta para cubrir el importe del
+dÃ©bito programado.Los dÃ©bitos ACH podrÃ­an tardar hasta 5 dÃ­as hÃ¡biles en ser deducidos de su Cuenta.<br><br>
+Usted reconoce que (1) esta AutorizaciÃ³n es voluntaria y no se requiere como condiciÃ³n para obtener su prÃ©stamo, (2) la TraducciÃ³n al
+espaÃ±ol se proporciona sÃ³lo como una cortesÃ­a y la versiÃ³n en inglÃ©s es la versiÃ³n legalmente efectiva, y (3) usted recibiÃ³ una copia de
+esta AutorizaciÃ³n cuando la firmÃ³
 
 </div>
 <table border="0" style="padding-top:10px;padding-bottom:10px">

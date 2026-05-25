@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -12,9 +12,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from personal_loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from personal_loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -45,9 +45,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_personal_loans where loan_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_personal_loans where loan_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -94,9 +94,9 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -234,21 +234,21 @@ Loan Agreement/Contrato del Prestamo
 <table>
 <tbody>
 <tr>
-<td><b style="font-size:8px;">•Promise to Pay:</b><span style="font-size:6px;">In return of the loan you receive from us, you promise to pay <u>$'.$amount_of_loan.'</u>, plus interest in accordance with the “Interest” section of this Agreement below, to Optima Financial Solutions Inc, it’s successors and assigns. You will pay these amounts in U.S. dollars.</span>
+<td><b style="font-size:8px;">â€¢Promise to Pay:</b><span style="font-size:6px;">In return of the loan you receive from us, you promise to pay <u>$'.$amount_of_loan.'</u>, plus interest in accordance with the â€œInterestâ€ section of this Agreement below, to Optima Financial Solutions Inc, itâ€™s successors and assigns. You will pay these amounts in U.S. dollars.</span>
 <br>
-<b style="font-size:8px;">•Personal Guarantee:</b><span style="font-size:6px;"> This contract has a personal guarantee from the borrower and co-borrower.</span>
-<br>
-
-<b style="font-size:8px;">•Interest:</b><span style="font-size:6px;">We will charge you interest from the date of advance until the principal, together with interest, at the rate of _____________% per year, is paid. We will calculate interest based on a year of 365 days and the actual number of days elapsed. This interest rate is the rate you will pay before and after any event of default. If any law that applies to this Agreement and sets maximum loan charges is finally interpreted so that the interest or other loan charges collected or to be collected in connection with this loan exceed the permitted limits, then: (i) we will reduce the loan charge by the amount necessary to reduce the charge to the permitted limit; and (ii) we will refund any sums already collected from you that are greater than the permitted limits. We may choose to make this refund by reducing the principle you owe under this Agreement or by making a direct payment to you.</span>
-<br>  
-<b style="font-size:8px;">•Repayment and Maturity Date:</b><span style="font-size:6px;"> You will repay the principal and interest on this loan as showing in the payment schedule, which is part of the Truth-in-Lending Disclosure statement printed above. You understand that if any of your payments are received by us on dates other than the due dates or if any additional charges are added to your loan balance under the provisions of this Agreement, your actual final payment will likely be different than the amount shown above, and you agree to pay the actual payment amount. You will make the payments as described above until you have paid all the principal and interest and any other charges that you may owe under this Agreement. Notwithstanding any other provision of this Agreement, you will pay any and all amounts outstanding on <u>'.$payment_date.' </u> (the “Maturity Date”).</span>
-<br>
-<b style="font-size:8px;">•Application of Payments:</b><span style="font-size:6px;"> Payments will be applied first to delinquency fees and/or other charges added to the loan, next to any accrued but unpaid interest, and finally to principal.</span>
-<br>  
-<b style="font-size:8px;">•Default and Acceleration of Payments:</b><span style="font-size:6px;">You will be in default if you fail to make a payment on time. When you are in default, we may require, without notice or demand, that you repay the entire amount of the loan at once. (This is called “acceleration”) even if, at a time when you are in default, we do not require you to pay immediately in full as described above, we will still have the right to do so at any other time that you are in default.</span>
+<b style="font-size:8px;">â€¢Personal Guarantee:</b><span style="font-size:6px;"> This contract has a personal guarantee from the borrower and co-borrower.</span>
 <br>
 
-<b style="font-size:8px;">• Pre-payments and Payoff:</b><span style="font-size:6px;">This loan has no prepayments penalty. Repaying your loan early will lower your borrowing costs by reducing the amount of interest you will pay. However, if you pay off early, you will not be entitled to a refund of any part of the prepaid finance charge (administrative fee).</span>
+<b style="font-size:8px;">â€¢Interest:</b><span style="font-size:6px;">We will charge you interest from the date of advance until the principal, together with interest, at the rate of _____________% per year, is paid. We will calculate interest based on a year of 365 days and the actual number of days elapsed. This interest rate is the rate you will pay before and after any event of default. If any law that applies to this Agreement and sets maximum loan charges is finally interpreted so that the interest or other loan charges collected or to be collected in connection with this loan exceed the permitted limits, then: (i) we will reduce the loan charge by the amount necessary to reduce the charge to the permitted limit; and (ii) we will refund any sums already collected from you that are greater than the permitted limits. We may choose to make this refund by reducing the principle you owe under this Agreement or by making a direct payment to you.</span>
+<br>  
+<b style="font-size:8px;">â€¢Repayment and Maturity Date:</b><span style="font-size:6px;"> You will repay the principal and interest on this loan as showing in the payment schedule, which is part of the Truth-in-Lending Disclosure statement printed above. You understand that if any of your payments are received by us on dates other than the due dates or if any additional charges are added to your loan balance under the provisions of this Agreement, your actual final payment will likely be different than the amount shown above, and you agree to pay the actual payment amount. You will make the payments as described above until you have paid all the principal and interest and any other charges that you may owe under this Agreement. Notwithstanding any other provision of this Agreement, you will pay any and all amounts outstanding on <u>'.$payment_date.' </u> (the â€œMaturity Dateâ€).</span>
+<br>
+<b style="font-size:8px;">â€¢Application of Payments:</b><span style="font-size:6px;"> Payments will be applied first to delinquency fees and/or other charges added to the loan, next to any accrued but unpaid interest, and finally to principal.</span>
+<br>  
+<b style="font-size:8px;">â€¢Default and Acceleration of Payments:</b><span style="font-size:6px;">You will be in default if you fail to make a payment on time. When you are in default, we may require, without notice or demand, that you repay the entire amount of the loan at once. (This is called â€œaccelerationâ€) even if, at a time when you are in default, we do not require you to pay immediately in full as described above, we will still have the right to do so at any other time that you are in default.</span>
+<br>
+
+<b style="font-size:8px;">â€¢ Pre-payments and Payoff:</b><span style="font-size:6px;">This loan has no prepayments penalty. Repaying your loan early will lower your borrowing costs by reducing the amount of interest you will pay. However, if you pay off early, you will not be entitled to a refund of any part of the prepaid finance charge (administrative fee).</span>
 <br>
 
 </td>
@@ -256,26 +256,26 @@ Loan Agreement/Contrato del Prestamo
 
 <td>
 
-<b style="font-size:8px;">•Promesa de pago:</b><span style="font-size:6px;">A cambio del préstamo que usted reciba de nosotros usted promete pagar <u>$'.$amount_of_loan.'</u> de capital, mas intereses, calculado de conformidad con la sección “Intereses” más abajo, a Optima Financial Solutions Inc y sus causa habientes y cesionarios. Usted pagara estos importes en dólares estadounidenses.</span>
+<b style="font-size:8px;">â€¢Promesa de pago:</b><span style="font-size:6px;">A cambio del prÃ©stamo que usted reciba de nosotros usted promete pagar <u>$'.$amount_of_loan.'</u> de capital, mas intereses, calculado de conformidad con la secciÃ³n â€œInteresesâ€ mÃ¡s abajo, a Optima Financial Solutions Inc y sus causa habientes y cesionarios. Usted pagara estos importes en dÃ³lares estadounidenses.</span>
 <br>
 
-<b style="font-size:8px;">•Garantía Personal:</b><span style="font-size:6px;">Este contrato tiene una garantía personal del prestatario y el co-prestatario.</span>
+<b style="font-size:8px;">â€¢GarantÃ­a Personal:</b><span style="font-size:6px;">Este contrato tiene una garantÃ­a personal del prestatario y el co-prestatario.</span>
 <br>
 
 
-<b style="font-size:8px;">•Intereses:</b><span style="font-size:6px;">. Se cargaran intereses a partir de la fecha del anticipo hasta que se pague el capital, mas todos los intereses, a razón del _____________% anual. Calcularemos los intereses con base en un ano de 365 días y el número real de días transcurridos. Esta tasa de interés es la tasa que usted para antes y después de cualquier incumplimiento. Si una ley, que se aplique a este contrato y que establezca cargos de préstamos máximos, es interpretada de manera que los intereses u otros cargos de préstamo cobrados o por cobrar en relación con este préstamo exceden los límites permitidos entonces; (i) restauraremos a dicho cargo o cuota de préstamo la cantidad necesaria para que el caro llegue al límite permitido, y (ii) le reembolsaremos cualquier importe que ya se la haya cobrado y hará excedido los límites permitidos. Podremos optar por efectuar este reembolso mediante la reducción del capital que usted deba según este contrato, o realizando un pago directo a usted.</span>
+<b style="font-size:8px;">â€¢Intereses:</b><span style="font-size:6px;">. Se cargaran intereses a partir de la fecha del anticipo hasta que se pague el capital, mas todos los intereses, a razÃ³n del _____________% anual. Calcularemos los intereses con base en un ano de 365 dÃ­as y el nÃºmero real de dÃ­as transcurridos. Esta tasa de interÃ©s es la tasa que usted para antes y despuÃ©s de cualquier incumplimiento. Si una ley, que se aplique a este contrato y que establezca cargos de prÃ©stamos mÃ¡ximos, es interpretada de manera que los intereses u otros cargos de prÃ©stamo cobrados o por cobrar en relaciÃ³n con este prÃ©stamo exceden los lÃ­mites permitidos entonces; (i) restauraremos a dicho cargo o cuota de prÃ©stamo la cantidad necesaria para que el caro llegue al lÃ­mite permitido, y (ii) le reembolsaremos cualquier importe que ya se la haya cobrado y harÃ¡ excedido los lÃ­mites permitidos. Podremos optar por efectuar este reembolso mediante la reducciÃ³n del capital que usted deba segÃºn este contrato, o realizando un pago directo a usted.</span>
 <br>
 
-<b style="font-size:8px;">•Pago y fecha de vencimiento:</b><span style="font-size:6px;">Usted pagara el capital y los intereses de este préstamo en la forma indicada en el Calendario de pagos, que forma parte de la Declaración Informativa de Veracidad en los Préstamos impresa arriba. Usted comprende que, si recibimos cualquiera de sus pagos en una fecha destina a la fecha de vencimiento, o si se aplican cargos adicionales al saldo de su cuenta de conformidad con los términos de este contrato, es probable que su pago real final sea distinto al importe señalado arriba, y usted conviene en pagar el monto de pago real. Usted realizara los pagos en la forma descrita arriba hasta que haya pagado todo el capital u los intereses y demás caros que adeude conforme a este contrato. No obstante las demás disposiciones de este contrato, usted pagara todos los importes insolutos en <u>$'.$payment_date.'</u> (la fecha de Vencimiento”).</span>
+<b style="font-size:8px;">â€¢Pago y fecha de vencimiento:</b><span style="font-size:6px;">Usted pagara el capital y los intereses de este prÃ©stamo en la forma indicada en el Calendario de pagos, que forma parte de la DeclaraciÃ³n Informativa de Veracidad en los PrÃ©stamos impresa arriba. Usted comprende que, si recibimos cualquiera de sus pagos en una fecha destina a la fecha de vencimiento, o si se aplican cargos adicionales al saldo de su cuenta de conformidad con los tÃ©rminos de este contrato, es probable que su pago real final sea distinto al importe seÃ±alado arriba, y usted conviene en pagar el monto de pago real. Usted realizara los pagos en la forma descrita arriba hasta que haya pagado todo el capital u los intereses y demÃ¡s caros que adeude conforme a este contrato. No obstante las demÃ¡s disposiciones de este contrato, usted pagara todos los importes insolutos en <u>$'.$payment_date.'</u> (la fecha de Vencimientoâ€).</span>
 <br>
 
-<b style="font-size:8px;">•Aplicación de pagos:</b><span style="font-size:6px;">Los pagos se aplicaran primero a los cargos por morosidad y demás cargos sumados al préstamo, luego a los intereses acumulados pero no pagados, y por ultimo al capital.</span>
+<b style="font-size:8px;">â€¢AplicaciÃ³n de pagos:</b><span style="font-size:6px;">Los pagos se aplicaran primero a los cargos por morosidad y demÃ¡s cargos sumados al prÃ©stamo, luego a los intereses acumulados pero no pagados, y por ultimo al capital.</span>
 <br>
 
-<b style="font-size:8px;">•Incumplimiento y aceleración del pago:</b><span style="font-size:6px;">Usted estará en estado de incumplimiento si no realiza un pago puntualmente. Si usted está en estado de incumplimiento, podremos requerir, sin necesidad de aviso o demanda, que usted pague de inmediato el monto total del préstamo. (eso se conoce como “aceleración de pago”). Si usted esta es estado de incumplimiento y no exigimos el pago inmediato y total, tal como se describe arriba, nos reservamos el derecho de hacerlo en cualquier otro momento que usted se encuentre en estado de incumplimiento.</span>
+<b style="font-size:8px;">â€¢Incumplimiento y aceleraciÃ³n del pago:</b><span style="font-size:6px;">Usted estarÃ¡ en estado de incumplimiento si no realiza un pago puntualmente. Si usted estÃ¡ en estado de incumplimiento, podremos requerir, sin necesidad de aviso o demanda, que usted pague de inmediato el monto total del prÃ©stamo. (eso se conoce como â€œaceleraciÃ³n de pagoâ€). Si usted esta es estado de incumplimiento y no exigimos el pago inmediato y total, tal como se describe arriba, nos reservamos el derecho de hacerlo en cualquier otro momento que usted se encuentre en estado de incumplimiento.</span>
 <br>
 
-<b style="font-size:8px;">•Pagos adelantados o liquidación de deuda:</b><span style="font-size:6px;">Este préstamo no tiene penalidad por prepago.  Al pagar su préstamo por adelantado bajaras sus cargos de financiamiento mediante la reducción de la cantidad de interés que pagar. Sin embargo, si liquida el préstamo en forma adelantada, no tendrá derecho a un reembolso total o parcial del cargo de financiamiento pre pagado (tarifa de procesamiento).</span>
+<b style="font-size:8px;">â€¢Pagos adelantados o liquidaciÃ³n de deuda:</b><span style="font-size:6px;">Este prÃ©stamo no tiene penalidad por prepago.  Al pagar su prÃ©stamo por adelantado bajaras sus cargos de financiamiento mediante la reducciÃ³n de la cantidad de interÃ©s que pagar. Sin embargo, si liquida el prÃ©stamo en forma adelantada, no tendrÃ¡ derecho a un reembolso total o parcial del cargo de financiamiento pre pagado (tarifa de procesamiento).</span>
 <br>
 
 </td>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -13,9 +13,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -46,9 +46,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -105,9 +105,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
  
-  $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+  $sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -117,9 +117,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
     $calculation = round($calculation, 2);
   	$anual_pr= $calculation;
  
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+ $sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -128,8 +128,8 @@ $username=$row_user['username'];
  
  
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
-while($row2 = mysqli_fetch_array($sql2)) {
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+while($row2 = $sql2->fetch_array()) {
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
 $f_name= $ff_name.' '.$l_name;
@@ -223,23 +223,23 @@ $style = array(
  
  
  
- <br><div style="line-height:7px"><h2 style="text-align:center">CONTRATO DE PRÉSTAMO DE PAGO Y DECLARACIÓN DE DIVULGACIÓN</h2>
+ <br><div style="line-height:7px"><h2 style="text-align:center">CONTRATO DE PRÃ‰STAMO DE PAGO Y DECLARACIÃ“N DE DIVULGACIÃ“N</h2>
 <span style="text-align:center"> Prestamista: Optima Financial Solutions Inc 4645 Van Nuys Blvd # 202 Sherman Oaks, CA 91403</span><br><br>
 </div>
 
 Fecha del Contrato:    :  '.$creation_date.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LOAN ID : '.$loan_id_bor.' <br>
 Prestatario        : '. $f_name.'<br>
-Dirección         : '.$address.'<br>
-Código postal: '.$city.' '.$zip.' '.$state.'<br><br>
+DirecciÃ³n         : '.$address.'<br>
+CÃ³digo postal: '.$city.' '.$zip.' '.$state.'<br><br>
 
 <table border="1" style="text-align:center">
 <tbody>
 <tr>
-<td  colspan="4"><b style="text-align:center">DECLARACIÓN FEDERAL DE DIVULGACIÓN DE VERDAD EN PRÉSTAMO</b></td>
+<td  colspan="4"><b style="text-align:center">DECLARACIÃ“N FEDERAL DE DIVULGACIÃ“N DE VERDAD EN PRÃ‰STAMO</b></td>
 </tr>
 <tr>
 <td><b style="text-align:center">TASA DE PORCENTAJE<br>
-ANUAL</b> <br>El costo de su crédito
+ANUAL</b> <br>El costo de su crÃ©dito
  <br> expresado como tasa annual<br><br><br>'.$anual_pr.'%<br></td>
 <td><b style="text-align:center">CARGOS DE
 <br>
@@ -255,10 +255,10 @@ los pagos programados .<br>$'.$loan_payable.'<br></td>
 </table>
 <br><br>
 Seguridad<br>
-* Su (s) pago (s) con fecha posterior y / o la Autorización de la Cámara de Compensación Automatizada ("ACHA") que, de ser así,
-se hacen / forman parte de este Acuerdo, como si se indicara completamente en este documento como garantía del préstamo.<br>
- * Su asignación de salario, si se otorga, también es garantía para este préstamo.<br><br>
- <b>CALENDARIO DE PAGO </b> Su calendario de pago será:<br><br>
+* Su (s) pago (s) con fecha posterior y / o la AutorizaciÃ³n de la CÃ¡mara de CompensaciÃ³n Automatizada ("ACHA") que, de ser asÃ­,
+se hacen / forman parte de este Acuerdo, como si se indicara completamente en este documento como garantÃ­a del prÃ©stamo.<br>
+ * Su asignaciÃ³n de salario, si se otorga, tambiÃ©n es garantÃ­a para este prÃ©stamo.<br><br>
+ <b>CALENDARIO DE PAGO </b> Su calendario de pago serÃ¡:<br><br>
  <b><table border="1">
 <tbody>
 <tr style="text-align:center">
@@ -273,24 +273,24 @@ se hacen / forman parte de este Acuerdo, como si se indicara completamente en es
 </tr>
 </tbody>
 </table></b><br><br>
-<b>Pago por adelantado</b><br>Un Consumidor puede cancelar futuras obligaciones de pago en un préstamo de día de pago, sin costos ni cargos financieros, a más
-tardar al final del segundo día hábil, inmediatamente después del día en que se ejecutó el préstamo de día de pago. Si paga
-anticipadamente, no tendrá derecho a un reembolso de una parte del cargo financiero. Consulte a continuación y / o la segunda
-página de este contrato para obtener información adicional sobre la falta de pago, el incumplimiento de pago, cualquier pago
+<b>Pago por adelantado</b><br>Un Consumidor puede cancelar futuras obligaciones de pago en un prÃ©stamo de dÃ­a de pago, sin costos ni cargos financieros, a mÃ¡s
+tardar al final del segundo dÃ­a hÃ¡bil, inmediatamente despuÃ©s del dÃ­a en que se ejecutÃ³ el prÃ©stamo de dÃ­a de pago. Si paga
+anticipadamente, no tendrÃ¡ derecho a un reembolso de una parte del cargo financiero. Consulte a continuaciÃ³n y / o la segunda
+pÃ¡gina de este contrato para obtener informaciÃ³n adicional sobre la falta de pago, el incumplimiento de pago, cualquier pago
 requerido en su totalidad antes de la fecha programada y los reembolsos y multas por pago anticipado.<br><br>
-Al firmar este Contrato de préstamo y Declaración de divulgación (este "contrato") y aceptar un préstamo de Optima Financial Solutions Inc
-("Prestador"), el prestatario abajo firmante ("yo", "usted", "prestatario") esta de acuerdo y acepta los términos y condiciones
-establecidas en todas las páginas de este contrato.
+Al firmar este Contrato de prÃ©stamo y DeclaraciÃ³n de divulgaciÃ³n (este "contrato") y aceptar un prÃ©stamo de Optima Financial Solutions Inc
+("Prestador"), el prestatario abajo firmante ("yo", "usted", "prestatario") esta de acuerdo y acepta los tÃ©rminos y condiciones
+establecidas en todas las pÃ¡ginas de este contrato.
 <br><br>
-<b>ENTIENDO QUE SI AÚN DEBO EN UNO O MÁS PRÉSTAMOS DE DIA DE PAGO DESPUÉS DE 35 DÍAS, SE ME PERMITE
-ENTRAR EN UN PLAN DE REPAGO QUE ME DARÁ AL MENOS 55 DÍAS PARA REPAGAR EL PRESTAMOS EN PAGOS SIN
+<b>ENTIENDO QUE SI AÃšN DEBO EN UNO O MÃS PRÃ‰STAMOS DE DIA DE PAGO DESPUÃ‰S DE 35 DÃAS, SE ME PERMITE
+ENTRAR EN UN PLAN DE REPAGO QUE ME DARÃ AL MENOS 55 DÃAS PARA REPAGAR EL PRESTAMOS EN PAGOS SIN
 CARGOS DE FINANCIAMIENTO, INTERESES, HONORARIOS O OTROS CARGOS DE CUALQUIER TIPO. <br><br>
-ADVERTENCIA: ESTE PRÉSTAMO NO ESTÁ INTENCIONADO A CUMPLIR CON LAS NECESIDADES FINANCIERAS A LARGO
-PLAZO. ESTE PRÉSTAMO DEBE SER USADO PARA CUMPLIR CON LAS NECESIDADES DE EFECTIVO A CORTO PLAZO. EL
-COSTO DE SU PRÉSTAMO PUEDE SER MAYOR QUE LOS PRÉSTAMOS OFRECIDOS POR OTRAS INSTITUCIONES DE
-PRÉSTAMOS. ESTE PRÉSTAMO ESTÁ REGULADO POR EL DEPARTAMENTO DE PROTECCIÓN E INNOCACIÓN
+ADVERTENCIA: ESTE PRÃ‰STAMO NO ESTÃ INTENCIONADO A CUMPLIR CON LAS NECESIDADES FINANCIERAS A LARGO
+PLAZO. ESTE PRÃ‰STAMO DEBE SER USADO PARA CUMPLIR CON LAS NECESIDADES DE EFECTIVO A CORTO PLAZO. EL
+COSTO DE SU PRÃ‰STAMO PUEDE SER MAYOR QUE LOS PRÃ‰STAMOS OFRECIDOS POR OTRAS INSTITUCIONES DE
+PRÃ‰STAMOS. ESTE PRÃ‰STAMO ESTÃ REGULADO POR EL DEPARTAMENTO DE PROTECCIÃ“N E INNOCACIÃ“N
 FINANCIERA.<br><br>
-NO SE PUEDE PROCESADO EN LA CORTE PENAL PARA RECOGER ESTE PRÉSTAMO.
+NO SE PUEDE PROCESADO EN LA CORTE PENAL PARA RECOGER ESTE PRÃ‰STAMO.
 </b>
 <br><br>
 
@@ -306,7 +306,7 @@ NO SE PUEDE PROCESADO EN LA CORTE PENAL PARA RECOGER ESTE PRÉSTAMO.
 <td>&nbsp;</td>
 <td>'.$creation_date.'</td>
 <td align="center"> <b>Nombre</b> <br>'.$username.'<br></td>
-<td align="center"> <b>Titulo</b><br> Agente de préstamo </td>
+<td align="center"> <b>Titulo</b><br> Agente de prÃ©stamo </td>
 <td align="center">&nbsp;'.$creation_date.'</td>
 </tr>
 </tbody>

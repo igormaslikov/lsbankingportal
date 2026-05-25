@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -46,9 +46,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -101,9 +101,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -116,9 +116,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -254,33 +254,33 @@ Loan Agreement/Contrato del Prestamo
 <tbody>
 <tr>
 <td>
-<span style="font-size:8px;">For value received, you promise to pay to our order at our office address shown above the total loan amount (“Principal”) shown above and finance charges on the unpaid principal at the simple interest rate of 3.146% per month (      % Per year), in equal monthly installments of Principal and interest shown in the payment schedule above, until you have paid us all that you owe us. If more than one party signs this Agreement, each party will be individually and jointly liable to the Lender for repayment</span>
+<span style="font-size:8px;">For value received, you promise to pay to our order at our office address shown above the total loan amount (â€œPrincipalâ€) shown above and finance charges on the unpaid principal at the simple interest rate of 3.146% per month (      % Per year), in equal monthly installments of Principal and interest shown in the payment schedule above, until you have paid us all that you owe us. If more than one party signs this Agreement, each party will be individually and jointly liable to the Lender for repayment</span>
 <br>
 
-<b style="font-size:8px;">•Simple Interest Loan & Your Payments:</b><span style="font-size:8px;">This is a simple interest loan. Finance Charges will accrue on the unpaid Principal balance on a daily basis.  Payments we receive will be applied first to accrued and unpaid finance charges, then to other amounts you may owe us. If you pay late, more finance charges will accrue. If you pay early, less finance charges will accrue. If you make more than one payment before it is due, you still owe the payments due as scheduled (Advance payments are applied to the Principal balance)The Finance Charges, Total of Payments, and Payment Schedule disclosed in The Federal Truth in Lending disclosure may differ from the actual amount you pay if your payments are not received by us on their exact due date, or we advance amounts under this Agreement to fulfill your obligations, which we may add to the unpaid Principal balance. Your final payment may be different than the amount disclosed under the Payment Schedule if you make your payment after the date they are due, or if we have added amounts we advanced to the Principal balance. We earn the Administrative fees in full on the date this loan is made.</span>
+<b style="font-size:8px;">â€¢Simple Interest Loan & Your Payments:</b><span style="font-size:8px;">This is a simple interest loan. Finance Charges will accrue on the unpaid Principal balance on a daily basis.  Payments we receive will be applied first to accrued and unpaid finance charges, then to other amounts you may owe us. If you pay late, more finance charges will accrue. If you pay early, less finance charges will accrue. If you make more than one payment before it is due, you still owe the payments due as scheduled (Advance payments are applied to the Principal balance)The Finance Charges, Total of Payments, and Payment Schedule disclosed in The Federal Truth in Lending disclosure may differ from the actual amount you pay if your payments are not received by us on their exact due date, or we advance amounts under this Agreement to fulfill your obligations, which we may add to the unpaid Principal balance. Your final payment may be different than the amount disclosed under the Payment Schedule if you make your payment after the date they are due, or if we have added amounts we advanced to the Principal balance. We earn the Administrative fees in full on the date this loan is made.</span>
 <br>
-<b style="font-size:8px;">•Late Fee:</b><span style="font-size:8px;">You agreed to pay a late fee (Late Charge) for late payments as disclosed above.<br>Returned Payment Item Fee: If any checks, negotiable order of withdraw or share draft you give us is returned by a depositary institution, you agree to pay a returned fee of $25.00 for each such item returned.</span>
+<b style="font-size:8px;">â€¢Late Fee:</b><span style="font-size:8px;">You agreed to pay a late fee (Late Charge) for late payments as disclosed above.<br>Returned Payment Item Fee: If any checks, negotiable order of withdraw or share draft you give us is returned by a depositary institution, you agree to pay a returned fee of $25.00 for each such item returned.</span>
 <br>
 
-<b style="font-size:8px;">•Security Interest:</b><span style="font-size:8px;">You grant us a security interest in (1) the vehicle and all parts or accessories (including the stereo, CD player, Navigation System, wheels and tires or any item attached to the vehicle, (2) all money and goods received for the vehicle (proceeds), and (3) all proceeds or refunded insurance premiums or charges for optional products or services financed in the loan, which secure all sums due or to become due under this loan as well as any modifications, extensions, renewals, amendments or refinancing of this loan.</span>
+<b style="font-size:8px;">â€¢Security Interest:</b><span style="font-size:8px;">You grant us a security interest in (1) the vehicle and all parts or accessories (including the stereo, CD player, Navigation System, wheels and tires or any item attached to the vehicle, (2) all money and goods received for the vehicle (proceeds), and (3) all proceeds or refunded insurance premiums or charges for optional products or services financed in the loan, which secure all sums due or to become due under this loan as well as any modifications, extensions, renewals, amendments or refinancing of this loan.</span>
 <br>  
-<b style="font-size:8px;">•Use of Vehicle:</b><span style="font-size:8px;">you agree to keep of all liens and encumbrances, including taxes liens, except the lien in our favor, and to not use the vehicle or permit the vehicle to be used illegally, improperly or for hire, or to expose the vehicle to misuse, seizure, confiscation, forfeiture or other involuntary transfer, even if the vehicle is not the subject of judicial or administrative proceedings. You agree not to make or allow any material change to be made to the vehicle. You agree to allow us to inspect the vehicle at any reasonable time. You agree not to remove the vehicle, or allow the vehicle to be removed, from California for a period in excess of 30 days without our express permission. You agree not to remove the vehicle from the U.S. or Canada. You agree not to sell, rent, lease or transfer any interest in the vehicle.</span>
+<b style="font-size:8px;">â€¢Use of Vehicle:</b><span style="font-size:8px;">you agree to keep of all liens and encumbrances, including taxes liens, except the lien in our favor, and to not use the vehicle or permit the vehicle to be used illegally, improperly or for hire, or to expose the vehicle to misuse, seizure, confiscation, forfeiture or other involuntary transfer, even if the vehicle is not the subject of judicial or administrative proceedings. You agree not to make or allow any material change to be made to the vehicle. You agree to allow us to inspect the vehicle at any reasonable time. You agree not to remove the vehicle, or allow the vehicle to be removed, from California for a period in excess of 30 days without our express permission. You agree not to remove the vehicle from the U.S. or Canada. You agree not to sell, rent, lease or transfer any interest in the vehicle.</span>
 <br>
 
 </td>
 
 <td>
-<span style="font-size:7px;">Por el valor recibido, usted promete pagar nuestro pedido en la dirección de nuestra oficina que se muestra arriba del monto total del préstamo (“Principal”) que se muestra arriba y los cargos financieros sobre el principal no pagado a la tasa de interés simple de 3.146% por mes (% por año) , en cuotas mensuales iguales de capital e intereses que se muestran en el programa de pagos anterior, hasta que nos haya pagado todo lo que nos debe. Si más de una parte firma este Acuerdo, cada parte será responsable individual y conjuntamente con el Prestamista por el reembolso.</span>
+<span style="font-size:7px;">Por el valor recibido, usted promete pagar nuestro pedido en la direcciÃ³n de nuestra oficina que se muestra arriba del monto total del prÃ©stamo (â€œPrincipalâ€) que se muestra arriba y los cargos financieros sobre el principal no pagado a la tasa de interÃ©s simple de 3.146% por mes (% por aÃ±o) , en cuotas mensuales iguales de capital e intereses que se muestran en el programa de pagos anterior, hasta que nos haya pagado todo lo que nos debe. Si mÃ¡s de una parte firma este Acuerdo, cada parte serÃ¡ responsable individual y conjuntamente con el Prestamista por el reembolso.</span>
 <br>
 
-<b style="font-size:8px;">•Préstamo de interés simple y sus pagos:</b><span style="font-size:7px;">Este es un préstamo de interés simple. Los cargos financieros se acumularán en el saldo de capital impago diariamente. Los pagos que recibimos se aplicarán primero a los cargos financieros acumulados y no pagados, luego a otros montos que nos deba. Si paga tarde, se acumularán más cargos financieros. Si paga temprano, se acumularán menos cargos financieros. Si realiza más de un pago antes de la fecha de vencimiento, aún debe los pagos adeudados según lo programado (los pagos anticipados se aplican al saldo del capital). diferir del monto real que paga si no recibimos sus pagos en su fecha de vencimiento exacta, o si adelantamos los montos conforme a este Acuerdo para cumplir con sus obligaciones, que podemos agregar al saldo del principal impago. Su pago final puede ser diferente al monto revelado en el Programa de pagos si realiza su pago después de la fecha de vencimiento, o si hemos agregado montos que adelantamos al saldo del capital. Ganamos los honorarios administrativos en su totalidad en la fecha en que se otorga este préstamo.</span>
+<b style="font-size:8px;">â€¢PrÃ©stamo de interÃ©s simple y sus pagos:</b><span style="font-size:7px;">Este es un prÃ©stamo de interÃ©s simple. Los cargos financieros se acumularÃ¡n en el saldo de capital impago diariamente. Los pagos que recibimos se aplicarÃ¡n primero a los cargos financieros acumulados y no pagados, luego a otros montos que nos deba. Si paga tarde, se acumularÃ¡n mÃ¡s cargos financieros. Si paga temprano, se acumularÃ¡n menos cargos financieros. Si realiza mÃ¡s de un pago antes de la fecha de vencimiento, aÃºn debe los pagos adeudados segÃºn lo programado (los pagos anticipados se aplican al saldo del capital). diferir del monto real que paga si no recibimos sus pagos en su fecha de vencimiento exacta, o si adelantamos los montos conforme a este Acuerdo para cumplir con sus obligaciones, que podemos agregar al saldo del principal impago. Su pago final puede ser diferente al monto revelado en el Programa de pagos si realiza su pago despuÃ©s de la fecha de vencimiento, o si hemos agregado montos que adelantamos al saldo del capital. Ganamos los honorarios administrativos en su totalidad en la fecha en que se otorga este prÃ©stamo.</span>
 <br>
-<b style="font-size:8px;">•Cargo por pago atrasado:</b><span style="font-size:7px;">Usted acordó pagar un cargo por pago atrasado (cargo por pago atrasado) por pagos atrasados como se describe anteriormente.</span>
+<b style="font-size:8px;">â€¢Cargo por pago atrasado:</b><span style="font-size:7px;">Usted acordÃ³ pagar un cargo por pago atrasado (cargo por pago atrasado) por pagos atrasados como se describe anteriormente.</span>
 <br>
 
-<b style="font-size:8px;">•Tarifa de artículo de pago devuelto:</b><span style="font-size:7px;">Si alguna institución depositaria devuelve cualquier cheque, orden de retiro negociable o borrador de parte que nos da, usted acepta pagar una tarifa devuelta de $ 25.00 por cada artículo devuelto.<br>Interés de seguridad: nos otorga un interés de seguridad en (1) el vehículo y todas las piezas o accesorios (incluido el estéreo, el reproductor de CD, el sistema de navegación, las ruedas y los neumáticos o cualquier artículo adjunto al vehículo, (2) todo el dinero y los bienes recibidos para el vehículo (ingresos) y (3) todos los ingresos o primas de seguro reembolsadas o cargos por productos o servicios opcionales financiados en el préstamo, que aseguran todas las sumas adeudadas o vencidas en virtud de este préstamo, así como cualquier modificación, extensión, renovación , modificaciones o refinanciación de este préstamo.</span>
+<b style="font-size:8px;">â€¢Tarifa de artÃ­culo de pago devuelto:</b><span style="font-size:7px;">Si alguna instituciÃ³n depositaria devuelve cualquier cheque, orden de retiro negociable o borrador de parte que nos da, usted acepta pagar una tarifa devuelta de $ 25.00 por cada artÃ­culo devuelto.<br>InterÃ©s de seguridad: nos otorga un interÃ©s de seguridad en (1) el vehÃ­culo y todas las piezas o accesorios (incluido el estÃ©reo, el reproductor de CD, el sistema de navegaciÃ³n, las ruedas y los neumÃ¡ticos o cualquier artÃ­culo adjunto al vehÃ­culo, (2) todo el dinero y los bienes recibidos para el vehÃ­culo (ingresos) y (3) todos los ingresos o primas de seguro reembolsadas o cargos por productos o servicios opcionales financiados en el prÃ©stamo, que aseguran todas las sumas adeudadas o vencidas en virtud de este prÃ©stamo, asÃ­ como cualquier modificaciÃ³n, extensiÃ³n, renovaciÃ³n , modificaciones o refinanciaciÃ³n de este prÃ©stamo.</span>
 <br>  
-<b style="font-size:8px;">•Uso del vehículo:</b><span style="font-size:8px;">Usted acepta mantener todos los gravámenes y gravámenes, incluidos los gravámenes fiscales, excepto el gravamen a nuestro favor, y no usar el vehículo o permitir que el vehículo se use ilegalmente, de manera indebida o contratada, o exponer el vehículo para mal uso, incautación, confiscación, decomiso u otra transferencia involuntaria, incluso si el vehículo no es objeto de procedimientos judiciales o administrativos. Usted acepta no realizar ni permitir que se realicen cambios materiales en el vehículo. Usted acepta permitirnos inspeccionar el vehículo en cualquier momento razonable. Usted acepta no retirar el vehículo, o permitir que el vehículo sea retirado, de California por un período de más de 30 días sin nuestro permiso expreso. Usted acepta no retirar el vehículo de EE. UU. O Canadá. Usted acepta no vender, alquilar, arrendar ni transferir ningún interés en el vehículo.</span>
+<b style="font-size:8px;">â€¢Uso del vehÃ­culo:</b><span style="font-size:8px;">Usted acepta mantener todos los gravÃ¡menes y gravÃ¡menes, incluidos los gravÃ¡menes fiscales, excepto el gravamen a nuestro favor, y no usar el vehÃ­culo o permitir que el vehÃ­culo se use ilegalmente, de manera indebida o contratada, o exponer el vehÃ­culo para mal uso, incautaciÃ³n, confiscaciÃ³n, decomiso u otra transferencia involuntaria, incluso si el vehÃ­culo no es objeto de procedimientos judiciales o administrativos. Usted acepta no realizar ni permitir que se realicen cambios materiales en el vehÃ­culo. Usted acepta permitirnos inspeccionar el vehÃ­culo en cualquier momento razonable. Usted acepta no retirar el vehÃ­culo, o permitir que el vehÃ­culo sea retirado, de California por un perÃ­odo de mÃ¡s de 30 dÃ­as sin nuestro permiso expreso. Usted acepta no retirar el vehÃ­culo de EE. UU. O CanadÃ¡. Usted acepta no vender, alquilar, arrendar ni transferir ningÃºn interÃ©s en el vehÃ­culo.</span>
 <br>
 
 </td>

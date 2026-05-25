@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -12,9 +12,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from personal_loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from personal_loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -47,9 +47,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -102,9 +102,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -117,9 +117,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -260,12 +260,12 @@ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
 <b style="font-size:8px;">Statues of Limitations:</b><span style="font-size:6px;">All Statues of limitations that are applicable to any claim or dispute shall apply to any arbitration between you and us.</span>
 <br>
 
-<b style="font-size:8px;">Attorney’s Fees:</b><span style="font-size:6px;">the arbitrator may, but is not required to, award reasonable attorney’s fees to the prevailing party if allowed by statue or applicable law.</span>
+<b style="font-size:8px;">Attorneyâ€™s Fees:</b><span style="font-size:6px;">the arbitrator may, but is not required to, award reasonable attorneyâ€™s fees to the prevailing party if allowed by statue or applicable law.</span>
 <br>
-<b style="font-size:8px;">Appeal Procedure:</b><span style="font-size:6px;">The arbitrator’s award shall be final and binding on all parties. There shall be limited right to appeal to the extent allowed by the Federal Arbitration Act. The amount we pay may be reimbursed in whole or in part by decision of the arbitration of the arbitrator rinds that any of your claims is frivolous.</span>
+<b style="font-size:8px;">Appeal Procedure:</b><span style="font-size:6px;">The arbitratorâ€™s award shall be final and binding on all parties. There shall be limited right to appeal to the extent allowed by the Federal Arbitration Act. The amount we pay may be reimbursed in whole or in part by decision of the arbitration of the arbitrator rinds that any of your claims is frivolous.</span>
 <br>
 
-<b style="font-size:8px;">Small Claims Court:</b><span style="font-size:6px;">not withstanding any other provision of this Arbitration Agreement, either you or we shall retain the right to seek adjudication in Small Claims Court of any matter within its jurisdiction. Any matter not within the Small Claims Courts jurisdiction shall be resolved by arbitration as provided above. Any appeal from a Small Claims Court judgment shall be conducted, at the appellant’s option, either (a) in accordance with the provisions of sections 116.710-116.795 of the California Code of Civil Procedure, or (b0) in accordance with the Section of this Arbitration Agreement entitled “Appeal Procedure”.</span>
+<b style="font-size:8px;">Small Claims Court:</b><span style="font-size:6px;">not withstanding any other provision of this Arbitration Agreement, either you or we shall retain the right to seek adjudication in Small Claims Court of any matter within its jurisdiction. Any matter not within the Small Claims Courts jurisdiction shall be resolved by arbitration as provided above. Any appeal from a Small Claims Court judgment shall be conducted, at the appellantâ€™s option, either (a) in accordance with the provisions of sections 116.710-116.795 of the California Code of Civil Procedure, or (b0) in accordance with the Section of this Arbitration Agreement entitled â€œAppeal Procedureâ€.</span>
 <br>
 <b style="font-size:8px;">Counterparts:</b><span style="font-size:6px;">This Arbitration Agreement may be executed in counterparts, each of which shall be deemed to be an original but all of which together shall be deemed to be one instrument.</span>
 <br>
@@ -279,21 +279,21 @@ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
 
 <td>
 
-<b style="font-size:8px;">Idioma del arbitraje:</b><span style="font-size:6px;">Usted puede elegir que el arbitraje se lleve a cabo en español o en ingles. Si opta para que el arbitraje se conduzca en español, usted conviene en utilizar un foro de arbitraje que acepte proporcionar formas en español y un árbitro(s) que pueda (n) llevar a cabo el proceso de arbitraje en dicho idioma. Usted entiende que esto podría limitar sus opciones de foros de arbitraje, ya que no todos dichos foros en estado unidos ofrecen sus servicios en español.</span>
+<b style="font-size:8px;">Idioma del arbitraje:</b><span style="font-size:6px;">Usted puede elegir que el arbitraje se lleve a cabo en espaÃ±ol o en ingles. Si opta para que el arbitraje se conduzca en espaÃ±ol, usted conviene en utilizar un foro de arbitraje que acepte proporcionar formas en espaÃ±ol y un Ã¡rbitro(s) que pueda (n) llevar a cabo el proceso de arbitraje en dicho idioma. Usted entiende que esto podrÃ­a limitar sus opciones de foros de arbitraje, ya que no todos dichos foros en estado unidos ofrecen sus servicios en espaÃ±ol.</span>
 <br>
-<b style="font-size:8px;">Interpretación de este acuerdo de arbitraje:</b><span style="font-size:6px;">Si un tribunal o un árbitro determina que cualquier porción de este acuerdo de arbitraje es inejecutable, aparte de la renuncia de acción de grupo, el resto si será ejecutable. Si un tribunal o árbitro determina que la renuncia de acción de grupo es inejecutable, el resto de este acuerdo de arbitraje no será ejecutable. Este acuerdo de arbitraje continuara en vigor tras el término de todo acuerdo contractual entre usted y nosotros, ya sea por incumplimiento o por reembolso total.</span>
-<br>
-
-<b style="font-size:8px;">Leyes de prescripción:</b><span style="font-size:6px;">Todas las leyes de prescripción aplicables a cualquier reclamación o disputa se aplicaran en todo arbitraje entre usted y nosotros.</span>
-<br>
-<b style="font-size:8px;">Honorarios de abogados:</b><span style="font-size:6px;">El arbitrio podrá otorgar honorarios razonables de abogados a la parte favorecida si así lo permiten las leyes vigentes pero no tendrá la obligación de hacerlo.</span>
+<b style="font-size:8px;">InterpretaciÃ³n de este acuerdo de arbitraje:</b><span style="font-size:6px;">Si un tribunal o un Ã¡rbitro determina que cualquier porciÃ³n de este acuerdo de arbitraje es inejecutable, aparte de la renuncia de acciÃ³n de grupo, el resto si serÃ¡ ejecutable. Si un tribunal o Ã¡rbitro determina que la renuncia de acciÃ³n de grupo es inejecutable, el resto de este acuerdo de arbitraje no serÃ¡ ejecutable. Este acuerdo de arbitraje continuara en vigor tras el tÃ©rmino de todo acuerdo contractual entre usted y nosotros, ya sea por incumplimiento o por reembolso total.</span>
 <br>
 
-<b style="font-size:8px;">Procedimiento de apelación:</b><span style="font-size:6px;">El fallo del árbitro será final y obligatorio para todas las partes. Habrá un derecho limitado para apelación en la medida permitida por la Ley Federal de Arbitraje. El monto que paguemos podrá ser reembolsado en su totalidad o en parte por decisión del árbitro si el árbitro determina que alguna de sus reclamaciones es frívola.</span>
+<b style="font-size:8px;">Leyes de prescripciÃ³n:</b><span style="font-size:6px;">Todas las leyes de prescripciÃ³n aplicables a cualquier reclamaciÃ³n o disputa se aplicaran en todo arbitraje entre usted y nosotros.</span>
 <br>
-<b style="font-size:8px;">Juzgado de Cuantía Menor:</b><span style="font-size:6px;">No obstante cualquier otra disposición de este acuerdo de arbitraje, las dos partes conservaran el derecho de buscar una resolución definitiva en in juzgado e cuantía menor sobre cualquier asunto dentro de su competencia. Cualquier asunto que no está dentro de la competencia del juzgado de cuantía menor será resuelto por el arbitraje, tal y como se ha dispuesto anteriormente. Toda apelación de una sentencia de un juzgado de Cuantía Menor se realizara a elección el apélate ya sea (a) de conformidad con las secciones 116.710 a 116.795 del código de procedimientos civiles de california, o (b) de conformidad con la sección de este acuerdo de arbitraje titulada “Procedimiento de Apelación”.</span>
+<b style="font-size:8px;">Honorarios de abogados:</b><span style="font-size:6px;">El arbitrio podrÃ¡ otorgar honorarios razonables de abogados a la parte favorecida si asÃ­ lo permiten las leyes vigentes pero no tendrÃ¡ la obligaciÃ³n de hacerlo.</span>
 <br>
-<b style="font-size:8px;">Contrapartes:</b><span style="font-size:6px;">Este acuerdo de Arbitraje podrá ejecutarse en contrapartes, cada una de las cuales se considerara como original pero todas en conjunto se consideran un solo instrumento.</span>
+
+<b style="font-size:8px;">Procedimiento de apelaciÃ³n:</b><span style="font-size:6px;">El fallo del Ã¡rbitro serÃ¡ final y obligatorio para todas las partes. HabrÃ¡ un derecho limitado para apelaciÃ³n en la medida permitida por la Ley Federal de Arbitraje. El monto que paguemos podrÃ¡ ser reembolsado en su totalidad o en parte por decisiÃ³n del Ã¡rbitro si el Ã¡rbitro determina que alguna de sus reclamaciones es frÃ­vola.</span>
+<br>
+<b style="font-size:8px;">Juzgado de CuantÃ­a Menor:</b><span style="font-size:6px;">No obstante cualquier otra disposiciÃ³n de este acuerdo de arbitraje, las dos partes conservaran el derecho de buscar una resoluciÃ³n definitiva en in juzgado e cuantÃ­a menor sobre cualquier asunto dentro de su competencia. Cualquier asunto que no estÃ¡ dentro de la competencia del juzgado de cuantÃ­a menor serÃ¡ resuelto por el arbitraje, tal y como se ha dispuesto anteriormente. Toda apelaciÃ³n de una sentencia de un juzgado de CuantÃ­a Menor se realizara a elecciÃ³n el apÃ©late ya sea (a) de conformidad con las secciones 116.710 a 116.795 del cÃ³digo de procedimientos civiles de california, o (b) de conformidad con la secciÃ³n de este acuerdo de arbitraje titulada â€œProcedimiento de ApelaciÃ³nâ€.</span>
+<br>
+<b style="font-size:8px;">Contrapartes:</b><span style="font-size:6px;">Este acuerdo de Arbitraje podrÃ¡ ejecutarse en contrapartes, cada una de las cuales se considerara como original pero todas en conjunto se consideran un solo instrumento.</span>
 <br>
 
 <b style="font-size:8px;">Procedimiento de exclusion voluntario:</b><span style="font-size:6px;">USTED PUEDE EXCLUIRSE DEL PRESENTE ACUERDO DE ARBITRAJE SI CUMPLE CON EL SIGUIENTE PROCESO.SI USTED NO DESEA ESTAR SUJETO AL PRESENTE ACUERDO DE ARBITRAJE, ENTONCES DEBERA DE NOTIFICAR A NOSOTROS POR ESCRITO. EL SOBREW DEBERA LLEBAR EL SELLO DE CORREOS CON FECHA DENTRO DE LOS SESENTA (60) DIAS CALENDARIOS A LA FECHA DEL PRESENTE ACUERDO DE ARBITRAJE EN LA SIGUIENTE DIRECCION:Optima Financial Solutions Inc ATTN: ARBITRATION OPT OUT, 4645 VAN NUYS BOULEVARD SUITE 202, SHERMAN OAKS, CA 91403. SU NOTIFICACION POR ESCRITO DEBERA INCLUIR SU NOMBRE, DOMICILIO, NUMERO TELEFONICO, LA FECHA DEL CONTRATO DE PRESTAMO, LA FECHA DE ESTE ACUERDO DE ARBITRAJE. SU NOTIFICACION POR ESCRITO NO PUEDE ENVIARSE JUNTO CON OTRA CORRESPONDENCIA. EL INDICAR SU DESEO DE SER EXCLUIDO DEL PRESENTE ACUERDO DE ARBITRAJE EN CUALQUIER MANERA DISTINTA A LA ESTIPULADA EN EL PRESENTE SE CONSIDERARA NOTIFICACION INSUFICIENTE. SU DECISION DE EXCLUIRSE DE; ACUERDO DE ARBITRAJE NO AFECTARA SUS OTROS DERECHOS O RESPONABILIDADES CONFORME AL CONTRATO DE PRESTAMO. SU DECISION DE EXCLUIRSE DEL ACUERDO DE ARRBITRAJE SOLO SE APLICA AL PRESENTE ACUERDO DE ARBITRAJE Y NO A NINGUN ACUERDODE ARBITAJE PREVIO O POSTERIOR ACORDADO ENTRE USTED Y NOSOTROS.</span>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -12,9 +12,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from personal_loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from personal_loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -47,9 +47,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -102,9 +102,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -117,9 +117,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -255,22 +255,22 @@ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
 <tr>
 <td><span style="font-size:7px;">To the right, you will find a Spanish-Language translation of our Arbitration Agreement. An independent third party has certified this translation. While it is our intention to provide an accurate translation, if the Spanish translation differs from the English Document; you understand and agree that the Spanish translation is provided solely as courtesy to you, and that the English Document is the legally binding agreement between you and us.</span>
 <br>
-<b style="font-size:7px;">NOTICE OF ARBITRATION AGREEMENT</b><br><span style="font-size:6px;">•	This agreement provides that either you or we may choose to have any dispute decided by BINDING ARBITRATION instead of court.
+<b style="font-size:7px;">NOTICE OF ARBITRATION AGREEMENT</b><br><span style="font-size:6px;">â€¢	This agreement provides that either you or we may choose to have any dispute decided by BINDING ARBITRATION instead of court.
 <br>
-•	If either you or we choose to arbitrate, YOU GIVE UP YOUR RIGHT TO GO TO COURT TO ASSERT OR DEFEND YOUR RIGHTS AND YOU WILL HAVE NO RIGHT TO A TRIAL BY JURTYOR BEFORE A JUDGE.
+â€¢	If either you or we choose to arbitrate, YOU GIVE UP YOUR RIGHT TO GO TO COURT TO ASSERT OR DEFEND YOUR RIGHTS AND YOU WILL HAVE NO RIGHT TO A TRIAL BY JURTYOR BEFORE A JUDGE.
 <br>
-•	You are entitled to a FAIR HEARING, BUT discovery and other rights are MORE LIMITED THAN RULES APPLICABLE IN COURT
+â€¢	You are entitled to a FAIR HEARING, BUT discovery and other rights are MORE LIMITED THAN RULES APPLICABLE IN COURT
 <br>
-•	Arbitrator decisions are enforceable by court order and RIGHTS TO APPEAL ARE MORE LIMITED THAN IN A LAWSUIT DECIDED BY A JUDGE OR JURY.
+â€¢	Arbitrator decisions are enforceable by court order and RIGHTS TO APPEAL ARE MORE LIMITED THAN IN A LAWSUIT DECIDED BY A JUDGE OR JURY.
 <br>
-•	This arbitration agreement and any arbitration under this agreement shall be governed by the Federal Arbitration Act (9 U.S.C & 1, et seq.).
+â€¢	This arbitration agreement and any arbitration under this agreement shall be governed by the Federal Arbitration Act (9 U.S.C & 1, et seq.).
 <br>
-•	YOU HAVE THE RIGHT TO “OPT OUT” OF THIS ARBITRATION AGREEMENT by following the procedure outlined in the section entitled “Opt out Procedures”.</span>
+â€¢	YOU HAVE THE RIGHT TO â€œOPT OUTâ€ OF THIS ARBITRATION AGREEMENT by following the procedure outlined in the section entitled â€œOpt out Proceduresâ€.</span>
 <br>
-<b style="font-size:5px;">FOR MORE DETAILS, PLEASE READ CAREFULLY THIS ARBITRATION AGREEMENT CAREFULLY.</b><br><span style="font-size:5px;"> In this Arbitration Agreement, “you” refers to the borrower(s). “we”, “us”, and “our” refers to Optima Financial Solutions Inc, our successors-in-interest and assigns. This arbitration agreement is incorporated into and is a part of a loan agreement between you and us.</span>
+<b style="font-size:5px;">FOR MORE DETAILS, PLEASE READ CAREFULLY THIS ARBITRATION AGREEMENT CAREFULLY.</b><br><span style="font-size:5px;"> In this Arbitration Agreement, â€œyouâ€ refers to the borrower(s). â€œweâ€, â€œusâ€, and â€œourâ€ refers to Optima Financial Solutions Inc, our successors-in-interest and assigns. This arbitration agreement is incorporated into and is a part of a loan agreement between you and us.</span>
 <br>
 
-<b style="font-size:7px;">Parties and Matters Subject to Arbitration: </b><span style="font-size:6px;">This Arbitration agreement applies to all claims and disputes between you and us. For purposes of this Arbitration agreement the words “claim” and “dispute” are given the broadest possibly meaning. “Claim” and “dispute” mean any claim, dispute, or controversy in contract, tort, statute, common law, or otherwise relating to your credit application, the loan agreement <br>Between you and us, and any other resulting transaction or relationship with us, our successors or assigns. “Claim,” “dealings,” or “dispute” includes the interpretation and scope of this Arbitration Agreement and whether or not the claim or dispute can be arbitrated. Any claim or dispute involving whether or not the claim or dispute can be arbitrated or the validity of the Class Action Waiver (defined below) shall be for the court, and not the arbitrator to resolve<br>Any claim or dispute is to be arbitrated on an individual basis and not as a class action. You expressly waive any right you may have to arbitrate a class action. This I called the “class Action Waiver.” We waive the right to require you to arbitrate an individual claim if the amount you seek to recover qualifies as a small claim within a small claims court’s jurisdiction under applicable law.</span>
+<b style="font-size:7px;">Parties and Matters Subject to Arbitration: </b><span style="font-size:6px;">This Arbitration agreement applies to all claims and disputes between you and us. For purposes of this Arbitration agreement the words â€œclaimâ€ and â€œdisputeâ€ are given the broadest possibly meaning. â€œClaimâ€ and â€œdisputeâ€ mean any claim, dispute, or controversy in contract, tort, statute, common law, or otherwise relating to your credit application, the loan agreement <br>Between you and us, and any other resulting transaction or relationship with us, our successors or assigns. â€œClaim,â€ â€œdealings,â€ or â€œdisputeâ€ includes the interpretation and scope of this Arbitration Agreement and whether or not the claim or dispute can be arbitrated. Any claim or dispute involving whether or not the claim or dispute can be arbitrated or the validity of the Class Action Waiver (defined below) shall be for the court, and not the arbitrator to resolve<br>Any claim or dispute is to be arbitrated on an individual basis and not as a class action. You expressly waive any right you may have to arbitrate a class action. This I called the â€œclass Action Waiver.â€ We waive the right to require you to arbitrate an individual claim if the amount you seek to recover qualifies as a small claim within a small claims courtâ€™s jurisdiction under applicable law.</span>
 <br>
 
 <b style="font-size:7px;">Procedure for Arbitration:</b><span style="font-size:6px;">You may choose the American Arbitration Association(www.adr.org), or any other organization to conduct the arbitration, subject to our approval. You may get a copy of the rules of an arbitration organization by contacting the organization or visiting its website. The arbitration hearing shall be conducted in the federal district in which you reside, or such other place convenient to you as required by the rules of the chose arbitration organization. If you demand arbitration first, you will pay the filing fee if the chosen arbitration organization requires it. We will advance and/or pay any other fees and costs required by the rules of the chosen arbitration organization. </span>
@@ -281,24 +281,24 @@ Initials/Iniciales: _______________
 <td></td>
 
 
-<td><span style="font-size:6px;">A continuación, usted encontrara la traducción al español del nuestro Acuerdo de Arbitraje. Un tercero independiente ha certificado esta traducción. Aunque nuestra intención es proveerle una traducción exacta, si la traducción al español es destina al documento en ingles, usted entiende y está de acuerdo que esta traducción se brinda simplemente como una cortesía, y que el documento en el idioma ingles regirá legalmente la relación entre usted y nosotros</span>
+<td><span style="font-size:6px;">A continuaciÃ³n, usted encontrara la traducciÃ³n al espaÃ±ol del nuestro Acuerdo de Arbitraje. Un tercero independiente ha certificado esta traducciÃ³n. Aunque nuestra intenciÃ³n es proveerle una traducciÃ³n exacta, si la traducciÃ³n al espaÃ±ol es destina al documento en ingles, usted entiende y estÃ¡ de acuerdo que esta traducciÃ³n se brinda simplemente como una cortesÃ­a, y que el documento en el idioma ingles regirÃ¡ legalmente la relaciÃ³n entre usted y nosotros</span>
 <br>
-<b style="font-size:7px;">NOTIFICACION DE ACUERDO DE ARBITRAJE</b><br><span style="font-size:6px;">•	Este acuerdo establece que tanto usted como nosotros podemos elegir que se decida una disputa por medio de ARBITRAJE OBLIGATORIO en lugar de un tribunal.
+<b style="font-size:7px;">NOTIFICACION DE ACUERDO DE ARBITRAJE</b><br><span style="font-size:6px;">â€¢	Este acuerdo establece que tanto usted como nosotros podemos elegir que se decida una disputa por medio de ARBITRAJE OBLIGATORIO en lugar de un tribunal.
 <br>
-•	Si usted o nosotros optamos por arbitrar, USTED RENUNCIA A TODO DERECHO DE HACER VALER O DEFENDER SUS DERECHOS EN UNA CORTE y NO TENDRA DERECHO A UN JUICIO CON JURADO O ANTE UN JUEZ.
+â€¢	Si usted o nosotros optamos por arbitrar, USTED RENUNCIA A TODO DERECHO DE HACER VALER O DEFENDER SUS DERECHOS EN UNA CORTE y NO TENDRA DERECHO A UN JUICIO CON JURADO O ANTE UN JUEZ.
 <br>
-•	Si usted o nosotros optamos por arbitrar, USTED RENUNCIA A TODO DERECHO A PARTICIPAR COMO UN REPRESENTATE O MIEMBRO DE UNA DEMANDA DE GRUPO. CONFORME A ESTE CONTRATO NO HAY DERECHO A LLEVAR UNA ACCION DE GRUP AL ARBITRAJE.
+â€¢	Si usted o nosotros optamos por arbitrar, USTED RENUNCIA A TODO DERECHO A PARTICIPAR COMO UN REPRESENTATE O MIEMBRO DE UNA DEMANDA DE GRUPO. CONFORME A ESTE CONTRATO NO HAY DERECHO A LLEVAR UNA ACCION DE GRUP AL ARBITRAJE.
 <br>
-•	Usted tiene derecho de una AUDIENCIA JUSTA, PERO la obtención de pruebas y otros derechos TIENES ALCANCES MAS LIMITADOS QUE LAS REGLAS QUE SE APLICAN EN EL TRIBUNAL.
-<br>•	Las decisiones del arbitro pueden hacerse cumplir por orden de la corte y LOS DERECHOS DE APELACION TIENEN ALCANCES MAS LIMITADOS QUE EN UN LITIGIO DECIDIDO POR JURADO O JUEZ.
-<br>•	Este acuerdo de arbitraje y todo arbitraje conforme a este acuerdo será regido por la Ley Federal de Arbitraje/The Federal Arbitración Act (9 U.S.C & 1, et seq.).
-<br>•	USTED TIENE EL DERECHO A EXCLUIRSE DEL PRESENTE ACUERDO DE ARBITRAJE mediante el procedimiento descrito en el párrafo titulado “Procedimiento de Exclusión Voluntaria”.</span>
+â€¢	Usted tiene derecho de una AUDIENCIA JUSTA, PERO la obtenciÃ³n de pruebas y otros derechos TIENES ALCANCES MAS LIMITADOS QUE LAS REGLAS QUE SE APLICAN EN EL TRIBUNAL.
+<br>â€¢	Las decisiones del arbitro pueden hacerse cumplir por orden de la corte y LOS DERECHOS DE APELACION TIENEN ALCANCES MAS LIMITADOS QUE EN UN LITIGIO DECIDIDO POR JURADO O JUEZ.
+<br>â€¢	Este acuerdo de arbitraje y todo arbitraje conforme a este acuerdo serÃ¡ regido por la Ley Federal de Arbitraje/The Federal ArbitraciÃ³n Act (9 U.S.C & 1, et seq.).
+<br>â€¢	USTED TIENE EL DERECHO A EXCLUIRSE DEL PRESENTE ACUERDO DE ARBITRAJE mediante el procedimiento descrito en el pÃ¡rrafo titulado â€œProcedimiento de ExclusiÃ³n Voluntariaâ€.</span>
 <br>
-<b style="font-size:7px;">PARA MAS DETALLES POR FAVOR LEA ESTE ACUERDO DE ARBITRAJE CON   CUIDADO.</b><br><span style="font-size:6px;">En este acuerdo de arbitraje, “usted” se refiere al solicitante(s) del préstamo. “nosotros”, “nos” y “nuestro(a)” se refiere a Optima Financial Solutions Inc, y nuestros causahabientes y cesionarios. Este acuerdo de arbitraje es incluido y forma parte del contrato de préstamo entre usted y nosotros.</span>
+<b style="font-size:7px;">PARA MAS DETALLES POR FAVOR LEA ESTE ACUERDO DE ARBITRAJE CON   CUIDADO.</b><br><span style="font-size:6px;">En este acuerdo de arbitraje, â€œustedâ€ se refiere al solicitante(s) del prÃ©stamo. â€œnosotrosâ€, â€œnosâ€ y â€œnuestro(a)â€ se refiere a Optima Financial Solutions Inc, y nuestros causahabientes y cesionarios. Este acuerdo de arbitraje es incluido y forma parte del contrato de prÃ©stamo entre usted y nosotros.</span>
 <br>
-<b style="font-size:7px;">Partes y asuntos sujetos al arbitraje: </b><span style="font-size:6px;">: este acuerdo de arbitraje aplica a toda reclamación y disputa entre usted y nosotros. Para los fines del presente acuerdo de arbitraje, las palabras “reclamación” y “disputa” tendrán el más amplio significado posible. “reclamación” y “disputa” significan toda reclamación o disputa en contacto, respetabilidad objetiva, leyes el derechocomún, o de otra manera en relación con su solicitud de crédito, el contrato de préstamo entre usted y nosotros, y cualquier, otra transacción o relación que resulte con mostros o con nuestros sucesores o cesionarios. “reclamación,” “transacciones” i “disputa” incluye la interpretación y los alcances de este acuerdo de arbitraje de arbitraje y si esta reclamación o dispute se puede arbitrar o no. Toda reclamación o disputa que atañe a si esta reclamación o dispute se puede arbitrar o a la validez de la renuncia de acción de grupo (definido a continuación) tendría que ser resuelto por el tribunal, no por el árbitro.<br>Toda reclamación o disputa se someterá a arbitraje de forma individual y no como una acción de grupo. Usted expresamente renuncia a todo derecho que tenga, de someter a una acción de grupo a arbitraje. A esto se llama la “Renuncia de Acción de Grupo” Renunciamos al derecho de obligarle a someter a arbitraje una reclamación individual si conforme a las leyes vigentes se puede considerar que el monto que usted busca recuperar califica como de cuantía menor dentro de la competencia del juzgado de cuantía menor. Procedimiento para el arbitraje.</span>
+<b style="font-size:7px;">Partes y asuntos sujetos al arbitraje: </b><span style="font-size:6px;">: este acuerdo de arbitraje aplica a toda reclamaciÃ³n y disputa entre usted y nosotros. Para los fines del presente acuerdo de arbitraje, las palabras â€œreclamaciÃ³nâ€ y â€œdisputaâ€ tendrÃ¡n el mÃ¡s amplio significado posible. â€œreclamaciÃ³nâ€ y â€œdisputaâ€ significan toda reclamaciÃ³n o disputa en contacto, respetabilidad objetiva, leyes el derechocomÃºn, o de otra manera en relaciÃ³n con su solicitud de crÃ©dito, el contrato de prÃ©stamo entre usted y nosotros, y cualquier, otra transacciÃ³n o relaciÃ³n que resulte con mostros o con nuestros sucesores o cesionarios. â€œreclamaciÃ³n,â€ â€œtransaccionesâ€ i â€œdisputaâ€ incluye la interpretaciÃ³n y los alcances de este acuerdo de arbitraje de arbitraje y si esta reclamaciÃ³n o dispute se puede arbitrar o no. Toda reclamaciÃ³n o disputa que ataÃ±e a si esta reclamaciÃ³n o dispute se puede arbitrar o a la validez de la renuncia de acciÃ³n de grupo (definido a continuaciÃ³n) tendrÃ­a que ser resuelto por el tribunal, no por el Ã¡rbitro.<br>Toda reclamaciÃ³n o disputa se someterÃ¡ a arbitraje de forma individual y no como una acciÃ³n de grupo. Usted expresamente renuncia a todo derecho que tenga, de someter a una acciÃ³n de grupo a arbitraje. A esto se llama la â€œRenuncia de AcciÃ³n de Grupoâ€ Renunciamos al derecho de obligarle a someter a arbitraje una reclamaciÃ³n individual si conforme a las leyes vigentes se puede considerar que el monto que usted busca recuperar califica como de cuantÃ­a menor dentro de la competencia del juzgado de cuantÃ­a menor. Procedimiento para el arbitraje.</span>
 
-<b style="font-size:7px;">Procedimiento para el arbitraje:</b><span style="font-size:6px;">usted puede elegir la asociación americana de arbitraje (www.adr.org), o cualquier otra organización para llevar a cabo el arbitraje, sujeto a nuestra aprobación. Usted puede obtener una copia de las reglas de una organización de arbitraje contactándole o visitando su sitio en internet. La audiencia de arbitraje se llevara a cabo en el distrito.</span>
+<b style="font-size:7px;">Procedimiento para el arbitraje:</b><span style="font-size:6px;">usted puede elegir la asociaciÃ³n americana de arbitraje (www.adr.org), o cualquier otra organizaciÃ³n para llevar a cabo el arbitraje, sujeto a nuestra aprobaciÃ³n. Usted puede obtener una copia de las reglas de una organizaciÃ³n de arbitraje contactÃ¡ndole o visitando su sitio en internet. La audiencia de arbitraje se llevara a cabo en el distrito.</span>
 
 
 </td>

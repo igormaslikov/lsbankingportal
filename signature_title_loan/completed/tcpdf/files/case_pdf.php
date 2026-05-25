@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -43,9 +43,9 @@ else {
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -91,9 +91,9 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $f_name=$row2['first_name'];
 $address=$row2['address'];
@@ -241,7 +241,7 @@ Credit will cost you<br><br><br> $'.$payoff.'<br></td>
 </table>
 <br><br>
 Security<br>
- * Your post-dated payment(s) and/or Automated Clearing House Authorization (“ACHA”) which if so attached, is/are made part
+ * Your post-dated payment(s) and/or Automated Clearing House Authorization (â€œACHAâ€) which if so attached, is/are made part
 of this Agreement, as though fully stated herein is security for the loan.<br>
  * Your wage assignment, if given, is also security for this loan.<br><br>
  <b>PAYMENT SCHEDULE</b> Your payment schedule will be:<br><br>
@@ -264,8 +264,8 @@ second business day, immediately following the day on which the payday loan was 
 entitled to a refund of a portion of the finance charge. See below and and/or second page of this contract for any additional
 information about nonpayment, default, any required payment in full before the scheduled date, and prepayment refunds and
 penalties.<br><br>
-By signing this Loan Contract and Disclosure Statement (this “contract”) and accepting a loan from Optima Financial Solutions Inc (“Lender”) the
-undersigned borrower (“I”, “you”, “borrower”) agrees to and accept the terms and conditions set forth on all pages of this contract.
+By signing this Loan Contract and Disclosure Statement (this â€œcontractâ€) and accepting a loan from Optima Financial Solutions Inc (â€œLenderâ€) the
+undersigned borrower (â€œIâ€, â€œyouâ€, â€œborrowerâ€) agrees to and accept the terms and conditions set forth on all pages of this contract.
 <br><br>
 <b>I UNDERSTAND THAT IF I STILL OWE ON ONE OR MORE PAYDAY LOANS AFTER 35 DAYS, I AM ENTITLED TO
 ENTER INTO A REPAYMENT TO ENTER INTO A REPAYMENT PLAN THAT I WILL GIVE ME AT LEAST 55 DAYS TO

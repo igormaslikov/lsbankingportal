@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 $id=$_GET['id'];
 ?>
@@ -13,9 +13,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -42,9 +42,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -92,9 +92,9 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $f_name=$row2['first_name'];
 $address=$row2['address'];
@@ -238,14 +238,14 @@ information. Please read this notice carefully to understand what we do. <br><br
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br><br>WHAT ?<br></td>
 <td style="width: 83.1267%;"><br><br>The types of personal information we collect and share depend on the product or service you have with us. This information
 can include:<br><br>
-• Social Security number and income<br>
-• Account balances and payment history<br>
-• Credit history and credit scores <br><br></td>
+â€¢ Social Security number and income<br>
+â€¢ Account balances and payment history<br>
+â€¢ Credit history and credit scores <br><br></td>
 </tr>
 <tr>
 <td style="width: 15.8733%;text-align:center; background-color:grey;color:white"><br><br><br><br>HOW ? <br></td>
-<td style="width: 83.1267%;"><br><br>All financial companies need to share customer’s personal information to run their everyday business.<br>
-In the section below, we list the reasons financial companies can share their customers’ personal information; the
+<td style="width: 83.1267%;"><br><br>All financial companies need to share customerâ€™s personal information to run their everyday business.<br>
+In the section below, we list the reasons financial companies can share their customersâ€™ personal information; the
 reasons Optima Financial Solutions Inc chooses to share; and whether you can limit this sharing. 
 <br><br></td>
 </tr>
@@ -263,7 +263,7 @@ Share?</b></td>
 sharing?</b></td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>For our everyday business purposes –</b><br>
+<td style="width: 60%;"><br><br><b>For our everyday business purposes â€“</b><br>
 such as to process your transactions, maintain your account(s), respond to court
 orders and legal investigations, prevent or mitigate fraud, engage in corporate
 transactions, or report to credit bureaus<br></td>
@@ -271,13 +271,13 @@ transactions, or report to credit bureaus<br></td>
 <td style="width: 20.8981%;text-align:center"><br><br> No&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>For our marketing purposes –</b> <br>
+<td style="width: 60%;"><br><br><b>For our marketing purposes â€“</b> <br>
 to offer our products and services to you<br></td>
 <td style="width: 20.1019%;text-align:center"><br><br> Yes &nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> No&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>For our marketing purposes –</b> <br>
+<td style="width: 60%;"><br><br><b>For our marketing purposes â€“</b> <br>
 to offer our products and services to you<br>&nbsp;</td>
 <td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> We Dont Share&nbsp;</td>
@@ -288,13 +288,13 @@ to offer our products and services to you<br>&nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> We dont share&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>For our affiliates’ everyday business purposes –</b> <br>
+<td style="width: 60%;"><br><br><b>For our affiliatesâ€™ everyday business purposes â€“</b> <br>
 information about your transactions and experiences<br><br>&nbsp;</td>
 <td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> We dont share&nbsp;</td>
 </tr>
 <tr>
-<td style="width: 60%;"><br><br><b>For our affiliates’ everyday business purposes –</b> <br>
+<td style="width: 60%;"><br><br><b>For our affiliatesâ€™ everyday business purposes â€“</b> <br>
 information about your creditworthiness<br><br>&nbsp;</td>
 <td style="width: 20.1019%;text-align:center"><br><br> No&nbsp;</td>
 <td style="width: 20.8981%;text-align:center"><br><br> We dont share&nbsp;</td>

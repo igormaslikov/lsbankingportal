@@ -41,14 +41,14 @@ foreach ($hotels as $hotel) {
 
 $date = date("Y/m/d");
 echo $name;
-mysqli_query($con,"Insert into decision_login_codes (code,email,date) Values ('$name','$email','$date')");
+$con->query("Insert into decision_login_codes (code,email,date) Values ('$name','$email','$date')");
 $date = date('Y-m-d H:i:s');
 // To check whether user is declined in 90 day period
 $date_decline = date('Y-m-d', strtotime('-90 days'));
 $query_check = "select * from fnd_user_profile where ( (email = '$email' AND email !='') ) AND (application_status = 'Declined' OR application_status = 'Rejected By Customer') AND (creation_date BETWEEN '$date_decline'AND '$date')";
-$sql_check=mysqli_query($con, $query_check); 
+$sql_check=$con->query($query_check);
   // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($sql_check);
+  $rowcount=$sql_check->num_rows;
  echo "Row Count is : " . $rowcount. "<br>";
 if ($rowcount>0){
 echo "record exists";

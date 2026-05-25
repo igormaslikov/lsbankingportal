@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -46,9 +46,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -101,9 +101,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -116,9 +116,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -279,11 +279,11 @@ You agree and consent to the contracted by the Company, our agents, employees, a
 
 <br><br>
 
-<span style="font-size:8px;">Borrower’s Signature / Firma del Prestatario:</span>
+<span style="font-size:8px;">Borrowerâ€™s Signature / Firma del Prestatario:</span>
 <br>
 X____________________________________      
 <br>
-<span style="font-size:8px;">Co-Borrower’s Signature / Firma del Co-Prestatario:</span>
+<span style="font-size:8px;">Co-Borrowerâ€™s Signature / Firma del Co-Prestatario:</span>
 <br>
 X_____________________________________
 
@@ -298,30 +298,30 @@ X_____________________________________
 
 
 <td>
-<b style="font-size:8px;"><u>POLÍTICA DE SMS</u></b><br>
+<b style="font-size:8px;"><u>POLÃTICA DE SMS</u></b><br>
 
-<span style="font-size:8px;">Al proporcionar su número de teléfono celular, nos ha dado su consentimiento para enviarle mensajes de texto (SMS) junto con los servicios que ha solicitado. Las tarifas de datos y MSG de su proveedor de telefonía celular pueden aplicarse a nuestro mensaje de confirmación y a todos los mensajes posteriores.
+<span style="font-size:8px;">Al proporcionar su nÃºmero de telÃ©fono celular, nos ha dado su consentimiento para enviarle mensajes de texto (SMS) junto con los servicios que ha solicitado. Las tarifas de datos y MSG de su proveedor de telefonÃ­a celular pueden aplicarse a nuestro mensaje de confirmaciÃ³n y a todos los mensajes posteriores.
 <br>
-Usted comprende que los mensajes de texto que enviamos pueden ser vistos por cualquier persona con acceso a su teléfono. En consecuencia, debe tomar medidas para proteger su teléfono y sus mensajes de texto si desea que se mantengan privados (NO DEBE ENVIARSE INFORMACIÓN CONFIDENCIAL POR SMS)
+Usted comprende que los mensajes de texto que enviamos pueden ser vistos por cualquier persona con acceso a su telÃ©fono. En consecuencia, debe tomar medidas para proteger su telÃ©fono y sus mensajes de texto si desea que se mantengan privados (NO DEBE ENVIARSE INFORMACIÃ“N CONFIDENCIAL POR SMS)
 <br>
 
 If we notify this SMS Policy, we will notify you by sending you a SMS. We may terminate our SMS Policy at any time.
 <br>
 
-Notifíquenos de inmediato si cambia los números de teléfono móvil.
-Si notificamos esta Política de SMS, se lo notificaremos enviándole un SMS. Podemos rescindir nuestra Política de SMS en cualquier momento.
-Si tiene alguna pregunta sobre esta Política de SMS, desea que le enviemos una copia en papel o si tiene problemas para recibir o detener nuestros mensajes de texto, contáctenos utilizando la siguiente información: Optima Financial Solutions Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks , CA 91403 info@ofsca.com o (747) 300-1542.
+NotifÃ­quenos de inmediato si cambia los nÃºmeros de telÃ©fono mÃ³vil.
+Si notificamos esta PolÃ­tica de SMS, se lo notificaremos enviÃ¡ndole un SMS. Podemos rescindir nuestra PolÃ­tica de SMS en cualquier momento.
+Si tiene alguna pregunta sobre esta PolÃ­tica de SMS, desea que le enviemos una copia en papel o si tiene problemas para recibir o detener nuestros mensajes de texto, contÃ¡ctenos utilizando la siguiente informaciÃ³n: Optima Financial Solutions Inc 4645 Van Nuys Boulevard Suite 202 Sherman Oaks , CA 91403 info@ofsca.com o (747) 300-1542.
 
 <br>
-Usted acepta y consiente lo contratado por la Compañía, nuestros agentes, empleados, abogados, acreedores posteriores, compañías de servicios de préstamos y recaudadores externos mediante el uso de correo electrónico y / o llamadas telefónicas y / o SMS a su celular, hogar o números de teléfono de trabajo, así como cualquier otro número de teléfono que haya proporcionado junto con esta cuenta, incluido el uso de sistemas de marcación telefónica automática, marcadores automáticos o una voz artificial o pregrabada.
+Usted acepta y consiente lo contratado por la CompaÃ±Ã­a, nuestros agentes, empleados, abogados, acreedores posteriores, compaÃ±Ã­as de servicios de prÃ©stamos y recaudadores externos mediante el uso de correo electrÃ³nico y / o llamadas telefÃ³nicas y / o SMS a su celular, hogar o nÃºmeros de telÃ©fono de trabajo, asÃ­ como cualquier otro nÃºmero de telÃ©fono que haya proporcionado junto con esta cuenta, incluido el uso de sistemas de marcaciÃ³n telefÃ³nica automÃ¡tica, marcadores automÃ¡ticos o una voz artificial o pregrabada.
 </span>
 <br>
-<b style="font-size:8px;">OPT-OUT o STOP:</b><span style="font-size:7px;">Esta Política de SMS se aplica a los mensajes de texto enviados por Optima Financial Solutions Inc a nuestros clientes mientras y después de que usan nuestro servicio. Si desea dejar de recibir SMS de Optima Financial Solutions Inc, responda a cualquier mensaje de texto que le hayamos enviado y, en su respuesta, simplemente escriba STOP. Su solicitud de detención entrará en vigencia de inmediato. También puede detener los SMS llamando, enviando una carta o envíenos un correo electrónico a la siguiente información: Optima Financial Solutions Inc 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703 info@ofsca.com o (747) 300-1542.
+<b style="font-size:8px;">OPT-OUT o STOP:</b><span style="font-size:7px;">Esta PolÃ­tica de SMS se aplica a los mensajes de texto enviados por Optima Financial Solutions Inc a nuestros clientes mientras y despuÃ©s de que usan nuestro servicio. Si desea dejar de recibir SMS de Optima Financial Solutions Inc, responda a cualquier mensaje de texto que le hayamos enviado y, en su respuesta, simplemente escriba STOP. Su solicitud de detenciÃ³n entrarÃ¡ en vigencia de inmediato. TambiÃ©n puede detener los SMS llamando, enviando una carta o envÃ­enos un correo electrÃ³nico a la siguiente informaciÃ³n: Optima Financial Solutions Inc 11306 EAST 183RD ST SUITE 305A CERRITOS, CA 90703 info@ofsca.com o (747) 300-1542.
 </span><br>
-<b style="font-size:8px;">AYUDA o APOYO: </b><span style="font-size:7px;">Si en algún momento necesita nuestra información de contacto sobre cómo detener SMS, responda cualquier mensaje de texto que le hayamos enviado y en esta respuesta simplemente escriba HELP. Al recibir su mensaje de texto, le enviaremos un mensaje de texto con esta información. El mensaje que enviamos le brinda información sobre su cuenta. Algunos de los SMS que enviamos pueden incluir enlaces a sitios web. Para acceder a estos sitios web, necesitará un navegador web y acceso a Internet. 
+<b style="font-size:8px;">AYUDA o APOYO: </b><span style="font-size:7px;">Si en algÃºn momento necesita nuestra informaciÃ³n de contacto sobre cÃ³mo detener SMS, responda cualquier mensaje de texto que le hayamos enviado y en esta respuesta simplemente escriba HELP. Al recibir su mensaje de texto, le enviaremos un mensaje de texto con esta informaciÃ³n. El mensaje que enviamos le brinda informaciÃ³n sobre su cuenta. Algunos de los SMS que enviamos pueden incluir enlaces a sitios web. Para acceder a estos sitios web, necesitarÃ¡ un navegador web y acceso a Internet. 
 </span><br>
 
-<b style="font-size:8px;">ACUERDO PARA RECIBIR SMS: </b><span style="font-size:7px;">Al firmar esta sección, autoriza a Optima Financial Solutions Inc o Nuestros agentes a enviar marketing al número de teléfono móvil que ha proporcionado y que se detalla a continuación utilizando un sistema de marcación automática. No está obligado a autorizar SMS de marketing para obtener crédito u otros servicios de nosotros. Si no desea recibir nuestros SMS de ventas o marketing, no debe firmar esta sección. Usted comprende que cualquier mensaje que le enviemos puede ser accedido por cualquier persona que tenga acceso a su SMS. También comprende que su proveedor de servicios de telefonía móvil le cobra honorarios por cualquier SMS que le enviemos, y acepta que no tendremos ninguna responsabilidad por los costos relacionados con dicho SMS. En cualquier momento, puede retirar su consentimiento para recibir marketing llamándonos al (747) 300-1542. 
+<b style="font-size:8px;">ACUERDO PARA RECIBIR SMS: </b><span style="font-size:7px;">Al firmar esta secciÃ³n, autoriza a Optima Financial Solutions Inc o Nuestros agentes a enviar marketing al nÃºmero de telÃ©fono mÃ³vil que ha proporcionado y que se detalla a continuaciÃ³n utilizando un sistema de marcaciÃ³n automÃ¡tica. No estÃ¡ obligado a autorizar SMS de marketing para obtener crÃ©dito u otros servicios de nosotros. Si no desea recibir nuestros SMS de ventas o marketing, no debe firmar esta secciÃ³n. Usted comprende que cualquier mensaje que le enviemos puede ser accedido por cualquier persona que tenga acceso a su SMS. TambiÃ©n comprende que su proveedor de servicios de telefonÃ­a mÃ³vil le cobra honorarios por cualquier SMS que le enviemos, y acepta que no tendremos ninguna responsabilidad por los costos relacionados con dicho SMS. En cualquier momento, puede retirar su consentimiento para recibir marketing llamÃ¡ndonos al (747) 300-1542. 
 </span>
 <br><br>
 <span style="font-size:8px;">Date/Fecha:</span>

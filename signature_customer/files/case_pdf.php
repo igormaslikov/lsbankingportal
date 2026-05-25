@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 $id=$_GET['id'];
 ?>
@@ -15,9 +15,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -50,9 +50,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -112,9 +112,9 @@ $created_by = $row_loan['created_by'];
   	$anual_pr= $calculation;
  
  
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+ $sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -125,8 +125,8 @@ $username=$row_user['username'];
  
  
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
-while($row2 = mysqli_fetch_array($sql2)) {
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+while($row2 = $sql2->fetch_array()) {
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
 $f_name= $ff_name.' '.$l_name;
@@ -231,7 +231,7 @@ $style = array(
  <b>Lender :</b> Optima Financial Solutions Inc<br>
  <b>Address        :</b> 11306 EAST 183RD ST SUITE 305A CERRITOS CA 90703<br>
  <b>Phone         :</b> 818-856-4302<br>
- <b>Lender’s License:</b> 10DBO-133110<br><br>
+ <b>Lenderâ€™s License:</b> 10DBO-133110<br><br>
  </td>
   </tr>
  </tbody>
@@ -293,16 +293,16 @@ Credit will cost you<br><br><br><br> $'.$loan_fee.'<br></td>
 
 <div style="font-size:8px">
 <b>Security:</b>
- Your post-dated payment(s) and/or Automated Clearing House Authorization (“ACHA”) which if so attached, is/are made part
+ Your post-dated payment(s) and/or Automated Clearing House Authorization (â€œACHAâ€) which if so attached, is/are made part
 of this Agreement, as though fully stated herein is security for the loan.<br>
 <b>Prepayment:</b>A Consumer may cancel future payment obligations on a payday loan, without cost or finance charges, no later than the end of the
 second business day, immediately following the day on which the payday loan was executed. If you pay off early, you will not be
 entitled to a refund of a portion of the finance charge.<br>
-<b>Dishonored Item Fee:</b> : Borrower will pay a fee to Lender of $ 15.00 if Borrower makes a payment on Borrower’s loan and the check or preauthorized
+<b>Dishonored Item Fee:</b> : Borrower will pay a fee to Lender of $ 15.00 if Borrower makes a payment on Borrowerâ€™s loan and the check or preauthorized
 charge with which Borrower pays is later dishonored.<br>
 <b>Deferred Payment:</b> Borrower cannot be prosecuted in a criminal action in conjunction with a deferred deposit transaction for a returned check or be
 threatened with prosecution.Optima Financial Solutions Inc may not accept any collateral in conjunction with a deferred deposit transaction. Optima Financial Solutions Inc cannot
-make a deferred deposit transaction contingent on the purchase of another product or service. Borrower’s check is part of a deferred deposit
+make a deferred deposit transaction contingent on the purchase of another product or service. Borrowerâ€™s check is part of a deferred deposit
 transaction made pursuant to Section 23035 of the Financial Code and is not subject to the provisions of Section 1719 of the Civil Code. Borrower may
 not be required to pay treble damages if this check does not clear<br>
 <b>Complaints and Concerns:</b> Borrower can call to the Department of Financial Protection and Innovation\'s toll-free telephone number: 866-275-2677 for
@@ -320,8 +320,8 @@ OFFERED BY OTHER LENDING INSTITUTIONS. THIS LOAN IS REGULATED BY THE DEPARTMENT 
 PROTECTION AND INNOVATION.<br><br>
 YOU CANNOT BE PROSECUTED IN CRIMINAL COURT TO COLLECT THIS LOAN.
 </b>
-By signing this Loan Contract and Disclosure Statement (this “contract”) and accepting a loan from Optima Financial Solutions Inc (“Lender”) the undersigned
-borrower (“I”, “you”, “borrower”) agrees to and accept the terms and conditions set forth on all pages of this contract.
+By signing this Loan Contract and Disclosure Statement (this â€œcontractâ€) and accepting a loan from Optima Financial Solutions Inc (â€œLenderâ€) the undersigned
+borrower (â€œIâ€, â€œyouâ€, â€œborrowerâ€) agrees to and accept the terms and conditions set forth on all pages of this contract.
 <br>
 </div>
 

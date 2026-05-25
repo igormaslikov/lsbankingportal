@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -46,9 +46,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -101,9 +101,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -116,9 +116,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -261,34 +261,34 @@ $style = array(
 
 <b style="font-size:8px;">C.APPLICATION OF PAYMENTS:</b><span style="font-size:8px;">Payments will be applied following the order of priority; Interest, Late Charges, Returned Check Fees and then to principal. All payments will be applied to scheduled payments in the order in which they become due.</span>
 <br>
-<b style="font-size:8px;">D.FEES AND CHARGES:</b><span style="font-size:8px;">Fees and charges payable in connection with this loan are disclosed in the “Itemization of Amount Financed” and “Other Charges” section on the front side of this Agreement. The Administrative Fee, DMV Fee are non-refundable.</span>
+<b style="font-size:8px;">D.FEES AND CHARGES:</b><span style="font-size:8px;">Fees and charges payable in connection with this loan are disclosed in the â€œItemization of Amount Financedâ€ and â€œOther Chargesâ€ section on the front side of this Agreement. The Administrative Fee, DMV Fee are non-refundable.</span>
 <br>
-<b style="font-size:8px;">E.BORROWER’S PROMISES ABOUT LENDER’S SECURITY INTEREST:</b><span style="font-size:8px;">I will not permit anyone other than you to obtain a security interest or other rights to the vehicle. I will pay all filling fees necessary for The Lender to obtain and maintain a security interest in the vehicle. I will assist the Lender in having a security interest noted on the Certificate of Title to the vehicle. I will not sell or give away the vehicle. If someone puts a lien on the vehicle, I will pay the obligation and clear the lien.</span>
+<b style="font-size:8px;">E.BORROWERâ€™S PROMISES ABOUT LENDERâ€™S SECURITY INTEREST:</b><span style="font-size:8px;">I will not permit anyone other than you to obtain a security interest or other rights to the vehicle. I will pay all filling fees necessary for The Lender to obtain and maintain a security interest in the vehicle. I will assist the Lender in having a security interest noted on the Certificate of Title to the vehicle. I will not sell or give away the vehicle. If someone puts a lien on the vehicle, I will pay the obligation and clear the lien.</span>
 <br>
-<b style="font-size:8px;">F.BORROWER’S PROMISES ABOUT THE VEHICLE:</b><span style="font-size:8px;">I will keep the vehicle in good condition and repair. I will pay all taxes and charges on the vehicle. I will pay all costs of maintaining the vehicle. I will not abuse the vehicle or permit anything to be done to the vehicle which will reduce its value. I will not use the vehicle for illegal purpose or for hire or lease. I will not move the vehicle from my address shown of this Agreement to a new permanent place of garaging without notifying you in advance. I will let you inspect the vehicle upon reasonable notice.</span>
+<b style="font-size:8px;">F.BORROWERâ€™S PROMISES ABOUT THE VEHICLE:</b><span style="font-size:8px;">I will keep the vehicle in good condition and repair. I will pay all taxes and charges on the vehicle. I will pay all costs of maintaining the vehicle. I will not abuse the vehicle or permit anything to be done to the vehicle which will reduce its value. I will not use the vehicle for illegal purpose or for hire or lease. I will not move the vehicle from my address shown of this Agreement to a new permanent place of garaging without notifying you in advance. I will let you inspect the vehicle upon reasonable notice.</span>
 <br>
-<b style="font-size:8px;">G.BORROWER’S PROMISES ABOUT INSURANCE:</b><span style="font-size:8px;">I will keep the vehicle insured against fire, theft and collision until all sums due you are paid in full. The insurance coverage must be satisfactory with a minimum deductible of $1000 and protect my interest and your interest at time of any insured loss. The insurance policy must name the Lender as “Loss-payee”. The insurance must be written by an insurance company licensed to sell insurance in the state where the vehicle is permanently garaged. The insurance policy must provide the Lender with at least 10 days prior to written notice of any cancellation or reduction in coverage. On request, I must deliver the policy or other evidence of insurance coverage to the lender.</span>
+<b style="font-size:8px;">G.BORROWERâ€™S PROMISES ABOUT INSURANCE:</b><span style="font-size:8px;">I will keep the vehicle insured against fire, theft and collision until all sums due you are paid in full. The insurance coverage must be satisfactory with a minimum deductible of $1000 and protect my interest and your interest at time of any insured loss. The insurance policy must name the Lender as â€œLoss-payeeâ€. The insurance must be written by an insurance company licensed to sell insurance in the state where the vehicle is permanently garaged. The insurance policy must provide the Lender with at least 10 days prior to written notice of any cancellation or reduction in coverage. On request, I must deliver the policy or other evidence of insurance coverage to the lender.</span>
 
 </td>
 
 
 <td>
-<b style="font-size:8px;"><u>TÉRMINOS Y CONDICIONES ADICIONALES</u></b>
+<b style="font-size:8px;"><u>TÃ‰RMINOS Y CONDICIONES ADICIONALES</u></b>
 <br><br>
-<b style="font-size:8px;">A.CÓMO SE COMPUTA EL TOTAL DE PAGOS:</b><span style="font-size:8px;">El total de pagos es la suma del Monto financiado y el Cargo financiero. El Cargo Financiero incluye, entre otros, intereses calculados diariamente sobre el saldo pendiente del Monto Financiado más una tarifa administrativa y cualquier otro cargo financiero divulgado. El Programa de Cargos Financieros y Pagos, que se muestra en la Divulgación Federal de Verdad en Préstamo al frente de este Acuerdo, son estimaciones basadas en el supuesto de que cada pago se realizará en su fecha de vencimiento. Dado que el interés se calcula a diario, los pagos atrasados generarán intereses adicionales y los pagos anticipados generarán menos intereses.</span>
+<b style="font-size:8px;">A.CÃ“MO SE COMPUTA EL TOTAL DE PAGOS:</b><span style="font-size:8px;">El total de pagos es la suma del Monto financiado y el Cargo financiero. El Cargo Financiero incluye, entre otros, intereses calculados diariamente sobre el saldo pendiente del Monto Financiado mÃ¡s una tarifa administrativa y cualquier otro cargo financiero divulgado. El Programa de Cargos Financieros y Pagos, que se muestra en la DivulgaciÃ³n Federal de Verdad en PrÃ©stamo al frente de este Acuerdo, son estimaciones basadas en el supuesto de que cada pago se realizarÃ¡ en su fecha de vencimiento. Dado que el interÃ©s se calcula a diario, los pagos atrasados generarÃ¡n intereses adicionales y los pagos anticipados generarÃ¡n menos intereses.</span>
 <br>
-<b style="font-size:8px;">B.INTERÉS:</b><span style="font-size:8px;">Se le cobrarán intereses diariamente sobre el saldo pendiente sujeto a intereses cada día. La tasa de interés diaria es igual a la tasa anual dividida por la cantidad de días en el año calendario.</span>
+<b style="font-size:8px;">B.INTERÃ‰S:</b><span style="font-size:8px;">Se le cobrarÃ¡n intereses diariamente sobre el saldo pendiente sujeto a intereses cada dÃ­a. La tasa de interÃ©s diaria es igual a la tasa anual dividida por la cantidad de dÃ­as en el aÃ±o calendario.</span>
 <br>
 
-<b style="font-size:8px;">C.APLICACIÓN DE PAGOS:</b><span style="font-size:8px;">Los pagos se aplicarán siguiendo el orden de prioridad; Intereses, recargos, cargos por cheques devueltos y luego al principal. Todos los pagos se aplicarán a los pagos programados en el orden en que vencen.</span>
+<b style="font-size:8px;">C.APLICACIÃ“N DE PAGOS:</b><span style="font-size:8px;">Los pagos se aplicarÃ¡n siguiendo el orden de prioridad; Intereses, recargos, cargos por cheques devueltos y luego al principal. Todos los pagos se aplicarÃ¡n a los pagos programados en el orden en que vencen.</span>
 <br>
-<b style="font-size:8px;">D.HONORARIOS Y CARGOS:</b><span style="font-size:8px;">Los honorarios y cargos pagaderos en relación con este préstamo se revelan en la sección "Desglose del monto financiado" y "Otros cargos" en el anverso de este Acuerdo. La tarifa administrativa, la tarifa del DMV no son reembolsables.</span>
+<b style="font-size:8px;">D.HONORARIOS Y CARGOS:</b><span style="font-size:8px;">Los honorarios y cargos pagaderos en relaciÃ³n con este prÃ©stamo se revelan en la secciÃ³n "Desglose del monto financiado" y "Otros cargos" en el anverso de este Acuerdo. La tarifa administrativa, la tarifa del DMV no son reembolsables.</span>
 <br>
-<b style="font-size:8px;">E.PROMESAS DEL PRESTATARIO SOBRE EL INTERÉS DE SEGURIDAD DEL PRESTAMISTA:</b><span style="font-size:8px;">No permitiré que nadie más que usted obtenga un interés de seguridad u otros derechos sobre el vehículo. Pagaré todas las tarifas de llenado necesarias para que The Lender obtenga y mantenga un interés de seguridad en el vehículo. Ayudaré al Prestamista a tener un interés de seguridad anotado en el Certificado de Título del vehículo. No venderé ni regalaré el vehículo. Si alguien pone un derecho de retención sobre el vehículo, pagaré la obligación y borraré el derecho de retención.</span>
+<b style="font-size:8px;">E.PROMESAS DEL PRESTATARIO SOBRE EL INTERÃ‰S DE SEGURIDAD DEL PRESTAMISTA:</b><span style="font-size:8px;">No permitirÃ© que nadie mÃ¡s que usted obtenga un interÃ©s de seguridad u otros derechos sobre el vehÃ­culo. PagarÃ© todas las tarifas de llenado necesarias para que The Lender obtenga y mantenga un interÃ©s de seguridad en el vehÃ­culo. AyudarÃ© al Prestamista a tener un interÃ©s de seguridad anotado en el Certificado de TÃ­tulo del vehÃ­culo. No venderÃ© ni regalarÃ© el vehÃ­culo. Si alguien pone un derecho de retenciÃ³n sobre el vehÃ­culo, pagarÃ© la obligaciÃ³n y borrarÃ© el derecho de retenciÃ³n.</span>
 <br>
-<b style="font-size:8px;">F.PROMESAS DEL PRESTATARIO SOBRE EL VEHÍCULO:</b><span style="font-size:8px;">Mantendré el vehículo en buenas condiciones y lo repararé. Pagaré todos los impuestos y cargos del vehículo. Pagaré todos los costos de mantenimiento del vehículo. No abusaré del vehículo ni permitiré que se haga nada al vehículo que reduzca su valor. No utilizaré el vehículo para fines ilegales o para alquiler o arrendamiento. No trasladaré el vehículo desde la dirección que se muestra en este Acuerdo a un nuevo lugar de estacionamiento permanente sin notificarle por adelantado. Le dejaré inspeccionar el vehículo con un aviso razonable.</span>
+<b style="font-size:8px;">F.PROMESAS DEL PRESTATARIO SOBRE EL VEHÃCULO:</b><span style="font-size:8px;">MantendrÃ© el vehÃ­culo en buenas condiciones y lo repararÃ©. PagarÃ© todos los impuestos y cargos del vehÃ­culo. PagarÃ© todos los costos de mantenimiento del vehÃ­culo. No abusarÃ© del vehÃ­culo ni permitirÃ© que se haga nada al vehÃ­culo que reduzca su valor. No utilizarÃ© el vehÃ­culo para fines ilegales o para alquiler o arrendamiento. No trasladarÃ© el vehÃ­culo desde la direcciÃ³n que se muestra en este Acuerdo a un nuevo lugar de estacionamiento permanente sin notificarle por adelantado. Le dejarÃ© inspeccionar el vehÃ­culo con un aviso razonable.</span>
 <br>
-<b style="font-size:8px;">G.PROMESAS DEL PRESTADOR SOBRE EL SEGURO:</b><span style="font-size:8px;">Mantendré el vehículo asegurado contra incendio, robo y colisión hasta que se paguen todas las sumas adeudadas. La cobertura del seguro debe ser satisfactoria con un deducible mínimo de $ 1000 y proteger mi interés y su interés al momento de cualquier pérdida asegurada. La póliza de seguro debe nombrar al prestamista como "beneficiario de la pérdida". El seguro debe ser redactado por una compañía de seguros con licencia para vender seguros en el estado donde el vehículo está permanentemente estacionado. La póliza de seguro debe proporcionar al Prestamista al menos 10 días antes de la notificación por escrito de cualquier cancelación o reducción en la cobertura. A pedido, debo entregar la póliza u otra evidencia de cobertura de seguro al prestamista.</span>
+<b style="font-size:8px;">G.PROMESAS DEL PRESTADOR SOBRE EL SEGURO:</b><span style="font-size:8px;">MantendrÃ© el vehÃ­culo asegurado contra incendio, robo y colisiÃ³n hasta que se paguen todas las sumas adeudadas. La cobertura del seguro debe ser satisfactoria con un deducible mÃ­nimo de $ 1000 y proteger mi interÃ©s y su interÃ©s al momento de cualquier pÃ©rdida asegurada. La pÃ³liza de seguro debe nombrar al prestamista como "beneficiario de la pÃ©rdida". El seguro debe ser redactado por una compaÃ±Ã­a de seguros con licencia para vender seguros en el estado donde el vehÃ­culo estÃ¡ permanentemente estacionado. La pÃ³liza de seguro debe proporcionar al Prestamista al menos 10 dÃ­as antes de la notificaciÃ³n por escrito de cualquier cancelaciÃ³n o reducciÃ³n en la cobertura. A pedido, debo entregar la pÃ³liza u otra evidencia de cobertura de seguro al prestamista.</span>
 
 </td>
 

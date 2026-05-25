@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -43,9 +43,9 @@ else {
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -91,9 +91,9 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $f_name=$row2['first_name'];
 $address=$row2['address'];
@@ -242,14 +242,14 @@ opportunity to act on it. <br><br>
 
 Yo (nosotros) autorizamos a Optima Financial Solutions Inc a
 iniciar inscripciones a mi (nuestras) cuentas de
-cheques/ahorros en La Institución Financiera que se
-enumera a continuación y, si es necesario, iniciar
-ajustes por cualquier transacción acreditada o
-debitada por error. Esta autoridad permanecerá en
+cheques/ahorros en La InstituciÃ³n Financiera que se
+enumera a continuaciÃ³n y, si es necesario, iniciar
+ajustes por cualquier transacciÃ³n acreditada o
+debitada por error. Esta autoridad permanecerÃ¡ en
 vigor hasta que Optima Financial Solutions Inc sea notificada
 por escrito (por escrito) para cancelarla en el
-tiempo que se dé a Optima Financial Solutions Inc y La
-Institución Financiera una oportunidad razonable
+tiempo que se dÃ© a Optima Financial Solutions Inc y La
+InstituciÃ³n Financiera una oportunidad razonable
 para actuar en ella. <br><br><br>
 
 

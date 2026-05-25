@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -46,9 +46,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -101,9 +101,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -116,9 +116,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -262,11 +262,11 @@ $style = array(
 
 <b style="font-size:8px;">NOTICE:ANY HOLDER OF THIS CONSUMER CREDIT CONTRACT IS SUBJECT TO ALL CLAIMS AND DEFENSES WHICH THE DEBTOR COULD ASSERT AGAINST THE SELLER OF THE GOODS OR SERVICES OBTAINED WITH THE PROCEEDS HEREOF. RECOVERY HEREUNDER BY THE DEBTOR SHALL NOT EXCEED AMOUNTS PAID BY THE DEBTOR HEREUNDER.</b>
 <br><br><br>
-<span style="font-size:8px;">Borrower’s Signature / Firma del Prestatario:</span>
+<span style="font-size:8px;">Borrowerâ€™s Signature / Firma del Prestatario:</span>
 <br><br><br>
 X____________________________________      
 <br><br><br>
-<span style="font-size:8px;">Co-Borrower’s Signature / Firma del Co-Prestatario:</span>
+<span style="font-size:8px;">Co-Borrowerâ€™s Signature / Firma del Co-Prestatario:</span>
 <br><br><br>
 X_____________________________________
 <br><br><br>
@@ -275,15 +275,15 @@ X_____________________________________
 
 
 <td>
-<b style="font-size:8px;">PARA INFORMACIÓN, CONTACTE CON EL DEPARTAMENTO DE SUPERVISIÓN EMPRESARIAL, ESTADO DE CALIFORNIA.</b>
+<b style="font-size:8px;">PARA INFORMACIÃ“N, CONTACTE CON EL DEPARTAMENTO DE SUPERVISIÃ“N EMPRESARIAL, ESTADO DE CALIFORNIA.</b>
 <br><br><br>
 
-<b style="font-size:8px;">Usted reconoce que ha leído y recibido una copia firmada de este Acuerdo.</b>
+<b style="font-size:8px;">Usted reconoce que ha leÃ­do y recibido una copia firmada de este Acuerdo.</b>
 <br><br><br>
-<span style="font-size:8px;">Si este préstamo es para fines personales, familiares o domésticos, se aplican los siguientes avisos.</span>
+<span style="font-size:8px;">Si este prÃ©stamo es para fines personales, familiares o domÃ©sticos, se aplican los siguientes avisos.</span>
 <br><br><br>
 
-<b style="font-size:8px;">AVISO:CUALQUIER TITULAR DE ESTE CONTRATO DE CRÉDITO PARA EL CONSUMIDOR ESTÁ SUJETO A TODAS LAS RECLAMACIONES Y DEFENSAS QUE EL DEUDOR PODRÍA ASEGURAR CONTRA EL VENDEDOR DE LOS BIENES O SERVICIOS OBTENIDOS CON EL PROCEDIMIENTO AQUÍ. LA RECUPERACIÓN AQUÍ POR EL DEUDOR NO EXCEDERÁ LAS CANTIDADES PAGADAS POR EL DEUDOR AQUÍ.</b>
+<b style="font-size:8px;">AVISO:CUALQUIER TITULAR DE ESTE CONTRATO DE CRÃ‰DITO PARA EL CONSUMIDOR ESTÃ SUJETO A TODAS LAS RECLAMACIONES Y DEFENSAS QUE EL DEUDOR PODRÃA ASEGURAR CONTRA EL VENDEDOR DE LOS BIENES O SERVICIOS OBTENIDOS CON EL PROCEDIMIENTO AQUÃ. LA RECUPERACIÃ“N AQUÃ POR EL DEUDOR NO EXCEDERÃ LAS CANTIDADES PAGADAS POR EL DEUDOR AQUÃ.</b>
 <br><br><br><br>
 <span style="font-size:8px;">Date/Fecha:</span>
 <br><br><br>

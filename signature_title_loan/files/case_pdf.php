@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -14,9 +14,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -49,9 +49,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -100,9 +100,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
  
-  $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+  $sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -113,9 +113,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
   	$anual_pr= $calculation;
  
  
- $sql_user=mysqli_query($con, "select * from tbl_users where user_id= '$created_by'"); 
+ $sql_user=$con->query("select * from tbl_users where user_id= '$created_by'"); 
 
-while($row_user = mysqli_fetch_array($sql_user)) {
+while($row_user = $sql_user->fetch_array()) {
 
 $username=$row_user['username'];
 
@@ -126,8 +126,8 @@ $username=$row_user['username'];
  
  
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
-while($row2 = mysqli_fetch_array($sql2)) {
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+while($row2 = $sql2->fetch_array()) {
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
 $f_name= $ff_name.' '.$l_name;
@@ -248,7 +248,7 @@ Ph. (747) 300-1542
 
 </tbody>
 </table></span>
-<span style="font-size:9px;">In this Promissory Note and Security Agreement (“Agreement”). Borrower and Co-Borrower are referred to as “you” and “your” and Lender is referred to as “we” “us” and “our”. The Federal Truth in Lending Act Disclosure is part of this Agreement. On the date shown opposite your signature(s) below, we have loaned you money and you have granted to us security interest in your motor vehicle described below (“Vehicle”) as collateral to secure repayment. </span>
+<span style="font-size:9px;">In this Promissory Note and Security Agreement (â€œAgreementâ€). Borrower and Co-Borrower are referred to as â€œyouâ€ and â€œyourâ€ and Lender is referred to as â€œweâ€ â€œusâ€ and â€œourâ€. The Federal Truth in Lending Act Disclosure is part of this Agreement. On the date shown opposite your signature(s) below, we have loaned you money and you have granted to us security interest in your motor vehicle described below (â€œVehicleâ€) as collateral to secure repayment. </span>
 <br><br>
 <span style="font-size:8px;"><table border="1" style="text-align:center">
 <tbody>
@@ -347,12 +347,12 @@ B. DMV Registration Fees<br>
 </td>
 <td align="left"> <b style="font-size:7px;">THIS IS A HIGH-COST LOAN. YOU MAY BE ABLE TO OBTAIN A LOAN FROM SOMEONE ELSE AT A LOWER INTEREST RATE. Optima Financial Solutions Inc ADVISES YOU TO THINK CAREFULLY BEFORE YOU DECIDE TO TAKE THIS LOAN.</b>
 <br><br>
-Borrower’s Signature &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :
+Borrowerâ€™s Signature &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :
 <br><br>
 X__________________________________
 
 <br><br>
-Co-Borrower’s Signature &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :
+Co-Borrowerâ€™s Signature &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date :
 
 <br><br>
 X__________________________________

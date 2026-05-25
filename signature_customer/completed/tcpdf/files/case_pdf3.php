@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -43,9 +43,9 @@ else {
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -91,9 +91,9 @@ while($row_loan = mysqli_fetch_array($sql_loan)) {
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $f_name=$row2['first_name'];
 $address=$row2['address'];
@@ -231,9 +231,9 @@ Loan Number/Numero de Prestamo: _________________________________________<br>
 Authorization to make payments on my <b>Optima Financial Solutions Inc</b> Loan # _______________ on continuig basis using the
 Credit Card described below and the terms of this Loan, unless otherwise instructed in writing by the Credit Card
 Holder.<br><br>
-Autorización para hacer pagos en mi cuenta de <b>Optima Financial Solutions Inc</b> prestamo # _______________ sobre la base
-continua utilizando la tarjeta de crédito que se describe a continuación y los términos de este préstamo , a menos
-que se indique lo contrario por escrito por el titular de la Tarjeta de Crédito .
+AutorizaciÃ³n para hacer pagos en mi cuenta de <b>Optima Financial Solutions Inc</b> prestamo # _______________ sobre la base
+continua utilizando la tarjeta de crÃ©dito que se describe a continuaciÃ³n y los tÃ©rminos de este prÃ©stamo , a menos
+que se indique lo contrario por escrito por el titular de la Tarjeta de CrÃ©dito .
 
 
 <br><br>
@@ -264,7 +264,7 @@ Telephone: '.$mobile_number.' <br><br>
  I, '.$f_name.', the undersigned hereby states that the above described Credit Card
 is in my name and that i authorize its charge to Optima Financial Solutions Inc for full or partial payments.
 <br><br>
- Yo , '.$f_name.', el abajo firmante de la tarjeta de crédito en mi nombre descrita
+ Yo , '.$f_name.', el abajo firmante de la tarjeta de crÃ©dito en mi nombre descrita
 en la parte superior y que autorizo su cargos a Optima Financial Solutions Inc para los pagos totales o parciales. <br><br><br>
 
 ____________________________________________________<br><br>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -12,9 +12,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from personal_loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from personal_loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -51,9 +51,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_personal_loans where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -108,9 +108,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
  
- $sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+ $sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -122,9 +122,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -257,36 +257,36 @@ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
 <table>
 <tbody>
 <tr>
-<td><b style="font-size:8px;">•Arbitration:</b><span style="font-size:6px;">. You acknowledge that you have read, understand and agree to the terms contained in the Arbitration Agreement you are signing in connection with this Agreement, by entering into the Arbitration Agreement you waive certain rights, including the right to go to court, to have a dispute heard by a jury, and to participate as part of a class o claimants relating to any claim against or dispute with us or a related third party.</span>
+<td><b style="font-size:8px;">â€¢Arbitration:</b><span style="font-size:6px;">. You acknowledge that you have read, understand and agree to the terms contained in the Arbitration Agreement you are signing in connection with this Agreement, by entering into the Arbitration Agreement you waive certain rights, including the right to go to court, to have a dispute heard by a jury, and to participate as part of a class o claimants relating to any claim against or dispute with us or a related third party.</span>
 <br>
-<b style="font-size:8px;">•Notices:</b><span style="font-size:6px;">We will send all notices to you at the address shown above. You understand and agree that you have a responsibility under California Civil Code Section 1788.21 to notify us of any change in your name, address, or employment within a reasonable time after such change occurs.</span>
+<b style="font-size:8px;">â€¢Notices:</b><span style="font-size:6px;">We will send all notices to you at the address shown above. You understand and agree that you have a responsibility under California Civil Code Section 1788.21 to notify us of any change in your name, address, or employment within a reasonable time after such change occurs.</span>
 <br>
 
-<b style="font-size:8px;">•Presentations and Warranties:</b><span style="font-size:6px;">You represent and warrant to us that (a) all the information you provided to us in your credit application is true and correct (b) you have the legal capacity to enter into this Agreement; and (c) n persona has acted as a broker or finder for this transaction.</span>
+<b style="font-size:8px;">â€¢Presentations and Warranties:</b><span style="font-size:6px;">You represent and warrant to us that (a) all the information you provided to us in your credit application is true and correct (b) you have the legal capacity to enter into this Agreement; and (c) n persona has acted as a broker or finder for this transaction.</span>
 <br>  
-<b style="font-size:8px;">•Returned Payment Charge; Collection Costs:</b><span style="font-size:6px;">You understand and agree that if, a payment check is returned unpaid for any reason, and you will pay us a returned payment charge of $25. You agree to pay us any court fees we incur in enforcing this Agreement.</span>
+<b style="font-size:8px;">â€¢Returned Payment Charge; Collection Costs:</b><span style="font-size:6px;">You understand and agree that if, a payment check is returned unpaid for any reason, and you will pay us a returned payment charge of $25. You agree to pay us any court fees we incur in enforcing this Agreement.</span>
 <br>
-<b style="font-size:8px;">•Credit Reporting:</b><span style="font-size:6px;">You agree that we may make inquiries concerning your credit history and standing. We may report information concerning your performance under this Agreement to credit reporting agencies. Late payments, missed payments, or other defaults on your account may be reflected in your credit report. </span>
+<b style="font-size:8px;">â€¢Credit Reporting:</b><span style="font-size:6px;">You agree that we may make inquiries concerning your credit history and standing. We may report information concerning your performance under this Agreement to credit reporting agencies. Late payments, missed payments, or other defaults on your account may be reflected in your credit report. </span>
 <br>  
-<b style="font-size:8px;">•Right to Rescind the Loan. :</b><span style="font-size:6px;">You may rescind your loan and cancel this Agreement by notifying us by the end of the business day following the day you sign this Agreement. if you rescind the loan, you must return to us the money that we lend you.</span>
+<b style="font-size:8px;">â€¢Right to Rescind the Loan. :</b><span style="font-size:6px;">You may rescind your loan and cancel this Agreement by notifying us by the end of the business day following the day you sign this Agreement. if you rescind the loan, you must return to us the money that we lend you.</span>
 <br>
 
 </td>
 <td></td>
 
 
-<td><b style="font-size:8px;">•Arbitraje:</b><span style="font-size:6px;">Usted confirma que ha leído, comprendido y convenido a los términos y condiciones contenidos en el acuerdo de arbitraje que firma en relación con este contrato. Al firmar el acuerdo de arbitraje usted renuncia a ciertos derechos, inclusive el derecho de acudir a un tribual solicitar que una disputa sea escuchada por un jurado y formar parte de un grupo de reclamantes en relación con cualquier reclamación o disputa contra nosotros u otra parte relacionada.</span>
+<td><b style="font-size:8px;">â€¢Arbitraje:</b><span style="font-size:6px;">Usted confirma que ha leÃ­do, comprendido y convenido a los tÃ©rminos y condiciones contenidos en el acuerdo de arbitraje que firma en relaciÃ³n con este contrato. Al firmar el acuerdo de arbitraje usted renuncia a ciertos derechos, inclusive el derecho de acudir a un tribual solicitar que una disputa sea escuchada por un jurado y formar parte de un grupo de reclamantes en relaciÃ³n con cualquier reclamaciÃ³n o disputa contra nosotros u otra parte relacionada.</span>
 <br>
-<b style="font-size:8px;">•Avisos:</b><span style="font-size:6px;">Le enviaremos todos los avisos al domicilio indicada arriba. Usted comprende y conviene que tiene una responsabilidad conforme a la sección 1788.21 del código civil de California, de notificarnos de cualquier cambio de nombre, domicilio, o empleo dentro de un plaza razonable después de que ocurra dicho cambio.</span>
+<b style="font-size:8px;">â€¢Avisos:</b><span style="font-size:6px;">Le enviaremos todos los avisos al domicilio indicada arriba. Usted comprende y conviene que tiene una responsabilidad conforme a la secciÃ³n 1788.21 del cÃ³digo civil de California, de notificarnos de cualquier cambio de nombre, domicilio, o empleo dentro de un plaza razonable despuÃ©s de que ocurra dicho cambio.</span>
 <br>
 
-<b style="font-size:8px;">•Declaraciones y garantías:</b><span style="font-size:6px;">Usted nos declara y garantiza que (a) toda la información que nos ha proporcionado en su solicitud de crédito es veraz y correcta; (b) tiene la capacidad legal para firmar este contrato; y (c) ninguna persona ha actuado como corredor o fundir de esta transacción.</span>
+<b style="font-size:8px;">â€¢Declaraciones y garantÃ­as:</b><span style="font-size:6px;">Usted nos declara y garantiza que (a) toda la informaciÃ³n que nos ha proporcionado en su solicitud de crÃ©dito es veraz y correcta; (b) tiene la capacidad legal para firmar este contrato; y (c) ninguna persona ha actuado como corredor o fundir de esta transacciÃ³n.</span>
 <br>  
-<b style="font-size:8px;">•Cargo por Cheque Devuelto, costos de Cobranza:</b><span style="font-size:6px;">Usted comprende y conviene que si un cheque de pago es devuelto sin pagar, por la razón que sea, usted nos pagara un cargo por cheque devuelto de $25. Usted conviene en pagarnos todos los cargos de corte en que incurramos para la ejecución de este contrato.</span>
+<b style="font-size:8px;">â€¢Cargo por Cheque Devuelto, costos de Cobranza:</b><span style="font-size:6px;">Usted comprende y conviene que si un cheque de pago es devuelto sin pagar, por la razÃ³n que sea, usted nos pagara un cargo por cheque devuelto de $25. Usted conviene en pagarnos todos los cargos de corte en que incurramos para la ejecuciÃ³n de este contrato.</span>
 <br>
-<b style="font-size:8px;">•Informes crediticios:</b><span style="font-size:6px;">Usted conviene que podremos realizar ciertas consultas sobre su historial de crédito y solvencia crediticia. Podremos proporcionar a agencias de informes crediticios información sobre su desempeño según este contrato. Retraso en los pagos, pagos incumplidos, y otros incumplimientos en esta obligación pueden ser reflejados en su informe e crédito.</span>
+<b style="font-size:8px;">â€¢Informes crediticios:</b><span style="font-size:6px;">Usted conviene que podremos realizar ciertas consultas sobre su historial de crÃ©dito y solvencia crediticia. Podremos proporcionar a agencias de informes crediticios informaciÃ³n sobre su desempeÃ±o segÃºn este contrato. Retraso en los pagos, pagos incumplidos, y otros incumplimientos en esta obligaciÃ³n pueden ser reflejados en su informe e crÃ©dito.</span>
 <br>  
-<b style="font-size:8px;">•Derecho a rescindir el préstamo:</b><span style="font-size:6px;">Usted puede rescindir su préstamo y cancelar este contrato notificándonos a más tardar al final del día hábil posterior al día en que usted formo este contrato. En caso de que rescinda el préstamo, deberá devolvernos todo el dinero del préstamo que haya recibido.</span>
+<b style="font-size:8px;">â€¢Derecho a rescindir el prÃ©stamo:</b><span style="font-size:6px;">Usted puede rescindir su prÃ©stamo y cancelar este contrato notificÃ¡ndonos a mÃ¡s tardar al final del dÃ­a hÃ¡bil posterior al dÃ­a en que usted formo este contrato. En caso de que rescinda el prÃ©stamo, deberÃ¡ devolvernos todo el dinero del prÃ©stamo que haya recibido.</span>
 <br>
 
 </td>
@@ -296,7 +296,7 @@ Date/Fecha: <span style="text-decoration:underline">'.$creation_date.'</span>
 </table>
 <br><br><br>
 <span style="font-size:8px;"> By signing below, you acknowledge that (1) you have read and received copy of this Agreement; (2) you agree to the terms of this Agreement; (3) no person has acted as a broke in connection with the Agreement; (4) there are no other oral or written agreements or promises between you and us.
- Al firmar abajo, usted certifica que (1) ha leído y recibido una copia de este contrato; (2) está de acuerdo con los términos y condiciones de este Contrato; (3) nadie ha sido intermediario en relación con este Contrato; (4) no hay otros acuerdos o promesas orales o escritas entre usted y nosotros.
+ Al firmar abajo, usted certifica que (1) ha leÃ­do y recibido una copia de este contrato; (2) estÃ¡ de acuerdo con los tÃ©rminos y condiciones de este Contrato; (3) nadie ha sido intermediario en relaciÃ³n con este Contrato; (4) no hay otros acuerdos o promesas orales o escritas entre usted y nosotros.
  </span>
  <br><br>
 
@@ -321,7 +321,7 @@ Borrower Signature/ Firma del deudor:
 <b style="font-size:8px;">Optima Financial Solutions Inc D/B/A Optima</b>
 <p style="font-size:7px;">California Finance Lender License: 60DBO-88277<br>
 Numero De Licencia Del Prestamista Financiero de California: 60DBO-88277 <br>
-THIS LOAN IS MADE PURSUANT TO THE CALIFORNIA FINANCE LENDERS LAW, DIVISION 9 (COMMENCING WITH SECTION 22000) OF THE FINANCIAL CODE BY Optima Financial Solutions Inc UNDER A CALIFORNIA FINANCE LENDER’S LICENSE. THAT LICENSE IS ADMINSITERED BY THE CALIFORNIA DEPARTMENT OF BUSINESS OVERSIGHT. FOR INFORMATION OR COMPLAINTS, CONTACT THE DEPARTMENT OF BUSINESS OVERSIGHT AT 1-818-856-4302 OR www.dbo.ca.gov
+THIS LOAN IS MADE PURSUANT TO THE CALIFORNIA FINANCE LENDERS LAW, DIVISION 9 (COMMENCING WITH SECTION 22000) OF THE FINANCIAL CODE BY Optima Financial Solutions Inc UNDER A CALIFORNIA FINANCE LENDERâ€™S LICENSE. THAT LICENSE IS ADMINSITERED BY THE CALIFORNIA DEPARTMENT OF BUSINESS OVERSIGHT. FOR INFORMATION OR COMPLAINTS, CONTACT THE DEPARTMENT OF BUSINESS OVERSIGHT AT 1-818-856-4302 OR www.dbo.ca.gov
  <br>
 ESTE PRESTAMO ES REALIZADO EN CONFORMIDAD CON LA LEY DE PRESTAMISTAS FINANCIEROS DE CALIFORNIA, DIVISION 9 (COMENZANDO CON LA SECCION 22000) DEL CODIGO FINANCIERO POR Optima Financial Solutions Inc CONFORME A UNA LICENCIA DE PRESTAMISTA FINANCIERO DEL ESTADO DE CALIFORNIA. DICHA LICENCIA ES ADMINISTRADA POR EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS DEL ESTADA DE CALIFORNIA. PARA OBTENER INFORMACION O PRESENTAR QUEJAS, COMUNIQUESE CON EL DEPARTAMENTO DE SUPERVISION DE EMPRESAS AL 1-818-856-4302 O EN www.dbo.ca.gov
 </p>

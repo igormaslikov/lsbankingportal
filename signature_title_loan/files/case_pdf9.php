@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $id=$_GET['id'];
 ?>
 
@@ -11,9 +11,9 @@ $iddd=$_GET['id'];
 
 //echo "key is".$mail_key;
 
-$sql1=mysqli_query($con, "select * from loan_initial_banking where email_key='$iddd' "); 
+$sql1=$con->query("select * from loan_initial_banking where email_key='$iddd' "); 
 
-while($row1 = mysqli_fetch_array($sql1)) {
+while($row1 = $sql1->fetch_array()) {
 
 $mail_key=$row1['email_key'];
 $signed_status=$row1['sign_status'];
@@ -46,9 +46,9 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
 
 
-$sql_loan=mysqli_query($con, "select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
+$sql_loan=$con->query("select * from tbl_loan where loan_create_id= '$loan_id_bor' "); 
 
-while($row_loan = mysqli_fetch_array($sql_loan)) {
+while($row_loan = $sql_loan->fetch_array()) {
     
     
     $amount_of_loan=$row_loan['amount_of_loan'];
@@ -101,9 +101,9 @@ $datediff = round($datediff / (60 * 60 * 24));
     
  }
 
-$sql_loan_settings=mysqli_query($con, "select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
+$sql_loan_settings=$con->query("select * from tbl_loan_setting where loan_amount= '$amount_of_loan'"); 
 
-while($row_loan_settings = mysqli_fetch_array($sql_loan_settings)) {
+while($row_loan_settings = $sql_loan_settings->fetch_array()) {
 
 $loan_fee=$row_loan_settings['loan_fee'];
 $loan_payable=$row_loan_settings['payoff_amount'];
@@ -116,9 +116,9 @@ $loan_payable=$row_loan_settings['payoff_amount'];
 
 
 
-$sql2=mysqli_query($con, "select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
+$sql2=$con->query("select * from fnd_user_profile where user_fnd_id='$fnd_id' "); 
 
-while($row2 = mysqli_fetch_array($sql2)) {
+while($row2 = $sql2->fetch_array()) {
 
 $ff_name=$row2['first_name'];
 $l_name=$row2['last_name'];
@@ -252,11 +252,11 @@ $style = array(
 <tr>
 
 <td>
-<b style="font-size:8px;">L.COMMUNICATIONS CONCERNING DISPUTED DEBTS:</b><span style="font-size:8px;">All communications concerning disputed debts, including any payments made by check and marked “Payment in full” or with other restrictive endorsements or notice, tendered as full satisfaction of my balance must be sent to: <u>4645 Van Nuys Blvd suite 202 Sherman Oaks, CA 91403</u>. 
+<b style="font-size:8px;">L.COMMUNICATIONS CONCERNING DISPUTED DEBTS:</b><span style="font-size:8px;">All communications concerning disputed debts, including any payments made by check and marked â€œPayment in fullâ€ or with other restrictive endorsements or notice, tendered as full satisfaction of my balance must be sent to: <u>4645 Van Nuys Blvd suite 202 Sherman Oaks, CA 91403</u>. 
 
 </span>
 <br>
-<b style="font-size:8px;">M.COLLECTION COSTS:</b><span style="font-size:8px;">I may have to pay the Lender reasonable collection cost, including but not limited to Attorney’s fees, court fees, collections agency fees and fees for other reasonable collection efforts, to the extent permitted by law.
+<b style="font-size:8px;">M.COLLECTION COSTS:</b><span style="font-size:8px;">I may have to pay the Lender reasonable collection cost, including but not limited to Attorneyâ€™s fees, court fees, collections agency fees and fees for other reasonable collection efforts, to the extent permitted by law.
 </span>
 <b style="font-size:8px;">N.NOTICE AND CHANGE OF ADDRESS: </b><span style="font-size:8px;">Any notice you send me concerning this Agreement of the vehicle will be sent to my current mailing address shown in your records. I will notify you if my mailing address changes within a reasonable time. 
 </span><br>
@@ -280,11 +280,11 @@ $style = array(
 
 <br><br><br><br><br>
 
-<span style="font-size:8px;">Borrower’s Signature / Firma del Prestatario:</span>
+<span style="font-size:8px;">Borrowerâ€™s Signature / Firma del Prestatario:</span>
 <br><br>
 X____________________________________      
 <br><br>
-<span style="font-size:8px;">Co-Borrower’s Signature / Firma del Co-Prestatario:</span>
+<span style="font-size:8px;">Co-Borrowerâ€™s Signature / Firma del Co-Prestatario:</span>
 <br><br>
 X_____________________________________
 
@@ -299,29 +299,29 @@ X_____________________________________
 
 
 <td>
-<b style="font-size:8px;">L. COMUNICACIONES RELATIVAS A DEUDAS DISPUTADAS:</b><span style="font-size:8px;">Todas las comunicaciones relacionadas con deudas en disputa, incluidos los pagos realizados con cheque y marcados como "Pago total" o con otros endosos o avisos restrictivos, presentados como satisfacción total de mi saldo deben enviarse a: <u>4645 Van Nuys Blvd suite 202 Sherman Oaks, CA 91403.</u>. 
+<b style="font-size:8px;">L. COMUNICACIONES RELATIVAS A DEUDAS DISPUTADAS:</b><span style="font-size:8px;">Todas las comunicaciones relacionadas con deudas en disputa, incluidos los pagos realizados con cheque y marcados como "Pago total" o con otros endosos o avisos restrictivos, presentados como satisfacciÃ³n total de mi saldo deben enviarse a: <u>4645 Van Nuys Blvd suite 202 Sherman Oaks, CA 91403.</u>. 
 
 </span>
 <br>
-<b style="font-size:8px;">M. COSTOS DE RECAUDACIÓN:</b><span style="font-size:8px;">es posible que deba pagar al Prestamista un costo de cobranza razonable, que incluye, entre otros, los honorarios del abogado, los honorarios del tribunal, los honorarios de la agencia de cobranza y los honorarios por otros esfuerzos de cobranza razonables, en la medida permitida por la ley.
+<b style="font-size:8px;">M. COSTOS DE RECAUDACIÃ“N:</b><span style="font-size:8px;">es posible que deba pagar al Prestamista un costo de cobranza razonable, que incluye, entre otros, los honorarios del abogado, los honorarios del tribunal, los honorarios de la agencia de cobranza y los honorarios por otros esfuerzos de cobranza razonables, en la medida permitida por la ley.
 </span>
-<b style="font-size:8px;">N. AVISO Y CAMBIO DE DIRECCIÓN: </b><span style="font-size:8px;">Cualquier notificación que me envíe con respecto a este Acuerdo del vehículo se enviará a mi dirección de correo actual que se muestra en sus registros. Le notificaré si mi dirección de correo cambia dentro de un tiempo razonable. 
+<b style="font-size:8px;">N. AVISO Y CAMBIO DE DIRECCIÃ“N: </b><span style="font-size:8px;">Cualquier notificaciÃ³n que me envÃ­e con respecto a este Acuerdo del vehÃ­culo se enviarÃ¡ a mi direcciÃ³n de correo actual que se muestra en sus registros. Le notificarÃ© si mi direcciÃ³n de correo cambia dentro de un tiempo razonable. 
 </span><br>
-<b style="font-size:8px;">O. EFICACIA CONTINUA: </b><span style="font-size:8px;"> Si un tribunal determina que una parte de este Acuerdo no es válida, el resto permanecerá vigente. 
-</span><br>
-
-<b style="font-size:8px;">P. ASIGNACIÓN: </b><span style="font-size:8px;">No puedo asignar ni transferir mis derechos bajo este Acuerdo a nadie más, el Prestamista puede vender, transferir o asignar este Acuerdo y cualquier Acuerdo de seguridad otorgado para asegurar este Acuerdo y mis derechos y obligaciones bajo este Acuerdo continuarán sin cambios. 
-</span><br>
-<b style="font-size:8px;">Q. LÍDERES Y REPRESENTANTES PERSONALES VINCULADOS: </b><span style="font-size:8px;">Las disposiciones de este Acuerdo serán vinculantes para el prestatario, el Co-firmante y el Co-Propietario, individualmente y en conjunto, y los herederos y representantes personales de cada uno. 
+<b style="font-size:8px;">O. EFICACIA CONTINUA: </b><span style="font-size:8px;"> Si un tribunal determina que una parte de este Acuerdo no es vÃ¡lida, el resto permanecerÃ¡ vigente. 
 </span><br>
 
-<b style="font-size:8px;">R. GOVERNING LAW PROVISION: </b><span style="font-size:8px;">Este préstamo se otorga de conformidad con la Ley de Prestamista de Finanzas de California, División 9 del Código Financiero, Ca. Aleta. Código 22000 y ss. Este Acuerdo y su validez, construcción y exigibilidad se regirán por las leyes de California, excepto en la medida en que dicha ley haya sido reemplazada o reemplazada por la ley federal. 
+<b style="font-size:8px;">P. ASIGNACIÃ“N: </b><span style="font-size:8px;">No puedo asignar ni transferir mis derechos bajo este Acuerdo a nadie mÃ¡s, el Prestamista puede vender, transferir o asignar este Acuerdo y cualquier Acuerdo de seguridad otorgado para asegurar este Acuerdo y mis derechos y obligaciones bajo este Acuerdo continuarÃ¡n sin cambios. 
 </span><br>
-<b style="font-size:8px;">S. AVISO: </b><span style="font-size:8px;">Si una parte sustancial de los ingresos de este préstamo se utiliza para la compra de bienes de consumo, cualquier titular de este contrato de crédito al consumidor está sujeto a todos los reclamos y defensas que el deudor podría hacer valer contra el vendedor de bienes o servicios obtenidos con los ingresos. de esto. La recuperación en virtud del presente por el deudor no excederá los montos pagados por el deudor en virtud del presente. 
+<b style="font-size:8px;">Q. LÃDERES Y REPRESENTANTES PERSONALES VINCULADOS: </b><span style="font-size:8px;">Las disposiciones de este Acuerdo serÃ¡n vinculantes para el prestatario, el Co-firmante y el Co-Propietario, individualmente y en conjunto, y los herederos y representantes personales de cada uno. 
 </span><br>
-<b style="font-size:8px;">T. CONSENTIMIENTO DE MENSAJES DE TELÉFONO Y TEXTO: </b><span style="font-size:8px;">Usted acepta que nos comuniquemos con usted a los números de teléfono y / o direcciones de correo electrónico que el proveedor le cobrará por nuestras llamadas entrantes y mensajes de texto de acuerdo con su plan. En caso de que cambie alguno de los números de teléfono o direcciones provistos en este documento, nos notificará y nos proporcionará el nuevo número de teléfono o dirección. 
+
+<b style="font-size:8px;">R. GOVERNING LAW PROVISION: </b><span style="font-size:8px;">Este prÃ©stamo se otorga de conformidad con la Ley de Prestamista de Finanzas de California, DivisiÃ³n 9 del CÃ³digo Financiero, Ca. Aleta. CÃ³digo 22000 y ss. Este Acuerdo y su validez, construcciÃ³n y exigibilidad se regirÃ¡n por las leyes de California, excepto en la medida en que dicha ley haya sido reemplazada o reemplazada por la ley federal. 
 </span><br>
-<b style="font-size:8px;">U. ACUERDO COMPLETO: </b><span style="font-size:8px;">Los términos y condiciones establecidos en este Acuerdo constituyen el Acuerdo completo entre el prestamista y yo.
+<b style="font-size:8px;">S. AVISO: </b><span style="font-size:8px;">Si una parte sustancial de los ingresos de este prÃ©stamo se utiliza para la compra de bienes de consumo, cualquier titular de este contrato de crÃ©dito al consumidor estÃ¡ sujeto a todos los reclamos y defensas que el deudor podrÃ­a hacer valer contra el vendedor de bienes o servicios obtenidos con los ingresos. de esto. La recuperaciÃ³n en virtud del presente por el deudor no excederÃ¡ los montos pagados por el deudor en virtud del presente. 
+</span><br>
+<b style="font-size:8px;">T. CONSENTIMIENTO DE MENSAJES DE TELÃ‰FONO Y TEXTO: </b><span style="font-size:8px;">Usted acepta que nos comuniquemos con usted a los nÃºmeros de telÃ©fono y / o direcciones de correo electrÃ³nico que el proveedor le cobrarÃ¡ por nuestras llamadas entrantes y mensajes de texto de acuerdo con su plan. En caso de que cambie alguno de los nÃºmeros de telÃ©fono o direcciones provistos en este documento, nos notificarÃ¡ y nos proporcionarÃ¡ el nuevo nÃºmero de telÃ©fono o direcciÃ³n. 
+</span><br>
+<b style="font-size:8px;">U. ACUERDO COMPLETO: </b><span style="font-size:8px;">Los tÃ©rminos y condiciones establecidos en este Acuerdo constituyen el Acuerdo completo entre el prestamista y yo.
 
 </span>
 <br><br><br>
