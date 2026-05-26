@@ -21,6 +21,52 @@ function sig_base_url() {
 $url_logo = sig_base_url() . 'signature_commercial_loan/completed';
 
 $iddd = $_GET['id'] ?? '';
+$__debug = !empty($_GET['debug']);
+if ($__debug) {
+    header('Content-Type: application/json; charset=utf-8');
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+    $r1 = $con->query("select * from commercial_loan_initial_banking where email_key = ?", [$iddd]);
+    $row1d = $r1 ? $r1->fetch_assoc() : null;
+
+    $row2d = null;
+    if ($row1d && !empty($row1d['loan_id'])) {
+        $loan_id_esc = $con->real_escape_string((string)$row1d['loan_id']);
+        $r2 = $con->query("select * from tbl_commercial_loan where loan_id = '$loan_id_esc'");
+        $row2d = $r2 ? $r2->fetch_assoc() : null;
+    }
+
+    $row3d = null;
+    if ($row1d && !empty($row1d['user_fnd_id'])) {
+        $fnd_esc = $con->real_escape_string((string)$row1d['user_fnd_id']);
+        $r3 = $con->query("select * from fnd_user_profile where user_fnd_id = '$fnd_esc'");
+        $row3d = $r3 ? $r3->fetch_assoc() : null;
+    }
+
+    echo json_encode([
+        'email_key' => $iddd,
+        'commercial_loan_initial_banking' => [
+            'found' => (bool)$row1d,
+            'columns' => $row1d ? array_keys($row1d) : [],
+            'row' => $row1d,
+        ],
+        'tbl_commercial_loan' => [
+            'loan_id_searched' => $row1d['loan_id'] ?? null,
+            'found' => (bool)$row2d,
+            'columns' => $row2d ? array_keys($row2d) : [],
+            'row' => $row2d,
+        ],
+        'fnd_user_profile' => [
+            'user_fnd_id_searched' => $row1d['user_fnd_id'] ?? null,
+            'found' => (bool)$row3d,
+            'columns' => $row3d ? array_keys($row3d) : [],
+            'row' => $row3d,
+        ],
+        'sqlsrv_errors' => function_exists('sqlsrv_errors') ? sqlsrv_errors() : null,
+    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    exit;
+}
 
 // Parameterized query — email_key comes from an untrusted URL parameter.
 $signed_status = null;
