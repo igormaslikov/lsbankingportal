@@ -65,11 +65,11 @@ DECLARE @table SYSNAME, @col SYSNAME, @seq SYSNAME, @cons SYSNAME, @sql NVARCHAR
 -- different PK column for a table, edit the second value in that row.
 DECLARE @work TABLE (table_name SYSNAME, col_name SYSNAME);
 INSERT INTO @work VALUES
-    ('commercial_loan_initial_banking', 'id'),       -- discovery may show another name
+    ('commercial_loan_initial_banking', 'per_initial_id'),  -- confirmed via discovery
     ('tbl_commercial_loan',             'loan_id'),
     ('tbl_other_fees',                  'tbl_other_fees_id'),
     ('tbl_bank_info',                   'bank_id'),
-    ('tbl_bank_cards',                  'id'),       -- discovery may show another name
+    ('tbl_bank_cards',                  'id'),
     ('tbl_lists',                       'tbl_lists_id');
 
 DECLARE cur CURSOR LOCAL FAST_FORWARD FOR SELECT table_name, col_name FROM @work;
