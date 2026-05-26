@@ -364,11 +364,10 @@ if ($u_access_id == '0') {
 
       $query_in  = "INSERT INTO commercial_loan_initial_banking (loan_id,user_fnd_id,type_of_id,pic_of_id,type_of_card,card_number,card_exp_date,bank_front_pic,bank_back_pic,bank_name,routing_number,account_number,void_check_pic,cvv_number,creation_date,update_date,created_by,email_key,sign_status,update_by)  VALUES ('$loan_create_idd','$fndd_id','$type_id','$final_File','$type_card','$card_number','$card_exp_date','$final_Filee','$final_Fileee','$bank_name','$routing_number','$account_number','$final_Fileeee','$cvv_number','$date','$date','$u_id','$email_key','0','$u_id')";
       $result_in = $con->query($query_in);
-      if ($result_in) {
-         //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
-      } else {
-         echo "<h3> Error Inserting Data </h3>";
-         echo $query_in;
+      if (!$result_in || !$result_in->success) {
+         echo "<div class='alert alert-danger'><h3>Error inserting commercial_loan_initial_banking</h3><pre>"
+              . htmlspecialchars($result_in ? $result_in->error_message : 'unknown')
+              . "</pre><pre>SQL: " . htmlspecialchars($query_in) . "</pre></div>";
          exit;
       }
 
@@ -393,15 +392,12 @@ if ($u_access_id == '0') {
       $in_hand = $_GET['in_hand'];
       
    
-      $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`portfolio_type`,`secondary_portfolio`,`contract_template`,`previous_amount_loan`, `amount_of_loan`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`,`first_payment`,`last_payment`)  VALUES ('$fndd_id','$sourcee','$portfolio_type','$secondary_portfolio','$contract_template','$in_hand','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state','$first_payment','$last_payment')";
-
-    //   $query  = "INSERT INTO `tbl_commercial_loan`(`user_fnd_id`, `bg_id`,`secondary_portfolio`,`previous_amount_loan`, `amount_of_loan`, `loan_interest`, `years`, `late_fee`, `contract_fee`, `installment_plan`, `total_payments`, `principal_amount`, `contract_date`, `payment_date`, `creation_date`, `created_by`, `loan_create_id`, `loan_status`, `apr`,`state`,`first_payment`,`last_payment`)  VALUES ('$fndd_id','$sourcee','$secondary_portfolio','$in_hand','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state','$first_payment','$last_payment')";
+      $query  = "INSERT INTO tbl_commercial_loan (user_fnd_id, bg_id, portfolio_type, secondary_portfolio, contract_template, previous_amount_loan, amount_of_loan, loan_interest, years, late_fee, contract_fee, installment_plan, total_payments, principal_amount, contract_date, payment_date, creation_date, created_by, loan_create_id, loan_status, apr, state, first_payment, last_payment)  VALUES ('$fndd_id','$sourcee','$portfolio_type','$secondary_portfolio','$contract_template','$in_hand','$principal_amountt','$interestt','$yearss','$late_feee','$originationn','$installment_plann','$total_paymentss','$principal_amountt','$contract_datee','$payment_datee','$date','$u_id','$loan_create_idd','Active','$anual_pr','$state','$first_payment','$last_payment')";
       $result = $con->query($query);
-      if ($result) {
-         //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
-      } else {
-         echo "<h3> Error Inserting Data </h3>";
-         echo $query;
+      if (!$result || !$result->success) {
+         echo "<div class='alert alert-danger'><h3>Error inserting tbl_commercial_loan</h3><pre>"
+              . htmlspecialchars($result ? $result->error_message : 'unknown')
+              . "</pre><pre>SQL: " . htmlspecialchars($query) . "</pre></div>";
          exit;
       }
 
@@ -414,7 +410,10 @@ if ($u_access_id == '0') {
           $kind = $row['tbl_lists_id'];
       }
 
-      $action_query = "INSERT INTO tbl_other_fees (tbl_other_fees_id, kind_fee, user_fnd_id, loan_created_id, amount_fee, amount_fee_paid) VALUES (NULL, '$kind', '$fndd_id', '$loan_create_idd', '$originationn', 0)";
+      // Drop tbl_other_fees_id from the column list so the SQL Server DEFAULT
+      // (sequence) fires. SQL Server doesn't bypass DEFAULT when NULL is
+      // supplied explicitly the way MySQL did for AUTO_INCREMENT columns.
+      $action_query = "INSERT INTO tbl_other_fees (kind_fee, user_fnd_id, loan_created_id, amount_fee, amount_fee_paid) VALUES ('$kind', '$fndd_id', '$loan_create_idd', '$originationn', 0)";
       $con->query($action_query);
 
 
