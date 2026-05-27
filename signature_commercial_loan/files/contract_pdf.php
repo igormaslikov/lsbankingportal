@@ -562,11 +562,11 @@ function page_2($pdf){
 
     set_info($pdf,75,153, 100,10,$business_address . '  ' . $business_city . ' ' . $business_state . ' ' . $business_zip);
 
-    set_image($pdf,$signed_pic,20,228,-200);
+    set_image($pdf,$signed_pic,46,240,-200);
     set_info($pdf,70,232, 30,10,$creation_date);
 
 
-    set_image($pdf,$sig_coborrow_pic,20,245,-200);
+    set_image($pdf,$sig_coborrow_pic,46,257,-200);
     set_info($pdf,70,249,30,10,$creation_date);
 
     set_info($pdf,165,251, 30,10,$creation_date);
@@ -726,7 +726,7 @@ function page_5($pdf){
     set_info($pdf,60,160,30,10,$last_payment_date);
     set_info($pdf,122,155,30,10,$last_payment_date);
 
-    set_image($pdf,$initial_pic,36,242,-200);
+    set_image($pdf,$initial_pic,59,250,-200);
 
 }
 
@@ -765,10 +765,10 @@ function page_7($pdf){
     set_info($pdf,80,22+10,30,10,$loan_id_bor);
     set_info($pdf,80,28+10,30,10,$creation_date);
 
-    set_image($pdf,$signed_pic,30,212,-200);
+    set_image($pdf,$signed_pic,47,222,-200);
     set_info($pdf,78,216,30,10,$creation_date);
 
-    set_image($pdf,$sig_coborrow_pic,122,212,-200);
+    set_image($pdf,$sig_coborrow_pic,145,222,-200);
     set_info($pdf,170,216,30,10,$creation_date);
 }
 
@@ -788,8 +788,8 @@ function page_8($pdf){
     set_info($pdf,80,22+5,30,10,$loan_id_bor);
     set_info($pdf,80,28+5,30,10,$creation_date);
 
-    set_image($pdf,$signed_pic,36,218,-200);
-    set_image($pdf,$sig_coborrow_pic,36,242,-200);
+    set_image($pdf,$signed_pic,46,230,-200);
+    set_image($pdf,$sig_coborrow_pic,46,254,-200);
 
 }
 
@@ -808,7 +808,7 @@ function page_9($pdf){
     set_info($pdf,80,22+3,30,10,$loan_id_bor);
     set_info($pdf,80,28+3,30,10,$creation_date);
 
-    set_image($pdf,$initial_pic,36,248,-200);
+    set_image($pdf,$initial_pic,59,256,-200);
 
 }
 
@@ -828,8 +828,8 @@ function page_10($pdf){
     set_info($pdf,80,22+3,30,10,$loan_id_bor);
     set_info($pdf,80,28+3,30,10,$creation_date);
 
-    set_image($pdf,$signed_pic,36,213,-200);
-    set_image($pdf,$sig_coborrow_pic,36,237,-200);
+    set_image($pdf,$signed_pic,46,225,-200);
+    set_image($pdf,$sig_coborrow_pic,46,248,-200);
 }
 
 function page_11($pdf){
@@ -854,11 +854,11 @@ function page_11($pdf){
 
     set_info($pdf,50,190,30,10,$f_name);
     set_info($pdf,50,208,30,10,$mobile_number);
-    set_image($pdf,$signed_pic,50,226,-200);
+    set_image($pdf,$signed_pic,56,236,-200);
     
     set_info($pdf,140,189,30,10,$co_borrow_full_name);
     set_info($pdf,140,207,30,10,$co_borrow_phone);
-    set_image($pdf,$sig_coborrow_pic,140,227,-200);
+    set_image($pdf,$sig_coborrow_pic,148,236,-200);
 }
 
 function page_12($pdf){
@@ -896,7 +896,7 @@ function page_12($pdf){
     set_info($pdf,22,186,70,10,$f_name);
     set_info($pdf,22,198,70,10,$f_name);
 
-    set_image($pdf,$signed_pic,50,224,-200);
+    set_image($pdf,$signed_pic,60,233,-200);
 
 
 }
