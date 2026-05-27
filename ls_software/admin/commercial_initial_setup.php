@@ -158,6 +158,11 @@ if ($u_access_id == '0') {
       $portfolio_type = $_POST['portfolio_type'];
       $secondary_portfolio = $_POST['secondary_portfolio'];
       $contract_template = $_POST['contract_template'] ?? 'unsecured_2024_09_01';
+      // Business rule: loans with no secondary portfolio (or 'None') use the
+      // legacy per-year Optima template instead of unsecured/secured.
+      if (empty($secondary_portfolio) || $secondary_portfolio === 'None') {
+          $contract_template = 'legacy_optima_' . date('Y');
+      }
       $loan_create_idd = $_POST['loan_create_idd'];
       $principal_amountt = $_POST['principal_amountt'];
       $interestt = $_POST['loan_interest'];
