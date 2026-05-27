@@ -380,6 +380,19 @@ function set_image($pdf, $image_path, $x, $y, $w) {
     imagepng($image, $image_path);
     imagedestroy($image);
 
+    // Horizontal-center the image around $x; leave $y as the original
+    // top-anchor (matches the per-page coordinate convention used in
+    // page_1..page_n functions, which were tuned with top-left in mind).
+    // FPDF $w < 0 means "render at this DPI"; convert pixel width to mm
+    // (px / DPI * 25.4) and shift the top-left left by half-width.
+    $size = @getimagesize($image_path);
+    if ($size !== false) {
+        $px_w = (int)$size[0];
+        $dpi  = ($w < 0) ? abs($w) : 200;
+        $mm_w = ($px_w / $dpi) * 25.4;
+        $x = $x - ($mm_w / 2);
+    }
+
     $pdf->Image($image_path, $x, $y, $w);
 }
 
