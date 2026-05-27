@@ -928,7 +928,7 @@ function page_13($pdf,$page){
     set_info($pdf,164,64.5,20,10,$every_en);
     set_info($pdf,62,68,15,10, $first_payment_date);
 
-    set_image($pdf,$signed_pic,30,223,-200);
+    set_image($pdf,$signed_pic,46,236,-200);
     set_info($pdf,14,240,60,10,$f_name);
 
 }
