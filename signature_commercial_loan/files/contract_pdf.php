@@ -380,20 +380,21 @@ function set_image($pdf, $image_path, $x, $y, $w) {
     imagepng($image, $image_path);
     imagedestroy($image);
 
-    // Center the signature/initial PNG around the supplied (x, y) point so
-    // it sits in the middle of the signature line on the contract template
-    // instead of being top-left-anchored. FPDF $w < 0 means "render at this
-    // DPI"; convert pixel size to mm via px / DPI * 25.4, then shift the
-    // top-left by half-width / half-height.
+    // Anchor the signature/initial PNG so it sits ON the signature line
+    // rather than top-left-aligned. Horizontal: centered on $x. Vertical:
+    // bottom edge of the image rests on $y (so the ink appears ABOVE the
+    // signature line, matching how a person physically signs).
+    // FPDF $w < 0 means "render at this DPI"; convert pixel size to mm
+    // (px / DPI * 25.4) to know how far to shift the top-left.
     $size = @getimagesize($image_path);
     if ($size !== false) {
         $px_w = (int)$size[0];
         $px_h = (int)$size[1];
-        $dpi  = ($w < 0) ? abs($w) : 200;  // 200 DPI fallback matches existing call sites
+        $dpi  = ($w < 0) ? abs($w) : 200;
         $mm_w = ($px_w / $dpi) * 25.4;
         $mm_h = ($px_h / $dpi) * 25.4;
         $x = $x - ($mm_w / 2);
-        $y = $y - ($mm_h / 2);
+        $y = $y - $mm_h;
     }
 
     $pdf->Image($image_path, $x, $y, $w);
