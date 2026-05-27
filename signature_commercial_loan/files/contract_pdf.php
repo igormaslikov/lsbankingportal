@@ -289,7 +289,7 @@ while ($row_business_source = $sql_business_query->fetch_array()) {
   $business_type = $row_business_source['business_docs'] ?? ''; // closest DB field
 }
 
-$sql_installment = $con->query("select payment, payment_date from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id asc limit 1");
+$sql_installment = $con->query("select TOP 1 payment, payment_date from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id asc");
 while ($row_installment = $sql_installment->fetch_array()) {
   $first_payment_date = $row_installment['payment_date'];
 }
@@ -304,7 +304,7 @@ while ($row_installment = $sql_installment->fetch_array()) {
   $count_payments = (int)  ($row_installment['total_payments'] ?? 0);
 }
 
-$sql_installment = $con->query("select payment, payment_date from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id desc limit 1");
+$sql_installment = $con->query("select TOP 1 payment, payment_date from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id desc");
 while ($row_installment = $sql_installment->fetch_array()) {
   $last_payment_date =  $row_installment['payment_date'];
 }
@@ -319,7 +319,7 @@ $second_payment = 0;
 
 if ($count_payments > 2) {
   $count_payments = $count_payments - 2;
-  $sql_installment = $con->query("select payment from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id asc limit 2");
+  $sql_installment = $con->query("select TOP 2 payment from tbl_commercial_loan_installments where loan_create_id='$loan_id_bor' ORDER by id asc");
   while ($row_installment = $sql_installment->fetch_array()) {
     $second_payment = (float)filter_var($row_installment['payment'] ?? 0, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
   }
@@ -517,7 +517,7 @@ function page_1($pdf){
     set_info($pdf,160,167, 30,10,number_format($contract_fee,2));
     set_info($pdf,160,171, 30,10,number_format($principal_f + $contract_fee,2));
     
-    set_image($pdf,$initial_pic,178,251,-200);//$initial_pic
+    set_image($pdf,$initial_pic,158,251,-200);//$initial_pic
 
 }
 
@@ -646,7 +646,7 @@ function page_3($pdf){
     set_info($pdf,160,167+5, 30,10,number_format($contract_fee,2));
     set_info($pdf,160,171+5, 30,10,number_format($principal_f + $contract_fee,2));
     
-    set_image($pdf,$initial_pic,178,248,-200);
+    set_image($pdf,$initial_pic,158,248,-200);
 
 }
 
