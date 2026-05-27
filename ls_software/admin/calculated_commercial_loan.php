@@ -502,12 +502,14 @@ function print_schedule($balance, $apr, $payment, $num_of_days, $num_late_days)
 
         $payment_week_day = date("l", strtotime("$payment_date_weekly"));
         //$payment_p = 
-        $query_install1  = "INSERT INTO `tbl_commercial_loan_installments`(`number_of_payment`,`loan_create_id`, `payment`, `interest`, `principal`, `balance`, `payment_date`,`per_diem`,`days`, `week_day`) VALUES ('$count','$loan_create_id','$payment_p','$interest','$principal','$balance','$payment_date','$per_diem','$num_of_days','$payment_week_day')";
+        $query_install1  = "INSERT INTO tbl_commercial_loan_installments (number_of_payment, loan_create_id, payment, interest, principal, balance, payment_date, per_diem, days, week_day) VALUES ('$count','$loan_create_id','$payment_p','$interest','$principal','$balance','$payment_date','$per_diem','$num_of_days','$payment_week_day')";
         $result_install1 = $con->query($query_install1);
-        if ($result_install1) {
-            //echo "<div class='form'><h3> successfully added in tbl_shipments.</h3><br/></div>";
-        } else {
-            $varTable .= "<h3> Error Inserting Data tbl_commercial_loan_installments</h3>";
+        if (!$result_install1 || !$result_install1->success) {
+            $err_msg = $result_install1 ? $result_install1->error_message : 'unknown';
+            error_log("tbl_commercial_loan_installments INSERT failed: $err_msg | SQL: $query_install1");
+            $varTable .= "<div class='alert alert-danger'><h4>Error Inserting Installment #$count</h4>"
+                       . "<pre>" . htmlspecialchars($err_msg) . "</pre>"
+                       . "<pre>SQL: " . htmlspecialchars($query_install1) . "</pre></div>";
         }
 
         @$totPayment   = $totPayment + $payment;
