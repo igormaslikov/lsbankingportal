@@ -662,7 +662,7 @@ function page_3($pdf){
     set_info($pdf,160,167+5, 30,10,number_format($contract_fee,2));
     set_info($pdf,160,171+5, 30,10,number_format($principal_f + $contract_fee,2));
     
-    set_image($pdf,$initial_pic,158,248,-200);
+    set_image($pdf,$initial_pic,210,253,-200);
 
 }
 
@@ -687,11 +687,11 @@ function page_4($pdf){
 
     set_info($pdf,75,136, 100,10,$business_address . '  ' . $business_city . ' ' . $business_state . ' ' . $business_zip);
 
-    set_image($pdf,$signed_pic,20,223,-200);
+    set_image($pdf,$signed_pic,47,235,-200);
     set_info($pdf,70,227, 30,10,$creation_date);
 
 
-    set_image($pdf,$sig_coborrow_pic,20,240,-200);
+    set_image($pdf,$sig_coborrow_pic,47,252,-200);
     set_info($pdf,70,244,30,10,$creation_date);
 
     set_info($pdf,170,243, 30,10,$creation_date);
@@ -726,7 +726,7 @@ function page_5($pdf){
     set_info($pdf,60,160,30,10,$last_payment_date);
     set_info($pdf,122,155,30,10,$last_payment_date);
 
-    set_image($pdf,$initial_pic,59,250,-200);
+    set_image($pdf,$initial_pic,82,250,-200);
 
 }
 
@@ -745,7 +745,7 @@ function page_6($pdf){
     set_info($pdf,80,22,30,10,$loan_id_bor);
     set_info($pdf,80,28,30,10,$creation_date);
 
-    set_image($pdf,$initial_pic,36,242,-200);
+    set_image($pdf,$initial_pic,82,249,-200);
 
 }
 
@@ -896,7 +896,7 @@ function page_12($pdf){
     set_info($pdf,22,186,70,10,$f_name);
     set_info($pdf,22,198,70,10,$f_name);
 
-    set_image($pdf,$signed_pic,60,233,-200);
+    set_image($pdf,$signed_pic,49,233,-200);
 
 
 }
