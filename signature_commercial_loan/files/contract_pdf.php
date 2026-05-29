@@ -1,8 +1,15 @@
 <?php
 // This endpoint streams binary PDF bytes — any PHP warning/notice printed
-// to stdout corrupts the output. Suppress non-fatal diagnostics.
+// to stdout corrupts the output. Suppress non-fatal diagnostics AND
+// output-buffer the whole script: PHP 8.4 emits E_DEPRECATED notices from
+// older third-party libs (FPDI) at compile time, which display_errors=Off
+// in php.ini does not always honor. The buffer captures anything stray so
+// the FPDF Output() call can still send PDF headers without
+// "Some data has already been output".
 error_reporting(0);
 ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+if (ob_get_level() === 0) { ob_start(); }
 
 $id = $_GET['id'];
 // Defaults so the render can proceed when there's no matching DB row
@@ -1081,6 +1088,11 @@ if ($__tpl === 'unsecured_2024_09_01' || $__tpl === 'secured') {
 
 $file_name = $id;
 $path = dirname(__FILE__) . "/Barcodes/" . $file_name . ".pdf";
+
+// Drop any captured stray output (E_DEPRECATED from PHP 8.4 against older
+// FPDI, etc.) so FPDF's _checkoutput() can still send PDF headers.
+while (ob_get_level() > 0) { ob_end_clean(); }
+
 $pdf->Output("F", $path);
 
 // First render after signing: write the frozen copy exactly once. All future
