@@ -36,7 +36,7 @@ $result_sig = $url_logo .'/doc_signs/'. $img_signed;
 
  //echo "ID is".$img_signed;
 
-$sql_loan=$con->query("select * from tbl_commercial_loan where loan_id= '$loan_id' "); 
+$sql_loan=$con->query("select * from tbl_commercial_loan where loan_create_id= '$loan_id' ");
 
 while($row_loan = $sql_loan->fetch_array()) {
     
