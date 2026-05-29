@@ -33,7 +33,7 @@ if ($__debug) {
     $row2d = null;
     if ($row1d && !empty($row1d['loan_id'])) {
         $loan_id_esc = $con->real_escape_string((string)$row1d['loan_id']);
-        $r2 = $con->query("select * from tbl_commercial_loan where loan_id = '$loan_id_esc'");
+        $r2 = $con->query("select * from tbl_commercial_loan where loan_create_id = '$loan_id_esc'");
         $row2d = $r2 ? $r2->fetch_assoc() : null;
     }
 
@@ -154,7 +154,7 @@ if ((int)$signed_status > 0) {
 
 // ---------- Fetch the loan + customer for display context ----------
 $loan_id_bor_esc = $con->real_escape_string((string)$loan_id_bor);
-$sql_loan = $con->query("select * from tbl_commercial_loan where loan_id = '$loan_id_bor_esc'");
+$sql_loan = $con->query("select * from tbl_commercial_loan where loan_create_id = '$loan_id_bor_esc'");
 $amount_of_loan = '';
 $payment_date = '';
 $payoff = '';

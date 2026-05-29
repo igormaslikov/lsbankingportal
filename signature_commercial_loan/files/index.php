@@ -62,7 +62,7 @@ if ($iddd !== '') {
             $customer_name = trim(($p['first_name'] ?? '') . ' ' . ($p['last_name'] ?? ''));
         }
         $loan_id_esc = $con->real_escape_string((string)$loan_id_bor);
-        $q = $con->query("select amount_of_loan from tbl_commercial_loan where loan_id = '$loan_id_esc'");
+        $q = $con->query("select amount_of_loan from tbl_commercial_loan where loan_create_id = '$loan_id_esc'");
         if ($q && ($l = $q->fetch_assoc())) {
             $amount_of_loan = $l['amount_of_loan'];
         }
