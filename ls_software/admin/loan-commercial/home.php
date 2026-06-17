@@ -460,7 +460,11 @@ $query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2)))
                                     (SELECT TOP 1 t.created_at
                                        FROM commercial_loan_transaction t
                                        WHERE t.loan_create_id = l.loan_create_id
-                                       ORDER BY t.transaction_id DESC) AS last_txn_at
+                                       ORDER BY t.transaction_id DESC) AS last_txn_at,
+                                    (SELECT TOP 1 b.email_key
+                                       FROM commercial_loan_initial_banking b
+                                       WHERE b.loan_id = l.loan_create_id
+                                       ORDER BY b.per_initial_id DESC) AS email_key
                                 FROM tbl_commercial_loan l
                                 LEFT JOIN fnd_user_profile u ON u.user_fnd_id = l.user_fnd_id
                                 $filter_where
@@ -519,10 +523,16 @@ $query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2)))
                                 $user_fnd_id_url   = urlencode((string)$user_fnd_id);
                                 $loan_create_attr  = cl_e($loan_create_id);
 
+                                $email_key = $row['email_key'] ?? '';
+
                                 $actions  = "<div class='btn-group'>";
                                 $actions .= "<button type='button' class='btn btn-default btn-sm dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Actions <span class='caret'></span></button>";
                                 $actions .= "<ul class='dropdown-menu dropdown-menu-right cl-actions-menu'>";
                                 $actions .= "<li><a href='loan_summary.php?id=$id_url'><span class='glyphicon glyphicon-user'></span> View Summary</a></li>";
+                                if ($email_key !== '') {
+                                    $contract_qs = '?id=' . urlencode($email_key) . '&t=' . time();
+                                    $actions .= "<li><a href='../../signature_commercial_loan/files/contract_pdf.php$contract_qs' target='_blank' rel='noopener'><span class='glyphicon glyphicon-file'></span> Show Contract</a></li>";
+                                }
                                 if ($sign_status == 1) {
                                     $actions .= "<li><a href='add_new_transaction.php?id=$id_url'><span class='glyphicon glyphicon-usd cl-icon-danger'></span> Make Payment</a></li>";
                                     if ($decision_logic_status == '1') {
