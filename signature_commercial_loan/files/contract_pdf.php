@@ -403,15 +403,27 @@ function set_image($pdf, $image_path, $x, $y, $w) {
     if (filesize($image_path) < 64) {
         return;
     }
-    $image = @imagecreatefrompng($image_path);
-    if ($image === false) {
-        return;
+    // GD-based transparency tweak is best-effort; skip it cleanly when GD is
+    // not loaded. PHP 8 raises a fatal Error for an undefined function call
+    // that @ does NOT suppress, so the previous '@imagecreatefrompng(...)'
+    // line was killing the whole contract render whenever the IIS PHP was
+    // missing extension=gd. function_exists() check makes the rest of the
+    // page render without signature/initial overlays instead of dying.
+    if (function_exists('imagecreatefrompng')
+        && function_exists('imagealphablending')
+        && function_exists('imagecolorallocatealpha')
+        && function_exists('imagecolortransparent')
+        && function_exists('imagepng')
+        && function_exists('imagedestroy')) {
+        $image = @imagecreatefrompng($image_path);
+        if ($image !== false) {
+            imagealphablending($image, true);
+            $transparentcolour = imagecolorallocatealpha($image, 255, 255, 255, 127);
+            imagecolortransparent($image, $transparentcolour);
+            imagepng($image, $image_path);
+            imagedestroy($image);
+        }
     }
-    imagealphablending($image, true);
-    $transparentcolour = imagecolorallocatealpha($image, 255, 255, 255, 127);
-    imagecolortransparent($image, $transparentcolour);
-    imagepng($image, $image_path);
-    imagedestroy($image);
 
     // Horizontal-center on $x; vertical bottom-anchor on $y. This means the
     // per-page (x, y) coords below should be interpreted as the MIDPOINT of
