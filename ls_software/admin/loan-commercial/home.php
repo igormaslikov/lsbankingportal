@@ -412,8 +412,9 @@ $query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2)))
                         </div>
                     </div>
                 </div>
+            </form>
 
-                <div style="width:100%; margin:0 auto;">
+            <div style="width:100%; margin:0 auto;">
                     <table class="table table-striped table-hover cl-results-table">
                         <thead>
                             <tr>
@@ -647,8 +648,7 @@ $query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2)))
 
                     <br /><br />
 
-                </div>
-            </form>
+            </div>
 
         </section>
 
