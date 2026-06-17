@@ -339,15 +339,6 @@ $url_contract_preview = '../files/contract_pdf.php?id=' . urlencode((string)$mai
                 <?php endif; ?>
             </div>
 
-            <!-- Contract preview -->
-            <div class="sig-preview-card">
-                <div class="sig-preview-head">
-                    <span><i class="fa fa-file-pdf-o"></i> Contract Preview</span>
-                    <a href="<?php echo htmlspecialchars($url_contract_preview); ?>" target="_blank"><i class="fa fa-external-link"></i> Open in new tab</a>
-                </div>
-                <iframe src="<?php echo htmlspecialchars($url_contract_preview); ?>" title="Contract preview"></iframe>
-            </div>
-
             <!-- Signature -->
             <div class="sig-panel">
                 <div class="sig-panel-head">
@@ -433,6 +424,16 @@ $url_contract_preview = '../files/contract_pdf.php?id=' . urlencode((string)$mai
                                onchange="loadImageToCanvas(this, 'sign-pad-coborrow')">
                     </div>
                 </div>
+            </div>
+
+            <!-- Contract preview (moved here so the customer reviews after
+                 signing the panels above and right before pressing Save) -->
+            <div class="sig-preview-card">
+                <div class="sig-preview-head">
+                    <span><i class="fa fa-file-pdf-o"></i> Contract Preview</span>
+                    <a href="<?php echo htmlspecialchars($url_contract_preview); ?>" target="_blank"><i class="fa fa-external-link"></i> Open in new tab</a>
+                </div>
+                <iframe src="<?php echo htmlspecialchars($url_contract_preview); ?>" title="Contract preview"></iframe>
             </div>
 
             <!-- Submit -->
