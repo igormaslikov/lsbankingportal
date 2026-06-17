@@ -53,14 +53,18 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             // Check connection
 
             if (isset($_GET['signed_loan'])) {
-                $signed_loan_id = $_GET['signed_loan'];
-                $con->query("UPDATE tbl_commercial_loan SET sign_status='1' WHERE loan_id = '$signed_loan_id'");
+                $signed_loan_id = (int)$_GET['signed_loan'];
+                if ($signed_loan_id > 0) {
+                    $con->query("UPDATE tbl_commercial_loan SET sign_status='1' WHERE loan_id = $signed_loan_id");
+                }
             }
             if (isset($_GET['delete_loan'])) {
-                $signed_loan_id = $_GET['delete_loan'];
-                $con->query("DELETE FROM tbl_commercial_loan WHERE loan_id = '$signed_loan_id'");
+                $signed_loan_id = (int)$_GET['delete_loan'];
+                if ($signed_loan_id > 0) {
+                    $con->query("DELETE FROM tbl_commercial_loan WHERE loan_id = $signed_loan_id");
+                }
             }
-            $query_search = "SELECT * FROM tbl_commercial_loan where  where sign_status= '0'";
+            $query_search = "SELECT * FROM tbl_commercial_loan where sign_status= '0'";
 
             $status  = $_GET['status'];
             $keyword = $_GET['keyword'];
