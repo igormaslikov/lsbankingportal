@@ -153,15 +153,6 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
             // POST-only destructive operations (CSRF protected, int-cast to neutralize injection)
             $cl_flash_ok = null;
             $cl_flash_err = null;
-            $cl_flash_debug = null;
-            // Diagnostic: dump what we received so we can see WHY the
-            // success/error branches aren't firing. Remove after fixing.
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $cl_flash_debug = 'POST received | csrf_ok=' . (cl_csrf_ok() ? 'yes' : 'no')
-                    . ' | signed_loan=' . var_export($_POST['signed_loan'] ?? null, true)
-                    . ' | all POST keys=' . implode(',', array_keys($_POST))
-                    . ' | session_id=' . session_id();
-            }
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!cl_csrf_ok()) {
                     $cl_flash_err = 'Security check failed. Please reload the page and try again.';
@@ -267,11 +258,6 @@ $query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2)))
             ?>
 
             <!-- Flash messages -->
-            <?php if (!empty($cl_flash_debug)): ?>
-                <div class="alert alert-info cl-flash" style="font-family:monospace;font-size:12px;">
-                    DEBUG: <?php echo htmlspecialchars($cl_flash_debug); ?>
-                </div>
-            <?php endif; ?>
             <?php if ($cl_flash_ok): ?>
                 <div class="alert alert-success cl-flash">
                     <span class="glyphicon glyphicon-ok-sign"></span> <?php echo htmlspecialchars($cl_flash_ok); ?>
