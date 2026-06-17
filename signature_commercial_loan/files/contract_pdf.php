@@ -421,7 +421,10 @@ function set_image($pdf, $image_path, $x, $y, $w) {
             $transparentcolour = imagecolorallocatealpha($image, 255, 255, 255, 127);
             imagecolortransparent($image, $transparentcolour);
             imagepng($image, $image_path);
-            imagedestroy($image);
+            // imagedestroy() removed: deprecated in PHP 8.5, no-op since 8.0.
+            // Leaving it in spammed E_DEPRECATED warnings that leaked to the
+            // response and tripped FPDF's _checkoutput() with
+            // "Some data has already been output, can't send PDF file".
         }
     }
 
