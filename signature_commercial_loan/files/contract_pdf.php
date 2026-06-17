@@ -58,6 +58,32 @@ if ($__debug) {
     ini_set('display_errors', 1);
 }
 
+// Diagnostic mode: ?debug_err=1 turns display_errors on and registers a
+// shutdown handler that dumps any fatal/parse error as plain text in the
+// response instead of a blank 500. Combine with the try/catch at the end.
+$__debug_err = !empty($_GET['debug_err']);
+if ($__debug_err) {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    register_shutdown_function(function () {
+        $e = error_get_last();
+        if ($e && in_array($e['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR], true)) {
+            while (ob_get_level() > 0) { ob_end_clean(); }
+            if (!headers_sent()) { header('Content-Type: text/plain; charset=utf-8'); }
+            echo "FATAL: " . $e['message'] . "\nfile: " . $e['file'] . "\nline: " . $e['line'] . "\n";
+        }
+    });
+    set_exception_handler(function ($ex) {
+        while (ob_get_level() > 0) { ob_end_clean(); }
+        if (!headers_sent()) { header('Content-Type: text/plain; charset=utf-8'); }
+        echo "UNCAUGHT " . get_class($ex) . ": " . $ex->getMessage()
+           . "\nfile: " . $ex->getFile() . "\nline: " . $ex->getLine()
+           . "\ntrace:\n" . $ex->getTraceAsString() . "\n";
+        exit;
+    });
+}
+
 $sql1 = $con->query("select * from commercial_loan_initial_banking where email_key='$iddd' ");
 if ($__debug) {
     // Walk all three lookups and report columns + values for each, so we can
