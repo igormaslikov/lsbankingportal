@@ -531,7 +531,7 @@ $query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2)))
                                 $actions .= "<li><a href='loan_summary.php?id=$id_url'><span class='glyphicon glyphicon-user'></span> View Summary</a></li>";
                                 if ($email_key !== '') {
                                     $contract_qs = '?id=' . urlencode($email_key) . '&t=' . time();
-                                    $actions .= "<li><a href='../../signature_commercial_loan/files/contract_pdf.php$contract_qs' target='_blank' rel='noopener'><span class='glyphicon glyphicon-file'></span> Show Contract</a></li>";
+                                    $actions .= "<li><a href='../../../signature_commercial_loan/files/contract_pdf.php$contract_qs' target='_blank' rel='noopener'><span class='glyphicon glyphicon-file'></span> Show Contract</a></li>";
                                 }
                                 if ($sign_status == 1) {
                                     $actions .= "<li><a href='add_new_transaction.php?id=$id_url'><span class='glyphicon glyphicon-usd cl-icon-danger'></span> Make Payment</a></li>";
