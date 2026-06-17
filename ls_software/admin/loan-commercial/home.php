@@ -663,6 +663,27 @@ $query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2)))
                 return true;
             });
 
+            // Copy the customer-facing signing link to the clipboard. data-link is
+            // a relative URL; resolve against window.location to get an absolute
+            // URL that's actually shareable.
+            $(document).on('click', '.cl-copy-link', function(e) {
+                e.preventDefault();
+                var rel = $(this).data('link');
+                if (!rel) return false;
+                var absLink;
+                try { absLink = new URL(rel, window.location.href).href; }
+                catch (err) { absLink = rel; }
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(absLink).then(
+                        function() { alert('Signing link copied:\n' + absLink); },
+                        function() { window.prompt('Copy this link:', absLink); }
+                    );
+                } else {
+                    window.prompt('Copy this link:', absLink);
+                }
+                return false;
+            });
+
             // Enter key submits the filter form (not any in-row action form)
             $(document).keypress(function(e) {
                 if (e.which == 13 && $(e.target).closest('#cl-filter-form').length) {
