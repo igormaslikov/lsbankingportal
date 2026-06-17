@@ -541,6 +541,13 @@ $query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2)))
                                         $actions .= "<li><a href='#'><span class='glyphicon glyphicon-book'></span> Bank Statement</a></li>";
                                     }
                                 } else {
+                                    // Copy-the-customer-signing-link action — only meaningful for
+                                    // unsigned loans (signed loans don't need a fresh link).
+                                    if ($email_key !== '') {
+                                        $sign_link_rel = '../../../signature_commercial_loan/completed/index.php?id=' . urlencode($email_key) . '&t=' . time();
+                                        $actions .= "<li><a href='#' class='cl-copy-link' data-link='" . htmlspecialchars($sign_link_rel, ENT_QUOTES) . "'><span class='glyphicon glyphicon-link'></span> Copy Signing Link</a></li>";
+                                    }
+
                                     // Mark-as-Signed is a POST form to prevent GET-triggered state changes
                                     // Preserve current view (sign_status filter etc.) so the
                                     // user stays on Unsigned after marking, not bounced to Signed.
