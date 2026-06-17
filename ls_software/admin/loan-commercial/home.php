@@ -158,10 +158,20 @@ if ($u_access_id == '2' || $u_access_id == '4' || $u_access_id == '5') {
                     $cl_flash_err = 'Security check failed. Please reload the page and try again.';
                 } elseif (!empty($_POST['signed_loan'])) {
                     $signed_id = (int)$_POST['signed_loan'];
-                    if ($signed_id > 0 && $con->query("UPDATE tbl_commercial_loan SET sign_status='1' WHERE loan_id = $signed_id")) {
-                        $cl_flash_ok = "Loan #$signed_id marked as signed.";
+                    if ($signed_id > 0) {
+                        // Use ->success because the SqlServerDb shim returns a
+                        // SqlServerResult (always truthy) even on failure; a
+                        // bare 'if ($con->query(...))' would always take the
+                        // success branch and silently swallow the real error.
+                        $r = $con->query("UPDATE tbl_commercial_loan SET sign_status='1' WHERE loan_id = $signed_id");
+                        if ($r && $r->success) {
+                            $cl_flash_ok = "Loan #$signed_id marked as signed.";
+                        } else {
+                            $cl_flash_err = "Could not mark loan #$signed_id as signed."
+                                . ($r ? (" SQL Server: " . htmlspecialchars($r->error_message)) : "");
+                        }
                     } else {
-                        $cl_flash_err = "Could not mark loan #$signed_id as signed.";
+                        $cl_flash_err = "Invalid loan id.";
                     }
                 }
             }
@@ -521,8 +531,11 @@ $query_us = $con->query("SELECT SUM(TRY_CAST(principal_amount AS DECIMAL(18,2)))
                                     }
                                 } else {
                                     // Mark-as-Signed is a POST form to prevent GET-triggered state changes
+                                    // Preserve current view (sign_status filter etc.) so the
+                                    // user stays on Unsigned after marking, not bounced to Signed.
+                                    $form_action_qs = cl_query_string([]);
                                     $actions .= "<li>"
-                                        . "<form method='post' action='home.php' class='cl-inline-form cl-signed-form' data-confirm='Mark loan #$loan_create_attr as signed?'>"
+                                        . "<form method='post' action='home.php$form_action_qs' class='cl-inline-form cl-signed-form' data-confirm='Mark loan #$loan_create_attr as signed?'>"
                                         . "<input type='hidden' name='csrf_token' value='$csrf_val'>"
                                         . "<input type='hidden' name='signed_loan' value='" . (int)$id . "'>"
                                         . "<button type='submit' class='cl-dropdown-submit'><span class='glyphicon glyphicon-ok-sign cl-icon-success'></span> Mark as Signed</button>"
